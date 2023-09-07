@@ -46,15 +46,23 @@
 
 ### 공지사항
 [영상 1]
-https://x-ngy9475.slack.com/files/U05803NGEP6/F05RQFFE67K/______4.mov
+
 
 ### **모달 타이머**
 [영상 2]
-https://x-ngy9475.slack.com/files/U05803NGEP6/F05RE9YFY4U/______3.mov
+
+
+https://github.com/KDT1-FE/Y_FE_Toy1/assets/38754963/20c18d28-5a01-4163-876c-be74a24f62db
+
+
 
 ### **마크다운 위키사이트**
 [영상 3]
-https://x-ngy9475.slack.com/files/U05803NGEP6/F05RBSDN2V8/______2.mov
+
+
+https://github.com/KDT1-FE/Y_FE_Toy1/assets/38754963/08e3efca-8137-44d8-a0af-c62a668b810b
+
+
 
 ### **갤러리**
 [영상 4]
