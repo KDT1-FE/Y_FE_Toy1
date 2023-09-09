@@ -6,23 +6,33 @@ const NavBar = () => {
   return (
     <Container>
       <Categories>
-        <Link to={'wiki'}>Wiki</Link>
-        <Link to={'gallery'}>Gallery</Link>
-        <Link to={'/'}>Contact</Link>
+        <div className="category">
+          <Link to={'wiki'}>Wiki</Link>
+        </div>
+        <div className="category">
+          <Link to={'gallery'}>Gallery</Link>
+        </div>
+        <div className="category">
+          <Link to={'/'}>Contact</Link>
+        </div>
       </Categories>
     </Container>
   );
 };
 
-const Container = styled(FlexContainer)`
+const Container = styled.nav`
+  position: sticky;
+  display: flex;
   justify-content: flex-start;
+  top: 0;
+
   width: 100%;
+  height: 56px;
+  margin-bottom: 2rem;
 
-  height: 54px;
+  z-index: 15;
 
-  @media screen and (min-width: 1024px) {
-    width: 100%;
-  }
+  background-color: ${(props) => props.theme.colors.white};
 `;
 
 const Categories = styled(FlexContainer)`
@@ -33,18 +43,15 @@ const Categories = styled(FlexContainer)`
 
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 
-  a {
+  div.category {
     position: relative;
     display: flex;
+    justify-content: center;
+    align-items: center;
 
-    padding-top: 24px;
     height: 100%;
 
-    font-size: ${({ theme }) => theme.fontSize.text};
-
-    &:not(:last-child) {
-      margin-right: 24px;
-    }
+    margin-right: 24px;
 
     &:hover::before {
       position: absolute;
@@ -55,6 +62,12 @@ const Categories = styled(FlexContainer)`
       height: 1px;
       background-color: ${({ theme }) => theme.colors.black};
     }
+  }
+  a {
+    position: relative;
+    display: flex;
+
+    font-size: ${({ theme }) => theme.fontSize.text};
   }
 `;
 

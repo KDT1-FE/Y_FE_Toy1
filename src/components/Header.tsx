@@ -6,7 +6,6 @@ const Header = () => {
   return (
     <Container>
       <Navbar>
-        <Link to={'/'}>App Logo</Link>
         <input type="text" />
       </Navbar>
       <Navbar>
@@ -18,18 +17,19 @@ const Header = () => {
   );
 };
 
-const Container = styled.div`
-  grid-area: header;
-
+const Container = styled.header`
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   width: 100%;
-  padding: 14px 24px;
-
+  height: 56px;
+  padding: 0 2rem;
   background-color: ${({ theme }) => theme.colors.white};
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+
+  z-index: 11;
 `;
 
 const Navbar = styled.nav`

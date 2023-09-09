@@ -1,57 +1,42 @@
 import { Outlet } from 'react-router-dom';
-
 import styled from 'styled-components';
-import Header from './components/Header';
 import NavBar from './components/NavBar';
-import { Spacer } from './common/Spacer';
-import { FlexContainer } from './common/FlexContainer';
 import SideBar from './components/SideBar';
+import Header from './components/Header';
 
 function App() {
   return (
-    <>
-      <Header />
-      <Container>
+    <Container>
+      <SideBar />
+      <Wrapper>
+        <Header />
         <MainWrapper>
-          <Spacer />
           <NavBar />
-          <Spacer />
           <Outlet />
         </MainWrapper>
-        <SideWrapper>
-          <SideBar />
-        </SideWrapper>
-      </Container>
-    </>
+      </Wrapper>
+    </Container>
   );
 }
 
-const Container = styled.main`
+const Container = styled.div`
   display: flex;
-  justify-content: space-evenly;
 `;
 
-const MainWrapper = styled.div`
-  flex: 1 1 auto;
-  padding: 0 24px;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 
-  @media screen and (min-width: 768px) {
-    max-width: 728px;
+  width: 100%;
+
+  @media screen and (width >= 1024px) {
+    padding-left: 330px;
   }
 `;
 
-const SideWrapper = styled(FlexContainer)`
-  display: none;
-
-  @media screen and (min-width: 1024px) {
-    display: block;
-    flex: 1 1 auto;
-
-    max-width: 330px;
-    min-height: 100vh;
-
-    border-left: 1px solid ${({ theme }) => theme.colors.border};
-  }
+const MainWrapper = styled.main`
+  width: 90%;
+  margin: 0 auto;
 `;
 
 export default App;
