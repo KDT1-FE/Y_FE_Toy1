@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import { AiFillEdit } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <Container>
       <Navbar>
-        <h2>APP LOGO</h2>
+        <Link to={'/'}>App Logo</Link>
         <input type="text" />
       </Navbar>
       <Navbar>

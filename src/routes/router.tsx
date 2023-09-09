@@ -6,6 +6,11 @@ export const router = createBrowserRouter([
     path: '/',
     element: <App />,
     // errorElement:
-    // children:
+    children: [
+      {
+        index: true,
+        // element: <Home />,
+      },
+    ],
   },
 ]);
