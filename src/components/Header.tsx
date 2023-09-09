@@ -10,7 +10,9 @@ const Header = () => {
         <input type="text" />
       </Navbar>
       <Navbar>
-        <AiFillEdit size="24" />
+        <Link to={'wiki'}>
+          <AiFillEdit size="24" />
+        </Link>
       </Navbar>
     </Container>
   );
