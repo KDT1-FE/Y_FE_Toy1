@@ -1,5 +1,11 @@
+import styled from 'styled-components';
+
 const SideBar = () => {
-  return <div>SideBar</div>;
+  return <Container>SideBar</Container>;
 };
+
+const Container = styled.div`
+  padding: 40px 0 0 24px;
+`;
 
 export default SideBar;

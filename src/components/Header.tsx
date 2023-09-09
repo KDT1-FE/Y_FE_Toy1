@@ -19,6 +19,8 @@ const Header = () => {
 };
 
 const Container = styled.div`
+  grid-area: header;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
