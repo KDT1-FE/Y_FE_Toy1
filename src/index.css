@@ -1,3 +1,9 @@
+html{
+  font-size:16px;
+  --main-color: #ED234B;
+  --main-black: #171717;
+}
+
 body {
   margin: 0;
 }
@@ -9,10 +15,6 @@ li{
 a{
   text-decoration: none;
   color: black;
-}
-
-html{
-  font-size:16px;
 }
 
 @media (max-width: 768px) {

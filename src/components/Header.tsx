@@ -1,13 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './Header.css'
 
 const Header = () => {
   const pageLink = ["", "Wiki/", "Gallery"]
   const pageName = ["Home", "Wiki", "Gallery"]
-
-  // const location = useLocation()
 
   return (
     <Container>
@@ -31,7 +29,7 @@ const Container = styled.nav`
   right: 0;
   width: 100%;
   height: 60px;
-  background-color: #666;
+  background-color: #999;
   font-size: 1rem;
   z-index: 10;
 `

@@ -14,7 +14,7 @@ const Sidebar = () => {
     // Wiki 사이드바 
     return (
       <Container>
-        <ul>
+        <ul className="sidebar__link_wrapper">
           {
             sideLink.map((link,idx)=>
               <li key={sideName[idx]} >
@@ -45,7 +45,7 @@ const Container = styled.aside`
   z-index: 9;
   width: 140px;
   height: 100%;
-  background-color: #888;
+  background-color: #ddd;
 `
 
 
