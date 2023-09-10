@@ -3,6 +3,12 @@
 직원 들을 위한 위키 사이트를 만들어보세요!
 위키 사이트에는 위키 뿐 아니라 여러 기능이 추가되어야 합니다!
 
+### 초기 설정 관련 상세 설명
+[공지사항 바로가기](https://deserted-breath-68c.notion.site/1-d4883e65e258427488aa1b94ff53fae5?pvs=25)
+
+### 배포
+[배포링크 바로가기](https://fastcampus-wiki.netlify.app)
+
 ### Commit Convention
 ```
 Feat : 새로운 기능 추가
