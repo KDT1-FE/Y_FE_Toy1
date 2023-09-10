@@ -4,19 +4,19 @@ import { Link, useLocation } from 'react-router-dom'
 import './Header.css'
 
 const Header = () => {
-  const pageLink = ["", "Wiki", "Gallery"]
+  const pageLink = ["", "Wiki/", "Gallery"]
   const pageName = ["Home", "Wiki", "Gallery"]
 
   // const location = useLocation()
 
   return (
     <Container>
-      <ul>
+      <ul className="header__link_wrapper">
         {
           pageLink.map((link,idx)=>
-              <li key={pageName[idx]} >
-                <Link to={`/${link}`}> {pageName[idx]} </Link>
-              </li>  
+            <li key={pageName[idx]} >
+              <Link to={`/${link}`}> {pageName[idx]} </Link>
+            </li>  
           )
         }
       </ul>

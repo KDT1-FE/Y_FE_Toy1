@@ -1,13 +1,20 @@
 import Sidebar from 'components/Sidebar'
 import React from 'react'
 import styled from 'styled-components'
+import { Route, Routes } from 'react-router-dom'
+import Administration from '../components/Admin'
+import Curriculum from '../components/Curriculum'
 
 const Wiki = () => {
+  
   return (
     <>
       <Sidebar />
       <Container>
-        Wiki
+        <Routes>
+          <Route path="" element={<Administration />}></Route>
+          <Route path="교육과정" element={<Curriculum />}></Route>
+        </Routes>
       </Container>
     </>
   )

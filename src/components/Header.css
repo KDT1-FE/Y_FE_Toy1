@@ -1,4 +1,4 @@
-ul{
+.header__link_wrapper{
   display:flex;
   justify-content: flex-end;
   margin-right: 3rem;
