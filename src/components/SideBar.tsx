@@ -10,7 +10,7 @@ const SideBar = () => {
         return (
           <Menu>
             <Item>
-              <SubTitle>회사 생활</SubTitle>
+              <h3 className="sub-title">회사 생활</h3>
               <Link to={'wiki'}>팀 소개</Link>
             </Item>
           </Menu>
@@ -19,7 +19,7 @@ const SideBar = () => {
         return (
           <Menu>
             <Item>
-              <SubTitle>사진첩</SubTitle>
+              <h3 className="sub-title">사진첩</h3>
               <Link to={'wiki'}>협력사</Link>
             </Item>
           </Menu>
@@ -28,21 +28,91 @@ const SideBar = () => {
         return (
           <Menu>
             <Item>
-              <SubTitle>사진첩</SubTitle>
+              <h3 className="sub-title">사진첩</h3>
               <Link to={'wiki'}>협력사</Link>
             </Item>
             <Item>
-              <SubTitle>사진첩</SubTitle>
+              <h3 className="sub-title">사진첩</h3>
               <Link to={'wiki'}>협력사</Link>
             </Item>
             <Item>
-              <SubTitle>사진첩</SubTitle>
+              <h3 className="sub-title">사진첩</h3>
               <Link to={'wiki'}>협력사</Link>
             </Item>
           </Menu>
         );
     }
   };
+
+  const menuData = [
+    {
+      path: '/',
+      menus: [
+        {
+          title: '출퇴근',
+          submenus: [
+            {
+              link: '/commute',
+              text: '시간 측정',
+            },
+            {
+              link: '/commute',
+              text: '시간 측정',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      path: '/wiki',
+      menus: [
+        {
+          title: '회사 생활',
+          submenus: [
+            {
+              link: '/commute',
+              text: '시간 측정',
+            },
+            {
+              link: '/commute',
+              text: '시간 측정',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      path: '/gallery',
+      menus: [
+        {
+          title: '사진첩',
+          submenus: [
+            {
+              link: '/profile',
+              text: '프로필 사진',
+            },
+            {
+              link: '/achievement',
+              text: '성취',
+            },
+          ],
+        },
+        {
+          title: '사진첩',
+          submenus: [
+            {
+              link: '/profile',
+              text: '프로필 사진',
+            },
+            {
+              link: '/achievement',
+              text: '성취',
+            },
+          ],
+        },
+      ],
+    },
+  ];
 
   return (
     <Container>
@@ -94,16 +164,16 @@ const Menu = styled.ul`
   overflow-y: auto;
 `;
 
-const SubTitle = styled.h3`
-  font-size: ${(props) => props.theme.fontSize.subTitle};
-  font-weight: 600;
-
-  padding: 10px 0;
-`;
-
 const Item = styled.li`
   padding: 10px 0;
   padding-left: 2rem;
+
+  .sub-title {
+    font-size: ${(props) => props.theme.fontSize.subTitle};
+    font-weight: 600;
+
+    padding: 10px 0;
+  }
 `;
 
 export default SideBar;
