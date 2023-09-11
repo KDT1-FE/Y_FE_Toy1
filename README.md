@@ -1,46 +1,47 @@
-# Getting Started with Create React App
+# Wikinity
+패스트캠퍼스 프론트엔트 부트캠프 1차 토이프로젝트
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Contributors
+<table>
+    <tr>
+        <td align="center"><img alt="avatar" src="https://github.com/wowba.png" width="100"></td>
+        <td align="center"><img alt="avatar" src="https://github.com/moana16.png" width="100"></td>
+        <td align="center"><img alt="avatar" src="https://github.com/JiHongkyu.png" width="100"></td>
+        <td align="center"><img alt="avatar" src="https://github.com/jinjoo-jung.png" width="100"></td>
+    </tr>
+    <tr>
+        <td align="center"><a href="https://github.com/wowba">이영욱</a></td>
+        <td align="center"><a href="https://github.com/moana16">김지민</a></td>
+        <td align="center"><a href="https://github.com/JiHongkyu">지홍규</a></td>
+        <td align="center"><a href="https://github.com/jinjoo-jung">정진주</a></td>
+    </tr>
+</table>
 
-## Available Scripts
+## Stack
+<p align="left">
+  <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+  <img src="https://img.shields.io/badge/Html-E34F26?style=for-the-badge&logo=html5&logoColor=white"/>
+  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"/>
+  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"/>
+  <img src="https://img.shields.io/badge/recoil-007AF4?style=for-the-badge&logo=recoil&logoColor=black"/>
+  <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black"/>
+  <img src="https://img.shields.io/badge/Prettier-F7B93E?logo=prettier&logoColor=fff&style=for-the-badge"/>
+</p>
 
-In the project directory, you can run:
+## UserFlow
+<p align="left">
+  <img src="https://github.com/wowba/Wikinity/assets/87873821/d03cd6fe-245e-4918-876a-dab3d44cfbad" />
+</p>
 
-### `npm start`
+## CRA - typescript && libraries
+- npx create-react-app <프로젝트 명 or ./ > --template typescript
+- npm install recoil styled-components react-router-dom
+- prettier & eslint setting
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Firebase setting
+0. firebase 프로젝트 생성 및 앱 등록
+1. curl -sL https://firebase.tools | bash (firebase mac설치)
+2. npm install firebase
+3. firebase login
+4. firebase init (storage, hosting, firestore)
