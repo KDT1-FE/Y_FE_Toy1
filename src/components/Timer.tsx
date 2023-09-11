@@ -2,8 +2,15 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 
 // export interface IAppProps {
 // }
+const timeStamp = Math.floor(new Date().getTime() / 1000);
+function getCurrentDateFromStamp(timestamp: number) {
+  const fullDate = new Date(timestamp * 1000);
+  const onlyDate = fullDate.getDate();
+  return onlyDate;
+}
+// console.log(getCurrentDateFromStamp(timeStamp));
 
-function countUp(initialValue: number, ms: number) {
+function handleTimer(initialValue: number, ms: number) {
   const [count, setCount] = useState(initialValue);
   const intervalRef: any = useRef(null);
   const start = useCallback(() => {
@@ -21,16 +28,19 @@ function countUp(initialValue: number, ms: number) {
     clearInterval(intervalRef.current);
     intervalRef.current = null;
   }, []);
-  return { count, start, stop };
+  const reset = useCallback(() => {
+    setCount(0);
+  }, []);
+  return { count, start, stop, reset };
 }
 
 export function Timer(props: any) {
   const [currentHours, setCurrentHours] = useState(0);
   const [currentMinutes, setCurrentMinutes] = useState(0);
   const [currentSeconds, setCurrentSeconds] = useState(0);
-  const { count, start, stop } = countUp(0, 1000);
+  const { count, start, stop, reset } = handleTimer(0, 1000);
 
-  const timer = () => {
+  useEffect(() => {
     const checkMinutes = Math.floor(count / 60);
     const hours = Math.floor(count / 3600);
     const minutes = checkMinutes % 60;
@@ -38,9 +48,13 @@ export function Timer(props: any) {
     setCurrentHours(hours);
     setCurrentSeconds(seconds);
     setCurrentMinutes(minutes);
-  };
+  }, [count]);
 
-  useEffect(timer, [count]);
+  const currentDate = getCurrentDateFromStamp(timeStamp);
+
+  useEffect(() => {
+    reset();
+  }, [currentDate]);
 
   return (
     <div>
