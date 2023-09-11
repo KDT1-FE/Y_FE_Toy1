@@ -34,6 +34,10 @@
   <img src="https://github.com/wowba/Wikinity/assets/87873821/d03cd6fe-245e-4918-876a-dab3d44cfbad" />
 </p>
 
+## Git Branches
+- main: 배포용 브랜치
+- feature: 개별 개발용 브랜치
+
 ## CRA - typescript && libraries
 - npx create-react-app <프로젝트 명 or ./ > --template typescript
 - npm install recoil styled-components react-router-dom
