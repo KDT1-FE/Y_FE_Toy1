@@ -75,7 +75,7 @@ Firestore에 대한 가이드입니다.
 ### **App init**
 
 ```jsx
-import { getFirestore } from "firebase/firestore";
+import {getFirestore} from "firebase/firestore";
 
 export const db = getFirestore(fireBaseApp);
 ```
@@ -183,7 +183,7 @@ Firestore는 `setDoc`, `update` 두 가지 함수로 데이터를 추가할 �
 그러나 `update`는 기존의 데이터를 유지한 채 일부분의 데이터만 변경할 수 있다.
 
 ```jsx
-import { updateDoc, doc } from "firebase/firestore";
+import {updateDoc, doc} from "firebase/firestore";
 
 await updateDoc(doc(db, "wiki", "new-id"), {
   description: "허먼밀러...200만원...",
