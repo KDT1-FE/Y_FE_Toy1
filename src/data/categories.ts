@@ -13,7 +13,7 @@ interface CategoriesType {
   categories: Category[];
 }
 
-const categories: CategoriesType[] = [
+export const allCategories: CategoriesType[] = [
   {
     path: '/',
     categories: [

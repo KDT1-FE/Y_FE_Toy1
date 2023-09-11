@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { FlexContainer } from '../common/FlexContainer';
 import { Link } from 'react-router-dom';
 
 const NavBar = () => {
@@ -35,7 +34,9 @@ const Container = styled.nav`
   background-color: ${(props) => props.theme.colors.white};
 `;
 
-const Categories = styled(FlexContainer)`
+const Categories = styled.div`
+  display: flex;
+  align-items: center;
   justify-content: flex-start;
 
   height: 100%;

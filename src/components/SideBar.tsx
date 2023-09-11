@@ -1,125 +1,51 @@
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
+import { allCategories } from '../data/categories';
+import { Fragment } from 'react';
 
 const SideBar = () => {
   const location = useLocation();
 
-  const renderCategories = () => {
-    switch (location.pathname) {
-      case '/wiki':
-        return (
-          <Menu>
-            <Item>
-              <h3 className="sub-title">회사 생활</h3>
-              <Link to={'wiki'}>팀 소개</Link>
-            </Item>
-          </Menu>
-        );
-      case '/gallery':
-        return (
-          <Menu>
-            <Item>
-              <h3 className="sub-title">사진첩</h3>
-              <Link to={'wiki'}>협력사</Link>
-            </Item>
-          </Menu>
-        );
-      default:
-        return (
-          <Menu>
-            <Item>
-              <h3 className="sub-title">사진첩</h3>
-              <Link to={'wiki'}>협력사</Link>
-            </Item>
-            <Item>
-              <h3 className="sub-title">사진첩</h3>
-              <Link to={'wiki'}>협력사</Link>
-            </Item>
-            <Item>
-              <h3 className="sub-title">사진첩</h3>
-              <Link to={'wiki'}>협력사</Link>
-            </Item>
-          </Menu>
-        );
-    }
-  };
-
-  const menuData = [
-    {
-      path: '/',
-      menus: [
-        {
-          title: '출퇴근',
-          submenus: [
-            {
-              link: '/commute',
-              text: '시간 측정',
-            },
-            {
-              link: '/commute',
-              text: '시간 측정',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      path: '/wiki',
-      menus: [
-        {
-          title: '회사 생활',
-          submenus: [
-            {
-              link: '/commute',
-              text: '시간 측정',
-            },
-            {
-              link: '/commute',
-              text: '시간 측정',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      path: '/gallery',
-      menus: [
-        {
-          title: '사진첩',
-          submenus: [
-            {
-              link: '/profile',
-              text: '프로필 사진',
-            },
-            {
-              link: '/achievement',
-              text: '성취',
-            },
-          ],
-        },
-        {
-          title: '사진첩',
-          submenus: [
-            {
-              link: '/profile',
-              text: '프로필 사진',
-            },
-            {
-              link: '/achievement',
-              text: '성취',
-            },
-          ],
-        },
-      ],
-    },
-  ];
+  // <CategoryList>
+  //   <Category>
+  //     <h3 className="sub-title">sub title</h3>
+  //     <Link to={'/'} className="sub-category">
+  //       1
+  //     </Link>
+  //     <Link to={'/'} className="sub-category">
+  //       2
+  //     </Link>
+  //     <Link to={'/'} className="sub-category">
+  //       3
+  //     </Link>
+  //   </Category>
+  // </CategoryList>;
 
   return (
     <Container>
       <div className="logo">
         <Link to={'/'}>Home (App Logo)</Link>
       </div>
-      <MenuList>{renderCategories()}</MenuList>
+      <CategoryWrapper>
+        {allCategories
+          .filter((category) => category.path === location.pathname)
+          .map((filteredCategory, index) => (
+            <CategoryList key={index}>
+              {filteredCategory.categories.map((category, index) => (
+                <Category>
+                  <Fragment key={index}>
+                    <h3 className="sub-title">{category.title}</h3>
+                    {category.subCategories.map((sub, index) => (
+                      <Link key={index} to={sub.link}>
+                        {sub.text}
+                      </Link>
+                    ))}
+                  </Fragment>
+                </Category>
+              ))}
+            </CategoryList>
+          ))}
+      </CategoryWrapper>
     </Container>
   );
 };
@@ -149,22 +75,26 @@ const Container = styled.aside`
   }
 `;
 
-const MenuList = styled.nav`
+const CategoryWrapper = styled.nav`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 `;
 
-const Menu = styled.ul`
+const CategoryList = styled.ul`
   display: flex;
   flex-direction: column;
 
   width: 100%;
+
   max-height: calc(100vh - 56px);
   overflow-y: auto;
 `;
 
-const Item = styled.li`
+const Category = styled.li`
+  display: flex;
+  flex-direction: column;
+
   padding: 10px 0;
   padding-left: 2rem;
 
@@ -173,6 +103,9 @@ const Item = styled.li`
     font-weight: 600;
 
     padding: 10px 0;
+  }
+
+  .sub-category {
   }
 `;
 
