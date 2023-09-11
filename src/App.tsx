@@ -1,11 +1,11 @@
 import React  from 'react';
 import GlobalStyle from './GlobalStyle';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Header from './common/Header';
+import Footer from './common/Footer';
 import { Route , BrowserRouter, Routes } from 'react-router-dom';
-import Home from './Pages/Home';
-import Wiki from './Pages/Wiki';
-import Gallery from './Pages/Gallery';
+import Home from './pages/Home';
+import Wiki from './pages/Wiki';
+import Gallery from './pages/Gallery';
 
 const App:React.FC = () => {
   return (
