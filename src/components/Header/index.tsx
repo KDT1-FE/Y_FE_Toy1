@@ -4,6 +4,7 @@ import wikiLogo from '../assets/icons/WikiLogo.svg';
 import galleryLogo from '../assets/icons/GalleryLogo.svg';
 import commuteLogo from '../assets/icons/CommuteLogo.svg';
 import { useNavigate } from 'react-router-dom';
+import { ROUTES } from 'constants/routes';
 
 function Header() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ function Header() {
         <MenuContainer>
           <Menu
             onClick={() => {
-              navigate('/wiki');
+              navigate(ROUTES.WIKI);
             }}
           >
             Wiki
@@ -25,7 +26,7 @@ function Header() {
           </Menu>
           <Menu
             onClick={() => {
-              navigate('/gallery');
+              navigate(ROUTES.GALLERY);
             }}
           >
             Wiki Gallery
