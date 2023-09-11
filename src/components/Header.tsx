@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { LuPenSquare } from 'react-icons/lu';
+import { LuPenSquare, LuUserCircle2 } from 'react-icons/lu';
 import { CiSearch } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
 
@@ -13,11 +13,18 @@ const Header = () => {
           </div>
           <input type="text" />
         </InputWrapper>
-        <Link to={'wiki'}>
-          <div className="icon-wrapper">
-            <LuPenSquare size="24" />
-          </div>
-        </Link>
+        <div className="wrapper">
+          <Link to={'wiki'}>
+            <div className="icon-wrapper">
+              <LuPenSquare size="24" />
+            </div>
+          </Link>
+          <Link to={'wiki'}>
+            <div className="icon-wrapper">
+              <LuUserCircle2 size="24" />
+            </div>
+          </Link>
+        </div>
       </Navbar>
     </Container>
   );
@@ -45,6 +52,11 @@ const Navbar = styled.nav`
 
   width: 100%;
   height: 100%;
+
+  .wrapper {
+    display: flex;
+    align-items: center;
+  }
 
   .icon-wrapper {
     display: flex;
@@ -79,6 +91,7 @@ const InputWrapper = styled.div`
     background-color: transparent;
 
     font-size: ${(props) => props.theme.fontSize.text};
+    font-weight: 400;
   }
 `;
 
