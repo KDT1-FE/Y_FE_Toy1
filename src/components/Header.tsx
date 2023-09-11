@@ -3,9 +3,11 @@ import logo from '../assets/icons/Logo.svg';
 import wikiLogo from '../assets/icons/WikiLogo.svg';
 import galleryLogo from '../assets/icons/GalleryLogo.svg';
 import commuteLogo from '../assets/icons/CommuteLogo.svg';
-import { navigate } from 'utils/navigate';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+  const navigate = useNavigate();
+
   const StyledHeader = styled.div`
     height: 4rem;
     box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
@@ -66,11 +68,19 @@ function Header() {
           WIKI
         </LogoContainer>
         <MenuContainer>
-          <Menu onClick={() => navigate('/wiki')}>
+          <Menu
+            onClick={() => {
+              navigate('/wiki');
+            }}
+          >
             Wiki
             <img src={wikiLogo}></img>
           </Menu>
-          <Menu onClick={() => navigate('/gallery')}>
+          <Menu
+            onClick={() => {
+              navigate('/gallery');
+            }}
+          >
             Wiki Gallery
             <img src={galleryLogo}></img>
           </Menu>
