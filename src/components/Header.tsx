@@ -26,7 +26,7 @@ const Header = () => {
 const InnerContainer = styled.div`
   margin: 0 auto;
   max-width: 1200px;
-  
+
 `
 
 const Container = styled.nav`
@@ -39,6 +39,7 @@ const Container = styled.nav`
   border-bottom: 2px solid #ddd;
   font-size: 1rem;
   z-index: 10;
+  background-color: #fff;
 `
 
 export default Header
