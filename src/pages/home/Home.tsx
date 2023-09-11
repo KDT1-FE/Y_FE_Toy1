@@ -1,7 +1,9 @@
+import * as style from "./homeStyle";
+
 export default function Home() {
   return (
     <>
-      <div>Home</div>
+      <style.Temp>Home</style.Temp>
     </>
   );
 }

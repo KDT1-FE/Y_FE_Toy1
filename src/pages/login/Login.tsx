@@ -1,7 +1,9 @@
+import * as style from "./loginStyle";
+
 export default function Login() {
   return (
     <>
-      <div>Login</div>
+      <style.Temp>Login</style.Temp>
     </>
   );
 }

@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home, Gallery, Login, Wiki } from "./pages/pageIndex";
-import Header from "./components/Header";
+import Header from "./components/common/Header";
 
 export default function AppRouter() {
   return (

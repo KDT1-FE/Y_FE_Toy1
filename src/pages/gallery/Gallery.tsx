@@ -1,7 +1,9 @@
+import * as style from "./galleryStyle";
+
 export default function Gallery() {
   return (
     <>
-      <div>Gallery</div>
+      <style.Temp>Gallery</style.Temp>
     </>
   );
 }

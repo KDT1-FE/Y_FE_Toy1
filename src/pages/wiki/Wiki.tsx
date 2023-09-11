@@ -1,8 +1,9 @@
+import * as style from "./wikiStyle";
+
 export default function Wiki() {
   return (
     <>
-      <div>Wiki</div>
+      <style.Temp>Wiki</style.Temp>
     </>
   );
 }
-
