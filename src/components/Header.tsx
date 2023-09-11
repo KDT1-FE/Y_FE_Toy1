@@ -9,7 +9,7 @@ const Header = () => {
 
   return (
     <Container>
-      <ul className="header__link_wrapper">
+      <ul className="header__link-wrapper">
         {
           pageLink.map((link,idx)=>
             <li key={pageName[idx]} >
