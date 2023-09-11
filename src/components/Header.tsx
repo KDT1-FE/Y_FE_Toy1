@@ -3,6 +3,7 @@ import logo from '../assets/icons/Logo.svg';
 import wikiLogo from '../assets/icons/WikiLogo.svg';
 import galleryLogo from '../assets/icons/GalleryLogo.svg';
 import commuteLogo from '../assets/icons/CommuteLogo.svg';
+import { navigate } from 'utils/navigate';
 
 function Header() {
   const StyledHeader = styled.div`
@@ -65,11 +66,11 @@ function Header() {
           WIKI
         </LogoContainer>
         <MenuContainer>
-          <Menu>
+          <Menu onClick={() => navigate('/wiki')}>
             Wiki
             <img src={wikiLogo}></img>
           </Menu>
-          <Menu>
+          <Menu onClick={() => navigate('/gallery')}>
             Wiki Gallery
             <img src={galleryLogo}></img>
           </Menu>
