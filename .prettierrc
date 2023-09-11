@@ -1,0 +1,8 @@
+{
+    "singleQuote": true, // 작은 따옴표 사용
+    "semi": true, // 세미콜론 사용
+    "tabWidth": 4, // 탭 너비 설정
+    "trailingComma": "all", // 행 끝에 콤마 사용 설정
+    "printWidth": 120, // 개행이 일어나는 한 행의 최대 너비
+    "arrowParens": "always" // 화살표 함수 괄호 설정
+}
