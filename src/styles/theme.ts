@@ -9,9 +9,9 @@ const colors = {
 };
 
 const fontSize = {
-  title: 20,
-  subTitle: 16,
-  text: 14,
+  title: '20px',
+  subTitle: '16px',
+  text: '14px',
 };
 
 export type ColorType = typeof colors;
