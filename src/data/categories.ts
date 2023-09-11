@@ -3,12 +3,12 @@ interface SubCategory {
   text: string;
 }
 
-interface Category {
+export interface Category {
   title: string;
   subCategories: SubCategory[];
 }
 
-interface CategoriesType {
+export interface CategoriesType {
   path: string;
   categories: Category[];
 }
