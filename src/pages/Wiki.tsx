@@ -8,7 +8,7 @@ import Curriculum from '../components/Curriculum'
 const Wiki = () => {
   
   return (
-    <WikiContainer>
+    <>
       <Sidebar />
       <Container>
         <Routes>
@@ -16,13 +16,9 @@ const Wiki = () => {
           <Route path="교육과정" element={<Curriculum />}></Route>
         </Routes>
       </Container>
-    </WikiContainer>
+    </>
   )
 }
-
-const WikiContainer = styled.div`
-  display:flex;
-`
 
 const Container = styled.section`
   position: relative;
