@@ -1,29 +1,31 @@
 import styled from 'styled-components';
-import { LuPenSquare, LuUserCircle2 } from 'react-icons/lu';
+import { BsCalendar4Event } from 'react-icons/bs';
 import { CiSearch } from 'react-icons/ci';
-import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <Container>
       <Navbar>
         <InputWrapper>
-          <div className="icon-wrapper">
-            <CiSearch size="20" />
+          <div className="icon">
+            <button>
+              <CiSearch size="20" />
+            </button>
           </div>
           <input type="text" />
         </InputWrapper>
         <div className="wrapper">
-          <Link to={'wiki'}>
-            <div className="icon-wrapper">
-              <LuPenSquare size="24" />
-            </div>
-          </Link>
-          <Link to={'wiki'}>
-            <div className="icon-wrapper">
-              <LuUserCircle2 size="24" />
-            </div>
-          </Link>
+          <div className="icon">
+            <button aria-haspopup="true">
+              <BsCalendar4Event size="21" />
+            </button>
+          </div>
+
+          <div className="icon">
+            <button aria-haspopup="true">
+              <div className="profile"></div>
+            </button>
+          </div>
         </div>
       </Navbar>
     </Container>
@@ -58,17 +60,36 @@ const Navbar = styled.nav`
     align-items: center;
   }
 
-  .icon-wrapper {
+  .icon {
     display: flex;
     align-items: center;
     justify-content: center;
 
-    opacity: 0.5;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-    &:hover {
-      opacity: 1;
+      padding-inline: 0.6rem;
+
+      border: none;
+      outline: none;
+      background-color: transparent;
+
+      opacity: 0.5;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .profile {
+      width: 1.8rem;
+      height: 1.8rem;
+      border-radius: 50%;
+      border: 1px solid ${({ theme }) => theme.colors.black};
+      background-color: ${({ theme }) => theme.colors.border};
     }
   }
 `;
