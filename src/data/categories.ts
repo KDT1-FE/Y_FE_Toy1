@@ -3,14 +3,14 @@ interface SubCategory {
   text: string;
 }
 
-export interface Category {
+export interface CategoryType {
   title: string;
   subCategories: SubCategory[];
 }
 
 export interface CategoriesType {
   path: string;
-  categories: Category[];
+  categories: CategoryType[];
 }
 
 export const allCategories: CategoriesType[] = [

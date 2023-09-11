@@ -1,17 +1,19 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const NavBar = () => {
+  const selectedCategory = useLocation().pathname.split('/')[1];
+
   return (
     <Container>
       <Categories>
-        <div className="category">
+        <div className={`category ${selectedCategory === 'wiki' ? 'selected' : ''}`}>
           <Link to={'wiki'}>Wiki</Link>
         </div>
-        <div className="category">
+        <div className={`category ${selectedCategory === 'gallery' ? 'selected' : ''}`}>
           <Link to={'gallery'}>Gallery</Link>
         </div>
-        <div className="category">
+        <div className={`category ${selectedCategory === '' ? 'selected' : ''}`}>
           <Link to={'/'}>Contact</Link>
         </div>
       </Categories>
@@ -54,6 +56,20 @@ const Categories = styled.div`
 
     margin-right: 24px;
 
+    cursor: pointer;
+
+    &.selected {
+      &::before {
+        position: absolute;
+        content: '';
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: ${({ theme }) => theme.colors.black};
+      }
+    }
+
     &:hover::before {
       position: absolute;
       content: '';
@@ -63,12 +79,17 @@ const Categories = styled.div`
       height: 1px;
       background-color: ${({ theme }) => theme.colors.black};
     }
-  }
-  a {
-    position: relative;
-    display: flex;
 
-    font-size: ${({ theme }) => theme.fontSize.text};
+    a {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      height: 100%;
+
+      font-size: ${({ theme }) => theme.fontSize.text};
+    }
   }
 `;
 
