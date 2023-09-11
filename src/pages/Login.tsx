@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
 import { auth } from '../firebase'
 import { AuthContext } from 'authentication/authContext';
+import { Link } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const Login = () => {
   const userInfo = useContext(AuthContext);
@@ -19,23 +21,30 @@ const Login = () => {
     setPwd(e.target.value);
   };
 
-  const handleClickCreate = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsCreate(pre => !pre);
+
+    signInWithEmailAndPassword(auth, email, pwd)
+      .then(() => {
+        alert("로그인 성공");
+        // 메인 홈으로 이동
+      })
+      .catch(e => {
+        alert(e);
+      });
   };
-  
+
   console.log(auth)
   return (
     <Container>
       <h1>로그인</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input type="email" name="email" onChange={handleEmail} value={email} />
         <input type="password" name="pwd" onChange={handlePwd} value={pwd} />
-        <button type="button"> {isCreate ? "만들기" : "로그인"}</button>
-        <button type="button" onClick={handleClickCreate}>
-          {isCreate ? "취소" : "회원가입"}
-        </button>
+        <button type="submit"> 로그인 </button>
+  
       </form>
+      <Link to={`/signin`}> 회원가입 </Link>
     </Container>
   )
 }
