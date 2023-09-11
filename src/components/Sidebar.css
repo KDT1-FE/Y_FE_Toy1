@@ -1,5 +1,13 @@
-.sidebar__link_wrapper{
-  display:flex;
+.sidebar__link_wrapper {
+  display: flex;
   flex-flow: column;
   gap: 20px;
+}
+
+.sidebar__bottom {
+  text-align: center;
+}
+
+.sidebar__bottom_hr {
+  margin: 30px 0 10px 0;
 }
