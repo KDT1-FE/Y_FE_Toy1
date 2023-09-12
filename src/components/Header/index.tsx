@@ -44,21 +44,21 @@ const StyledHeader = styled.div`
   box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
 `;
 const Container = styled.div`
-  max-width: 1580px;
+  max-width: 98.75rem;
   margin: 0 auto;
   height: 4rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   @media screen and (max-width: 1440px) {
-    max-width: 1240px;
+    max-width: 77.5rem;
   }
   @media screen and (max-width: 1280px) {
-    max-width: 1060px;
+    max-width: 66.25rem;
   }
 `;
 const LogoContainer = styled.div`
-  width: 100px;
+  width: 6.25rem;
   display: flex;
   align-items: center;
   font-weight: 700;

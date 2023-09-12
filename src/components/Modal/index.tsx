@@ -70,8 +70,8 @@ const CustomModal = styled(ReactModal)`
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 548px;
-    height: 440px;
+    width: 34.25rem;
+    height: 27.5rem;
     background-color: #fff;
     transform: translate(-50%, -50%);
     z-index: 1;
@@ -86,7 +86,7 @@ const TopContainer = styled.section`
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
-  padding: 0 30px;
+  padding: 0 1.875rem;
   height: 7rem;
 `;
 const Title = styled.div`
@@ -95,8 +95,8 @@ const Title = styled.div`
   align-self: flex-end;
 `;
 const CloseImg = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 1.25rem;
+  height: 1.25rem;
   cursor: pointer;
 `;
 const Date = styled.div`
@@ -126,13 +126,13 @@ const BottomContainer = styled.section`
 `;
 const StateText = styled.div`
   color: #4a5568;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
 `;
 const Button = styled.button`
   background-color: #3584f4;
   color: #fff;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
   width: 9.6rem;
   height: 2.4rem;
