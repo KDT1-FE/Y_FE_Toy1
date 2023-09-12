@@ -1,55 +1,20 @@
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { allCategories } from '../data/categories';
+import CategoryList from './CategoryList';
 
 const SideBar = () => {
   const location = useLocation();
 
-  const renderCategories = () => {
-    switch (location.pathname) {
-      case '/wiki':
-        return (
-          <Menu>
-            <Item>
-              <SubTitle>회사 생활</SubTitle>
-              <Link to={'wiki'}>팀 소개</Link>
-            </Item>
-          </Menu>
-        );
-      case '/gallery':
-        return (
-          <Menu>
-            <Item>
-              <SubTitle>사진첩</SubTitle>
-              <Link to={'wiki'}>협력사</Link>
-            </Item>
-          </Menu>
-        );
-      default:
-        return (
-          <Menu>
-            <Item>
-              <SubTitle>사진첩</SubTitle>
-              <Link to={'wiki'}>협력사</Link>
-            </Item>
-            <Item>
-              <SubTitle>사진첩</SubTitle>
-              <Link to={'wiki'}>협력사</Link>
-            </Item>
-            <Item>
-              <SubTitle>사진첩</SubTitle>
-              <Link to={'wiki'}>협력사</Link>
-            </Item>
-          </Menu>
-        );
-    }
-  };
+  const filteredCategory = allCategories.filter((category) =>
+    location.pathname.startsWith(category.path),
+  )[0].categories;
 
   return (
     <Container>
-      <div className="logo">
-        <Link to={'/'}>Home (App Logo)</Link>
-      </div>
-      <MenuList>{renderCategories()}</MenuList>
+      <CategoryWrapper>
+        <CategoryList categories={filteredCategory} />
+      </CategoryWrapper>
     </Container>
   );
 };
@@ -58,11 +23,12 @@ const Container = styled.aside`
   display: none;
 
   @media screen and (min-width: 1024px) {
-    position: fixed;
+    position: relative;
     display: flex;
     flex-direction: column;
     min-width: 330px;
-    min-height: 100vh;
+    min-height: ${(props) =>
+      `calc(100vh - (${props.theme.size.header} + ${props.theme.size.nav}))`};
 
     border-right: 1px solid ${(props) => props.theme.colors.border};
 
@@ -79,31 +45,10 @@ const Container = styled.aside`
   }
 `;
 
-const MenuList = styled.nav`
+const CategoryWrapper = styled.nav`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-`;
-
-const Menu = styled.ul`
-  display: flex;
-  flex-direction: column;
-
-  width: 100%;
-  max-height: calc(100vh - 56px);
-  overflow-y: auto;
-`;
-
-const SubTitle = styled.h3`
-  font-size: ${(props) => props.theme.fontSize.subTitle};
-  font-weight: 600;
-
-  padding: 10px 0;
-`;
-
-const Item = styled.li`
-  padding: 10px 0;
-  padding-left: 2rem;
 `;
 
 export default SideBar;
