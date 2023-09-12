@@ -1,5 +1,5 @@
 const Home = () => {
-  return <div style={{ gridArea: 'main' }}>Home</div>;
+  return <div>Home</div>;
 };
 
 export default Home;

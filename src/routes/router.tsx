@@ -23,6 +23,10 @@ export const router = createBrowserRouter([
         element: <Gallery />,
         children: [
           {
+            index: true,
+            element: <div>Gallery</div>,
+          },
+          {
             path: 'profile',
             element: <div>Profile</div>,
           },

@@ -26,10 +26,6 @@ const Wrapper = styled.div`
   flex-direction: column;
 
   width: 100%;
-
-  @media screen and (width >= 1024px) {
-    /* padding-left: 330px; */
-  }
 `;
 
 const MainWrapper = styled.main`
