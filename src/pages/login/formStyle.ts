@@ -4,6 +4,7 @@ import styled from "styled-components";
 export const Form = styled.form`
     display: flex;
     flex-direction: column;
+    
 `;
 
 export const InputWrap = styled.div`
@@ -21,6 +22,7 @@ export const Input = styled.input`
     border-radius: 0.25rem;
     background: var(--color-white);
     border: 0.06rem solid var(--color-light-gray);
+    width: 15.88rem;
     height: 2.5rem;
     gap: 1.81rem;
 `;

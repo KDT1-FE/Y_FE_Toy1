@@ -1,15 +1,47 @@
 import React from "react";
-import { Container }from "./containerStyle";
+import { useState, useCallback } from "react";
+import Modal from "./SignUp";
+
+import { ModalTitle, JoinBox } from "./modalStyle";
+import { Container } from "./containerStyle";
 import { Info, Logo, CompanyName, ServiceName } from "./infoStyle";
-import { Content, Title, LoginBox }from "./contentStyle";
-import { Form, Id, Pw, IdInput, PwInput}from "./formStyle";
-import { ButtonSet,  Enter, Join  }from "./buttonStyle";
-
-
+import { Content, Title, LoginBox } from "./contentStyle";
+import { Form, InputWrap, Input } from "./formStyle";
+import { ButtonSet, HighlightButton, NormalButton } from "./buttonStyle";
 
 const LoginPage = () => {
+  const [isOpenModal, setOpenModal] = useState<boolean>(false);
+
+  const onClickToggleModal = useCallback(() => {
+    setOpenModal(!isOpenModal);
+  }, [isOpenModal]);
+
   return (
     <Container>
+      {isOpenModal && (
+        <Modal onClickToggleModal={onClickToggleModal}>
+          <JoinBox>
+            <ModalTitle>회원가입</ModalTitle>
+            <Form>
+              <InputWrap className="IdWrap">
+                ID
+                <Input className="IdInput" />
+              </InputWrap>
+
+              <InputWrap className="IdWrap">
+                PW
+                <Input className="PWInput" />
+              </InputWrap>
+
+              <InputWrap className="NameWrap">
+                이름
+                <Input className="NameInput" />
+              </InputWrap>
+            </Form>
+            <HighlightButton> 가입하기</HighlightButton>
+          </JoinBox>
+        </Modal>
+      )}
 
       <Info>
         <Logo>
@@ -18,33 +50,28 @@ const LoginPage = () => {
         </Logo>
       </Info>
 
-
       <Content>
-
-         <LoginBox>
-         
-         <Title>로그인</Title>
+        <LoginBox>
+          <Title>로그인</Title>
 
           <Form>
-            <Id>ID
-              <IdInput 
-              />
-            </Id>
-            <Pw>PW
-              <PwInput 
-              type="password" 
-              />
-            </Pw>
+            <InputWrap className="IdWrap">
+              ID
+              <Input className="IdInput" />
+            </InputWrap>
+
+            <InputWrap className="PwWrap">
+              PW
+              <Input className="PwInput" type="password" />
+            </InputWrap>
           </Form>
 
-        <ButtonSet>
-          <Enter>들어가기</Enter>
-          <Join>회원가입</Join>
-        </ButtonSet>
-
+          <ButtonSet>
+            <HighlightButton> 들어가기</HighlightButton>
+            <NormalButton onClick={onClickToggleModal}>회원가입</NormalButton>
+          </ButtonSet>
         </LoginBox>
       </Content>
-
     </Container>
   );
 };

@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ButtonSet = styled.div`
 `;
 
-export const Enter = styled.button`
+export const HighlightButton = styled.button`
     border-radius: 0.25rem;
     background: var(--color-white);
     border: 0.06rem solid var(--color-main);
@@ -13,10 +13,11 @@ export const Enter = styled.button`
 
     &:hover {
         cursor: pointer;
+        box-shadow: 0 0 5px rgba(30, 30, 30, 0.1);
           }
 `;
 
-export const Join = styled.button`
+export const NormalButton = styled.button`
     border-radius: 0.25rem;
     background: var(--color-white);
     border: 0.06rem solid var(--color-medium-gray);
@@ -27,6 +28,7 @@ export const Join = styled.button`
 
     &:hover {
     cursor: pointer;
+    box-shadow: 0 0 5px rgba(30, 30, 30, 0.1);
       }
 
 `;
