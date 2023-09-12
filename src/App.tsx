@@ -21,20 +21,20 @@ function App() {
 
       uploadTask.on(
         "state_changed",
-        snapshot => {
-          console.log(`1. snapshot:${snapshot}`);
+        (snapshot: any) => {
+          throw snapshot;
         },
-        err => {
-          console.log(`2. upload test Img err:${err}`);
+        (err: any) => {
+          throw err;
         },
         () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
-            console.log(`3. downloadURL:${downloadURL}`);
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL: any) => {
+            throw downloadURL;
           });
         },
       );
-    } catch (err) {
-      console.log(`0. createTestImg err: ${err}`);
+    } catch (err: any) {
+      throw new Error(err);
     }
   }
   return (
