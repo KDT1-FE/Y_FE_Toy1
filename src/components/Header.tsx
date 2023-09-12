@@ -23,11 +23,15 @@ const Header = () => {
               </li>  
             )
           }
-        <li>{(user?.displayName) ? <>{user.displayName}님 <button onClick={handlerLogout}>로그아웃</button></> : <Link to={`/login`}> 로그인 </Link>} </li>
+        <li>{(user?.displayName) ? <>{sliceStr(user.displayName, 10)}님 <button onClick={handlerLogout}>로그아웃</button></> : <Link to={`/login`}> 로그인 </Link>} </li>
         </ul>
       </InnerContainer>
     </Container>
   )
+}
+
+const sliceStr = (str:string, n:number) => {
+  return str.length>=n ? str.slice(0,n+1)+ "..." : str
 }
 
 const handlerLogout = () => {
