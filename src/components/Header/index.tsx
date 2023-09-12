@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import logo from '../../assets/icons/Logo.svg';
-import wikiLogo from '../../assets/icons/WikiLogo.svg';
-import galleryLogo from '../../assets/icons/GalleryLogo.svg';
+import logo from '../../assets/icons/logo.svg';
+import wikiLogo from '../../assets/icons/wikiLogo.svg';
+import galleryLogo from '../../assets/icons/galleryLogo.svg';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'constants/routes';
 import Modal, { Menu } from 'components/Modal';
