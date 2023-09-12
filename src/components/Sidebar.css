@@ -1,4 +1,4 @@
-.sidebar__link-wrapper{
+.sidebar__link_wrapper{
   display:flex;
   flex-flow: column;
   gap: 20px;
