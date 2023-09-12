@@ -1,11 +1,14 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
+import Header from '../components/Header';
 
 export default function Root() {
   return (
-    <section>
-      <h1>This is main</h1>
-      <Outlet />
-    </section>
+    <div>
+      <Header /> {/* Header 컴포넌트를 사용합니다. */}
+      <section>
+        <Outlet />
+      </section>
+    </div>
   );
 }
