@@ -4,6 +4,8 @@ export const GlobalStyle = createGlobalStyle`
   :root {
     font-family: "Noto Sans KR";
     line-height: 1.5;
+    font-size: 16px;
+    box-sizing: border-box;
   }
   
   html {
@@ -17,22 +19,15 @@ export const GlobalStyle = createGlobalStyle`
     --color-light-gray: #e6e6e6;
     --color-area: #f0f2f7;
   }
+
+  * {
+    padding: 0;
+    margin: 0;
+  }
   
   a {
     color: inherit;
     text-decoration: none;
-  }
-  
-  body {
-    margin: 0;
-    padding: 0;
-  }
-  
-  h1,
-  h3,
-  p {
-    margin: 0;
-    padding: 0;
   }
   
   div,
@@ -44,8 +39,6 @@ export const GlobalStyle = createGlobalStyle`
   ul,
   li {
     list-style: none;
-    margin: 0;
-    padding: 0;
   }
   
   input {
