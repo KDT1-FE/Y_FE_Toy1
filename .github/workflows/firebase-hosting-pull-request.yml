@@ -2,16 +2,24 @@
 # https://github.com/firebase/firebase-tools
 
 name: Deploy to Firebase Hosting on PR
-'on': pull_request
+"on": pull_request
 jobs:
   build_and_preview:
-    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
+    if: "${{ github.event.pull_request.head.repo.full_name == github.repository }}"
     runs-on: ubuntu-latest
+    env:
+      REACT_APP_API_KEY: "${{ secrets.REACT_APP_API_KEY }}"
+      REACT_APP_AUTH_DOMAIN: "${{ secrets.REACT_APP_AUTH_DOMAIN }}"
+      REACT_APP_PROJECTED_ID: "${{ secrets.REACT_APP_PROJECTED_ID }}"
+      REACT_APP_STORAGE_BUCKET: "${{ secrets.REACT_APP_STORAGE_BUCKET }}"
+      REACT_APP_MESSAGING_SENDER_ID: "${{ secrets.REACT_APP_MESSAGING_SENDER_ID }}"
+      REACT_APP_APP_ID: "${{ secrets.REACT_APP_APP_ID }}"
+      REACT_APP_MEASUREMENT_ID: "${{ secrets.REACT_APP_MEASUREMENT_ID }}"
     steps:
       - uses: actions/checkout@v3
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TECHSCHOOL_WIKI }}'
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_TECHSCHOOL_WIKI }}"
           projectId: techschool-wiki
