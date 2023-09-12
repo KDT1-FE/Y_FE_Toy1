@@ -23,7 +23,8 @@ const Header = () => {
               </li>  
             )
           }
-        <li>{(user?.displayName) ? <>{sliceStr(user.displayName, 10)}님 <button onClick={handlerLogout}>로그아웃</button></> : <Link to={`/login`}> 로그인 </Link>} </li>
+          <li> <StyledButton> <p> 학습 시간</p> </StyledButton></li>
+          <li>{(user?.displayName) ? <>{sliceStr(user.displayName, 10)}님 <button onClick={handlerLogout}>로그아웃</button></> : <Link to={`/login`}> 로그인 </Link>} </li>
         </ul>
       </InnerContainer>
     </Container>
@@ -37,6 +38,19 @@ const sliceStr = (str:string, n:number) => {
 const handlerLogout = () => {
   signOut(auth);
 }
+
+const StyledButton = styled.button`
+  color: var(--main-color);
+  border: 0.8px solid var(--main-color);
+  border-radius: 5px;
+  width: 100px;
+  height: 35px;
+  background-color: #ffff;
+  p{
+    margin: 0 auto;
+  }
+`
+
 const InnerContainer = styled.div`
   margin: 0 auto;
   max-width: 1200px;
