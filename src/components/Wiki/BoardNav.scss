@@ -1,0 +1,15 @@
+@import './reset.css';
+
+nav {
+    width: 70%;
+    height: 30px;
+    margin: auto;
+}
+
+.boardList {
+    display: flex;
+    flex-direction: row;
+    font-size: 50px;
+    justify-content: space-around;
+    
+}
