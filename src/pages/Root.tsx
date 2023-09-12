@@ -7,8 +7,9 @@ export default function Root() {
     <div>
       <Header /> {/* Header 컴포넌트를 사용합니다. */}
       <section>
+
         <Outlet />
       </section>
     </div>
   );
-}
+  }

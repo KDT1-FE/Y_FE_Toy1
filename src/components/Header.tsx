@@ -19,15 +19,19 @@ export default function Header() {
               <FiMenu />
             </div>
             <div className={`menu ${isMenuOpen ? 'active' : ''}`}>
-              <Link to="/">홈</Link>
-              <Link to="/about">소개</Link>
+              <Link to="#">Home</Link>
+              <Link to="#">Wiki</Link>
+              <Link to='#'>Gallery</Link>
+              <Link to='#'>Study</Link>
             </div>
             <div className="mainText">
-              <h1>공부 시간 관리 사이트</h1>
+              <h1>Study Management</h1>
             </div>
           </div>
         </nav>
       </header>
     );
 }
+
+
   

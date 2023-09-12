@@ -1,20 +1,21 @@
-.header {
+/* .header {
     background-color: #333; 
     color: white; 
     padding: 10px 0; 
     text-align: center; 
-  }
+  } */
   
   .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 0 auto;
-    padding: 0 20px;
+    border-bottom: 2px solid rgb(204, 204, 204);
+    width: 90%;
   }
   
   .menu-icon {
-    font-size: 24px; 
+    font-size: 36px; 
     cursor: pointer;
   }
   
@@ -32,7 +33,6 @@
     align-items: center;
     position: absolute;
     margin-top: 50px;
-    color: coral;
     opacity: 0; 
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; 
   }
@@ -44,6 +44,8 @@
   
   .menu a {
     margin-right: 10px;
+    text-decoration: none;
+    color: coral
   }
   
   
