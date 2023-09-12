@@ -1,15 +1,15 @@
 import { AuthContext } from 'authentication/authContext';
 import { auth } from '../firebase';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
 import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
+import { useLocation } from 'react-router-dom';
 
-const SignIn = () => {
-  const user = useContext(AuthContext);
+const SignUp = () => {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [nickname, setNickname] = useState("");
-
+  const user = useContext(AuthContext)
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     setEmail(e.target.value)
@@ -35,9 +35,10 @@ const SignIn = () => {
           displayName: nickname
         })
       }
-
+      signOut(auth)
       alert('회원가입이 완료됐습니다.')
-
+      // 로그인 페이지로 이동
+      
     }catch(e){
       alert(e)
     }
@@ -46,13 +47,13 @@ const SignIn = () => {
 
   return (
     <Container>
-      <h1>로그인</h1>
+      <h1>회원 가입</h1>
       <form>
         <input type="email" name="email" onChange={handleEmail} value={email} />
         <input type="password" name="pwd" onChange={handlePwd} value={pwd} />
         <input type="text" name="nickname" onChange={handleNickname} value={nickname} />
         <button type="button" onClick={handleClickCreate}>
-          "회원가입"
+          회원가입
         </button>
       </form>
     </Container>
@@ -69,4 +70,4 @@ const Container = styled.main`
   box-sizing: border-box;
 `
 
-export default SignIn
+export default SignUp

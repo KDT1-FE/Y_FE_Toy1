@@ -2,10 +2,15 @@ import React, { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import './Header.css'
+import { AuthContext } from 'authentication/authContext';
+import { signOut } from 'firebase/auth'
+import { auth } from '../firebase'
 
 const Header = () => {
   const pageLink = ["", "Wiki/", "Gallery"]
   const pageName = ["Home", "Wiki", "Gallery"]
+  const user = useContext(AuthContext)
+
 
   return (
     <Container>
@@ -17,10 +22,14 @@ const Header = () => {
             </li>  
           )
         }
-        <li><Link to={`/login`}> 로그인 </Link></li>
+        <li>{(user?.displayName) ? <>{user.displayName}님 <button onClick={handlerLogout}>로그아웃</button></> : <Link to={`/login`}> 로그인 </Link>} </li>
       </ul>
     </Container>
   )
+}
+
+const handlerLogout = () => {
+  signOut(auth);
 }
 
 const Container = styled.nav`

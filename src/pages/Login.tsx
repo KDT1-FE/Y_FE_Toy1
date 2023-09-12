@@ -9,7 +9,6 @@ const Login = () => {
   const user = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
-  const [isCreate, setIsCreate] = useState(false);
 
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -27,8 +26,6 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, pwd)
       .then(() => {
         alert("로그인 성공");
-
-        console.log(user)
         // 메인 홈으로 이동
       })
       .catch(e => {

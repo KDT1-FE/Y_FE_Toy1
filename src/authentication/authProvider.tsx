@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { AuthContext } from "./authContext";
 import { auth } from "../firebase";
 
-type IChildren = {
+interface IChildren {
   children : React.JSX.Element
 }
 
@@ -12,7 +12,7 @@ const AuthProvider = ({ children }: IChildren) => {
 
   useEffect(() => {
     const subscribe = auth.onAuthStateChanged(fbUser => {
-      console.log(`구독 실행`, fbUser);
+      console.log(`현재 유저 정보`, fbUser);
       setUser(fbUser);
     });
     return subscribe;
