@@ -5,13 +5,16 @@ const boardStateSlice = createSlice({
     initialState:{value:'QA'},
     reducers:{
         qa:(state,action)=>{
-            return state.value = action.step; 
+        
+            state.value = action.payload; 
         },
         free:(state,action)=>{
-            return state.value = action.step; 
+          
+          state.value = action.payload; 
         },
         best:(state,action)=>{
-            return state.value = action.step; 
+          
+          state.value = action.payload; 
         },
         
     }
@@ -23,4 +26,4 @@ const store = configureStore({
   }
 })
 
-export {store}
+export {store,boardStateSlice}

@@ -2,6 +2,8 @@ import { log } from 'console';
 import * as React from 'react';
 import {readBoardData} from '../../data/wikiboard'
 import {useState,ReactNode} from 'react'
+
+import './BoardContent.scss'
 // export interface IAppProps {
 
 // }
@@ -19,27 +21,26 @@ export function BoardContent ({boardState}:any) {
     data.then((item:any)=>{
       setboardData(item)
     })
-  },[])
-  console.log(boardData)
+  },[boardState])
 
   
   return (
     <div>
       {boardData.map((item,index)=>
-      <article key={index}>
-        <div>
-          <span>{item.name}</span>
-          <span>{item.time}</span>
+      <article key={index} className="post">
+        <div className="post__info">
+          <span className='post__name'>{item.name}</span>
+          <span className='post__time'>{item.time}</span>
         </div>
-        <h1>{item.title}</h1>
-        <p>{textLengthOverCut(item.content,50,'...')}</p>
+        <h1 className="post__title">{item.title}</h1>
+        <p className="post__content">{textLengthOverCut(item.content,50,'...')}</p>
       </article>
       )}
     </div>
   );
 }
 
-function textLengthOverCut(txt:string, len=50, lastTxt='...'):string {
+function textLengthOverCut(txt='lorem is', len=50, lastTxt='...'):string {
 
   if (txt.length > len) {
       txt = txt.substr(0, len) + lastTxt;

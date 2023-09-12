@@ -14,7 +14,7 @@ async function readBoardData(boardState){
         QACollection = collection(db,'FreeBoard');
     }
     else if (boardState == 'Best'){
-        QACollection = collection(db,'Best');
+        QACollection = collection(db,'BestBoard');
     }
     else {
         return
