@@ -1,7 +1,7 @@
 import React from 'react'
 import { SearchContainer } from '../../../styled/wiki/Container';
 import { TitleText } from '../../../styled/wiki/Text';
-import Input from '../../../styled/wiki/Input';
+import  { Input } from '../../../styled/wiki/Input';
 
 export default function Search() {
   return (

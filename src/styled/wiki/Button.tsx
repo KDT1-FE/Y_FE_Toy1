@@ -43,6 +43,7 @@ export const SubmitButton = styled(Btn)`
     border : 0;
     color : white;
     width : 78px;
+    margin-top: 10px;
 
 `;
 

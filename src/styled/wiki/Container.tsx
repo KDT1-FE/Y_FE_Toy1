@@ -96,3 +96,9 @@ export const WikiWriteContainer = styled.div`
     gap : 20px;
 
 `;
+
+export const WikiWriteContentContainer = styled.div`
+    display : flex;     
+    flex-direction : column;
+    width :100%;
+`;
