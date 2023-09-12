@@ -5,7 +5,7 @@ function NavigationContainer() {
 }
 
 const Container = styled.nav`
-  width: 193px;
+  width: 12rem;
   height: 56rem;
   background-color: #3584f4;
   margin: 30px 0px 30px 30px;
