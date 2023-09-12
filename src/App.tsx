@@ -1,8 +1,9 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import { Layout, Home, About, Dashboard, NoMatch } from "./pages/TestPage/Test"
-
+import { Layout, Home, About } from "./pages/TestPage/Test"
+import Wiki from './pages/WikiPage/Wiki';
+import WikiItem from './pages/WikiPage/WikiItem';
 
 
 function App() {
@@ -15,11 +16,11 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
-            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="wiki" element={<Wiki />} />
             {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
                 routes for. */}
-            <Route path="*" element={<NoMatch />} />
+            <Route path="*" element={<WikiItem />} />
           </Route>
         </Routes>
       </div>

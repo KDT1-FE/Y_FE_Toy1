@@ -15,7 +15,7 @@ function Layout() {
             <Link to="/about">About</Link>
           </li>
           <li>
-            <Link to="/dashboard">Dashboard</Link>
+            <Link to="/wiki">Wiki</Link>
           </li>
           <li>
             <Link to="/nothing-here">Nothing Here</Link>
