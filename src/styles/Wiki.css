@@ -1,0 +1,62 @@
+#container {
+  display: flex;
+  background-color: red;
+  width: 100%;
+  min-height: 1000px;
+}
+
+#sidebar {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 20%;
+  padding: 3rem 0;
+}
+
+.label {
+  padding: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sidebar_sub-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.5rem;
+  background-color: lightgray;
+}
+
+a {
+  padding: 0.3rem;
+  text-decoration: none;
+  cursor: pointer;
+  color: black;
+}
+
+a:hover {
+  color: green;
+}
+
+button {
+  color: red;
+}
+
+#main-content {
+  height: 100%;
+  padding: 5rem;
+  background-color: aqua;
+}
+
+/* Component/Wiki/TextEditor */
+
+.TextEditorContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+#TextArea {
+  color: red;
+  height: 10rem;
+  line-height: 10rem;
+}
