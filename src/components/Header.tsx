@@ -9,25 +9,18 @@ const Header = () => {
 
   return (
     <Container>
-      <InnerContainer>
-        <ul className="header__link-wrapper">
-          {
-            pageLink.map((link,idx)=>
-              <li key={pageName[idx]} >
-                <Link to={`/${link}`}> {pageName[idx]} </Link>
-              </li>  
-            )
-          }
-        </ul>
-      </InnerContainer>
+      <ul className="header__link_wrapper">
+        {
+          pageLink.map((link,idx)=>
+            <li key={pageName[idx]} >
+              <Link to={`/${link}`}> {pageName[idx]} </Link>
+            </li>  
+          )
+        }
+      </ul>
     </Container>
   )
 }
-const InnerContainer = styled.div`
-  margin: 0 auto;
-  max-width: 1200px;
-
-`
 
 const Container = styled.nav`
   position: fixed;
@@ -36,10 +29,9 @@ const Container = styled.nav`
   right: 0;
   width: 100%;
   height: 60px;
-  border-bottom: 2px solid #ddd;
+  background-color: #999;
   font-size: 1rem;
   z-index: 10;
-  background-color: #fff;
 `
 
 export default Header

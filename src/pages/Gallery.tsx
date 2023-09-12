@@ -53,11 +53,9 @@ Vivamus sed aliquet lacus. Aenean pharetra quis mi vel tempor. Duis id velit ali
 
 const Container = styled.section`
   position: relative;
-  left: 180px;
+  left: 140px;
   height: calc(100% - 60px);
-  width: calc(100% - 180px);
-  padding: 5px;
-  box-sizing: border-box;
+  width: calc(100% - 140px);
 `
 
 export default Gallery
