@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
 import { Link, useLocation } from 'react-router-dom'
-import './Header.css'
 import { AuthContext } from 'authentication/authContext';
 import { signOut } from 'firebase/auth'
 import { auth } from '../firebase'
