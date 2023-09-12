@@ -1,15 +1,16 @@
-import { AuthContext } from 'authentication/authContext';
 import { auth } from '../firebase';
 import { createUserWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import './Authentication.css'
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [nickname, setNickname] = useState("");
-  const user = useContext(AuthContext)
+  const navigate = useNavigate()
+
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     setEmail(e.target.value)
@@ -25,36 +26,31 @@ const SignUp = () => {
     setNickname(e.target.value)
   }
 
-  const handleClickCreate = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClickCreate = async (e: React.FormEvent) => {
     e.preventDefault();
     try{
       const userCredential = await createUserWithEmailAndPassword(auth, email, pwd)
       if(userCredential){
-        console.log(userCredential)
         await updateProfile(userCredential.user, {
           displayName: nickname
         })
       }
       signOut(auth)
       alert('회원가입이 완료됐습니다.')
-      // 로그인 페이지로 이동
-      
+      navigate("/login")
     }catch(e){
       alert(e)
     }
   }
 
-
   return (
     <Container>
-      <h1>회원 가입</h1>
-      <form>
-        <input type="email" name="email" onChange={handleEmail} value={email} />
-        <input type="password" name="pwd" onChange={handlePwd} value={pwd} />
-        <input type="text" name="nickname" onChange={handleNickname} value={nickname} />
-        <button type="button" onClick={handleClickCreate}>
-          회원가입
-        </button>
+      <h1> 회원 가입</h1>
+      <form className="authentication__form" onSubmit={handleClickCreate}>
+        <div className="authentication__form-el"><label htmlFor="id"> 이메일 </label> <input type="email" id="email" onChange={handleEmail} value={email} /></div>
+        <div className="authentication__form-el"><label htmlFor="pwd"> 비밀번호 </label> <input type="password" id="pwd" onChange={handlePwd} value={pwd} /></div>
+        <div className="authentication__form-el"><label htmlFor="nickname"> 닉네임 </label> <input type="text" id="nickname" onChange={handleNickname} value={nickname} /></div>
+        <button className="btn" type="submit"> 회원 가입 </button>
       </form>
     </Container>
   )
@@ -68,6 +64,11 @@ const Container = styled.main`
   border: 2px solid black;
   padding : 20px 5px;
   box-sizing: border-box;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  h1{
+    margin-bottom:5rem;
+  }
 `
-
 export default SignUp

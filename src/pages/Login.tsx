@@ -1,14 +1,15 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { auth } from '../firebase'
-import { AuthContext } from 'authentication/authContext';
 import { Link } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import './Authentication.css'
 
 const Login = () => {
-  const user = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
+  const navigate = useNavigate()
 
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -26,7 +27,7 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, pwd)
       .then(() => {
         alert("로그인 성공");
-        // 메인 홈으로 이동
+        navigate("/")
       })
       .catch(e => {
         alert(e);
@@ -35,14 +36,14 @@ const Login = () => {
 
   return (
     <Container>
-      <h1>로그인</h1>
-      <form onSubmit={handleSubmit}>
-        <input type="email" name="email" onChange={handleEmail} value={email} />
-        <input type="password" name="pwd" onChange={handlePwd} value={pwd} />
-        <button type="submit"> 로그인 </button>
-  
+      <h1> 로그인</h1>
+      <form className="authentication__form" onSubmit={handleSubmit}>
+        <div className="authentication__form-el"><label htmlFor="id"> 이메일 </label> <input type="email" id="email" onChange={handleEmail} value={email} /></div>
+        <div className="authentication__form-el"><label htmlFor="pwd"> 비밀번호 </label> <input type="password" id="pwd" onChange={handlePwd} value={pwd} /></div>
+        
+        <button className="btn" type="submit"> 로그인 </button>
       </form>
-      <Link to={`/signup`}> 회원가입 </Link>
+      <Link to={`/signup`}> <b>회원가입</b> </Link>
     </Container>
   )
 }
@@ -56,6 +57,15 @@ const Container = styled.main`
   border: 2px solid black;
   padding : 20px 5px;
   box-sizing: border-box;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  h1{
+    margin-bottom:5rem;
+  }
+  b{
+    text-decoration: underline solid black 1.5px ;
+  }
 `
 
 export default Login
