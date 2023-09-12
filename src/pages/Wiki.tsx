@@ -1,7 +1,14 @@
-import React from 'react';
+import { Outlet } from 'react-router-dom';
+import SideBar from '../components/SideBar';
+import { MainContainer } from '../styles/commonComponents';
 
 const Wiki = () => {
-  return <div>Wiki</div>;
+  return (
+    <MainContainer>
+      <SideBar />
+      <Outlet />
+    </MainContainer>
+  );
 };
 
 export default Wiki;

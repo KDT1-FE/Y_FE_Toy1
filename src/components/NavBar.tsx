@@ -29,7 +29,6 @@ const Container = styled.nav`
 
   width: 100%;
   height: 56px;
-  margin-bottom: 2rem;
 
   z-index: 15;
 

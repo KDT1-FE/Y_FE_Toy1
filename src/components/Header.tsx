@@ -1,19 +1,26 @@
 import styled from 'styled-components';
 import { BsCalendar4Event } from 'react-icons/bs';
 import { CiSearch } from 'react-icons/ci';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <Container>
       <Navbar>
-        <InputWrapper>
-          <div className="icon">
-            <button>
-              <CiSearch size="20" />
-            </button>
+        <div className="wrapper">
+          <div className="title">
+            <Link to={'/'}>App Logo</Link>
           </div>
-          <input type="text" />
-        </InputWrapper>
+          <InputWrapper>
+            <div className="icon">
+              <button>
+                <CiSearch size="20" />
+              </button>
+            </div>
+            <input type="text" />
+          </InputWrapper>
+        </div>
+
         <div className="wrapper">
           <div className="icon">
             <button aria-haspopup="true">
@@ -58,6 +65,13 @@ const Navbar = styled.nav`
   .wrapper {
     display: flex;
     align-items: center;
+
+    .title {
+      font-size: ${(props) => props.theme.fontSize.title};
+      font-weight: 600;
+
+      margin-right: 1rem;
+    }
   }
 
   .icon {

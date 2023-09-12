@@ -15,35 +15,17 @@ export interface CategoriesType {
 
 export const allCategories: CategoriesType[] = [
   {
-    path: '/',
-    categories: [
-      {
-        title: '출퇴근',
-        subCategories: [
-          {
-            link: '/commute',
-            text: '시간 측정',
-          },
-          {
-            link: '/commute',
-            text: '시간 측정',
-          },
-        ],
-      },
-    ],
-  },
-  {
     path: '/wiki',
     categories: [
       {
         title: '회사 생활',
         subCategories: [
           {
-            link: '/commute',
+            link: 'commute',
             text: '시간 측정',
           },
           {
-            link: '/commute',
+            link: 'commute',
             text: '시간 측정',
           },
         ],
@@ -57,11 +39,11 @@ export const allCategories: CategoriesType[] = [
         title: '사진첩',
         subCategories: [
           {
-            link: '/profile',
+            link: 'profile',
             text: '프로필 사진',
           },
           {
-            link: '/achievement',
+            link: 'achievement',
             text: '성취',
           },
         ],
@@ -70,11 +52,11 @@ export const allCategories: CategoriesType[] = [
         title: '사진첩',
         subCategories: [
           {
-            link: '/profile',
+            link: 'profile',
             text: '프로필 사진',
           },
           {
-            link: '/achievement',
+            link: 'achievement',
             text: '성취',
           },
         ],

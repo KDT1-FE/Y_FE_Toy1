@@ -25,7 +25,7 @@ const Category = ({ category, openByDefault }: Props) => {
       {isMenuOpen && (
         <div className="sub-category">
           {category.subCategories.map((sub, index) => (
-            <Link key={index} to={sub.link}>
+            <Link key={index} to={`${sub.link}`}>
               {sub.text}
             </Link>
           ))}
@@ -39,7 +39,7 @@ const CategoryContainer = styled.li`
   display: flex;
   flex-direction: column;
 
-  padding: 10px 2rem;
+  padding: 10px 2rem 10px 0;
 
   .sub-title {
     display: flex;
