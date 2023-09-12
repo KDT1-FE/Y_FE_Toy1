@@ -1,0 +1,102 @@
+.Main {
+  background-color: rgba(255, 55, 115, 0.8);
+  padding: 18px 50px;
+}
+
+.HeaderMain {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Logo {
+  display: flex;
+  align-items: center;
+}
+
+.List {
+  display: flex;
+  align-items: center;
+}
+
+.SubListMain {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+
+.SubList {
+  text-decoration: none;
+  color: #fff;
+  margin: 0 24px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.NavbarWrap {
+  display: flex;
+  align-items: center;
+}
+
+.Timer {
+  position: relative;
+  font-size: 16px;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1em 2.5em;
+  display: inline-block;
+  border-radius: 6em;
+  transition: all 0.2s;
+  border: none;
+  font-family: inherit;
+  font-weight: bold;
+  color: black;
+  background-color: white;
+  margin: 0 10px;
+}
+
+.Timer:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  color: rgba(255, 55, 115, 0.8);
+  cursor: pointer;
+}
+
+.Timer:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.Timer::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all 0.4s;
+}
+
+.Timer::after {
+  background-color: #fff;
+}
+
+.Timer:hover::after {
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0;
+}
+
+.SubList:hover,
+.SubListMain:hover {
+  color: black;
+  cursor: pointer;
+}
+
+#clock {
+  color: #fff;
+  font-size: 16px;
+  width: 130px;
+  text-align: center;
+}
