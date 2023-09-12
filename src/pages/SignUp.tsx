@@ -61,7 +61,8 @@ const Container = styled.main`
   width: 90%;
   max-width: 800px;
   height: 500px;
-  border: 2px solid black;
+  border: 1.5px solid var(--main-color);
+  border-radius: 0.8rem;
   padding : 20px 5px;
   box-sizing: border-box;
   display: flex;
