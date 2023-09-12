@@ -40,7 +40,6 @@ const Login = () => {
       <form className="authentication__form" onSubmit={handleSubmit}>
         <div className="authentication__form-el"><label htmlFor="id"> 이메일 </label> <input type="email" id="email" onChange={handleEmail} value={email} /></div>
         <div className="authentication__form-el"><label htmlFor="pwd"> 비밀번호 </label> <input type="password" id="pwd" onChange={handlePwd} value={pwd} /></div>
-        
         <button className="btn" type="submit"> 로그인 </button>
       </form>
       <Link to={`/signup`}> <b>회원가입</b> </Link>

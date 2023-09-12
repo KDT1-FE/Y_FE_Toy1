@@ -3,6 +3,7 @@
   flex-flow: column;
   gap: 30px;
   margin-bottom: 40px;
+  width: 300px;
 }
 
 .authentication__form-el{
@@ -12,6 +13,10 @@
 .authentication__form-el label{
   flex: 0 0 80px;
   height: 30px;
+}
+
+.authentication__form-el input{
+  flex: 0 0 200px;
 }
 
 .authentication__form .btn{
