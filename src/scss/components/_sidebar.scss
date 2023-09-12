@@ -26,6 +26,9 @@
       align-items: center;
       text-decoration: none;
       color: $white;
+      &:hover {
+        background-color: $darkBlue;
+      }
     }
     &__link[data-type='toggle']::after {
       content: '';
@@ -42,9 +45,12 @@
     .nav__detail {
       background-color: $white;
       width: 180px;
+      height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
       margin: 0 auto;
       border-radius: 5px;
-      padding: 10px 0;
       &__item {
         width: 100%;
       }
