@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-function NavigationContainer() {
-  return <Container></Container>;
+function NavigationContainer({children}: any) {
+  return <Container>{children}</Container>;
 }
 
 const Container = styled.nav`
