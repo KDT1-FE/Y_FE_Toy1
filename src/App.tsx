@@ -3,7 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import { Layout, Home, About, Dashboard, NoMatch } from './pages/TestPage/Test';
 import Login from './pages/LoginPage/Login';
-import Notice from './pages/NoticePage/Notice';
+
+import NoticeWrite from './pages/NoticePage/NoticeWrite';
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
       </Route>
       {/* *Route 기초* */}
       <Route path='/login' element={<Login />} />
-      <Route path='notice' element={<Notice />} />
+      <Route path='/notice' element={<NoticeWrite />} />
     </Routes>
   );
 }
