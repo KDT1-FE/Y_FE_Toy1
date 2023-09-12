@@ -8,18 +8,32 @@ const Sidebar = () => {
   const hashSplit = location.pathname.split("/");
 
   if (hashSplit[1] === "Wiki") {
-    const sideLink = ["", "교육과정"];
-    const sideName = ["행정", "교육과정"];
+    //const sideLink = ["", "행정", "학습일정"]
+    const sideName = ["출석", "행정", "학습일정"];
+    const sideLinkAttendance = ["출석 인정", "QR출결 정정 프로세스"];
+    const sideLinkAdmin = ["휴가", "훈련장려금"];
 
     // Wiki 사이드바
     return (
       <Container>
-        <ul className="sidebar__link_wrapper">
-          {sideLink.map((link, idx) => (
-            <li key={sideName[idx]}>
-              <Link to={`/Wiki/${link}`}> {sideName[idx]} </Link>
+        <ul className="sidebar__link-wrapper">
+          <li key={"출석"}>
+            <Link to={`/Wiki/`}>출석</Link>
+          </li>
+          {sideLinkAttendance.map((link, idx) => (
+            <li key={sideLinkAttendance[idx]}>
+              <Link to={`/Wiki/${link}`}>{link}</Link>
             </li>
           ))}
+          <li key={"행정"}>행정</li>
+          {sideLinkAdmin.map((link, idx) => (
+            <li key={sideLinkAdmin[idx]}>
+              <Link to={`/Wiki/${link}`}> {link} </Link>
+            </li>
+          ))}
+          <li key={"학습 일정"}>
+            <Link to={`/Wiki/학습 일정`}>금주의 학습 일정</Link>
+          </li>
         </ul>
         <SidebarBottom />
       </Container>
@@ -29,6 +43,11 @@ const Sidebar = () => {
   } else if (hashSplit[1] === "Gallery") {
     return (
       <Container>
+        <ul className="sidebar__link-wrapper">
+          <li>갤러리글 1</li>
+          <li>갤러리글 2</li>
+          <li>갤러리글 3</li>
+        </ul>
         <SidebarBottom />
       </Container>
     );
@@ -37,9 +56,6 @@ const Sidebar = () => {
 
 const Container = styled.aside`
   position: fixed;
-  left: 0;
-  top: 60px;
-  bottom: 0;
   z-index: 9;
   width: 140px;
   height: 100%;
@@ -50,7 +66,7 @@ function SidebarBottom(): JSX.Element {
   return (
     <>
       <div className="sidebar__bottom">
-        <hr className="sidebar__bottom_hr" />
+        <hr className="sidebar__bottom-hr" />
         <a href="https://app.slack.com/client/T057XJP4T34/C05FRTBDHDL">
           <img
             className="sidebar__bottom_QRcode"
