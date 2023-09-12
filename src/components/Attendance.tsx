@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import WikiEdit from "./WikiEdit";
+import ContentsViewer from "./ContentViewer";
+import "./Wiki.css";
 
 interface ValueState {
   id: number;
@@ -18,7 +20,7 @@ const Attendance = () => {
   });
 
   //제목, 내용 상태관리
-  const [title, setTitle] = useState<string>("제목");
+  const [title, setTitle] = useState<string>("출석");
   const [content, setContent] = useState<string>("글 내용");
 
   // 타이핑 하는 값 받아오기
@@ -46,17 +48,24 @@ const Attendance = () => {
         handleTitleChange={handleTitleChange}
         title={title}
         content={content}
+        setContent={setContent}
         handleSubmitBtn={handleSubmitBtn}
         handleContentChange={handleContentChange}
       />
     );
   return (
     <>
-      <main className="main-container">
-        <button onClick={() => setIsOpen(true)}> 수정 </button>
-        <div> {title} </div>
-        <div> {content} </div>
-      </main>
+      <section className="wiki__wrapper">
+        <div className="wiki__header">
+          <div className="wiki__title"> {title} </div>
+          <button className="wiki__btn-edit" onClick={() => setIsOpen(true)}>
+            수정
+          </button>
+        </div>
+        <div className="wiki__textContent">
+          <ContentsViewer contents={content} />
+        </div>
+      </section>
     </>
   );
 };
