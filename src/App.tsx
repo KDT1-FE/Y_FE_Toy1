@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import { Layout, Home, About } from "./pages/TestPage/Test"
 import Wiki from './pages/WikiPage/Wiki';
-import WikiItem from './pages/WikiPage/WikiItem';
+import WikiWrite from './pages/WikiPage/WikiWrite';
 
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
             {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
                 routes for. */}
-            <Route path="*" element={<WikiItem />} />
+            <Route path="*" element={<WikiWrite />} />
           </Route>
         </Routes>
       </div>

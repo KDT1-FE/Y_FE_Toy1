@@ -2,9 +2,18 @@ import React from 'react'
 import { ContentListItemContentContainer } from '../../../styled/wiki/Container';
 import { DeleteBtn, EditContentBtn } from '../../../styled/wiki/Button';
 import {CategoryText, TitleText} from '../../../styled/wiki/Text';
+/*
+import { useRecoilState } from 'recoil';
+import { wikiListState } from '../../../recoil/atoms/wiki/wikiListAtom';
+const [wikiList, setWikiList] = useRecoilState(wikiListState);
+const index : number | undefined = wikiList.findIndex((listItem) => listItem === item);
+*/
 
 export default function ContentListItem() {
-  return (
+
+  
+
+    return (
     <>
     <input type="checkbox"/>
         <ContentListItemContentContainer>

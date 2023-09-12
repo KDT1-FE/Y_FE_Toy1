@@ -8,6 +8,9 @@ export default function WikiItem() {
       <MDEditor height={865}
         value={value}
         onChange={setValue}
+        style = {{
+          width : '800px'
+        }}
       />
     </div>
   );

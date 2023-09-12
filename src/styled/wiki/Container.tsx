@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
 
-const Container = styled.div`
+export const Container = styled.div`
     margin : 0;
     height : 100vh;
 `;
 
 
-const RowContainer = styled.div`
+export const RowContainer = styled.div`
     display : flex;
     flex-direction : row;
     gap : 30px;
@@ -19,7 +19,7 @@ const RowContainer = styled.div`
 `;
 
 
-const ColumnContainer = styled.div`
+export const ColumnContainer = styled.div`
     display : flex;
     flex-direction : column;
     background-color : white;
@@ -27,18 +27,18 @@ const ColumnContainer = styled.div`
     margin-top : 20px;
 `;
 
-const SearchContainer = styled(ColumnContainer)`
+export const SearchContainer = styled(ColumnContainer)`
     padding : 10px 20px;
     min-width : 180px;
 `;
 
-const ContentContainer = styled(ColumnContainer)`
+export const ContentContainer = styled(ColumnContainer)`
     flex-grow : 1;
     align-items : center;
     
 `;
 
-const CategoryHeaderContainer = styled.div`
+export const CategoryHeaderContainer = styled.div`
     display : flex;
     justify-content : space-between;
     padding : 10px 20px;
@@ -49,14 +49,14 @@ const CategoryHeaderContainer = styled.div`
 
 `;
 
-const CategoryListContainer = styled(ColumnContainer)`
+export const CategoryListContainer = styled(ColumnContainer)`
     padding : 10px 20px;
     background-color : white;
     margin-top : 0;
 
 `;
 
-const WikiContentHeaderContainer = styled.div`
+export const WikiContentHeaderContainer = styled.div`
     display : flex;
     padding : 20px 20px;
     border : 2px solid #e9ecef;
@@ -66,7 +66,7 @@ const WikiContentHeaderContainer = styled.div`
     margin : 10px 30px;
 `;
 
-const ContentListItemContainer = styled.div`
+export const ContentListItemContainer = styled.div`
     display : flex;
     padding : 30px 20px;
     border : 2px solid #e9ecef;
@@ -77,7 +77,7 @@ const ContentListItemContainer = styled.div`
     gap : 5px;
 
 `;
-const ContentListItemContentContainer = styled.div`
+export const ContentListItemContentContainer = styled.div`
     flex-grow : 1;
     display : flex;
     flex-direction : column;
@@ -87,4 +87,12 @@ const ContentListItemContentContainer = styled.div`
 `;
 
 
-export {Container,RowContainer, ColumnContainer, SearchContainer, CategoryHeaderContainer, CategoryListContainer,WikiContentHeaderContainer,ContentContainer,ContentListItemContainer,ContentListItemContentContainer};
+export const WikiWriteContainer = styled.div`
+    max-width : 1000px;
+    margin : 0 auto;
+    overflow-y : auto;
+    display : flex;
+    justify-content : space-between;
+    gap : 20px;
+
+`;
