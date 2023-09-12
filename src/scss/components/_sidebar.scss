@@ -13,53 +13,54 @@
     text-align: center;
     padding-left: 0;
     color: $white;
-    .nav__item {
+    &__item {
       list-style: none;
       position: relative;
       &.on {
         font-weight: $font-bold700;
       }
-      .nav__link {
-        padding: 20px 16px;
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        color: $white;
-        .nav__item__logo {
-          margin-right: 10px;
-        }
-      }
-      .nav__link[data-type='toggle']::after {
-        content: '';
-        width: 10px;
-        height: 12px;
-        background: url('../../assets/right.svg');
-        background-position: center;
-        background-repeat: no-repeat;
-        margin-left: auto;
-      }
+    }
+    &__link {
+      padding: 20px 16px;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: $white;
+    }
+    &__link[data-type='toggle']::after {
+      content: '';
+      width: 10px;
+      height: 12px;
+      background: url('../../assets/right.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      margin-left: auto;
+    }
+    &__logo {
+      margin-right: 10px;
     }
     .nav__detail {
-      padding-left: 0;
       background-color: $white;
       width: 180px;
       margin: 0 auto;
       border-radius: 5px;
       padding: 10px 0;
-      .nav__item {
-        .nav__link {
-          color: $gray;
-          font-size: 1.2rem;
-          border-radius: 5px;
-          margin: 0 5px;
-          padding: 8px 16px;
-          &.on {
-            color: $blue;
-            font-weight: $font-bold700;
-          }
-          &:hover {
-            background-color: $lightGray;
-          }
+      &__item {
+        width: 100%;
+      }
+      &__link {
+        display: flex;
+        color: $gray;
+        font-size: 1.2rem;
+        border-radius: 5px;
+        margin: 0 5px;
+        padding: 8px 16px;
+        &.on {
+          color: $blue;
+          font-weight: $font-bold700;
+        }
+        &:hover {
+          background-color: $lightGray;
         }
       }
     }
