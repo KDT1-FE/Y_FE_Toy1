@@ -21,6 +21,20 @@ export const router = createBrowserRouter([
       {
         path: 'gallery',
         element: <Gallery />,
+        children: [
+          {
+            index: true,
+            element: <div>Gallery</div>,
+          },
+          {
+            path: 'profile',
+            element: <div>Profile</div>,
+          },
+          {
+            path: 'achievement',
+            element: <div>Achievement</div>,
+          },
+        ],
       },
     ],
   },

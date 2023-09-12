@@ -1,7 +1,14 @@
-import React from 'react';
+import { Outlet } from 'react-router-dom';
+import SideBar from '../components/SideBar';
+import { MainContainer } from '../styles/commonComponents';
 
 const Gallery = () => {
-  return <div>Gallery</div>;
+  return (
+    <MainContainer>
+      <SideBar />
+      <Outlet />
+    </MainContainer>
+  );
 };
 
 export default Gallery;

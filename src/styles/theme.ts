@@ -14,12 +14,19 @@ const fontSize = {
   text: '14px',
 };
 
+const size = {
+  header: '56px',
+  nav: '56px',
+};
+
 export type ColorType = typeof colors;
 export type FontSizeType = typeof fontSize;
+export type SizeType = typeof size;
 
 const theme: DefaultTheme = {
   colors,
   fontSize,
+  size,
 };
 
 export default theme;
