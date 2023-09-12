@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import './App.css';
 import Main from 'pages/Main';
 import Gallery from 'pages/Gallery';
 import Header from 'components/Header';
@@ -10,7 +9,7 @@ function App() {
       <Header></Header>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/gallery/*" element={<Gallery />} />
+        <Route path="/gallery" element={<Gallery />} />
       </Routes>
     </Router>
   );
