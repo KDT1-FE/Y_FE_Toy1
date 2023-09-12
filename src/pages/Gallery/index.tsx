@@ -1,13 +1,13 @@
-import React from 'react';
-import { GalleryContainer } from './style';
+import React, { useState } from 'react';
 import Profile from './profile';
 
 const Gallery: React.FC = () => {
-    return (
-        <>
-            <Profile />;<GalleryContainer>Gallery</GalleryContainer>;
-        </>
-    );
+    const [channelName, setChannelName] = useState('profile');
+    if (channelName === 'profile') {
+        return <Profile />;
+    } else {
+        return <div>기타</div>;
+    }
 };
 
 export default Gallery;
