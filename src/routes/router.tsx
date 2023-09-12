@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import Home from '../pages/Home';
-import Wiki from '../pages/Wiki';
 import Gallery from '../pages/Gallery';
+import { Wiki } from '../pages/Wiki';
 
 export const router = createBrowserRouter([
   {
