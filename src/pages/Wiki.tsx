@@ -33,9 +33,11 @@ const Wiki = () => {
 
 const Container = styled.section`
   position: relative;
-  left: 140px;
+  left: 180px;
   height: calc(100% - 60px);
-  width: calc(100% - 140px);
-`;
+  width: calc(100% - 180px);
+  padding: 5px;
+  box-sizing: border-box;
+`
 
 export default Wiki;

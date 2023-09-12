@@ -14,16 +14,18 @@ const Header = () => {
 
   return (
     <Container>
-      <ul className="header__link_wrapper">
-        {
-          pageLink.map((link,idx)=>
-            <li key={pageName[idx]} >
-              <Link to={`/${link}`}> {pageName[idx]} </Link>
-            </li>  
-          )
-        }
+      <InnerContainer>
+        <ul className="header__link-wrapper">
+          {
+            pageLink.map((link,idx)=>
+              <li key={pageName[idx]} >
+                <Link to={`/${link}`}> {pageName[idx]} </Link>
+              </li>  
+            )
+          }
         <li>{(user?.displayName) ? <>{user.displayName}님 <button onClick={handlerLogout}>로그아웃</button></> : <Link to={`/login`}> 로그인 </Link>} </li>
-      </ul>
+        </ul>
+      </InnerContainer>
     </Container>
   )
 }
@@ -31,6 +33,11 @@ const Header = () => {
 const handlerLogout = () => {
   signOut(auth);
 }
+const InnerContainer = styled.div`
+  margin: 0 auto;
+  max-width: 1200px;
+
+`
 
 const Container = styled.nav`
   position: fixed;
@@ -39,9 +46,10 @@ const Container = styled.nav`
   right: 0;
   width: 100%;
   height: 60px;
-  background-color: #999;
+  border-bottom: 2px solid #ddd;
   font-size: 1rem;
   z-index: 10;
+  background-color: #fff;
 `
 
 export default Header

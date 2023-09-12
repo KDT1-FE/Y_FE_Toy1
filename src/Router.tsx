@@ -24,9 +24,10 @@ const Router = () => {
 }
 
 const Container = styled.main`
+  margin: 0 auto;
+  max-width: 1200px;
   position: relative;
   top:60px;
-  padding: 10px;
 `
 
 export default Router
