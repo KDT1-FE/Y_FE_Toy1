@@ -4,7 +4,7 @@ import Home from './pages/Home'
 import Wiki from './pages/Wiki'
 import Gallery from './pages/Gallery'
 import Login from './pages/Login'
-import SignIn from './pages/SignIn'
+import SignUp from './pages/SignUp'
 import styled from 'styled-components'
 
 const Router = () => {
@@ -16,7 +16,7 @@ const Router = () => {
           <Route path="/wiki/*" element={<Wiki />}> </Route>
           <Route path="/gallery" element={<Gallery />}> </Route>
           <Route path="/login" element={<Login />}> </Route>
-          <Route path="/signin" element={<SignIn />}> </Route>
+          <Route path="/signup" element={<SignUp />}> </Route>
         </Routes>
       </Container>
     </>

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const Login = () => {
-  const userInfo = useContext(AuthContext);
+  const user = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [isCreate, setIsCreate] = useState(false);
@@ -27,6 +27,8 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, pwd)
       .then(() => {
         alert("로그인 성공");
+
+        console.log(user)
         // 메인 홈으로 이동
       })
       .catch(e => {
@@ -34,7 +36,6 @@ const Login = () => {
       });
   };
 
-  console.log(auth)
   return (
     <Container>
       <h1>로그인</h1>
@@ -44,7 +45,7 @@ const Login = () => {
         <button type="submit"> 로그인 </button>
   
       </form>
-      <Link to={`/signin`}> 회원가입 </Link>
+      <Link to={`/signup`}> 회원가입 </Link>
     </Container>
   )
 }
