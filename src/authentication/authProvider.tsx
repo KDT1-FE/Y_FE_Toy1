@@ -3,7 +3,11 @@ import { useEffect, useState } from "react";
 import { AuthContext } from "./authContext";
 import { auth } from "../firebase";
 
-const AuthProvider = ({ children }) => {
+type IChildren = {
+  children : React.JSX.Element
+}
+
+const AuthProvider = ({ children }: IChildren) => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
