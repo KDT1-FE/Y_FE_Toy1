@@ -1,10 +1,8 @@
-import NavigationContainer from 'components/NavigationContainer/index';
+import NavigationWiki from 'components/NavigationWiki';
 
 function Wiki() {
-  return <>
-    <NavigationContainer/>
-    <h1>위키 페이지</h1>
-  </>
+  return (
+    <NavigationWiki></NavigationWiki>
+  )
 }
-
 export default Wiki;
