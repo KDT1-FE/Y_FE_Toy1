@@ -6,6 +6,7 @@ import ReactModal from 'react-modal';
 
 function Modal() {
   const [showModal, setShowModal] = useState(false);
+
   const handleOpenModal = () => {
     setShowModal(true);
   };
@@ -31,7 +32,7 @@ function Modal() {
       >
         <TopContainer>
           <Title>
-            출퇴근<Date>2023.09.08(금)</Date>
+            출퇴근<StyledDate>2023.09.08(금)</StyledDate>
           </Title>
           <CloseImg src={closeButton} onClick={handleCloseModal} />
         </TopContainer>
@@ -108,7 +109,7 @@ const CloseImg = styled.img`
   height: 1.25rem;
   cursor: pointer;
 `;
-const Date = styled.div`
+const StyledDate = styled.div`
   color: #4a5568;
   font-size: 0.875rem;
   font-weight: 600;
@@ -143,10 +144,16 @@ const Button = styled.button`
   color: #fff;
   font-size: 1.25rem;
   font-weight: 600;
-  width: 9.6rem;
+  width: 9.3rem;
   height: 2.4rem;
   border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 0.375rem;
   cursor: pointer;
+  &:hover {
+    background-color: #1b64da;
+  }
 `;
 export default Modal;
