@@ -19,7 +19,6 @@ const GlobalStyle = createGlobalStyle`
   button,
   img,
   a {
-      all: unset;
       cursor: pointer;
   }
 `;
