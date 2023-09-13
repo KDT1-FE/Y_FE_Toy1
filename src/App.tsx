@@ -8,6 +8,7 @@ import NoticeWrite from './pages/NoticePage/NoticeWrite';
 import SignUp from './pages/LoginPage/SignUp';
 import CreateAccount from './pages/LoginPage/CreateAccount';
 import NoticeList from './pages/NoticePage/NoticeList';
+import NoticeDetail from './pages/NoticePage/NoticeDetail';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
       <Route path='/createaccount' element={<CreateAccount />} />
       <Route path='/notice' element={<NoticeList />} />
       <Route path='/noticewrite' element={<NoticeWrite />} />
+      <Route path='/notice/:noticeId' element={<NoticeDetail />} />
     </Routes>
   );
 }
