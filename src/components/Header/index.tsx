@@ -23,7 +23,7 @@ function Header() {
             Wiki Gallery
             <img src={galleryLogo}></img>
           </Menu>
-          <Modal></Modal>
+          <Modal />
         </MenuContainer>
       </Container>
     </StyledHeader>
