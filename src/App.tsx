@@ -1,7 +1,7 @@
 import React from "react";
 import {Routes, Route} from "react-router-dom";
 import "./styles/App.css";
-import "./styles/reset.css";
+
 import Wiki from "./pages/Wiki";
 
 function App() {
