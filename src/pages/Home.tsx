@@ -3,7 +3,7 @@ import Carousel from "../components/Home/Carousel";
 
 function Home() {
   return (
-    <div style={{width: "100vw", height: "100vh"}}>
+    <div>
       <Carousel />
     </div>
   );
