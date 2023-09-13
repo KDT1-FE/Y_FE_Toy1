@@ -35,9 +35,10 @@ function NoticeWrite() {
       password,
       subject,
       contents,
-      createAt: `${date.getFullYear()} - ${date.getMonth() + 1} - ${date.getDate()}`
+      createAt: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
     });
 
+    alert('공지가 등록됐습니다.');
     setNoticeNumber((prev) => prev + 1);
     setPassword('');
     setSubject('');
