@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
 import { CategoryItemContainer } from '../../../styled/wiki/Item';
 import { CategoryInput } from '../../../styled/wiki/Input';
-import { categoryState } from '../../../recoil/atoms/wiki/CategoryAtom';
+import { categoryState, categoryNameState } from '../../../recoil/atoms/wiki/CategoryAtom';
 
 interface CategoryProps {
   item: string;
@@ -12,13 +12,20 @@ interface CategoryProps {
 export default function CategoryItem({ item }: CategoryProps) {
   const [editedItem, setEditedItem] = useState(item);
   const [category, setCategory] = useRecoilState(categoryState); // Recoil 상태
+  const [categoryNames, setCategoryNames] = useRecoilState(categoryNameState);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEditedItem(event.target.value);
+    const newValue = event.target.value;
+    setEditedItem(newValue);
     setCategory((prevCategory) => ({
       ...prevCategory,
       item: editedItem,
     }));
+
+    const updatedCategoryNames = categoryNames.map((name) =>
+      name === item ? newValue : name
+    );
+    setCategoryNames(updatedCategoryNames);
   };
 
   return (
