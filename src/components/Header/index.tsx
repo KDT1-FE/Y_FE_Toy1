@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import logo from '../../assets/icons/logo.svg';
-import wikiLogo from '../../assets/icons/wikiLogo.svg';
-import galleryLogo from '../../assets/icons/galleryLogo.svg';
+import logo from '../../assets/icons/mainLogo.svg';
+import wikiLogo from '../../assets/icons/wiki.svg';
+import galleryLogo from '../../assets/icons/gallery.svg';
 import { ROUTES } from 'constants/routes';
 import Modal from 'components/Modal';
 import { Link } from 'react-router-dom';

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import commuteLogo from '../../assets/icons/commuteLogo.svg';
+import commuteLogo from '../../assets/icons/commute.svg';
 import closeButton from '../../assets/icons/closeButton.svg';
 import React, { useEffect, useRef, useState } from 'react';
 import ReactModal from 'react-modal';
