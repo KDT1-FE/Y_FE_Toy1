@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
 import { getFirestore , collection, getDocs, doc, setDoc } from "firebase/firestore";
 import { useRecoilState } from "recoil";
+import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
+
 import {categoryNameState, categoryState} from "../../../recoil/atoms/wiki/CategoryAtom";
 import app from '../../../firebaseSDK';
 import { CateEditBtn } from "../../../styled/wiki/Button";
 import { TitleText } from "../../../styled/wiki/Text";
+
 import { CategoryHeaderContainer, CategoryListContainer } from "../../../styled/wiki/Container";
+import { CategoryItemContainer } from '../../../styled/wiki/Item';
 import CategoryItem from "./CategoryItem";
 
 
@@ -85,6 +89,10 @@ export default function Category() {
         </CateEditBtn>
       </CategoryHeaderContainer>
       <CategoryListContainer>
+        <CategoryItemContainer>
+          <FolderOpenOutlinedIcon color='action' />
+          전체
+          </CategoryItemContainer>
         {categoryNames.map((categoryName) => (
           <CategoryItem key={categoryName} item ={categoryName}/>
         ))}

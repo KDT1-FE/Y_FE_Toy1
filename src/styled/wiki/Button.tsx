@@ -47,5 +47,18 @@ export const SubmitButton = styled(Btn)`
 
 `;
 
+export const AddBtn = styled(Btn)`
+    background-color : #484AAD;
+    color : white;
+    padding : 10px 15px;
+    margin : 20px 0 0 800px;
+    position : relative;
+    left : 0;
+    font-weight : 500;
+    border : 0;
+    
+
+`;
+
 
 export {  CateEditBtn,EditContentBtn, DeleteBtn};

@@ -21,6 +21,7 @@ function App() {
                 acts like a catch-all for URLs that we don't have explicit
                 routes for. */}
             <Route path="*" element={<WikiWrite />} />
+            <Route path="write" Component={WikiWrite }/>
           </Route>
         </Routes>
       </div>
