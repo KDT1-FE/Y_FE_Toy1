@@ -3,13 +3,15 @@ import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { db } from "../firebase"
 import { collection, getDocs } from  "firebase/firestore"
+import { Link } from "react-router-dom";
 
 // 리스트 래퍼 스타일
 const ListWrapper = styled.div`
   display:flex;
   flex-wrap:wrap;
-  > div{
+   > a {
     /* 수치 추후에 조정 */
+    display: block;
     flex: 1 0 31.7%;
     max-width: 31.7%;
     padding: 0 10px;
@@ -41,10 +43,10 @@ const GalleryBtn = styled.button`
   border-radius:10px;
 `
 
-const Gallery = () => {
+const Gallery: React.FC = () => {
   
   // user의 문서정보 상태관리
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<any[]>([]);
   const usersCollectionRef = collection(db, "user");
 
   useEffect(() => {
@@ -55,23 +57,26 @@ const Gallery = () => {
       setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
     };
     getUsers();
-  }, []);
+  }, [usersCollectionRef]);
   
-
   return (
     <>
-    <GalleryBtn type="button">새 글 작성</GalleryBtn>
+    <Link to="/edit">
+          <GalleryBtn type="button">새 글 작성</GalleryBtn>
+    </Link>
     <ListWrapper>
       {users.map((user) => {
         return (
-          <div key={user.id}>
-            <p className="img-bx"><img src={user.thumbnail} alt=""/></p>
-            <p>{user.title}</p>
-            <p>
-              <span>{user.date} | </span>
-              <span>{user.writer}</span>
-            </p>
-          </div>
+          <Link to={`/detail/${user.id}`} key={user.id}>
+            <div  className="Gallery_link">
+              <p className="img-bx"><img src={user.thumbnail} alt=""/></p>
+              <p>{user.title}</p>
+              <p>
+                <span>{user.date} | </span>
+                <span>{user.writer}</span>
+              </p>
+            </div>
+          </Link>
         )
       })}
       </ListWrapper>

@@ -1,3 +1,4 @@
+import Sidebar from 'components/Sidebar'
 import React, { useRef, useState } from "react"
 import styled from "styled-components"
 import Editor from "../components/Editor"
@@ -5,6 +6,7 @@ import { storage, db } from "../firebase"
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { collection, addDoc } from "firebase/firestore"
 import { v4 } from "uuid" 
+import { useNavigate } from "react-router-dom"
 
 const FormList = styled.div`
   padding: 10px 0;
@@ -38,10 +40,12 @@ const GalleryEdit = () => {
   const [newTitle, setNewTitle] = useState("");
   const [desc, setDesc] = useState('');
   // 추후에 로그인한 회원의 닉네임 들어갈 것
-  const [newWriter, setNewWriter] = useState("나글쓴이");
-  const [imageUpload, setImageUpload] = useState(null);
+  // const [newWriter, setNewWriter] = useState("나글쓴이");
+  const [imageUpload, setImageUpload] = useState<File | null>(null);
 
-  const createUser = async (e) => {
+  const navigate = useNavigate();
+
+  const createUser = async (e: React.FormEvent) => {
     // 새로고침방지
     e.preventDefault();
 
@@ -76,20 +80,23 @@ const GalleryEdit = () => {
        title: newTitle, 
        desc: desc, 
        date: formattedDate, 
-       writer: newWriter,
+       writer: "글쓴이",
        thumbnail: thumbnailUrl
       });
+
+
+      navigate("/"); // "/" 경로로 이동
 
   }
 
   // 에디터 업로드
-  const onEditorChange = (value) => {
+  const onEditorChange = (value: string) => {
     setDesc(value)
   }
 
   return (
     <>
-      <form action="" >
+      <form action="" onSubmit={createUser}>
         <FormList>
           <select name="category" id="category" onChange={(event) => setNewCategory(event.target.value)}>
             <option value="">카테고리 선택</option>
@@ -105,9 +112,14 @@ const GalleryEdit = () => {
         <Editor value={desc} onChange={onEditorChange} quillRef={quillRef} />
         </FormList>
         <FormList>
-          <input type="file" id="thumbnail" onChange={(event) => setImageUpload(event.target.files[0])} />
+        <input type="file" id="thumbnail" onChange={(event) => {
+            const uploadedFile = event.target.files?.[0];
+            if (uploadedFile) {
+              setImageUpload(uploadedFile);
+            }
+        }} />
         </FormList>
-        <GalleryBtn type="submit" onClick={createUser}>제출</GalleryBtn>
+        <GalleryBtn type="submit">제출</GalleryBtn>
       </form>
     </>
   )

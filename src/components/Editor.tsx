@@ -2,7 +2,13 @@ import React from 'react'
 import ReactQuill from "react-quill"
 import 'react-quill/dist/quill.snow.css';
 
-const Editor = ({value, onChange, imageHandler, quillRef}) => {
+interface EditData {
+  value: string,
+  onChange: (value: string) => void,
+  quillRef: React.RefObject<any>
+}
+
+const Editor = ({value, onChange, quillRef}: EditData) => {
   const modules = {
     toolbar: {
       container: [
@@ -11,10 +17,10 @@ const Editor = ({value, onChange, imageHandler, quillRef}) => {
         [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
         ['link', 'image'],
         ['clean']
-      ],
-      handlers: {
-        'image' : imageHandler
-      }
+      ]
+      // handlers: {
+      //   'image' : imageHandler
+      // }
     },
   };
 
