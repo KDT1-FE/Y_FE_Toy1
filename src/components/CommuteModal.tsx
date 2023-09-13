@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { commuteState } from '../data/atoms';
-import { RxDoubleArrowRight } from 'react-icons/rx';
-import { timeToLocaleTimeString } from '../utils/formatTime';
+import { MdOutlineKeyboardDoubleArrowDown } from 'react-icons/md';
+import { formatMsToTime, timeToLocaleTimeString } from '../utils/formatTime';
 
 interface Props {
   isModalOpen: boolean;
@@ -35,15 +35,27 @@ const CommuteModal = ({ isModalOpen }: Props) => {
         commute: true,
         startTime: Date.now(),
       });
+
+      // firebase에 출근 시간 기록
     }
   };
 
+  const uploadCommuteInfo = () => {};
+
   const [hour, minute, second] = currentTime.toLocaleTimeString('it-IT').split(':');
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    weekday: 'long',
+    timeZone: 'UTC',
+  };
 
   return (
-    <ModalContainer className={isModalOpen ? 'open' : ''}>
+    <ModalContainer className={isModalOpen ? 'open' : ''} id="commute-modal">
       <div className="wrapper">
-        <h3>출퇴근 시간 입력</h3>
+        <span className="date">{currentTime.toLocaleDateString('ko-KR', options)}</span>
+
         <div className="content-wrapper">
           <div className="timer">
             <span>{hour}</span> : <span>{minute}</span> : <span>{second}</span>
@@ -52,14 +64,22 @@ const CommuteModal = ({ isModalOpen }: Props) => {
             <span>
               {commuteInfo.startTime ? timeToLocaleTimeString(commuteInfo.startTime) : '출근 전'}
             </span>
-            <RxDoubleArrowRight />
+            <MdOutlineKeyboardDoubleArrowDown size="24" opacity="0.3" />
             <span>
               {commuteInfo.endTime ? timeToLocaleTimeString(commuteInfo.endTime) : '퇴근 전'}
             </span>
           </div>
           <div className="btn-wrapper">
-            <button onClick={handleCommuteToggle} type="button">
-              {commuteInfo.commute ? '퇴근' : '출근'}
+            <button
+              className={commuteInfo.workingTime ? 'worked' : ''}
+              onClick={handleCommuteToggle}
+              type="button"
+            >
+              {commuteInfo.commute
+                ? '퇴근'
+                : commuteInfo.workingTime
+                ? formatMsToTime(commuteInfo.workingTime)
+                : '출근'}
             </button>
           </div>
         </div>
@@ -97,12 +117,15 @@ const ModalContainer = styled.div`
     padding: 0.6rem 1rem;
 
     border-radius: 0.6rem;
-    border: 1px solid #222222;
+    border: 1px solid #eeeeee;
     background-color: #ffffff;
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
 
-    h3 {
+    .date {
+      font-size: 0.8rem;
       margin-bottom: 1rem;
+
+      opacity: 0.5;
     }
 
     .content-wrapper {
@@ -127,8 +150,9 @@ const ModalContainer = styled.div`
 
       .commute-time {
         display: flex;
+        flex-direction: column;
         align-items: center;
-        column-gap: 0.4rem;
+        row-gap: 1rem;
 
         margin-bottom: 1rem;
       }
@@ -151,6 +175,10 @@ const ModalContainer = styled.div`
 
           &:hover {
             background-color: #f2f2f2;
+          }
+
+          &.worked {
+            opacity: 0.5;
           }
         }
       }
