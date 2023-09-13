@@ -9,7 +9,6 @@ function Wiki() {
       <div className="WikiSidebar">
         <span className="WikiCategory">회사생활</span>
         <div className="CategoryListWrapper">
-          <Link to="/wiki/회사생활">회사생활</Link>
           <Link to="/wiki/회사내규">회사내규</Link>
           <Link to="/wiki/팀소개">팀 소개</Link>
           <Link to="/wiki/조직도">조직도</Link>

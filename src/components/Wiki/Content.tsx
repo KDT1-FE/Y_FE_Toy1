@@ -23,7 +23,7 @@ function Content() {
     if (id) {
       setText(id);
     } else {
-      setText("회사생활");
+      setText("회사내규");
     }
   };
 
