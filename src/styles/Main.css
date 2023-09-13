@@ -1,0 +1,17 @@
+.carousel {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; /* 화면 높이에 맞게 조절 */
+  }
+  
+  /* 슬라이더 너비 조절 */ 
+  .carousel .slick-slider {
+    width: 80%;
+    max-width: 800px; 
+  }
+  
+  .carousel .slick-slide img {
+    max-width: 100%; 
+    height: auto; 
+  }
