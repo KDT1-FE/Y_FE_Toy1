@@ -10,7 +10,6 @@ function Content() {
 
   const clickEdit = () => {
     setEditTrue(!editTrue);
-    console.log(editTrue);
   };
 
   /**
