@@ -1,15 +1,27 @@
-import Sidebar from "components/Sidebar";
-import React from "react";
-import styled from "styled-components";
+import Sidebar from 'components/Sidebar'
+import React from "react"
+import GalleryEdit from "./GalleryEdit"
+import GalleryDetail from "./GalleryDetail"
+import GalleryList from "./GalleryList"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 const Gallery = () => {
+  
   return (
-    <>
-      <Sidebar />
-      <Container></Container>
-    </>
-  );
-};
+  <>
+   <Sidebar />
+   <Container>
+    <Router>
+      <Routes>
+        <Route path="/" element={<GalleryList />} />
+        <Route path="/edit" element={<GalleryEdit />} />
+        <Route path="/detail/:id" element={<GalleryDetail />} />
+      </Routes>
+    </Router>
+   </Container>
+  </>
+  )
+}
 
 const Container = styled.section`
   position: relative;
@@ -20,4 +32,4 @@ const Container = styled.section`
   box-sizing: border-box;
 `;
 
-export default Gallery;
+export default Gallery
