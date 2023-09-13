@@ -1,7 +1,8 @@
 import { styled } from 'styled-components';
 
 export const GalleryContainer = styled.div`
+    display: flex;
     margin-top: 72px;
-
-    text-align: center;
+    height: 100vh;
+    width: 100vw;
 `;
