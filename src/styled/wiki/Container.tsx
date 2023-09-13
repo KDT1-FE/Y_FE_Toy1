@@ -53,6 +53,7 @@ export const CategoryListContainer = styled(ColumnContainer)`
     padding : 10px 20px;
     background-color : white;
     margin-top : 0;
+    align-items : start;
 
 `;
 
@@ -75,6 +76,7 @@ export const ContentListItemContainer = styled.div`
     width : 100%;
     margin : 10px 30px;
     gap : 5px;
+    
 
 `;
 export const ContentListItemContentContainer = styled.div`
@@ -101,4 +103,5 @@ export const WikiWriteContentContainer = styled.div`
     display : flex;     
     flex-direction : column;
     width :100%;
+    margin : 20px 0;
 `;

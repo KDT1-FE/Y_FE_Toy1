@@ -1,16 +1,19 @@
 import styled from 'styled-components';
 
 const CategoryItemContainer = styled.div`
-    min-width: 180px;
+    max-width: 180px;
     background-color : #e9ecef;
-    padding : 10px;
+    padding : 10px 10px 10px 20px;
     border-radius : 10px;
     margin-top : 10px;
     box-sizing : border-box;
+    text-align : start;
+    justify-content : start;
+    gap : 10px;
+    display : flex;
+
 
 `;
-
-
 
 const CategoryContentItem = styled.div``;
 

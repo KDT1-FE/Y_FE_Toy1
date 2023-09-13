@@ -20,4 +20,12 @@ export const TitleInput = styled.input`
 
 `;
 
+export const CategoryInput = styled.input`
+    background-color: #e9ecef;
+    outline : none;
+    border : 0;
+    width : 120px;
+
+`;
+
 

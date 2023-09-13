@@ -1,33 +1,66 @@
-import React from 'react'
-import MDEditor from '@uiw/react-md-editor';
-import { WikiWriteContainer, WikiWriteContentContainer } from '../../styled/wiki/Container';
-import { SubmitButton } from '../../styled/wiki/Button';
-import { TitleInput } from '../../styled/wiki/Input';
-import CategorySelect from '../../styled/wiki/Select';
+import React, { useEffect } from "react";
+import { getFirestore , collection, getDocs } from "firebase/firestore";
+import MDEditor from "@uiw/react-md-editor";
+import { useRecoilState } from "recoil";
+import {categoryNameState} from "../../recoil/atoms/wiki/CategoryAtom";
+import {
+  WikiWriteContainer,
+  WikiWriteContentContainer,
+} from "../../styled/wiki/Container";
+import { SubmitButton } from "../../styled/wiki/Button";
+import { TitleInput } from "../../styled/wiki/Input";
+import CategorySelect from "../../styled/wiki/Select";
+import app from '../../firebaseSDK';
+
 
 export default function WikiWrite() {
-    const [value, setValue] = React.useState<string | undefined>("");
-    return (
-        <WikiWriteContainer >
-            <WikiWriteContentContainer>
-            <TitleInput type='text' placeholder='제목을 입력하세요' />
+  const [value, setValue] = React.useState<string | undefined>("");
+  const db = getFirestore(app);
+  const [categoryNames, setCategoryNames] = useRecoilState(categoryNameState);
+
+  useEffect(() => {
+    const fetchCategoryName = async () => {
+      try {
+        const categoryCollection = collection(db, "/category");
+        const querySnapshot = await getDocs(categoryCollection);
+
+        const names : string[] = [];
+
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          const categoryName = data.name;
+          names.push(categoryName);
+        });
+
+        setCategoryNames(names);
+
+      }
+      catch(error) {
+        console.error("Error fetching category names : " ,error);
+      }
+    };
+    fetchCategoryName();
+  },[setCategoryNames]);
+
+  return (
+    <WikiWriteContainer>
+      <WikiWriteContentContainer>
+        <TitleInput type="text" placeholder="제목을 입력하세요" />
         <CategorySelect>
-            <option value="주요 기능">주요 기능</option>
-            <option value="사용법">사용법</option>
-            <option value="회사">회사</option>
+          {categoryNames.map((name) => (
+            <option key={name} value={name}>{name}</option>
+          ))}
+          
         </CategorySelect>
-        <MDEditor height={800}
+        <MDEditor
+          height={600}
           value={value}
           onChange={setValue}
-          style={{width : '100%' }}
+          style={{ width: "100%" }}
         />
+      </WikiWriteContentContainer>
 
-        </WikiWriteContentContainer>
-        
-        <SubmitButton type='button'>Submit</SubmitButton>
-      </WikiWriteContainer>
-
-      
-    );
+      <SubmitButton type="button">Submit</SubmitButton>
+    </WikiWriteContainer>
+  );
 }
-

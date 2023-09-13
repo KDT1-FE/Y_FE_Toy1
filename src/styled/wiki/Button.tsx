@@ -38,12 +38,12 @@ const DeleteBtn = styled(Btn)`
 
 export const SubmitButton = styled(Btn)`
     background-color : #96A0FF;
-    height : 29px;
-    padding : 7px 20px;
+    height : 36px;
+    padding : 10px 0px;
     border : 0;
     color : white;
     width : 78px;
-    margin-top: 10px;
+    margin-top: 30px;
 
 `;
 

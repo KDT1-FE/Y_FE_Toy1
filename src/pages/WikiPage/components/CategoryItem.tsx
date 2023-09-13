@@ -1,13 +1,36 @@
-import React from 'react'
-import { CategoryItemContainer } from '../../../styled/wiki/Item' 
+import React,{useState} from 'react';
+import { useRecoilState } from 'recoil';
+import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
+import { CategoryItemContainer } from '../../../styled/wiki/Item';
+import { CategoryInput } from '../../../styled/wiki/Input';
+import { categoryState } from '../../../recoil/atoms/wiki/CategoryAtom';
 
-export default function CategoryItem() {
+interface CategoryProps {
+  item: string;
+}
+
+export default function CategoryItem({ item }: CategoryProps) {
+  const [editedItem, setEditedItem] = useState(item);
+  const [category, setCategory] = useRecoilState(categoryState); // Recoil 상태
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEditedItem(event.target.value);
+    setCategory((prevCategory) => ({
+      ...prevCategory,
+      item: editedItem,
+    }));
+  };
+
   return (
-    <>
-        <CategoryItemContainer>CategoryItem</CategoryItemContainer>
-        <CategoryItemContainer>CategoryItem</CategoryItemContainer>
-        <CategoryItemContainer>CategoryItem</CategoryItemContainer>
+    <CategoryItemContainer>
+      <FolderOpenOutlinedIcon color='action' />
+      <CategoryInput
+        type='text'
+        value={editedItem}
+        onChange={handleInputChange}
+        readOnly={category.isReadOnly} // readOnly 속성을 동적으로 설정
+      />
 
-    </>
-  )
+    </CategoryItemContainer>
+  );
 }
