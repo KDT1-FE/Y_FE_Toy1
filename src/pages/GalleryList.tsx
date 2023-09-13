@@ -61,13 +61,13 @@ const GalleryList: React.FC = () => {
   
   return (
     <>
-    <Link to="/edit">
+    <Link to="/gallery/edit">
           <GalleryBtn type="button">새 글 작성</GalleryBtn>
     </Link>
     <ListWrapper>
       {users.map((user) => {
         return (
-          <Link to={`/detail/${user.id}`} key={user.id}>
+          <Link to={`/gallery/detail/${user.id}`} key={user.id}>
             <div  className="Gallery_link">
               <p className="img-bx"><img src={user.thumbnail} alt=""/></p>
               <p>{user.title}</p>

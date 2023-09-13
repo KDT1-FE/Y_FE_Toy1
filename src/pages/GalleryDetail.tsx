@@ -45,6 +45,7 @@ const GalleryDetail = () => {
 
   return (
     <>
+    <Sidebar />
     {
       users.map((user: userData) => {
         return (

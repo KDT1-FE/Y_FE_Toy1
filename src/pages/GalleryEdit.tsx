@@ -5,7 +5,7 @@ import Editor from "../components/Editor"
 import { storage, db } from "../firebase"
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { collection, addDoc } from "firebase/firestore"
-import { v4 } from "uuid" 
+// import { v4 } from "uuid" 
 import { useNavigate } from "react-router-dom"
 
 const FormList = styled.div`
@@ -61,7 +61,7 @@ const GalleryEdit = () => {
 
     // 썸네일 이미지 업로드
     if (imageUpload) {
-      const imageRef = ref(storage, `image/${imageUpload.name + v4()}`);
+      const imageRef = ref(storage, `image/${imageUpload.name}`);
       try {
         // 등록된 썸네일 url 구하기
         const snapshot = await uploadBytes(imageRef, imageUpload);
@@ -96,6 +96,7 @@ const GalleryEdit = () => {
 
   return (
     <>
+    <Sidebar />
       <form action="" onSubmit={createUser}>
         <FormList>
           <select name="category" id="category" onChange={(event) => setNewCategory(event.target.value)}>

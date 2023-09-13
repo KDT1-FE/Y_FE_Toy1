@@ -3,22 +3,21 @@ import React from "react"
 import GalleryEdit from "./GalleryEdit"
 import GalleryDetail from "./GalleryDetail"
 import GalleryList from "./GalleryList"
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { Routes, Route } from "react-router-dom"
+import styled from 'styled-components'
 
 const Gallery = () => {
   
   return (
   <>
-   <Sidebar />
-   <Container>
-    <Router>
+    <Sidebar/>
+    <Container>
       <Routes>
-        <Route path="/" element={<GalleryList />} />
-        <Route path="/edit" element={<GalleryEdit />} />
-        <Route path="/detail/:id" element={<GalleryDetail />} />
+        <Route path="" element={<GalleryList />} />
+        <Route path="edit" element={<GalleryEdit />} />
+        <Route path="detail/:id" element={<GalleryDetail />} />
       </Routes>
-    </Router>
-   </Container>
+    </Container>
   </>
   )
 }

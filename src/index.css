@@ -1,6 +1,6 @@
-html {
-  font-size: 16px;
-  --main-color: #ed234b;
+html{
+  font-size:16px;
+  --main-color: #ED234B;
   --main-black: #171717;
 }
 
@@ -8,28 +8,50 @@ body {
   margin: 0;
 }
 
-ul {
+ul{
   margin: 0;
   padding: 0;
 }
 
-li {
+li{
   list-style: none;
 }
 
-a {
+a{
   text-decoration: none;
   color: black;
 }
 
 @media (max-width: 768px) {
-  html {
+  html{
     font-size: 14px;
   }
 }
 
-@media (max-width: 480px) {
-  html {
+@media(max-width: 480px){
+  html{
     font-size: 12px;
   }
+}
+.btn {
+  border: 0.8px solid var(--main-color);
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  padding:12px 27px;
+}
+
+.btn--primary{
+  color: #fff;
+  background-color: var(--main-color);
+}
+
+.btn--white{
+  color: var(--main-color);
+  background-color: #fff;
+}
+.btn.btn--large {
+  font-size: 18px;
+  padding: 12px 64px;
 }
