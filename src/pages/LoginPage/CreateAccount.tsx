@@ -18,14 +18,7 @@ function CreateAccount() {
     approve: false
   })
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setForm({
-      ...form,
-      [event.target.name]: event.target.value
-    })
-  }
-
-  const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
+  const handleFormChange = (event: ChangeEvent<HTMLInputElement> & ChangeEvent<HTMLSelectElement>) => {
     setForm({
       ...form,
       [event.target.name]: event.target.value
@@ -61,23 +54,23 @@ function CreateAccount() {
       <h2>회원가입</h2>
       <div>
         <p>이름</p>
-        <input onChange={handleInputChange} name='name' type="text" value={form.name} />
+        <input onChange={handleFormChange} name='name' type="text" value={form.name} />
       </div>
       <div>
         <p>이메일</p>
-        <input onChange={handleInputChange} name='email' type="text" value={form.email} />
+        <input onChange={handleFormChange} name='email' type="text" value={form.email} />
       </div>
       <div>
         <p>비밀번호</p>
-        <input onChange={handleInputChange} name='password' type="text" value={form.password} />
+        <input onChange={handleFormChange} name='password' type="text" value={form.password} />
       </div>
       <div>
         <p>전화번호</p>
-        <input onChange={handleInputChange} name='phone' type="text" value={form.phone} />
+        <input onChange={handleFormChange} name='phone' type="text" value={form.phone} />
       </div>
       <div>
         <p>직급</p>
-        <select onChange={handleSelectChange} name="position" id="1" value={form.position}>
+        <select onChange={handleFormChange} name="position" id="1" value={form.position}>
           <option value="이사">이사</option>
           <option value="과장">과장</option>
           <option value="사원">사원</option>
