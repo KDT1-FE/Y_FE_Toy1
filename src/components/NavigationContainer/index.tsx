@@ -4,7 +4,7 @@ function NavigationContainer() {
   return <Container></Container>;
 }
 
-const Container = styled.nav`
+export const Container = styled.nav`
   width: 12rem;
   height: 56rem;
   background-color: #3584f4;
