@@ -11,6 +11,7 @@ interface OwnProps {
 
 const CommuteModal: React.FC<OwnProps> = ({ handleModal }) => {
     const [timerOn, setTimerOn] = useState(false);
+    const [timeRenewal, setTimeRenewal] = useState('');
     const timerHandler = () => {
         if (timerOn) {
             setTimerOn(false);
@@ -18,6 +19,7 @@ const CommuteModal: React.FC<OwnProps> = ({ handleModal }) => {
             setTimerOn(true);
         }
     };
+
     return (
         <ModalWall>
             <Modal>
@@ -26,10 +28,10 @@ const CommuteModal: React.FC<OwnProps> = ({ handleModal }) => {
                     <CloseBtn onClick={handleModal}>X</CloseBtn>
                 </ModalHeader>
                 <Utils>
-                    <FastcampusDday />
+                    <FastcampusDday timeRenewal={timeRenewal} />
                     <ShowState value={timerOn} />
                 </Utils>
-                <ShowCurrentTime />
+                <ShowCurrentTime setTimeRenewal={setTimeRenewal} />
                 <Btns timeHandler={timerHandler} />
             </Modal>
         </ModalWall>

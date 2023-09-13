@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Dday } from './style';
 import Logo from '../../common/fastcampusIcon.png';
 
-export default function FastcampusDday() {
+interface OwnProps {
+    timeRenewal: string;
+}
+
+const FastcampusDday: React.FC<OwnProps> = ({ timeRenewal }) => {
     const cDay: Date = new Date('2024-01-30');
     const today: Date = new Date();
     today.setHours(0, 0, 0, 0);
@@ -12,11 +16,12 @@ export default function FastcampusDday() {
     };
     useEffect(() => {
         dDayCurrent();
-    }, [today.getDate()]);
+    }, [{ timeRenewal }]);
     return (
         <Dday>
             <img src={Logo} alt="패스트캠퍼스 아이콘" />
             <span>D - {dDay}</span>
         </Dday>
     );
-}
+};
+export default FastcampusDday;
