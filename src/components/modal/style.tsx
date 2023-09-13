@@ -64,7 +64,8 @@ export const Dday = styled.span`
     color: #000;
 `;
 
-export const ShowOn = styled.div`
+export const ShowOn = styled.div<{ value: boolean }>`
+    visibility: ${(value) => (value.value ? 'visible' : 'hidden')};
     width: 60px;
     height: 40px;
     color: #fff;
@@ -94,30 +95,31 @@ export const BtnBox = styled.div`
     align-items: center;
 `;
 
-export const OnBtn = styled.button`
+export const OnBtn = styled.button<{ value: boolean }>`
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     width: 120px;
     height: 72px;
-    background-color: #ece7ec;
     border: none;
     border-radius: 20px;
     font-size: 24px;
     font-weight: 700;
-    box-shadow: 0 3px 3px 1px #ced0d3 inset;
+    color: ${(value) => (value.value ? '#000' : '#fff')};
+    background-color: ${(value) => (value.value ? '#ece7ec' : '#350d36')};
+    box-shadow: ${(value) => (value.value ? '0 3px 3px 1px #ced0d3 inset' : '0 3px 3px 1px #ced0d3')};
 `;
-export const OffBtn = styled.button`
+export const OffBtn = styled.button<{ value: boolean }>`
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     width: 120px;
     height: 72px;
-    background-color: #350d36;
     color: #fff;
     border: none;
     border-radius: 20px;
     font-size: 24px;
     font-weight: 700;
-    box-shadow: 0 3px 3px 1px #ced0d3;
+    background-color: ${(value) => (value.value ? '#350d36' : '#948D94')};
+    box-shadow: ${(value) => (value.value ? '0 3px 3px 1px #ced0d3' : 'none')};
 `;

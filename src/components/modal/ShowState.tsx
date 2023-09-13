@@ -1,10 +1,16 @@
 import React from 'react';
 import { ShowOn } from './style';
 
-export default function ShowState() {
+interface OwnProps {
+    value: boolean;
+}
+
+const ShowState: React.FC<OwnProps> = ({ value }) => {
     return (
-        <ShowOn>
+        <ShowOn value={value}>
             <span>ON</span>
         </ShowOn>
     );
-}
+};
+
+export default ShowState;
