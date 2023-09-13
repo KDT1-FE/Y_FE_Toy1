@@ -1,17 +1,33 @@
-import * as React from 'react';
+import React from 'react';
+import { StudyTipsSwiper } from './GallerySwiper1';
 
 export function MainSwipers() {
   return (
     <div>
       <div className="inner">
-        <div id="studyTips" style={{ height: '500px', background: 'skyblue' }}>
-          공부꿀팁
+        <div id="allImages">
+          <div className="allImages-title">
+            <h3>전체보기</h3>
+          </div>
         </div>
-        <div id="events" style={{ height: '500px', background: 'orange' }}>
-          이벤트
+
+        <div id="studyTips">
+          <div className="studyTips-title">
+            <h3>공부꿀팁</h3>
+          </div>
+          <StudyTipsSwiper />
         </div>
-        <div id="humors" style={{ height: '500px', background: 'gray' }}>
-          유머
+
+        <div id="events">
+          <div className="events-title">
+            <h3>이벤트</h3>
+          </div>
+        </div>
+
+        <div id="humors">
+          <div className="humors-title">
+            <h3>유머</h3>
+          </div>
         </div>
       </div>
     </div>
