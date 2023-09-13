@@ -18,15 +18,15 @@ export const allCategories: CategoriesType[] = [
     path: '/wiki',
     categories: [
       {
-        title: '회사 생활',
+        title: '소개',
         subCategories: [
           {
-            link: 'commute',
-            text: '시간 측정',
+            link: 'info',
+            text: '기본 정보',
           },
           {
-            link: 'commute',
-            text: '시간 측정',
+            link: 'team',
+            text: '팀 정보',
           },
         ],
       },
