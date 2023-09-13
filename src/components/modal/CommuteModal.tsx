@@ -11,7 +11,7 @@ interface OwnProps {
 
 const CommuteModal: React.FC<OwnProps> = ({ handleModal }) => {
     const [timerOn, setTimerOn] = useState(false);
-    const [timeRenewal, setTimeRenewal] = useState('');
+    const [timeRenewal, setTimeRenewal] = useState(['g', 1]);
     const timerHandler = () => {
         if (timerOn) {
             setTimerOn(false);

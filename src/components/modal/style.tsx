@@ -10,6 +10,7 @@ export const Modal = styled.div`
     background-color: #fff;
     z-index: 10;
     border-radius: 20px;
+    box-shadow: 0 5px 5px 2px #7e7e7e;
     overflow: hidden;
 `;
 
@@ -82,8 +83,17 @@ export const Timebox = styled.div`
     height: 300px;
     color: #000;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: center;
+    padding: 0 150px;
+    & > p {
+        display: block;
+        font-size: 20px;
+        margin-left: 2px;
+    }
+`;
+export const Now = styled.span`
     font-size: 80px;
     font-weight: 700;
 `;
