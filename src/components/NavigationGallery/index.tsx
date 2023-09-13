@@ -1,18 +1,28 @@
-// import { ReactElement } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Container } from 'components/NavigationContainer';
 
 function NavigationGallery() {
+  const categories = [
+    { id: 1, name: '사진첩1' },
+    { id: 2, name: '사진첩2' },
+    { id: 3, name: '사진첩3' },
+    { id: 4, name: '사진첩4' },
+    { id: 5, name: '사진첩5' },
+  ];
+
   return (
     <Container>
       <LogoText>사진첩</LogoText>
       <GalleryCategories>
-        <StyledLink to="/gallery?galleryCategory=사진첩1">사진첩 1</StyledLink>
-        <StyledLink to="/gallery?galleryCategory=사진첩2">사진첩 2</StyledLink>
-        <StyledLink to="/gallery?galleryCategory=사진첩3">사진첩 3</StyledLink>
-        <StyledLink to="/gallery?galleryCategory=사진첩4">사진첩 4</StyledLink>
-        <StyledLink to="/gallery?galleryCategory=사진첩5">사진첩 5</StyledLink>
+        {categories.map((category) => {
+          const url = `/gallery?category=${category.name}`;
+          return (
+            <StyledLink key={category.id} to={url}>
+              {category.name}
+            </StyledLink>
+          );
+        })}
       </GalleryCategories>
     </Container>
   );
