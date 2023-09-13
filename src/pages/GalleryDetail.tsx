@@ -21,20 +21,19 @@ const GalleryDetail = () => {
   const [users, setUsers] = useState<any[]>([]);
   const usersCollectionRef = collection(db, "user");
 
-  useEffect(() => {
-    // 데이터 가져오기
-    const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
-      const user = data.docs.find(doc => doc.id === id);
-
+  // useEffect(() => {
+  //   // 데이터 가져오기
+  //   const getUsers = async () => {
+  //     const data = await getDocs(usersCollectionRef);
+  //     const user = data.docs.find(doc => doc.id === id);
       
-      if (user) {
-        setUsers([ {...user.data(), id: user.id} ])
-      }
-    };
+  //     if (user) {
+  //       setUsers([ {...user.data(), id: user.id} ])
+  //     }
+  //   };
   
-    getUsers();
-  }, [id, usersCollectionRef]);
+  //   getUsers();
+  // }, [id, usersCollectionRef]);
   
   const deleteGallery = async (id: string) => {
     const userDoc = doc(db, "users", id);

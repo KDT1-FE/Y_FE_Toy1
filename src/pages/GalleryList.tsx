@@ -49,15 +49,15 @@ const GalleryList: React.FC = () => {
   const [users, setUsers] = useState<any[]>([]);
   const usersCollectionRef = collection(db, "user");
 
-  useEffect(() => {
-    const getUsers = async () => {
-      // 비동기로 user의 데이터 가져오기
-      const data = await getDocs(usersCollectionRef);
-      // 가져온 데이터 setUsers에 데이터 할당
-      setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
-    };
-    getUsers();
-  }, [usersCollectionRef]);
+  // useEffect(() => {
+  //   const getUsers = async () => {
+  //     // 비동기로 user의 데이터 가져오기
+  //     const data = await getDocs(usersCollectionRef);
+  //     // 가져온 데이터 setUsers에 데이터 할당
+  //     setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
+  //   };
+  //   getUsers();
+  // }, [usersCollectionRef]);
   
   return (
     <>
