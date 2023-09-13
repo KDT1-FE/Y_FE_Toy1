@@ -1,5 +1,7 @@
+
+
 import { db,app } from './firebase';
-import {collection,getDocs} from 'firebase/firestore'
+import {collection,getDocs,doc,getDoc} from 'firebase/firestore'
 
 
 
@@ -31,4 +33,16 @@ async function readBoardData(boardState){
     return data
 }
 
-export {readBoardData}
+async function readPostData(boardState,postNumber){
+    const ref = doc(db,boardState,postNumber)
+    let postData = await getDoc(ref);
+    try {
+        postData = await getDoc(ref);
+    }
+    catch (error){
+        console.error('error')
+    }
+    return postData
+}
+
+export {readBoardData,readPostData}

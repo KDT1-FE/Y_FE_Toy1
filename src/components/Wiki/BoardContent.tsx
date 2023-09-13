@@ -2,7 +2,8 @@ import { log } from 'console';
 import * as React from 'react';
 import {readBoardData} from '../../data/wikiboard'
 import {useState,ReactNode} from 'react'
-
+import { v4 as uuidv4 } from 'uuid'
+import { useNavigate } from 'react-router-dom';
 import './BoardContent.scss'
 // export interface IAppProps {
 
@@ -12,9 +13,28 @@ type Post = {
   title:string,
   time:string,
   content:string,
+  id:string,
 }
+
+
 export function BoardContent ({boardState}:any) {
   const [boardData,setboardData] = useState<Post[]>([])
+  const navigate = useNavigate()
+
+  const handleClickBoard = (event:any)=>{
+    const selectId = event.currentTarget.querySelector('.post__id')?.innerHTML;
+    if (boardState == 'QA'){
+      navigate(`/wiki/QABoard/${selectId}`)
+    }
+    else if (boardState == 'Free'){
+      navigate(`/wiki/FreeBoard/${selectId}`)
+    }
+    else if (boardState == 'Best'){
+      navigate(`/wiki/BestBoard/${selectId}`)
+    }
+    else {return }
+  }
+  
   
   React.useEffect(()=>{
     const data = readBoardData(boardState)
@@ -23,17 +43,18 @@ export function BoardContent ({boardState}:any) {
     })
   },[boardState])
 
-  
+  console.log(boardState)
   return (
     <div>
       {boardData.map((item,index)=>
-      <article key={index} className="post">
+      <article key={index} className="post" onClick={handleClickBoard}>
         <div className="post__info">
           <span className='post__name'>{item.name}</span>
           <span className='post__time'>{item.time}</span>
         </div>
         <h1 className="post__title">{item.title}</h1>
         <p className="post__content">{textLengthOverCut(item.content,50,'...')}</p>
+        <div className="post__id" style={{display:'none'}}>{item.id}</div>
       </article>
       )}
     </div>
