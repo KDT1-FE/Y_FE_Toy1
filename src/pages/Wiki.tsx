@@ -38,6 +38,6 @@ const Container = styled.section`
   width: calc(100% - 180px);
   padding: 5px;
   box-sizing: border-box;
-`
+`;
 
 export default Wiki;
