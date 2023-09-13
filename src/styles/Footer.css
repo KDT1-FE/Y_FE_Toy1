@@ -1,0 +1,16 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+
+  width: 100%;
+
+  background-color: #fff;
+}
+
+.copyright {
+  margin: 20px 0;
+
+  color: rgb(255, 55, 115);
+
+  text-align: center;
+}
