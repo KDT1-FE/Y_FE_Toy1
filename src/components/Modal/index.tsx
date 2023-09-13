@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import commuteLogo from '../../assets/icons/commuteLogo.svg';
 import closeButton from '../../assets/icons/closeButton.svg';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 
 function Modal() {
@@ -18,11 +18,16 @@ function Modal() {
         Commute
         <img src={commuteLogo}></img>
       </CommuteMenu>
-      <CustomModal
+      <ReactModal
         isOpen={showModal}
-        ariaHideApp={false}
-        className="modal"
-        overlayClassName="overlay"
+        className="_"
+        overlayClassName="_"
+        contentElement={(props, children) => (
+          <ModalStyle {...props}>{children}</ModalStyle>
+        )}
+        overlayElement={(props, contentElement) => (
+          <OverlayStyle {...props}>{contentElement}</OverlayStyle>
+        )}
       >
         <TopContainer>
           <Title>
@@ -37,7 +42,7 @@ function Modal() {
             <Button>출근</Button>
           </BottomContainer>
         </MainContainer>
-      </CustomModal>
+      </ReactModal>
     </>
   );
 }
@@ -65,23 +70,27 @@ const CommuteMenu = styled(Menu)`
     border-bottom: none;
   }
 `;
-const CustomModal = styled(ReactModal)`
-  &.modal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 34.25rem;
-    height: 27.5rem;
-    background-color: #fff;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-    padding-top: 1.4375rem;
-    padding-bottom: 5.6rem;
-    box-sizing: border-box;
-    border-radius: 0.375rem;
-  }
+
+const ModalStyle = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 34.25rem;
+  height: 27.5rem;
+  background-color: #fff;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  padding-top: 1.4375rem;
+  padding-bottom: 5.6rem;
+  box-sizing: border-box;
+  border-radius: 0.375rem;
 `;
 
+const OverlayStyle = styled.div`
+  position: fixed;
+  inset: 0px;
+  background-color: rgba(0, 0, 0, 0.45);
+`;
 const TopContainer = styled.section`
   display: flex;
   justify-content: space-between;
