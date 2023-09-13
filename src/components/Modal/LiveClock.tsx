@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import useInterval from 'hooks/useInterval';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 function LiveClock() {
@@ -6,13 +7,10 @@ function LiveClock() {
   const tick = () => {
     setDate(new Date());
   };
-  useEffect(() => {
-    const timeId = setInterval(() => tick(), 1000);
 
-    return () => {
-      clearInterval(timeId);
-    };
-  });
+  useInterval(() => {
+    tick();
+  }, 1000);
 
   return (
     <StyledTime>
