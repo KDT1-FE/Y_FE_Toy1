@@ -37,7 +37,7 @@ function NoticeWrite() {
       contents,
       createAt: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
     });
-
+    // eslint-disable-next-line no-alert
     alert('공지가 등록됐습니다.');
     setNoticeNumber((prev) => prev + 1);
     setPassword('');
