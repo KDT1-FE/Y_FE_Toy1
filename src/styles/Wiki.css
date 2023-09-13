@@ -1,20 +1,25 @@
 /* common */
 
 .WikiButton {
-  align-self: left;
-  border: none;
-  border-radius: 0.5rem;
+  align-self: flex-end;
+
+  width: 80px;
+
   padding: 0.4rem 1rem;
   margin: 0.5rem;
+
+  border: none;
+  border-radius: 0.5rem;
+
   color: white;
   font-weight: 500;
-  width: 80px;
-  align-self: flex-end;
+
   opacity: 0.8;
 }
 
 .WikiButton:hover {
   opacity: 1;
+
   transition: 0.5s all;
 }
 
@@ -22,6 +27,7 @@
 
 .WikiWrap {
   display: flex;
+
   width: 100%;
   min-height: 850px;
 }
@@ -29,43 +35,56 @@
 .WikiSidebar {
   display: flex;
   flex-direction: column;
-  background-color: #34576d;
+
   width: 250px;
+
   padding: 2rem 0;
+
+  background-color: #34576d;
+
   color: white;
 }
 
 .WikiCategory {
   padding: 1rem;
   margin: 0rem 0.5rem;
+
+  border-bottom: 1px solid white;
+
   font-size: 1.2rem;
   font-weight: 600;
-  border-bottom: 1px solid white;
 }
 
 .CategoryListWrapper {
   display: flex;
   flex-direction: column;
+
   align-items: flex-start;
+
   padding: 1.2rem 0rem;
 }
 
 a {
   padding: 0.6rem 1rem;
+
+  color: white;
+
   text-align: left;
   text-decoration: none;
+
   cursor: pointer;
-  color: white;
 }
 
 a:hover {
   font-weight: 600;
-  transform: scale(1.07);
+
   transition: all 0.3s;
+  transform: scale(1.07);
 }
 
 #main-content {
   height: 100%;
+
   padding: 1rem 3rem;
 }
 
@@ -73,14 +92,19 @@ a:hover {
 
 .WikiContentWrap {
   display: flex;
-  padding: 0.5rem;
+
   flex-direction: column;
+
   width: 80%;
+
+  padding: 0.5rem;
 }
 
 #ContentTitle {
   padding: 1.4rem;
+
   border-bottom: 2px solid #34576d;
+
   text-align: left;
 }
 
