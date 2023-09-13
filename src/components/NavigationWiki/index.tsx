@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import NavigationContainer from 'components/NavigationContainer';
+import { Container } from 'components/NavigationContainer';
 import { useNavigate } from 'react-router-dom';
 
 function NavigationWiki() {
@@ -42,7 +42,7 @@ function NavigationWiki() {
 
 
   return (
-    <NavigationContainer>
+    <Container>
       <CategoryContainer>        
         <CategoryUl>
           <h1>회사생활</h1>
@@ -57,7 +57,7 @@ function NavigationWiki() {
           {onBoardingList}
         </CategoryUl>
       </CategoryContainer>
-    </NavigationContainer>
+    </Container>
   )
 }
 
