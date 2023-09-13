@@ -1,21 +1,48 @@
-import React, { useState } from 'react';
-import { ProfileBox, ProfileContainer } from './style';
+import React, { useState, useEffect } from 'react';
+import { ProfileContainer } from './style';
+import { ref, listAll, getDownloadURL } from 'firebase/storage';
+import { storage } from '../../utils/firebase';
 
 const Profile: React.FC = () => {
-    const [userImg, setUserImg] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    const [userImgURLs, setUserImgURLs] = useState<string[]>([]);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const getUserImages = async () => {
+            try {
+                const userImgFolderRef = ref(storage, 'userImg');
+                const userImgRefs = await listAll(userImgFolderRef);
+
+                const urls = await Promise.all(
+                    userImgRefs.items.map(async (item) => {
+                        return getDownloadURL(item);
+                    }),
+                );
+
+                setUserImgURLs(urls);
+            } catch (error) {
+                console.error(error);
+                setError('Sorry! failed to load user image');
+            }
+        };
+        getUserImages();
+    }, []);
 
     return (
-        <ProfileContainer>
-            {userImg.map(function (a, i) {
-                return <ProfileBox key={i} src="https://img.icons8.com/color/96/karl-lagerfeld.png" alt="" />;
-            })}
-        </ProfileContainer>
+        <div>
+            {error ? (
+                <p>{error}</p>
+            ) : userImgURLs.length > 0 ? (
+                <ProfileContainer>
+                    {userImgURLs.map((url, index) => (
+                        <img key={index} src={url} alt={`User Image ${index}`} />
+                    ))}
+                </ProfileContainer>
+            ) : (
+                <p>loading...</p>
+            )}
+        </div>
     );
 };
 
 export default Profile;
-
-// Auth 임포트 해서 사용하기
-//
-// 유저의 UID 배열을 받아서 for문으로 render 한다.
-//
