@@ -3,6 +3,7 @@ import commuteLogo from '../../assets/icons/commuteLogo.svg';
 import closeButton from '../../assets/icons/closeButton.svg';
 import React, { useState } from 'react';
 import ReactModal from 'react-modal';
+import LiveClock from './LiveClock';
 
 function Modal() {
   const [showModal, setShowModal] = useState(false);
@@ -38,7 +39,7 @@ function Modal() {
           <CloseImg src={closeButton} onClick={handleCloseModal} />
         </TopContainer>
         <MainContainer>
-          <Time>14 : 05 : 16</Time>
+          <LiveClock></LiveClock>
           <BottomContainer>
             <StateText>출근 전</StateText>
             <Button>출근</Button>
@@ -66,6 +67,7 @@ const CommuteMenu = styled.div`
     background-color: #edf2f7;
     border-bottom: none;
   }
+  cursor: pointer;
 `;
 
 const ModalStyle = styled.div`
@@ -84,6 +86,7 @@ const ModalStyle = styled.div`
 
   border-radius: 0.375rem;
   border: none;
+  outline: none;
 `;
 
 const OverlayStyle = styled.div`
@@ -101,7 +104,10 @@ const TopContainer = styled.section`
 const Title = styled.div`
   font-size: 2rem;
   font-weight: 600;
+
   align-self: flex-end;
+
+  cursor: default;
 `;
 const CloseImg = styled.img`
   width: 1.25rem;
@@ -121,11 +127,9 @@ const MainContainer = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  cursor: default;
 `;
-const Time = styled.div`
-  font-size: 4.3rem;
-  font-weight: 600;
-`;
+
 const BottomContainer = styled.section`
   display: flex;
   gap: 2.5rem;
