@@ -20,7 +20,7 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const querySnapshot = await handleGetDocs();
+                const querySnapshot = await handleGetDocs('wiki');
                 const data: { docId: string; docKeys: string[]; docData: DocumentData }[] = [];
 
                 querySnapshot.forEach((doc) => {

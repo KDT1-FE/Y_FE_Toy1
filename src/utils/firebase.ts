@@ -25,14 +25,17 @@ const app = initializeApp(firebaseConfig);
 // export const storage: Storage = getStorage(app);
 export const firestore: Firestore = getFirestore(app);
 
-export const handleGetDocs = async () => {
-    const collectionRef = collection(firestore, 'wiki');
+export const handleGetDocs = async (collectionName: string) => {
+    const collectionRef = collection(firestore, collectionName);
     try {
         const querySnapshot = await getDocs(collectionRef);
+        querySnapshot.forEach((doc) => {
+            console.log('Document ID:', doc.id);
+            console.log('Document data:', doc.data());
+        });
         return querySnapshot;
     } catch (error) {
         console.error('Error fetching documents:', error);
         throw error;
     }
 };
-handleGetDocs();
