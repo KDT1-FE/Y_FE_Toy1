@@ -4,11 +4,11 @@ import "../../styles/Wiki.css";
 function TextEditor() {
   const [text, setText] = useState("");
 
-  const onChange = (e: any) => {
+  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
   };
 
-  const onSubmit = (e: any) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
   };
 
