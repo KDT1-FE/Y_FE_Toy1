@@ -1,7 +1,8 @@
 import React from "react";
+import EditorBox from "./EditorBox";
 
 const AttRecognition = () => {
-  return <div>AttRecognition</div>;
+  return <div>{/* <EditorBox /> */}</div>;
 };
 
 export default AttRecognition;
