@@ -1,9 +1,8 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import './App.css';
-import { Layout, Home, About, Dashboard, NoMatch } from "./pages/TestPage/Test"
-
-
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import "./App.css";
+import { Layout, Home, About, Dashboard, NoMatch } from "./pages/TestPage/Test";
+import { Project } from "./pages/ProjectPage/ProjectDetail";
 
 function App() {
   return (
@@ -21,6 +20,7 @@ function App() {
                 routes for. */}
             <Route path="*" element={<NoMatch />} />
           </Route>
+          <Route path="/update" element={<Project />} />
         </Routes>
       </div>
     </div>
