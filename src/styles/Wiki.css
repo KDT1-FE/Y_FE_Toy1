@@ -64,7 +64,7 @@
   padding: 1.2rem 0rem;
 }
 
-a {
+.CategoryListWrapper > a {
   padding: 0.6rem 1rem;
 
   color: white;
@@ -75,7 +75,7 @@ a {
   cursor: pointer;
 }
 
-a:hover {
+.CategoryListWrapper > a:hover {
   font-weight: 600;
 
   transition: all 0.3s;
