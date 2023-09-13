@@ -1,6 +1,7 @@
 .Main {
-  background-color: rgba(255, 55, 115, 0.8);
   padding: 18px 50px;
+
+  background-color: rgba(255, 55, 115, 0.8);
 }
 
 .HeaderMain {
@@ -10,73 +11,98 @@
 
 .Logo {
   display: flex;
+
   align-items: center;
 }
 
 .List {
   display: flex;
+
   align-items: center;
 }
 
 .SubListMain {
-  text-decoration: none;
   color: #fff;
+
   font-weight: bold;
+
+  text-decoration: none;
 }
 
 .SubList {
-  text-decoration: none;
-  color: #fff;
   margin: 0 24px;
-  font-weight: bold;
+
+  color: #fff;
+
   font-size: 20px;
+  font-weight: bold;
+
+  text-decoration: none;
 }
 
 .NavbarWrap {
   display: flex;
+
   align-items: center;
 }
 
 .Timer {
-  position: relative;
-  font-size: 16px;
-  text-transform: uppercase;
-  text-decoration: none;
-  padding: 1em 2.5em;
   display: inline-block;
-  border-radius: 6em;
-  transition: all 0.2s;
+
+  position: relative;
+
+  padding: 1em 2.5em;
+  margin: 0 10px;
+
   border: none;
+  border-radius: 6em;
+
+  background-color: white;
+
+  color: black;
+
+  font-size: 16px;
   font-family: inherit;
   font-weight: bold;
-  color: black;
-  background-color: white;
-  margin: 0 10px;
+
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.2s;
 }
 
 .Timer:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   color: rgba(255, 55, 115, 0.8);
+
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+
   cursor: pointer;
+
+  transform: translateY(-3px);
 }
 
 .Timer:active {
-  transform: translateY(-1px);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+
+  transform: translateY(-1px);
 }
 
 .Timer::after {
-  content: "";
   display: inline-block;
-  height: 100%;
-  width: 100%;
-  border-radius: 100px;
+
   position: absolute;
   top: 0;
   left: 0;
-  z-index: -1;
+
+  width: 100%;
+  height: 100%;
+
+  border-radius: 100px;
+
+  content: "";
+
   transition: all 0.4s;
+
+  z-index: -1;
 }
 
 .Timer::after {
@@ -84,19 +110,24 @@
 }
 
 .Timer:hover::after {
-  transform: scaleX(1.4) scaleY(1.6);
   opacity: 0;
+
+  transform: scaleX(1.4) scaleY(1.6);
 }
 
 .SubList:hover,
 .SubListMain:hover {
   color: black;
+
   cursor: pointer;
 }
 
 #clock {
-  color: #fff;
-  font-size: 16px;
   width: 130px;
+
+  color: #fff;
+
+  font-size: 16px;
+
   text-align: center;
 }
