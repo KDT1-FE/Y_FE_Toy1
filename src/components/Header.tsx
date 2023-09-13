@@ -22,13 +22,11 @@ const Header = () => {
               <Link to={`/${link}`}> {pageName[idx]} </Link>
             </li>
           ))}
-          <button onClick={openModal}>모달열기</button>
         </ul>
       </Container>
 
       {isModalActive && (
         <Modal
-          // modal={isModalActive}
           setModal={setIsModalActive}
           width="400"
           height="200"
