@@ -38,6 +38,7 @@ export const Password = styled.input`
   border: 2px solid #484aad;
   border-radius: 10px;
   padding: 10px;
+  outline: none;
 `;
 
 export const Subject = styled.input`
@@ -48,6 +49,7 @@ export const Subject = styled.input`
   border: 2px solid #484aad;
   border-radius: 10px;
   padding: 10px;
+  outline: none;
 `;
 
 export const Contents = styled.textarea`
@@ -56,6 +58,7 @@ export const Contents = styled.textarea`
   border: 2px solid #484aad;
   border-radius: 10px;
   padding: 10px;
+  outline: none;
 `;
 
 export const ImageWrapper = styled.div`
@@ -73,6 +76,7 @@ export const ImageName = styled.input`
   border: 2px solid #484aad;
   border-radius: 10px;
   padding: 10px;
+  outline: none;
 `;
 
 export const ImageLabel = styled.label`
@@ -109,6 +113,7 @@ export const SubmitBtn = styled.button`
   font-weight: 700;
   font-size: 1.5rem;
   color: #ffffff;
+  cursor: pointer;
 `;
 
 export const CancelBtn = styled.button`
@@ -121,4 +126,5 @@ export const CancelBtn = styled.button`
   font-weight: 700;
   font-size: 1.5rem;
   color: #ffffff;
+  cursor: pointer;
 `;
