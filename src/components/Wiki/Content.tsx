@@ -13,7 +13,13 @@ function Content() {
     console.log(editTrue);
   };
 
-  const isIdExist = () => {
+  /**
+   * 메인컨텐츠 렌더링 시 초기 세팅 함수
+   * - 수정창 닫은 상태로 렌더링
+   * - wiki 메인페이지의 경우 첫번째 리스트 렌더링
+   */
+  const initialSet = () => {
+    setEditTrue(false);
     if (id) {
       setText(id);
     } else {
@@ -22,8 +28,7 @@ function Content() {
   };
 
   useEffect(() => {
-    isIdExist();
-    console.log(text);
+    initialSet();
   }, [id]);
 
   return (
