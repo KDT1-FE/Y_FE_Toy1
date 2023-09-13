@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { collection, getDocs } from 'firebase/firestore';
+import { Link, useNavigate } from 'react-router-dom';
+import { DocumentData, collection, getDocs } from 'firebase/firestore';
 import * as S from '../../styled/NoticePage/NoticeList.styles';
 import { db } from '../../firebaseSDK';
-
-interface NoticeData {
-  noticeNumber: string;
-  subject: string;
-  createAt: string;
-}
+import { INoticeListProps } from '../../types/NoticePage/NoticeList.types';
 
 function NoticeList() {
-  const [noticeList, setNoticeList] = useState<NoticeData[]>([]);
+  const [noticeList, setNoticeList] = useState<INoticeListProps[]>([]);
+  const navigate = useNavigate();
 
   // 공지사항 전체 가져오기
   const FetchNoticeData = async (): Promise<void> => {
     const querySnapshot: any = await getDocs(collection(db, 'notice'));
-    const data: NoticeData[] = querySnapshot.docs.map((doc: any) => doc.data());
+    const data = querySnapshot.docs.map((doc: DocumentData) => doc.data());
     setNoticeList(data);
   };
 
@@ -37,8 +33,8 @@ function NoticeList() {
         <S.ColumnHeaderSubject>제목</S.ColumnHeaderSubject>
         <S.ColumnHeaderBasic>날짜</S.ColumnHeaderBasic>
       </S.HeaderRow>
-      {noticeList.map((notice) => (
-        <S.Row key={notice.noticeNumber}>
+      {noticeList.map((notice: INoticeListProps) => (
+        <S.Row key={notice.noticeNumber} onClick={() => navigate(`/notice/${notice.noticeNumber}`)}>
           <S.ColumnHeaderBasic>{notice.noticeNumber}</S.ColumnHeaderBasic>
           <S.ColumnHeaderSubject>{notice.subject}</S.ColumnHeaderSubject>
           <S.ColumnHeaderBasic>{notice.createAt}</S.ColumnHeaderBasic>
