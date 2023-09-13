@@ -19,7 +19,8 @@ const GlobalStyle = createGlobalStyle`
   button,
   img,
   a {
-      all: unset;
+      color:black;
+      text-decoration: none;
       cursor: pointer;
   }
 `;

@@ -3,7 +3,6 @@ import Main from 'pages/Main';
 import { ROUTES } from 'constants/routes';
 import Gallery from 'pages/Gallery';
 import Wiki from 'pages/Wiki';
-import { ROUTES } from 'constants/routes';
 import Header from 'components/Header';
 
 function App() {
@@ -13,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path={ROUTES.GALLERY} element={<Gallery />} />
+        <Route path={ROUTES.WIKI} element={<Wiki />} />
       </Routes>
     </Router>
   );
