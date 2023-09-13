@@ -16,10 +16,16 @@ function TextEditor() {
   };
 
   return (
-    <div className="TextEditorContainer">
-      <form onSubmit={onSubmit}>
+    <div className="TextEditorWrap">
+      <form id="editor-form" onSubmit={onSubmit}>
         <textarea onChange={onChange} value={text} />
-        <button type="submit">submit</button>
+        <button
+          className="WikiButton"
+          type="submit"
+          style={{backgroundColor: "#5086ED"}}
+        >
+          submit
+        </button>
       </form>
       <p>{text}</p>
     </div>
