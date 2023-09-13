@@ -27,7 +27,6 @@ function TextEditor() {
           submit
         </button>
       </form>
-      <p>{text}</p>
     </div>
   );
 }
