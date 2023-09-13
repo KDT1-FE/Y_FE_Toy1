@@ -3,7 +3,9 @@ import styled from 'styled-components';
 
 function LiveClock() {
   const [date, setDate] = useState(new Date());
-
+  const tick = () => {
+    setDate(new Date());
+  };
   useEffect(() => {
     const timeId = setInterval(() => tick(), 1000);
 
@@ -12,9 +14,6 @@ function LiveClock() {
     };
   });
 
-  const tick = () => {
-    setDate(new Date());
-  };
   return (
     <StyledTime>
       {date.getHours()} : {date.getMinutes()} : {date.getSeconds()}
