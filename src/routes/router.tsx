@@ -2,7 +2,9 @@ import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import Home from '../pages/Home';
 import Wiki from '../pages/Wiki';
-import Gallery from '../pages/Gallery';
+import Gallery from '../pages/Gallery/Gallery';
+import Member from '../pages/Gallery/Member';
+import Project from '../pages/Gallery/Project';
 
 export const router = createBrowserRouter([
   {
@@ -24,15 +26,15 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <div>Gallery</div>,
+            element: <Member />,
           },
           {
-            path: 'profile',
-            element: <div>Profile</div>,
+            path: 'members',
+            element: <Member />,
           },
           {
-            path: 'achievement',
-            element: <div>Achievement</div>,
+            path: 'projects',
+            element: <Project />,
           },
         ],
       },

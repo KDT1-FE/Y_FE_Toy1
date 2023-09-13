@@ -39,25 +39,12 @@ export const allCategories: CategoriesType[] = [
         title: '사진첩',
         subCategories: [
           {
-            link: 'profile',
-            text: '프로필 사진',
+            link: 'members',
+            text: '멤버 소개',
           },
           {
-            link: 'achievement',
-            text: '성취',
-          },
-        ],
-      },
-      {
-        title: '사진첩',
-        subCategories: [
-          {
-            link: 'profile',
-            text: '프로필 사진',
-          },
-          {
-            link: 'achievement',
-            text: '성취',
+            link: 'projects',
+            text: '프로젝트',
           },
         ],
       },
