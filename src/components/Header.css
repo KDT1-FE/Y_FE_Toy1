@@ -1,6 +1,6 @@
-.header__link-wrapper{
-  display:flex;
+.header__link_wrapper {
+  display: flex;
   justify-content: flex-end;
   margin-right: 3rem;
-  gap: 20px; 
+  gap: 20px;
 }
