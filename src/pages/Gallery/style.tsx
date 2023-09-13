@@ -1,7 +1,14 @@
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
-export const GalleryContainer = styled.div`
-    margin-top: 72px;
+export const ProfileContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+`;
 
-    text-align: center;
+export const ProfileBox = styled.img`
+    box-sizing: border-box;
+    width: 30%;
+    height: 30%;
 `;
