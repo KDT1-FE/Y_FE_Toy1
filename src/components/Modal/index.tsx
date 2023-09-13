@@ -1,12 +1,41 @@
 import styled from 'styled-components';
 import commuteLogo from '../../assets/icons/commuteLogo.svg';
 import closeButton from '../../assets/icons/closeButton.svg';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactModal from 'react-modal';
 import LiveClock from './LiveClock';
 
 function Modal() {
   const [showModal, setShowModal] = useState(false);
+  const [workSecond, setWorkSecond] = useState(-1);
+  const [workMinute, setWorkMinute] = useState(1);
+  const [workHour, setWorkHour] = useState(1);
+
+  const interval = useRef(1000);
+
+  const startTimer = () => {
+    if (workSecond < 60) {
+      if (workSecond === 59) interval.current = 60000;
+      setWorkSecond(workSecond + 1);
+      return;
+    }
+    if (workMinute === 59) {
+      setWorkHour(workHour + 1);
+      setWorkMinute(0);
+
+      return;
+    }
+    setWorkMinute(workMinute + 1);
+  };
+
+  useEffect(() => {
+    if (workSecond === -1) return;
+    const timeId = setInterval(() => startTimer(), interval.current);
+
+    return () => {
+      clearInterval(timeId);
+    };
+  });
 
   const handleOpenModal = () => {
     setShowModal(true);
@@ -41,8 +70,18 @@ function Modal() {
         <MainContainer>
           <LiveClock></LiveClock>
           <BottomContainer>
-            <StateText>출근 전</StateText>
-            <Button>출근</Button>
+            <StateText>
+              {workSecond > 59
+                ? `${workMinute}분 동안 업무 중`
+                : `${workSecond}초 동안 업무 중`}
+            </StateText>
+            <Button
+              onClick={() => {
+                setWorkSecond(0);
+              }}
+            >
+              출근
+            </Button>
           </BottomContainer>
         </MainContainer>
       </ReactModal>
