@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Main from 'pages/Main';
 import { ROUTES } from 'constants/routes';
-import Gallery from 'components/Gallery';
+import Gallery from 'pages/Gallery';
 import Header from 'components/Header';
 
 function App() {
