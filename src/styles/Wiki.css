@@ -1,62 +1,102 @@
-#container {
-  display: flex;
-  background-color: red;
-  width: 100%;
-  min-height: 1000px;
+/* common */
+
+.WikiButton {
+  align-self: left;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.4rem 1rem;
+  margin: 0.5rem;
+  color: white;
+  font-weight: 500;
+  width: 80px;
+  align-self: flex-end;
+  opacity: 0.8;
 }
 
-#sidebar {
+.WikiButton:hover {
+  opacity: 1;
+  transition: 0.5s all;
+}
+
+/* src/pages/Wiki.tsx */
+
+.WikiWrap {
+  display: flex;
+  width: 100%;
+  min-height: 850px;
+}
+
+.WikiSidebar {
   display: flex;
   flex-direction: column;
-  background-color: white;
-  width: 20%;
-  padding: 3rem 0;
+  background-color: #34576d;
+  width: 250px;
+  padding: 2rem 0;
+  color: white;
 }
 
-.label {
-  padding: 0.5rem;
+.WikiCategory {
+  padding: 1rem;
+  margin: 0rem 0.5rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  cursor: pointer;
+  border-bottom: 1px solid white;
 }
 
-.sidebar_sub-container {
+.CategoryListWrapper {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0.5rem;
-  background-color: lightgray;
+  padding: 1.2rem 0rem;
 }
 
 a {
-  padding: 0.3rem;
+  padding: 0.6rem 1rem;
+  text-align: left;
   text-decoration: none;
   cursor: pointer;
-  color: black;
+  color: white;
 }
 
 a:hover {
-  color: green;
-}
-
-button {
-  color: red;
+  font-weight: 600;
+  transform: scale(1.07);
+  transition: all 0.3s;
 }
 
 #main-content {
   height: 100%;
-  padding: 5rem;
-  background-color: aqua;
+  padding: 1rem 3rem;
 }
 
-/* Component/Wiki/TextEditor */
+/* src/component/Wiki/Content */
 
-.TextEditorContainer {
+.WikiContentWrap {
+  display: flex;
+  padding: 0.5rem;
+  flex-direction: column;
+  width: 80%;
+}
+
+#ContentTitle {
+  padding: 1.4rem;
+  border-bottom: 2px solid #34576d;
+  text-align: left;
+}
+
+/* src/component/Wiki/TextEditor */
+
+.TextEditorWrap {
   display: flex;
   flex-direction: column;
 }
 
-#TextArea {
-  color: red;
-  height: 10rem;
-  line-height: 10rem;
+#editor-form {
+  display: flex;
+  flex-direction: column;
+}
+
+textarea {
+  width: 100%;
+  height: 450px;
 }
