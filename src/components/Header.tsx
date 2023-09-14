@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { BsCalendar4Event } from 'react-icons/bs';
 import { CiSearch } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
+import { UserProvider } from '../common/UserContext';
+import UserResult from './userProfile';
 
 const Header = () => {
   return (
@@ -29,9 +31,9 @@ const Header = () => {
           </div>
 
           <div className="icon">
-            <button aria-haspopup="true">
-              <div className="profile"></div>
-            </button>
+            <UserProvider>
+              <UserResult />
+            </UserProvider>
           </div>
         </div>
       </Navbar>
@@ -96,14 +98,6 @@ const Navbar = styled.nav`
       &:hover {
         opacity: 1;
       }
-    }
-
-    .profile {
-      width: 1.8rem;
-      height: 1.8rem;
-      border-radius: 50%;
-      border: 1px solid ${({ theme }) => theme.colors.black};
-      background-color: ${({ theme }) => theme.colors.border};
     }
   }
 `;

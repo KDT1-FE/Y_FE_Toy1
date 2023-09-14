@@ -5,6 +5,8 @@ import Gallery from '../pages/Gallery';
 import Wiki from '../pages/wiki/Wiki';
 import Info from '../pages/wiki/Info';
 import Team from '../pages/wiki/Team';
+import Login from '../pages/Login';
+import Join from '../pages/Join';
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +51,24 @@ export const router = createBrowserRouter([
           {
             path: 'achievement',
             element: <div>Achievement</div>,
+          },
+        ],
+      },
+      {
+        path: 'login',
+        element: <Login />,
+        children: [
+          {
+            index: true,
+          },
+        ],
+      },
+      {
+        path: 'join',
+        element: <Join />,
+        children: [
+          {
+            index: true,
           },
         ],
       },
