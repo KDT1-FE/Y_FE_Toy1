@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useRecoilValue } from "recoil";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, Route, useNavigate } from "react-router-dom";
 
 import userState from "../recoil/atoms/userState";
+import Main from "../pages/MainPage/Main";
 
 function PublicRoute() {
   const navigate = useNavigate()
@@ -14,9 +15,7 @@ function PublicRoute() {
     }
   }, [])
 
-  return (
-    <Outlet />
-  )
+  return user.isLogin === true ? <Route path='/' element={<Main />} /> : <Outlet />
 }
 
 export default PublicRoute
