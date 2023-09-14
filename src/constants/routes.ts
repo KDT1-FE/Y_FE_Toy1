@@ -1,5 +1,5 @@
 export const ROUTES = {
   WIKI: '/wiki',
-  WIKICREATE: 'wiki/create',
+  WIKICREATE: '/create',
   GALLERY: '/gallery',
 };
