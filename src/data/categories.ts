@@ -36,15 +36,32 @@ export const allCategories: CategoriesType[] = [
     path: '/gallery',
     categories: [
       {
-        title: '사진첩',
+        title: '멤버',
         subCategories: [
           {
             link: 'members',
             text: '멤버 소개',
           },
+        ],
+      },
+      {
+        title: '프로젝트',
+        subCategories: [
           {
-            link: 'projects',
-            text: '프로젝트',
+            link: 'projects/ongoing',
+            text: '진행 중인 프로젝트',
+          },
+          {
+            link: 'projects/scheduled',
+            text: '예정된 프로젝트',
+          },
+          {
+            link: 'projects/completed',
+            text: '종료된 프로젝트',
+          },
+          {
+            link: 'projects/add',
+            text: '프로젝트 추가',
           },
         ],
       },
