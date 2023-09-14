@@ -4,7 +4,7 @@ import { ChannelSidebar } from './style';
 
 import { handleGetDocs, deleteChannelDoc, DocumentData } from '../../utils/firebase';
 import { QuerySnapshot } from 'firebase/firestore';
-import CreateChannelModal from '../CreateChannelModal';
+import ChannelModal from '../ChannelModal';
 
 interface SidebarWikiProps {
     onKeyClick: (value: any) => void; // 클릭된 값의 핸들러 함수를 props로 받습니다.
@@ -15,6 +15,9 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
         [],
     );
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalType, setModalType] = useState('');
+    const [selectedChannelData, setSelectedChannelData] = useState<DocumentData>({});
+    const [selectedChannelId, setSelectedChannelId] = useState('');
 
     useEffect(() => {
         const updatedQuerySnapshot = handleGetDocs('wiki', (querySnapshot: QuerySnapshot<DocumentData>) => {
@@ -55,6 +58,16 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
                         <div style={{ display: 'flex' }}>
                             <div style={{ fontSize: '20px', fontWeight: 'bold' }}># {item.docId}</div>
                             <button onClick={() => deleteChannelDoc('wiki', item.docId)}>채널삭제</button>
+                            <button
+                                onClick={() => {
+                                    setModalType('Update');
+                                    setSelectedChannelData(item.docData);
+                                    setSelectedChannelId(item.docId);
+                                    openModal();
+                                }}
+                            >
+                                채널수정
+                            </button>
                         </div>
 
                         <div>
@@ -66,12 +79,25 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
                         </div>
                     </div>
                 ))}
-                <div style={{ fontSize: '20px', fontWeight: 'bold' }} onClick={openModal}>
+                <div
+                    style={{ fontSize: '20px', fontWeight: 'bold' }}
+                    onClick={() => {
+                        setModalType('Create');
+                        openModal();
+                    }}
+                >
                     + 채널 추가
                 </div>
             </ChannelSidebar>
             {isModalOpen && (
-                <CreateChannelModal isOpen={isModalOpen} closeModal={closeModal} collectionName={collectionName} />
+                <ChannelModal
+                    isOpen={isModalOpen}
+                    closeModal={closeModal}
+                    collectionName={collectionName}
+                    modalType={modalType}
+                    channelData={selectedChannelData}
+                    channelId={selectedChannelId}
+                />
             )}
         </>
     );
