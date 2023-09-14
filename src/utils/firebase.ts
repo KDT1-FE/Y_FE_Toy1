@@ -3,12 +3,8 @@ import { initializeApp } from 'firebase/app';
 
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
+import { getAuth } from 'firebase/auth';
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
     apiKey: 'AIzaSyDdTBAy3IzoA_tx-3xM8D59o4S1nZzEax4',
     authDomain: 'wiki-for-fastcampus.firebaseapp.com',
@@ -24,3 +20,5 @@ const app = initializeApp(firebaseConfig);
 
 export const firestore = getFirestore(app);
 export const storage = getStorage(app);
+
+export const auth = getAuth();
