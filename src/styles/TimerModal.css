@@ -1,0 +1,12 @@
+.TimerModalContent {
+  position: relative;
+  z-index: 1001;
+
+  width: 500px;
+  height: 300px;
+
+  padding: 20px;
+
+  background-color: white;
+  border-radius: 8px;
+}
