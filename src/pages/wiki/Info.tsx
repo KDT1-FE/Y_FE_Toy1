@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import { useState, useEffect } from 'react';
-import ReactMarkdown from 'react-markdown';
-import { useUser } from '../../common/UserContext';
-import { Console } from 'console';
-=======
 import { useState, useEffect, useRef } from 'react';
 import { Editor, Viewer } from '@toast-ui/react-editor';
 import { db } from '../../common/config';
@@ -29,20 +23,14 @@ const StyledButton = styled.button`
   font-size: 14px;
   cursor: pointer;
 `;
->>>>>>> bf6dccc13335c94dcffd13493a53e9bc2cd38915
 
 const Info = () => {
   const [title, setTitle] = useState<string>('');
   const [markdown, setMarkdown] = useState<string>('');
   const editorRef = useRef<Editor | null>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
-<<<<<<< HEAD
-  const { user } = useUser();
-=======
   const [lastEdited, setLastEdited] = useState<null | Date>(null);
->>>>>>> bf6dccc13335c94dcffd13493a53e9bc2cd38915
 
-  console.log(user);
   useEffect(() => {
     const fetchData = async () => {
       try {
