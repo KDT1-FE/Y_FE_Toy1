@@ -1,4 +1,6 @@
 import React from "react";
+import "../../styles/Modal.css";
+import "../../styles/TimerModal.css";
 
 interface TimerModalProps {
   onClose: () => void;
@@ -7,7 +9,7 @@ interface TimerModalProps {
 export default function TimerModal({onClose}: TimerModalProps) {
   return (
     <div className="ModalBackdrop">
-      <div className="ModalContent">
+      <div className="TimerModalContent">
         <button type="button" className="CloseButton" onClick={onClose}>
           Close
         </button>

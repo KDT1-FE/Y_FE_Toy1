@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/TimerModal.css";
+import "../../styles/Modal.css";
 
 interface ModalType {
   children: React.ReactNode;
