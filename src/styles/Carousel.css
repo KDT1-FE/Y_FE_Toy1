@@ -1,8 +1,9 @@
 .slideshow {
   text-align: center;
+  margin: 50px 0;
 }
 
 .slideshow img {
-  width: 60%;
-  height: 76vh;
+  width: 72%;
+  height: 72vh;
 }
