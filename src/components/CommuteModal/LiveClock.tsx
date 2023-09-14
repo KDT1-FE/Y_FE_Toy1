@@ -20,6 +20,8 @@ function LiveClock() {
 const StyledTime = styled.div`
   font-size: 4.3rem;
   font-weight: 600;
+
+  padding: 0 0.5rem;
 `;
 
 export default LiveClock;
