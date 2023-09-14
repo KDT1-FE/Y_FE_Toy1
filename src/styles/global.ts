@@ -23,6 +23,10 @@ const GlobalStyle = createGlobalStyle`
       text-decoration: none;
       cursor: pointer;
   }
+  button{
+    background-color:#fff;
+    border:none;
+  }
 `;
 
 export default GlobalStyle;
