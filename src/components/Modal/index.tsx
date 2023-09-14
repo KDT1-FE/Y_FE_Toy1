@@ -13,7 +13,7 @@ function Modal() {
   const [workTime, setWorkTime] = useState(WORK_TIME_INITIAL_VALUE);
   const [isRunning, setIsRunning] = useState(false);
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  const [isFinishing, setisFinishing] = useState(false);
+  const [isFinishing, setIsFinishing] = useState(false);
 
   useInterval(
     () => {
@@ -21,6 +21,14 @@ function Modal() {
     },
     isRunning ? INTERVAL : null,
   );
+
+  const handleWorkState = () => {
+    if (isRunning) {
+      setIsFinishing(true);
+      setWorkTime(WORK_TIME_INITIAL_VALUE);
+    }
+    setIsRunning(!isRunning);
+  };
 
   return (
     <>
@@ -62,15 +70,7 @@ function Modal() {
             <StyledStateText>
               {isRunning ? timeFormat(workTime) : '출근 전'}
             </StyledStateText>
-            <StyledButton
-              onClick={() => {
-                if (isRunning) {
-                  setisFinishing(true);
-                  setWorkTime(WORK_TIME_INITIAL_VALUE);
-                }
-                setIsRunning(!isRunning);
-              }}
-            >
+            <StyledButton onClick={handleWorkState}>
               {isRunning ? '퇴근' : '출근'}
             </StyledButton>
           </BottomContainer>
