@@ -1,31 +1,29 @@
 import styled from '@emotion/styled';
 
-export const HomeContainer = styled.div`
-    z-index: 1;
-    background-color: white;
-`;
+export const HomeContainer = styled.div``;
 
 export const AboutContainer = styled.div`
-    width: 100vw;
     height: 100vh;
 
     position: relative;
+
+    padding-top: 72px;
 `;
 
 export const AboutImg = styled.img`
     width: 35vw;
 
     position: absolute;
-    right: 3rem;
-    top: 10rem;
+    right: 3.5rem;
+    top: 12rem;
 `;
 
 export const AboutWrapper = styled.div`
     position: relative;
     z-index: 2;
 
-    margin-top: 10rem;
-    margin-left: 4rem;
+    margin-top: 12rem;
+    margin-left: 4.5rem;
 `;
 
 export const AboutUs = styled.p`
@@ -46,4 +44,10 @@ export const AboutSubTitle = styled.h2`
 export const AboutContent = styled.p`
     margin-top: 1rem;
     font-size: 1.5rem;
+`;
+
+export const leftIcon = styled.div`
+    background-color: blue;
+    width: 50px;
+    height: 50px;
 `;

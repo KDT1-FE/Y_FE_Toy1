@@ -3,9 +3,11 @@ export const HeaderComponent = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #350d36;
+    background-color: var(--navigation-background);
 
     position: fixed;
+    z-index: 2;
+
     top: 0;
     left: 0;
     height: 72px;
@@ -16,7 +18,7 @@ export const TitleAnchor = styled.a`
     margin-left: 30px;
     font-size: 32px;
     font-weight: bold;
-    color: #fff;
+    color: var(--text);
 `;
 
 export const AnchorContainer = styled.div`
@@ -31,11 +33,11 @@ export const ListAnchor = styled.a`
     margin-right: 20px;
     font-weight: 500;
     font-size: 24px;
-    color: #fff;
+    color: var(--text);
 `;
 
 export const ModalButton = styled.button`
-    background-color: blue;
+    background-color: var(--active-item);
     border: none;
     border-radius: 10px;
     margin-right: 30px;
@@ -43,7 +45,7 @@ export const ModalButton = styled.button`
     padding: 5px;
     font-weight: 500;
     font-size: 24px;
-    color: #fff;
+    color: var(--text);
 
     &:hover {
         background-color: skyblue;
