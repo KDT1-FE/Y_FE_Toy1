@@ -1,4 +1,4 @@
-import { log } from 'console';
+
 import * as React from 'react';
 import {readBoardData} from '../../data/wikiboard'
 import {useState,ReactNode} from 'react'
@@ -35,6 +35,18 @@ export function BoardContent ({boardState}:any) {
     else {return }
   }
   
+  const handledleClickButton = ()=>{
+    if (boardState == 'QA'){
+      navigate(`/wiki/question/new`)
+    }
+    else if (boardState == 'Free'){
+      navigate(`/wiki/free/new`)
+    }
+    else if (boardState == 'Best'){
+      navigate(`/wiki/best/new`)
+    }
+    else {return }
+  }
   
   React.useEffect(()=>{
     const data = readBoardData(boardState)
@@ -43,9 +55,10 @@ export function BoardContent ({boardState}:any) {
     })
   },[boardState])
 
-  console.log(boardState)
+
   return (
     <div>
+      <button onClick={handledleClickButton}>작성하기</button>
       {boardData.map((item,index)=>
       <article key={index} className="post" onClick={handleClickBoard}>
         <div className="post__info">

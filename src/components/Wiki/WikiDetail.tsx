@@ -4,8 +4,6 @@ import { BoardNav } from './BoardNav';
 import { BoardDetail } from './BoardDetail';
 
 export function WikiDetail (props: any) {
-    const params = useParams()
-    console.log(params)
   return (
     <>
     <BoardNav />

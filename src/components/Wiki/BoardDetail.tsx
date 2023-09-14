@@ -19,15 +19,11 @@ export function BoardDetail(props: any) {
     const [boardInfo,setBoardInfo] = useState<Board>(initialData)
     const itemData = readPostData(boardState,id)
     
-    console.log(params)
 
 
     React.useEffect(()=>{
         itemData.then((item:any)=>{setBoardInfo(item.data())})
     },[])
-
-    
-    console.log(boardInfo);
     
     
   return (

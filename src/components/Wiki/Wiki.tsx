@@ -2,7 +2,7 @@ import * as React from 'react';
 import { BoardNav } from './BoardNav';
 import { BoardContent } from './BoardContent';
 import {Provider,useSelector} from 'react-redux'
-import { log } from 'console';
+
 
 
 export function Wiki (props: any) {

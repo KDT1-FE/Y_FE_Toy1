@@ -10,6 +10,7 @@ import Root from 'pages/Root';
 import { SignUp } from 'pages/SignUp';
 import { Study } from 'pages/Study';
 import { WikiDetail } from 'components/Wiki/WikiDetail';
+import { PostAdd } from 'components/Wiki/PostAdd';
 
 function App() {
   const router = createBrowserRouter([
@@ -29,10 +30,17 @@ function App() {
       <Wiki/>,
     </Provider>
     
-    },{
+    },
+    {
       path : '/wiki/:boardState/:id',
       element : <Provider store={store}>
       <WikiDetail />,
+    </Provider>
+    },
+    {
+      path : '/wiki/:boardState/new',
+      element : <Provider store={store}>
+      <PostAdd />,
     </Provider>
     }
   ]);
