@@ -4,6 +4,7 @@ import './App.css';
 import { Layout, Home, About } from "./pages/TestPage/Test"
 import Wiki from './pages/WikiPage/Wiki';
 import WikiWrite from './pages/WikiPage/WikiWrite';
+import ItemContent from './pages/WikiPage/ItemContent';
 
 
 function App() {
@@ -21,7 +22,8 @@ function App() {
                 acts like a catch-all for URLs that we don't have explicit
                 routes for. */}
             <Route path="*" element={<WikiWrite />} />
-            <Route path="write" Component={WikiWrite }/>
+            <Route path="wiki/write" element={<WikiWrite /> }/>
+            <Route path="wiki/content" element={<ItemContent />}/>
           </Route>
         </Routes>
       </div>

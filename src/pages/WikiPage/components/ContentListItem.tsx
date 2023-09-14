@@ -1,29 +1,43 @@
 import React from 'react'
-import { ContentListItemContentContainer } from '../../../styled/wiki/Container';
+import { useNavigate } from 'react-router-dom';
+import { ContentListItemContentContainer, ItemContainer } from '../../../styled/wiki/Container';
 import { DeleteBtn, EditContentBtn } from '../../../styled/wiki/Button';
 import {CategoryText, TitleText} from '../../../styled/wiki/Text';
-/*
-import { useRecoilState } from 'recoil';
-import { wikiListState } from '../../../recoil/atoms/wiki/wikiListAtom';
-const [wikiList, setWikiList] = useRecoilState(wikiListState);
-const index : number | undefined = wikiList.findIndex((listItem) => listItem === item);
-*/
 
-export default function ContentListItem() {
+interface WikiListItem {
+    id : string,
+    category : string,
+    title: string,
+    content: string,
+    createdAt :string
+  };
+interface WikiItemProps {
+    item : WikiListItem;
+};
 
-  
+export default function ContentListItem({item} : WikiItemProps) {
+    const navigate = useNavigate();
+
+    const handleEditBtn = () => {
+        navigate(`/wiki/write?id=${item.id}`);
+
+    }
+    const handleItemClick = () => {
+        navigate(`/wiki/content?id=${item.id}`);
+
+    }
 
     return (
-    <>
+    <ItemContainer >
     <input type="checkbox"/>
-        <ContentListItemContentContainer>
-            <CategoryText>주요 기능</CategoryText>
-            <TitleText>편집은 어떻게 사용하나요?</TitleText>
-            <TitleText>작성일 : 2023-09-09</TitleText>
+        <ContentListItemContentContainer onClick={handleItemClick}>
+            <CategoryText>{item.category}</CategoryText>
+            <TitleText>{item.title}</TitleText>
+            <TitleText>작성일 : {item.createdAt}</TitleText>
         </ContentListItemContentContainer>
-        <EditContentBtn type='button'>수정</EditContentBtn>
+        <EditContentBtn type='button' onClick={handleEditBtn}>수정</EditContentBtn>
         <DeleteBtn type='button'>삭제</DeleteBtn>
-    </>
+    </ItemContainer>
     
   )
 }

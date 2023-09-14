@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
     margin : 0;
-    height : 100vh;
+    height : 800px;
 `;
 
 
@@ -15,7 +15,7 @@ export const RowContainer = styled.div`
     margin : 30px auto;
     padding : 0 30px;
     background-color : rgba(150, 160, 255, 0.2);
-    height : 100vh;
+    height : 750px;
 `;
 
 
@@ -24,7 +24,7 @@ export const ColumnContainer = styled.div`
     flex-direction : column;
     background-color : white;
     align-items : start;
-    margin-top : 20px;
+    margin : 20px 0;
 `;
 
 export const SearchContainer = styled(ColumnContainer)`
@@ -74,11 +74,20 @@ export const ContentListItemContainer = styled.div`
     border-radius : 15px;
     max-width : 800px;
     width : 100%;
-    margin : 10px 30px;
-    gap : 5px;
+    margin : 10px 30px 30px 30px;
+    gap : 10px;
+    flex-direction :column;
+    height : 500px;
+    overflow-y :auto;
     
 
 `;
+export const ItemContainer = styled.div`
+    display: flex;
+    gap : 10px;
+`;
+
+
 export const ContentListItemContentContainer = styled.div`
     flex-grow : 1;
     display : flex;
@@ -113,4 +122,15 @@ export const WikiWriteBtnContainer = styled.div`
     width : 700px;
     justify-content : space-between;
 
+`;
+
+export const WikiItemContainer = styled.div`
+    display : flex;
+    gap : 10px;
+    margin : 20px auto;
+    max-width : 700px;
+    padding : 0 20px;
+    flex-direction : column;
+    min-height : 500px;
+    align-items : start;
 `;

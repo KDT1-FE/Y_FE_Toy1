@@ -11,7 +11,7 @@ interface CategoryProps {
 
 export default function CategoryItem({ item }: CategoryProps) {
   const [editedItem, setEditedItem] = useState(item);
-  const [category, setCategory] = useRecoilState(categoryState); // Recoil 상태
+  const [category, setCategory] = useRecoilState(categoryState);
   const [categoryNames, setCategoryNames] = useRecoilState(categoryNameState);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
