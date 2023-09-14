@@ -1,6 +1,23 @@
-import React, { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { GalleryMainContainer, CategoryTitleSection, BreadCrumb } from './Project';
+
+// export const handleInputFileChangeAndSetState =
+//   <T extends any>(setState: Dispatch<SetStateAction<T>>, key: string) =>
+//   (e: ChangeEvent<HTMLInputElement>) => {
+//     const file = e.target.files && e.target.files[0];
+//     if (file) {
+//       const reader = new FileReader();
+//       reader.onload = (e) => {
+//         const newImageUrl = e.target?.result;
+//         setState((prevInfo) => ({
+//           ...(prevInfo as any),
+//           [key]: newImageUrl,
+//         }));
+//       };
+//       reader.readAsDataURL(file);
+//     }
+//   };
 
 const RegisterProject = () => {
   const [projectInfo, setProjectInfo] = useState({
