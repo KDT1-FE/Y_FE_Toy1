@@ -4,7 +4,12 @@ import closeButton from '../../assets/icons/closeButton.svg';
 import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import LiveClock from './LiveClock';
-import { INTERVAL, WORK_TIME_INITIAL_VALUE } from 'constants/time';
+import {
+  INTERVAL,
+  WORK_STATE_BUTTON,
+  WORK_STATE_TEXT,
+  WORK_TIME_INITIAL_VALUE,
+} from 'constants/time';
 import useInterval from 'hooks/useInterval';
 import { dayFormat, timeFormat } from 'utils/format';
 
@@ -28,6 +33,19 @@ function CommuteModal() {
     setIsRunning(false);
     setIsFinishing(false);
     setIsStopping(false);
+  };
+
+  const showWorkStateText = () => {
+    if (isFinishing) return null;
+    if (isRunning) return timeFormat(workTime);
+    if (isStopping) return WORK_STATE_TEXT.REST_TIME;
+    return WORK_STATE_TEXT.BEFORE_COMMUTE;
+  };
+  const showWorkStateButton = () => {
+    if (isFinishing) return WORK_STATE_BUTTON.OKAY;
+    if (isRunning) return WORK_STATE_BUTTON.FINISH;
+    if (isStopping) return WORK_STATE_BUTTON.RESTART;
+    return WORK_STATE_BUTTON.COMMUTE;
   };
 
   useInterval(
@@ -104,23 +122,9 @@ function CommuteModal() {
             )}
           </StyledMainContainer>
           <BottomContainer>
-            <StyledStateText>
-              {isFinishing
-                ? ''
-                : isRunning
-                ? timeFormat(workTime)
-                : isStopping
-                ? '휴게 시간'
-                : '출근 전'}
-            </StyledStateText>
+            <StyledStateText>{showWorkStateText()}</StyledStateText>
             <StyledButton onClick={handleWorkState}>
-              {isFinishing
-                ? 'Okay'
-                : isRunning
-                ? '퇴근'
-                : isStopping
-                ? '재시작'
-                : '출근'}
+              {showWorkStateButton()}
             </StyledButton>
           </BottomContainer>
         </StyledContainer>
