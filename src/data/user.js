@@ -1,4 +1,8 @@
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 import { getStorage, ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';
 import { app, db } from './firebase';
@@ -7,7 +11,7 @@ import { adjective, emoji, noun } from './nickname';
 const auth = getAuth(app);
 
 // 이메일로 회원가입
-export const createUser = async (user) => {
+export const createAuth = async (user) => {
   const { email, password } = user;
   await createUserWithEmailAndPassword(auth, email, password).then(
     (userCredential) => {
@@ -48,4 +52,14 @@ export const createNickname = async () => {
 
 const randomItemInArray = (array) => {
   return Math.floor(Math.random() * array.length);
+};
+
+// 로그인
+export const getLoginUserUid = async (email, password) => {
+  const userCredential = await signInWithEmailAndPassword(
+    auth,
+    email,
+    password,
+  );
+  return userCredential.user.uid;
 };
