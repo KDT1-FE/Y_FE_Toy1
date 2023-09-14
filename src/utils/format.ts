@@ -16,3 +16,16 @@ export const liveClockFormat = (date: Date) => {
   });
   return timeString.replace(/:/g, ' : ');
 };
+
+export const dayFormat = () => {
+  const date = new Date();
+  const dateString = date.toLocaleDateString('ko-KR', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  });
+
+  const day = date.toLocaleString('ko-KR', { weekday: 'short' });
+
+  return `${dateString} (${day})`;
+};

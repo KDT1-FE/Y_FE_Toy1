@@ -6,7 +6,7 @@ import ReactModal from 'react-modal';
 import LiveClock from './LiveClock';
 import { INTERVAL, WORK_TIME_INITIAL_VALUE } from 'constants/time';
 import useInterval from 'hooks/useInterval';
-import { timeFormat } from 'utils/format';
+import { dayFormat, timeFormat } from 'utils/format';
 
 function Modal() {
   const [showModal, setShowModal] = useState(false);
@@ -54,7 +54,7 @@ function Modal() {
       >
         <TopContainer>
           <Title>
-            출퇴근<StyledDate>2023.09.08(금)</StyledDate>
+            출퇴근<StyledDate>{dayFormat()}</StyledDate>
           </Title>
           <CloseImg
             src={closeButton}
