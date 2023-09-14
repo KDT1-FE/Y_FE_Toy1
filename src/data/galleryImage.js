@@ -3,19 +3,8 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { addDoc, getDocs, collection } from 'firebase/firestore';
 
 // 이미지 storage와 db에 업로드
-// export async function UploadImage(file) {
-//   const storageRef = ref(storage, 'Gallery/' + file.name);
 
-//   uploadBytes(storageRef, file).then((snapshot) => {
-//     getDownloadURL(snapshot.ref).then(async (url) => {
-//       await addDoc(collection(db, 'Gallery'), {
-//         imgUrl: url,
-//         timestamp: new Date(),
-//       });
-//     });
-
-//   });
-// }
+// 카테고리 선택해서 업로드 구현 예정
 
 export async function UploadImage(category, file) {
   let SwitchCollection = '';
@@ -55,7 +44,7 @@ export async function UploadImage(category, file) {
 }
 
 // 이미지 다운로드
-
+// 아직 카테고리 별 나누기 안했습니다!
 const querySnapshot = await getDocs(collection(db, 'Gallery'));
 const getDocsAsObjects = (querySnapshot) => {
   const rowImages = [];

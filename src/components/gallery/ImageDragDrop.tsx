@@ -29,13 +29,14 @@ export function ImageDragDrop() {
           // Revoke data uri after image is loaded
           onLoad={() => {
             URL.revokeObjectURL(file.preview);
-            UploadImage(file);
+            UploadImage(file); // 여기서 firebase에 업로드
           }}
         />
       </div>
     </div>
   ));
 
+  // 초기화
   useEffect(() => {
     return () =>
       files.forEach((file: any) => {

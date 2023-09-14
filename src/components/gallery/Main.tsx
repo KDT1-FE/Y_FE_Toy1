@@ -9,6 +9,8 @@ export function MainSwipers(): JSX.Element {
           <Swiper title="Study Tips" id="studyTips" />
         </div>
 
+        {/* 아래는 수정 예정 */}
+
         <div id="events">
           <div className="events-title">
             <h3>이벤트</h3>

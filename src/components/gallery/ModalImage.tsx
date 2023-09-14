@@ -1,11 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react';
+import { ImageDragDrop } from './ImageDragDrop';
 
-interface IAddImageProp {
-  btnName: string;
-  contents: any;
-}
-
-export function Modal({ btnName, contents }: IAddImageProp) {
+export function AddImageModal() {
   const modalRef: any = useRef();
   return (
     <div>
@@ -14,18 +10,16 @@ export function Modal({ btnName, contents }: IAddImageProp) {
         className="btn btn-primary btn--galleryModalOpen"
         onClick={() => modalRef.current?.showModal()}
       >
-        {btnName}
+        이미지 추가
       </button>
 
-      <dialog // Modal 창
-        ref={modalRef}
-      >
-        <h1>이것은 모달입니다</h1>
+      <dialog ref={modalRef}>
+        <h1>Image Upload Page</h1>
 
-        {contents}
+        <ImageDragDrop />
 
         <button
-          onClick={() => modalRef.current?.close()} // 📍 모달 닫기
+          onClick={() => modalRef.current?.close()} // 📍 모달 닫기 버튼
         >
           Close
         </button>
