@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Wiki from "./pages/Wiki";
+import Gallery from "./pages/Gallery";
 import "./styles/Reset.css";
 
 function App() {
@@ -15,7 +16,9 @@ function App() {
         <Route path="/wiki" element={<Wiki />}>
           <Route path=":id" element={<Wiki />} />
         </Route>
-        <Route path="/gallery" />
+        <Route path="/gallery" element={<Gallery />}>
+          <Route path=":id" element={<Gallery />} />
+        </Route>
       </Routes>
       <Footer />
     </div>
