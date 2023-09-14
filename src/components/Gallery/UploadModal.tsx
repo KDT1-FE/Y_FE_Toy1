@@ -2,9 +2,13 @@ import React from "react";
 import "../../styles/Modal.css";
 import "../../styles/TimerModal.css";
 import "../../styles/UploadModal.css";
-import {ModalProps} from "../../types/Modal";
+import {UploadDeleteModalProps} from "../../types/Modal";
+import PostPhotos from "./PostPhotos";
 
-export default function UploadModal({onClose}: ModalProps) {
+export default function UploadModal({
+  onClose,
+  albumKey,
+}: UploadDeleteModalProps) {
   return (
     <div className="ModalBackdrop">
       <div className="TimerModalContent">
@@ -12,7 +16,11 @@ export default function UploadModal({onClose}: ModalProps) {
           Close
         </button>
         <p>사진 업로드</p>
-        <input type="file" className="InputFile" />
+        <input
+          type="file"
+          className="InputFile"
+          onChange={e => PostPhotos(e, albumKey)}
+        />
         <button type="button" className="CancelButton" onClick={onClose}>
           Cancel
         </button>

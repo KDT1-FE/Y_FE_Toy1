@@ -7,3 +7,7 @@ export interface ModalType {
 export interface ModalProps {
   onClose: () => void;
 }
+
+export interface UploadDeleteModalProps extends ModalProps {
+  albumKey: string;
+}

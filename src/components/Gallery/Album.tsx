@@ -88,7 +88,7 @@ function Album() {
       </div>
       <Modal isOpen={isOpen} onClose={toggle}>
         {isModal ? (
-          <UploadModal onClose={toggle} />
+          <UploadModal onClose={toggle} albumKey={albumKey} />
         ) : (
           <DeleteModal onClose={toggle} />
         )}
