@@ -1,7 +1,6 @@
 import React from 'react';
 import Slider from 'react-slick';
 import styled from 'styled-components';
-
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -34,19 +33,19 @@ function Carousel() {
     infinite: true,
     speed: 500,
     autoplay: true,
-    autoplaySpeed: 6000,
+    autoplaySpeed: 3000,
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
     pauseOnHover: true,
-    initialSlide: 2,
+    initialSlide: 1,
   };
 
   return (
     <StyledWrapper>
       <StyledCarousel {...settings}>
-        {carouselImages.map((item, i) => (
-          <StyledItem key={i}>
+        {carouselImages.map((item, index) => (
+          <StyledItem key={index}>
             <StyledImg>
               <StyledTitle1>{item.title1}</StyledTitle1>
               <StyledTitle2>{item.title2}</StyledTitle2>
@@ -68,7 +67,6 @@ const StyledWrapper = styled.div`
   position: relative;
   width: 100%;
   height: auto;
-  z-index: 0;
 `;
 
 const StyledCarousel = styled(Slider)`
@@ -91,7 +89,7 @@ const StyledItem = styled.div`
   position: relative;
   border-radius: 24px;
   background: none;
-  box-shadow: 0px 5px 3px 5px rgba(0,0,0,0.1);
+  box-shadow: 0px 5px 3px 5px rgba(0, 0, 0, 0.1);
 `;
 
 const StyledImg = styled.div`
@@ -108,7 +106,6 @@ const StyledTitle1 = styled.span`
   position: absolute;
   top: 0;
   padding: 3rem;
-  /* min-height: 3.1rem; */
 
   font-size: 2.25rem;
   font-weight: 600;
@@ -119,7 +116,6 @@ const StyledTitle2 = styled.span`
   position: absolute;
   top: 0;
   padding: 7rem 3rem 0rem 3rem;
-  /* min-height: 4rem; */
 
   font-size: 2.25rem;
   font-weight: 600;
