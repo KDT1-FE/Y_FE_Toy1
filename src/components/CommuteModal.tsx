@@ -4,6 +4,9 @@ import { useRecoilState } from 'recoil';
 import { commuteState } from '../data/atoms';
 import { MdOutlineKeyboardDoubleArrowDown } from 'react-icons/md';
 import { formatMsToTime, timeToLocaleTimeString } from '../utils/formatTime';
+import CommuteButton from '../common/CommuteButton';
+import useUserDetail from '../hooks/useUserDetail';
+import { uploadCommuteInfo } from '../utils/firebaseUtils';
 
 interface Props {
   isModalOpen: boolean;
@@ -12,6 +15,7 @@ interface Props {
 const CommuteModal = ({ isModalOpen }: Props) => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [commuteInfo, setCommuteInfo] = useRecoilState(commuteState);
+  const { isLogin, uid } = useUserDetail();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -22,13 +26,21 @@ const CommuteModal = ({ isModalOpen }: Props) => {
   }, []);
 
   const handleCommuteToggle = () => {
+    let updatedCommuteInfo;
+
     if (commuteInfo.commute) {
-      setCommuteInfo({
+      updatedCommuteInfo = {
         ...commuteInfo,
         commute: false,
         endTime: Date.now(),
         workingTime: Date.now() - commuteInfo.startTime,
-      });
+      };
+
+      setCommuteInfo(updatedCommuteInfo);
+      // 일한 시간 업로드
+      console.log(updatedCommuteInfo);
+
+      uploadCommuteInfo(uid, updatedCommuteInfo);
     } else {
       setCommuteInfo({
         ...commuteInfo,
@@ -53,33 +65,38 @@ const CommuteModal = ({ isModalOpen }: Props) => {
     <ModalContainer className={isModalOpen ? 'open' : ''} id="commute-modal">
       <div className="wrapper">
         <span className="date">{currentTime.toLocaleDateString('ko-KR', options)}</span>
-
+        <div className="timer">
+          <span>{hour}</span> : <span>{minute}</span> : <span>{second}</span>
+        </div>
         <div className="content-wrapper">
-          <div className="timer">
-            <span>{hour}</span> : <span>{minute}</span> : <span>{second}</span>
-          </div>
-          <div className="commute-time">
-            <span>
-              {commuteInfo.startTime ? timeToLocaleTimeString(commuteInfo.startTime) : '출근 전'}
-            </span>
-            <MdOutlineKeyboardDoubleArrowDown size="24" opacity="0.3" />
-            <span>
-              {commuteInfo.endTime ? timeToLocaleTimeString(commuteInfo.endTime) : '퇴근 전'}
-            </span>
-          </div>
-          <div className="btn-wrapper">
-            <button
-              className={commuteInfo.workingTime ? 'worked' : ''}
-              onClick={handleCommuteToggle}
-              type="button"
-            >
-              {commuteInfo.commute
-                ? '퇴근'
-                : commuteInfo.workingTime
-                ? formatMsToTime(commuteInfo.workingTime)
-                : '출근'}
-            </button>
-          </div>
+          {!isLogin ? (
+            '로그인이 필요합니다.'
+          ) : (
+            <>
+              <div className="commute-time">
+                <span>
+                  {commuteInfo.startTime
+                    ? timeToLocaleTimeString(commuteInfo.startTime)
+                    : '출근 전'}
+                </span>
+                <MdOutlineKeyboardDoubleArrowDown size="24" opacity="0.3" />
+                <span>
+                  {commuteInfo.endTime ? timeToLocaleTimeString(commuteInfo.endTime) : '퇴근 전'}
+                </span>
+              </div>
+              <div className="btn-wrapper">
+                {commuteInfo.commute ? (
+                  <CommuteButton handleCommute={handleCommuteToggle}>
+                    <span>퇴근</span>
+                  </CommuteButton>
+                ) : (
+                  <CommuteButton handleCommute={handleCommuteToggle}>
+                    <span>출근</span>
+                  </CommuteButton>
+                )}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </ModalContainer>
@@ -119,9 +136,21 @@ const ModalContainer = styled.div`
     background-color: #ffffff;
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
 
+    .timer {
+      display: flex;
+      align-items: center;
+      column-gap: 0.4rem;
+
+      margin-bottom: 1rem;
+
+      span {
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+    }
+
     .date {
       font-size: 0.8rem;
-      margin-bottom: 1rem;
 
       opacity: 0.5;
     }
@@ -132,19 +161,6 @@ const ModalContainer = styled.div`
       flex-direction: column;
 
       width: 100%;
-
-      .timer {
-        display: flex;
-        align-items: center;
-        column-gap: 0.4rem;
-
-        margin-bottom: 1rem;
-
-        span {
-          font-size: 1.5rem;
-          font-weight: 600;
-        }
-      }
 
       .commute-time {
         display: flex;

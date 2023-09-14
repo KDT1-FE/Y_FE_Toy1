@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import CommuteModal from './CommuteModal';
 import { UserProvider } from '../common/UserContext';
-import UserResult from './userProfile';
+import UserResult from './UserProfile';
 
 const Header = () => {
   const [isModalOpen, setModalOpen] = useState(false);
