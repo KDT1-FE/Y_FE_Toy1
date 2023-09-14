@@ -1,36 +1,32 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import { Layout, Home, About, Dashboard, NoMatch } from './pages/TestPage/Test';
-import Login from './pages/LoginPage/Login';
 
+import Login from './pages/LoginPage/Login';
 import NoticeWrite from './pages/NoticePage/NoticeWrite';
 import SignUp from './pages/LoginPage/SignUp';
 import CreateAccount from './pages/LoginPage/CreateAccount';
 import NoticeList from './pages/NoticePage/NoticeList';
 import NoticeDetail from './pages/NoticePage/NoticeDetail';
+import PrivateRoute from './components/PrivateRoute';
+import Main from './pages/MainPage/Main';
+import PublicRoute from './components/PublicRoute';
 
 function App() {
+
   return (
     <Routes>
-      {/* *Route 기초* 추후 삭제 예정 */}
-      {/* Route는 아래처럼 중첩 라우팅이 가능합니다! */}
-      <Route path='/' element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path='about' element={<About />} />
-        <Route path='dashboard' element={<Dashboard />} />
-        {/* Using path="*"" means "match anything", so this route
-        acts like a catch-all for URLs that we don't have explicit
-        routes for. */}
-        <Route path='*' element={<NoMatch />} />
+      <Route element={<PublicRoute />}>
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<SignUp />} />
+        <Route path='/createaccount' element={<CreateAccount />} />
       </Route>
-      {/* *Route 기초* */}
-      <Route path='/login' element={<Login />} />
-      <Route path='/signup' element={<SignUp />} />
-      <Route path='/createaccount' element={<CreateAccount />} />
-      <Route path='/notice' element={<NoticeList />} />
-      <Route path='/noticewrite' element={<NoticeWrite />} />
-      <Route path='/notice/:noticeId' element={<NoticeDetail />} />
+      <Route element={<PrivateRoute />}>
+        <Route path='/' element={<Main />} />
+        <Route path='/notice' element={<NoticeList />} />
+        <Route path='/noticewrite' element={<NoticeWrite />} />
+        <Route path='/notice/:noticeId' element={<NoticeDetail />} />
+      </Route>
     </Routes>
   );
 }

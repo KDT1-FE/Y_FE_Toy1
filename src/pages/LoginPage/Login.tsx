@@ -1,11 +1,39 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { signInWithEmailAndPassword } from "firebase/auth"
+import { useSetRecoilState } from "recoil"
+
+import { auth } from "../../firebaseSDK"
 import { ButtonBox, LoginLayout } from "../../styled/LoginPage/Login"
+import userState from "../../recoil/atoms/userState"
 
 function Login() {
 
+  const navigate = useNavigate()
+
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+
+  const setUserState = useSetRecoilState(userState)
+
+  const handleButtonClick = async () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then(async (userCredential) => {
+        // Signed in 
+        const { user } = userCredential;
+        await setUserState({
+          isLogin: true,
+          userInfo: user
+        })
+        navigate("/")
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // eslint-disable-next-line no-console
+        console.log(errorCode, errorMessage)
+      });
+  }
 
   return (
     <LoginLayout>
@@ -22,7 +50,7 @@ function Login() {
       </div>
       <ButtonBox>
         <button type="button"><Link to="/signup">SIGN UP</Link></button>
-        <button type="button">LOGIN</button>
+        <button onClick={handleButtonClick} type="button">LOGIN</button>
       </ButtonBox>
     </LoginLayout>
   )
