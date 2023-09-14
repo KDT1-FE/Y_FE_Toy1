@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 
-import { getFirestore, Firestore, doc, getDocs, collection } from 'firebase/firestore';
+import { getFirestore, Firestore, doc, getDocs, collection, addDoc, setDoc, onSnapshot } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -29,13 +29,22 @@ export const handleGetDocs = async (collectionName: string) => {
     const collectionRef = collection(firestore, collectionName);
     try {
         const querySnapshot = await getDocs(collectionRef);
-        querySnapshot.forEach((doc) => {
-            console.log('Document ID:', doc.id);
-            console.log('Document data:', doc.data());
-        });
+        console.log('문서 가져오기 성공!');
         return querySnapshot;
     } catch (error) {
-        console.error('Error fetching documents:', error);
+        console.error('문서 가져오기 실패!', error);
+        throw error;
+    }
+};
+
+export const createChannelDoc = async (collectionName: string, documentName: string) => {
+    const dataToAdd = {}; // 서브채널 없이 채널만 생성하기 위해 빈 객체 삽입
+    const documentRef = doc(firestore, collectionName, documentName);
+    try {
+        await setDoc(documentRef, dataToAdd);
+        console.log('채널 생성 성공!');
+    } catch (error) {
+        console.error('채널 생성 실패!', error);
         throw error;
     }
 };
