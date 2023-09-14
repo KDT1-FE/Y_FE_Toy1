@@ -1,7 +1,17 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 
-import { getFirestore, Firestore, doc, getDocs, collection, addDoc, setDoc, onSnapshot } from 'firebase/firestore';
+import {
+    getFirestore,
+    Firestore,
+    doc,
+    getDocs,
+    collection,
+    addDoc,
+    setDoc,
+    onSnapshot,
+    QuerySnapshot,
+} from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -25,16 +35,21 @@ const app = initializeApp(firebaseConfig);
 // export const storage: Storage = getStorage(app);
 export const firestore: Firestore = getFirestore(app);
 
-export const handleGetDocs = async (collectionName: string) => {
+export type DocumentData = { [key: string]: any };
+
+export const handleGetDocs = (
+    collectionName: string,
+    callback: (querySnapshot: QuerySnapshot<DocumentData>) => void,
+) => {
     const collectionRef = collection(firestore, collectionName);
-    try {
-        const querySnapshot = await getDocs(collectionRef);
-        console.log('문서 가져오기 성공!');
-        return querySnapshot;
-    } catch (error) {
-        console.error('문서 가져오기 실패!', error);
-        throw error;
-    }
+
+    // onSnapshot 함수를 사용하여 실시간 업데이트를 수신
+    const updatedQuerySnapshot = onSnapshot(collectionRef, (querySnapshot) => {
+        console.log('문서 가져오기 성공 (실시간 업데이트)!');
+        callback(querySnapshot); // 실시간 업데이트를 콜백 함수로 전달
+    });
+
+    return updatedQuerySnapshot;
 };
 
 export const createChannelDoc = async (collectionName: string, documentName: string) => {
