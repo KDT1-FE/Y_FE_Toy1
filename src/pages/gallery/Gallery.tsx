@@ -1,9 +1,9 @@
 import * as style from "./galleryStyle";
 import { useState, useEffect } from "react";
-import GalleryHeader from "../../components/gallery/GalleryHeader";
-import GallerySide from "../../components/gallery/GallerySide";
-import GalleryMain from "../../components/gallery/GalleryMain";
-import Addlist from "../../components/gallery/AddList";
+import GalleryHeader from "@components/gallery/GalleryHeader";
+import GallerySide from "@components/gallery/GallerySide";
+import GalleryMain from "@components/gallery/GalleryMain";
+import Addlist from "@components/gallery/AddList";
 import {
   getFirestore,
   collection,
