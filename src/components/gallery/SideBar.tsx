@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { AddImageModal } from './GalleryAddImageModal';
+import { Modal } from './Modal';
+import { ImageDragDrop } from './ImageDragDrop';
 
 export function SideBarLink() {
+  const [isModal, setIsModal] = useState('');
+
   return (
     <div className="sideBar-container">
       <ul className="category">
-        <li>
-          <a href="#allImages">전체보기</a>
-        </li>
         <li>
           <a href="#studyTips">공부꿀팁</a>
         </li>
@@ -18,7 +18,7 @@ export function SideBarLink() {
           <a href="#humors">유머</a>
         </li>
       </ul>
-      <AddImageModal />
+      <Modal btnName="이미지 추가" contents={ImageDragDrop} />
     </div>
   );
 }

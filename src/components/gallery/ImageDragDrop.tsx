@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { uploadImageToStorage } from '../../data/galleryImage';
+import { UploadImage } from '../../data/galleryImage';
 
 //https://react-dropzone.js.org/#!/Previews
 
@@ -29,7 +29,7 @@ export function ImageDragDrop() {
           // Revoke data uri after image is loaded
           onLoad={() => {
             URL.revokeObjectURL(file.preview);
-            uploadImageToStorage(file);
+            UploadImage(file);
           }}
         />
       </div>

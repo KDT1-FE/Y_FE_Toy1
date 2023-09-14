@@ -1,21 +1,12 @@
 import React from 'react';
-import { StudyTipsSwiper } from './GallerySwiper1';
+import { Swiper } from './Swiper';
 
-export function MainSwipers() {
+export function MainSwipers(): JSX.Element {
   return (
     <div>
       <div className="inner">
-        <div id="allImages">
-          <div className="allImages-title">
-            <h3>전체보기</h3>
-          </div>
-        </div>
-
-        <div id="studyTips">
-          <div className="studyTips-title">
-            <h3>공부꿀팁</h3>
-          </div>
-          <StudyTipsSwiper />
+        <div id="studyTips" className="studyTips-title">
+          <Swiper title="Study Tips" id="studyTips" />
         </div>
 
         <div id="events">
