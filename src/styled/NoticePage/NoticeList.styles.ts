@@ -94,6 +94,10 @@ export const WriteBtn = styled.button`
   color: white;
   border: none;
   border-radius: 10px;
-
   cursor: pointer;
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
 `;
