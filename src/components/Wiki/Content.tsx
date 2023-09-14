@@ -1,22 +1,23 @@
 import React, {useEffect, useState} from "react";
 import "../../styles/Wiki.css";
 import {useParams} from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import EditButton from "./EditButton";
+import ReadContent from "./ReadContent";
 import TextEditor from "./TextEditor";
 
 function Content() {
   const {id} = useParams() as {id: string};
-  const [dataKey, setDataKey] = useState("");
-  const [isEditorOpen, setIsEditorOpen] = useState(false);
+  // dataKey : db 검색용 url 파라미터
+  const [dataKey, setDataKey] = useState<string>("");
+  // isEditorOpen : 수정 버튼 상태
+  const [isEditorOpen, setIsEditorOpen] = useState<boolean>(false);
+  // content : db에서 불러온 글
+  const [content, setContent] = useState<string>("");
+  // title : db에서 불러온 title
+  const [title, setTitle] = useState<string>("");
 
-  const clickEdit = () => {
-    setIsEditorOpen(!isEditorOpen);
-  };
-
-  /**
-   * 메인컨텐츠 렌더링 시 초기 세팅 함수
-   * - 수정창 닫은 상태로 렌더링
-   * - wiki 메인페이지의 경우 첫번째 리스트 렌더링
-   */
+  // isEditorOpen 및 dataKey 세팅
   const initialSet = () => {
     setIsEditorOpen(false);
     if (id === undefined) {
@@ -26,32 +27,35 @@ function Content() {
     }
   };
 
+  // dataKey가 변경될 경우, initialSet 호출
   useEffect(() => {
     initialSet();
   }, [id]);
 
+  // ReadContent 함수로 content 가져오기
+  if (dataKey) {
+    ReadContent(dataKey).then((doc: any) => {
+      setContent(doc.content);
+      setTitle(doc.title);
+    });
+  }
+
   return (
     <div className="WikiContentWrap">
-      <h1 id="ContentTitle">{dataKey}</h1>
-      <button
-        className="WikiButton"
-        type="button"
-        onClick={clickEdit}
-        style={{
-          backgroundColor: isEditorOpen ? "rgba(255, 55, 115, 0.8)" : "#34576d",
-        }}
-      >
-        {isEditorOpen ? "수정취소" : "수정하기"}
-      </button>
+      <h1 id="ContentTitle">{title}</h1>
+      <EditButton
+        isEditorOpen={isEditorOpen}
+        setIsEditorOpen={setIsEditorOpen}
+      />
       <div id="main-content">
         {isEditorOpen ? (
-          <TextEditor />
+          <TextEditor
+            dataKey={dataKey}
+            content={content}
+            setIsEditorOpen={setIsEditorOpen}
+          />
         ) : (
-          <div>
-            Url 파라미터값(현재값 : {dataKey})을 Key로 갖는 데이터를 가져와
-            렌더링합니다, <br /> 렌더링 시에는 외부라이브러리를 통해
-            마크다운텍스트(데이터)를 html로 변환하여 렌더링합니다
-          </div>
+          <ReactMarkdown>{content}</ReactMarkdown>
         )}
       </div>
     </div>
