@@ -40,8 +40,6 @@ const CommuteModal = ({ isModalOpen }: Props) => {
     }
   };
 
-  const uploadCommuteInfo = () => {};
-
   const [hour, minute, second] = currentTime.toLocaleTimeString('it-IT').split(':');
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',

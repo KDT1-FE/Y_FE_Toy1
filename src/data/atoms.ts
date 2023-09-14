@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-interface commuteType {
+export interface commuteType {
   commute: boolean;
   startTime: number;
   endTime: number;
