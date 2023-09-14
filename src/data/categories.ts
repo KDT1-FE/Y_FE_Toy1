@@ -18,15 +18,15 @@ export const allCategories: CategoriesType[] = [
     path: '/wiki',
     categories: [
       {
-        title: '회사 생활',
+        title: '소개',
         subCategories: [
           {
-            link: 'commute',
-            text: '시간 측정',
+            link: 'info',
+            text: '기본 정보',
           },
           {
-            link: 'commute',
-            text: '시간 측정',
+            link: 'team',
+            text: '팀 정보',
           },
         ],
       },
@@ -62,6 +62,34 @@ export const allCategories: CategoriesType[] = [
           {
             link: 'projects/add',
             text: '프로젝트 추가',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: '/login',
+    categories: [
+      {
+        title: '로그인',
+        subCategories: [
+          {
+            link: '',
+            text: '로그인',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: '/join',
+    categories: [
+      {
+        title: '회원가입',
+        subCategories: [
+          {
+            link: '',
+            text: '회원가입',
           },
         ],
       },
