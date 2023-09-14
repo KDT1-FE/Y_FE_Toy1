@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai';
 import { ProjectProps } from './ImageWrapper';
@@ -8,7 +8,7 @@ interface ModalProps extends ProjectProps {
 }
 
 const EditModal = ({ state, projectId, imageUrl, closeOnClick }: ModalProps) => {
-  const [projectInfo, setProjectInfo] = React.useState<ProjectProps>({
+  const [projectInfo, setProjectInfo] = useState<ProjectProps>({
     imageUrl: imageUrl,
     projectId: projectId,
     state: state,
