@@ -3,6 +3,26 @@ import { Editor, Viewer } from '@toast-ui/react-editor';
 import { db } from '../../common/config';
 import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
 import '@toast-ui/editor/dist/toastui-editor.css';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  padding: 20px;
+`;
+
+const TitleInput = styled.input`
+  display: block;
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+`;
+
+const StyledButton = styled.button`
+  margin-top: 10px;
+  padding: 5px 15px;
+  font-size: 14px;
+  cursor: pointer;
+`;
 
 const Info = () => {
   const [title, setTitle] = useState<string>('');
@@ -56,10 +76,10 @@ const Info = () => {
   };
 
   return (
-    <div>
+    <Container>
       {isEditing ? (
         <>
-          <input
+          <TitleInput
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -72,10 +92,11 @@ const Info = () => {
             height="800px"
             initialEditType="markdown" // 초기 입력모드
             ref={editorRef}
+            usageStatistics={false} // 통계 수집 거부
           />
         </>
       ) : (
-        <div className="m-4">
+        <div>
           <h1>{title}</h1>
           {lastEdited && <p>마지막 수정: {lastEdited.toLocaleString()}</p>}
           <hr />
@@ -84,9 +105,9 @@ const Info = () => {
       )}
       <hr />
       <div>
-        <button onClick={handleEditClick}>{isEditing ? '저장' : '편집'}</button>
+        <StyledButton onClick={handleEditClick}>{isEditing ? '저장' : '편집'}</StyledButton>
       </div>
-    </div>
+    </Container>
   );
 };
 
