@@ -1,6 +1,5 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import './App.css';
 
 import Login from './pages/LoginPage/Login';
 import NoticeWrite from './pages/NoticePage/NoticeWrite';
