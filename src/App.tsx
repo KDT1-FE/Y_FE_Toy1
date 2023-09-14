@@ -5,6 +5,7 @@ import { Layout, Home, About } from "./pages/TestPage/Test"
 import Wiki from './pages/WikiPage/Wiki';
 import WikiWrite from './pages/WikiPage/WikiWrite';
 import ItemContent from './pages/WikiPage/ItemContent';
+import WikiEdit from './pages/WikiPage/WikiEdit';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path="*" element={<WikiWrite />} />
             <Route path="wiki/write" element={<WikiWrite /> }/>
             <Route path="wiki/content" element={<ItemContent />}/>
+            <Route path="wiki/edit" element={<WikiEdit />}/>
           </Route>
         </Routes>
       </div>

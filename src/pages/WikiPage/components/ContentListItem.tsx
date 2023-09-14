@@ -23,7 +23,7 @@ export default function ContentListItem({item} : WikiItemProps) {
     const navigate = useNavigate();
 
     const handleEditBtn = () => {
-        navigate(`/wiki/write?id=${item.id}`);
+        navigate(`/wiki/edit?id=${item.id}`);
 
     }
     const handleItemClick = () => {
