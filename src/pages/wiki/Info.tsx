@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
-import ReactMarkdown from 'react-markdown';
+import { useState, useEffect, useRef } from 'react';
+import { Editor, Viewer } from '@toast-ui/react-editor';
 import { db } from '../../common/config';
 import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
+import '@toast-ui/editor/dist/toastui-editor.css';
 
 const Info = () => {
+  const [title, setTitle] = useState<string>('');
   const [markdown, setMarkdown] = useState<string>('');
-  const [tempMarkdown, setTempMarkdown] = useState<string>(markdown);
+  const editorRef = useRef<Editor | null>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [lastEdited, setLastEdited] = useState<null | Date>(null);
 
@@ -18,6 +20,7 @@ const Info = () => {
         if (docSnapshot.exists()) {
           const data = docSnapshot.data();
           setMarkdown(data.content);
+          setTitle(data.title || '');
           if (data.lastEdited) {
             setLastEdited(data.lastEdited.toDate());
           }
@@ -33,21 +36,21 @@ const Info = () => {
   }, []);
 
   const handleEditClick = async () => {
-    if (isEditing) {
-      setMarkdown(tempMarkdown);
+    if (isEditing && editorRef.current) {
+      const editedMarkdown = editorRef.current.getInstance().getMarkdown();
+      setMarkdown(editedMarkdown);
       const currentTime = Timestamp.now();
       try {
         const docRef = doc(db, 'infoData', 'markdownContent');
         await setDoc(docRef, {
-          content: tempMarkdown,
+          title,
+          content: editedMarkdown,
           lastEdited: currentTime,
         });
         setLastEdited(currentTime.toDate());
       } catch (error) {
         console.error(error);
       }
-    } else {
-      setTempMarkdown(markdown);
     }
     setIsEditing(!isEditing);
   };
@@ -55,20 +58,32 @@ const Info = () => {
   return (
     <div>
       {isEditing ? (
-        <div>
-          <textarea
-            value={tempMarkdown}
-            onChange={(e) => setTempMarkdown(e.target.value)}
-            placeholder="내용을 입력하세요"
+        <>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="제목을 입력하세요"
           />
-          <button onClick={() => setTempMarkdown('')}>지우기</button>
-        </div>
+          <Editor
+            placeholder="내용을 입력하세요"
+            initialValue={markdown}
+            previewStyle="vertical" // 미리보기 스타일 지정
+            height="800px"
+            initialEditType="markdown" // 초기 입력모드
+            ref={editorRef}
+          />
+        </>
       ) : (
-        <ReactMarkdown>{markdown}</ReactMarkdown>
+        <div className="m-4">
+          <h1>{title}</h1>
+          {lastEdited && <p>마지막 수정: {lastEdited.toLocaleString()}</p>}
+          <hr />
+          <Viewer key={markdown} initialValue={markdown} />
+        </div>
       )}
       <hr />
       <div>
-        {lastEdited && <p>마지막 수정: {lastEdited.toLocaleString()}</p>}
         <button onClick={handleEditClick}>{isEditing ? '저장' : '편집'}</button>
       </div>
     </div>
