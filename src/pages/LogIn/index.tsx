@@ -9,13 +9,16 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate, useLocation } from 'react-router-dom';
-
 import { auth } from '../../utils/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useRecoilState } from 'recoil';
+import { UserId } from '../../utils/recoil';
 
 const defaultTheme = createTheme();
 
-export default function Login() {
+export default function LogIn() {
+    const [userId, setUserId] = useRecoilState(UserId);
+
     const navigate = useNavigate();
     const { pathname } = useLocation();
 
@@ -34,7 +37,8 @@ export default function Login() {
             .then((userCredential) => {
                 const user = userCredential.user;
 
-                console.log(user.uid);
+                setUserId(user.uid);
+
                 navigate('/', { state: pathname });
             })
             .catch((error) => {

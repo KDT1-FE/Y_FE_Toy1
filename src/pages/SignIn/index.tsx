@@ -15,7 +15,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const defaultTheme = createTheme();
 
-export default function Signin() {
+export default function SignIn() {
     const navigate = useNavigate();
     const { pathname } = useLocation();
 
