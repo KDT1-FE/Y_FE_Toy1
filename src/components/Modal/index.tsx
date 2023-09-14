@@ -1,11 +1,42 @@
 import styled from 'styled-components';
-import commuteLogo from '../../assets/icons/commuteLogo.svg';
+import commuteLogo from '../../assets/icons/commute.svg';
 import closeButton from '../../assets/icons/closeButton.svg';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactModal from 'react-modal';
+import LiveClock from './LiveClock';
 
 function Modal() {
   const [showModal, setShowModal] = useState(false);
+  const [workSecond, setWorkSecond] = useState(-1);
+  const [workMinute, setWorkMinute] = useState(1);
+  const [workHour, setWorkHour] = useState(1);
+
+  const interval = useRef(1000);
+
+  const startTimer = () => {
+    if (workSecond < 60) {
+      if (workSecond === 59) interval.current = 60000;
+      setWorkSecond(workSecond + 1);
+      return;
+    }
+    if (workMinute === 59) {
+      setWorkHour(workHour + 1);
+      setWorkMinute(0);
+
+      return;
+    }
+    setWorkMinute(workMinute + 1);
+  };
+
+  useEffect(() => {
+    if (workSecond === -1) return;
+    const timeId = setInterval(() => startTimer(), interval.current);
+
+    return () => {
+      clearInterval(timeId);
+    };
+  });
+
   const handleOpenModal = () => {
     setShowModal(true);
   };
@@ -20,6 +51,7 @@ function Modal() {
       </CommuteMenu>
       <ReactModal
         isOpen={showModal}
+        ariaHideApp={false}
         className="_"
         overlayClassName="_"
         contentElement={(props, children) => (
@@ -31,15 +63,25 @@ function Modal() {
       >
         <TopContainer>
           <Title>
-            출퇴근<Date>2023.09.08(금)</Date>
+            출퇴근<StyledDate>2023.09.08(금)</StyledDate>
           </Title>
           <CloseImg src={closeButton} onClick={handleCloseModal} />
         </TopContainer>
         <MainContainer>
-          <Time>14 : 05 : 16</Time>
+          <LiveClock></LiveClock>
           <BottomContainer>
-            <StateText>출근 전</StateText>
-            <Button>출근</Button>
+            <StateText>
+              {workSecond > 59
+                ? `${workMinute}분 동안 업무 중`
+                : `${workSecond}초 동안 업무 중`}
+            </StateText>
+            <Button
+              onClick={() => {
+                setWorkSecond(0);
+              }}
+            >
+              출근
+            </Button>
           </BottomContainer>
         </MainContainer>
       </ReactModal>
@@ -47,43 +89,43 @@ function Modal() {
   );
 }
 
-export const Menu = styled.button`
+const CommuteMenu = styled.div`
   font-size: 1.1rem;
   font-weight: 300;
+
   background-color: #fff;
-  border: none;
+  border-radius: 0.9rem;
+  padding: 0.5rem;
+  border: 1px solid #e2e8f0;
+
   display: flex;
   align-items: center;
   gap: 0.3rem;
-  cursor: pointer;
-  &:hover {
-    border-bottom: 1px solid #4a5568;
-  }
-`;
 
-const CommuteMenu = styled(Menu)`
-  border: 1px solid #e2e8f0;
-  border-radius: 0.9rem;
-  padding: 0.5rem;
   &:hover {
     background-color: #edf2f7;
     border-bottom: none;
   }
+  cursor: pointer;
 `;
 
 const ModalStyle = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
+
   width: 34.25rem;
   height: 27.5rem;
+
   background-color: #fff;
   transform: translate(-50%, -50%);
   z-index: 1;
   padding-top: 1.4375rem;
   padding-bottom: 5.6rem;
-  box-sizing: border-box;
+
   border-radius: 0.375rem;
+  border: none;
+  outline: none;
 `;
 
 const OverlayStyle = styled.div`
@@ -101,14 +143,17 @@ const TopContainer = styled.section`
 const Title = styled.div`
   font-size: 2rem;
   font-weight: 600;
+
   align-self: flex-end;
+
+  cursor: default;
 `;
 const CloseImg = styled.img`
   width: 1.25rem;
   height: 1.25rem;
   cursor: pointer;
 `;
-const Date = styled.div`
+const StyledDate = styled.div`
   color: #4a5568;
   font-size: 0.875rem;
   font-weight: 600;
@@ -121,11 +166,9 @@ const MainContainer = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  cursor: default;
 `;
-const Time = styled.div`
-  font-size: 4.3rem;
-  font-weight: 600;
-`;
+
 const BottomContainer = styled.section`
   display: flex;
   gap: 2.5rem;
@@ -143,10 +186,16 @@ const Button = styled.button`
   color: #fff;
   font-size: 1.25rem;
   font-weight: 600;
-  width: 9.6rem;
+  width: 9.3rem;
   height: 2.4rem;
   border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 0.375rem;
   cursor: pointer;
+  &:hover {
+    background-color: #1b64da;
+  }
 `;
 export default Modal;
