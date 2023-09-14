@@ -1,4 +1,5 @@
 import React from "react";
+import "../../styles/TimerModal.css";
 
 interface ModalProps {
   isOpen: boolean;
