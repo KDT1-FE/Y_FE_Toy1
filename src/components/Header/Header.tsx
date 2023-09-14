@@ -1,9 +1,20 @@
-import React from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import Clock from "../../utils/clock";
 import "../../styles/Header.css";
+import {Modal} from "../Timer/TimerModal";
 
 function Header() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="Main">
       <header className="HeaderMain">
@@ -27,7 +38,7 @@ function Header() {
               </Link>
             </li>
             <li>
-              <button type="button" className="Timer">
+              <button type="button" className="Timer" onClick={openModal}>
                 Timer
               </button>
             </li>
@@ -40,6 +51,7 @@ function Header() {
           </ul>
         </nav>
       </header>
+      <Modal isOpen={isModalOpen} onClose={closeModal} />
     </div>
   );
 }
