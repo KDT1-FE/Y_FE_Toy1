@@ -1,10 +1,11 @@
 import { atom } from 'recoil';
 
 interface WikiListItem {
+    id : string,
     category : string,
     title: string,
     content: string,
-    date : string
+    createdAt : string
 }
 
 export const wikiListState = atom<WikiListItem[]>({

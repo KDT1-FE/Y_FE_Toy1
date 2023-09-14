@@ -94,7 +94,9 @@ export const WikiWriteContainer = styled.div`
     margin : 0 auto;
     overflow-y : auto;
     display : flex;
+    flex-direction : column;
     justify-content : space-between;
+    align-items : center;
     gap : 20px;
 
 `;
@@ -104,4 +106,11 @@ export const WikiWriteContentContainer = styled.div`
     flex-direction : column;
     width :100%;
     margin : 20px 0;
+`;
+
+export const WikiWriteBtnContainer = styled.div`
+    display : flex;
+    width : 700px;
+    justify-content : space-between;
+
 `;

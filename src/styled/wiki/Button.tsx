@@ -38,12 +38,10 @@ const DeleteBtn = styled(Btn)`
 
 export const SubmitButton = styled(Btn)`
     background-color : #96A0FF;
-    height : 36px;
-    padding : 10px 0px;
+    padding : 10px 40px;
     border : 0;
     color : white;
-    width : 78px;
-    margin-top: 30px;
+    margin: 30px 0;
 
 `;
 
@@ -57,6 +55,14 @@ export const AddBtn = styled(Btn)`
     font-weight : 500;
     border : 0;
     
+
+`;
+export const BackToListBtn = styled(Btn)`
+    background-color : #96A0FF;
+    padding : 10px 40px;
+    border : 0;
+    color : white;
+    margin: 30px 0;
 
 `;
 
