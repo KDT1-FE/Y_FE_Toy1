@@ -1,5 +1,5 @@
 import Sidebar from 'components/Sidebar'
-import React from "react"
+import { useState } from "react"
 import GalleryEdit from "./GalleryEdit"
 import GalleryDetail from "./GalleryDetail"
 import GalleryList from "./GalleryList"
@@ -8,14 +8,17 @@ import styled from 'styled-components'
 
 const Gallery = () => {
   
+  const [onEdit, setOnEdit] = useState<boolean>(false);
+
   return (
   <>
     <Sidebar/>
     <Container>
       <Routes>
         <Route path="" element={<GalleryList />} />
-        <Route path="edit" element={<GalleryEdit />} />
-        <Route path="detail/:id" element={<GalleryDetail />} />
+        <Route path="edit" element={<GalleryEdit onEdit={onEdit} setOnEdit={setOnEdit}/>} />
+        <Route path="edit/:id" element={<GalleryEdit onEdit={onEdit} setOnEdit={setOnEdit} />} />
+        <Route path="detail/:id" element={<GalleryDetail onEdit={onEdit} setOnEdit={setOnEdit} />} />
       </Routes>
     </Container>
   </>
