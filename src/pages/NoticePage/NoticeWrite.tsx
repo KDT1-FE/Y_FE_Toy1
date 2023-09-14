@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { doc, setDoc, getDocs, collection } from 'firebase/firestore';
-import { db } from '../../firebaseSDK';
+import { ref, uploadBytes } from 'firebase/storage';
+import { db, storage } from '../../firebaseSDK';
 import * as S from '../../styled/NoticePage/NoticeWrite.styles';
 
 function NoticeWrite() {
@@ -9,6 +10,7 @@ function NoticeWrite() {
   const [subject, setSubject] = useState('');
   const [contents, setContents] = useState('');
   const [imageName, setImageName] = useState('');
+  const [uploadFile, setUploadFile] = useState<File | null>(null);
 
   const onChangePassword = (event: ChangeEvent<HTMLInputElement>): void => {
     setPassword(event.target.value);
@@ -23,10 +25,14 @@ function NoticeWrite() {
   };
 
   const onChangeImage = (event: ChangeEvent<HTMLInputElement>): void => {
-    setImageName(event.target.value.split('\\').pop() as string);
+    if (event.target.files !== null) {
+      const selectedFile = event.target.files[0];
+      setUploadFile(selectedFile);
+      setImageName(selectedFile.name);
+    }
   };
 
-  // 게시물 등록 함수
+  // 공지 등록 함수
   const onClickSubmit = async (): Promise<void> => {
     const date = new Date();
 
@@ -38,6 +44,12 @@ function NoticeWrite() {
       createAt: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
     });
 
+    // 이미지 업로드
+    if (uploadFile !== null) {
+      const imageRef = ref(storage, `notice/${uploadFile.name}`);
+      uploadBytes(imageRef, uploadFile);
+    }
+
     // eslint-disable-next-line no-alert
     alert('공지가 등록됐습니다.');
     setNoticeNumber((prev) => prev + 1);
@@ -46,7 +58,7 @@ function NoticeWrite() {
     setContents('');
   };
 
-  // 공지사항 게시물 마지막 번호 가져오기 함수
+  // 공지 마지막 번호 가져오기 함수
   const NoticeGetLastId = async (): Promise<void> => {
     const querySnapshot = await getDocs(collection(db, 'notice'));
 

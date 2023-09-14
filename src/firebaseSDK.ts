@@ -2,6 +2,7 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
+import { getStorage } from 'firebase/storage';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -12,7 +13,7 @@ const firebaseConfig = {
   projectId: 'wikinity-947f0',
   storageBucket: 'wikinity-947f0.appspot.com',
   messagingSenderId: '390893293038',
-  appId: '1:390893293038:web:02aa6ad55fb5c67283d2ff',
+  appId: '1:390893293038:web:02aa6ad55fb5c67283d2ff'
 };
 
 // Initialize Firebase
@@ -23,3 +24,6 @@ export const db = getFirestore(app);
 
 // Initialize Firebase Authentication and get a reference to the service
 export const auth = getAuth(app);
+
+// Initialize Cloud Storage and get a reference to the service
+export const storage = getStorage(app);
