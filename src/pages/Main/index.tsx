@@ -1,17 +1,27 @@
+import About from 'components/About';
 import Carousel from 'components/Carousel';
 import styled from 'styled-components';
 
 function Main() {
   return (
-    <StyledNoticeContainer>
-      <StyledNoticeTextBox>
-        <StyledNoticeText>Notice</StyledNoticeText>
-        <StyledNoticeSeeText>Wiki 공지사항 한눈에 보기</StyledNoticeSeeText>
-      </StyledNoticeTextBox>
-      <StyledCarouselBox>
-        <Carousel />
-      </StyledCarouselBox>
-    </StyledNoticeContainer>
+    <>
+      <StyledNoticeContainer>
+        <StyledTitleTextBox>
+          <StyledTitleText>Notice</StyledTitleText>
+          <StyledTitleSeeText>Wiki 공지사항 한눈에 보기</StyledTitleSeeText>
+        </StyledTitleTextBox>
+        <StyledCarouselBox>
+          <Carousel />
+        </StyledCarouselBox>
+      </StyledNoticeContainer>
+      <StyledAboutContainer>
+        <StyledTitleTextBox>
+          <StyledTitleText>About</StyledTitleText>
+          <StyledTitleSeeText>Wiki 소개</StyledTitleSeeText>
+        </StyledTitleTextBox>
+        <About />
+      </StyledAboutContainer>
+    </>
   );
 }
 
@@ -25,19 +35,19 @@ const StyledNoticeContainer = styled.div`
   margin-top: 6rem;
 `;
 
-const StyledNoticeTextBox = styled.div`
+const StyledTitleTextBox = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: flex-end;
 `;
 
-const StyledNoticeText = styled.span`
+const StyledTitleText = styled.span`
   font-size: 3rem;
   font-weight: 500;
 `;
 
-const StyledNoticeSeeText = styled.span`
+const StyledTitleSeeText = styled.span`
   font-size: 1rem;
   font-weight: 400;
   margin-left: 1rem;
@@ -50,6 +60,16 @@ const StyledCarouselBox = styled.div`
   width: auto;
   background: none;
   margin-top: 2rem;
+`;
+
+const StyledAboutContainer = styled.div`
+  width: 60rem;
+  height: 30rem;
+
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  margin-top: 6rem;
 `;
 
 export default Main;
