@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { DocumentData, doc, getDoc } from 'firebase/firestore';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { db } from '../../firebaseSDK';
+import * as S from '../../styled/NoticePage/NoticeDetail.styles';
 
 function NoticeDetail() {
   const [noticeData, setNoticeData] = useState<DocumentData | undefined>({});
   const { noticeId } = useParams();
 
-  // 공지사항 전체 가져오기
+  // 공지사항 정보 가져오기 함수
   const FetchNoticeData = async (): Promise<void> => {
     const docRef = doc(db, 'notice', String(noticeId));
     const docSnap = (await getDoc(docRef)).data();
@@ -19,11 +20,26 @@ function NoticeDetail() {
     FetchNoticeData();
   }, []);
   return (
-    <div>
-      <div>{noticeData?.subject}</div>
-      <div>{noticeData?.contents}</div>
-      <div>{noticeData?.createAt}</div>
-    </div>
+    <S.Wrapper>
+      <S.Header>
+        <S.Subject>{noticeData?.subject}</S.Subject>
+        <S.DateAndActionsWrapper>
+          <S.Date>작성일자: {noticeData?.createAt}</S.Date>
+          <S.ActionsWrapper>
+            <S.EditBtn>수정</S.EditBtn>
+            <S.DeleteBtn>삭제</S.DeleteBtn>
+          </S.ActionsWrapper>
+        </S.DateAndActionsWrapper>
+      </S.Header>
+      <S.Underline />
+      <S.Body>
+        <S.Image />
+        <S.Contents>{noticeData?.contents}</S.Contents>
+      </S.Body>
+      <S.MoveToListBtn>
+        <Link to='/notice'>목록으로</Link>
+      </S.MoveToListBtn>
+    </S.Wrapper>
   );
 }
 

@@ -44,9 +44,9 @@ function NoticeList() {
       <S.Footer>
         <S.Pagination>prev 1,2,3,4,5 next</S.Pagination>
 
-        <Link to='/noticewrite'>
-          <S.WriteBtn type='button'>공지 등록하기</S.WriteBtn>
-        </Link>
+        <S.WriteBtn type='button'>
+          <Link to='/noticewrite'>공지 등록하기</Link>
+        </S.WriteBtn>
       </S.Footer>
     </S.Wrapper>
   );
