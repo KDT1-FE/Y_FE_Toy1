@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import { Layout, Home, About, Dashboard, NoMatch } from "./pages/TestPage/Test";
-import { Project } from "./pages/ProjectPage/ProjectDetail";
+import ProjectInputPage from "./pages/ProjectPage/ProjectDetailUpdate";
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
                 routes for. */}
             <Route path="*" element={<NoMatch />} />
           </Route>
-          <Route path="/update" element={<Project />} />
+          <Route path="/projectinput" element={<ProjectInputPage />} />
         </Routes>
       </div>
     </div>

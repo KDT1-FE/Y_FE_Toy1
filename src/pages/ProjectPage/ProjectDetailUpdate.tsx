@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 
 export default function ProjectInputPage() {
-  const [projectName, setProjectName] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [projectTitle, setProjectTitle] = useState("");
+  const [projectDescription, setProjectDescription] = useState("");
+  const [teamSize, setTeamSize] = useState("");
   const [deadline, setDeadline] = useState("");
-  const [teamMembers, setTeamMembers] = useState("");
 
-  const handleSubmit = () => {
-    // 입력한 정보를 처리하는 로직을 작성합니다.
-    // 여기에서는 간단히 콘솔에 출력합니다.
-    console.log("프로젝트 이름:", projectName);
-    console.log("제목:", title);
-    console.log("설명:", description);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // 입력한 정보를 서버로 보내거나 다른 작업을 수행할 수 있습니다.
+    console.log("프로젝트 제목:", projectTitle);
+    console.log("프로젝트 설명:", projectDescription);
+    console.log("인원:", teamSize);
     console.log("기한:", deadline);
-    console.log("인원:", teamMembers);
   };
 
   return (
@@ -22,42 +21,42 @@ export default function ProjectInputPage() {
       <h2>프로젝트 정보 입력</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>프로젝트 이름:</label>
+          <label htmlFor="projectTitle">프로젝트 제목:</label>
           <input
             type="text"
-            value={projectName}
-            onChange={(e) => setProjectName(e.target.value)}
+            id="projectTitle"
+            value={projectTitle}
+            onChange={(e) => setProjectTitle(e.target.value)}
+            required
           />
         </div>
         <div>
-          <label>제목:</label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>설명:</label>
+          <label htmlFor="projectDescription">프로젝트 설명:</label>
           <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            id="projectDescription"
+            value={projectDescription}
+            onChange={(e) => setProjectDescription(e.target.value)}
+            required
           />
         </div>
         <div>
-          <label>기한:</label>
+          <label htmlFor="teamSize">인원:</label>
           <input
-            type="text"
+            type="number"
+            id="teamSize"
+            value={teamSize}
+            onChange={(e) => setTeamSize(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="deadline">기한:</label>
+          <input
+            type="date"
+            id="deadline"
             value={deadline}
             onChange={(e) => setDeadline(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>인원:</label>
-          <input
-            type="text"
-            value={teamMembers}
-            onChange={(e) => setTeamMembers(e.target.value)}
+            required
           />
         </div>
         <div>
