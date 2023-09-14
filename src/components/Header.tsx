@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FiMenu } from 'react-icons/fi';
 import { useLocation } from 'react-router-dom';
 import '../styles/Header.css'; 
+import logo from '../images/logo.png'; 
 
 export default function Header() {
   const location = useLocation();
@@ -12,6 +13,11 @@ export default function Header() {
       <nav>
         <div className='header-container'>
           <div className="pageList">
+          <div className="logo">
+                <Link to="/"> {/* 로고에 메인 페이지로 이동하는 링크 추가 */}
+                    <img src={logo} alt="Logo" />
+                </Link>
+            </div>
             <Link to="/" className={`page ${location.pathname === '/' ? 'active' : ''}`}>
               메인
             </Link>

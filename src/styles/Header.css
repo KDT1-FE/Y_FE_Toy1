@@ -47,6 +47,13 @@
     border-bottom: 2px solid rgb(204, 204, 204);
     width: 90%;
   }
+
+  .logo img {
+    width: 60px; /* 원하는 너비로 조정 */
+    height: auto; /* 가로세로 비율 유지 */
+    margin-right: 100px;
+  }
+  
   
   .page {
     font-size: 30px;

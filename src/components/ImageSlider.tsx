@@ -203,6 +203,7 @@ const ImageSlider = () => {
         infinite: true,
         speed: 500,
         autoplay: true,
+        slidesToShow: 2,
         autoplaySpeed: 2000,
     }
 
