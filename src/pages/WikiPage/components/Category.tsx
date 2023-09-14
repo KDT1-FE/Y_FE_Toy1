@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
-import { getFirestore , collection, getDocs, doc, setDoc } from "firebase/firestore";
+import React, { useState } from "react";
+import { getFirestore, addDoc, collection } from "firebase/firestore";
 import { useRecoilState } from "recoil";
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
-
-import {categoryNameState, categoryState} from "../../../recoil/atoms/wiki/CategoryAtom";
+import { categoryNameState, categoryState } from "../../../recoil/atoms/wiki/CategoryAtom";
 import app from '../../../firebaseSDK';
 import { CateEditBtn } from "../../../styled/wiki/Button";
 import { TitleText } from "../../../styled/wiki/Text";
@@ -12,69 +11,36 @@ import { CategoryHeaderContainer, CategoryListContainer } from "../../../styled/
 import { CategoryItemContainer } from '../../../styled/wiki/Item';
 import CategoryItem from "./CategoryItem";
 
-
 export default function Category() {
   const db = getFirestore(app);
   const [categoryNames, setCategoryNames] = useRecoilState(categoryNameState);
   const [category, setCategory] = useRecoilState(categoryState);
-
-  useEffect(() => {
-    const fetchCategoryName = async () => {
-      try {
-        const categoryCollection = collection(db, "/category");
-        const querySnapshot = await getDocs(categoryCollection);
-
-        const names : string[] = [];
-
-        querySnapshot.forEach((document) => {
-          const data = document.data();
-          const categoryName = data.name;
-          names.push(categoryName);
-        });
-
-        setCategoryNames(names);
-
-      }
-      catch(error) {
-        console.error("Error fetching category names : " ,error);
-      }
-    };
-    fetchCategoryName();
-  },[setCategoryNames]);
+  const [newCategoryName, setNewCategoryName] = useState(""); // 새 카테고리를 입력할 상태
 
   const handleEditClick = () => {
-    console.log("edit");
     setCategory((prev) => ({
       ...prev,
-      isReadOnly : !prev.isReadOnly,
-    }))
+      isReadOnly: !prev.isReadOnly,
+    }));
   };
 
   const handleSaveClick = async () => {
-    console.log(categoryNames);
     try {
-      // Firestore에 데이터 업데이트
-  
-      // 업데이트할 카테고리의 객체를 담을 배열
+      // 새 카테고리를 Recoil 상태에 추가
+      setCategoryNames([...categoryNames, newCategoryName]);
 
+      // Firestore에 새 카테고리 추가
+      const categoryCollection = collection(db, "category");
+      await addDoc(categoryCollection, { name: newCategoryName });
 
-      const updatedCategories = categoryNames.map((categoryName, index) => ({
-        id: (index + 1).toString(),
-        name: categoryName
-      }));
-      
-      
-      console.log(updatedCategories);
-      // 모든 카테고리 데이터를 업데이트
-      updatedCategories.forEach(async (updatedCategory) => {
-        const categoryDocRef = doc(db, "category", updatedCategory.id);
-        await setDoc(categoryDocRef, { name: updatedCategory.name }, { merge: true });
-      });
       // Recoil 상태 업데이트
       setCategory((prev) => ({
         ...prev,
-        isReadOnly: true, // 저장 후 다시 읽기 전용으로 변경
+        isReadOnly: true,
       }));
+      
+      // 입력 필드 초기화
+      setNewCategoryName("");
     } catch (error) {
       console.error("Error updating category data: ", error);
     }
@@ -85,18 +51,29 @@ export default function Category() {
       <CategoryHeaderContainer>
         <TitleText>CATEGORY</TitleText>
         <CateEditBtn type="button" onClick={category.isReadOnly ? handleEditClick : handleSaveClick}>
-          {category.isReadOnly ? "편집" : "저장"}
+          {category.isReadOnly ? "추가" : "저장"}
         </CateEditBtn>
       </CategoryHeaderContainer>
       <CategoryListContainer>
         <CategoryItemContainer>
           <FolderOpenOutlinedIcon color='action' />
           전체
-          </CategoryItemContainer>
+        </CategoryItemContainer>
         {categoryNames.map((categoryName) => (
-          <CategoryItem key={categoryName} item ={categoryName}/>
+          <CategoryItem key={categoryName} item={categoryName} />
         ))}
-        
+        {!category.isReadOnly && (
+          // 카테고리 추가 모드일 때 입력 필드 표시
+          <CategoryItemContainer>
+            <input
+              type="text"
+              placeholder="새 카테고리 추가"
+              value={newCategoryName}
+              style={{width : "120px" }}
+              onChange={(e) => setNewCategoryName(e.target.value)}
+            />
+          </CategoryItemContainer>
+        )}
       </CategoryListContainer>
     </>
   );
