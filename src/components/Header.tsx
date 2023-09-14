@@ -30,6 +30,10 @@ export default function Header() {
             <Link to="/study" className={`page ${location.pathname === '/study' ? 'active' : ''}`}>
               스터디
             </Link>
+            <div className="auth-buttons">
+                <button className="auth-button1">로그인</button>
+                <button className="auth-button2">회원가입</button>
+            </div>
           </div>
         </div>
       </nav>
