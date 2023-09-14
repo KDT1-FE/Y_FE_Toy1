@@ -21,16 +21,14 @@ function Modal() {
     },
     isRunning ? INTERVAL : null,
   );
-  const handleOpenModal = () => {
-    setShowModal(true);
-  };
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
 
   return (
     <>
-      <CommuteMenu onClick={handleOpenModal}>
+      <CommuteMenu
+        onClick={() => {
+          setShowModal(true);
+        }}
+      >
         Commute
         <img src={commuteLogo}></img>
       </CommuteMenu>
@@ -50,7 +48,13 @@ function Modal() {
           <Title>
             출퇴근<StyledDate>2023.09.08(금)</StyledDate>
           </Title>
-          <CloseImg src={closeButton} onClick={handleCloseModal} />
+          <CloseImg
+            src={closeButton}
+            onClick={() => {
+              setShowModal(false);
+            }}
+            alt="close icon"
+          />
         </TopContainer>
         <MainContainer>
           <LiveClock />
