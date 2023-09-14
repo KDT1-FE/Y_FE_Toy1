@@ -1,19 +1,13 @@
-import React, {useState} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
 import Clock from "../../utils/clock";
 import "../../styles/Header.css";
-import {Modal} from "../Timer/TimerModal";
+import Modal from "../Modal/Modal";
+import TimerModal from "../Timer/TimerModal";
+import useModal from "../../hooks/useModal";
 
 function Header() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  const {isOpen, toggle} = useModal();
 
   return (
     <div className="Main">
@@ -38,7 +32,7 @@ function Header() {
               </Link>
             </li>
             <li>
-              <button type="button" className="Timer" onClick={openModal}>
+              <button type="button" className="Timer" onClick={toggle}>
                 Timer
               </button>
             </li>
@@ -51,7 +45,9 @@ function Header() {
           </ul>
         </nav>
       </header>
-      <Modal isOpen={isModalOpen} onClose={closeModal} />
+      <Modal isOpen={isOpen} onClose={toggle}>
+        <TimerModal onClose={toggle} />
+      </Modal>
     </div>
   );
 }

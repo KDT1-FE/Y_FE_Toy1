@@ -1,14 +1,10 @@
 import React from "react";
-import "../../styles/TimerModal.css";
 
-interface ModalProps {
-  isOpen: boolean;
+interface TimerModalProps {
   onClose: () => void;
 }
 
-export function Modal({isOpen, onClose}: ModalProps) {
-  if (!isOpen) return null;
-
+export default function TimerModal({onClose}: TimerModalProps) {
   return (
     <div className="ModalBackdrop">
       <div className="ModalContent">
@@ -26,5 +22,3 @@ export function Modal({isOpen, onClose}: ModalProps) {
     </div>
   );
 }
-
-export default Modal;
