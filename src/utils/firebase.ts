@@ -7,7 +7,7 @@ import {
     doc,
     getDocs,
     collection,
-    addDoc,
+    deleteDoc,
     setDoc,
     onSnapshot,
     QuerySnapshot,
@@ -60,6 +60,17 @@ export const createChannelDoc = async (collectionName: string, documentName: str
         console.log('채널 생성 성공!');
     } catch (error) {
         console.error('채널 생성 실패!', error);
+        throw error;
+    }
+};
+
+export const deleteChannelDoc = async (collectionName: string, documentName: string) => {
+    const documentRef = doc(firestore, collectionName, documentName);
+    try {
+        await deleteDoc(documentRef);
+        console.log('문서 삭제 성공!');
+    } catch (error) {
+        console.error('문서 삭제 실패!', error);
         throw error;
     }
 };

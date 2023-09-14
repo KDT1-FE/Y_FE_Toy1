@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { ChannelSidebar } from './style';
 
-import { handleGetDocs, DocumentData } from '../../utils/firebase';
+import { handleGetDocs, deleteChannelDoc, DocumentData } from '../../utils/firebase';
 import { QuerySnapshot } from 'firebase/firestore';
 import CreateChannelModal from '../CreateChannelModal';
 
@@ -15,6 +15,7 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
         [],
     );
     const [isModalOpen, setIsModalOpen] = useState(false);
+
     useEffect(() => {
         const updatedQuerySnapshot = handleGetDocs('wiki', (querySnapshot: QuerySnapshot<DocumentData>) => {
             const data: { docId: string; docKeys: string[]; docData: DocumentData }[] = [];
@@ -51,7 +52,11 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
             <ChannelSidebar>
                 {docsWithFields.map((item, index) => (
                     <div key={index} style={{ marginBottom: '10px' }}>
-                        <div style={{ fontSize: '20px', fontWeight: 'bold' }}># {item.docId}</div>
+                        <div style={{ display: 'flex' }}>
+                            <div style={{ fontSize: '20px', fontWeight: 'bold' }}># {item.docId}</div>
+                            <button onClick={() => deleteChannelDoc('wiki', item.docId)}>채널삭제</button>
+                        </div>
+
                         <div>
                             {item.docKeys.map((item2, index2) => (
                                 <div key={index2} onClick={() => handleKeyClick(item.docData[item2])}>
@@ -62,7 +67,7 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
                     </div>
                 ))}
                 <div style={{ fontSize: '20px', fontWeight: 'bold' }} onClick={openModal}>
-                    + 채널추가
+                    + 채널 추가
                 </div>
             </ChannelSidebar>
             {isModalOpen && (
