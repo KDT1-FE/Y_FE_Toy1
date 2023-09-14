@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ChannelSidebar } from './style';
 
 import { handleGetDocs } from '../../utils/firebase';
+import { QuerySnapshot } from 'firebase/firestore';
 
 interface DocumentData {
     [key: string]: any;
@@ -17,25 +18,22 @@ const SidebarGallery: React.FC<SidebarGalleryProps> = ({ onKeyClick }) => {
     );
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                const querySnapshot = await handleGetDocs('gallery');
-                const data: { docId: string; docKeys: string[]; docData: DocumentData }[] = [];
+        const updatedQuerySnapshot = handleGetDocs('gallery', (querySnapshot: QuerySnapshot<DocumentData>) => {
+            const data: { docId: string; docKeys: string[]; docData: DocumentData }[] = [];
 
-                querySnapshot.forEach((doc) => {
-                    const docData = doc.data();
-                    const docId = doc.id;
-                    const docKeys = Object.keys(docData);
-                    data.push({ docId, docKeys, docData });
-                });
+            querySnapshot.forEach((doc: any) => {
+                const docData = doc.data();
+                const docId = doc.id;
+                const docKeys = Object.keys(docData);
+                data.push({ docId, docKeys, docData });
+            });
 
-                setDocsWithFields(data);
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
+            setDocsWithFields(data);
+        });
 
-        fetchData();
+        return () => {
+            updatedQuerySnapshot();
+        };
     }, []);
 
     const handleKeyClick = (value: any) => {
