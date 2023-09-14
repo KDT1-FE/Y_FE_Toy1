@@ -186,42 +186,61 @@
 // }
 
 
+import sliderImg1 from '../images/sliderImg1.png'; 
+import sliderImg2 from '../images/sliderImg2.png'; 
+import sliderImg3 from '../images/sliderImg3.png'; 
+
 import '../styles/Main.css'; 
-// import Slick
 import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import Slide from './Slider'; // Slide 컴포넌트 임포트
 
-import study1Image from '../images/study1.jpeg'; // 이미지 파일 경로
-import study2Image from '../images/study2.avif'; // 이미지 파일 경로
+const slides = [
+  {
+    backgroundColor: '#ffeae9',
+    text: 'Slide 1',
+    imageSrc: sliderImg1, // 이미지 파일 경로
+  },
+  {
+    backgroundColor: '#fff088',
+    text: 'Slide 2',
+    imageSrc: sliderImg2, // 이미지 파일 경로
+  },
+  {
+    backgroundColor: '#edfaf7',
+    text: 'Slide 3',
+    imageSrc: sliderImg3, // 이미지 파일 경로
+  },
+];
 
 const ImageSlider = () => {
     // 옵션
     const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        autoplay: true,
-        slidesToShow: 2,
-        autoplaySpeed: 2000,
-    }
-
+      dots: true,
+      infinite: true,
+      speed: 500,
+      autoplay: true,
+      slidesToShow: 1,
+      autoplaySpeed: 2000,
+    };
+  
     return (
         <div className="carousel">
-            <Slider { ...settings }>
-                <div>
-                    <img src={study1Image} alt="Slide 1" />
-                </div>
-                <div>
-                    <img src={study2Image} alt="Slide 2" />
-                </div>
-                <div>
-                    Slide 3
-                </div>
-            </Slider>
+          <Slider {...settings}>
+            {slides.map((slide, index) => (
+              <Slide
+                key={index}
+                backgroundColor={slide.backgroundColor}
+                text={slide.text}
+                imageSrc={slide.imageSrc}
+              />
+            ))}
+          </Slider>
         </div>
-    );
-}
-
-export default ImageSlider;
+      );
+    };
+    
+  
+  export default ImageSlider;
