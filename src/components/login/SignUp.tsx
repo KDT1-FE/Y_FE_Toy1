@@ -2,7 +2,6 @@ import React, { PropsWithChildren, useState } from "react";
 import { createUserWithEmailAndPassword } from "@firebase/auth";
 import { auth } from "../../../firebase";
 
-
 import * as style from "./signupStyle";
 
 interface ModalDefaultType {
@@ -13,7 +12,6 @@ function Modal({
   onClickToggleModal,
   children,
 }: PropsWithChildren<ModalDefaultType>) {
-  
   /** 회원가입 위한 선언 */
   const [email, setEmail] = useState<string>("");
   const [pwd, setPwd] = useState<string>("");
