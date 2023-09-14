@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import { getFirestore , collection, serverTimestamp , addDoc,doc, setDoc} from "firebase/firestore";
+import React, { useState } from "react";
+import { useRecoilValue } from "recoil";
 import MDEditor from "@uiw/react-md-editor";
-import {useRecoilValue } from "recoil";
+import { getFirestore , collection, serverTimestamp , addDoc} from "firebase/firestore";
+import { useNavigate } from 'react-router-dom';
 import { categoryNameState } from "../../recoil/atoms/wiki/CategoryAtom";
 import {
   WikiWriteContainer,
@@ -13,65 +13,37 @@ import { SubmitButton, BackToListBtn } from "../../styled/wiki/Button";
 import { TitleInput } from "../../styled/wiki/Input";
 import CategorySelect from "../../styled/wiki/Select";
 import app from '../../firebaseSDK';
-import { selectedItemSelector } from "./ItemContent";
+
 
 export default function WikiWrite() {
+  
   const [value, setValue] = React.useState<string | undefined>("");
   const db = getFirestore(app);
-  const categoryNames = useRecoilValue(categoryNameState);
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState('주요 기능');
   const navigate = useNavigate();
 
-  const selectedItem = useRecoilValue(selectedItemSelector);
+  const categoryNames = useRecoilValue(categoryNameState);
 
-  // 1번 경로로 들어왔을 때 selectedItem이 null인 경우의 처리
-  useEffect(() => {
-    if (selectedItem === null) {
-      // 아무 아이템을 선택하지 않은 상태이므로 초기화
-      setTitle("");
-      setCategory("주요 기능");
-      setValue("");
-    }
-    else {
-      // selectedItem이 존재하는 경우는 2번 경로로 들어왔을 때
-      // selectedItem을 기반으로 필요한 작업 수행
-      setTitle(selectedItem.title);
-      setCategory(selectedItem.category);
-      setValue(selectedItem.content);
-    }
-  }, [selectedItem]);
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState('주요 기능');
+
 
   const handleButtonClick = () => {
     navigate('/wiki');
   }
 
   const handleSubmitBtnClick = async () => {
-
     try {
       const wikiCollection = collection(db, "/wiki");
+      await addDoc(wikiCollection, {
+        title,
+        category,
+        content: value,
+        createdAt: serverTimestamp(),
+      });
       
-      if (selectedItem) {
-        const docRef = doc(wikiCollection, selectedItem.id);
-        await setDoc(docRef, {
-          title,
-          category,
-          content: value,
-          createdAt: serverTimestamp(),
-        });
-      } else {
-        await addDoc(wikiCollection, {
-          title,
-          category,
-          content: value,
-          createdAt: serverTimestamp(),
-        });
-      }
-
     }
     catch (error) {
-      console.error('Error adding wiki data', error);
-
+      console.error('Error adding or updating wiki data', error);
     }
     navigate('/wiki');
   }
