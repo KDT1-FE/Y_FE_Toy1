@@ -5,11 +5,11 @@ import TextEditor from "./TextEditor";
 
 function Content() {
   const {id} = useParams() as {id: string};
-  const [text, setText] = useState("");
-  const [editTrue, setEditTrue] = useState(false);
+  const [dataKey, setDataKey] = useState("");
+  const [isEditorOpen, setIsEditorOpen] = useState(false);
 
   const clickEdit = () => {
-    setEditTrue(!editTrue);
+    setIsEditorOpen(!isEditorOpen);
   };
 
   /**
@@ -18,11 +18,11 @@ function Content() {
    * - wiki 메인페이지의 경우 첫번째 리스트 렌더링
    */
   const initialSet = () => {
-    setEditTrue(false);
-    if (id) {
-      setText(id);
+    setIsEditorOpen(false);
+    if (id === undefined) {
+      setDataKey("회사내규");
     } else {
-      setText("회사내규");
+      setDataKey(id);
     }
   };
 
@@ -32,23 +32,23 @@ function Content() {
 
   return (
     <div className="WikiContentWrap">
-      <h1 id="ContentTitle">{text}</h1>
+      <h1 id="ContentTitle">{dataKey}</h1>
       <button
         className="WikiButton"
         type="button"
         onClick={clickEdit}
         style={{
-          backgroundColor: editTrue ? "rgba(255, 55, 115, 0.8)" : "#34576d",
+          backgroundColor: isEditorOpen ? "rgba(255, 55, 115, 0.8)" : "#34576d",
         }}
       >
-        {editTrue ? "수정취소" : "수정하기"}
+        {isEditorOpen ? "수정취소" : "수정하기"}
       </button>
       <div id="main-content">
-        {editTrue ? (
+        {isEditorOpen ? (
           <TextEditor />
         ) : (
           <div>
-            Url 파라미터값(현재값 : {text})을 Key로 갖는 데이터를 가져와
+            Url 파라미터값(현재값 : {dataKey})을 Key로 갖는 데이터를 가져와
             렌더링합니다, <br /> 렌더링 시에는 외부라이브러리를 통해
             마크다운텍스트(데이터)를 html로 변환하여 렌더링합니다
           </div>
