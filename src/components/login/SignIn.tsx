@@ -31,10 +31,6 @@ export default function SignIn() {
     setPwd(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
-
   const handleClickCreate = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     console.log("안녕하세요");
@@ -90,3 +86,4 @@ export default function SignIn() {
     </>
   );
 }
+ 
