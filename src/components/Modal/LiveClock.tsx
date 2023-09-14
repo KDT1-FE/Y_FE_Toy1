@@ -1,6 +1,7 @@
 import useInterval from 'hooks/useInterval';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { liveClockFormat } from 'utils/format';
 
 function LiveClock() {
   const [date, setDate] = useState(new Date());
@@ -12,11 +13,7 @@ function LiveClock() {
     tick();
   }, 1000);
 
-  return (
-    <StyledTime>
-      {date.getHours()} : {date.getMinutes()} : {date.getSeconds()}
-    </StyledTime>
-  );
+  return <StyledTime>{liveClockFormat(date)}</StyledTime>;
 }
 
 const StyledTime = styled.div`

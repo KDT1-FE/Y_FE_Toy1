@@ -6,3 +6,13 @@ export const timeFormat = (workTime: number) => {
   const minute = Math.floor((workTime % 3600) / 60);
   return `${hour}시간 ${minute}분 동안 업무 중`;
 };
+
+export const liveClockFormat = (date: Date) => {
+  const timeString = date.toLocaleTimeString('en-US', {
+    hour12: false,
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  });
+  return timeString.replace(/:/g, ' : ');
+};

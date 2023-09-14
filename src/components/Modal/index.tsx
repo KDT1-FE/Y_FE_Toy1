@@ -6,7 +6,7 @@ import ReactModal from 'react-modal';
 import LiveClock from './LiveClock';
 import { INTERVAL, WORK_TIME_INITIAL_VALUE } from 'constants/time';
 import useInterval from 'hooks/useInterval';
-import { timeFormat } from 'utils/timeFormat';
+import { timeFormat } from 'utils/format';
 
 function Modal() {
   const [showModal, setShowModal] = useState(false);
