@@ -5,9 +5,10 @@ import {
     getFirestore,
     Firestore,
     doc,
-    getDocs,
+    updateDoc,
     collection,
     deleteDoc,
+    getDoc,
     setDoc,
     onSnapshot,
     QuerySnapshot,
@@ -64,13 +65,33 @@ export const createChannelDoc = async (collectionName: string, documentName: str
     }
 };
 
+export const updateChannelDoc = async (collectionName: string, oldDocName: string, newDocName: string) => {
+    const oldDocRef = doc(firestore, collectionName, oldDocName);
+    const newDocRef = doc(firestore, collectionName, newDocName);
+
+    try {
+        // 수정하려는 document의 field 값을 읽어온 후, 새로운 document에 복사
+        const oldDocumentSnapshot = await getDoc(oldDocRef);
+        const data = oldDocumentSnapshot.data();
+        await setDoc(newDocRef, data);
+
+        // 기존 document 삭제
+        await deleteDoc(oldDocRef);
+
+        console.log('채널 수정 성공!');
+    } catch (error) {
+        console.error('채널 수정 실패!', error);
+        throw error;
+    }
+};
+
 export const deleteChannelDoc = async (collectionName: string, documentName: string) => {
     const documentRef = doc(firestore, collectionName, documentName);
     try {
         await deleteDoc(documentRef);
-        console.log('문서 삭제 성공!');
+        console.log('채널 삭제 성공!');
     } catch (error) {
-        console.error('문서 삭제 실패!', error);
+        console.error('채널 삭제 실패!', error);
         throw error;
     }
 };

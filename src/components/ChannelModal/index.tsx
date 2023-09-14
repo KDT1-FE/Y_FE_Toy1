@@ -1,14 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
-import { createChannelDoc } from '../../utils/firebase';
+import { createChannelDoc, updateChannelDoc } from '../../utils/firebase';
 
-interface CreateChannelModalProps {
+interface ChannelModalProps {
     isOpen: boolean;
     closeModal: () => void;
     collectionName: string;
+    modalType: string;
+    channelData: object;
+    channelId: string;
 }
 
-const CreateChannelModal: React.FC<CreateChannelModalProps> = ({ isOpen, closeModal, collectionName }) => {
+const ChannelModal: React.FC<ChannelModalProps> = ({
+    isOpen,
+    closeModal,
+    collectionName,
+    modalType,
+    channelData,
+    channelId,
+}) => {
     const customStyles = {
         content: {
             top: '50%',
@@ -24,7 +34,6 @@ const CreateChannelModal: React.FC<CreateChannelModalProps> = ({ isOpen, closeMo
     };
     const [name, setName] = useState('');
 
-    // 이름 입력 값이 변경될 때마다 name 상태 업데이트
     const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
     };
@@ -32,17 +41,25 @@ const CreateChannelModal: React.FC<CreateChannelModalProps> = ({ isOpen, closeMo
     const handleCreateChannel = async () => {
         try {
             await createChannelDoc(collectionName, name);
-
             closeModal();
         } catch (error) {
             console.error('채널 생성 실패!', error);
         }
     };
 
+    const handleUpdateChannel = async () => {
+        try {
+            await updateChannelDoc(collectionName, channelId, name);
+            closeModal();
+        } catch (error) {
+            console.error('채널 수정 실패!', error);
+        }
+    };
+
     return (
         <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyles} contentLabel="Example Modal">
             <div style={{ display: 'flex' }}>
-                <div>Create a channel</div>
+                <div>{modalType} a channel</div>
                 <button onClick={closeModal}>X</button>
             </div>
             <div>채널 이름</div>
@@ -51,9 +68,19 @@ const CreateChannelModal: React.FC<CreateChannelModalProps> = ({ isOpen, closeMo
             </form>
             <div>{name.length}</div>
             <div>채널에서는 특정 주제에 대한 대화가 이루어집니다. 찾고 이해하기 쉬운 이름을 사용하세요.</div>
-            <button onClick={handleCreateChannel}>생성</button>
+            <button
+                onClick={() => {
+                    if (modalType === 'Create') {
+                        handleCreateChannel();
+                    } else if (modalType === 'Update') {
+                        handleUpdateChannel();
+                    }
+                }}
+            >
+                완료
+            </button>
         </Modal>
     );
 };
 
-export default CreateChannelModal;
+export default ChannelModal;
