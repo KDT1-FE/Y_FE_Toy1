@@ -8,15 +8,21 @@ const Gallery: React.FC = () => {
     const [clickedValue, setClickedValue] = useState<any>(null);
 
     const handleKeyClick = (value: any) => {
-        console.log(value);
         setClickedValue(value);
-        console.log(value);
     };
     return (
         <GalleryContainer>
             <SidebarGallery onKeyClick={handleKeyClick} />
-            {/* {clickedValue && <Profile />} */}
-            {clickedValue.userInfo ? <Profile /> : clickedValue.articleR ? <Recruit /> : <div>Tech</div>};
+            {clickedValue && clickedValue.userInfo ? (
+                <Profile />
+            ) : clickedValue && clickedValue.articleR ? (
+                <Recruit />
+            ) : clickedValue && clickedValue.articleT ? (
+                <div>Tech</div>
+            ) : (
+                <div>채널을 선택해주세요.</div>
+            )}
+            ;
         </GalleryContainer>
     );
 };
