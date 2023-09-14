@@ -4,40 +4,29 @@ import MDEditor from '@uiw/react-md-editor';
 import React, { useState } from 'react'
 
 function WikiCreate() {
-  const [textValue, setTextValue] = useState('')
-  const [writable, setWriteToggle] = useState(false);
-  
-  const handleSetValue = (e: string) => {
-    setTextValue(e);
+  const [textValue, setTextValue] = useState('')  
+  const handleSetValue = (text: string) => {
+    setTextValue(text);
   };
-
-  const writeMode = () => {
-    setWriteToggle(() => false)
-  }
-  const previewMode = () => {
-    setWriteToggle(() => true)
-  }
 
   return (
   <WikiContainer>
     <NavigationWiki></NavigationWiki>
     <TextareaContainer>
       <ButtonContainer>
-        <div>
-          <button onClick={writeMode}>Write</button><button onClick={previewMode}>Preview</button>
-        </div>
-        <button>등록하기</button>
+        <button onClick={() => {
+          if (textValue === '') {
+            alert('빈 내용은 등록하실 수 없습니다.')
+            return;
+          }
+        }}>등록하기</button>
       </ButtonContainer>
-      {
-        writable === false ? 
-        <textarea 
-          placeholder='내용을 입력하세요.'
-          value={textValue}
-          onChange={(e) => {handleSetValue(e.target.value)}}
-        ></textarea> :
-        <MDEditor.Markdown source={textValue} />
-      }
-      </TextareaContainer>
+      <MDEditor 
+        placeholder='등록할 내용을 입력해주세요.'
+        value={textValue}
+        onChange={(event) => {handleSetValue(event as string)}}
+      /> 
+    </TextareaContainer>
   </WikiContainer>
   )
 }
@@ -49,16 +38,12 @@ const WikiContainer = styled.div`
 
 const ButtonContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 `;
 
 const TextareaContainer = styled.div`
   margin: 2rem;
 
-  textarea {
-    width: 100%;
-    height: 100%;
-  }
 `;
 
 export default WikiCreate;
