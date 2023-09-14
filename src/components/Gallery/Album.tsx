@@ -15,21 +15,13 @@ function Album() {
   const [files, setFiles] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isModal, setIsModal] = useState<boolean>(false);
+
   //   앨범 선택 함수 : URL파라미터 값에 따라 앨범 선택, URL파라미터 없을 경우 1번 앨범 선택
   const SelectAlbum = () => {
     if (id !== undefined) {
       setAlbumKey(id);
     } else {
       setAlbumKey("교육생 사진");
-      ReadPhotos(albumKey)
-        .then((photoFiles: string[]) => {
-          setFiles(photoFiles); // 파일 목록을 설정
-          setIsLoading(false);
-        })
-        .catch(err => {
-          setIsLoading(false);
-          throw new Error(err);
-        });
     }
   };
 
@@ -38,18 +30,16 @@ function Album() {
   }, [id]);
 
   useEffect(() => {
-    if (albumKey) {
-      setIsLoading(true); // 로딩 상태 설정
-      ReadPhotos(albumKey)
-        .then((photoFiles: string[]) => {
-          setFiles(photoFiles); // 파일 목록을 설정
-          setIsLoading(false);
-        })
-        .catch(err => {
-          setIsLoading(false);
-          throw new Error(err);
-        });
-    }
+    SelectAlbum();
+    ReadPhotos(albumKey)
+      .then(photoFiles => {
+        setFiles(photoFiles);
+        setIsLoading(false);
+      })
+      .catch(err => {
+        setIsLoading(false);
+        throw new Error(err);
+      });
   }, [albumKey]);
 
   const ChangeModalTrue = () => {
