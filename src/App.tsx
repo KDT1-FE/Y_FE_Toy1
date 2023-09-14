@@ -3,6 +3,7 @@ import Main from 'pages/Main';
 import { ROUTES } from 'constants/routes';
 import Gallery from 'pages/Gallery';
 import Wiki from 'pages/Wiki';
+import WikiCreate from 'pages/WikiCreate';
 import Header from 'components/Header';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path={ROUTES.GALLERY} element={<Gallery />} />
         <Route path={ROUTES.WIKI} element={<Wiki />} />
+        <Route path={ROUTES.WIKICREATE} element={<WikiCreate />} />
       </Routes>
     </Router>
   );
