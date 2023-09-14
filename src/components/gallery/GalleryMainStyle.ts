@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-export const Temp = styled.div`
+export const GalleryMain = styled.div`
   // border: 1px solid gold;
   padding: 2rem;
-  border: 0.06rem solid #e6e6e6;
+  border: 0.06rem solid var(--color-light-gray);
   border-radius: 0.94rem;
-  background-color: #fff;
+  background-color: var(--color-white);
   width: calc(100% - 15rem - 3rem);
   height: 44.75rem;
   overflow: auto;
@@ -23,7 +23,7 @@ export const Temp = styled.div`
     border-radius: 6.25rem;
     border: 3px solid transparent;
     background-clip: content-box;
-    background-color: #d3d3d3;
+    background-color: var(--color-medium-gray);
   }
 `;
 
@@ -60,7 +60,7 @@ export const ImgWrap = styled.div`
 `;
 
 export const Img = styled.div<{ img: string; background: string }>`
-  border: 0.06rem solid #e6e6e6;
+  border: 0.06rem solid var(--color-light-gray);
   border-radius: 0.94rem;
   background-color: ${({ img }) => img};
   width: 18rem;

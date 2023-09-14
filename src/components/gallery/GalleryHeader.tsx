@@ -1,5 +1,5 @@
 import * as style from "./GalleryHeaderStyle";
 
 export default function GalleryHeader() {
-  return <style.Temp>GALLERY</style.Temp>;
+  return <style.GalleryHeader>GALLERY</style.GalleryHeader>;
 }

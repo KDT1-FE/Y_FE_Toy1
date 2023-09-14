@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-export const Temp = styled.div`
+export const GallerySide = styled.div`
   // border: 1px solid green;
   padding: 1rem 0;
-  border: 0.06rem solid #e6e6e6;
+  border: 0.06rem solid var(--color-light-gray);
   border-radius: 0.94rem;
-  background-color: #fff;
+  background-color: var(--color-white);
   min-width: 15rem;
   height: 44.75rem;
   display: flex;
@@ -45,7 +45,7 @@ export const List = styled.li`
   position: relative;
   cursor: pointer;
   padding: 0.4rem 1rem;
-  color: #4a4a4a;
+  color: var(--color-gray);
   font-weight: medium;
   font-size: 1rem;
   line-height: normal;

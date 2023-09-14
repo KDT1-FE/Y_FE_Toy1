@@ -175,7 +175,7 @@ export default function GallerySide({
 
   return (
     <>
-      <style.Temp>
+      <style.GallerySide>
         <style.ListWrap>
           {galleryData.map((data, index) => {
             return (
@@ -249,7 +249,7 @@ export default function GallerySide({
             ></Button>
           )}
         </style.ButtonWrap>
-      </style.Temp>
+      </style.GallerySide>
     </>
   );
 }

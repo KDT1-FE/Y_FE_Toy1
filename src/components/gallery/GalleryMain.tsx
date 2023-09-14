@@ -10,7 +10,7 @@ export default function GalleryMain({ album, imagePaths }: GalleryMainProps) {
   // console.log(imagePaths);
   return (
     <>
-      <style.Temp>
+      <style.GalleryMain>
         <style.Container>
           <style.Title>{album}</style.Title>
           <Button
@@ -31,7 +31,7 @@ export default function GalleryMain({ album, imagePaths }: GalleryMainProps) {
             );
           })}
         </style.ImgContainer>
-      </style.Temp>
+      </style.GalleryMain>
     </>
   );
 }

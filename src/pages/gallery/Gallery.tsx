@@ -95,7 +95,7 @@ export default function Gallery() {
 
   // console.log(galleryData);
   return (
-    <style.Temp>
+    <style.Gallery>
       <GalleryHeader />
       <style.MainWrap>
         <GallerySide
@@ -118,6 +118,6 @@ export default function Gallery() {
           setGalleryData={setGalleryData}
         />
       ) : null}
-    </style.Temp>
+    </style.Gallery>
   );
 }
