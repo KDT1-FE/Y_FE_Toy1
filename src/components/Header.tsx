@@ -2,14 +2,22 @@ import styled from 'styled-components';
 import { BsCalendar4Event } from 'react-icons/bs';
 import { CiSearch } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import CommuteModal from './CommuteModal';
 import { UserProvider } from '../common/UserContext';
-import UserResult from './userProfile';
+import UserResult from './UserProfile';
 
 const Header = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setModalOpen(!isModalOpen);
+  };
+
   return (
     <Container>
       <Navbar>
-        <div className="wrapper">
+        <div className="nav-wrapper">
           <div className="title">
             <Link to={'/'}>App Logo</Link>
           </div>
@@ -23,9 +31,15 @@ const Header = () => {
           </InputWrapper>
         </div>
 
-        <div className="wrapper">
+        <div className="nav-wrapper">
           <div className="icon">
-            <button aria-haspopup="true">
+            <CommuteModal isModalOpen={isModalOpen} />
+            <button
+              onClick={toggleModal}
+              aria-haspopup="dialog"
+              aria-labelledby="commute-modal"
+              aria-expanded={isModalOpen}
+            >
               <BsCalendar4Event size="21" />
             </button>
           </div>
@@ -52,8 +66,6 @@ const Container = styled.header`
   padding: 0 2rem;
   background-color: ${({ theme }) => theme.colors.white};
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-
-  z-index: 11;
 `;
 
 const Navbar = styled.nav`
@@ -64,7 +76,7 @@ const Navbar = styled.nav`
   width: 100%;
   height: 100%;
 
-  .wrapper {
+  .nav-wrapper {
     display: flex;
     align-items: center;
 
@@ -77,6 +89,7 @@ const Navbar = styled.nav`
   }
 
   .icon {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -92,11 +105,9 @@ const Navbar = styled.nav`
       outline: none;
       background-color: transparent;
 
-      opacity: 0.5;
       cursor: pointer;
 
       &:hover {
-        opacity: 1;
       }
     }
   }
