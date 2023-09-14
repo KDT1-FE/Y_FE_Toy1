@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { useUser } from '../../common/UserContext';
+import { Console } from 'console';
 
 const Info = () => {
   const initialMarkdown = localStorage.getItem('savedMarkdown') || 'default';
   const [markdown, setMarkdown] = useState<string>(initialMarkdown);
   const [tempMarkdown, setTempMarkdown] = useState<string>(markdown);
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const { user } = useUser();
 
+  console.log(user);
   useEffect(() => {
     localStorage.setItem('savedMarkdown', markdown);
   }, [markdown]);
