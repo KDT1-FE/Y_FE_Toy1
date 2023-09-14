@@ -116,3 +116,23 @@ export const addFieldToDoc = async (
         throw error;
     }
 };
+
+export const deleteFieldFromDoc = async (collectionName: string, documentName: string, fieldName: string) => {
+    const documentRef = doc(firestore, collectionName, documentName);
+    try {
+        // 문서 가져오기
+        const documentSnapshot = await getDoc(documentRef);
+        if (documentSnapshot.exists()) {
+            const data = documentSnapshot.data();
+            delete data[fieldName];
+            // 업데이트된 데이터를 다시 문서에 저장
+            await setDoc(documentRef, data);
+            console.log(`서브채널 삭제 성공!`);
+        } else {
+            console.error('채널이 존재하지 않습니다.');
+        }
+    } catch (error) {
+        console.error('서브채널 삭제 실패!', error);
+        throw error;
+    }
+};
