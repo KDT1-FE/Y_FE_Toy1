@@ -45,9 +45,13 @@ const EditModal = ({ state, projectId, imageUrl, closeOnClick }: ModalProps) => 
   return (
     <EditModalBg onClick={closeOnClick}>
       <EditModalContainer onClick={(e) => e.stopPropagation()}>
-        <FlexEndDiv>
-          <CloseBtn onClick={closeOnClick} />
-        </FlexEndDiv>
+        <FlexDiv>
+          <div style={{ flex: '1' }}></div>
+          <b style={{ flex: '2', textAlign: 'center', fontSize: "20px" }}>프로젝트 수정</b>
+          <div style={{ flex: '1', display: 'flex', justifyContent: 'flex-end' }}>
+            <CloseBtn onClick={closeOnClick} />
+          </div>
+        </FlexDiv>
         <FlexStartDiv>
           <b>프로젝트 사진</b>
         </FlexStartDiv>
@@ -118,12 +122,12 @@ const EditModalContainer = styled.div`
 const FlexStartDiv = styled.div`
   display: flex;
   justify-content: flex-start;
-  margin: 10px 0;
+  margin: 20px 0;
 `;
 
-const FlexEndDiv = styled.div`
+const FlexDiv = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 `;
 
 const CloseBtn = styled(AiOutlineClose)`
