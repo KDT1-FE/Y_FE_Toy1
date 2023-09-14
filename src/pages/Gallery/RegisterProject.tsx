@@ -1,9 +1,9 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import { GalleryMainContainer, CategoryTitleSection, BreadCrumb } from './Project';
 
 const RegisterProject = () => {
-  const [projectInfo, setProjectInfo] = React.useState({
+  const [projectInfo, setProjectInfo] = useState({
     imageUrl: '',
     state: 'ongoing',
   });
