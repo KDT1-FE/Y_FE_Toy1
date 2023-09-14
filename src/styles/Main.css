@@ -1,3 +1,11 @@
+.main-container-text {
+    padding-top: 15px;
+    margin: 0 auto;
+    font-size: 70px;
+    width: 90%;
+    display: flex;
+    align-items: center;
+}
 .carousel {
     display: flex;
     justify-content: center; 
@@ -12,6 +20,6 @@
   }
   
   .carousel .slick-slide img {
-    max-width: 100%; 
-    height: auto; 
+    width: 800px;
+    height: 500px; 
   }

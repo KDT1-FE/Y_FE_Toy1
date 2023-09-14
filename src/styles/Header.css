@@ -5,16 +5,7 @@
     text-align: center; 
   } */
   
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 auto;
-    border-bottom: 2px solid rgb(204, 204, 204);
-    width: 90%;
-  }
-  
-  .menu-icon {
+  /* .menu-icon {
     font-size: 36px; 
     cursor: pointer;
   }
@@ -46,8 +37,34 @@
     margin-right: 10px;
     text-decoration: none;
     color: coral
+  } */
+  
+  
+  .pageList {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    border-bottom: 2px solid rgb(204, 204, 204);
+    width: 90%;
   }
   
+  .page {
+    font-size: 30px;
+    margin-right: 80px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    font-weight: normal;
+    color: gray;
+    text-decoration: none; /* 밑줄 제거 */
+  }
   
+  .page.active {
+    color: black;
+    font-weight: bold;
+  }
   
+  .page:hover {
+    color: coral;
+  }
   

@@ -201,7 +201,9 @@ const ImageSlider = () => {
     const settings = {
         dots: true,
         infinite: true,
-        speed: 500
+        speed: 500,
+        autoplay: true,
+        autoplaySpeed: 2000,
     }
 
     return (
