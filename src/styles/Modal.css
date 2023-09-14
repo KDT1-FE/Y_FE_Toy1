@@ -1,0 +1,150 @@
+.ModalBackdrop {
+  display: flex;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+  width: 100%;
+  height: 100%;
+
+  padding-top: 8%;
+
+  background-color: rgba(0, 0, 0, 0.5);
+
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.ModalContent {
+  position: relative;
+  z-index: 1001;
+
+  width: 500px;
+  height: 300px;
+
+  padding: 20px;
+
+  background-color: white;
+  border-radius: 8px;
+}
+
+.CloseButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  overflow: hidden;
+
+  width: 2em;
+  height: 2em;
+
+  padding: 0;
+
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+
+  color: rgba(255, 55, 115, 0.8);
+  font: inherit;
+  text-indent: 100%;
+
+  cursor: pointer;
+
+  &:focus {
+    outline: solid 0 transparent;
+    box-shadow: 0 0 0 2px rgba(255, 55, 115, 0.8);
+  }
+
+  &:hover {
+    background: rgba(231, 122, 222, 0.1);
+  }
+
+  &:before,
+  &:after {
+    position: absolute;
+    top: 15%;
+    left: calc(50% - 0.0625em);
+
+    width: 0.125em;
+    height: 70%;
+
+    border-radius: 0.125em;
+    background: currentcolor;
+    content: "";
+    transform: rotate(45deg);
+  }
+
+  &:after {
+    transform: rotate(-45deg);
+  }
+}
+
+.CancelButton {
+  position: absolute;
+  right: 120px;
+  bottom: 10px;
+
+  width: 40px;
+  min-width: 100px;
+  height: 36px;
+
+  padding: 8px;
+
+  border: 2.5px solid #e0e1e4;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 20px -20px;
+
+  color: #7a7575;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease-in-out 0ms;
+  user-select: none;
+}
+
+.CancelButton:hover {
+  background-color: #f2f2f2;
+  box-shadow: 0px 0px 20px -18px;
+}
+
+.CancelButton:active {
+  transform: scale(0.95);
+}
+
+.OKButton {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+
+  width: 40px;
+  min-width: 100px;
+  height: 36px;
+
+  padding: 8px;
+
+  border: 2.5px solid rgba(247, 123, 160, 0.8);
+  background-color: rgba(255, 55, 115, 0.8);
+  border-radius: 5px;
+  box-shadow: 0px 0px 20px -20px;
+
+  color: #f2f2f2;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease-in-out 0ms;
+  user-select: none;
+}
+
+.OKButton:hover {
+  background-color: #d83f93;
+  box-shadow: 0px 0px 20px -18px;
+  border: 2.5px solid #d83f93;
+}
+
+.OKButton:active {
+  transform: scale(0.95);
+}
