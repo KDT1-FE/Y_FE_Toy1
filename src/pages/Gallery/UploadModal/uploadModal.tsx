@@ -41,10 +41,8 @@ const UploadModal: React.FC<UploadModalProps> = ({ setModalOpen, onUpload }) => 
             const formData = new FormData();
             const recruitURLInput = document.getElementById('recruitURL') as HTMLInputElement;
             const thumbnailTextInput = document.getElementById('thumbnailText') as HTMLInputElement;
-
             formData.append('recruitURL', recruitURLInput.value || '');
             formData.append('thumbnailText', thumbnailTextInput.value || '');
-
             formData.append('thumbnailURL', file);
 
             onUpload(formData); // 업로드 함수 호출
