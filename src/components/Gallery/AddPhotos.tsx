@@ -1,14 +1,11 @@
 import React from "react";
-
-interface AddPhotosProps {
-  file: string;
-}
+import {AddPhotosProps} from "../../types/Gallery";
 
 function AddPhotos({file}: AddPhotosProps) {
   return (
-    <div className="photo">
-      <div className="photoImgDiv">
-        <img className="photoImg" src={file} alt="Album" />
+    <div className="Photo">
+      <div className="PhotoImgDiv">
+        <img className="PhotoImg" src={file} alt="Album" />
       </div>
     </div>
   );

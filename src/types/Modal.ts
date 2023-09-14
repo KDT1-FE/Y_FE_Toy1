@@ -3,3 +3,7 @@ export interface ModalType {
   isOpen: boolean;
   onClose: () => void;
 }
+
+export interface ModalProps {
+  onClose: () => void;
+}
