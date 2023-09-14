@@ -1,3 +1,9 @@
+/**
+ * @description 시간을 입력 받으면 필요에 따라 format해주는 함수
+ * @param {number} workTime 업무 시간
+ * @param {boolean} isFinishing 종료 여부
+ */
+
 export const timeFormat = (workTime: number, isFinishing = false) => {
   if (workTime < 60) {
     return isFinishing
@@ -20,6 +26,11 @@ export const timeFormat = (workTime: number, isFinishing = false) => {
     : nowTimeString(`${hour}시간 ${minute}분}`);
 };
 
+/**
+ * @description Date를 입력 받으면 시간 : 분 : 초 형식으로 출력
+ * @param {Date} date
+ */
+
 export const liveClockFormat = (date: Date) => {
   const timeString = date.toLocaleTimeString('en-US', {
     hour12: false,
@@ -30,6 +41,9 @@ export const liveClockFormat = (date: Date) => {
   return timeString.replace(/:/g, ' : ');
 };
 
+/**
+ * @description 현재 날짜를 형식에 맞게 출력해주는 함수
+ */
 export const dayFormat = () => {
   const date = new Date();
   const dateString = date.toLocaleDateString('ko-KR', {
