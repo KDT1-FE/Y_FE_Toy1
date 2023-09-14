@@ -1,7 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import Home from '../pages/Home';
-import Gallery from '../pages/Gallery';
+import Gallery from '../pages/Gallery/Gallery';
+import Member from '../pages/Gallery/Member';
+import Project from '../pages/Gallery/Project';
+import RegisterProject from '../pages/Gallery/RegisterProject';
 import Wiki from '../pages/wiki/Wiki';
 import Info from '../pages/wiki/Info';
 import Team from '../pages/wiki/Team';
@@ -42,15 +45,36 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <div>Gallery</div>,
+            element: <Member />,
           },
           {
-            path: 'profile',
-            element: <div>Profile</div>,
+            path: 'members',
+            element: <Member />,
           },
           {
-            path: 'achievement',
-            element: <div>Achievement</div>,
+            path: 'projects',
+            children: [
+              {
+                index: true,
+                element: <Project state="ongoing" />,
+              },
+              {
+                path: 'ongoing',
+                element: <Project state="ongoing" />,
+              },
+              {
+                path: 'scheduled',
+                element: <Project state="scheduled" />,
+              },
+              {
+                path: 'completed',
+                element: <Project state="completed" />,
+              },
+              {
+                path: 'add',
+                element: <RegisterProject />,
+              },
+            ],
           },
         ],
       },
