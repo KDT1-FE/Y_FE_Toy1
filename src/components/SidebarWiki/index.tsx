@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { ChannelSidebar } from './style';
 
-import { handleGetDocs, deleteChannelDoc, DocumentData } from '../../utils/firebase';
+import { handleGetDocs, deleteChannelDoc, deleteFieldFromDoc, DocumentData } from '../../utils/firebase';
 import { QuerySnapshot } from 'firebase/firestore';
 import ChannelModal from '../ChannelModal';
 
@@ -64,7 +64,7 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
                                     openModal();
                                 }}
                             >
-                                서브채널추가
+                                추가
                             </button>
                             <button onClick={() => deleteChannelDoc('wiki', item.docId)}>삭제</button>
                             <button
@@ -81,8 +81,12 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
 
                         <div>
                             {item.docKeys.map((item2, index2) => (
-                                <div key={index2} onClick={() => handleKeyClick(item.docData[item2])}>
-                                    &gt; {item2}
+                                <div style={{ display: 'flex' }}>
+                                    <div key={index2} onClick={() => handleKeyClick(item.docData[item2])}>
+                                        &gt; {item2}
+                                    </div>
+                                    <button>수정</button>
+                                    <button onClick={() => deleteFieldFromDoc('wiki', item.docId, item2)}>삭제</button>
                                 </div>
                             ))}
                         </div>
