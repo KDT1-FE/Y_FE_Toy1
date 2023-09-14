@@ -38,6 +38,7 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({setOnEdit}) => {
       }
     };
     getUsers();
+    console.log('테스트')
   }, []);
   
   // 데이터 삭제하기
@@ -46,7 +47,7 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({setOnEdit}) => {
     await deleteDoc(userDoc)
     alert('삭제 완료했습니다')
     // 삭제 후 리스트페이지로 이동
-    navigate('/')
+    navigate('/Gallery')
   }
 
   return (
@@ -63,7 +64,7 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({setOnEdit}) => {
               <p>글쓴이 : {user.writer}</p>
               <div dangerouslySetInnerHTML={{  __html: user.desc}}></div>
             </div>
-            <Link to={`/edit/${user.id}`}>
+            <Link to={`/gallery/edit/${user.id}`}>
               <button onClick={() => setOnEdit(true)}>수정</button>
             </Link>
             <button onClick={() => {deleteGallery(user.id)}}>삭제</button>

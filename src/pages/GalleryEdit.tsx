@@ -133,7 +133,7 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
       await updateDoc(userRef, updateFields);
       console.log("문서 업데이트 완료");
       setOnEdit(false);
-      navigate('/')
+      navigate('/Gallery')
     } catch (error) {
       console.error("문서 업데이트 실패:", error);
     }
