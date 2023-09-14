@@ -1,5 +1,6 @@
 import React from 'react';
 import { HeaderComponent, TitleAnchor, AnchorContainer, ListAnchor, RightAnchorContainer, ModalButton } from './style';
+import CommuteBtn from '../../components/modal/CommuteBtn';
 
 const Header: React.FC = () => {
     return (
@@ -9,7 +10,9 @@ const Header: React.FC = () => {
                 <RightAnchorContainer>
                     <ListAnchor href="/wiki">wiki</ListAnchor>
                     <ListAnchor href="/gallery">gallery</ListAnchor>
-                    <ModalButton>commute</ModalButton>
+                    <ModalButton>
+                        <CommuteBtn />
+                    </ModalButton>
                 </RightAnchorContainer>
             </AnchorContainer>
         </HeaderComponent>
