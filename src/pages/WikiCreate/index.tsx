@@ -1,5 +1,9 @@
+import NavigationWiki from 'components/NavigationWiki';
+
 function WikiCreate() {
-  return <></>
+  return <>
+    <NavigationWiki></NavigationWiki>
+  </>
 }
 
 export default WikiCreate;
