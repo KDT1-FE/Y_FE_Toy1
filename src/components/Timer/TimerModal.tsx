@@ -16,6 +16,12 @@ export function Modal({isOpen, onClose}: ModalProps) {
           Close
         </button>
         <p>모달 창 내용</p>
+        <button type="button" className="CancelButton" onClick={onClose}>
+          Cancel
+        </button>
+        <button type="button" className="OKButton" onClick={onClose}>
+          OK
+        </button>
       </div>
     </div>
   );

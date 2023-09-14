@@ -21,7 +21,7 @@
   position: relative;
   z-index: 1001;
 
-  width: 400px;
+  width: 500px;
   height: 300px;
 
   padding: 20px;
@@ -78,4 +78,59 @@
   &:after {
     transform: rotate(-45deg);
   }
+}
+
+.CancelButton {
+  position: absolute; /* 이 속성을 추가합니다 */
+  right: 120px; /* 우측 간격을 설정합니다 */
+  bottom: 10px;
+  width: 40px;
+  min-width: 100px;
+  height: 36px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 2.5px solid #e0e1e4;
+  box-shadow: 0px 0px 20px -20px;
+  cursor: pointer;
+  background-color: white;
+  transition: all 0.2s ease-in-out 0ms;
+  user-select: none;
+}
+
+.CancelButton:hover {
+  background-color: #f2f2f2;
+  box-shadow: 0px 0px 20px -18px;
+}
+
+.CancelButton:active {
+  transform: scale(0.95);
+}
+
+.OKButton {
+  position: absolute; /* 이 속성을 추가합니다 */
+  right: 10px; /* 우측 간격을 설정합니다 */
+  bottom: 10px;
+  width: 40px;
+  min-width: 100px;
+  height: 36px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 2.5px solid rgba(255, 55, 115, 0.8);
+  box-shadow: 0px 0px 20px -20px;
+  cursor: pointer;
+  background-color: rgba(255, 55, 115, 0.8);
+  transition: all 0.2s ease-in-out 0ms;
+  user-select: none;
+  color: #f2f2f2;
+  font-weight: bold;
+}
+
+.OKButton:hover {
+  background-color: #d83f93;
+  box-shadow: 0px 0px 20px -18px;
+  border: 2.5px solid #d83f93;
+}
+
+.OKButton:active {
+  transform: scale(0.95);
 }
