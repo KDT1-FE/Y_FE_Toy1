@@ -1,24 +1,20 @@
-import { useEffect, useState } from 'react';
+import { INTERVAL } from 'constants/time';
+import useInterval from 'hooks/useInterval';
+import { useState } from 'react';
 import styled from 'styled-components';
+import { liveClockFormat } from 'utils/format';
 
 function LiveClock() {
   const [date, setDate] = useState(new Date());
   const tick = () => {
     setDate(new Date());
   };
-  useEffect(() => {
-    const timeId = setInterval(() => tick(), 1000);
 
-    return () => {
-      clearInterval(timeId);
-    };
-  });
+  useInterval(() => {
+    tick();
+  }, INTERVAL);
 
-  return (
-    <StyledTime>
-      {date.getHours()} : {date.getMinutes()} : {date.getSeconds()}
-    </StyledTime>
-  );
+  return <StyledTime>{liveClockFormat(date)}</StyledTime>;
 }
 
 const StyledTime = styled.div`

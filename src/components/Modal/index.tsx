@@ -1,51 +1,42 @@
 import styled from 'styled-components';
 import commuteLogo from '../../assets/icons/commute.svg';
 import closeButton from '../../assets/icons/closeButton.svg';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import LiveClock from './LiveClock';
+import { INTERVAL, WORK_TIME_INITIAL_VALUE } from 'constants/time';
+import useInterval from 'hooks/useInterval';
+import { timeFormat } from 'utils/format';
 
 function Modal() {
   const [showModal, setShowModal] = useState(false);
-  const [workSecond, setWorkSecond] = useState(-1);
-  const [workMinute, setWorkMinute] = useState(1);
-  const [workHour, setWorkHour] = useState(1);
+  const [workTime, setWorkTime] = useState(WORK_TIME_INITIAL_VALUE);
+  const [isRunning, setIsRunning] = useState(false);
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+  const [isFinishing, setIsFinishing] = useState(false);
 
-  const interval = useRef(1000);
+  useInterval(
+    () => {
+      setWorkTime(workTime + 1);
+    },
+    isRunning ? INTERVAL : null,
+  );
 
-  const startTimer = () => {
-    if (workSecond < 60) {
-      if (workSecond === 59) interval.current = 60000;
-      setWorkSecond(workSecond + 1);
-      return;
+  const handleWorkState = () => {
+    if (isRunning) {
+      setIsFinishing(true);
+      setWorkTime(WORK_TIME_INITIAL_VALUE);
     }
-    if (workMinute === 59) {
-      setWorkHour(workHour + 1);
-      setWorkMinute(0);
-
-      return;
-    }
-    setWorkMinute(workMinute + 1);
+    setIsRunning(!isRunning);
   };
 
-  useEffect(() => {
-    if (workSecond === -1) return;
-    const timeId = setInterval(() => startTimer(), interval.current);
-
-    return () => {
-      clearInterval(timeId);
-    };
-  });
-
-  const handleOpenModal = () => {
-    setShowModal(true);
-  };
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
   return (
     <>
-      <CommuteMenu onClick={handleOpenModal}>
+      <CommuteMenu
+        onClick={() => {
+          setShowModal(true);
+        }}
+      >
         Commute
         <img src={commuteLogo}></img>
       </CommuteMenu>
@@ -65,23 +56,23 @@ function Modal() {
           <Title>
             출퇴근<StyledDate>2023.09.08(금)</StyledDate>
           </Title>
-          <CloseImg src={closeButton} onClick={handleCloseModal} />
+          <CloseImg
+            src={closeButton}
+            onClick={() => {
+              setShowModal(false);
+            }}
+            alt="close icon"
+          />
         </TopContainer>
         <MainContainer>
-          <LiveClock></LiveClock>
+          <LiveClock />
           <BottomContainer>
-            <StateText>
-              {workSecond > 59
-                ? `${workMinute}분 동안 업무 중`
-                : `${workSecond}초 동안 업무 중`}
-            </StateText>
-            <Button
-              onClick={() => {
-                setWorkSecond(0);
-              }}
-            >
-              출근
-            </Button>
+            <StyledStateText>
+              {isRunning ? timeFormat(workTime) : '출근 전'}
+            </StyledStateText>
+            <StyledButton onClick={handleWorkState}>
+              {isRunning ? '퇴근' : '출근'}
+            </StyledButton>
           </BottomContainer>
         </MainContainer>
       </ReactModal>
@@ -176,12 +167,13 @@ const BottomContainer = styled.section`
   align-items: center;
   justify-content: flex-end;
 `;
-const StateText = styled.div`
+const StyledStateText = styled.div`
   color: #4a5568;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 600;
 `;
-const Button = styled.button`
+
+const StyledButton = styled.button`
   background-color: #3584f4;
   color: #fff;
   font-size: 1.25rem;
