@@ -8,7 +8,7 @@ function Gallery() {
     <div className="GalleryWrapper">
       <div className="GallerySidebar">
         <span className="GalleryCategory">갤러리</span>
-        <div className="CategoryListWrapper">
+        <div className="GalleryListWrapper">
           <Link to="/gallery/직원사진">직원사진</Link>
           <Link to="/gallery/협력사">협력사</Link>
         </div>

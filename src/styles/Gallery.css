@@ -30,6 +30,33 @@
   font-weight: 600;
 }
 
+.GalleryListWrapper {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  padding: 1.2rem 0rem;
+}
+
+.GalleryListWrapper > a {
+  padding: 0.6rem 1rem;
+
+  color: white;
+
+  text-align: left;
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+.GalleryListWrapper > a:hover {
+  font-weight: 600;
+
+  transition: all 0.3s;
+  transform: scale(1.07);
+}
+
 .GalleryContentSection {
   display: flex;
   flex-direction: column;
