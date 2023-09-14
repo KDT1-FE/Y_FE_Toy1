@@ -5,8 +5,8 @@ import { commuteState } from '../data/atoms';
 import { MdOutlineKeyboardDoubleArrowDown } from 'react-icons/md';
 import { formatMsToTime, timeToLocaleTimeString } from '../utils/formatTime';
 import CommuteButton from '../common/CommuteButton';
-import useUserDetail from '../hooks/useUserDetail';
 import { uploadCommuteInfo } from '../utils/firebaseUtils';
+import { useUser } from '../common/UserContext';
 
 interface Props {
   isModalOpen: boolean;
@@ -15,7 +15,7 @@ interface Props {
 const CommuteModal = ({ isModalOpen }: Props) => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [commuteInfo, setCommuteInfo] = useRecoilState(commuteState);
-  const { isLogin, uid } = useUserDetail();
+  const { user } = useUser();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -41,7 +41,9 @@ const CommuteModal = ({ isModalOpen }: Props) => {
       // 일한 시간 업로드
       console.log(updatedCommuteInfo);
 
-      uploadCommuteInfo(uid, updatedCommuteInfo);
+      if (user) {
+        uploadCommuteInfo(user.uid, updatedCommuteInfo);
+      }
     } else {
       setCommuteInfo({
         ...commuteInfo,
@@ -70,7 +72,7 @@ const CommuteModal = ({ isModalOpen }: Props) => {
           <span>{hour}</span> : <span>{minute}</span> : <span>{second}</span>
         </div>
         <div className="content-wrapper">
-          {!isLogin ? (
+          {!user ? (
             '로그인이 필요합니다.'
           ) : (
             <>
