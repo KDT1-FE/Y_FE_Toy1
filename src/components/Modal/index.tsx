@@ -15,6 +15,20 @@ function Modal() {
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   const [isFinishing, setIsFinishing] = useState(false);
 
+  const clickRunButton = () => {
+    setIsRunning(!isRunning);
+  };
+  const clickFinishButton = () => {
+    setIsFinishing(true);
+    setIsRunning(!isRunning);
+  };
+  const clickOkayButton = () => {
+    setShowModal(false);
+    setWorkTime(WORK_TIME_INITIAL_VALUE);
+    setIsRunning(false);
+    setIsFinishing(false);
+  };
+
   useInterval(
     () => {
       setWorkTime(workTime + 1);
@@ -24,10 +38,14 @@ function Modal() {
 
   const handleWorkState = () => {
     if (isRunning) {
-      setIsFinishing(true);
-      setWorkTime(WORK_TIME_INITIAL_VALUE);
+      clickFinishButton();
+      return;
     }
-    setIsRunning(!isRunning);
+    if (isFinishing) {
+      clickOkayButton();
+      return;
+    }
+    clickRunButton();
   };
 
   return (
@@ -65,13 +83,19 @@ function Modal() {
           />
         </TopContainer>
         <MainContainer>
-          <LiveClock />
+          {isFinishing ? (
+            <StyledFinishText>
+              {timeFormat(workTime, isFinishing)}
+            </StyledFinishText>
+          ) : (
+            <LiveClock />
+          )}
           <BottomContainer>
             <StyledStateText>
-              {isRunning ? timeFormat(workTime) : '출근 전'}
+              {isFinishing ? '' : isRunning ? timeFormat(workTime) : '출근 전'}
             </StyledStateText>
             <StyledButton onClick={handleWorkState}>
-              {isRunning ? '퇴근' : '출근'}
+              {isFinishing ? 'Okay' : isRunning ? '퇴근' : '출근'}
             </StyledButton>
           </BottomContainer>
         </MainContainer>
@@ -189,5 +213,10 @@ const StyledButton = styled.button`
   &:hover {
     background-color: #1b64da;
   }
+`;
+
+const StyledFinishText = styled.div`
+  font-size: 2rem;
+  font-weight: 600;
 `;
 export default Modal;

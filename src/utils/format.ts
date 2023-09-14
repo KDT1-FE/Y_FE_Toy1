@@ -1,10 +1,23 @@
-export const timeFormat = (workTime: number) => {
-  if (workTime < 60) return `${workTime}초 동안 업무 중`;
-  if (workTime >= 60 && workTime < 360)
-    return `${Math.floor(workTime / 60)}분 ${workTime % 60}초 동안 업무 중`;
+export const timeFormat = (workTime: number, isFinishing = false) => {
+  if (workTime < 60) {
+    return isFinishing
+      ? finishTimeString(`${workTime}초`)
+      : nowTimeString(`${workTime}초`);
+  }
+
+  if (workTime >= 60 && workTime < 360) {
+    const minute = Math.floor(workTime / 60);
+    const second = Math.floor(workTime % 60);
+    return isFinishing
+      ? finishTimeString(`${minute}분 ${second}초`)
+      : nowTimeString(`${minute}분 ${second}초`);
+  }
+
   const hour = Math.floor(workTime / 3600);
   const minute = Math.floor((workTime % 3600) / 60);
-  return `${hour}시간 ${minute}분 동안 업무 중`;
+  return isFinishing
+    ? finishTimeString(`${hour}시간 ${minute}분}`)
+    : nowTimeString(`${hour}시간 ${minute}분}`);
 };
 
 export const liveClockFormat = (date: Date) => {
@@ -24,8 +37,14 @@ export const dayFormat = () => {
     month: '2-digit',
     day: '2-digit',
   });
-
   const day = date.toLocaleString('ko-KR', { weekday: 'short' });
-
   return `${dateString} (${day})`;
+};
+
+const nowTimeString = (workTime: string) => {
+  return `${workTime} 동안 업무 중`;
+};
+
+const finishTimeString = (workTime: string) => {
+  return `${workTime} 동안 업무하셨습니다!`;
 };
