@@ -32,16 +32,14 @@ export function SignUpNext({
       setErrorMessage('개인정보 약관에 동의해주세요.');
       return;
     }
-    await createUserAuth();
+    await createNewUser();
   };
 
-  // user auth 생성
-  const createUserAuth = async () => {
-    const { email, password, nickname } = user;
+  // user auth 생성 후 정보 추가
+  const createNewUser = async () => {
     try {
-      await createUser(email, password);
-      alert(`${nickname}님 반갑습니다!`);
-      console.log(user);
+      await createUser(user);
+      alert(`${user.nickname}님 반갑습니다!`);
     } catch (error: any) {
       handleError(error);
     }

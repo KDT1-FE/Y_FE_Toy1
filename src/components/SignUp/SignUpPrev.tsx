@@ -68,7 +68,6 @@ export function SignUpPrev({
           value={nickname}
           placeholder="* 닉네임"
           readOnly
-          required
         />
         <button type="button" onClick={handleClickNicknameButton}>
           추천받기!
