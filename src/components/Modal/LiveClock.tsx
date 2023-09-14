@@ -1,3 +1,4 @@
+import { INTERVAL } from 'constants/time';
 import useInterval from 'hooks/useInterval';
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -11,7 +12,7 @@ function LiveClock() {
 
   useInterval(() => {
     tick();
-  }, 1000);
+  }, INTERVAL);
 
   return <StyledTime>{liveClockFormat(date)}</StyledTime>;
 }
