@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import "../../styles/Wiki.css";
+import "../../styles/ReactMarkdown.css";
 import {useParams} from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import EditButton from "./EditButton";
@@ -21,7 +22,7 @@ function Content() {
   const initialSet = () => {
     setIsEditorOpen(false);
     if (id === undefined) {
-      setDataKey("회사내규");
+      setDataKey("커리큘럼");
     } else {
       setDataKey(id);
     }
@@ -34,9 +35,11 @@ function Content() {
 
   // ReadContent 함수로 content 가져오기
   if (dataKey) {
-    ReadContent(dataKey).then((doc: any) => {
-      setContent(doc.content);
-      setTitle(doc.title);
+    ReadContent(dataKey).then(doc => {
+      if (doc) {
+        setContent(doc.content);
+        setTitle(doc.title);
+      }
     });
   }
 
@@ -55,7 +58,7 @@ function Content() {
             setIsEditorOpen={setIsEditorOpen}
           />
         ) : (
-          <ReactMarkdown>{content}</ReactMarkdown>
+          <ReactMarkdown className="reactMarkdown">{content}</ReactMarkdown>
         )}
       </div>
     </div>
