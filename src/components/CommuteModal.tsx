@@ -31,6 +31,7 @@ const CommuteModal = ({ isModalOpen }: Props) => {
     if (commuteInfo.commute) {
       updatedCommuteInfo = {
         ...commuteInfo,
+        date: currentTime.toLocaleDateString('ko-KR'),
         commute: false,
         endTime: Date.now(),
         workingTime: Date.now() - commuteInfo.startTime,
