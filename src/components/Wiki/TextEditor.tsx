@@ -1,15 +1,20 @@
 import React, {useState} from "react";
 import "../../styles/Wiki.css";
+import {TextEditorProps} from "../../types/Wiki";
+import PostContent from "./PostContent";
 
-function TextEditor() {
-  const [text, setText] = useState("");
+function TextEditor({dataKey, content, setIsEditorOpen}: TextEditorProps) {
+  const [text, setText] = useState<string>(content);
 
-  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setText(e.target.value);
   };
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    PostContent(dataKey, text).then(() => {
+      setIsEditorOpen(false);
+    });
   };
 
   return (
