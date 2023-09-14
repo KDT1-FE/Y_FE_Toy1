@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
-import { createChannelDoc, updateChannelDoc } from '../../utils/firebase';
+import { createChannelDoc, updateChannelDoc, addFieldToDoc } from '../../utils/firebase';
 
 interface ChannelModalProps {
     isOpen: boolean;
@@ -49,17 +49,41 @@ const ChannelModal: React.FC<ChannelModalProps> = ({
 
     const handleUpdateChannel = async () => {
         try {
-            await updateChannelDoc(collectionName, channelId, name);
+            await updateChannelDoc(collectionName, channelId, name); //channelId라는 doc의 이름을 name으로 수정하는 것임
             closeModal();
         } catch (error) {
             console.error('채널 수정 실패!', error);
         }
     };
 
+    const handleCreateSubChannel = async () => {
+        const fieldValue = {}; // 수정은 wiki 페이지에서 하는 것이므로 우선 빈 객체 할당
+        try {
+            await addFieldToDoc(collectionName, channelId, name, fieldValue); // channelId라는 doc에 name:{fieldValue} 형태의 field를 추가하는 것임
+            closeModal();
+        } catch (error) {
+            console.error('채널 수정 실패!', error);
+        }
+    };
+    const getTitleText = () => {
+        switch (modalType) {
+            case 'Create':
+                return 'Create a channel';
+            case 'Update':
+                return 'Update a channel';
+            case 'CreateSub':
+                return 'Create a subchannel';
+            default:
+                return '';
+        }
+    };
+
+    const title = getTitleText();
+
     return (
         <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyles} contentLabel="Example Modal">
             <div style={{ display: 'flex' }}>
-                <div>{modalType} a channel</div>
+                <div>{title}</div>
                 <button onClick={closeModal}>X</button>
             </div>
             <div>채널 이름</div>
@@ -74,6 +98,8 @@ const ChannelModal: React.FC<ChannelModalProps> = ({
                         handleCreateChannel();
                     } else if (modalType === 'Update') {
                         handleUpdateChannel();
+                    } else if (modalType === 'CreateSub') {
+                        handleCreateSubChannel();
                     }
                 }}
             >

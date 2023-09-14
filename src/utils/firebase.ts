@@ -15,11 +15,6 @@ import {
 } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
     apiKey: 'AIzaSyDdTBAy3IzoA_tx-3xM8D59o4S1nZzEax4',
     authDomain: 'wiki-for-fastcampus.firebaseapp.com',
@@ -92,6 +87,32 @@ export const deleteChannelDoc = async (collectionName: string, documentName: str
         console.log('채널 삭제 성공!');
     } catch (error) {
         console.error('채널 삭제 실패!', error);
+        throw error;
+    }
+};
+
+export const addFieldToDoc = async (
+    collectionName: string,
+    documentName: string,
+    fieldName: string,
+    fieldValue: any,
+) => {
+    const documentRef = doc(firestore, collectionName, documentName);
+    try {
+        // document를 가져와서 기존 데이터를 읽어옴
+        const documentSnapshot = await getDoc(documentRef);
+        if (documentSnapshot.exists()) {
+            const data = documentSnapshot.data();
+            // 새로운 필드 추가
+            data[fieldName] = fieldValue;
+            // 업데이트된 데이터를 다시 document에 저장
+            await setDoc(documentRef, data);
+            console.log(`서브채널 생성 성공!`);
+        } else {
+            console.error('채널이 존재하지 않습니다.');
+        }
+    } catch (error) {
+        console.error('서브채널 생성 실패!', error);
         throw error;
     }
 };

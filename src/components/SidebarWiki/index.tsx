@@ -57,7 +57,16 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
                     <div key={index} style={{ marginBottom: '10px' }}>
                         <div style={{ display: 'flex' }}>
                             <div style={{ fontSize: '20px', fontWeight: 'bold' }}># {item.docId}</div>
-                            <button onClick={() => deleteChannelDoc('wiki', item.docId)}>채널삭제</button>
+                            <button
+                                onClick={() => {
+                                    setModalType('CreateSub');
+                                    setSelectedChannelId(item.docId);
+                                    openModal();
+                                }}
+                            >
+                                서브채널추가
+                            </button>
+                            <button onClick={() => deleteChannelDoc('wiki', item.docId)}>삭제</button>
                             <button
                                 onClick={() => {
                                     setModalType('Update');
@@ -66,7 +75,7 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
                                     openModal();
                                 }}
                             >
-                                채널수정
+                                수정
                             </button>
                         </div>
 
