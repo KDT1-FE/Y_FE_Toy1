@@ -11,9 +11,14 @@ function NoticeList() {
 
   // 공지사항 전체 가져오기
   const FetchNoticeData = async (): Promise<void> => {
-    const querySnapshot: any = await getDocs(collection(db, 'notice'));
-    const data = querySnapshot.docs.map((doc: DocumentData) => doc.data());
-    setNoticeList(data);
+    try {
+      const querySnapshot: any = await getDocs(collection(db, 'notice'));
+      const data = querySnapshot.docs.map((doc: DocumentData) => doc.data());
+
+      setNoticeList(data);
+    } catch (error) {
+      console.log('Error: ', error);
+    }
   };
 
   useEffect(() => {

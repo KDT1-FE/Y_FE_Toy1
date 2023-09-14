@@ -10,15 +10,20 @@ function NoticeDetail() {
 
   // 공지사항 정보 가져오기 함수
   const FetchNoticeData = async (): Promise<void> => {
-    const docRef = doc(db, 'notice', String(noticeId));
-    const docSnap = (await getDoc(docRef)).data();
+    try {
+      const docRef = doc(db, 'notice', String(noticeId));
+      const docSnap = (await getDoc(docRef)).data();
 
-    setNoticeData(docSnap);
+      setNoticeData(docSnap);
+    } catch (error) {
+      console.log('Error: ', error);
+    }
   };
 
   useEffect(() => {
     FetchNoticeData();
   }, []);
+
   return (
     <S.Wrapper>
       <S.Header>
@@ -33,7 +38,7 @@ function NoticeDetail() {
       </S.Header>
       <S.Underline />
       <S.Body>
-        <S.Image />
+        <S.Image src={noticeData?.imageUrl} alt={noticeData?.imageUrl} />
         <S.Contents>{noticeData?.contents}</S.Contents>
       </S.Body>
       <S.MoveToListBtn>

@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { doc, setDoc, getDocs, collection } from 'firebase/firestore';
-import { ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { db, storage } from '../../firebaseSDK';
 import * as S from '../../styled/NoticePage/NoticeWrite.styles';
 
@@ -35,35 +35,50 @@ function NoticeWrite() {
   // 공지 등록 함수
   const onClickSubmit = async (): Promise<void> => {
     const date = new Date();
+    let imageUrl = '';
 
-    await setDoc(doc(db, 'notice', String(noticeNumber)), {
-      noticeNumber,
-      password,
-      subject,
-      contents,
-      createAt: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
-    });
+    try {
+      // 이미지 업로드
+      if (uploadFile !== null) {
+        const imageRef = ref(storage, `notice/${uploadFile.name}`);
+        await uploadBytes(imageRef, uploadFile);
 
-    // 이미지 업로드
-    if (uploadFile !== null) {
-      const imageRef = ref(storage, `notice/${uploadFile.name}`);
-      uploadBytes(imageRef, uploadFile);
+        imageUrl = await getDownloadURL(imageRef);
+      }
+
+      setDoc(doc(db, 'notice', String(noticeNumber)), {
+        noticeNumber,
+        password,
+        subject,
+        contents,
+        imageUrl,
+        createAt: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+      });
+
+      // eslint-disable-next-line no-alert
+      alert('공지가 등록됐습니다.');
+    } catch (error) {
+      console.log('Error:', error);
+    } finally {
+      setNoticeNumber((prev) => prev + 1);
+      setPassword('');
+      setSubject('');
+      setContents('');
+      setImageName('');
+      imageUrl = '';
     }
-
-    // eslint-disable-next-line no-alert
-    alert('공지가 등록됐습니다.');
-    setNoticeNumber((prev) => prev + 1);
-    setPassword('');
-    setSubject('');
-    setContents('');
   };
 
   // 공지 마지막 번호 가져오기 함수
   const NoticeGetLastId = async (): Promise<void> => {
-    const querySnapshot = await getDocs(collection(db, 'notice'));
+    try {
+      const querySnapshot = await getDocs(collection(db, 'notice'));
 
-    if (querySnapshot.docs.length) {
-      setNoticeNumber(Number(querySnapshot.docs[querySnapshot.docs.length - 1].id) + 1);
+      if (querySnapshot.docs.length) {
+        setNoticeNumber(Number(querySnapshot.docs[querySnapshot.docs.length - 1].id) + 1);
+      }
+    } catch (error) {
+      console.log('Error:', error);
     }
   };
 
