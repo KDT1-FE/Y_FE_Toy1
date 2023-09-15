@@ -1,8 +1,10 @@
 import Button from "./Button";
 import * as style from "./headerStyle";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Header() {
+  const location = useLocation();
+  if (location.pathname === "/login") return null;
   return (
     <style.Container>
       <style.Top>
