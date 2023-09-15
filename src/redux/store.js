@@ -27,7 +27,7 @@ const wikiStore = configureStore({
 // 초기 상태 정의
 const initialState = sessionStorage.getItem('uid')
   ? {
-      user: sessionStorage.getItem('uid'),
+      uid: sessionStorage.getItem('uid'),
       email: sessionStorage.getItem('email'),
       nickname: sessionStorage.getItem('nickname'),
       image: sessionStorage.getItem('image'),
@@ -46,7 +46,7 @@ function rootReducer(state = initialState, action) {
         image: action.payload.image,
       };
     case 'LOGOUT':
-      return { ...state, user: null };
+      return { ...state, uid: null };
     default:
       return state;
   }
@@ -56,7 +56,7 @@ function rootReducer(state = initialState, action) {
 const store = createStore(rootReducer);
 
 store.subscribe(() => {
-  sessionStorage.setItem('user', store.getState().uid);
+  sessionStorage.setItem('uid', store.getState().uid);
   sessionStorage.setItem('email', store.getState().email);
   sessionStorage.setItem('nickname', store.getState().nickname);
   sessionStorage.setItem('image', store.getState().image);
