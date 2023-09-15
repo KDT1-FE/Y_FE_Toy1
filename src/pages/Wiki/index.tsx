@@ -1,15 +1,22 @@
 import NavigationWiki from 'components/NavigationWiki';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { ROUTES } from 'constants/routes';
 
 function Wiki() {
+  const location = useLocation()
+  const searchParams = new URLSearchParams(location.search)
+  const selectedCategory = searchParams.get('category')
+
+// 적용해야 할거
+// firebase에 등록되는거 확인ㄴ
+
   return (
     <WikiContainer>
       <NavigationWiki></NavigationWiki>
       <div>
         <h1>아직 작성된 글이 없습니다.</h1>
-        <Link to={ROUTES.WIKICREATE}>글 작성하기</Link>
+        <Link to={`${ROUTES.WIKICREATE}?category=${selectedCategory === null ? 'companyRule' : selectedCategory}`}>글 작성하기</Link>
       </div>
     </WikiContainer>
   )
