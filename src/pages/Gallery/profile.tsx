@@ -1,46 +1,52 @@
-import React, { useState, useEffect } from 'react';
-import { ProfileContainer } from './style';
-import { ref, listAll, getDownloadURL } from 'firebase/storage';
-import { storage } from '../../utils/firebase';
+import React, { useEffect, useState } from 'react';
+import { collection, getDocs, Firestore, doc, getDoc } from 'firebase/firestore';
+import { firestore } from '../../utils/firebase'; // Firebase firestore 객체 가져오기
 
 const Profile: React.FC = () => {
-    const [userImgURLs, setUserImgURLs] = useState<string[]>([]);
-    const [error, setError] = useState<string | null>(null);
+    const [users, setUsers] = useState<any[]>([]);
 
     useEffect(() => {
-        const getUserImages = async () => {
-            try {
-                const userImgFolderRef = ref(storage, 'userImg');
-                const userImgRefs = await listAll(userImgFolderRef);
+        const fetchUserData = async () => {
+            // 1. 모든 문서 ID 가져오기
+            const querySnapshot = await getDocs(collection(firestore, 'user'));
+            const documentIds: string[] = [];
 
-                const urls = await Promise.all(
-                    userImgRefs.items.map(async (item) => {
-                        return getDownloadURL(item);
-                    }),
-                );
+            querySnapshot.forEach((doc) => {
+                documentIds.push(doc.id);
+            });
 
-                setUserImgURLs(urls);
-            } catch (error) {
-                console.error(error);
-                setError('Sorry! failed to load user image');
+            // 2. 각 문서의 필드에서 name과 imageURL 가져오기
+            const updatedUsers: any[] = [];
+
+            for (const documentId of documentIds) {
+                const userDoc = doc(firestore, 'user', documentId);
+                const userSnapshot = await getDoc(userDoc);
+
+                if (userSnapshot.exists()) {
+                    const userData = userSnapshot.data();
+                    const user = {
+                        id: documentId,
+                        name: userData.name,
+                        imgURL: userData.imageURL,
+                    };
+                    updatedUsers.push(user);
+                }
             }
+
+            setUsers(updatedUsers);
         };
-        getUserImages();
+
+        fetchUserData();
     }, []);
 
     return (
         <div>
-            {error ? (
-                <p>{error}</p>
-            ) : userImgURLs.length > 0 ? (
-                <ProfileContainer>
-                    {userImgURLs.map((url, index) => (
-                        <img key={index} src={url} alt={`User Image ${index}`} />
-                    ))}
-                </ProfileContainer>
-            ) : (
-                <p>loading...</p>
-            )}
+            {users.map((user: any) => (
+                <div key={user.id}>
+                    <p>{user.name}</p>
+                    <img src={user.imgURL} alt={`Profile of ${user.name}`} />
+                </div>
+            ))}
         </div>
     );
 };
