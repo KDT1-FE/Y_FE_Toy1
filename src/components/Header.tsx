@@ -4,7 +4,6 @@ import { CiSearch } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import CommuteModal from './CommuteModal';
-import { UserProvider } from '../common/UserContext';
 import UserResult from './UserProfile';
 
 const Header = () => {
@@ -45,9 +44,7 @@ const Header = () => {
           </div>
 
           <div className="icon">
-            <UserProvider>
-              <UserResult />
-            </UserProvider>
+            <UserResult />
           </div>
         </div>
       </Navbar>

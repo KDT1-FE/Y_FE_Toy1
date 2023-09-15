@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { commuteState } from '../data/atoms';
 import { MdOutlineKeyboardDoubleArrowDown } from 'react-icons/md';
-import { formatMsToTime, timeToLocaleTimeString } from '../utils/formatTime';
+import { timeToLocaleTimeString } from '../utils/formatTime';
 import CommuteButton from '../common/CommuteButton';
 import { uploadCommuteInfo } from '../utils/firebaseUtils';
 import { useUser } from '../common/UserContext';
@@ -38,7 +38,6 @@ const CommuteModal = ({ isModalOpen }: Props) => {
       };
 
       setCommuteInfo(updatedCommuteInfo);
-      // 일한 시간 업로드
       console.log(updatedCommuteInfo);
 
       if (user) {
@@ -50,8 +49,6 @@ const CommuteModal = ({ isModalOpen }: Props) => {
         commute: true,
         startTime: Date.now(),
       });
-
-      // firebase에 출근 시간 기록
     }
   };
 
