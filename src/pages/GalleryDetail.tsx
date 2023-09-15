@@ -39,6 +39,7 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({setOnEdit}) => {
       }
     };
     getUsers();
+    console.log('테스트')
   }, []);
   
   // 데이터 삭제하기
