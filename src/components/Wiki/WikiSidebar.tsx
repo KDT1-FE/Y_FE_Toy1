@@ -8,7 +8,7 @@ function WikiSidebar() {
       <span className="WikiCategory">Tech Life</span>
       <div className="CategoryListWrapper">
         <Link to="/wiki/커리큘럼">커리큘럼</Link>
-        <Link to="/wiki/교육생소개<">교육생 소개</Link>
+        <Link to="/wiki/교육생소개">교육생 소개</Link>
         <Link to="/wiki/스터디구성">스터디 구성</Link>
       </div>
       <span className="WikiCategory">프로젝트</span>
