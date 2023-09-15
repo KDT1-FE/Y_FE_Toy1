@@ -5,6 +5,19 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  :root{
+    --navigation-background : #350d36;
+    --cell-background: #3F0E40;
+    --active-item: #1164A3;
+    --active-item-text: #FFFFFF;
+    --point-item: #4D2A51;
+    --text: #FFF;
+    --active-current-status: #2BAC76;
+    --mention-badge: #ECE7EC;
+    --navigation-background: #350D36;
+    --navigation-text: #FFF;
+  }
+
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -13,6 +26,8 @@ const GlobalStyle = createGlobalStyle`
 
     font-size:16px;
     line-height: 1.5;
+    width: 100vw;
+    height: 100vh;
   }
 
   a{
