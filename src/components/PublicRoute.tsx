@@ -14,7 +14,7 @@ function PublicRoute() {
     }
   }, [])
 
-  return user.isLogin === true ? <Outlet /> : null
+  return user.isLogin === true ? null : <Outlet />
 }
 
 export default PublicRoute
