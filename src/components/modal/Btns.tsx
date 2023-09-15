@@ -1,10 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { OnBtn, OffBtn, BtnBox } from './style';
 
 interface OwnProps {
     timeHandler(): void;
 }
 const Btns: React.FC<OwnProps> = ({ timeHandler }) => {
+    const [userIn, setUserIn] = useState(0);
+    const local = localStorage.getItem('recoil-persist');
+    let loggedIn: string;
+    if (local) {
+        loggedIn = JSON.parse(local).userId;
+    }
+    useEffect(() => {
+        if (loggedIn !== '') {
+            setUserIn(1);
+        }
+    }, [userIn]);
+
     const [timerOn, setTimerOn] = useState<boolean>(false);
     const timerSwitch = () => {
         const date = new Date();
@@ -35,7 +47,7 @@ const Btns: React.FC<OwnProps> = ({ timeHandler }) => {
             <OnBtn
                 value={timerOn}
                 onClick={() => {
-                    if (!timerOn) {
+                    if (!timerOn && userIn) {
                         timerSwitch();
                     }
                 }}
