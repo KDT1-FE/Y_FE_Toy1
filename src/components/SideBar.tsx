@@ -1,5 +1,6 @@
-import '../scss/components/_sidebar.scss';
 import { Link } from 'react-router-dom';
+
+import '../scss/components/_sidebar.scss';
 
 const SideBar = (): JSX.Element => {
   return (
