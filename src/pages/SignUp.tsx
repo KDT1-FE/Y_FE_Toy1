@@ -1,51 +1,49 @@
-import { createUser } from 'data/user';
+import { SignUpNext } from 'components/SignUp/SignUpNext';
+import { SignUpPrev } from 'components/SignUp/SignUpPrev';
 import React, { useState } from 'react';
 
+export interface IUser {
+  username: string;
+  email: string;
+  password: string;
+  repassword: string;
+  nickname: string;
+  image?: string;
+}
+
+export type IHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => void;
+export type IHandleNothing = () => void;
+
 export function SignUp() {
-  // 필요한 정보
-  const [formData, setFormData] = useState({
+  // 유저정보
+  const initialUserData: IUser = {
     username: '',
     email: '',
     password: '',
     repassword: '',
-  });
-
-  const [isChecked, setIsChecked] = useState(false);
+    nickname: '',
+    image:
+      'https://firebasestorage.googleapis.com/v0/b/eotteoghajyo.appspot.com/o/User%2Fempty_user%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.53.26.png?alt=media&token=a064118f-2d15-4d44-858f-a057d288d342',
+  };
+  const [userData, setUserData] = useState<IUser>(initialUserData);
+  const [isPrev, setIsPrev] = useState(true);
 
   // 데이터 세팅
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    updateUserData(name, value);
+  };
+
+  const updateUserData = (name: string, value: string) => {
+    setUserData((prevUserData) => ({
+      ...prevUserData,
       [name]: value,
-    });
+    }));
   };
 
-  // 데이터 추가!
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const { password, repassword } = formData;
-    if (password !== repassword) {
-      return;
-    }
-    if (!isChecked) {
-      return;
-    }
-    createUserAuth();
-  };
-
-  // user auth 생성
-  const createUserAuth = () => {
-    const { email, password } = formData;
-    createUser(email, password);
-  };
-
-  // user 정보 생성
-  //   const createUserData = () => {};
-
-  // checkbox 확인
-  const handleCheck = () => {
-    setIsChecked((prev) => !prev);
+  // 페이지 변경
+  const handleTogglePage = () => {
+    setIsPrev((prev) => !prev);
   };
 
   return (
@@ -54,60 +52,19 @@ export function SignUp() {
         회원가입을 위해
         <br /> 정보를 입력해주세요 :D
       </h2>
-      <form onSubmit={handleSubmit}>
-        <div className="name">
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleInputChange}
-            placeholder="* 이름"
-            required
-          />
-        </div>
-        <div className="email">
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            placeholder="* 이메일"
-            required
-          />
-        </div>
-        <div className="password">
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            placeholder="* 비밀번호"
-            required
-          />
-          <input
-            type="password"
-            name="repassword"
-            value={formData.repassword}
-            onChange={handleInputChange}
-            placeholder="* 비밀번호 재입력"
-            required
-          />
-        </div>
-        <div className="checkbox">
-          <input
-            type="checkbox"
-            onClick={handleCheck}
-            id="agree"
-            checked={isChecked}
-          />
-          <label htmlFor="agree">
-            이용약관 개인정보 수집 및 정보이용에 동의합니다.
-          </label>
-        </div>
-        <div className="button">
-          <button type="submit">가입하기</button>
-        </div>
-      </form>
+      {isPrev ? (
+        <SignUpPrev
+          user={userData}
+          handleTogglePage={handleTogglePage}
+          updateUserData={updateUserData}
+        />
+      ) : (
+        <SignUpNext
+          user={userData}
+          handleInputChange={handleInputChange}
+          handleTogglePage={handleTogglePage}
+        />
+      )}
     </>
   );
 }
