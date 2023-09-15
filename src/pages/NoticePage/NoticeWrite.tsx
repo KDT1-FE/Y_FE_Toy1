@@ -1,16 +1,18 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { doc, setDoc, getDocs, collection } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { useNavigate } from 'react-router-dom';
 import { db, storage } from '../../firebaseSDK';
 import * as S from '../../styled/NoticePage/NoticeWrite.styles';
 
-function NoticeWrite() {
+function NoticeWrite({ isEdit, data }: any) {
   const [noticeNumber, setNoticeNumber] = useState(1);
   const [password, setPassword] = useState('');
   const [subject, setSubject] = useState('');
   const [contents, setContents] = useState('');
   const [imageName, setImageName] = useState('');
   const [uploadFile, setUploadFile] = useState<File | null>(null);
+  const navigate = useNavigate();
 
   const onChangePassword = (event: ChangeEvent<HTMLInputElement>): void => {
     setPassword(event.target.value);
@@ -57,15 +59,9 @@ function NoticeWrite() {
 
       // eslint-disable-next-line no-alert
       alert('공지가 등록됐습니다.');
+      navigate(`/notice/${noticeNumber}`);
     } catch (error) {
       console.log('Error:', error);
-    } finally {
-      setNoticeNumber((prev) => prev + 1);
-      setPassword('');
-      setSubject('');
-      setContents('');
-      setImageName('');
-      imageUrl = '';
     }
   };
 
@@ -73,7 +69,6 @@ function NoticeWrite() {
   const NoticeGetLastId = async (): Promise<void> => {
     try {
       const querySnapshot = await getDocs(collection(db, 'notice'));
-
       if (querySnapshot.docs.length) {
         setNoticeNumber(Number(querySnapshot.docs[querySnapshot.docs.length - 1].id) + 1);
       }
@@ -89,23 +84,28 @@ function NoticeWrite() {
 
   return (
     <S.Wrapper>
-      <S.Title>공지사항 등록하기</S.Title>
+      <S.Title>공지사항 {isEdit ? '수정' : '등록'}하기</S.Title>
       <S.InputWrapper>
         <S.Label>공지 비밀번호</S.Label>
         <S.Password
           type='password'
           placeholder='비밀번호를 입력해주세요.'
           onChange={onChangePassword}
-          value={password}
+          defaultValue={data?.password}
         />
       </S.InputWrapper>
       <S.InputWrapper>
         <S.Label>제목</S.Label>
-        <S.Subject type='text' placeholder='제목을 입력해주세요.' onChange={onChangeSubject} value={subject} />
+        <S.Subject
+          type='text'
+          placeholder='제목을 입력해주세요.'
+          onChange={onChangeSubject}
+          defaultValue={data?.subject}
+        />
       </S.InputWrapper>
       <S.InputWrapper>
         <S.Label>공지내용</S.Label>
-        <S.Contents onChange={onChangeContents} placeholder='공지내용을 입력해주세요.' value={contents} />
+        <S.Contents onChange={onChangeContents} placeholder='공지내용을 입력해주세요.' defaultValue={data?.contents} />
       </S.InputWrapper>
       <S.InputWrapper>
         <S.Label>사진첨부</S.Label>
@@ -120,7 +120,7 @@ function NoticeWrite() {
       </S.InputWrapper>
       <S.BtnWrapper>
         <S.SubmitBtn type='button' onClick={onClickSubmit}>
-          등록
+          {isEdit ? '수정' : '등록'}
         </S.SubmitBtn>
         <S.CancelBtn type='button'>취소</S.CancelBtn>
       </S.BtnWrapper>
