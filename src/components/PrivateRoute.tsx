@@ -3,6 +3,7 @@ import { useRecoilValue } from "recoil";
 import { Outlet, useNavigate } from "react-router-dom";
 
 import userState from "../recoil/atoms/userState";
+import Navigation from "./NavBar";
 
 function LoginCheckRoute() {
   const navigate = useNavigate()
@@ -14,7 +15,12 @@ function LoginCheckRoute() {
     }
   }, [])
 
-  return user.isLogin !== true ? null : <Outlet />
+  return user.isLogin !== true ?
+    null :
+    <>
+      <Navigation />
+      <Outlet />
+    </>
 }
 
 export default LoginCheckRoute
