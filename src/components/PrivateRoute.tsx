@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { useRecoilValue } from "recoil";
-import { Outlet, Route, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 import userState from "../recoil/atoms/userState";
-import Login from "../pages/LoginPage/Login";
 
 function LoginCheckRoute() {
   const navigate = useNavigate()
@@ -15,7 +14,7 @@ function LoginCheckRoute() {
     }
   }, [])
 
-  return user.isLogin !== true ? <Route path='/' element={<Login />} /> : <Outlet />
+  return user.isLogin !== true ? <Outlet /> : null
 }
 
 export default LoginCheckRoute
