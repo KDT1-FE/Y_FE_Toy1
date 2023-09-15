@@ -2,7 +2,7 @@ import React from 'react'
 
 const Admin = () => {
   return (
-    <div>Admin</div>
+    <div>행정 관련 Wiki - Admin 컴포넌트</div>
   )
 }
 

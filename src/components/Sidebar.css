@@ -1,4 +1,14 @@
-.sidebar__link_wrapper{
-  display:flex;
+.sidebar__link-wrapper {
+  height: calc(100vh - 300px);
+  min-height: 200px;
+  overflow-y: auto;  
+  display: flex;
   flex-flow: column;
+  gap: 20px;
 }
+
+.sidebar__bottom {
+  bottom: 0;
+  text-align: center;
+}
+

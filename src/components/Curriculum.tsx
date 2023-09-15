@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Curriculum = () => {
-  return (
-    <div>Curriculum</div>
-  )
-}
+  return <div>커리큘럼 관련 Wiki - Curriculum 컴포넌트</div>;
+};
 
-export default Curriculum
+export default Curriculum;
