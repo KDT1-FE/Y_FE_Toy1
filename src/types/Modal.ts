@@ -8,6 +8,14 @@ export interface ModalProps {
   onClose: () => void;
 }
 
-export interface UploadDeleteModalProps extends ModalProps {
+export interface UploadModalProps extends ModalProps {
   albumKey: string;
+}
+
+export interface DeleteModalProps extends UploadModalProps {
+  allArray: string[];
+}
+
+export interface SelectedArrayProps {
+  selectedArray: string[];
 }

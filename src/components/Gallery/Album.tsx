@@ -15,6 +15,7 @@ function Album() {
   const [files, setFiles] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isModal, setIsModal] = useState<boolean>(false);
+  const [deleteFiles, setDeleteFiles] = useState<string[]>([]);
 
   //   앨범 선택 함수 : URL파라미터 값에 따라 앨범 선택, URL파라미터 없을 경우 1번 앨범 선택
   const SelectAlbum = () => {
@@ -83,14 +84,21 @@ function Album() {
         {isLoading ? (
           <p>로딩 중...</p>
         ) : (
-          files.map(file => <AddPhotos key={file} file={file} />)
+          files.map(file => (
+            <AddPhotos
+              key={file}
+              file={file}
+              deleteFiles={deleteFiles}
+              setDeleteFiles={setDeleteFiles}
+            />
+          ))
         )}
       </div>
       <Modal isOpen={isOpen} onClose={toggle}>
         {isModal ? (
           <UploadModal onClose={toggle} albumKey={albumKey} />
         ) : (
-          <DeleteModal onClose={toggle} />
+          <DeleteModal onClose={toggle} albumKey={albumKey} allArray={files} />
         )}
       </Modal>
     </div>
