@@ -1,5 +1,5 @@
 import NavigationGallery from 'components/NavigationGallery';
-import GalleryCreate from 'components/GalleryCreate';
+import UploadGallery from 'components/UploadGallery';
 import styled from 'styled-components';
 
 function Gallery() {
@@ -7,7 +7,7 @@ function Gallery() {
     <>
       <StyledContainer>
         <NavigationGallery></NavigationGallery>
-        <GalleryCreate></GalleryCreate>
+        <UploadGallery></UploadGallery>
       </StyledContainer>
     </>
   );
