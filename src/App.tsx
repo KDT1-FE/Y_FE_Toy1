@@ -2,16 +2,19 @@ import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 import NavBar from './components/NavBar';
 import Header from './components/Header';
+import { UserProvider } from './common/UserContext';
 
 function App() {
   return (
     <Container>
       <Wrapper>
-        <Header />
-        <MainWrapper>
-          <NavBar />
-          <Outlet />
-        </MainWrapper>
+        <UserProvider>
+          <Header />
+          <MainWrapper>
+            <NavBar />
+            <Outlet />
+          </MainWrapper>
+        </UserProvider>
       </Wrapper>
     </Container>
   );

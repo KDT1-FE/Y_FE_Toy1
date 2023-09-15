@@ -63,7 +63,6 @@ const CommuteModal = ({ isModalOpen }: Props) => {
     weekday: 'long',
     timeZone: 'UTC',
   };
-
   return (
     <ModalContainer className={isModalOpen ? 'open' : ''} id="commute-modal">
       <div className="wrapper">
