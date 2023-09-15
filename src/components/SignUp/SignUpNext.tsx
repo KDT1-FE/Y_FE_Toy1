@@ -1,6 +1,7 @@
 import { IHandleChange, IHandleNothing, IUser } from 'pages/SignUp';
 import React, { useState } from 'react';
-import { createUser } from 'data/user';
+import { createAuth } from 'data/user';
+import { useNavigate } from 'react-router-dom';
 
 interface ISignUpNextProps {
   user: IUser;
@@ -13,6 +14,8 @@ export function SignUpNext({
   handleInputChange,
   handleTogglePage,
 }: ISignUpNextProps) {
+  const navigate = useNavigate();
+
   const [isChecked, setIsChecked] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -38,8 +41,9 @@ export function SignUpNext({
   // user auth 생성 후 정보 추가
   const createNewUser = async () => {
     try {
-      await createUser(user);
+      await createAuth(user);
       alert(`${user.nickname}님 반갑습니다!`);
+      navigate('/signin');
     } catch (error: any) {
       handleError(error);
     }
