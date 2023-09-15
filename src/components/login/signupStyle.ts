@@ -26,11 +26,31 @@ export const DialogBox = styled.dialog`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  animation: modaldown 0.5s linear;
+
+@keyframes modaldown {
+  from {
+    transform: translate(-50%, -60%);
+  }
+  to {
+    transform: translate(-50%, -50%);
+  }
+}
+
+.close {
+  position: absolute;
+  right: 15px;
+  top: 5px;
+  cursor: pointer;
+  font-size: 25px;
+}
+
 `;
 
 export const ModalTitle = styled.div`
   font-size: 1.13rem;
-  font-weight: bold;
+  font-weight: 500;
   margin: 2rem 0 0 0;
   letter-spacing: -0.1rem;
 `;
@@ -41,7 +61,7 @@ export const Backdrop = styled.div`
   position: fixed;
   top: 0;
   z-index: 9999;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.4);
 `;
 
 export const JoinBox = styled.div`
@@ -51,8 +71,35 @@ export const JoinBox = styled.div`
   gap: 1.81rem;
 `;
 
+
+export const Content = styled.form`
+ display: flex;
+ justify-content: center;
+ padding: 1.1rem 3.38rem 3.19rem 3.13rem;
+ gap: 7.06rem;
+
+`;
+
+
+export const Info = styled.form`
+ white-space: pre-line;
+ font-size: 0.88rem;
+ border-radius: 0.94rem;
+ background: #FCFCFC;
+ border: 0.06rem solid  var(--color-light-gray);
+ padding: 0.88rem 2.06rem 1rem 1rem ;
+`;
+
+export const InfoTitle = styled.form`
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+`;
+
 export const Form = styled.form`
   display: flex;
+  justify-content: center;
   flex-direction: column;
 `;
 
@@ -76,9 +123,11 @@ export const Input = styled.input`
   gap: 1.81rem;
 `;
 
-export const ButtonSet = styled.div``;
+export const ButtonWrap = styled.div``;
+
 
 export const HighlightButton = styled.button`
+  margin-top: 1.81rem;
   border-radius: 0.25rem;
   background: var(--color-white);
   border: 0.06rem solid var(--color-main);
