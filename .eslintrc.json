@@ -16,6 +16,11 @@
         "labelAttributes": ["htmlFor"]
       }
     ],
-    "no-console": "off"
+    "no-console": "off",
+    "react/function-component-definition": [
+      2,
+      { "namedComponents": ["arrow-function", "function-declaration"] }
+    ],
+    "react/button-has-type": "off"
   }
 }
