@@ -15,6 +15,7 @@
       {
         "labelAttributes": ["htmlFor"]
       }
-    ]
+    ],
+    "no-console": "off"
   }
 }
