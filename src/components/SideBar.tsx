@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { NavDetail } from './aside';
+import { AiFillHome } from 'react-icons/ai';
+import { BsFillBuildingFill } from 'react-icons/bs';
+import { FaListUl } from 'react-icons/fa6';
+import { HiPhotograph } from 'react-icons/hi';
 
 import '../scss/components/_sidebar.scss';
 
@@ -17,7 +21,7 @@ const SideBar = (): JSX.Element => {
         <ul className="nav__depth">
           <li className="nav__depth__item on">
             <Link to={'/'} className="nav__depth__link">
-              <img src="./src/assets/home.svg" alt="홈" className="nav__depth__logo" />
+              <AiFillHome className="nav__depth__logo" />
               Home
             </Link>
           </li>
@@ -27,20 +31,20 @@ const SideBar = (): JSX.Element => {
               data-type="toggle"
               type="button"
               onClick={toggleShowDetail}>
-              <img src="./src/assets/company.svg" alt="회사 소개" className="nav__depth__logo" />
+              <BsFillBuildingFill className="nav__depth__logo" />
               회사 소개
             </button>
             {isShow ? <NavDetail /> : ''}
           </li>
           <li className="nav__depth__item">
             <Link to={'/project'} className="nav__depth__link">
-              <img src="./src/assets/project.svg" alt="프로젝트" className="nav__depth__logo" />
+              <FaListUl className="nav__depth__logo" />
               프로젝트
             </Link>
           </li>
           <li className="nav__depth__item">
             <Link to={'/gallery'} className="nav__depth__link">
-              <img src="./src/assets/gallery.svg" alt="갤러리" className="nav__depth__logo" />
+              <HiPhotograph className="nav__depth__logo" />
               갤러리
             </Link>
           </li>
