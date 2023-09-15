@@ -9,13 +9,13 @@ export function UserCard() {
   return (
     <div>
       {userObjects.map((user) => (
-        <>
-          <div key={user.id}>
+        <div key={user.id}>
+          <div>
             {user.name}
             <img src={user.photo} alt={user.name + '님의 사진'}></img>
           </div>
-          <Timer />
-        </>
+          <Timer id={user.id} />
+        </div>
       ))}
     </div>
   );
