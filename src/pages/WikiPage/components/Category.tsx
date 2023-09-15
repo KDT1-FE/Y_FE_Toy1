@@ -1,21 +1,22 @@
 import React, { useState } from "react";
-import { getFirestore, addDoc, collection } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { useRecoilState } from "recoil";
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
-import { categoryNameState, categoryState } from "../../../recoil/atoms/wiki/CategoryAtom";
-import app from '../../../firebaseSDK';
-import { CateEditBtn } from "../../../styled/wiki/Button";
-import { TitleText } from "../../../styled/wiki/Text";
+import { categoryNameState, categoryState ,selectedCategoryState} from "../../../recoil/atoms/wiki/CategoryAtom";
+import {db} from '../../../firebaseSDK';
+import { CateEditBtn } from "../../../styled/WikiPage/Button";
+import { TitleText } from "../../../styled/WikiPage/Text";
 
-import { CategoryHeaderContainer, CategoryListContainer } from "../../../styled/wiki/Container";
-import { CategoryItemContainer } from '../../../styled/wiki/Item';
+import { CategoryHeaderContainer, CategoryListContainer } from "../../../styled/WikiPage/Container";
+import { CategoryItemContainer } from '../../../styled/WikiPage/Item';
 import CategoryItem from "./CategoryItem";
 
 export default function Category() {
-  const db = getFirestore(app);
   const [categoryNames, setCategoryNames] = useRecoilState(categoryNameState);
   const [category, setCategory] = useRecoilState(categoryState);
   const [newCategoryName, setNewCategoryName] = useState(""); // 새 카테고리를 입력할 상태
+  const [,setSelectedCategory] = useRecoilState(selectedCategoryState);
+
 
   const handleEditClick = () => {
     setCategory((prev) => ({
@@ -26,6 +27,10 @@ export default function Category() {
 
   const handleSaveClick = async () => {
     try {
+      if (newCategoryName === '전체') {
+        console.error('You cannot use "전체" as a category name.');
+        return;
+      }
       // 새 카테고리를 Recoil 상태에 추가
       setCategoryNames([...categoryNames, newCategoryName]);
 
@@ -55,12 +60,12 @@ export default function Category() {
         </CateEditBtn>
       </CategoryHeaderContainer>
       <CategoryListContainer>
-        <CategoryItemContainer>
+        <CategoryItemContainer onClick={()=>setSelectedCategory("전체")}>
           <FolderOpenOutlinedIcon color='action' />
           전체
         </CategoryItemContainer>
         {categoryNames.map((categoryName) => (
-          <CategoryItem key={categoryName} item={categoryName} />
+          <CategoryItem key={categoryName} item={categoryName}/>
         ))}
         {!category.isReadOnly && (
           // 카테고리 추가 모드일 때 입력 필드 표시

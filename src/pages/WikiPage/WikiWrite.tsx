@@ -1,23 +1,22 @@
 import React, {useState } from "react";
 import { useRecoilValue } from "recoil";
 import MDEditor from "@uiw/react-md-editor";
-import { getFirestore , collection, serverTimestamp , addDoc} from "firebase/firestore";
+import { collection, serverTimestamp , addDoc} from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
 import { categoryNameState } from "../../recoil/atoms/wiki/CategoryAtom";
 import {
   WikiWriteContainer,
   WikiWriteContentContainer,
   WikiWriteBtnContainer,
-} from "../../styled/wiki/Container";
-import { SubmitButton, BackToListBtn } from "../../styled/wiki/Button";
-import { TitleInput } from "../../styled/wiki/Input";
-import CategorySelect from "../../styled/wiki/Select";
-import app from '../../firebaseSDK';
+} from "../../styled/WikiPage/Container";
+import { SubmitButton, WriteBackToListBtn } from "../../styled/WikiPage/Button";
+import { TitleInput } from "../../styled/WikiPage/Input";
+import CategorySelect from "../../styled/WikiPage/Select";
+import {db} from '../../firebaseSDK';
 
 export default function WikiWrite() {
   
   const [value, setValue] = React.useState<string | undefined>("");
-  const db = getFirestore(app);
   const navigate = useNavigate();
 
   const categoryNames = useRecoilValue(categoryNameState);
@@ -70,7 +69,7 @@ export default function WikiWrite() {
         />
       </WikiWriteContentContainer>
       <WikiWriteBtnContainer>
-        <BackToListBtn type="button" onClick={handleButtonClick}>목록으로</BackToListBtn>
+        <WriteBackToListBtn type="button" onClick={handleButtonClick}>목록으로</WriteBackToListBtn>
         <SubmitButton type="button" onClick={handleSubmitBtnClick}>Submit</SubmitButton>
       </WikiWriteBtnContainer>
     </WikiWriteContainer>

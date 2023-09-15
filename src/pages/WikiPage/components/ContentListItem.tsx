@@ -1,11 +1,12 @@
 import React from 'react'
+import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
-import { deleteDoc, collection, doc,getFirestore } from 'firebase/firestore';
-import { ContentListItemContentContainer, ItemContainer } from '../../../styled/wiki/Container';
-import { DeleteBtn, EditContentBtn } from '../../../styled/wiki/Button';
-import {CategoryText, TitleText} from '../../../styled/wiki/Text';
-import app from '../../../firebaseSDK';
-
+import { deleteDoc, collection, doc } from 'firebase/firestore';
+import { ContentListItemContentContainer, ItemContainer } from '../../../styled/WikiPage/Container';
+import { DeleteBtn, EditContentBtn } from '../../../styled/WikiPage/Button';
+import {CategoryText, TitleText} from '../../../styled/WikiPage/Text';
+import {db} from '../../../firebaseSDK';
+import { wikiListState } from '../../../recoil/atoms/wiki/wikiListAtom';
 
 interface WikiListItem {
     id : string,
@@ -19,8 +20,8 @@ interface WikiItemProps {
 };
 
 export default function ContentListItem({item} : WikiItemProps) {
-    const db = getFirestore(app);
     const navigate = useNavigate();
+    const [wikiList, setWikiList] = useRecoilState(wikiListState);
 
     const handleEditBtn = () => {
         navigate(`/wiki/edit?id=${item.id}`);
@@ -35,7 +36,9 @@ export default function ContentListItem({item} : WikiItemProps) {
             const wikiCollection = collection(db, "/wiki");
             const docRef = doc(wikiCollection, item.id);
             await deleteDoc(docRef);
-
+            
+            const updatedWikiList = wikiList.filter((wikiItem) => wikiItem.id !== item.id);
+            setWikiList(updatedWikiList);
         }
         catch (err) {
             console.error('Error deleting item from Firebase', err);

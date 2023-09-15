@@ -2,9 +2,9 @@ import React from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import { useRecoilValue } from 'recoil'; // useRecoilValue 추가
 import { wikiListState } from '../../recoil/atoms/wiki/wikiListAtom';
-import { WikiItemContainer } from '../../styled/wiki/Container';
-import { ItemTitleText, TimeTitleText, ItemCategoryText } from '../../styled/wiki/Text';
-import { BackToListBtn } from '../../styled/wiki/Button';
+import { WikiItemContainer } from '../../styled/WikiPage/Container';
+import { ItemTitleText, TimeTitleText, ItemCategoryText } from '../../styled/WikiPage/Text';
+import { BackToListBtn } from '../../styled/WikiPage/Button';
 
 export default function ItemContent() {
   const wikiList = useRecoilValue(wikiListState); // wikiListState의 값을 가져옴

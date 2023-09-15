@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
-import { ContentListItemContainer } from '../../../styled/wiki/Container';
+import { collection, getDocs } from 'firebase/firestore';
+import { ContentListItemContainer } from '../../../styled/WikiPage/Container';
 import ContentListItem from './ContentListItem';
 import { wikiListState } from '../../../recoil/atoms/wiki/wikiListAtom';
-import app from '../../../firebaseSDK';
+import {db} from '../../../firebaseSDK';
+import { filteredWikiListSelector } from '../../../recoil/atoms/wiki/CategoryAtom';
 
 interface WikiListItem {
   id: string;
@@ -15,8 +16,8 @@ interface WikiListItem {
 }
 
 export default function ContentList() {
-  const [wikiList, setWikiList] = useRecoilState(wikiListState);
-  const db = getFirestore(app);
+  const [, setWikiList] = useRecoilState(wikiListState);
+  const filteredWikiList = useRecoilValue(filteredWikiListSelector);
 
   const fetchWikiList = async () => {
     try {
@@ -45,7 +46,6 @@ export default function ContentList() {
   };
 
   // wikiListState Recoil 상태를 사용하여 상태를 컴포넌트에 주입
-  const currentWikiList = useRecoilValue(wikiListState);
 
   useEffect(() => {
     const fetchedList = async () => {
@@ -53,11 +53,11 @@ export default function ContentList() {
       setWikiList(fetchedWikiList);
     };
     fetchedList();
-  }, [setWikiList, currentWikiList]); // wikiListState가 변경될 때만 useEffect가 실행됩니다.
+  }, [setWikiList]); // wikiListState가 변경될 때만 useEffect가 실행됩니다.
 
   return (
     <ContentListItemContainer>
-      {wikiList.map((wikiItem) => (
+      {filteredWikiList.map((wikiItem) => (
         <ContentListItem key={wikiItem.id} item={wikiItem} />
       ))}
     </ContentListItemContainer>

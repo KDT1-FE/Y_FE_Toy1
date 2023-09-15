@@ -62,9 +62,20 @@ export const BackToListBtn = styled(Btn)`
     padding : 10px 40px;
     border : 0;
     color : white;
+    margin: 30px auto;
+    position : absolute;
+    left : 50%;
+
+`;
+export const WriteBackToListBtn = styled(Btn)`
+    background-color : #96A0FF;
+    padding : 10px 40px;
+    border : 0;
+    color : white;
     margin: 30px 0;
 
 `;
+
 
 
 export {  CateEditBtn,EditContentBtn, DeleteBtn};

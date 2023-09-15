@@ -1,9 +1,9 @@
 import React,{useState} from 'react';
 import { useRecoilState } from 'recoil';
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
-import { CategoryItemContainer } from '../../../styled/wiki/Item';
-import { CategoryInput } from '../../../styled/wiki/Input';
-import { categoryState, categoryNameState } from '../../../recoil/atoms/wiki/CategoryAtom';
+import { CategoryItemContainer } from '../../../styled/WikiPage/Item';
+import { CategoryInput } from '../../../styled/WikiPage/Input';
+import { categoryState, categoryNameState,  selectedCategoryState} from '../../../recoil/atoms/wiki/CategoryAtom';
 
 interface CategoryProps {
   item: string;
@@ -13,6 +13,8 @@ export default function CategoryItem({ item }: CategoryProps) {
   const [editedItem, setEditedItem] = useState(item);
   const [category, setCategory] = useRecoilState(categoryState);
   const [categoryNames, setCategoryNames] = useRecoilState(categoryNameState);
+  const [,setSelectedCategory] = useRecoilState(selectedCategoryState);
+
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
@@ -29,7 +31,8 @@ export default function CategoryItem({ item }: CategoryProps) {
   };
 
   return (
-    <CategoryItemContainer>
+    <CategoryItemContainer
+    onClick={()=>setSelectedCategory(editedItem)}>
       <FolderOpenOutlinedIcon color='action' />
       <CategoryInput
         type='text'

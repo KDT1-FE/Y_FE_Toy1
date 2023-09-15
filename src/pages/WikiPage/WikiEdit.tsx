@@ -2,7 +2,7 @@
 import React, {useState, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import MDEditor from "@uiw/react-md-editor";
-import { getFirestore , collection, serverTimestamp , doc, setDoc} from "firebase/firestore";
+import { collection, serverTimestamp , doc, setDoc} from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
 import { categoryNameState } from "../../recoil/atoms/wiki/CategoryAtom";
 import { wikiListState } from "../../recoil/atoms/wiki/wikiListAtom";
@@ -10,11 +10,11 @@ import {
   WikiWriteContainer,
   WikiWriteContentContainer,
   WikiWriteBtnContainer,
-} from "../../styled/wiki/Container";
-import { SubmitButton, BackToListBtn } from "../../styled/wiki/Button";
-import { TitleInput } from "../../styled/wiki/Input";
-import CategorySelect from "../../styled/wiki/Select";
-import app from '../../firebaseSDK';
+} from "../../styled/WikiPage/Container";
+import { SubmitButton, BackToListBtn } from "../../styled/WikiPage/Button";
+import { TitleInput } from "../../styled/WikiPage/Input";
+import CategorySelect from "../../styled/WikiPage/Select";
+import {db} from '../../firebaseSDK';
 
 export default function WikiEdit() {
   
@@ -22,7 +22,6 @@ export default function WikiEdit() {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState('주요 기능');
 
-  const db = getFirestore(app);
   const navigate = useNavigate();
 
   const categoryNames = useRecoilValue(categoryNameState);

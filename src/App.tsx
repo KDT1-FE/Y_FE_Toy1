@@ -1,35 +1,41 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import './App.css';
-import { Layout, Home, About } from "./pages/TestPage/Test"
 import Wiki from './pages/WikiPage/Wiki';
 import WikiWrite from './pages/WikiPage/WikiWrite';
 import ItemContent from './pages/WikiPage/ItemContent';
 import WikiEdit from './pages/WikiPage/WikiEdit';
-
+import Login from './pages/LoginPage/Login';
+import NoticeWrite from './pages/NoticePage/NoticeWrite';
+import SignUp from './pages/LoginPage/SignUp';
+import CreateAccount from './pages/LoginPage/CreateAccount';
+import NoticeList from './pages/NoticePage/NoticeList';
+import NoticeDetail from './pages/NoticePage/NoticeDetail';
+import PrivateRoute from './components/PrivateRoute';
+import Main from './pages/MainPage/Main';
+import PublicRoute from './components/PublicRoute';
 
 function App() {
+
   return (
-    <div className="App">
-      안녕하세요 wikinity 입니다!
-      <div>
-        <Routes>
-          {/* Route는 아래처럼 중첩 라우팅이 가능합니다! */}
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="about" element={<About />} />
-            <Route path="wiki" element={<Wiki />} />
-            {/* Using path="*"" means "match anything", so this route
-                acts like a catch-all for URLs that we don't have explicit
-                routes for. */}
-            <Route path="*" element={<WikiWrite />} />
-            <Route path="wiki/write" element={<WikiWrite /> }/>
-            <Route path="wiki/content" element={<ItemContent />}/>
-            <Route path="wiki/edit" element={<WikiEdit />}/>
-          </Route>
-        </Routes>
-      </div>
-    </div>
+  
+      <Routes>
+      <Route element={<PublicRoute />}>
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<SignUp />} />
+        <Route path='/createaccount' element={<CreateAccount />} />
+      </Route>
+      <Route element={<PrivateRoute />}>
+        <Route path='/' element={<Main />} />
+        <Route path='/notice' element={<NoticeList />} />
+        <Route path='/noticewrite' element={<NoticeWrite />} />
+        <Route path='/notice/:noticeId' element={<NoticeDetail />} />
+        <Route path="/wiki" element={<Wiki />} />
+        <Route path="/wiki/write" element={<WikiWrite /> }/>
+        <Route path="/wiki/content" element={<ItemContent />}/>
+        <Route path="/wiki/edit" element={<WikiEdit />}/>
+      </Route>
+    </Routes>
+
   );
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
-import { WikiContentHeaderContainer } from '../../../styled/wiki/Container';
-import { ContentHeaderItem } from '../../../styled/wiki/Item';
-import { DeleteBtn } from '../../../styled/wiki/Button';
+import { WikiContentHeaderContainer } from '../../../styled/WikiPage/Container';
+import { ContentHeaderItem } from '../../../styled/WikiPage/Item';
+import { DeleteBtn } from '../../../styled/WikiPage/Button';
 
 export default function ContentHeader() {
   return (
