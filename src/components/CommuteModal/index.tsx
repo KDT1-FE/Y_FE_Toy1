@@ -77,18 +77,7 @@ function CommuteModal() {
         Commute
         <img src={commuteLogo}></img>
       </CommuteMenu>
-      <ReactModal
-        isOpen={showModal}
-        ariaHideApp={false}
-        className="_"
-        overlayClassName="_"
-        contentElement={(props, children) => (
-          <ModalStyle {...props}>{children}</ModalStyle>
-        )}
-        overlayElement={(props, contentElement) => (
-          <OverlayStyle {...props}>{contentElement}</OverlayStyle>
-        )}
-      >
+      <ReactModal isOpen={showModal} ariaHideApp={false} style={StyledModal}>
         <TopContainer>
           <Title>
             출퇴근<StyledDate>{dayFormat()}</StyledDate>
@@ -133,6 +122,31 @@ function CommuteModal() {
   );
 }
 
+const StyledModal: ReactModal.Styles = {
+  overlay: {
+    backgroundColor: ' rgba(0, 0, 0, 0.4)',
+    inset: '0px',
+    position: 'fixed',
+  },
+  content: {
+    width: '34.25rem',
+    height: '27.5rem',
+    zIndex: '1',
+
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+
+    borderRadius: '0.375rem',
+    paddingTop: '1.4375rem',
+    paddingBottom: '5.6rem',
+    border: 'none',
+
+    transform: 'translate(-50%, -50%)',
+    backgroundColor: 'white',
+    outline: 'none',
+  },
+};
 const CommuteMenu = styled.div`
   font-size: 1.1rem;
   font-weight: 300;
@@ -153,30 +167,6 @@ const CommuteMenu = styled.div`
   cursor: pointer;
 `;
 
-const ModalStyle = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
-  width: 34.25rem;
-  height: 27.5rem;
-
-  background-color: #fff;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  padding-top: 1.4375rem;
-  padding-bottom: 5.6rem;
-
-  border-radius: 0.375rem;
-  border: none;
-  outline: none;
-`;
-
-const OverlayStyle = styled.div`
-  position: fixed;
-  inset: 0px;
-  background-color: rgba(0, 0, 0, 0.45);
-`;
 const TopContainer = styled.section`
   display: flex;
   justify-content: space-between;
