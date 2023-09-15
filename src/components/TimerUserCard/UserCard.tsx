@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { userObjects } from 'data/getUser';
-import { Timer } from 'components/Timer';
+import { Timer } from 'components/TimerUserCard/Timer';
 
 // export interface IAppProps {
 // }
@@ -11,8 +11,8 @@ export function UserCard() {
       {userObjects.map((user) => (
         <div key={user.id}>
           <div>
-            {user.name}
-            <img src={user.photo} alt={user.name + '님의 사진'}></img>
+            {user.nickname}
+            <img src={user.image} alt={user.nickname + '님의 사진'}></img>
           </div>
           <Timer id={user.id} />
         </div>
