@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import { Layout, Home, About, Dashboard, NoMatch } from "./pages/TestPage/Test";
-import ProjectInputPage from "./pages/ProjectPage/ProjectDetailUpdate";
+import ProjectInputPage from "./pages/ProjectPage/ProjectInput";
 
 function App() {
   return (

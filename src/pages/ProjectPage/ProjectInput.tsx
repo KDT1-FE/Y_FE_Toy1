@@ -18,7 +18,7 @@ export default function ProjectInputPage() {
 
   return (
     <div>
-      <h2>프로젝트 정보 입력</h2>
+      <h2>Team Project</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="projectTitle">프로젝트 제목:</label>
