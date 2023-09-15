@@ -27,6 +27,7 @@ export default function ItemContent() {
         <ItemTitleText>{selectedItem ? selectedItem.title : "Title"}</ItemTitleText>
         <TimeTitleText>{selectedItem ? selectedItem.createdAt : "Timestamp"}</TimeTitleText>
         <MDEditor.Markdown
+          style={{width : '700px'}}
           source={selectedItem ? selectedItem.content : ""}
         />
       </WikiItemContainer>
