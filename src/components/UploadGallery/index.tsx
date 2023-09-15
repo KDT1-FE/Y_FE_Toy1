@@ -61,10 +61,10 @@ function UploadGallery() {
         ></StyledCloseImg>
         <StyledContainer>
           <StyledImgContainer>
-            {preview === null ? (
-              <StyledImgText>⚠️ 파일을 업로드 해주세요</StyledImgText>
-            ) : (
+            {preview ? (
               <StyledUploadImg src={preview as string}></StyledUploadImg>
+            ) : (
+              <StyledImgText>⚠️ 파일을 업로드 해주세요</StyledImgText>
             )}
           </StyledImgContainer>
           <StyledButtonContainer>
