@@ -1,8 +1,11 @@
 import { initializeApp } from 'firebase/app';
 
 import {
-    getFirestore, Firestore, doc, getDocs, collection,
-    
+    getFirestore,
+    Firestore,
+    doc,
+    getDocs,
+    collection,
     deleteDoc,
     getDoc,
     setDoc,
@@ -26,7 +29,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const storage = getStorage(app);
 export const firestore: Firestore = getFirestore(app);
-export const auth = getAuth(app)
+export const auth = getAuth(app);
 
 export type DocumentData = { [key: string]: any };
 

@@ -3,6 +3,7 @@ import { HeaderComponent, TitleAnchor, AnchorContainer, ListAnchor, RightAnchorC
 import { useRecoilState } from 'recoil';
 import { UserId } from '../../utils/recoil';
 import { useNavigate, useLocation } from 'react-router-dom';
+import CommuteBtn from '../../components/modal/CommuteBtn';
 
 const Header: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
@@ -27,7 +28,9 @@ const Header: React.FC = () => {
                     ) : (
                         <ListAnchor href={'/LogIn'}>LogIn</ListAnchor>
                     )}
-                    <ModalButton>commute</ModalButton>
+                    <ModalButton>
+                        <CommuteBtn />
+                    </ModalButton>
                 </RightAnchorContainer>
             </AnchorContainer>
         </HeaderComponent>
