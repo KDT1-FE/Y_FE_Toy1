@@ -1,8 +1,16 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { NavDetail } from './aside';
 
 import '../scss/components/_sidebar.scss';
 
 const SideBar = (): JSX.Element => {
+  const [isShow, setIsShow] = useState(false);
+
+  const toggleShowDetail = () => {
+    setIsShow(!isShow);
+  };
+
   return (
     <>
       <aside className="nav">
@@ -14,27 +22,15 @@ const SideBar = (): JSX.Element => {
             </Link>
           </li>
           <li className="nav__depth__item">
-            <Link to={'/company'} className="nav__depth__link" data-type="toggle">
+            <button
+              className={`nav__depth__btn ${isShow ? 'show' : ''}`}
+              data-type="toggle"
+              type="button"
+              onClick={toggleShowDetail}>
               <img src="./src/assets/company.svg" alt="회사 소개" className="nav__depth__logo" />
               회사 소개
-            </Link>
-            <ul className="nav__detail">
-              <li className="nav__detail__item">
-                <Link to={'/company/notice'} className="nav__detail__link on">
-                  공지사항
-                </Link>
-              </li>
-              <li className="nav__detail__item">
-                <Link to={'/company/chart'} className="nav__detail__link">
-                  회사 조직도
-                </Link>
-              </li>
-              <li className="nav__detail__item">
-                <Link to={'/company/bylaws'} className="nav__detail__link">
-                  회사 내규
-                </Link>
-              </li>
-            </ul>
+            </button>
+            {isShow ? <NavDetail /> : ''}
           </li>
           <li className="nav__depth__item">
             <Link to={'/project'} className="nav__depth__link">
