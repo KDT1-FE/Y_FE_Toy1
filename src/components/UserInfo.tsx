@@ -10,27 +10,32 @@ const UserInfo:React.FC<Props> = ({handlerLogout, user}) => {
   const [userPhotoURL, setUserPhotoURL] = useState(user?.photoURL)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const reader = new FileReader()
+  let isPending = false
 
   const handlerConfirmImage = async () => {
-    if(fileInputRef?.current){
-      const file = fileInputRef.current.files![0]
-      const filename = user.uid + Date.now()
-      const imageRef = ref(storage, `userImage/${filename}`)
-      try {
-        const snapshot = await uploadBytes(imageRef, file);
-        const url = await getDownloadURL(snapshot.ref);
-        setUserPhotoURL(url)
-        await updateProfile  (user, {
-          photoURL: url
-        })
-        alert('등록 성공했습니다')
-      } catch (error) {
-        console.error("Error uploading image:", error);
-        // 이미지 업로드 실패 처리
-      }
+    if(!isPending){
+      if(fileInputRef?.current){
+        const file = fileInputRef.current.files![0]
+        const filename = user.uid + Date.now()
+        const imageRef = ref(storage, `userImage/${filename}`)
+        try {
+          isPending = true
+          const snapshot = await uploadBytes(imageRef, file);
+          const url = await getDownloadURL(snapshot.ref);
+          setUserPhotoURL(url)
+          await updateProfile  (user, {
+            photoURL: url
+          })
+          alert('등록 성공했습니다')
+        } catch (error) {
+          console.error("Error uploading image:", error);
+          // 이미지 업로드 실패 처리
+        } finally{
+          isPending = false
+          setIsLogout(true)
+        }
+      }  
     }
-    
-    setIsLogout(true)
   }
 
   const handleEditImage = () => {
