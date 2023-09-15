@@ -3,8 +3,8 @@ import logo from '../../assets/icons/mainLogo.svg';
 import wikiLogo from '../../assets/icons/wiki.svg';
 import galleryLogo from '../../assets/icons/gallery.svg';
 import { ROUTES } from 'constants/routes';
-import Modal from 'components/Modal';
 import { Link } from 'react-router-dom';
+import CommuteModal from 'components/CommuteModal';
 
 function Header() {
   return (
@@ -23,7 +23,7 @@ function Header() {
             Wiki Gallery
             <img src={galleryLogo}></img>
           </Menu>
-          <Modal></Modal>
+          <CommuteModal />
         </MenuContainer>
       </Container>
     </StyledHeader>
