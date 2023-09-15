@@ -62,7 +62,7 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({setOnEdit}) => {
     {
       users.map((user: userData) => {
         return (
-          <div key={user.id}>
+          <div key={user.id} style={{margin: '30px'}}>
             <GalleryHeader>
               <div className="Gallery__title"> {user.title} 
               </div>

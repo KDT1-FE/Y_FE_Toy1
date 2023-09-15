@@ -18,22 +18,26 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
   // 에디터 컴포넌트에 사용될 ref
   const quillRef = useRef();
 
+  // 현재 로그인 유저정보 가져오기
+  const user = useContext(AuthContext);
+
   // user 컬렉션 가져오기
   const usersCollectionRef = collection(db, "gallery");
 
-  const [newCategory, setNewCategory] = useState("");
-  const [newTitle, setNewTitle] = useState("");
-  const [desc, setDesc] = useState('');
-  // 추후에 로그인한 회원의 닉네임 들어갈 것
+  // addDoc할 상태관리
+  const [originData, setOriginData] = useState({
+    category: '',
+    title: '',
+    desc: ''
+  })
+
+  // 이미지 상태관리
   const [imageUpload, setImageUpload] = useState<File | null>(null);
   const [imageEdit, setImageEdit] = useState<File | null>(null);
 
   // 현재 url의 id 값
   const { id } = useParams<string>();
   const navigate = useNavigate();
-
-  // 현재 로그인 유저정보 가져오기
-  const user = useContext(AuthContext);
 
   const createUser = async (e: React.FormEvent) => {
     // 새로고침방지
@@ -60,10 +64,12 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
         thumbnailUrl = url;
         alert('등록 성공했습니다')
       } catch (error) {
-        console.error("Error uploading image:", error);
         // 이미지 업로드 실패 처리
+        console.error("Error uploading image:", error);
       }
-    } else {
+    } 
+    // 이미지 미지정시, 디폴트 이미지 삽입
+    else {
         const imageRef = ref(storage, 'image/default-image.jpg'); 
       try{
         const defaultUrl = await getDownloadURL(imageRef);
@@ -76,21 +82,25 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
 
     // fire DB에 데이터 올리기
     await addDoc(usersCollectionRef, {
-       category: newCategory, 
-       title: newTitle, 
-       desc: desc, 
+       category: originData.category, 
+       title: originData.title, 
+       desc: originData.desc, 
        timestamp: formattedDate,
        date: printedData, 
        writer: user?.displayName,
        thumbnail: thumbnailUrl
       });
 
-      navigate("/Gallery"); // "/" 경로로 이동
+      // 리스트 경로로 이동
+      navigate("/Gallery"); 
   }
 
   // 에디터 업로드
   const onEditorChange = (value: string) => {
-    setDesc(value)
+    setOriginData({
+      ...originData,
+      desc: value
+    })
   }
 
   const onEditorEdit = (value: string) => {
@@ -134,18 +144,16 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
       editUrl = formData.thumbnail
     }
 
-    // 업데이트할 필드 객체 생성
-    const updateFields = {
-      date: printedData,
-      timestamp: formattedDate,
-      category: formData.category,
-      title: formData.title,
-      desc: formData.desc,
-      thumbnail: editUrl,
-    };
-  
     try {
-      await updateDoc(userRef, updateFields);
+      // fire DB에 데이터 업데이트
+      await updateDoc(userRef, {
+        date: printedData,
+        timestamp: formattedDate,
+        category: formData.category,
+        title: formData.title,
+        desc: formData.desc,
+        thumbnail: editUrl,
+      });
       alert('수정 완료했습니다')
       setOnEdit(false);
       navigate(-1)
@@ -178,10 +186,9 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
         })
       }
   }
-  console.log('a')
   if(onEdit){
-    console.log('b')
     fetchUser(id)
+    console.log('수정할 데이터 가져오기 성공')
   }
   }, [onEdit, id]);
 
@@ -223,7 +230,7 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
       // onEdit 이 false일 경우
       <form action="" onSubmit={createUser}>
       <FormList>
-        <select name="category" id="category" onChange={(event) => setNewCategory(event.target.value)}>
+        <select name="category" id="category" onChange={(event) => setOriginData({...originData, category: event.target.value})}>
           <option value="">카테고리 선택</option>
           <option value="notice">모집공고</option>
           <option value="news">패캠소식</option>
@@ -231,10 +238,10 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
         </select>
       </FormList>
       <FormList>
-        <input id="title" type="text" placeholder="제목을 입력해주세요" onChange={(event) => setNewTitle(event.target.value)} />
+        <input id="title" type="text" placeholder="제목을 입력해주세요" onChange={(event) => setOriginData({...originData, title: event.target.value})} />
       </FormList>
       <FormList>
-      <Editor value={desc} onChange={onEditorChange} quillRef={quillRef} />
+      <Editor value={originData.desc} onChange={onEditorChange} quillRef={quillRef} />
       </FormList>
       <FormList>
       <label htmlFor="thumbnail">썸네일 : </label>
@@ -255,8 +262,8 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
 }
 
 // 스타일
-
 const FormSection = styled.div`
+  margin: 30px;
   margin-top:40px;
 `
 
@@ -269,6 +276,7 @@ const FormList = styled.div`
   }
 
 `
+
 const GalleryBtn = styled.div`
 margin-top: 20px;
 text-align:center;
