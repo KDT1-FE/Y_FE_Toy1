@@ -1,34 +1,19 @@
-import Sidebar from 'components/Sidebar'
-import React, { useRef, useState } from "react"
+import Sidebar from "components/Sidebar"
+import React, { useRef, useState, useEffect } from "react"
 import styled from "styled-components"
 import Editor from "../components/Editor"
 import { storage, db } from "../firebase"
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
-import { collection, addDoc } from "firebase/firestore"
-// import { v4 } from "uuid" 
-import { useNavigate } from "react-router-dom"
+import { collection, doc, addDoc, updateDoc, getDoc } from "firebase/firestore"
+import { useNavigate, useParams } from "react-router-dom"
 
-const FormList = styled.div`
-  padding: 10px 0;
-  input[type="text"]{
-    width:100%;
-    border: 1px solid #ddd;
-    height:30px;
-  }
+// 함수 인자 타입 선언
+interface GalleryDetailProps {
+  onEdit: boolean;
+  setOnEdit: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-`
-const GalleryBtn = styled.button`
-  border: 0;
-  display:block;
-  margin: 0 auto;
-  margin-top: 20px;
-  background-color: #ED234B;
-  color:white;
-  padding: 10px 20px;
-  border-radius:10px;
-`
-
-const GalleryEdit = () => {
+const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
 
   // 에디터 컴포넌트에 사용될 ref
   const quillRef = useRef();
@@ -42,7 +27,10 @@ const GalleryEdit = () => {
   // 추후에 로그인한 회원의 닉네임 들어갈 것
   // const [newWriter, setNewWriter] = useState("나글쓴이");
   const [imageUpload, setImageUpload] = useState<File | null>(null);
+  const [imageEdit, setImageEdit] = useState<File | null>(null);
 
+  // 현재 url의 id 값
+  const { id } = useParams<string>();
   const navigate = useNavigate();
 
   const createUser = async (e: React.FormEvent) => {
@@ -67,7 +55,7 @@ const GalleryEdit = () => {
         const snapshot = await uploadBytes(imageRef, imageUpload);
         const url = await getDownloadURL(snapshot.ref);
         thumbnailUrl = url;
-        alert('이미지 업데이트되었습니다')
+        alert('등록 성공했습니다')
       } catch (error) {
         console.error("Error uploading image:", error);
         // 이미지 업로드 실패 처리
@@ -84,9 +72,7 @@ const GalleryEdit = () => {
        thumbnail: thumbnailUrl
       });
 
-
-      navigate("/"); // "/" 경로로 이동
-
+      navigate("/Gallery"); // "/" 경로로 이동
   }
 
   // 에디터 업로드
@@ -94,12 +80,103 @@ const GalleryEdit = () => {
     setDesc(value)
   }
 
+  const onEditorEdit = (value: string) => {
+    setFormData({
+      ...formData,
+      desc: value
+    })
+  }
+
+  // 데이터 수정
+  const updateUser = async (e: React.FormEvent) => {
+    e.preventDefault();
+  
+    // 글 작성한 날짜 구하기
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); 
+    const day = String(today.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+
+    // 해당 문서의 참조 얻기
+    const usersCollectionRef = collection(db, "user");
+    const userRef = doc(usersCollectionRef, id);
+  
+    // 썸네일 url
+    let editUrl= null;
+
+    // 이미지 업로드 후 url 받아오기
+    if (imageEdit) {
+      const imageRef = ref(storage, `image/${imageEdit.name}`);
+      try {
+        const snapshot = await uploadBytes(imageRef, imageEdit);
+        editUrl = await getDownloadURL(snapshot.ref);
+        alert('수정 완료했습니다')
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        // 이미지 업로드 실패 처리
+      }
+    } else {
+      editUrl = formData.thumbnail
+    }
+
+    // 업데이트할 필드 객체 생성
+    const updateFields = {
+      date: formattedDate,
+      category: formData.category,
+      title: formData.title,
+      desc: formData.desc,
+      thumbnail: editUrl,
+    };
+  
+    try {
+      await updateDoc(userRef, updateFields);
+      console.log("문서 업데이트 완료");
+      setOnEdit(false);
+      navigate('/Gallery')
+    } catch (error) {
+      console.error("문서 업데이트 실패:", error);
+    }
+  }
+
+  // 수정된 데이터 상태관리
+  const [formData, setFormData] = useState({
+    category: '',
+    title: '',
+    desc: '',
+    thumbnail: '',
+  })
+
+  // 해당 id의 데이터 불러오기
+  useEffect(() => {
+    const fetchUser = async (id: string|undefined) => {
+      // ... try, catch 생략
+      const usersCollectionRef = collection(db, "user");
+      const userRef = doc(usersCollectionRef, id);
+      
+      const userSnap = await getDoc(userRef);
+      if (userSnap.exists()){
+        const {category, title, desc, thumbnail} = userSnap.data()
+        setFormData({
+          category, title, desc, thumbnail
+        })
+      }
+  }
+  console.log('a')
+  if(onEdit){
+    console.log('b')
+    fetchUser(id)
+  }
+  }, [onEdit, id]);
+
   return (
     <>
     <Sidebar />
-      <form action="" onSubmit={createUser}>
+    {onEdit ? (
+      // onEdit 이 true일 경우
+      <form onSubmit={updateUser}>
         <FormList>
-          <select name="category" id="category" onChange={(event) => setNewCategory(event.target.value)}>
+          <select name="category" id="category" value={formData.category} onChange={(event) => setFormData({...formData, category: event.target.value})}>
             <option value="">카테고리 선택</option>
             <option value="notice">모집공고</option>
             <option value="news">패캠소식</option>
@@ -107,23 +184,74 @@ const GalleryEdit = () => {
           </select>
         </FormList>
         <FormList>
-          <input id="title" type="text" placeholder="제목을 입력해주세요" onChange={(event) => setNewTitle(event.target.value)} />
+          <input id="title" type="text" placeholder="제목을 입력해주세요" value={formData.title} onChange={(event) => setFormData({ ...formData, title: event.target.value})} />
         </FormList>
         <FormList>
-        <Editor value={desc} onChange={onEditorChange} quillRef={quillRef} />
+        <Editor value={formData.desc} onChange={onEditorEdit} quillRef={quillRef} />
         </FormList>
         <FormList>
         <input type="file" id="thumbnail" onChange={(event) => {
             const uploadedFile = event.target.files?.[0];
             if (uploadedFile) {
-              setImageUpload(uploadedFile);
+              setImageEdit(uploadedFile)
+              console.log('이미지 업로드')
             }
-        }} />
+        }}
+        />
         </FormList>
         <GalleryBtn type="submit">제출</GalleryBtn>
       </form>
+    ) : (
+      // onEdit 이 false일 경우
+      <form action="" onSubmit={createUser}>
+      <FormList>
+        <select name="category" id="category" onChange={(event) => setNewCategory(event.target.value)}>
+          <option value="">카테고리 선택</option>
+          <option value="notice">모집공고</option>
+          <option value="news">패캠소식</option>
+          <option value="random">랜덤토크</option>
+        </select>
+      </FormList>
+      <FormList>
+        <input id="title" type="text" placeholder="제목을 입력해주세요" onChange={(event) => setNewTitle(event.target.value)} />
+      </FormList>
+      <FormList>
+      <Editor value={desc} onChange={onEditorChange} quillRef={quillRef} />
+      </FormList>
+      <FormList>
+      <input type="file" id="thumbnail" onChange={(event) => {
+          const uploadedFile = event.target.files?.[0];
+          if (uploadedFile) {
+            setImageUpload(uploadedFile);
+          }
+      }} />
+      </FormList>
+      <GalleryBtn type="submit">제출</GalleryBtn>
+      </form>
+    )}
     </>
   )
 }
+
+// 스타일
+const FormList = styled.div`
+  padding: 10px 0;
+  input[type="text"]{
+    width:100%;
+    border: 1px solid #ddd;
+    height:30px;
+  }
+
+`
+const GalleryBtn = styled.button`
+  border: 0;
+  display:block;
+  margin: 0 auto;
+  margin-top: 20px;
+  background-color: #ED234B;
+  color:white;
+  padding: 10px 20px;
+  border-radius:10px;
+`
 
 export default GalleryEdit
