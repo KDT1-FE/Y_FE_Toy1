@@ -1,5 +1,7 @@
 import React from 'react';
 
-export const FormTitle = (): JSX.Element => {
-  return <div className="authForm__title">SIGN IN</div>;
+import '../../scss/components/auth/formTitle.scss';
+
+export const FormTitle = ({ title }): JSX.Element => {
+  return <div className="authForm__title">{title}</div>;
 };

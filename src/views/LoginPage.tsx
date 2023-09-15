@@ -18,14 +18,14 @@ export const LoginPage = (): JSX.Element => {
 
   return (
     <form className="authForm signin" onSubmit={handleSubmit}>
-      <FormTitle />
+      <FormTitle title="SIGN IN" />
 
       <InputEmail />
       <InputPassword />
 
-      <SubmitButton />
+      <SubmitButton content="SIGN IN" />
 
-      <ChangeAuthPage />
+      <ChangeAuthPage target="/resister" />
     </form>
   );
 };
