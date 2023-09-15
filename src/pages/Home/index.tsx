@@ -85,12 +85,6 @@ const Home: React.FC = () => {
                     </AboutContainer>
                 </Paper>
             </Carousel>
-            {/* <CarouselContainer>
-                <ContentTitle>Carousel</ContentTitle>
-                <CarouselWrapper>
-                    <Slider></Slider>
-                </CarouselWrapper>
-            </CarouselContainer> */}
             <Footer />
         </HomeContainer>
     );
