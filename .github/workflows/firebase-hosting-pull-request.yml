@@ -13,5 +13,5 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_WIKINITY_947F0 }}'
-          projectId: wikinity-947f0
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_WIKINITY_CA8CD }}'
+          projectId: wikinity-ca8cd

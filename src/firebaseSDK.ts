@@ -8,12 +8,12 @@ import { getStorage } from 'firebase/storage';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyAty4PjJBHIoWyvKNGwVRcaX1M-60iPfTE',
-  authDomain: 'wikinity-947f0.firebaseapp.com',
-  projectId: 'wikinity-947f0',
-  storageBucket: 'wikinity-947f0.appspot.com',
-  messagingSenderId: '390893293038',
-  appId: '1:390893293038:web:02aa6ad55fb5c67283d2ff'
+  apiKey: 'AIzaSyAc1f7gIrtn3YsZk71kcVHqvomIsPsyMHo',
+  authDomain: 'wikinity-ca8cd.firebaseapp.com',
+  projectId: 'wikinity-ca8cd',
+  storageBucket: 'wikinity-ca8cd.appspot.com',
+  messagingSenderId: '797341209119',
+  appId: '1:797341209119:web:2050b066c2b097c8d13b2a',
 };
 
 // Initialize Firebase
