@@ -20,23 +20,3 @@ body {
   padding: 5rem 3rem;
 }
 
-// 컴포넌트로 뺄 부분 삭제 예정 (디자인 확인 용)
-.link {
-  font-size: $font-base;
-  margin: 1rem 0 2rem;
-  color: $black;
-  text-align: center;
-  transition: 0.2s ease;
-
-  a {
-    color: $darkBlue;
-  }
-}
-
-.link > a:hover {
-  color: $darkBlue;
-}
-
-.hidden {
-  display: none !important;
-}
