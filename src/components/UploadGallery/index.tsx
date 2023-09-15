@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ReactModal from 'react-modal';
 import closeButton from '../../assets/icons/closeButton.svg';
 
 function UploadGallery() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [imgFile, setImgFile] = useState<File | null>();
   const [preview, setPreview] = useState<string | ArrayBuffer | null>('');
 
   const closeModal = () => {
@@ -16,23 +15,15 @@ function UploadGallery() {
   const handleChangeImg = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files !== null) {
       const file = event.target.files[0];
-      setImgFile(file);
-    } else {
-      setImgFile(null);
-    }
-  };
-
-  useEffect(() => {
-    if (imgFile) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreview(reader.result);
       };
-      reader.readAsDataURL(imgFile);
+      reader.readAsDataURL(file);
     } else {
       setPreview(null);
     }
-  }, [imgFile]);
+  };
 
   const imgRegister = () => {
     if (preview === null) {
