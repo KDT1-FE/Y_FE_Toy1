@@ -47,15 +47,15 @@ function Content() {
 
   return (
     <div className="WikiContentWrap">
-      <div id="ContentHeader">
-        <h1 id="ContentTitle">{title}</h1>
+      <div className="ContentHeader">
+        <h1 id="contentTitle">{title}</h1>
         <EditButton
           isEditorOpen={isEditorOpen}
           setIsEditorOpen={setIsEditorOpen}
         />
       </div>
 
-      <div id="main-content">
+      <div id="mainContent">
         {isEditorOpen ? (
           <TextEditor
             dataKey={dataKey}
