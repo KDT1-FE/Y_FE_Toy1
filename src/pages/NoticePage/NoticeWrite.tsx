@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { doc, setDoc, getDocs, collection } from 'firebase/firestore';
+import { doc, setDoc, getDocs, collection, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
 import { db, storage } from '../../firebaseSDK';
@@ -13,6 +13,15 @@ function NoticeWrite({ isEdit, data }: any) {
   const [imageName, setImageName] = useState('');
   const [uploadFile, setUploadFile] = useState<File | null>(null);
   const navigate = useNavigate();
+
+  type UpdatedData = {
+    noticeNumber: string;
+    createAt: string;
+    password?: string;
+    subject?: string;
+    contents?: string;
+    imageUrl?: string;
+  };
 
   const onChangePassword = (event: ChangeEvent<HTMLInputElement>): void => {
     setPassword(event.target.value);
@@ -34,7 +43,7 @@ function NoticeWrite({ isEdit, data }: any) {
     }
   };
 
-  // 공지 등록 함수
+  // 공지 등록 or 수정 함수
   const onClickSubmit = async (): Promise<void> => {
     const date = new Date();
     let imageUrl = '';
@@ -48,18 +57,40 @@ function NoticeWrite({ isEdit, data }: any) {
         imageUrl = await getDownloadURL(imageRef);
       }
 
-      setDoc(doc(db, 'notice', String(noticeNumber)), {
-        noticeNumber,
-        password,
-        subject,
-        contents,
-        imageUrl,
-        createAt: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
-      });
+      if (isEdit) {
+        const updatedData: UpdatedData = {
+          noticeNumber: data?.noticeNumber,
+          createAt: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+        };
+
+        if (password !== '') {
+          updatedData.password = password;
+        }
+        if (subject !== '') {
+          updatedData.subject = subject;
+        }
+        if (contents !== '') {
+          updatedData.contents = contents;
+        }
+        if (imageUrl !== '') {
+          updatedData.imageUrl = imageUrl;
+        }
+
+        await updateDoc(doc(db, 'notice', String(data.noticeNumber)), updatedData);
+      } else {
+        await setDoc(doc(db, 'notice', String(noticeNumber)), {
+          noticeNumber,
+          password,
+          subject,
+          contents,
+          imageUrl,
+          createAt: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+        });
+      }
 
       // eslint-disable-next-line no-alert
-      alert('공지가 등록됐습니다.');
-      navigate(`/notice/${noticeNumber}`);
+      alert(`공지가 ${isEdit ? '수정' : '등록'} 되었습니다.`);
+      navigate(`/notice/${isEdit ? data.noticeNumber : noticeNumber}`);
     } catch (error) {
       console.log('Error:', error);
     }
@@ -87,12 +118,7 @@ function NoticeWrite({ isEdit, data }: any) {
       <S.Title>공지사항 {isEdit ? '수정' : '등록'}하기</S.Title>
       <S.InputWrapper>
         <S.Label>공지 비밀번호</S.Label>
-        <S.Password
-          type='password'
-          placeholder='비밀번호를 입력해주세요.'
-          onChange={onChangePassword}
-          defaultValue={data?.password}
-        />
+        <S.Password type='password' placeholder='비밀번호를 입력해주세요.' onChange={onChangePassword} />
       </S.InputWrapper>
       <S.InputWrapper>
         <S.Label>제목</S.Label>
