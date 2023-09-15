@@ -6,3 +6,11 @@ export const ChannelSidebar = styled.div`
     background-color: #3f0e40;
     color: #ffffff;
 `;
+export const DropDownOptions = styled.div`
+    display: flex;
+`;
+
+export const FlexDiv = styled.div`
+    display: flex;
+    align-items: center;
+`;
