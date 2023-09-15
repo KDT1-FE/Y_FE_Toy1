@@ -41,7 +41,20 @@ export default function SignIn() {
         navigate("/");
       })
       .catch((e) => {
-        alert(e);
+        if (e.code == "auth/invalid-email") {
+          alert("아이디는 이메일 형식으로 입력해주세요.");
+        }
+        if (e.code == "auth/user-not-found") {
+          alert("등록되지 않은 아이디입니다.");
+        }
+        if (e.code == "auth/wrong-password") {
+          alert("비밀번호를 다시 확인해주세요.");
+        }
+        if (e.code == "auth/too-many-requests") {
+          alert(
+            "비밀번호 오류 횟수를 초과하였습니다. 잠시 후 다시 시도해주세요. ",
+          );
+        }
       });
   };
 
@@ -53,7 +66,7 @@ export default function SignIn() {
 
         <style.Form>
           <style.InputWrap className="EmailWrap">
-            EMAIL
+            ID (email)
             <style.Input
               type="email"
               name="email"
@@ -86,4 +99,3 @@ export default function SignIn() {
     </>
   );
 }
- 
