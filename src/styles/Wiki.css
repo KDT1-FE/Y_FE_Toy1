@@ -80,7 +80,7 @@
   transform: scale(1.07);
 }
 
-#mainContent {
+.markdown-body {
   height: 100%;
 
   padding: 1rem 3rem 5rem;

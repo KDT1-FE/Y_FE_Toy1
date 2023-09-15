@@ -64,7 +64,7 @@ function Content() {
           />
         ) : (
           <ReactMarkdown
-            className="reactMarkdown"
+            className="markdown-body"
             remarkPlugins={[remarkGfm]}
             rawSourcePos
             rehypePlugins={[rehypeRaw as any]}
