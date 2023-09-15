@@ -24,6 +24,10 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
   }
+
+  body {    
+    background-color: #f0f2f7;
+  }
   
   a {
     color: inherit;
@@ -45,6 +49,20 @@ export const GlobalStyle = createGlobalStyle`
     color: inherit;
     font-family: inherit;
   }  
+
+  textarea {
+    color: inherit;
+    font-family: inherit;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-medium-gray);
+    border: 0;
+    border-radius: 12px 12px 12px 12px;
+  }
 `;
 
 export default GlobalStyle;
