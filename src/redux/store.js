@@ -1,45 +1,50 @@
-import {createSlice,configureStore} from '@reduxjs/toolkit'
+import { createSlice, configureStore } from '@reduxjs/toolkit';
 import { createStore } from 'redux';
 
-// wiki page 
+// wiki page
 const boardStateSlice = createSlice({
-    name:'boardState',
-    initialState:{value:'QA'},
-    reducers:{
-        qa:(state,action)=>{
-        
-            state.value = action.payload; 
-        },
-        free:(state,action)=>{
-          
-          state.value = action.payload; 
-        },
-        best:(state,action)=>{
-          
-          state.value = action.payload; 
-        },
-        
-    }
-})
+  name: 'boardState',
+  initialState: { value: 'QA' },
+  reducers: {
+    qa: (state, action) => {
+      state.value = action.payload;
+    },
+    free: (state, action) => {
+      state.value = action.payload;
+    },
+    best: (state, action) => {
+      state.value = action.payload;
+    },
+  },
+});
 
 const wikiStore = configureStore({
-  reducer:{
-    boardState:boardStateSlice.reducer
-  }
-})
-
-
+  reducer: {
+    boardState: boardStateSlice.reducer,
+  },
+});
 
 // 초기 상태 정의
-const initialState = sessionStorage.getItem('user')
-  ? { user: sessionStorage.getItem('user') }
-  : { user: null };
+const initialState = sessionStorage.getItem('uid')
+  ? {
+      user: sessionStorage.getItem('uid'),
+      email: sessionStorage.getItem('email'),
+      nickname: sessionStorage.getItem('nickname'),
+      image: sessionStorage.getItem('image'),
+    }
+  : { uid: null };
 
 // 리듀서 정의
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case 'LOGIN':
-      return { ...state, user: action.payload };
+      return {
+        ...state,
+        uid: action.payload.uid,
+        email: action.payload.email,
+        nickname: action.payload.nickname,
+        image: action.payload.image,
+      };
     case 'LOGOUT':
       return { ...state, user: null };
     default:
@@ -51,8 +56,10 @@ function rootReducer(state = initialState, action) {
 const store = createStore(rootReducer);
 
 store.subscribe(() => {
-  sessionStorage.setItem('user', store.getState().user);
+  sessionStorage.setItem('user', store.getState().uid);
+  sessionStorage.setItem('email', store.getState().email);
+  sessionStorage.setItem('nickname', store.getState().nickname);
+  sessionStorage.setItem('image', store.getState().image);
 });
 
-
-export {wikiStore,boardStateSlice,store}
+export { wikiStore, boardStateSlice, store };
