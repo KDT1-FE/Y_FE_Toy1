@@ -15,43 +15,40 @@ type CommuteData = {
 export default function Carousel() {
   const { user } = useUser();
   const [name, setName] = useState<string>('');
-  const [uid, setUID] = useState<string>('');
   const [data, setData] = useState<CommuteData[]>([]);
-
-  async function fetchData() {
-    if (!uid) {
-      return; 
-    }
-    
-    const docRef = doc(db, 'commute', uid);
-    
-    try {
-      const docSnapshot = await getDoc(docRef);
-
-      if (docSnapshot.exists()) {
-        const data = docSnapshot.data();
-        const formattedData = Object.keys(data).map((date) => ({
-          date: date,
-          startTime: timeToLocaleTimeString(data[date].startTime),
-          endTime: timeToLocaleTimeString(data[date].endTime),
-          workingTime: formatMsToTime(data[date].workingTime),
-        }));
-        setData(formattedData);
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  }
-
+  
   useEffect(() => {
+    const fetchData = async (uid: string) => {
+      if (!uid) {
+        return; 
+      }
+      
+      try {
+        const docRef = doc(db, 'commute', uid);
+        const docSnapshot = await getDoc(docRef);
+  
+        if (docSnapshot.exists()) {
+          const data = docSnapshot.data();
+          const formattedData = Object.keys(data).map((date) => ({
+            date: date,
+            startTime: timeToLocaleTimeString(data[date].startTime),
+            endTime: timeToLocaleTimeString(data[date].endTime),
+            workingTime: formatMsToTime(data[date].workingTime),
+          }));
+          setData(formattedData);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } 
+    }
+
     if(!user) 
       return;
 
     // 유저 정보
     if(user) {
       setName(user.name);
-      setUID(user.uid);
-      fetchData();
+      fetchData(user.uid);
     }
   }, [user]);
 
