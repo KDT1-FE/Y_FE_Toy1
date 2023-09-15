@@ -20,7 +20,7 @@ export const ModalWall = styled.div`
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(45, 45, 45, 0.4);
+    background-color: rgba(0, 0, 0, 0.6);
 `;
 
 export const CloseBtn = styled.button`

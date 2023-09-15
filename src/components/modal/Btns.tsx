@@ -5,6 +5,7 @@ interface OwnProps {
     timeHandler(): void;
 }
 const Btns: React.FC<OwnProps> = ({ timeHandler }) => {
+    //버튼 사용 전 로그인 확인 로직
     const [userIn, setUserIn] = useState(0);
     const local = localStorage.getItem('recoil-persist');
     let loggedIn: string;
@@ -17,6 +18,7 @@ const Btns: React.FC<OwnProps> = ({ timeHandler }) => {
         }
     }, [userIn]);
 
+    //버튼 사용 로직
     const [timerOn, setTimerOn] = useState<boolean>(false);
     const timerSwitch = () => {
         const date = new Date();
@@ -42,6 +44,7 @@ const Btns: React.FC<OwnProps> = ({ timeHandler }) => {
         }
         timeHandler();
     };
+
     return (
         <BtnBox>
             <OnBtn
