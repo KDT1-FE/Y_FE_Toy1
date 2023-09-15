@@ -2,12 +2,12 @@ import React from 'react';
 
 import '../../scss/components/auth/input.scss';
 
-export const InputEmail = (): JSX.Element => {
+export const InputName = (): JSX.Element => {
   return (
     <div className="input-container">
-      <input type="text" id="signin-userid" name="userid" required autoComplete="off" />
+      <input type="text" id="signup-name" name="username" required autoComplete="off" />
 
-      <label htmlFor="signin-userid">Email</label>
+      <label htmlFor="signup-name">Name</label>
 
       <span className="input-container__bar"></span>
 

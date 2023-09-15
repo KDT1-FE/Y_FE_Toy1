@@ -3,7 +3,7 @@ import { BsFillXCircleFill, BsCheckCircleFill } from 'react-icons/bs';
 
 import { FormTitle, InputEmail, InputPassword, SubmitButton, ChangeAuthPage } from '../components/Auth';
 
-import '../scss/loginPage.scss';
+import '../scss/authPage.scss';
 
 export const LoginPage = (): JSX.Element => {
   const handleSubmit = (e: React.FormEvent) => {
@@ -25,7 +25,7 @@ export const LoginPage = (): JSX.Element => {
 
       <SubmitButton content="SIGN IN" />
 
-      <ChangeAuthPage target="/resister" />
+      <ChangeAuthPage target="/register" />
     </form>
   );
 };
