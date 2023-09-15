@@ -1,7 +1,6 @@
 import React from 'react';
 import GlobalStyle from './GlobalStyle';
 import Header from './common/Header';
-import Footer from './common/Footer';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Wiki from './pages/Wiki';
@@ -18,7 +17,6 @@ const App: React.FC = () => {
                     <Route path="/wiki" element={<Wiki />}></Route>
                     <Route path="/gallery" element={<Gallery />}></Route>
                 </Routes>
-                <Footer />
             </div>
         </BrowserRouter>
     );
