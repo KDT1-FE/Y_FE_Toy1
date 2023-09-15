@@ -1,12 +1,31 @@
 import React from 'react';
 import { BsFillXCircleFill, BsCheckCircleFill } from 'react-icons/bs';
 
-export const LoginPage = () => {
+import { FormTitle, InputEmail, InputPassword, SubmitButton, ChangeAuthPage } from '../components/Auth';
+
+import '../scss/loginPage.scss';
+
+export const LoginPage = (): JSX.Element => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    /* ------------------------------------ validation function ----------------------------------- */
+
+    /* ------------------------------ set firestore ----------------------------- */
+
+    /* -------------------------------- firebase Authentication -------------------------------- */
+  };
+
   return (
-    <div>
-      LoginPage
-      <BsFillXCircleFill />
-      <BsCheckCircleFill />
-    </div>
+    <form className="authForm signin" onSubmit={handleSubmit}>
+      <FormTitle />
+
+      <InputEmail />
+      <InputPassword />
+
+      <SubmitButton />
+
+      <ChangeAuthPage />
+    </form>
   );
 };
