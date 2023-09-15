@@ -45,8 +45,12 @@ export const ActionsWrapper = styled.div`
 `;
 
 export const EditBtn = styled.div`
-  color: #96a0ff;
   cursor: pointer;
+
+  a {
+    color: #96a0ff;
+    text-decoration: none;
+  }
 `;
 
 export const DeleteBtn = styled.div`
@@ -68,8 +72,18 @@ export const Body = styled.div`
   justify-content: space-around;
 `;
 
+export const ImageWrapper = styled.div`
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const Image = styled.img`
   display: inline-block;
+  max-width: 100%;
+  height: 100%;
 `;
 
 export const Contents = styled.div`
