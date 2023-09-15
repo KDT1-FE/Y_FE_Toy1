@@ -1,9 +1,10 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { doc, setDoc, getDocs, collection, updateDoc } from 'firebase/firestore';
+import { doc, setDoc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
 import { db, storage } from '../../firebaseSDK';
 import * as S from '../../styled/NoticePage/NoticeWrite.styles';
+import FetchNoticeData from '../../utils/NoticePage/FetchNoticeData';
 
 function NoticeWrite({ isEdit, data }: any) {
   const [noticeNumber, setNoticeNumber] = useState(1);
@@ -15,7 +16,7 @@ function NoticeWrite({ isEdit, data }: any) {
   const navigate = useNavigate();
 
   type UpdatedData = {
-    noticeNumber: string;
+    noticeNumber: number;
     createAt: string;
     password?: string;
     subject?: string;
@@ -96,12 +97,14 @@ function NoticeWrite({ isEdit, data }: any) {
     }
   };
 
-  // 공지 마지막 번호 가져오기 함수
-  const NoticeGetLastId = async (): Promise<void> => {
+  // 공지사항 게시물 마지막 번호 가져오기 함수
+  const getNoticeLastId = async (): Promise<void> => {
     try {
-      const querySnapshot = await getDocs(collection(db, 'notice'));
-      if (querySnapshot.docs.length) {
-        setNoticeNumber(Number(querySnapshot.docs[querySnapshot.docs.length - 1].id) + 1);
+      const dataList = await FetchNoticeData();
+
+      if (dataList) {
+        const lastNumber = dataList[0].noticeNumber;
+        setNoticeNumber(lastNumber + 1);
       }
     } catch (error) {
       console.log('Error:', error);
@@ -110,7 +113,7 @@ function NoticeWrite({ isEdit, data }: any) {
 
   // 랜더링 됐을 때 한 번만 실행
   useEffect(() => {
-    NoticeGetLastId();
+    getNoticeLastId();
   }, []);
 
   return (

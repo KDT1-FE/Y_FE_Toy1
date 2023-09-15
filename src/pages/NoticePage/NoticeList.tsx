@@ -1,28 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { DocumentData, collection, getDocs } from 'firebase/firestore';
+import { DocumentData } from 'firebase/firestore';
 import * as S from '../../styled/NoticePage/NoticeList.styles';
-import { db } from '../../firebaseSDK';
-import { INoticeListProps } from '../../types/NoticePage/NoticeList.types';
+import FetchNoticeData from '../../utils/NoticePage/FetchNoticeData';
 
 function NoticeList() {
-  const [noticeList, setNoticeList] = useState<INoticeListProps[]>([]);
+  const [noticeList, setNoticeList] = useState<DocumentData[] | null>([]);
   const navigate = useNavigate();
 
   // 공지사항 전체 가져오기
-  const FetchNoticeData = async (): Promise<void> => {
+  const getNoticeList = async (): Promise<void> => {
     try {
-      const querySnapshot: any = await getDocs(collection(db, 'notice'));
-      const data = querySnapshot.docs.map((doc: DocumentData) => doc.data());
-
-      setNoticeList(data);
+      const dataList = await FetchNoticeData();
+      setNoticeList(dataList);
     } catch (error) {
       console.log('Error: ', error);
     }
   };
 
   useEffect(() => {
-    FetchNoticeData();
+    getNoticeList();
   }, []);
 
   return (
@@ -38,7 +35,7 @@ function NoticeList() {
         <S.ColumnHeaderSubject>제목</S.ColumnHeaderSubject>
         <S.ColumnHeaderBasic>날짜</S.ColumnHeaderBasic>
       </S.HeaderRow>
-      {noticeList.map((notice: INoticeListProps) => (
+      {noticeList?.map((notice) => (
         <S.Row key={notice.noticeNumber} onClick={() => navigate(`/notice/${notice.noticeNumber}`)}>
           <S.ColumnHeaderBasic>{notice.noticeNumber}</S.ColumnHeaderBasic>
           <S.ColumnHeaderSubject>{notice.subject}</S.ColumnHeaderSubject>
