@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { OnBtn, OffBtn, BtnBox } from './style';
+import { createTimelog } from '../../utils/firebase';
 
 interface OwnProps {
     timeHandler(): void;
@@ -20,29 +21,34 @@ const Btns: React.FC<OwnProps> = ({ timeHandler }) => {
 
     //버튼 사용 로직
     const [timerOn, setTimerOn] = useState<boolean>(false);
-    const timerSwitch = () => {
+    const timerSwitch = (set = 0) => {
         const date = new Date();
         const year = date.getFullYear();
         const month = date.getMonth();
         const day = date.getDate();
         const today = year + '.' + month + '.' + day;
-        let Hours: number | string = date.getHours();
-        let Minutes: number | string = date.getMinutes();
-        if (Hours < 10) {
-            Hours = '0' + Hours;
-        }
-        if (Minutes < 10) {
-            Minutes = '0' + Minutes;
-        }
+        let Hours: number | string = new Date().getHours();
+        let Min: number | string = new Date().getMinutes();
+        let Sec: number | string = new Date().getSeconds();
+        Hours = String(Hours).padStart(2, '0');
+        Min = String(Min).padStart(2, '0');
+        Sec = String(Sec).padStart(2, '0');
         if (!timerOn) {
             console.log(today);
-            console.log('입실: ' + Hours + ':' + Minutes);
+            console.log('입실: ' + Hours + ':' + Min + ':' + Sec);
             setTimerOn(true);
         } else {
-            console.log('퇴실: ' + Hours + ':' + Minutes);
+            console.log('퇴실: ' + Hours + ':' + Min + ':' + Sec);
             setTimerOn(false);
         }
         timeHandler();
+        console.log(set);
+
+        if (set) {
+            createTimelog('user', 'asdasd', '입실: ' + Hours + ':' + Min + ':' + Sec);
+        } else {
+            createTimelog('user', 'asdasd', '퇴실: ' + Hours + ':' + Min + ':' + Sec);
+        }
     };
 
     return (
@@ -51,7 +57,7 @@ const Btns: React.FC<OwnProps> = ({ timeHandler }) => {
                 value={timerOn}
                 onClick={() => {
                     if (!timerOn && userIn) {
-                        timerSwitch();
+                        timerSwitch(1);
                     }
                 }}
             >
