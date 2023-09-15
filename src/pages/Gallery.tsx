@@ -9,8 +9,8 @@ function Gallery() {
       <div className="GallerySidebar">
         <span className="GalleryCategory">갤러리</span>
         <div className="GalleryListWrapper">
-          <Link to="/gallery/직원사진">직원사진</Link>
-          <Link to="/gallery/협력사">협력사</Link>
+          <Link to="/gallery/교육생 사진">교육생 사진</Link>
+          <Link to="/gallery/계열사">계열사</Link>
         </div>
       </div>
       <div className="GalleryContentSection">
