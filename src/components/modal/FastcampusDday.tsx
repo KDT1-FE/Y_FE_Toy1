@@ -20,10 +20,7 @@ const FastcampusDday: React.FC<OwnProps> = ({ timeRenewal }) => {
     }, []);
     //디데이를 실시간으로 갱신시켜주는 useEffect
     useEffect(() => {
-        const interval = setInterval(() => {
-            dDaySet();
-        }, 1000);
-        return () => clearInterval(interval);
+        dDaySet();
     }, [{ timeRenewal }]);
     return (
         <Dday>
