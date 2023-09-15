@@ -2,14 +2,16 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 
 // export interface IAppProps {
 // }
+
+//unix timestamp
 const timeStamp = Math.floor(new Date().getTime() / 1000);
 function getCurrentDateFromStamp(timestamp: number) {
   const fullDate = new Date(timestamp * 1000);
   const onlyDate = fullDate.getDate();
   return onlyDate;
 }
-// console.log(getCurrentDateFromStamp(timeStamp));
 
+//Timer의 시작, 중지, 초기화 동작
 function handleTimer(initialValue: number, ms: number) {
   const [count, setCount] = useState(initialValue);
   const intervalRef: any = useRef(null);
@@ -34,6 +36,7 @@ function handleTimer(initialValue: number, ms: number) {
   return { count, start, stop, reset };
 }
 
+//Timer 컴포넌트
 export function Timer(props: any) {
   const [currentHours, setCurrentHours] = useState(0);
   const [currentMinutes, setCurrentMinutes] = useState(0);
