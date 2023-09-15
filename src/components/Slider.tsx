@@ -1,21 +1,30 @@
 import React from 'react';
 
+interface SlideText {
+  text: string;
+  style: React.CSSProperties;
+}
+
 interface SlideProps {
   backgroundColor: string;
-  text: string;
+  text: SlideText[];
   imageSrc: string;
 }
 
 const Slide: React.FC<SlideProps> = ({ backgroundColor, text, imageSrc }) => {
   const slideStyle = {
-    backgroundColor: backgroundColor, // 배경색 스타일 추가
+    backgroundColor: backgroundColor,
   };
 
   return (
     <div className="slide" style={slideStyle}>
-      <div className="slide-content" >
+      <div className="slide-content">
         <div className="slide-left">
-          <p>{text}</p>
+          {text.map((textItem, index) => (
+            <p key={index} style={textItem.style}>
+              {textItem.text}
+            </p>
+          ))}
         </div>
         <div className="slide-right">
           <img src={imageSrc} alt="Slide" />
@@ -26,5 +35,3 @@ const Slide: React.FC<SlideProps> = ({ backgroundColor, text, imageSrc }) => {
 };
 
 export default Slide;
-
-

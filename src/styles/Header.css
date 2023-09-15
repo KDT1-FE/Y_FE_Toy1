@@ -1,51 +1,8 @@
-/* .header {
-    background-color: #333; 
-    color: white; 
-    padding: 10px 0; 
-    text-align: center; 
-  } */
-  
-  /* .menu-icon {
-    font-size: 36px; 
-    cursor: pointer;
-  }
-  
-  .site-title {
-    font-size: 24px; 
-  }
-
-  .mainText {
-    font-size: 24px; 
-    margin: 0 auto; 
-  }
-
-  .menu {
+.pageList {
     display: flex;
     align-items: center;
-    position: absolute;
-    margin-top: 50px;
-    opacity: 0; 
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; 
-  }
-  
-  .menu.active {
-    opacity: 1; 
-    transform: translateY(0);
-  }
-  
-  .menu a {
-    margin-right: 10px;
-    text-decoration: none;
-    color: coral
-  } */
-  
-  
-  
-  .pageList {
-    display: flex;
-    align-items: center;
-    margin: 0 auto;
-    width: 90%;
+    /* margin: 0 auto; */
+    max-width: 90%; /* 너비를 90%로 설정 */
   }
 
   .logo img {
@@ -107,6 +64,7 @@
   .auth-button1:hover {
     background-color: rgb(214, 108, 69);
   }
+
   .auth-button2:hover {
     background-color: rgb(214, 108, 69);
   }

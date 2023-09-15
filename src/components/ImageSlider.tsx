@@ -186,6 +186,72 @@
 // }
 
 
+// import sliderImg1 from '../images/sliderImg1.png'; 
+// import sliderImg2 from '../images/sliderImg2.png'; 
+// import sliderImg3 from '../images/sliderImg3.png'; 
+
+// import '../styles/Main.css'; 
+// import React from 'react';
+// import Slider from 'react-slick';
+// import 'slick-carousel/slick/slick.css';
+// import 'slick-carousel/slick/slick-theme.css';
+// import Slide from './Slider'; // Slide 컴포넌트 임포트
+
+// const slides = [
+//   {
+//     backgroundColor: '#ffeae9',
+//     text: 'Slide 1',
+//     text1: 'slide 222',
+//     imageSrc: sliderImg1, // 이미지 파일 경로
+//   },
+//   {
+//     backgroundColor: '#fff088',
+//     text: 'Slide 2',
+//     text1: 'slide 222',
+//     imageSrc: sliderImg2, // 이미지 파일 경로
+//   },
+//   {
+//     backgroundColor: '#edfaf7',
+//     text: 'Slide 3',
+//     text1: 'slide 222',
+//     imageSrc: sliderImg3, // 이미지 파일 경로
+//   },
+// ];
+
+// const ImageSlider = () => {
+//     // 옵션
+//     const settings = {
+//       dots: true,
+//       infinite: true,
+//       speed: 500,
+//       autoplay: true,
+//       slidesToShow: 1,
+//       autoplaySpeed: 2000,
+//     };
+  
+//     return (
+//         <div className="carousel">
+//           <Slider {...settings}>
+//             {slides.map((slide, index) => (
+//               <Slide
+//                 key={index}
+//                 backgroundColor={slide.backgroundColor}
+//                 text={slide.text}
+//                 text1={slide.text1}
+//                 imageSrc={slide.imageSrc}
+//               />
+//             ))}
+//           </Slider>
+//         </div>
+//       );
+//     };
+    
+  
+//   export default ImageSlider;
+
+
+
+
 import sliderImg1 from '../images/sliderImg1.png'; 
 import sliderImg2 from '../images/sliderImg2.png'; 
 import sliderImg3 from '../images/sliderImg3.png'; 
@@ -198,24 +264,36 @@ import 'slick-carousel/slick/slick-theme.css';
 import Slide from './Slider'; // Slide 컴포넌트 임포트
 
 const slides = [
-  {
-    backgroundColor: '#ffeae9',
-    text: 'Slide 1',
-    imageSrc: sliderImg1, // 이미지 파일 경로
-  },
-  {
-    backgroundColor: '#fff088',
-    text: 'Slide 2',
-    imageSrc: sliderImg2, // 이미지 파일 경로
-  },
-  {
-    backgroundColor: '#edfaf7',
-    text: 'Slide 3',
-    imageSrc: sliderImg3, // 이미지 파일 경로
-  },
-];
-
-const ImageSlider = () => {
+    {
+      backgroundColor: '#ffeae9',
+      texts: [
+        { text: 'NOTICE', style: { color: 'red' } },
+        { text: 'Slide 1 Text 2', style: { color: 'blue' } },
+        { text: 'Slide 1 Text 3', style: { color: 'green' } },
+      ],
+      imageSrc: sliderImg1, // 이미지 파일 경로
+    },
+    {
+      backgroundColor: '#fff088',
+      texts: [
+        { text: 'Slide 2 Text 1', style: { fontSize: '20px' } },
+        { text: 'Slide 2 Text 2', style: { fontSize: '24px' } },
+        { text: 'Slide 2 Text 3', style: { fontSize: '28px' } },
+      ],
+      imageSrc: sliderImg2, // 이미지 파일 경로
+    },
+    {
+      backgroundColor: '#edfaf7',
+      texts: [
+        { text: 'Slide 3 Text 1', style: { fontWeight: 'bold' } },
+        { text: 'Slide 3 Text 2', style: { fontStyle: 'italic' } },
+        { text: 'Slide 3 Text 3', style: { textDecoration: 'underline' } },
+      ],
+      imageSrc: sliderImg3, // 이미지 파일 경로
+    },
+  ];
+  
+  const ImageSlider = () => {
     // 옵션
     const settings = {
       dots: true,
@@ -227,20 +305,19 @@ const ImageSlider = () => {
     };
   
     return (
-        <div className="carousel">
-          <Slider {...settings}>
-            {slides.map((slide, index) => (
-              <Slide
-                key={index}
-                backgroundColor={slide.backgroundColor}
-                text={slide.text}
-                imageSrc={slide.imageSrc}
-              />
-            ))}
-          </Slider>
-        </div>
-      );
-    };
-    
+      <div className="carousel">
+        <Slider {...settings}>
+          {slides.map((slide, index) => (
+            <Slide
+              key={index}
+              backgroundColor={slide.backgroundColor}
+              text={slide.texts}
+              imageSrc={slide.imageSrc}
+            />
+          ))}
+        </Slider>
+      </div>
+    );
+  };
   
   export default ImageSlider;
