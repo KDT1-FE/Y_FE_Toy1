@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { db } from '../common/config';
 import { doc, getDoc } from 'firebase/firestore';
+import { timeToLocaleTimeString, formatMsToTime } from '../utils/formatTime';
 
 type CommuteData = {
   date: string;
@@ -14,7 +15,7 @@ export default function Carousel() {
   const [data, setData] = useState<CommuteData[]>([]);
 
   async function fetchData() {
-    const docRef = doc(db, 'commute', 'uid');
+    const docRef = doc(db, 'commute', 'nFnMsP2CgPdcIoBkX1uw5WTVW0j1');
     
     try {
       const docSnapshot = await getDoc(docRef);
@@ -23,9 +24,9 @@ export default function Carousel() {
         const data = docSnapshot.data();
         const formattedData = Object.keys(data).map((date) => ({
           date: date,
-          startTime: data[date].startTime,
-          endTime: data[date].endTime,
-          workingTime: data[date].workingTime,
+          startTime: timeToLocaleTimeString(data[date].startTime),
+          endTime: timeToLocaleTimeString(data[date].endTime),
+          workingTime: formatMsToTime(data[date].workingTime),
         }));
         setData(formattedData);
       }
