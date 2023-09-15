@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
-import { createChannelDoc, updateChannelDoc, addFieldToDoc } from '../../utils/firebase';
+import { createChannelDoc, updateChannelDoc, addFieldToDoc, updateFieldKeyInDoc } from '../../utils/firebase';
 
 interface ChannelModalProps {
     isOpen: boolean;
     closeModal: () => void;
     collectionName: string;
     modalType: string;
-    channelData: object;
+    subChannelId: string;
     channelId: string;
 }
 
@@ -16,7 +16,7 @@ const ChannelModal: React.FC<ChannelModalProps> = ({
     closeModal,
     collectionName,
     modalType,
-    channelData,
+    subChannelId,
     channelId,
 }) => {
     const customStyles = {
@@ -65,6 +65,16 @@ const ChannelModal: React.FC<ChannelModalProps> = ({
             console.error('채널 수정 실패!', error);
         }
     };
+
+    const handleUpdateSubChannel = async () => {
+        try {
+            await updateFieldKeyInDoc(collectionName, channelId, subChannelId, name); // channelId라는 doc의 field 키값 subChannelData를 name으로 수정
+            closeModal();
+        } catch (error) {
+            console.error('서브채널 수정 실패!', error);
+        }
+    };
+
     const getTitleText = () => {
         switch (modalType) {
             case 'Create':
@@ -73,11 +83,12 @@ const ChannelModal: React.FC<ChannelModalProps> = ({
                 return 'Update a channel';
             case 'CreateSub':
                 return 'Create a subchannel';
+            case 'UpdateSub':
+                return 'Update a subchannel';
             default:
                 return '';
         }
     };
-
     const title = getTitleText();
 
     return (
@@ -100,6 +111,8 @@ const ChannelModal: React.FC<ChannelModalProps> = ({
                         handleUpdateChannel();
                     } else if (modalType === 'CreateSub') {
                         handleCreateSubChannel();
+                    } else if (modalType === 'UpdateSub') {
+                        handleUpdateSubChannel();
                     }
                 }}
             >
