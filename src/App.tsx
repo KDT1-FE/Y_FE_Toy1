@@ -1,6 +1,9 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-
+import Wiki from './pages/WikiPage/Wiki';
+import WikiWrite from './pages/WikiPage/WikiWrite';
+import ItemContent from './pages/WikiPage/ItemContent';
+import WikiEdit from './pages/WikiPage/WikiEdit';
 import Login from './pages/LoginPage/Login';
 import NoticeWrite from './pages/NoticePage/NoticeWrite';
 import SignUp from './pages/LoginPage/SignUp';
@@ -14,7 +17,8 @@ import PublicRoute from './components/PublicRoute';
 function App() {
 
   return (
-    <Routes>
+  
+      <Routes>
       <Route element={<PublicRoute />}>
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
@@ -25,8 +29,13 @@ function App() {
         <Route path='/notice' element={<NoticeList />} />
         <Route path='/noticewrite' element={<NoticeWrite />} />
         <Route path='/notice/:noticeId' element={<NoticeDetail />} />
+        <Route path="/wiki" element={<Wiki />} />
+        <Route path="/wiki/write" element={<WikiWrite /> }/>
+        <Route path="/wiki/content" element={<ItemContent />}/>
+        <Route path="/wiki/edit" element={<WikiEdit />}/>
       </Route>
     </Routes>
+
   );
 }
 
