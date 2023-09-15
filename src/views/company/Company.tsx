@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Company = () => {
-  return <div className="companyPage"></div>;
+  return <></>;
 };
 
 export default Company;

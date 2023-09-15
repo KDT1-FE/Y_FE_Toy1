@@ -1,23 +1,38 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+interface Link {
+  to: string;
+  text: string;
+}
+
 const NavDetail = () => {
+  const [isClicked, setIsClicked] = useState(0);
+
+  const handleClickLink = (index: number) => {
+    setIsClicked(index);
+  };
+
+  const links = [
+    { to: '/company/notice', text: '공지사항' },
+    { to: '/company/chart', text: '회사 조직도' },
+    { to: '/company/bylaws', text: '회사 내규' },
+  ];
+
   return (
     <ul className="nav__detail">
-      <li className="nav__detail__item">
-        <Link to={'/company/notice'} className="nav__detail__link on">
-          공지사항
-        </Link>
-      </li>
-      <li className="nav__detail__item">
-        <Link to={'/company/chart'} className="nav__detail__link">
-          회사 조직도
-        </Link>
-      </li>
-      <li className="nav__detail__item">
-        <Link to={'/company/bylaws'} className="nav__detail__link">
-          회사 내규
-        </Link>
-      </li>
+      {links.map((link: Link, index: number) => (
+        <li key={index} className="nav__detail__item">
+          <Link
+            to={link.to}
+            className={`nav__detail__link ${index === isClicked ? 'on' : ''}`}
+            onClick={() => {
+              handleClickLink(index);
+            }}>
+            {link.text}
+          </Link>
+        </li>
+      ))}
     </ul>
   );
 };
