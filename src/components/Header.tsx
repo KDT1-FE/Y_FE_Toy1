@@ -10,7 +10,7 @@ export default function Header() {
 
   return (
     <header>
-      <nav>
+      <nav className='Header'>
         <div className='header-container'>
           <div className="pageList">
           <div className="logo">

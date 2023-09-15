@@ -1,8 +1,10 @@
-.pageList {
+.Header {
+    width: 85%;
+}
+  .pageList {
     display: flex;
     align-items: center;
     /* margin: 0 auto; */
-    max-width: 90%; /* 너비를 90%로 설정 */
   }
 
   .logo img {
@@ -34,6 +36,7 @@
   
   .auth-buttons {
     margin-left: auto;
+    padding-right: 150px;
   }
 
   .auth-button1 {
@@ -59,6 +62,7 @@
     padding: 15px 20px; 
     cursor: pointer; 
     transition: background-color 0.3s ease; 
+
   }
 
   .auth-button1:hover {

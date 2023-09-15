@@ -26,7 +26,6 @@
   .carousel .slick-slide img {
     width: 600px;
     height: 420px; 
-    margin: auto;
   }
 
 .slide {
@@ -44,12 +43,15 @@
   
   .slide-left {
     flex: 1;
-    padding: 20px; 
-    text-align: center;
+    flex-direction: column;
+    padding-left: 7.5%;
     margin: auto;
   }
 
   .slide-right {
     flex: 1;
-    padding: 20px; 
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start; /* 이미지를 수직으로 중앙에 정렬하면서 왼쪽 끝에 붙임 */
+    align-items: center; /* 이미지를 수직으로 중앙에 정렬 */
   }

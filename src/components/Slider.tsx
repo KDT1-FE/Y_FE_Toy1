@@ -21,9 +21,18 @@ const Slide: React.FC<SlideProps> = ({ backgroundColor, text, imageSrc }) => {
       <div className="slide-content">
         <div className="slide-left">
           {text.map((textItem, index) => (
-            <p key={index} style={textItem.style}>
-              {textItem.text}
-            </p>
+            <div key={index} style={{ display: 'block' }}>
+              <p
+                style={{
+                  ...textItem.style,
+                  backgroundColor: textItem.style.backgroundColor,
+                  display: 'inline-block', // 텍스트 세로 정렬을 위해 추가
+                  marginBottom: '40px', 
+                }}
+              >
+                {textItem.text}
+              </p>
+            </div>
           ))}
         </div>
         <div className="slide-right">
