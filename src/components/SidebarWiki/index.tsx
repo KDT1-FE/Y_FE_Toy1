@@ -16,7 +16,7 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
     );
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalType, setModalType] = useState('');
-    const [selectedChannelData, setSelectedChannelData] = useState<DocumentData>({});
+    const [selectedSubChannelId, setSelectedSubChannelId] = useState('');
     const [selectedChannelId, setSelectedChannelId] = useState('');
 
     useEffect(() => {
@@ -70,7 +70,7 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
                             <button
                                 onClick={() => {
                                     setModalType('Update');
-                                    setSelectedChannelData(item.docData);
+                                    // setSelectedSubChannelId(item.docData);
                                     setSelectedChannelId(item.docId);
                                     openModal();
                                 }}
@@ -85,7 +85,16 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
                                     <div key={index2} onClick={() => handleKeyClick(item.docData[item2])}>
                                         &gt; {item2}
                                     </div>
-                                    <button>수정</button>
+                                    <button
+                                        onClick={() => {
+                                            setModalType('UpdateSub');
+                                            setSelectedSubChannelId(item2);
+                                            setSelectedChannelId(item.docId);
+                                            openModal();
+                                        }}
+                                    >
+                                        수정
+                                    </button>
                                     <button onClick={() => deleteFieldFromDoc('wiki', item.docId, item2)}>삭제</button>
                                 </div>
                             ))}
@@ -108,8 +117,8 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
                     closeModal={closeModal}
                     collectionName={collectionName}
                     modalType={modalType}
-                    channelData={selectedChannelData}
-                    channelId={selectedChannelId}
+                    subChannelId={selectedSubChannelId} // field 값
+                    channelId={selectedChannelId} // doc 이름
                 />
             )}
         </>
