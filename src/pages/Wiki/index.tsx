@@ -8,9 +8,6 @@ function Wiki() {
   const searchParams = new URLSearchParams(location.search)
   const selectedCategory = searchParams.get('category')
 
-// 적용해야 할거
-// firebase에 등록되는거 확인ㄴ
-
   return (
     <WikiContainer>
       <NavigationWiki></NavigationWiki>
