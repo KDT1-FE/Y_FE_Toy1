@@ -11,6 +11,7 @@ import { SignUp } from 'pages/SignUp';
 import { Study } from 'pages/Study';
 import { WikiDetail } from 'components/Wiki/WikiDetail';
 import { PostAdd } from 'components/Wiki/PostAdd';
+import { PostEdit } from 'components/Wiki/PostEdit';
 
 function App() {
   const router = createBrowserRouter([
@@ -41,6 +42,12 @@ function App() {
       path : '/wiki/:boardState/new',
       element : <Provider store={store}>
       <PostAdd />,
+    </Provider>
+    },
+    {
+      path : '/wiki/:boardState/:id/edit',
+      element : <Provider store={store}>
+      <PostEdit />,
     </Provider>
     }
   ]);

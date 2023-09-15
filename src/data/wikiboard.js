@@ -48,7 +48,7 @@ async function readPostData(boardState,postNumber){
 
 async function addNewPostDB (boardState,postData){
     let collectionref;
-    let lastPostId = await readLastPostId('QA');
+    let lastPostId = await readLastPostId(boardState);
     let newPostId = ++(lastPostId.data().LASTPOSTID)
     
     newPostId = newPostId.toString()
@@ -66,36 +66,11 @@ async function addNewPostDB (boardState,postData){
         return
     }
     try {
-        // console.log(postData);
         await setDoc(collectionref,postData)
         await updateLastPostId(boardState,newPostId)
     }
     catch (error){
         console.error('error')
-    }
-}
-
-async function updateLastPostId (boardState,newPostId){
-    let postref;
-    const updateData = {LASTPOSTID:+newPostId}
-    if (boardState == 'QA'){
-        postref = doc(db,'PostData','QABoard');
-    }
-    else if (boardState == 'Free'){
-        postref = doc(db,'PostData','FreeBoard');
-    }
-    else if (boardState == 'Best'){
-        postref = doc(db,'PostData','BestBoard');
-    }
-    else {
-        return
-    }
-    console.log(postref);
-    try {
-        await updateDoc(postref,updateData)
-    }
-    catch (error) {
-        console.log('error')
     }
 }
 
@@ -123,4 +98,39 @@ async function readLastPostId (boardState){
     return postDataLast;
 }
 
-export {readBoardData,readPostData,addNewPostDB,readLastPostId}
+async function updateLastPostId (boardState,newPostId){
+    let postref;
+    const updateData = {LASTPOSTID:+newPostId}
+    if (boardState == 'QA'){
+        postref = doc(db,'PostData','QABoard');
+    }
+    else if (boardState == 'Free'){
+        postref = doc(db,'PostData','FreeBoard');
+    }
+    else if (boardState == 'Best'){
+        postref = doc(db,'PostData','BestBoard');
+    }
+    else {
+        return
+    }
+    try {
+        await updateDoc(postref,updateData)
+    }
+    catch (error) {
+        console.log('error')
+    }
+}
+
+
+async function updatePostData (boardState,postId,updateData){
+    // console.log(updateData)
+    const postRef = doc(db,boardState,postId);
+    try {
+        await updateDoc(postRef,updateData)
+    }
+    catch (error){
+        console.log('error')
+    }
+}
+
+export {readBoardData,readPostData,addNewPostDB,readLastPostId,updatePostData}
