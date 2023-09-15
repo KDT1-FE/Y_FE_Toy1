@@ -112,6 +112,7 @@ const Container = styled.section`
     height: 100px;
     width: 100px;
     box-sizing: border-box;
+    object-fit: cover;
   }
   .userInfo__img-edit{
     position: absolute;
