@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components'; 
 import slideImg1 from '../assets/slideImage1.png'; 
 import slideImg2 from '../assets/slideImage2.png'; 
@@ -23,6 +23,12 @@ export default function Carousel() {
   const showPreviousImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + imagesUrl.length) % imagesUrl.length);
   };
+
+  useEffect(() => {
+    const intervalId = setInterval(showNextImage, 5000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <>
