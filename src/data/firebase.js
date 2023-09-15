@@ -14,4 +14,5 @@ const firebaseConfig = {
 
 // 파이어베이스 초기 설정
 export const app = initializeApp(firebaseConfig);
+
 export const db = getFirestore(app);

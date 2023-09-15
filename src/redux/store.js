@@ -1,4 +1,34 @@
+import {createSlice,configureStore} from '@reduxjs/toolkit'
 import { createStore } from 'redux';
+
+// wiki page 
+const boardStateSlice = createSlice({
+    name:'boardState',
+    initialState:{value:'QA'},
+    reducers:{
+        qa:(state,action)=>{
+        
+            state.value = action.payload; 
+        },
+        free:(state,action)=>{
+          
+          state.value = action.payload; 
+        },
+        best:(state,action)=>{
+          
+          state.value = action.payload; 
+        },
+        
+    }
+})
+
+const wikiStore = configureStore({
+  reducer:{
+    boardState:boardStateSlice.reducer
+  }
+})
+
+
 
 // 초기 상태 정의
 const initialState = sessionStorage.getItem('user')
@@ -24,4 +54,5 @@ store.subscribe(() => {
   sessionStorage.setItem('user', store.getState().user);
 });
 
-export default store;
+
+export {wikiStore,boardStateSlice,store}
