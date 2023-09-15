@@ -28,7 +28,7 @@ function App() {
       {user && <Header></Header>}
       <Routes>
         <Route
-          path="/"
+          path={ROUTES.MAIN}
           element={user ? <Main /> : <Navigate to="/login" />}
         ></Route>
         <Route
@@ -39,7 +39,10 @@ function App() {
           path={ROUTES.WIKI}
           element={user ? <Wiki /> : <Navigate to="/login" />}
         ></Route>
-        <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
+        <Route
+          path={ROUTES.LOGIN}
+          element={user ? <Navigate to="/" /> : <Login />}
+        />
       </Routes>
     </Router>
   );
