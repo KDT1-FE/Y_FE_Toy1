@@ -8,7 +8,7 @@ import {
   updateDoc,
   getDocs,
 } from "firebase/firestore";
-import app from "../../../firebase";
+import { app } from "../../../firebase";
 import * as style from "./GallerySideStyle";
 import Button from "../common/Button";
 import Input from "../common/Input";

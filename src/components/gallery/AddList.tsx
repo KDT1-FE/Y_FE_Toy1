@@ -3,7 +3,7 @@ import Input from "../common/Input";
 import Button from "../common/Button";
 import { useState } from "react";
 import { collection, addDoc, getFirestore } from "firebase/firestore";
-import app from "../../../firebase";
+import { app } from "../../../firebase";
 
 const firestore = getFirestore(app);
 

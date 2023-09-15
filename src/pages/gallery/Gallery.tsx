@@ -10,7 +10,7 @@ import {
   getDocs,
   Timestamp,
 } from "firebase/firestore";
-import app from "../../../firebase";
+import { app } from "../../../firebase";
 import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
 
 const firestore = getFirestore(app);
