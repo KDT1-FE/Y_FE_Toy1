@@ -5,9 +5,10 @@ export const FooterComponent = styled.div`
     text-align: center;
     padding-top: 10px;
 
-    position: fixed;
+    position: absolute;
     bottom: 0;
-    left: 0;
+    z-index: 11;
+
     height: 40px;
     width: 100%;
 `;

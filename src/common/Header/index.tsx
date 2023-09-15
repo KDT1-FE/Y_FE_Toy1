@@ -1,7 +1,20 @@
 import React from 'react';
 import { HeaderComponent, TitleAnchor, AnchorContainer, ListAnchor, RightAnchorContainer, ModalButton } from './style';
+import { useRecoilState } from 'recoil';
+import { UserId } from '../../utils/recoil';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Header: React.FC = () => {
+    const [userId, setUserId] = useRecoilState(UserId);
+
+    const navigate = useNavigate();
+    const { pathname } = useLocation();
+
+    const logOutHandler = () => {
+        setUserId('');
+        navigate('/', { state: pathname });
+    };
+
     return (
         <HeaderComponent>
             <TitleAnchor href="/">wiki for fastcampus</TitleAnchor>
@@ -9,6 +22,11 @@ const Header: React.FC = () => {
                 <RightAnchorContainer>
                     <ListAnchor href="/wiki">wiki</ListAnchor>
                     <ListAnchor href="/gallery">gallery</ListAnchor>
+                    {userId ? (
+                        <button onClick={logOutHandler}>LogOut</button>
+                    ) : (
+                        <ListAnchor href={'/LogIn'}>LogIn</ListAnchor>
+                    )}
                     <ModalButton>commute</ModalButton>
                 </RightAnchorContainer>
             </AnchorContainer>
