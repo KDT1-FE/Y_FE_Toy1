@@ -3,6 +3,8 @@ import "../../styles/Wiki.css";
 import "../../styles/ReactMarkdown.css";
 import {useParams} from "react-router-dom";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 import EditButton from "./EditButton";
 import ReadContent from "./ReadContent";
 import TextEditor from "./TextEditor";
@@ -45,11 +47,14 @@ function Content() {
 
   return (
     <div className="WikiContentWrap">
-      <h1 id="ContentTitle">{title}</h1>
-      <EditButton
-        isEditorOpen={isEditorOpen}
-        setIsEditorOpen={setIsEditorOpen}
-      />
+      <div id="ContentHeader">
+        <h1 id="ContentTitle">{title}</h1>
+        <EditButton
+          isEditorOpen={isEditorOpen}
+          setIsEditorOpen={setIsEditorOpen}
+        />
+      </div>
+
       <div id="main-content">
         {isEditorOpen ? (
           <TextEditor
@@ -58,7 +63,14 @@ function Content() {
             setIsEditorOpen={setIsEditorOpen}
           />
         ) : (
-          <ReactMarkdown className="reactMarkdown">{content}</ReactMarkdown>
+          <ReactMarkdown
+            className="reactMarkdown"
+            remarkPlugins={[remarkGfm]}
+            rawSourcePos
+            rehypePlugins={[rehypeRaw as any]}
+          >
+            {content}
+          </ReactMarkdown>
         )}
       </div>
     </div>
