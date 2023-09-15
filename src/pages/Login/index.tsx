@@ -6,7 +6,7 @@ function Login() {
   return (
     <StyledSection>
       <StyledContainer>
-        <StyledIconImage src={loginIcon} alt="login icon" />
+        <StyledIconImage src={loginIcon} alt="로그인 아이콘" />
         로그인 후 WIKI 서비스를 <br />
         사용하실 수 있습니다
       </StyledContainer>
@@ -14,7 +14,7 @@ function Login() {
         <StyledMainText>WIKI</StyledMainText>
         로그인 하기
         <StyledLoginButton>
-          <StyledGoogleLogo src={googleIcon} alt="google logo" />
+          <StyledGoogleLogo src={googleIcon} />
           Google로 간편 로그인
         </StyledLoginButton>
       </StyledLoginContainer>
