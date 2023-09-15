@@ -1,5 +1,5 @@
 import NavigationGallery from 'components/NavigationGallery';
-import GalleryRead from 'components/GalleryRead';
+import UploadGallery from 'components/UploadGallery';
 import styled from 'styled-components';
 
 function Gallery() {
@@ -7,7 +7,7 @@ function Gallery() {
     <>
       <StyledContainer>
         <NavigationGallery></NavigationGallery>
-        <GalleryRead></GalleryRead>
+        <UploadGallery></UploadGallery>
       </StyledContainer>
     </>
   );
@@ -15,7 +15,6 @@ function Gallery() {
 
 const StyledContainer = styled.div`
   display: flex;
-  justify-content: space-between;
 `;
 
 export default Gallery;
