@@ -14,6 +14,7 @@ import { UserId } from './utils/recoil';
 const App: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
 
+    // userId로 사용자 uid 관리 가능 defalut = '' /
     console.log(userId);
 
     return (
