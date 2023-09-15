@@ -1,11 +1,11 @@
-import Sidebar from "components/Sidebar"
-import React, { useRef, useState, useEffect } from "react"
+import React, { useRef, useState, useEffect, useContext } from "react"
 import styled from "styled-components"
 import Editor from "../components/Editor"
 import { storage, db } from "../firebase"
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { collection, doc, addDoc, updateDoc, getDoc } from "firebase/firestore"
 import { useNavigate, useParams } from "react-router-dom"
+import { AuthContext } from "authentication/authContext";
 
 // 함수 인자 타입 선언
 interface GalleryDetailProps {
@@ -19,19 +19,21 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
   const quillRef = useRef();
 
   // user 컬렉션 가져오기
-  const usersCollectionRef = collection(db, "user");
+  const usersCollectionRef = collection(db, "gallery");
 
   const [newCategory, setNewCategory] = useState("");
   const [newTitle, setNewTitle] = useState("");
   const [desc, setDesc] = useState('');
   // 추후에 로그인한 회원의 닉네임 들어갈 것
-  // const [newWriter, setNewWriter] = useState("나글쓴이");
   const [imageUpload, setImageUpload] = useState<File | null>(null);
   const [imageEdit, setImageEdit] = useState<File | null>(null);
 
   // 현재 url의 id 값
   const { id } = useParams<string>();
   const navigate = useNavigate();
+
+  // 현재 로그인 유저정보 가져오기
+  const user = useContext(AuthContext);
 
   const createUser = async (e: React.FormEvent) => {
     // 새로고침방지
@@ -42,7 +44,8 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0'); 
     const day = String(today.getDate()).padStart(2, '0');
-    const formattedDate = `${year}-${month}-${day}`;
+    const formattedDate = `${today}`;
+    const printedData = `${year}-${month}-${day}`;
 
     // 등록할 썸네일 변수선언
     let thumbnailUrl = null;
@@ -60,6 +63,15 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
         console.error("Error uploading image:", error);
         // 이미지 업로드 실패 처리
       }
+    } else {
+        const imageRef = ref(storage, 'image/default-image.jpg'); 
+      try{
+        const defaultUrl = await getDownloadURL(imageRef);
+        thumbnailUrl = defaultUrl;
+      }
+      catch(error) {
+        console.error("이미지 URL을 가져오는 데 실패했습니다.", error);
+      }
     }
 
     // fire DB에 데이터 올리기
@@ -67,8 +79,9 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
        category: newCategory, 
        title: newTitle, 
        desc: desc, 
-       date: formattedDate, 
-       writer: "글쓴이",
+       timestamp: formattedDate,
+       date: printedData, 
+       writer: user?.displayName,
        thumbnail: thumbnailUrl
       });
 
@@ -96,10 +109,11 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0'); 
     const day = String(today.getDate()).padStart(2, '0');
-    const formattedDate = `${year}-${month}-${day}`;
+    const formattedDate = `${today}`;
+    const printedData = `${year}-${month}-${day}`;
 
     // 해당 문서의 참조 얻기
-    const usersCollectionRef = collection(db, "user");
+    const usersCollectionRef = collection(db, "gallery");
     const userRef = doc(usersCollectionRef, id);
   
     // 썸네일 url
@@ -122,7 +136,8 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
 
     // 업데이트할 필드 객체 생성
     const updateFields = {
-      date: formattedDate,
+      date: printedData,
+      timestamp: formattedDate,
       category: formData.category,
       title: formData.title,
       desc: formData.desc,
@@ -131,9 +146,9 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
   
     try {
       await updateDoc(userRef, updateFields);
-      console.log("문서 업데이트 완료");
+      alert('수정 완료했습니다')
       setOnEdit(false);
-      navigate('/')
+      navigate(-1)
     } catch (error) {
       console.error("문서 업데이트 실패:", error);
     }
@@ -141,6 +156,7 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
 
   // 수정된 데이터 상태관리
   const [formData, setFormData] = useState({
+    date: '',
     category: '',
     title: '',
     desc: '',
@@ -151,14 +167,14 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
   useEffect(() => {
     const fetchUser = async (id: string|undefined) => {
       // ... try, catch 생략
-      const usersCollectionRef = collection(db, "user");
+      const usersCollectionRef = collection(db, "gallery");
       const userRef = doc(usersCollectionRef, id);
       
       const userSnap = await getDoc(userRef);
       if (userSnap.exists()){
-        const {category, title, desc, thumbnail} = userSnap.data()
+        const {category, title, desc, thumbnail, date} = userSnap.data()
         setFormData({
-          category, title, desc, thumbnail
+          category, title, desc, thumbnail, date
         })
       }
   }
@@ -170,8 +186,7 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
   }, [onEdit, id]);
 
   return (
-    <>
-    <Sidebar />
+    <FormSection>
     {onEdit ? (
       // onEdit 이 true일 경우
       <form onSubmit={updateUser}>
@@ -190,6 +205,7 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
         <Editor value={formData.desc} onChange={onEditorEdit} quillRef={quillRef} />
         </FormList>
         <FormList>
+        <label htmlFor="thumbnail">썸네일 : </label>
         <input type="file" id="thumbnail" onChange={(event) => {
             const uploadedFile = event.target.files?.[0];
             if (uploadedFile) {
@@ -199,7 +215,9 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
         }}
         />
         </FormList>
-        <GalleryBtn type="submit">제출</GalleryBtn>
+        <GalleryBtn>
+          <button type="submit">제출</button>
+        </GalleryBtn>
       </form>
     ) : (
       // onEdit 이 false일 경우
@@ -219,6 +237,7 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
       <Editor value={desc} onChange={onEditorChange} quillRef={quillRef} />
       </FormList>
       <FormList>
+      <label htmlFor="thumbnail">썸네일 : </label>
       <input type="file" id="thumbnail" onChange={(event) => {
           const uploadedFile = event.target.files?.[0];
           if (uploadedFile) {
@@ -226,32 +245,43 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
           }
       }} />
       </FormList>
-      <GalleryBtn type="submit">제출</GalleryBtn>
+        <GalleryBtn>
+          <button type="submit">제출</button>
+        </GalleryBtn>
       </form>
     )}
-    </>
+    </FormSection>
   )
 }
 
 // 스타일
+
+const FormSection = styled.div`
+  margin-top:40px;
+`
+
 const FormList = styled.div`
   padding: 10px 0;
   input[type="text"]{
     width:100%;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     height:30px;
   }
 
 `
-const GalleryBtn = styled.button`
-  border: 0;
-  display:block;
-  margin: 0 auto;
-  margin-top: 20px;
-  background-color: #ED234B;
-  color:white;
-  padding: 10px 20px;
-  border-radius:10px;
+const GalleryBtn = styled.div`
+margin-top: 20px;
+text-align:center;
+  button{
+    background-color: var(--main-color);
+    width: 95px;
+    height: 35px;
+    color: white;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
 `
 
 export default GalleryEdit
