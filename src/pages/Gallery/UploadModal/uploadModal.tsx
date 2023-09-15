@@ -2,11 +2,10 @@ import React, { Dispatch, SetStateAction, useState } from 'react';
 import { ModalR } from '../style';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage, firestore } from '../../../utils/firebase';
-import { doc, getDoc, setDoc, arrayUnion } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 interface UploadModalProps {
     setModalOpen: Dispatch<SetStateAction<boolean>>;
-    onUpload: (data: FormData) => void;
 }
 
 const UploadModal: React.FC<UploadModalProps> = ({ setModalOpen }) => {

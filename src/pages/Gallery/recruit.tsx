@@ -41,23 +41,19 @@ const Recruit: React.FC = () => {
             }
         });
 
-        fetchData(); // 페이지가 처음 로드될 때 데이터를 가져옴
+        fetchData();
 
-        return () => unsubscribe(); // 컴포넌트 언마운트 시 리스너 제거
+        return () => unsubscribe();
     }, []);
 
     const showModal = () => {
         setModalOpen(true);
     };
 
-    const handleUpload = () => {
-        // 이미 업로드된 데이터는 onSnapshot에서 자동으로 업데이트 됨
-    };
-
     return (
         <RecruitConstainer>
             <input type="button" value={'업로드'} onClick={showModal} />
-            {modalOpen && <UploadModal setModalOpen={setModalOpen} onUpload={handleUpload} />}
+            {modalOpen && <UploadModal setModalOpen={setModalOpen} />}
             <div>
                 {companyData.map((data, index) => (
                     <div key={index}>
