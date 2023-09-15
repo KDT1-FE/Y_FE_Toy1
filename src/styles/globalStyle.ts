@@ -45,6 +45,20 @@ export const GlobalStyle = createGlobalStyle`
     color: inherit;
     font-family: inherit;
   }  
+
+  textarea {
+    color: inherit;
+    font-family: inherit;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-medium-gray);
+    border: 0;
+    border-radius: 12px 12px 12px 12px;
+  }
 `;
 
 export default GlobalStyle;
