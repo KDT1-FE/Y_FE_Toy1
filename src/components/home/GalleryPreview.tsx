@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import styled from 'styled-components';
-import { app } from '../../../../firebase';
+import { app } from '../../../firebase';
 import { getStorage, ref, list, getDownloadURL } from "firebase/storage";
 
 
@@ -79,5 +79,6 @@ const GalleryPreviewStyle = styled.div`
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  border-radius: 10px;
 `
 
