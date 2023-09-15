@@ -1,7 +1,15 @@
 import styled from "styled-components";
 
-export const Container = styled.button<{ padding: string; margin?: string }>`
-  border: 0.0625rem solid var(--color-main);
+export const Container = styled.button<{
+  padding: string;
+  margin?: string;
+  normal?: string;
+}>`
+  border: ${({ normal }) =>
+    normal === "reverse"
+      ? "0.0625rem solid var(--color-light-gray)"
+      : "0.0625rem solid var(--color-main)"};
+
   border-radius: 0.25rem;
   background: var(--color-white);
 
@@ -10,7 +18,8 @@ export const Container = styled.button<{ padding: string; margin?: string }>`
 
   cursor: pointer;
 
-  color: var(--color-main);
+  color: ${({ normal }) =>
+    normal === "reverse" ? "#000" : "var(--color-main)"};
   font-size: 0.88rem;
   line-height: normal;
   text-align: center;
