@@ -120,8 +120,8 @@ export const updateChannelDoc = async (collectionName: string, oldDocName: strin
         // 수정하려는 document의 field 값을 읽어온 후, 새로운 document에 복사
         const oldDocumentSnapshot = await getDoc(oldDocRef);
         const data = oldDocumentSnapshot.data();
-        await setDoc(newDocRef, data);
         await deleteDoc(oldDocRef);
+        await setDoc(newDocRef, data);
         console.log('채널 수정 성공!');
     } catch (error) {
         console.error('채널 수정 실패!', error);

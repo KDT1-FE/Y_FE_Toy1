@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { createChannelDoc, updateChannelDoc, addFieldToDoc, updateFieldKeyInDoc } from '../../utils/firebase';
+import { CloseButton, ModalTitle, CreateButton, FallbackButton, TextInput } from './style';
 
 interface ChannelModalProps {
     isOpen: boolean;
@@ -27,9 +28,12 @@ const ChannelModal: React.FC<ChannelModalProps> = ({
             bottom: 'auto',
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
+            borderRadius: '3%',
+            width: '33%',
+            height: '43%',
         },
         overlay: {
-            backgroundColor: 'rgba(45, 45, 45, 0.4)',
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
         },
     };
     const [name, setName] = useState('');
@@ -38,40 +42,21 @@ const ChannelModal: React.FC<ChannelModalProps> = ({
         setName(event.target.value);
     };
 
-    const handleCreateChannel = async () => {
+    const handleSubmit = async () => {
         try {
-            await createChannelDoc(collectionName, name);
+            if (modalType === 'Create') {
+                await createChannelDoc(collectionName, name);
+            } else if (modalType === 'Update') {
+                await updateChannelDoc(collectionName, channelId, name);
+            } else if (modalType === 'CreateSub') {
+                const fieldValue = { content: '', time: '' };
+                await addFieldToDoc(collectionName, channelId, name, fieldValue);
+            } else if (modalType === 'UpdateSub') {
+                await updateFieldKeyInDoc(collectionName, channelId, subChannelId, name);
+            }
             closeModal();
         } catch (error) {
-            console.error('채널 생성 실패!', error);
-        }
-    };
-
-    const handleUpdateChannel = async () => {
-        try {
-            await updateChannelDoc(collectionName, channelId, name); //channelId라는 doc의 이름을 name으로 수정하는 것임
-            closeModal();
-        } catch (error) {
-            console.error('채널 수정 실패!', error);
-        }
-    };
-
-    const handleCreateSubChannel = async () => {
-        const fieldValue = {}; // 수정은 wiki 페이지에서 하는 것이므로 우선 빈 객체 할당
-        try {
-            await addFieldToDoc(collectionName, channelId, name, fieldValue); // channelId라는 doc에 name:{fieldValue} 형태의 field를 추가하는 것임
-            closeModal();
-        } catch (error) {
-            console.error('채널 수정 실패!', error);
-        }
-    };
-
-    const handleUpdateSubChannel = async () => {
-        try {
-            await updateFieldKeyInDoc(collectionName, channelId, subChannelId, name); // channelId라는 doc의 field 키값 subChannelData를 name으로 수정
-            closeModal();
-        } catch (error) {
-            console.error('서브채널 수정 실패!', error);
+            console.error('오류 발생:', error);
         }
     };
 
@@ -91,33 +76,40 @@ const ChannelModal: React.FC<ChannelModalProps> = ({
     };
     const title = getTitleText();
 
+    useEffect(() => {
+        if (modalType === 'Update' || modalType === 'UpdateSub') {
+            setName(modalType === 'Update' ? channelId : subChannelId);
+        } else {
+            setName('');
+        }
+    }, [modalType, channelId, subChannelId]);
+
     return (
         <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyles} contentLabel="Example Modal">
             <div style={{ display: 'flex' }}>
-                <div>{title}</div>
-                <button onClick={closeModal}>X</button>
+                <ModalTitle>{title}</ModalTitle>
+                <CloseButton onClick={closeModal}>X</CloseButton>
             </div>
-            <div>채널 이름</div>
-            <form>
-                <input type="text" value={name} onChange={handleNameChange} />
-            </form>
-            <div>{name.length}</div>
-            <div>채널에서는 특정 주제에 대한 대화가 이루어집니다. 찾고 이해하기 쉬운 이름을 사용하세요.</div>
-            <button
-                onClick={() => {
-                    if (modalType === 'Create') {
-                        handleCreateChannel();
-                    } else if (modalType === 'Update') {
-                        handleUpdateChannel();
-                    } else if (modalType === 'CreateSub') {
-                        handleCreateSubChannel();
-                    } else if (modalType === 'UpdateSub') {
-                        handleUpdateSubChannel();
-                    }
+            <div style={{ fontWeight: 'bold', fontSize: '1.1rem', margin: '20px 0 15px 0' }}>이름</div>
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault(); // 폼 제출의 기본 동작을 막습니다.
+                    handleSubmit();
                 }}
             >
-                완료
-            </button>
+                <TextInput placeholder={name} type="text" value={name} onChange={handleNameChange} />
+            </form>
+            <div>{80 - name.length}</div>
+            <div>채널에서는 특정 주제에 대한 대화가 이루어집니다. 찾고 이해하기 쉬운 이름을 사용하세요.</div>
+            <FallbackButton
+                onClick={() => {
+                    setName('');
+                    closeModal();
+                }}
+            >
+                취소
+            </FallbackButton>
+            <CreateButton onClick={handleSubmit}>저장</CreateButton>
         </Modal>
     );
 };
