@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import "../../styles/Wiki.css";
 import {TextEditorProps} from "../../types/Wiki";
-import PostContent from "./PostContent";
+import PostWiki from "./PostWiki";
 
 function TextEditor({dataKey, content, setIsEditorOpen}: TextEditorProps) {
   const [text, setText] = useState<string>(content);
@@ -12,7 +12,7 @@ function TextEditor({dataKey, content, setIsEditorOpen}: TextEditorProps) {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    PostContent(dataKey, text).then(() => {
+    PostWiki(dataKey, text).then(() => {
       setIsEditorOpen(false);
     });
   };
