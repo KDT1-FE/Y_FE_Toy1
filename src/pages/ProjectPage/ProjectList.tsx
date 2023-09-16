@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebaseSDK";
 
 interface Project {
-  id: string; // Firestore 문서의 ID를 저장할 필드 추가
+  projectIndex: number;
   projectTitle: string;
   projectContent: string;
   projectDeadline: string;
@@ -14,6 +14,8 @@ interface Project {
 
 const ProjectList: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
+  const { projectId } = useParams<{ projectId: string }>(); // RouteParams로 변경
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,10 +42,12 @@ const ProjectList: React.FC = () => {
       <h2>프로젝트 목록</h2>
       <ul>
         {projects.map((project) => (
-          <li key={project.id}>
-            <h3>
-              <Link to={`/project/${project.id}`}>{project.projectTitle}</Link>
-            </h3>
+          <li key={project.projectIndex}>
+            <button
+              onClick={() => navigate(`/project/${project.projectIndex}`)}
+            >
+              {project.projectTitle}
+            </button>
             <p>{project.projectContent}</p>
             <p>팀명: {project.projectTeamName}</p>
             <p>참여 인원: {project.projectMember}</p>

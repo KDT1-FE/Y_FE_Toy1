@@ -1,48 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
+import { DocumentData, doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebaseSDK";
 
-interface Project {
-  projectIndex: number;
-  projectTitle: string;
-  projectContent: string;
-  projectDeadline: string;
-  projectMember: number;
-  projectTeamName: string;
-}
-
-interface RouteParams {
-  [key: string]: string;
-  projectId: string; // 다시 RouteParams로 변경
-}
-
 const ProjectDetail: React.FC = () => {
-  const [project, setProject] = useState<Project | null>(null);
-  const { projectId } = useParams<RouteParams>(); // RouteParams로 변경
+  const [project, setProject] = useState<DocumentData | undefined>({});
+  const { projectId } = useParams<{ projectId: string }>(); // RouteParams로 변경
+
+  // 프로젝트 정보 가져오기 함수
+  const FetchProjectData = async (): Promise<void> => {
+    try {
+      const docRef = doc(db, "project", String(projectId)); // projectId를 그대로 사용
+      const docSnap = (await getDoc(docRef)).data();
+
+      setProject(docSnap);
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Firestore에서 프로젝트 문서 참조를 만듭니다.
-        const projectDocRef = doc(db, "project", String(projectId));
-        console.log(projectId);
-        // 문서 참조를 사용하여 문서 데이터를 가져옵니다.
-        const docSnap = await getDoc(projectDocRef);
-
-        if (docSnap.exists()) {
-          const data = docSnap.data() as Project;
-          setProject(data);
-        } else {
-          console.log("프로젝트가 없습니다.");
-        }
-      } catch (error) {
-        console.error("Error fetching project data: ", error);
-      }
-    };
-
-    fetchData();
-  }, [projectId]);
+    FetchProjectData();
+  }, [projectId]); // projectId를 의존성 배열에 추가
 
   return (
     <div>

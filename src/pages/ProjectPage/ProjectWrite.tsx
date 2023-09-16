@@ -58,6 +58,7 @@ const ProjectWrite: React.FC = () => {
 
       // 프로젝트가 추가되면 원하는 경로로 리디렉션
       navigate(`/project/${newDocId}`);
+      console.log(newDocId);
     } catch (error) {
       console.error("Error adding project: ", error);
     }
