@@ -4,7 +4,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebaseSDK";
 
 interface Project {
-  projectNum: string;
+  projectIndex: number;
   projectTitle: string;
   projectContent: string;
   projectDeadline: string;
@@ -12,15 +12,23 @@ interface Project {
   projectTeamName: string;
 }
 
+interface RouteParams {
+  [key: string]: string;
+  projectId: string; // 다시 RouteParams로 변경
+}
+
 const ProjectDetail: React.FC = () => {
-  const { projectNum } = useParams<{ projectNum: string }>();
   const [project, setProject] = useState<Project | null>(null);
+  const { projectId } = useParams<RouteParams>(); // RouteParams로 변경
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const docRef = doc(db, "project", String(projectNum));
-        const docSnap = await getDoc(docRef);
+        // Firestore에서 프로젝트 문서 참조를 만듭니다.
+        const projectDocRef = doc(db, "project", String(projectId));
+        console.log(projectId);
+        // 문서 참조를 사용하여 문서 데이터를 가져옵니다.
+        const docSnap = await getDoc(projectDocRef);
 
         if (docSnap.exists()) {
           const data = docSnap.data() as Project;
@@ -34,7 +42,7 @@ const ProjectDetail: React.FC = () => {
     };
 
     fetchData();
-  }, [projectNum]);
+  }, [projectId]);
 
   return (
     <div>
@@ -55,4 +63,5 @@ const ProjectDetail: React.FC = () => {
     </div>
   );
 };
+
 export default ProjectDetail;

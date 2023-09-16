@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   width: 100%;
   max-width: 900px;
-  margin: 100px auto;
+  margin: 50px auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -83,7 +83,7 @@ export const ImageLabel = styled.label`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100px;
+  width: 120px;
   margin-left: 15px;
   padding: 6px 25px;
   background-color: #484aad;

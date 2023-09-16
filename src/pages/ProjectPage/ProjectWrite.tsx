@@ -1,16 +1,25 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { collection, addDoc } from "firebase/firestore"; // Firebase Firestore에서 필요한 함수 가져오기
+import {
+  collection,
+  addDoc,
+  doc,
+  setDoc,
+  getDocs,
+  query,
+  orderBy,
+} from "firebase/firestore"; // Firebase Firestore에서 필요한 함수 가져오기
 import { db } from "../../firebaseSDK"; // Firebase 설정 가져오기
 
 const ProjectWrite: React.FC = () => {
   const navigate = useNavigate(); // useNavigate Hook을 사용합니다.
   const [projectData, setProjectData] = useState({
-    teamName: "",
-    deadline: "",
-    member: 0,
-    title: "",
-    description: "",
+    projectIndex: 0,
+    projectTeamName: "",
+    projectDeadline: "",
+    projectMember: 0,
+    projectTitle: "",
+    projectContent: "",
   });
 
   const handleChange = (
@@ -26,13 +35,29 @@ const ProjectWrite: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Firestore에 데이터 추가
+    // Firestore에 데이터 추가 및 인덱스 업데이트
     try {
-      const projectCollection = collection(db, "project"); // "projects" 컬렉션을 대상으로 합니다.
-      await addDoc(projectCollection, projectData);
+      const projectCollection = collection(db, "project"); // "project" 컬렉션을 대상으로 합니다.
+
+      // 현재 프로젝트 개수를 가져와서 다음 인덱스를 설정합니다.
+      const projectQuery = query(
+        projectCollection,
+        orderBy("projectIndex", "desc")
+      );
+      const projectQuerySnapshot = await getDocs(projectQuery);
+      const currentProjectCount = projectQuerySnapshot.size;
+      const nextProjectIndex = currentProjectCount + 1;
+
+      // 새 문서 추가
+      const newDocRef = await addDoc(projectCollection, projectData);
+
+      // 추가된 문서의 인덱스 필드 업데이트
+      const newDocId = newDocRef.id;
+      const newDoc = doc(projectCollection, newDocId);
+      await setDoc(newDoc, { projectIndex: nextProjectIndex }, { merge: true });
 
       // 프로젝트가 추가되면 원하는 경로로 리디렉션
-      navigate("/projects");
+      navigate(`/project/${newDocId}`);
     } catch (error) {
       console.error("Error adding project: ", error);
     }
@@ -42,62 +67,62 @@ const ProjectWrite: React.FC = () => {
     <div>
       <h2>새 프로젝트 만들기</h2>
       <form onSubmit={handleSubmit}>
+        <button type="submit">프로젝트 생성</button>
         <div>
-          <label htmlFor="teamName">팀명:</label>
           <input
             type="text"
-            id="teamName"
-            name="teamName"
-            value={projectData.teamName}
+            id="projectTeamName"
+            name="projectTeamName"
+            placeholder="팀명을 입력해주세요"
+            value={projectData.projectTeamName}
             onChange={handleChange}
             required
           />
         </div>
         <div>
-          <label htmlFor="deadline">기한:</label>
           <input
             type="date"
-            id="deadline"
-            name="deadline"
-            value={projectData.deadline}
+            id="projectDeadline"
+            name="projectDeadline"
+            placeholder="프로젝트 마감일을 입력해주세요"
+            value={projectData.projectDeadline}
             onChange={handleChange}
             required
           />
         </div>
         <div>
-          <label htmlFor="member">참여 인원:</label>
           <input
             type="number"
-            id="member"
-            name="member"
-            value={projectData.member}
+            id="projectMember"
+            name="projectMember"
+            placeholder="프로젝트 참여 인원을 입력해주세요"
+            value={projectData.projectMember}
             onChange={handleChange}
             required
           />
         </div>
         <div>
-          <label htmlFor="title">제목:</label>
           <input
             type="text"
-            id="title"
-            name="title"
-            value={projectData.title}
+            id="projectTitle"
+            name="projectTitle"
+            placeholder="프로젝트 주제를 입력해주세요"
+            value={projectData.projectTitle}
             onChange={handleChange}
             required
           />
         </div>
         <div>
-          <label htmlFor="description">설명:</label>
           <input
             type="text"
-            id="description"
-            name="description"
-            value={projectData.description}
+            id="projectContent"
+            name="projectContent"
+            placeholder="프로젝트를 설명해주세요"
+            value={projectData.projectContent}
             onChange={handleChange}
             required
           />
         </div>
-        <button type="submit">프로젝트 생성</button>
       </form>
     </div>
   );
