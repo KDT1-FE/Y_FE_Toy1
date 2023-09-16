@@ -113,7 +113,6 @@ export function Timer({ id }: TimerProps): JSX.Element {
 
   return (
     <div>
-      <h1>타이머입니당~</h1>
       <p>
         {currentHours < 10 ? `0${currentHours}` : currentHours}:
         {currentMinutes < 10 ? `0${currentMinutes}` : currentMinutes}:
