@@ -4,8 +4,10 @@ import { useLocation } from 'react-router-dom';
 import './Header.css';
 import logo from '../../images/logo.png';
 
+
 export default function Header() {
   const location = useLocation();
+  
 
   return (
     <header>
@@ -50,8 +52,12 @@ export default function Header() {
               스터디
             </Link>
             <div className="auth-buttons">
-              <button className="auth-button1">로그인</button>
-              <button className="auth-button2">회원가입</button>
+            <Link to="SignIn" className="auth-button1">
+                로그인
+              </Link>
+              <Link to="/SignUp" className="auth-button2">
+                회원가입
+              </Link>
             </div>
           </div>
         </div>
