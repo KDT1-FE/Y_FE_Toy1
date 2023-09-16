@@ -7,8 +7,6 @@ import { useLocation } from 'react-router-dom';
 import './Header.css';
 import logo from '../../images/logo.png';
 
-// ... 다른 import 코드 ...
-
 export default function Header() {
   // useSelector를 통해 스토어의 유저 정보 읽어오기
   const user = useSelector((state: RootState) => state);
@@ -16,11 +14,14 @@ export default function Header() {
   // useDispatch를 통해 로그아웃 액션 디스패치 함수 가져오기
   const dispatch = useDispatch();
 
-  // 로그아웃 핸들러
+  /// Redux 스토어에 로그아웃 액션을 디스패치한 후 세션 스토리지 업데이트
   const handleLogout = () => {
-    // 로그아웃 액션 디스패치
-    dispatch(logoutAction());
-  };
+  // 로그아웃 액션 디스패치
+  dispatch(logoutAction());
+
+  // 세션 스토리지 업데이트
+  sessionStorage.clear();
+};  
 
   return (
     <header>
@@ -30,7 +31,6 @@ export default function Header() {
             <div className="logo">
               <Link to="/">
                 {' '}
-                {/* 로고에 메인 페이지로 이동하는 링크 추가 */}
                 <img src={logo} alt="Logo" />
               </Link>
             </div>
@@ -81,8 +81,8 @@ export default function Header() {
               </Link>
             </>
           )}
-        </div>
-        </div>
+            </div>
+          </div>
         </div>
       </nav>
     </header>
