@@ -63,14 +63,15 @@ export const createChannelDoc = async (collectionName: string, documentName: str
         throw error;
     }
 };
-const db = getFirestore();
+
 export const createTimelog = async (collectionName: string, documentName: string, currentTime: string) => {
     const value = currentTime;
     const documentRef = doc(firestore, collectionName, documentName);
-    const FieldValue = 'timelog';
     try {
         const pushTimeLog = await updateDoc(documentRef, { timelog: arrayUnion(value) });
-        console.log('타임로그 생성 성공!');
+        alert(`${value}\n입/퇴실기록이 정상 기록되었습니다!`);
+        console.log(value);
+        console.log('입/퇴실기록이 정상 기록되었습니다!');
     } catch (error) {
         console.error('타임로그 생성 실패!', error);
         throw error;

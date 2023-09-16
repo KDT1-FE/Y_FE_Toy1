@@ -36,7 +36,7 @@ export const ListAnchor = styled.a`
     color: var(--text);
 `;
 
-export const ModalButton = styled.button`
+export const ModalButton = styled.div`
     background-color: var(--active-item);
     border: none;
     border-radius: 10px;

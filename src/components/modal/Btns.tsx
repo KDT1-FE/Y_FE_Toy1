@@ -1,68 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { OnBtn, OffBtn, BtnBox } from './style';
-import { createTimelog } from '../../utils/firebase';
 import { useRecoilState } from 'recoil';
-import { TimeLog } from '../../utils/recoil';
+import { TimeLog, TimerOn, UserId } from '../../utils/recoil';
+import { CreateTime, CreateDay } from './Hooks/WhatTime';
 
-interface OwnProps {
-    timeHandler(): void;
-}
-const Btns: React.FC<OwnProps> = ({ timeHandler }) => {
-    //버튼 사용 전 로그인 확인 로직
-    const [userIn, setUserIn] = useState(0);
-    const [timeCheck, setTimeCheck] = useState('');
+const Btns: React.FC = () => {
+    // 입실버튼을 눌렀을 때 입실 시간을 기록, 퇴실버튼을 눌렀을 때 퇴실시간 기록
+    const [userId, setUserId] = useRecoilState(UserId);
+
+    const [timerOn, setTimerOn] = useRecoilState(TimerOn);
     const [timeLog, setTimeLog] = useRecoilState(TimeLog);
-    const local = localStorage.getItem('userId');
 
-    let loggedIn: string;
-    if (local) {
-        loggedIn = JSON.parse(local).userId;
-    }
-
-    useEffect(() => {
-        if (loggedIn) {
-            setUserIn(1);
-        } else {
-            setUserIn(0);
-        }
-    }, []);
-
-    //버튼 사용 로직
-    const [timerOn, setTimerOn] = useState<boolean>(false);
     const timerSwitch = (set = 0) => {
-        const date = new Date();
-        const year = date.getFullYear();
-        const month = date.getMonth();
-        const day = date.getDate();
-        const today = year + '.' + month + '.' + day;
-        let Hours: number | string = new Date().getHours();
-        let Min: number | string = new Date().getMinutes();
-        let Sec: number | string = new Date().getSeconds();
-        Hours = String(Hours).padStart(2, '0');
-        Min = String(Min).padStart(2, '0');
-        Sec = String(Sec).padStart(2, '0');
-        const now = Hours + ':' + Min + ':' + Sec;
         if (!timerOn && set) {
+            setTimeLog(`[${CreateDay()}]` + ' ' + '입실' + ' ' + CreateTime());
             setTimerOn(true);
-            setTimeCheck(`[${today}]` + ' ' + '입실' + ' ' + now);
         } else if (set === 0) {
             setTimerOn(false);
-            setTimeLog(timeCheck + ' ' + '->' + ' ' + `[${today}]` + ' ' + '퇴실' + ' ' + now);
+            setTimeLog(timeLog + ' ' + '->' + ' ' + `[${CreateDay()}]` + ' ' + '퇴실' + ' ' + CreateTime());
         }
-        timeHandler();
     };
-    // 실시간 시간을 정확하게 담기 위해서 useEffect 사용
-    useEffect(() => {
-        console.log(timeLog);
-        createTimelog('user', 'asdasd', timeLog);
-    }, [timeLog]);
+
     return (
         <BtnBox>
             <OnBtn
                 value={timerOn}
                 onClick={() => {
-                    if (!timerOn && userIn) {
+                    if (
+                        userId.length > 0 &&
+                        !timerOn &&
+                        confirm('기록을 시작하시겠습니까?\n*퇴실 하지않고 페이지 종료 시 입실기록이 삭제됩니다.')
+                    ) {
                         timerSwitch(1);
+                    } else {
+                        alert('로그인 후 사용이 가능합니다.');
                     }
                 }}
             >
@@ -71,7 +42,7 @@ const Btns: React.FC<OwnProps> = ({ timeHandler }) => {
             <OffBtn
                 value={timerOn}
                 onClick={() => {
-                    if (timerOn) {
+                    if (timerOn && confirm('기록을 종료하시겠습니까?')) {
                         timerSwitch();
                     }
                 }}

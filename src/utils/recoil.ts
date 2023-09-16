@@ -3,7 +3,7 @@ import { recoilPersist } from 'recoil-persist';
 
 const { persistAtom } = recoilPersist({
     key: 'userId',
-    storage: localStorage,
+    storage: sessionStorage,
 });
 
 export const UserId = atom({
@@ -12,7 +12,14 @@ export const UserId = atom({
     effects_UNSTABLE: [persistAtom],
 });
 
+// 타이머 ON/OFF
+export const TimerOn = atom({
+    key: 'TimerOn',
+    default: false,
+});
+
+// 입퇴실 기록
 export const TimeLog = atom({
-    key: 'timeLog',
+    key: 'TimeLog',
     default: '',
 });
