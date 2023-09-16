@@ -57,6 +57,7 @@
   font-size: 16px;
   line-height: 1.5;
   word-wrap: break-word;
+  padding: 2rem 3rem;
 }
 
 .markdown-body .octicon {
@@ -1078,11 +1079,11 @@
 }
 
 .markdown-body blockquote {
+  line-height: 1rem;
   padding: 1rem 2rem;
   border-radius: 1rem;
   background-color: #f1f4f6;
   font-weight: 600;
-  line-height: 1rem;
 }
 
 .markdown-body ol {
@@ -1100,8 +1101,8 @@
 
 .markdown-body pre {
   padding: 2rem;
-  color: green;
   background-color: #1e1e1e;
+  color: green;
 }
 
 .markdown-body table,
