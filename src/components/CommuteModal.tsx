@@ -74,7 +74,7 @@ const CommuteModal = ({ isModalOpen, toggleModal }: Props) => {
     weekday: 'long',
     timeZone: 'UTC',
   };
-
+  
   const renderContentMessage = () => {
     if (hasWorked && !isWorking && !workingTime) {
       return <span>이미 출근 기록이 있습니다. 다시 출근 하시겠습니까?</span>;
@@ -98,7 +98,7 @@ const CommuteModal = ({ isModalOpen, toggleModal }: Props) => {
   const mainButtonHandler = workingTime ? confirmWorkingTime : handleCommute;
   const secondaryButtonLabel = workingTime ? '수정' : '취소';
   const secondaryButtonHandler = workingTime ? editWorkingTime : toggleModal;
-
+  
   return (
     <>
       <Overlay onClick={toggleModal} className={isModalOpen ? 'open' : ''} />

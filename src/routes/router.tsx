@@ -86,20 +86,10 @@ export const router = createBrowserRouter([
       {
         path: 'login',
         element: <Login />,
-        children: [
-          {
-            index: true,
-          },
-        ],
       },
       {
         path: 'join',
         element: <Join />,
-        children: [
-          {
-            index: true,
-          },
-        ],
       },
     ],
   },
