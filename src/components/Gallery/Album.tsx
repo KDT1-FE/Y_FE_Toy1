@@ -12,7 +12,8 @@ function Album() {
   const {id} = useParams<{id: string}>();
   const {isOpen, toggle} = useModal();
   const [albumKey, setAlbumKey] = useState<string>("");
-  const [files, setFiles] = useState<string[]>([]);
+  const [allFiles, setAllFiles] = useState<string[]>([]);
+  const [files, setFiles] = useState<{name: string; imageUrl: string}[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isModal, setIsModal] = useState<boolean>(false);
   const [deleteFiles, setDeleteFiles] = useState<string[]>([]);
@@ -32,15 +33,18 @@ function Album() {
 
   useEffect(() => {
     SelectAlbum();
-    ReadPhotos(albumKey)
-      .then(photoFiles => {
-        setFiles(photoFiles);
-        setIsLoading(false);
-      })
-      .catch(err => {
-        setIsLoading(false);
-        throw new Error(err);
-      });
+    if (albumKey.length > 0)
+      ReadPhotos(albumKey)
+        .then(photoFiles => {
+          const imageUrlArray = photoFiles.map(photo => photo.imageUrl);
+          setAllFiles(imageUrlArray);
+          setFiles(photoFiles);
+          setIsLoading(false);
+        })
+        .catch(err => {
+          setIsLoading(false);
+          throw new Error(err);
+        });
   }, [albumKey]);
 
   const ChangeModalTrue = () => {
@@ -86,8 +90,9 @@ function Album() {
         ) : (
           files.map(file => (
             <AddPhotos
-              key={file}
-              file={file}
+              key={file.imageUrl}
+              file={file.imageUrl}
+              name={file.name}
               deleteFiles={deleteFiles}
               setDeleteFiles={setDeleteFiles}
             />
@@ -98,7 +103,11 @@ function Album() {
         {isModal ? (
           <UploadModal onClose={toggle} albumKey={albumKey} />
         ) : (
-          <DeleteModal onClose={toggle} albumKey={albumKey} allArray={files} />
+          <DeleteModal
+            onClose={toggle}
+            albumKey={albumKey}
+            allArray={allFiles}
+          />
         )}
       </Modal>
     </div>

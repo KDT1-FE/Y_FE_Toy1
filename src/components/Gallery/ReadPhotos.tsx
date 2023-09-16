@@ -1,20 +1,23 @@
-import {listAll, getDownloadURL, ref} from "firebase/storage";
-import {storage} from "../../utils/firebaseConfig";
+import {collection, getDocs} from "firebase/firestore";
+import {db} from "../../utils/firebaseConfig";
 
-async function ReadPhotos(albumKey: string): Promise<string[]> {
-  const albumRef = ref(storage, `${albumKey}`);
-  const downloadURLs: string[] = [];
+async function ReadPhotos(albumKey: string): Promise<any[]> {
   try {
-    const imageList = await listAll(albumRef);
+    const imageNameList = await getDocs(collection(db, `${albumKey}`));
+    const downloadURLs: {name: string; imageUrl: string}[] = [];
     await Promise.all(
-      imageList.items.map(async imageItem => {
-        const imageUrl = await getDownloadURL(imageItem);
-        downloadURLs.push(imageUrl);
+      imageNameList.docs.map(async docs => {
+        const data = docs.data();
+        const item = {
+          name: data.name,
+          imageUrl: data.imageUrl,
+        };
+        downloadURLs.push(item);
       }),
     );
     return downloadURLs;
   } catch (error) {
-    throw new Error();
+    return [];
   }
 }
 export default ReadPhotos;
