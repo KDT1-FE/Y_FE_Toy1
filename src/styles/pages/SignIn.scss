@@ -1,0 +1,51 @@
+@import '~bootstrap/scss/bootstrap';
+@import '../_common.scss';
+
+.login-container {
+  font-family: $fontMain;
+  max-width: 40%;
+  display: flex;
+  flex-direction: column;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: $whiteColor;
+
+  h2 {
+    font-weight: 700;
+    color: $highlightColor;
+    margin: auto;
+    padding: 10px 0 20px;
+  }
+
+  .form-control {
+    color: $dark;
+    margin: 20px 0;
+  }
+
+  .form-check {
+    margin: 10px 0;
+  }
+
+  .error {
+    color: $dark;
+    height: 20px;
+    margin: 0;
+    text-align: center;
+  }
+
+  .btn-submit {
+    width: 100%;
+    margin: 20px auto;
+    background-color: $highlightColor;
+    border: none;
+    font-weight: 700;
+    font-size: 20px;
+    color: #fff;
+
+    &:active {
+      color: $highlightColor;
+    }
+  }
+}
