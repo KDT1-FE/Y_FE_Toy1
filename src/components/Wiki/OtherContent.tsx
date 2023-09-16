@@ -10,6 +10,7 @@ import TextEditor from "./TextEditor";
 function OtherContent({
   isEditorOpen,
   dataKey,
+  text,
   content,
   setIsEditorOpen,
 }: OtherContentProps) {
@@ -18,7 +19,7 @@ function OtherContent({
       {isEditorOpen ? (
         <TextEditor
           dataKey={dataKey}
-          content={content}
+          content={text}
           setIsEditorOpen={setIsEditorOpen}
         />
       ) : (

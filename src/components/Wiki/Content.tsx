@@ -11,6 +11,8 @@ function Content() {
   const {id} = useParams() as {id: string};
   // dataKey : db 검색용 url 파라미터
   const [dataKey, setDataKey] = useState("커리큘럼");
+  // text : texrarera 에서 불러온 글
+  const [text, setText] = useState("");
   // content : db에서 불러온 글
   const [content, setContent] = useState("");
   // title : db에서 불러온 title
@@ -37,6 +39,7 @@ function Content() {
     ReadWiki(dataKey).then(doc => {
       setContent(doc.content);
       setTitle(doc.title);
+      setText(doc.content);
     });
   }
 
@@ -60,6 +63,7 @@ function Content() {
         <OtherContent
           isEditorOpen={isEditorOpen}
           dataKey={dataKey}
+          text={text}
           content={content}
           setIsEditorOpen={setIsEditorOpen}
         />

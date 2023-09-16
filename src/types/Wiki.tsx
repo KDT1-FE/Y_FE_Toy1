@@ -1,6 +1,7 @@
 export interface OtherContentProps {
   isEditorOpen: boolean;
   dataKey: string;
+  text: string;
   content: string;
   setIsEditorOpen: Function;
 }
