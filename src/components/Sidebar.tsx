@@ -1,36 +1,39 @@
-import React from "react";
-import { Link, useLocation,useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import "./Sidebar.css";
 
 const Sidebar = () => {
   const location = useLocation();
   const hashSplit = location.pathname.split("/");
-  console.log(useParams())
+  const [displayToggle, setDisplayToggle] = useState(true)
+
   if (hashSplit[1] === "Wiki") {
     const sideLinkAttendance = ["출석 인정", "QR출결 정정 프로세스"];
     const sideLinkAdmin = ["휴가", "훈련장려금"];
-
+    
     // Wiki 사이드바
     return (
       <Container>
         <ul className="sidebar__link-wrapper">
           <li key={"출석"}>
-            <Link to={`/Wiki/`}><p className="title-text">출석</p></Link>
+            <Link to={`/Wiki/`}><p className="sidebar__title-text">출석</p></Link>
           </li>
           {sideLinkAttendance.map((link, idx) => (
             <li key={sideLinkAttendance[idx]}>
-              <Link to={`/Wiki/${link}`}><p className="normal-text">{link}</p></Link>
+              <Link to={`/Wiki/${link}`}><p className="sidebar__normal-text">{link}</p></Link>
             </li>
           ))}
-          <li key={"행정"}><p className="title-text">행정</p></li>
-          {sideLinkAdmin.map((link, idx) => (
+          <li key={"행정"} onClick={()=>setDisplayToggle(prev=>!prev)}><p style={{cursor:'pointer'}} className="sidebar__title-text">{displayToggle?'▼ ':'▶ ' }행정</p></li>
+
+          {displayToggle && <ul className="sidebar__toggle">
+            {sideLinkAdmin.map((link, idx) => (
             <li key={sideLinkAdmin[idx]}>
-              <Link to={`/Wiki/${link}`}> <p className="normal-text">{link}</p> </Link>
-            </li>
-          ))}
+              <Link to={`/Wiki/${link}`}> <p className="sidebar__normal-text">{link}</p> </Link>
+            </li>))}
+          </ul>}
+
           <li key={"학습 일정"}>
-            <Link to={`/Wiki/학습 일정`}><p className="title-text">금주의 학습 일정</p></Link>
+            <Link to={`/Wiki/학습 일정`}><p className="sidebar__title-text">금주의 학습 일정</p></Link>
           </li>
         </ul>
         <SidebarBottom />
@@ -59,19 +62,34 @@ const Container = styled.aside`
   height: 100%;
   box-sizing: border-box;
   padding: 10px;
+  user-select: none;
+  p{
+    margin: 0;
+    padding: 10px 0;
+  }
   .active{
     color: var(--main-color);
   }
-  .title-text{
-    margin: 0;
+  .sidebar__title-text{
     padding-top: 20px;
     font-size: 18px;
   }
-  .normal-text{
-    margin: 0;
+  .sidebar__normal-text{
     font-size: 16px;
     color: #777;
   }
+  .sidebar__link-wrapper {
+    height: calc(100vh - 300px);
+    min-height: 200px;
+    overflow-y: auto;  
+    display: flex;
+    flex-flow: column;
+    box-sizing: border-box;
+    padding: 20px 0 10px 10px;
+  }
+  .sidebar__bottom {
+    bottom: 0;
+    text-align: center;
 `;
 
 function SidebarBottom(): JSX.Element {
