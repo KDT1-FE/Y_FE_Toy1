@@ -1,0 +1,74 @@
+.Header {
+    width: 85%;
+}
+  .pageList {
+    display: flex;
+    align-items: center;
+    /* margin: 0 auto; */
+  }
+
+  .logo img {
+    width: 60px; 
+    height: auto; 
+    margin-right: 100px;
+  }
+  
+  
+  .page {
+    font-size: 30px;
+    margin-right: 80px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    font-weight: normal;
+    color: gray;
+    text-decoration: none; 
+  }
+  
+  .page.active {
+    color: black;
+    font-weight: bold;
+  }
+  
+  .page:hover {
+    color: coral;
+  }
+  
+  .auth-buttons {
+    margin-left: auto;
+    padding-right: 150px;
+  }
+
+  .auth-button1 {
+    font-size: 20px;
+    font-weight: bold;
+    background-color: coral;
+    color: white; 
+    border: none; 
+    border-radius: 30px; 
+    padding: 15px 20px;
+    cursor: pointer; 
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+  }
+
+  .auth-button2 {
+    font-size: 20px;
+    font-weight: bold;
+    background-color: coral; 
+    color: white; 
+    border: none; 
+    border-radius: 30px; 
+    padding: 15px 20px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+
+  }
+
+  .auth-button1:hover {
+    background-color: rgb(214, 108, 69);
+  }
+
+  .auth-button2:hover {
+    background-color: rgb(214, 108, 69);
+  }

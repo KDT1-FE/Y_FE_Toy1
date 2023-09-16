@@ -1,6 +1,7 @@
 import { createNickname, uploadUserImage } from 'data/user';
 import { IHandleChange, IHandleNothing, IUser } from 'pages/SignUp';
 import React, { useState, ChangeEvent, useEffect } from 'react';
+import './SignUpPrev.scss';
 
 interface ISignUpPrevProps {
   user: IUser;
@@ -47,11 +48,8 @@ export function SignUpPrev({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="image">
-        <label htmlFor="img">
-          <span>프로필 사진 변경하기</span>
-        </label>
+    <form className="profile-form" onSubmit={handleSubmit}>
+      <div className="form-image">
         <input
           type="file"
           id="img"
@@ -60,22 +58,30 @@ export function SignUpPrev({
           onChange={handleImageInputChange}
         />
         <img src={imageUrl} />
+        <label htmlFor="img">
+          <span>프로필 사진 변경하기</span>
+        </label>
       </div>
-      <div className="nickname">
+      <div className="form-nickname">
         <input
+          className="form-control form-control-lg"
           type="text"
           name="nickname"
           value={nickname}
           placeholder="* 닉네임"
           readOnly
         />
-        <button type="button" onClick={handleClickNicknameButton}>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={handleClickNicknameButton}
+        >
           추천받기!
         </button>
       </div>
-      <div className="button">
-        <button type="submit">다음으로</button>
-      </div>
+      <button type="submit" className="btn btn-next">
+        다음으로
+      </button>
     </form>
   );
 }
