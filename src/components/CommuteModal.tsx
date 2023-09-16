@@ -39,7 +39,6 @@ const CommuteModal = ({ isModalOpen, toggleModal }: Props) => {
       };
 
       setCommuteInfo(updatedCommuteInfo);
-      // uploadCommuteInfo(uid, updatedCommuteInfo);
     } else {
       // 출근 눌렀을 때
       setCommuteInfo({
@@ -62,6 +61,7 @@ const CommuteModal = ({ isModalOpen, toggleModal }: Props) => {
     toggleModal();
   };
 
+  // 수정 기능은 보류
   const editWorkingTime = () => {
     toggleModal();
   };
