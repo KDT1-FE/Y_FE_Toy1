@@ -10,3 +10,11 @@
   background-color: white;
   border-radius: 8px;
 }
+
+.ModalClock {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: blue;
+}

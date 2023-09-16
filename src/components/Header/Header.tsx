@@ -1,13 +1,33 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import Clock from "../../utils/clock";
 import "../../styles/Header.css";
 import Modal from "../Modal/Modal";
 import TimerModal from "../Timer/TimerModal";
 import useModal from "../../hooks/useModal";
+import calculateTimer from "../../utils/timer";
 
 function Header() {
   const {isOpen, toggle} = useModal();
+  const [timeInSeconds, setTimeInSeconds] = useState<number>(0);
+  const [isRunning, setIsRunning] = useState<boolean>(false);
+  const [timerArray, setTimerArray] = useState<Array<number | string>>([]);
+
+  useEffect(() => {
+    const timeArray: Array<number | string> = calculateTimer(timeInSeconds);
+    setTimerArray(timeArray);
+  }, [timeInSeconds]);
+
+  useEffect(() => {
+    if (isRunning) {
+      const interval = setInterval(() => {
+        setTimeInSeconds((prev: number) => prev + 1);
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+    return undefined;
+  }, [isRunning]);
 
   return (
     <div className="Main">
@@ -43,7 +63,16 @@ function Header() {
         </nav>
       </header>
       <Modal isOpen={isOpen} onClose={toggle}>
-        <TimerModal onClose={toggle} />
+        <TimerModal
+          onClose={toggle}
+          hidden={!isOpen}
+          timeInSeconds={timeInSeconds}
+          setTimeInSeconds={setTimeInSeconds}
+          isRunning={isRunning}
+          setIsRunning={setIsRunning}
+          timerArray={timerArray}
+          toggle={toggle}
+        />
       </Modal>
     </div>
   );
