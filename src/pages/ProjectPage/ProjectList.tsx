@@ -9,9 +9,11 @@ import {
   WriteText,
   ListItem,
   ProjectTitle,
-  Text,
+  Member,
+  Deadline,
   TeamName,
   List,
+  Ul,
 } from "../../styled/ProjectPage/ProjectList.styles";
 
 interface Project {
@@ -56,7 +58,7 @@ const ProjectList: React.FC = () => {
           프로젝트 작성하기
         </WriteBtn>
       </TitleContainer>
-      <ul>
+      <Ul>
         {projects.map((project) => (
           <li key={project.id}>
             <TeamName
@@ -77,17 +79,17 @@ const ProjectList: React.FC = () => {
                 <ProjectTitle>{project.projectTitle}</ProjectTitle>
               </ListItem>
               <ListItem>
-                <Text>마감일:</Text>
-                <Text>{project.projectDeadline}</Text>
+                <Deadline>마감일:</Deadline>
+                <Deadline>{project.projectDeadline}</Deadline>
               </ListItem>
               <ListItem>
-                <Text>인원: </Text>
-                <Text>{project.projectMember}</Text>
+                <Member>인원: </Member>
+                <Member>{project.projectMember}</Member>
               </ListItem>
             </List>
           </li>
         ))}
-      </ul>
+      </Ul>
     </Container>
   );
 };
