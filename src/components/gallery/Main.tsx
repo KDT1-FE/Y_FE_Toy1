@@ -2,25 +2,21 @@ import React from 'react';
 import { Swiper } from './Swiper';
 
 export function MainSwipers(): JSX.Element {
+  const studyTipsId = 'StudyTipsGallery';
+
   return (
     <div>
       <div className="inner">
         <div id="studyTips" className="studyTips-title">
-          <Swiper title="Study Tips" id="studyTips" />
+          <Swiper categoryId="StudyTipsGallery" />
         </div>
 
-        {/* 아래는 수정 예정 */}
-
-        <div id="events">
-          <div className="events-title">
-            <h3>이벤트</h3>
-          </div>
+        <div id="events" className="events-title">
+          <Swiper categoryId="EventsGallery" />
         </div>
 
-        <div id="humors">
-          <div className="humors-title">
-            <h3>유머</h3>
-          </div>
+        <div id="humors" className="humors-title">
+          <Swiper categoryId="HumorsGallery" />
         </div>
       </div>
     </div>

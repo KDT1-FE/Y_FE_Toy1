@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { AddImageModal } from './ModalImage';
 
 export function SideBarLink() {
-  const [isModal, setIsModal] = useState('');
-
   return (
     <div className="sideBar-container">
       <ul className="category">

@@ -1,43 +1,43 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import './Swiper.scss';
-import { ModalComment } from './ModalComment';
-import { GetImages } from '../../data/galleryImage';
+
+import { getImageData } from '../../data/galleryImage';
+import { MapImages } from './MapImages';
 //images 받아오기
 
 interface Props {
-  title: string;
-  id: string;
+  categoryId: string;
   image?: string;
 }
 
-export function Swiper({ title, id }: Props) {
-  const modalRef: any = useRef();
+export function Swiper({ categoryId }: Props) {
+  const imageData = getImageData(categoryId);
+  const [imageDataInfo, setImageDataInfo]: any = useState();
+
+  React.useEffect(() => {
+    imageData.then((item: any) => {
+      setImageDataInfo(item);
+    });
+  }, []);
 
   return (
     <div>
-      <h2>{title}</h2>
+      <h2>{categoryId}</h2>
+
       <div className="slider">
-        {GetImages.map((image) => (
-          <div
+        {imageDataInfo?.map((image: any) => (
+          // let commentsListData={image.comments};
+
+          // commentsListData.comments.map(()=>{
+          //   <li>{comment}</li>
+          // })
+
+          <MapImages
             key={image.id}
-            id={id}
-            className="slide__images"
-            onClick={() => modalRef.current?.showModal()}
-          >
-            <img src={image.image} />
-
-            <dialog ref={modalRef}>
-              <h1>Comment Page</h1>
-
-              <ModalComment image={image.image} />
-
-              <button
-                onClick={() => modalRef.current?.close()} // 📍 모달 닫기
-              >
-                Close
-              </button>
-            </dialog>
-          </div>
+            image={image}
+            commentsListData={image.comments}
+            categoryId={categoryId}
+          />
         ))}
       </div>
     </div>

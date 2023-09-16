@@ -6,13 +6,20 @@ import { UploadImage } from '../../data/galleryImage';
 
 export function ImageDragDrop() {
   const [files, setFiles] = useState([]);
+  const selectList = ['StudyTipsGallery', 'EventsGallery', 'HumorsGallery'];
+  const [selected, setSelected] = useState('StudyTipsGallery');
+
+  const handleSelect = (e: any) => {
+    setSelected(e.target.value);
+  };
+
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
       'image/*': [],
     },
     onDrop: (acceptedFiles: any) => {
       setFiles(
-        acceptedFiles.map((file: Blob) =>
+        acceptedFiles.map((file: any) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
           }),
@@ -29,12 +36,21 @@ export function ImageDragDrop() {
           // Revoke data uri after image is loaded
           onLoad={() => {
             URL.revokeObjectURL(file.preview);
-            UploadImage(file); // 여기서 firebase에 업로드
           }}
         />
+        <button
+          onClick={async () => {
+            UploadImage(selected, file);
+            await alert('저장에 성공했습니다.');
+          }}
+        >
+          저장
+        </button>
       </div>
     </div>
   ));
+
+  // const handleSubmitImage = ({ file, selected }: any) => {};
 
   // 초기화
   useEffect(() => {
@@ -46,6 +62,19 @@ export function ImageDragDrop() {
 
   return (
     <section className="container">
+      <label htmlFor="select-id">Category </label>
+      <select
+        name="category-select"
+        onChange={handleSelect}
+        value={selected}
+        id="select-id"
+      >
+        {selectList.map((item) => (
+          <option value={item} key={item}>
+            {item}
+          </option>
+        ))}
+      </select>
       <div {...getRootProps({ className: 'dropzone' })}>
         <input {...getInputProps()} />
         <p>Drag n drop some files here, or click to select files</p>

@@ -1,63 +1,50 @@
 import { storage, db } from './firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { addDoc, getDocs, collection } from 'firebase/firestore';
+import { addDoc, doc, setDoc, getDocs, collection } from 'firebase/firestore';
 
 // 이미지 storage와 db에 업로드
-
-// 카테고리 선택해서 업로드 구현 예정
-
-export async function UploadImage(category, file) {
-  let SwitchCollection = '';
-  let storageRef = '';
-
-  switch (category) {
-    case 'studyTips':
-      SwitchCollection = collection(db, 'StudyTipsGallery');
-      storageRef = ref(storage, 'StudyTipsGallery/' + file.name);
-      break;
-    case 'events':
-      SwitchCollection = collection(db, 'EventsGallery');
-      storageRef = ref(storage, 'EventsGallery/' + file.name);
-      break;
-    case 'humors':
-      SwitchCollection = collection(db, 'HumorsGallery');
-      storageRef = ref(storage, 'HumorsGallery/' + file.name);
-      break;
-  }
-
+async function UploadImage(selected, file) {
   try {
-    const querySnapshot = await getDocs(SwitchCollection);
+    const SwitchCollection = doc(collection(db, selected));
+    const storageRef = ref(storage, `${selected}/ ${file.name}`);
 
     uploadBytes(storageRef, file).then((snapshot) => {
       getDownloadURL(snapshot.ref).then(async (url) => {
-        querySnapshot,
-          {
-            imgUrl: url,
-            timestamp: new Date(),
-          };
+        await setDoc(SwitchCollection, {
+          imgUrl: url,
+          timestamp: new Date(),
+          category: selected,
+          comments: ['테스트'],
+        });
       });
     });
   } catch (error) {
-    console.error('error');
+    console.error();
   }
   return;
 }
 
 // 이미지 다운로드
-// 아직 카테고리 별 나누기 안했습니다!
-const querySnapshot = await getDocs(collection(db, 'Gallery'));
-const getDocsAsObjects = (querySnapshot) => {
-  const rowImages = [];
+async function getImageData(categoryId) {
+  let querySnapshot = '';
 
-  querySnapshot.forEach((doc) => {
-    rowImages.push({
-      id: doc.id,
-      image: doc.data().imgUrl,
-      timestamp: doc.data().timestamp,
+  try {
+    querySnapshot = await getDocs(collection(db, categoryId));
+    const rowImages = [];
+
+    querySnapshot.forEach((doc) => {
+      rowImages.push({
+        id: doc.id,
+        image: doc.data().imgUrl,
+        timestamp: doc.data().timestamp,
+        comments: doc.data().comments,
+      });
     });
-  });
-  return rowImages;
-};
-export const GetImages = getDocsAsObjects(querySnapshot);
+    return rowImages;
+  } catch (error) {
+    console.error();
+  }
+  return;
+}
 
-console.log(GetImages);
+export { UploadImage, getImageData };
