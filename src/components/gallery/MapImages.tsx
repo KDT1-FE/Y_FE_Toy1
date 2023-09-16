@@ -28,8 +28,8 @@ export function MapImages({
             imgId={image.id}
             categoryId={categoryId}
             commentsListData={commentsListData}
-            userId={userId}
-            nickName={nickName}
+            writerId={userId}
+            writerName={nickName}
           />
 
           <button

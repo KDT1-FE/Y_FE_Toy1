@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { ImageDragDrop } from './ImageDragDrop';
+import { AddImageDragDrop } from './ImageDragDrop';
 
 export function AddImageModal() {
   const modalRef: any = useRef();
@@ -16,10 +16,13 @@ export function AddImageModal() {
       <dialog ref={modalRef}>
         <h1>Image Upload Page</h1>
 
-        <ImageDragDrop />
+        <AddImageDragDrop />
 
         <button
-          onClick={() => modalRef.current?.close()} // 📍 모달 닫기 버튼
+          onClick={async () => {
+            await modalRef.current?.close();
+            location.reload();
+          }} // 📍 모달 닫기 버튼
         >
           Close
         </button>

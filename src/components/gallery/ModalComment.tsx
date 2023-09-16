@@ -2,21 +2,22 @@ import { uploadCommentList } from 'data/galleryComment';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AddCommentList } from './AddCommentList';
-import { getImageData } from 'data/galleryImage';
+import { deleteImage, getImageData } from 'data/galleryImage';
+import { userId } from 'pages/Gallery';
 
 interface Props {
   image: string;
   imgId: string;
   categoryId: string;
   commentsListData?: string[];
-  userId: string;
-  nickName: string;
+  writerId: string;
+  writerName: string;
 }
 // Modal 댓글창
 
 export function ModalComment({
-  userId,
-  nickName,
+  writerId,
+  writerName,
   image,
   imgId,
   categoryId,
@@ -27,6 +28,7 @@ export function ModalComment({
   const [comment, setComment]: any = useState();
   const [commentList, setCommentList] = useState(['테스트입니다.']);
 
+  //댓글 저장
   const handleComments = (e: any) => {
     setComment(e.target.value);
   };
@@ -48,10 +50,28 @@ export function ModalComment({
     console.log('현재 DB에 저장되어 있는 commentList 값 : ', commentList);
   };
 
+  // 이미지 게시글 삭제 버튼
+  async function handleDeleteImage(e: any) {
+    e.preventDefault();
+    if (writerId == userId) {
+      await deleteImage(categoryId, imgId, image);
+      alert('삭제에 성공했습니다.');
+      location.reload();
+    } else {
+      alert('삭제 권한이 없습니다.');
+      console.log('Fail to delete', writerId);
+    }
+  }
+
   return (
     <div>
-      <h2>{categoryId}</h2>
-      <h3>작성자 {nickName}</h3>
+      <div className="header">
+        <h2>{categoryId}</h2>
+        <h3>작성자 {writerName}</h3>
+        <button className="btn--delImage" onClick={handleDeleteImage}>
+          이미지 게시글 삭제
+        </button>
+      </div>
 
       <div className="imageView">
         <img src={image} alt={image} />
@@ -67,7 +87,7 @@ export function ModalComment({
           <input
             type="text"
             id="comment"
-            placeholder="이미지에 대한 생각을 자유롭게 작성해주세요✏"
+            placeholder="작성 후 수정이 안되니 잘 생각하고 남기도록✏"
             value={comment}
             onChange={handleComments}
           />

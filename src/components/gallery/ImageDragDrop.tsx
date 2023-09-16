@@ -4,7 +4,7 @@ import { UploadImage } from '../../data/galleryImage';
 
 //https://react-dropzone.js.org/#!/Previews
 
-export function ImageDragDrop() {
+export function AddImageDragDrop() {
   const [files, setFiles] = useState([]);
   const selectList = ['StudyTipsGallery', 'EventsGallery', 'HumorsGallery'];
   const [selected, setSelected] = useState('StudyTipsGallery');
@@ -28,7 +28,7 @@ export function ImageDragDrop() {
     },
   });
 
-  const thumbs = files.map((file: any) => (
+  const handleUploadImage = files.map((file: any) => (
     <div key={file.name}>
       <div>
         <img
@@ -40,8 +40,8 @@ export function ImageDragDrop() {
         />
         <button
           onClick={async () => {
-            UploadImage(selected, file);
-            await alert('저장에 성공했습니다.');
+            await UploadImage(selected, file);
+            alert('저장에 성공했습니다.');
           }}
         >
           저장
@@ -49,8 +49,6 @@ export function ImageDragDrop() {
       </div>
     </div>
   ));
-
-  // const handleSubmitImage = ({ file, selected }: any) => {};
 
   // 초기화
   useEffect(() => {
@@ -79,7 +77,7 @@ export function ImageDragDrop() {
         <input {...getInputProps()} />
         <p>Drag n drop some files here, or click to select files</p>
       </div>
-      <aside>{thumbs}</aside>
+      <aside>{handleUploadImage}</aside>
     </section>
   );
 }

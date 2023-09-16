@@ -1,6 +1,18 @@
 import { storage, db } from './firebase';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { addDoc, doc, setDoc, getDocs, collection } from 'firebase/firestore';
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  refFromURL,
+  deleteObject,
+} from 'firebase/storage';
+import {
+  deleteDoc,
+  doc,
+  setDoc,
+  getDocs,
+  collection,
+} from 'firebase/firestore';
 import { userId, userNickname } from 'pages/Gallery';
 
 // 이미지 storage와 db에 업로드
@@ -52,4 +64,16 @@ async function getImageData(categoryId) {
   return;
 }
 
-export { UploadImage, getImageData };
+async function deleteImage(categoryId, imgId, image) {
+  await deleteDoc(doc(db, categoryId, imgId));
+  // let imageStorageRef = ref(storage, `${categoryId}/ ${image}`);
+  // deleteObject(imageStorageRef)
+  //   .then(() => {
+  //     console.log('storage 삭제 성공');
+  //   })
+  //   .catch((error) => {
+  //     console.error();
+  //   });
+}
+
+export { UploadImage, getImageData, deleteImage };
