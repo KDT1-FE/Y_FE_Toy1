@@ -1,7 +1,7 @@
 import { app, db } from './firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
 
-//firestore에서 User 데이터 불러오기
+// firestore에서 User 데이터 불러오기
 const querySnapshot = await getDocs(collection(db, 'User'));
 const getDocumentsAsObjects = (querySnapshot) => {
   const documents = [];
@@ -18,3 +18,11 @@ const getDocumentsAsObjects = (querySnapshot) => {
   return documents;
 };
 export const userObjects = getDocumentsAsObjects(querySnapshot);
+
+//
+export const selectUserData = async (uid) => {
+  const docRef = doc(db, 'User', uid);
+  const userDoc = await getDoc(docRef);
+  return userDoc.data();
+  // const currentUser = userObjects.find((user) => user.id === uid);
+};
