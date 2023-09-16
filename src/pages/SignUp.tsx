@@ -1,6 +1,7 @@
 import { SignUpNext } from 'components/SignUp/SignUpNext';
 import { SignUpPrev } from 'components/SignUp/SignUpPrev';
 import React, { useState } from 'react';
+import '../styles/pages/SignUp.scss';
 
 export interface IUser {
   username: string;
@@ -47,11 +48,11 @@ export function SignUp() {
   };
 
   return (
-    <>
-      <h2>
+    <div className="signup-container">
+      <h3>
         회원가입을 위해
         <br /> 정보를 입력해주세요 :D
-      </h2>
+      </h3>
       {isPrev ? (
         <SignUpPrev
           user={userData}
@@ -65,6 +66,6 @@ export function SignUp() {
           handleTogglePage={handleTogglePage}
         />
       )}
-    </>
+    </div>
   );
 }
