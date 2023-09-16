@@ -1,14 +1,23 @@
 import React from "react";
 import "../../styles/Wiki.css";
 import {EditButtonProps} from "../../types/Wiki";
-import {ReactComponent as Icon} from "../../assets/icons/EditBtn.svg";
+import {ReactComponent as EditIcon} from "../../assets/icons/EditBtn.svg";
+import {ReactComponent as CancelIcon} from "../../assets/icons/Cancel.svg";
 
 function EditButton({isEditorOpen, setIsEditorOpen}: EditButtonProps) {
   const clickEdit = () => {
     setIsEditorOpen(!isEditorOpen);
   };
 
-  return <Icon className="EditButton" onClick={clickEdit} />;
+  return (
+    <div>
+      {isEditorOpen ? (
+        <CancelIcon className="EditButton" onClick={clickEdit} />
+      ) : (
+        <EditIcon className="EditButton" onClick={clickEdit} />
+      )}
+    </div>
+  );
 }
 
 export default EditButton;
