@@ -2,9 +2,16 @@ import React from "react";
 import "../../styles/Modal.css";
 import "../../styles/TimerModal.css";
 import "../../styles/DeleteModal.css";
-import {ModalProps} from "../../types/Modal";
+import {DeleteModalProps} from "../../types/Modal";
+import DeletePhotos from "./DeletePhotos";
 
-export default function DeleteModal({onClose}: ModalProps) {
+export default function DeleteModal({
+  onClose,
+  albumKey,
+  allArray,
+}: DeleteModalProps) {
+  const selectedString = localStorage.getItem("selected") as string;
+  const selectedArray = JSON.parse(selectedString);
   return (
     <div className="ModalBackdrop">
       <div className="TimerModalContent">
@@ -16,7 +23,14 @@ export default function DeleteModal({onClose}: ModalProps) {
         <button type="button" className="CancelButton" onClick={onClose}>
           Cancel
         </button>
-        <button type="button" className="OKButton" onClick={onClose}>
+        <button
+          type="button"
+          className="OKButton"
+          onClick={() => {
+            DeletePhotos(albumKey, allArray, selectedArray);
+            onClose();
+          }}
+        >
           OK
         </button>
       </div>

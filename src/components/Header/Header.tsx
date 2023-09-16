@@ -37,10 +37,7 @@ function Header() {
               </button>
             </li>
             <li>
-              <h2 id="clock">
-                00:00
-                <Clock />
-              </h2>
+              <Clock />
             </li>
           </ul>
         </nav>

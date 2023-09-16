@@ -1,13 +1,9 @@
-import {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 
 function Clock() {
-  const newTime: HTMLElement | null = document.getElementById("clock");
-
+  const [timeString, setTimeString] = useState("");
   function addZero(num: number): string {
-    if (num < 10) {
-      return `0${num}`;
-    }
-    return num.toString();
+    return `${num}`.padStart(2, "0");
   }
 
   function watch() {
@@ -20,23 +16,24 @@ function Clock() {
     const hours: number = date.getHours();
     const minutes: number = date.getMinutes();
 
-    if (newTime) {
-      newTime.innerHTML = `${year}년 ${addZero(month + 1)}월 ${addZero(
-        nowDate,
-      )}일 ${week[day]}요일 ${addZero(hours)}시 ${addZero(minutes)}분`;
-    }
+    setTimeString(
+      `${year}년 ${addZero(month + 1)}월 ${addZero(nowDate)}일 ${
+        week[day]
+      }요일 ${addZero(hours)}시 ${addZero(minutes)}분`,
+    );
   }
 
   function init() {
     watch();
-    setInterval(watch, 1000);
+    const INTERVAL_IN_MILLISECONDS = 1000;
+    setInterval(watch, INTERVAL_IN_MILLISECONDS);
   }
 
   useEffect(() => {
     init();
   }, []);
 
-  return null;
+  return <h2 id="clock">{timeString}</h2>;
 }
 
 export default Clock;

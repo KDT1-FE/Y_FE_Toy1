@@ -1,14 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 import "../../styles/Modal.css";
 import "../../styles/TimerModal.css";
 import "../../styles/UploadModal.css";
-import {UploadDeleteModalProps} from "../../types/Modal";
+import {UploadModalProps} from "../../types/Modal";
 import PostPhotos from "./PostPhotos";
 
-export default function UploadModal({
-  onClose,
-  albumKey,
-}: UploadDeleteModalProps) {
+function UploadModal({onClose, albumKey}: UploadModalProps) {
+  const [currentFile, setCurrentFile] = useState<File | undefined>(undefined);
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const nowFile = e.currentTarget.files?.[0];
+    setCurrentFile(nowFile);
+  };
+
+  const handleUpload = () => {
+    if (currentFile) {
+      PostPhotos(currentFile, albumKey);
+      onClose();
+    }
+  };
   return (
     <div className="ModalBackdrop">
       <div className="TimerModalContent">
@@ -16,18 +25,16 @@ export default function UploadModal({
           Close
         </button>
         <p>사진 업로드</p>
-        <input
-          type="file"
-          className="InputFile"
-          onChange={e => PostPhotos(e, albumKey)}
-        />
+        <input type="file" className="InputFile" onChange={handleFileChange} />
         <button type="button" className="CancelButton" onClick={onClose}>
           Cancel
         </button>
-        <button type="button" className="OKButton" onClick={onClose}>
+        <button type="button" className="OKButton" onClick={handleUpload}>
           OK
         </button>
       </div>
     </div>
   );
 }
+
+export default UploadModal;
