@@ -1,6 +1,17 @@
 // SidebarWiki.tsx 파일 내에서
-import React, { useEffect, useState } from 'react';
-import { ChannelSidebar, DropDownOptions, FlexDiv } from './style';
+import React, { useEffect, useState, useRef } from 'react';
+import {
+    AllChannelsWrapper,
+    ChannelWrapper,
+    DropDownOptions,
+    SubDropDownOptions,
+    ChannelFlexDiv,
+    SubChannelFlexDiv,
+    MoreHorizIconWrapper,
+    ChannelHr,
+    CreateChannelDiv,
+    OptionButton,
+} from './style';
 
 import { handleGetDocs, deleteChannelDoc, deleteFieldFromDoc, DocumentData } from '../../utils/firebase';
 import { QuerySnapshot } from 'firebase/firestore';
@@ -23,6 +34,9 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
     // 드롭다운 상태를 각 아이템마다 저장할 배열 추가
     const [dropdownStates, setDropdownStates] = useState<boolean[]>([]);
     const [dropdownSubStates, setDropdownSubStates] = useState<boolean[][]>([]);
+
+    const dropdownRef = useRef<HTMLDivElement | null>(null);
+    const dropdownSubRef = useRef<HTMLDivElement | null>(null);
 
     const toggleDropDown = (index: number) => {
         const updatedStates = [...dropdownStates];
@@ -61,6 +75,40 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
         };
     }, []);
 
+    useEffect(() => {
+        // document에 클릭 이벤트 리스너를 추가하여 DropDownOptions 요소 외부를 클릭했을 때 초기 드롭다운 상태를 false로 변경
+        const handleClickOutside = (event: any, currentIndex: number) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                // 클릭한 요소가 DropDownOptions 영역 외부에 있는 경우
+                const updatedStates = [...dropdownStates];
+                updatedStates[currentIndex] = false;
+                setDropdownStates(updatedStates);
+            }
+            if (dropdownSubRef.current && !dropdownSubRef.current.contains(event.target)) {
+                // 클릭한 요소가 SubDropDownOptions 영역 외부에 있는 경우
+                const updatedSubStates = [...dropdownSubStates];
+                updatedSubStates[currentIndex].fill(false);
+                setDropdownSubStates(updatedSubStates);
+            }
+        };
+
+        // 클릭 이벤트 리스너를 추가할 때 현재의 인덱스 값을 캡처하여 전달
+        document.addEventListener('mousedown', (event) => {
+            docsWithFields.forEach((_, index) => {
+                handleClickOutside(event, index);
+            });
+        });
+
+        return () => {
+            // 클릭 이벤트 리스너를 정리
+            document.removeEventListener('mousedown', (event) => {
+                docsWithFields.forEach((_, index) => {
+                    handleClickOutside(event, index);
+                });
+            });
+        };
+    }, [dropdownStates, dropdownSubStates, docsWithFields]);
+
     const handleKeyClick = (value: any) => {
         onKeyClick(value); // 클릭된 값을 상위 컴포넌트로 전달
     };
@@ -75,15 +123,22 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
     const collectionName = 'wiki';
     return (
         <>
-            <ChannelSidebar>
+            <AllChannelsWrapper>
                 {docsWithFields.map((item, index) => (
-                    <div key={index} style={{ marginBottom: '10px' }}>
-                        <FlexDiv>
+                    <ChannelWrapper key={index}>
+                        <ChannelFlexDiv>
                             <div style={{ fontSize: '20px', fontWeight: 'bold' }}># {item.docId}</div>
-                            <MoreHorizIcon onClick={() => toggleDropDown(index)}></MoreHorizIcon>
+                            <MoreHorizIconWrapper>
+                                <MoreHorizIcon
+                                    onClick={() => {
+                                        toggleDropDown(index);
+                                        console.log(dropdownStates);
+                                    }}
+                                ></MoreHorizIcon>
+                            </MoreHorizIconWrapper>
                             {dropdownStates[index] && (
-                                <DropDownOptions>
-                                    <button
+                                <DropDownOptions ref={dropdownRef}>
+                                    <OptionButton
                                         onClick={() => {
                                             setModalType('CreateSub');
                                             setSelectedChannelId(item.docId);
@@ -91,8 +146,8 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
                                         }}
                                     >
                                         추가
-                                    </button>
-                                    <button
+                                    </OptionButton>
+                                    <OptionButton
                                         onClick={() => {
                                             setModalType('Update');
                                             // setSelectedSubChannelId(item.docData);
@@ -101,22 +156,29 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
                                         }}
                                     >
                                         수정
-                                    </button>
-                                    <button onClick={() => deleteChannelDoc('wiki', item.docId)}>삭제</button>
+                                    </OptionButton>
+                                    <OptionButton onClick={() => deleteChannelDoc('wiki', item.docId)}>
+                                        삭제
+                                    </OptionButton>
                                 </DropDownOptions>
                             )}
-                        </FlexDiv>
+                        </ChannelFlexDiv>
 
-                        <div>
+                        <div style={{ marginLeft: '20px' }}>
                             {item.docKeys.map((item2, index2) => (
-                                <FlexDiv>
-                                    <div key={index2} onClick={() => handleKeyClick(item.docData[item2])}>
-                                        &gt; {item2}
-                                    </div>
-                                    <MoreHorizIcon onClick={() => toggleDropDownSub(index, index2)}></MoreHorizIcon>
+                                <SubChannelFlexDiv onClick={() => handleKeyClick(item.docData[item2])}>
+                                    <div key={index2}>{item2}</div>
+                                    <MoreHorizIconWrapper>
+                                        <MoreHorizIcon
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                toggleDropDownSub(index, index2);
+                                            }}
+                                        ></MoreHorizIcon>
+                                    </MoreHorizIconWrapper>
                                     {dropdownSubStates[index][index2] && (
-                                        <DropDownOptions>
-                                            <button
+                                        <SubDropDownOptions ref={dropdownSubRef}>
+                                            <OptionButton
                                                 onClick={() => {
                                                     setModalType('UpdateSub');
                                                     setSelectedSubChannelId(item2);
@@ -125,27 +187,27 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
                                                 }}
                                             >
                                                 수정
-                                            </button>
-                                            <button onClick={() => deleteFieldFromDoc('wiki', item.docId, item2)}>
+                                            </OptionButton>
+                                            <OptionButton onClick={() => deleteFieldFromDoc('wiki', item.docId, item2)}>
                                                 삭제
-                                            </button>
-                                        </DropDownOptions>
+                                            </OptionButton>
+                                        </SubDropDownOptions>
                                     )}
-                                </FlexDiv>
+                                </SubChannelFlexDiv>
                             ))}
                         </div>
-                    </div>
+                        <ChannelHr />
+                    </ChannelWrapper>
                 ))}
-                <div
-                    style={{ fontSize: '20px', fontWeight: 'bold' }}
+                <CreateChannelDiv
                     onClick={() => {
                         setModalType('Create');
                         openModal();
                     }}
                 >
                     + 채널 추가
-                </div>
-            </ChannelSidebar>
+                </CreateChannelDiv>
+            </AllChannelsWrapper>
             {isModalOpen && (
                 <ChannelModal
                     isOpen={isModalOpen}
