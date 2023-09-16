@@ -23,9 +23,6 @@ export function ModalComment({
   const [comment, setComment]: any = useState();
   const [commentList, setCommentList] = useState(['테스트입니다.']);
 
-  // const commentData: any = Promise.resolve(commentsListData);
-  // const [commentDataInfo, setCommentDataInfo]: any = useState([]);
-
   const handleComments = (e: any) => {
     setComment(e.target.value);
   };
@@ -33,22 +30,19 @@ export function ModalComment({
   //submit 후 DB 저장
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const newCommentList: any = [...commentList, comment];
-    await setCommentList(newCommentList);
-    await uploadCommentList(commentList, imgId, categoryId);
-    await alert('저장에 성공했습니다.' + imgId);
-    //await location.reload();
+    if (comment !== '') {
+      const newCommentList: any = [...commentList, comment];
+      setCommentList(newCommentList);
+      uploadCommentList(commentList, imgId, categoryId);
+      alert('Success! 저장에 성공했습니다.');
+    } else if (comment == '') {
+      alert(' Fail! 입력칸에 내용을  입력해주세요.');
+    }
+    //location.reload();
     setComment('');
+    console.log(comment);
+    console.log(commentList);
   };
-
-  // React.useEffect(() => {
-  //   const data = getImageData(categoryId);
-  //   data.then((item: any) => {
-  //     setCommentDataInfo(item);
-  //   });
-  // }, [categoryId]);
-
-  // console.log('코멘트 데이타', commentDataInfo);
 
   return (
     <div>
@@ -70,30 +64,17 @@ export function ModalComment({
             type="text"
             id="comment"
             placeholder="이미지에 대한 생각을 자유롭게 작성해주세요✏"
-            value={comment || ''}
+            value={comment}
             onChange={handleComments}
           />
           <button type="submit">제출</button>
         </form>
 
-        {/* <ul>
-          <li>댓글 넣기</li>
-          {commentDataInfo?.map((comment: any) => (
-            <li key={comment.index}>{comment}</li>
-          ))}
-        </ul> */}
-
         <ul>
-          <li>{commentsListData}</li>
-          {/* {commentsListTwo?.map((comment: any) => {
-            <li>{comment}</li>;
-          })} */}
+          {commentsListData?.map((comment: any) => {
+            return <li key={comment.id}>{comment}</li>;
+          })}
         </ul>
-        {/* <AddCommentList 
-          imgId={imgId}
-          categoryId={categoryId}
-          commentsListData={commentsListData}
-        />*/}
       </div>
     </div>
   );
