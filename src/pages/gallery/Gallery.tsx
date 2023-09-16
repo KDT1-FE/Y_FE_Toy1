@@ -30,6 +30,7 @@ export default function Gallery() {
   const [album, setAlbum] = useState("album1");
   const [albumId, setAlbumId] = useState("1moHSjI2ZdSS9iPoZMnp");
   const [imagePaths, setImagePaths] = useState<string[]>([]);
+  const [currentImg, setCurrentImg] = useState<string>("");
 
   // console.log(albumId);
 
@@ -118,6 +119,7 @@ export default function Gallery() {
           setGalleryData={setGalleryData}
         />
       ) : null}
+      <div></div>
     </style.Gallery>
   );
 }

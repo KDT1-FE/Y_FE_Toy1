@@ -201,7 +201,8 @@ export default function GallerySide({
                         albumClickHandle(v);
                       }}
                     >
-                      ⌞{v}
+                      <style.icon></style.icon>
+                      {v}
                     </style.List>
                   ) : null;
                 })}
@@ -243,8 +244,8 @@ export default function GallerySide({
             ></Button>
           ) : (
             <Button
-              text="편집"
-              padding=".3rem .6rem"
+              text="카테고리 편집"
+              padding=".3rem 2rem"
               onClick={openConfigListHandle}
             ></Button>
           )}
