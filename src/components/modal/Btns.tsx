@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { OnBtn, OffBtn, BtnBox } from './style';
 import { createTimelog } from '../../utils/firebase';
+import { useRecoilState } from 'recoil';
+import { TimeLog } from '../../utils/recoil';
 
 interface OwnProps {
     timeHandler(): void;
@@ -8,16 +10,22 @@ interface OwnProps {
 const Btns: React.FC<OwnProps> = ({ timeHandler }) => {
     //버튼 사용 전 로그인 확인 로직
     const [userIn, setUserIn] = useState(0);
-    const local = localStorage.getItem('recoil-persist');
+    const [timeCheck, setTimeCheck] = useState('');
+    const [timeLog, setTimeLog] = useRecoilState(TimeLog);
+    const local = localStorage.getItem('userId');
+
     let loggedIn: string;
     if (local) {
         loggedIn = JSON.parse(local).userId;
     }
+
     useEffect(() => {
-        if (loggedIn !== '') {
+        if (loggedIn) {
             setUserIn(1);
+        } else {
+            setUserIn(0);
         }
-    }, [userIn]);
+    }, []);
 
     //버튼 사용 로직
     const [timerOn, setTimerOn] = useState<boolean>(false);
@@ -33,24 +41,21 @@ const Btns: React.FC<OwnProps> = ({ timeHandler }) => {
         Hours = String(Hours).padStart(2, '0');
         Min = String(Min).padStart(2, '0');
         Sec = String(Sec).padStart(2, '0');
-        if (!timerOn) {
-            console.log(today);
-            console.log('입실: ' + Hours + ':' + Min + ':' + Sec);
+        const now = Hours + ':' + Min + ':' + Sec;
+        if (!timerOn && set) {
             setTimerOn(true);
-        } else {
-            console.log('퇴실: ' + Hours + ':' + Min + ':' + Sec);
+            setTimeCheck(`[${today}]` + ' ' + '입실' + ' ' + now);
+        } else if (set === 0) {
             setTimerOn(false);
+            setTimeLog(timeCheck + ' ' + '->' + ' ' + `[${today}]` + ' ' + '퇴실' + ' ' + now);
         }
         timeHandler();
-        console.log(set);
-
-        if (set) {
-            createTimelog('user', 'asdasd', '입실: ' + Hours + ':' + Min + ':' + Sec);
-        } else {
-            createTimelog('user', 'asdasd', '퇴실: ' + Hours + ':' + Min + ':' + Sec);
-        }
     };
-
+    // 실시간 시간을 정확하게 담기 위해서 useEffect 사용
+    useEffect(() => {
+        console.log(timeLog);
+        createTimelog('user', 'asdasd', timeLog);
+    }, [timeLog]);
     return (
         <BtnBox>
             <OnBtn

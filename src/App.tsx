@@ -10,12 +10,14 @@ import LogIn from './pages/LogIn';
 
 import { useRecoilState } from 'recoil';
 import { UserId } from './utils/recoil';
+import { TimeLog } from './utils/recoil';
 
 const App: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
+    const [timeLog, setTimeLog] = useRecoilState(TimeLog);
 
     // userId로 사용자 uid 관리 가능 defalut = '' /
-    console.log(userId);
+    // console.log(userId);
 
     return (
         <BrowserRouter>

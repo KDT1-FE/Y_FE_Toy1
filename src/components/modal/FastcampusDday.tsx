@@ -14,6 +14,7 @@ const FastcampusDday: React.FC<OwnProps> = ({ timeRenewal }) => {
         today.setHours(0, 0, 0, 0);
         setDday(Math.floor((cDay.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)));
     };
+
     //모달창에 처음으로 들어갈 때 디데이를 보여주기 위한 useEffect
     useEffect(() => {
         dDaySet();

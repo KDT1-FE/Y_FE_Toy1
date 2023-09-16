@@ -13,6 +13,7 @@ import {
     QuerySnapshot,
     addDoc,
     updateDoc,
+    arrayUnion,
 } from 'firebase/firestore';
 
 import { getStorage } from 'firebase/storage';
@@ -64,13 +65,11 @@ export const createChannelDoc = async (collectionName: string, documentName: str
 };
 const db = getFirestore();
 export const createTimelog = async (collectionName: string, documentName: string, currentTime: string) => {
-    const timelog = currentTime; // 서브채널 없이 채널만 생성하기 위해 빈 객체 삽입
+    const value = currentTime;
     const documentRef = doc(firestore, collectionName, documentName);
     const FieldValue = 'timelog';
     try {
-        const a = await updateDoc(documentRef, { 입실: `${timelog}` });
-        console.log(a);
-
+        const pushTimeLog = await updateDoc(documentRef, { timelog: arrayUnion(value) });
         console.log('타임로그 생성 성공!');
     } catch (error) {
         console.error('타임로그 생성 실패!', error);
