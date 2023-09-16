@@ -1,0 +1,26 @@
+@use '../scss/abstracts/' as *;
+
+.listbox{
+    width: 95%;
+    height: 3vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid $blue;
+    border-radius: 1rem;
+    margin: 1rem auto;
+    padding: 0 1rem;
+
+    &__delete-checkbox{
+        flex: .5;
+    }
+
+    &__title{
+        flex: 20;
+        font-size: 1.3rem;
+    }
+
+    &__modify-btn{
+        flex: 1;
+    }
+}
