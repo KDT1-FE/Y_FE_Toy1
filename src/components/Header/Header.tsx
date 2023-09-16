@@ -66,9 +66,12 @@ export default function Header() {
             </Link>
         <div className="auth-buttons">
           {user.uid ? ( // 사용자가 로그인한 경우
-            <div>
-              <span>{user.nickname}님 환영해요!</span>
-              <button onClick={handleLogout}>로그아웃</button>
+            <div className='userInfo-container'>
+              <div className='userNickname-container'>
+                <span className='userNickname'>{user.nickname}님</span>
+                <span className='userWelcome'>환영해요!</span>
+              </div>
+              <button className='logoutBtn' onClick={handleLogout}>로그아웃</button>
             </div>
           ) : (
             // 사용자가 로그인하지 않은 경우
