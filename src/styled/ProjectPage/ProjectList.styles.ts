@@ -1,11 +1,10 @@
 import styled from "styled-components";
 
 export const Ul = styled.ul`
-  background-color: rgba(150, 160, 255, 0.3);
+  background-color: rgba(150, 160, 255, 0.15);
 `;
 
 export const Container = styled.div`
-  max-height: 1200px;
   max-width: 1200px;
   margin: 50px auto;
   display: flex;
@@ -22,25 +21,26 @@ export const TitleContainer = styled.div`
 `;
 export const WriteText = styled.h2`
   font-size: 40px;
-  margin: 10px;
-  font-family: RobotoMono;
+  margin-left: 10px;
+  margin-bottom: 20px;
 `;
 
 export const WriteBtn = styled.button`
-  width: 150px;
-  height: 50px;
+  width: 130px;
+  height: 40px;
   font-size: 15px;
   color: white;
   background-color: #484aad;
   border: none;
   border-radius: 10px;
+  cursor: pointer; /* 마우스 커서를 포인터 모양으로 지정 */
 `;
 export const TeamName = styled.div`
   font-size: 30px;
   font-weight: bold;
   margin-left: 40px;
   margin-top: 40px;
-  font-family: RobotoMono;
+  cursor: pointer; /* 마우스 커서를 포인터 모양으로 지정 */
 `;
 export const List = styled.div`
   border: 2px solid #484aad;
@@ -54,7 +54,7 @@ export const ListItem = styled.div`
 `;
 
 export const ProjectTitle = styled.p`
-  font-size: 30px;
+  font-size: 25px;
   margin-right: 50px;
 `;
 

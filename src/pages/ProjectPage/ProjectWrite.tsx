@@ -10,6 +10,14 @@ import {
   orderBy,
 } from "firebase/firestore"; // Firebase Firestore에서 필요한 함수 가져오기
 import { db } from "../../firebaseSDK"; // Firebase 설정 가져오기
+import {
+  Container,
+  WriteDiv,
+  Submit,
+  WriteProject,
+  WriteInput,
+  WriteContentInput,
+} from "../../styled/ProjectPage/ProjectWrite.styles";
 
 const ProjectWrite: React.FC = () => {
   const navigate = useNavigate(); // useNavigate Hook을 사용합니다.
@@ -34,6 +42,17 @@ const ProjectWrite: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (
+      !projectData.projectTeamName ||
+      !projectData.projectTitle ||
+      !projectData.projectContent ||
+      !projectData.projectDeadline ||
+      !projectData.projectMember
+    ) {
+      alert("모든 필드를 입력해주세요.");
+      return;
+    }
 
     // Firestore에 데이터 추가 및 인덱스 업데이트
     try {
@@ -65,67 +84,69 @@ const ProjectWrite: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>새 프로젝트 만들기</h2>
-      <form onSubmit={handleSubmit}>
-        <button type="submit">프로젝트 생성</button>
-        <div>
-          <input
-            type="text"
-            id="projectTeamName"
-            name="projectTeamName"
-            placeholder="팀명을 입력해주세요"
-            value={projectData.projectTeamName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <input
-            type="date"
-            id="projectDeadline"
-            name="projectDeadline"
-            placeholder="프로젝트 마감일을 입력해주세요"
-            value={projectData.projectDeadline}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <input
-            type="number"
-            id="projectMember"
-            name="projectMember"
-            placeholder="프로젝트 참여 인원을 입력해주세요"
-            value={projectData.projectMember}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            id="projectTitle"
-            name="projectTitle"
-            placeholder="프로젝트 주제를 입력해주세요"
-            value={projectData.projectTitle}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            id="projectContent"
-            name="projectContent"
-            placeholder="프로젝트를 설명해주세요"
-            value={projectData.projectContent}
-            onChange={handleChange}
-            required
-          />
-        </div>
-      </form>
-    </div>
+    <Container>
+      <WriteDiv>
+        <WriteProject>Team Project</WriteProject>
+        <form onSubmit={handleSubmit}>
+          <Submit type="submit">등록</Submit>
+        </form>
+      </WriteDiv>
+      <div>
+        <WriteInput
+          type="text"
+          id="projectTeamName"
+          name="projectTeamName"
+          placeholder="팀명을 입력해주세요"
+          value={projectData.projectTeamName}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div>
+        <WriteInput
+          type="text"
+          id="projectTitle"
+          name="projectTitle"
+          placeholder="프로젝트 주제를 입력해주세요"
+          value={projectData.projectTitle}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <div>
+        <WriteContentInput
+          id="projectContent"
+          name="projectContent"
+          placeholder="프로젝트를 설명해주세요"
+          value={projectData.projectContent}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div>
+        <WriteInput
+          type="text"
+          id="projectDeadline"
+          name="projectDeadline"
+          placeholder="프로젝트 마감일을 입력해주세요 (ex.2023-09-22)"
+          value={projectData.projectDeadline}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div>
+        <WriteInput
+          type="number"
+          id="projectMember"
+          name="projectMember"
+          placeholder="프로젝트 참여 인원을 입력해주세요"
+          value={projectData.projectMember}
+          onChange={handleChange}
+          required
+        />
+      </div>
+    </Container>
   );
 };
 
