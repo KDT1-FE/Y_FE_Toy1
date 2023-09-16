@@ -1,9 +1,10 @@
+import { selectUserData } from 'data/getUser';
 import { getLoginUserUid } from 'data/user';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loginAction } from 'redux/action';
+import { IUser } from './SignUp';
 
 export function SignIn() {
   const [email, setEmail] = useState(localStorage.getItem('email') ?? '');
@@ -34,15 +35,14 @@ export function SignIn() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const uid = await getLoginUserUid(email, password);
-      dispatch(loginAction(uid));
+      const uid: string = await getLoginUserUid(email, password);
+      const { nickname, image } = (await selectUserData(uid)) as IUser;
+      dispatch(loginAction(uid, email, image, nickname));
       if (rememberEmail) {
         rememberUser(email);
       }
       navigate('/');
     } catch (error: any) {
-      console.log(error.code);
-      console.log(error.message);
       handleError(error);
     }
   };
