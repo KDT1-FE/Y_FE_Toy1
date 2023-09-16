@@ -3,9 +3,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { DocumentData } from 'firebase/firestore';
 import * as S from '../../styled/NoticePage/NoticeList.styles';
 import FetchNoticeData from '../../utils/NoticePage/FetchNoticeData';
+import Pagination from '../../components/NoticePage/Pagination';
 
 function NoticeList() {
   const [noticeList, setNoticeList] = useState<DocumentData[] | null>([]);
+  const [page, setPage] = useState(1);
+  const totalPages = Math.ceil((noticeList?.length ?? 10) / 5);
+  const startNotice = (page - 1) * 5;
+  const currentPageList = noticeList?.slice(startNotice, startNotice + 5);
+
   const navigate = useNavigate();
 
   // 공지사항 전체 가져오기
@@ -35,7 +41,7 @@ function NoticeList() {
         <S.ColumnHeaderSubject>제목</S.ColumnHeaderSubject>
         <S.ColumnHeaderBasic>날짜</S.ColumnHeaderBasic>
       </S.HeaderRow>
-      {noticeList?.map((notice) => (
+      {currentPageList?.map((notice) => (
         <S.Row key={notice.noticeNumber} onClick={() => navigate(`/notice/${notice.noticeNumber}`)}>
           <S.ColumnHeaderBasic>{notice.noticeNumber}</S.ColumnHeaderBasic>
           <S.ColumnHeaderSubject>{notice.subject}</S.ColumnHeaderSubject>
@@ -44,8 +50,9 @@ function NoticeList() {
       ))}
       <S.TableBottom />
       <S.Footer>
-        <S.Pagination>prev 1,2,3,4,5 next</S.Pagination>
-
+        <S.PaginationDiv>
+          <Pagination totalPages={totalPages} setPage={setPage} />
+        </S.PaginationDiv>
         <S.WriteBtn type='button'>
           <Link to='/notice/write'>공지 등록하기</Link>
         </S.WriteBtn>

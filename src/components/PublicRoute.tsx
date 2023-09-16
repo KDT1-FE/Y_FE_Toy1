@@ -1,20 +1,20 @@
-import React, { useEffect } from "react";
-import { useRecoilValue } from "recoil";
-import { Outlet, useNavigate } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
+import { Outlet, useNavigate } from 'react-router-dom';
 
-import userState from "../recoil/atoms/userState";
+import userState from '../recoil/atoms/userState';
 
 function PublicRoute() {
-  const navigate = useNavigate()
-  const user = useRecoilValue(userState)
+  const navigate = useNavigate();
+  const user = useRecoilValue(userState);
 
   useEffect(() => {
     if (user.isLogin) {
-      navigate("/")
+      navigate('/');
     }
-  }, [])
+  }, []);
 
-  return user.isLogin === true ? null : <Outlet />
+  return user.isLogin === true ? null : <Outlet />;
 }
 
-export default PublicRoute
+export default PublicRoute;

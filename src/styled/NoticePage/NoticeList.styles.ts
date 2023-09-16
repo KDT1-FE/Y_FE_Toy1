@@ -76,18 +76,21 @@ export const ColumnHeaderSubject = styled.div`
 `;
 
 export const Footer = styled.div`
-  width: 56%;
-  float: right;
+  width: 100%;
+  height: 52px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   align-items: center;
+  position: relative;
   margin-top: 50px;
 `;
 
-export const Pagination = styled.div``;
+export const PaginationDiv = styled.div`
+  margin: 0 auto;
+`;
 
 export const WriteBtn = styled.button`
+  position: absolute;
+  right: 0;
   width: 120px;
   height: 52px;
   background-color: #484aad;
