@@ -1,18 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../redux/types'; // RootState 타입 추가
+import { logoutAction } from '../../redux/action'; // 로그아웃 액션 임포트
 import { useLocation } from 'react-router-dom';
 import './Header.css';
 import logo from '../../images/logo.png';
 
+// ... 다른 import 코드 ...
 
 export default function Header() {
-  const location = useLocation();
-  
+  // useSelector를 통해 스토어의 유저 정보 읽어오기
+  const user = useSelector((state: RootState) => state);
+
+  // useDispatch를 통해 로그아웃 액션 디스패치 함수 가져오기
+  const dispatch = useDispatch();
+
+  // 로그아웃 핸들러
+  const handleLogout = () => {
+    // 로그아웃 액션 디스패치
+    dispatch(logoutAction());
+  };
 
   return (
     <header>
       <nav className="Header">
-        <div className="header-container">
+      <div className="header-container">
           <div className="pageList">
             <div className="logo">
               <Link to="/">
@@ -51,15 +64,25 @@ export default function Header() {
             >
               스터디
             </Link>
-            <div className="auth-buttons">
-            <Link to="SignIn" className="auth-button1">
+        <div className="auth-buttons">
+          {user.uid ? ( // 사용자가 로그인한 경우
+            <div>
+              <span>{user.nickname}님 환영해요!</span>
+              <button onClick={handleLogout}>로그아웃</button>
+            </div>
+          ) : (
+            // 사용자가 로그인하지 않은 경우
+            <>
+              <Link to="SignIn" className="auth-button1">
                 로그인
               </Link>
               <Link to="/SignUp" className="auth-button2">
                 회원가입
               </Link>
-            </div>
-          </div>
+            </>
+          )}
+        </div>
+        </div>
         </div>
       </nav>
     </header>
