@@ -4,7 +4,9 @@
   overflow-y: auto;  
   display: flex;
   flex-flow: column;
+  box-sizing: border-box;
   gap: 20px;
+  padding: 20px 0 10px 10px;
 }
 
 .sidebar__bottom {

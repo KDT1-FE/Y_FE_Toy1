@@ -1,15 +1,13 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation,useParams } from "react-router-dom";
 import styled from "styled-components";
 import "./Sidebar.css";
 
 const Sidebar = () => {
   const location = useLocation();
   const hashSplit = location.pathname.split("/");
-
+  console.log(useParams())
   if (hashSplit[1] === "Wiki") {
-    //const sideLink = ["", "행정", "학습일정"]
-    const sideName = ["출석", "행정", "학습일정"];
     const sideLinkAttendance = ["출석 인정", "QR출결 정정 프로세스"];
     const sideLinkAdmin = ["휴가", "훈련장려금"];
 
@@ -18,21 +16,21 @@ const Sidebar = () => {
       <Container>
         <ul className="sidebar__link-wrapper">
           <li key={"출석"}>
-            <Link to={`/Wiki/`}>출석</Link>
+            <Link to={`/Wiki/`}><p className="title-text">출석</p></Link>
           </li>
           {sideLinkAttendance.map((link, idx) => (
             <li key={sideLinkAttendance[idx]}>
-              <Link to={`/Wiki/${link}`}>{link}</Link>
+              <Link to={`/Wiki/${link}`}><p className="normal-text">{link}</p></Link>
             </li>
           ))}
-          <li key={"행정"}>행정</li>
+          <li key={"행정"}><p className="title-text">행정</p></li>
           {sideLinkAdmin.map((link, idx) => (
             <li key={sideLinkAdmin[idx]}>
-              <Link to={`/Wiki/${link}`}> {link} </Link>
+              <Link to={`/Wiki/${link}`}> <p className="normal-text">{link}</p> </Link>
             </li>
           ))}
           <li key={"학습 일정"}>
-            <Link to={`/Wiki/학습 일정`}>금주의 학습 일정</Link>
+            <Link to={`/Wiki/학습 일정`}><p className="title-text">금주의 학습 일정</p></Link>
           </li>
         </ul>
         <SidebarBottom />
@@ -57,9 +55,23 @@ const Sidebar = () => {
 const Container = styled.aside`
   position: fixed;
   z-index: 9;
-  width: 140px;
+  width: 200px;
   height: 100%;
-  background-color: #ddd;
+  box-sizing: border-box;
+  padding: 10px;
+  .active{
+    color: var(--main-color);
+  }
+  .title-text{
+    margin: 0;
+    padding-top: 20px;
+    font-size: 18px;
+  }
+  .normal-text{
+    margin: 0;
+    font-size: 16px;
+    color: #777;
+  }
 `;
 
 function SidebarBottom(): JSX.Element {
