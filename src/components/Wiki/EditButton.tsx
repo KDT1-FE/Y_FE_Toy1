@@ -1,6 +1,8 @@
 import React from "react";
 import "../../styles/Wiki.css";
 import {EditButtonProps} from "../../types/Wiki";
+import {ReactComponent as EditIcon} from "../../assets/icons/EditBtn.svg";
+import {ReactComponent as CancelIcon} from "../../assets/icons/Cancel.svg";
 
 function EditButton({isEditorOpen, setIsEditorOpen}: EditButtonProps) {
   const clickEdit = () => {
@@ -8,16 +10,13 @@ function EditButton({isEditorOpen, setIsEditorOpen}: EditButtonProps) {
   };
 
   return (
-    <button
-      className="WikiButton"
-      type="button"
-      onClick={clickEdit}
-      style={{
-        backgroundColor: isEditorOpen ? "rgba(255, 55, 115, 0.8)" : "#34576d",
-      }}
-    >
-      {isEditorOpen ? "수정취소" : "수정하기"}
-    </button>
+    <div>
+      {isEditorOpen ? (
+        <CancelIcon className="EditButton" onClick={clickEdit} />
+      ) : (
+        <EditIcon className="EditButton" onClick={clickEdit} />
+      )}
+    </div>
   );
 }
 
