@@ -11,6 +11,8 @@ async function PostPhotos(file: File, albumKey: string) {
     return downloadURL;
   } catch (err) {
     throw new Error();
+  } finally {
+    window.location.reload();
   }
 }
 
