@@ -16,6 +16,7 @@ const CommuteModal = ({ isModalOpen, toggleModal }: Props) => {
   const { user } = useUser();
   const uid = user?.uid;
   const { commuteInfo, setCommuteInfo } = useCommute(uid);
+  const { isWorking, hasWorked, workingTime, startTime } = commuteInfo;
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -29,13 +30,13 @@ const CommuteModal = ({ isModalOpen, toggleModal }: Props) => {
     let updatedCommuteInfo;
 
     // 퇴근 눌렀을 때
-    if (commuteInfo.isWorking) {
+    if (isWorking) {
       updatedCommuteInfo = {
         ...commuteInfo,
         date: Date.now(),
         isWorking: false,
         endTime: Date.now(),
-        workingTime: Date.now() - commuteInfo.startTime,
+        workingTime: Date.now() - startTime,
       };
 
       setCommuteInfo(updatedCommuteInfo);
@@ -75,33 +76,28 @@ const CommuteModal = ({ isModalOpen, toggleModal }: Props) => {
   };
 
   const renderContentMessage = () => {
-    if (commuteInfo.hasWorked && !commuteInfo.isWorking && !commuteInfo.workingTime) {
+    if (hasWorked && !isWorking && !workingTime) {
       return <span>이미 출근 기록이 있습니다. 다시 출근 하시겠습니까?</span>;
     }
-    if (!commuteInfo.hasWorked && !commuteInfo.isWorking) {
+    if (!hasWorked && !isWorking) {
       return <span>출근 하시겠습니까?</span>;
     }
-    if (commuteInfo.isWorking) {
+    if (isWorking) {
       return <span>퇴근 하시겠습니까?</span>;
     }
-    if (!commuteInfo.isWorking && commuteInfo.workingTime) {
+    if (!isWorking && workingTime) {
       return (
         <span>
-          총 근무 시간이 맞으면 확인을 눌러주세요.{' '}
-          <strong>{formatMsToTime(commuteInfo.workingTime)}</strong>
+          총 근무 시간이 맞으면 확인을 눌러주세요. <strong>{formatMsToTime(workingTime)}</strong>
         </span>
       );
     }
   };
 
-  const mainButtonLabel = commuteInfo.workingTime
-    ? '확인'
-    : commuteInfo.isWorking
-    ? '퇴근'
-    : '출근';
-  const mainButtonHandler = commuteInfo.workingTime ? confirmWorkingTime : handleCommute;
-  const secondaryButtonLabel = commuteInfo.workingTime ? '수정' : '취소';
-  const secondaryButtonHandler = commuteInfo.workingTime ? editWorkingTime : toggleModal;
+  const mainButtonLabel = workingTime ? '확인' : isWorking ? '퇴근' : '출근';
+  const mainButtonHandler = workingTime ? confirmWorkingTime : handleCommute;
+  const secondaryButtonLabel = workingTime ? '수정' : '취소';
+  const secondaryButtonHandler = workingTime ? editWorkingTime : toggleModal;
 
   return (
     <>
