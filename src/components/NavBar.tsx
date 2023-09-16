@@ -1,24 +1,26 @@
 import React from 'react'
 
-import { Link } from 'react-router-dom'
-import NavBar from '../styled/Common/NavBar'
+import { NavBar, NavCategoryBox, NavCategoryLink, NavModalBox, NavTitle } from '../styled/Common/NavBar'
+import Calendar from "../assets/img/Calendar.svg"
+import Todo from "../assets/img/Todo.svg"
+import Profile from "../assets/img/Profile.svg"
 
 export default function Navigation() {
   return (
     <NavBar>
-      <div>WIKINITY</div>
-      <div>
-        <Link to="/#">MAIN</Link>
-        <Link to="/#">WIKI</Link>
-        <Link to="/#">NOTICE</Link>
-        <Link to="/#">PROJECT</Link>
-        <Link to="/#">JOURNAL</Link>
-      </div>
-      <div>
-        <img src="" alt="" />
-        <img src="" alt="" />
-        <img src="" alt="" />
-      </div>
+      <NavTitle>WIKINITY</NavTitle>
+      <NavCategoryBox>
+        <NavCategoryLink to="/">MAIN</NavCategoryLink>
+        <NavCategoryLink to="/wiki">WIKI</NavCategoryLink>
+        <NavCategoryLink to="/notice">NOTICE</NavCategoryLink>
+        <NavCategoryLink to="/project">PROJECT</NavCategoryLink>
+        <NavCategoryLink to="/#">JOURNAL</NavCategoryLink>
+      </NavCategoryBox>
+      <NavModalBox>
+        <img src={Calendar} alt="calendar" />
+        <img src={Todo} alt="todo" />
+        <img src={Profile} alt="profile" />
+      </NavModalBox>
     </NavBar>
   )
 }

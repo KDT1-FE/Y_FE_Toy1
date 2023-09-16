@@ -31,14 +31,18 @@ function NoticeDetail() {
         <S.DateAndActionsWrapper>
           <S.Date>작성일자: {noticeData?.createAt}</S.Date>
           <S.ActionsWrapper>
-            <S.EditBtn>수정</S.EditBtn>
+            <S.EditBtn>
+              <Link to={`/notice/${noticeId}/edit`}>수정</Link>
+            </S.EditBtn>
             <S.DeleteBtn>삭제</S.DeleteBtn>
           </S.ActionsWrapper>
         </S.DateAndActionsWrapper>
       </S.Header>
       <S.Underline />
       <S.Body>
-        <S.Image src={noticeData?.imageUrl} alt={noticeData?.imageUrl} />
+        <S.ImageWrapper>
+          <S.Image src={noticeData?.imageUrl} alt={noticeData?.imageUrl} />
+        </S.ImageWrapper>
         <S.Contents>{noticeData?.contents}</S.Contents>
       </S.Body>
       <S.MoveToListBtn>

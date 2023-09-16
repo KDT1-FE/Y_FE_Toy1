@@ -4,7 +4,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
 import { auth, db } from '../../firebaseSDK'
-import CreateAccountLayout from '../../styled/LoginPage/CreateAccount'
+import { CreateAccountApproveBox, CreateAccountApproveCheck, CreateAccountBtn, CreateAccountInput, CreateAccountInputTitle, CreateAccountLayout, CreateAccountSelect, CreateAccountSelectBox, CreateAccountTitle } from '../../styled/LoginPage/CreateAccount'
 
 function CreateAccount() {
   const navigate = useNavigate()
@@ -51,36 +51,36 @@ function CreateAccount() {
 
   return (
     <CreateAccountLayout>
-      <h2>회원가입</h2>
+      <CreateAccountTitle>회원가입</CreateAccountTitle>
       <div>
-        <p>이름</p>
-        <input onChange={handleFormChange} name='name' type="text" value={form.name} />
+        <CreateAccountInputTitle>이름</CreateAccountInputTitle>
+        <CreateAccountInput onChange={handleFormChange} name='name' type="text" value={form.name} />
       </div>
       <div>
-        <p>이메일</p>
-        <input onChange={handleFormChange} name='email' type="text" value={form.email} />
+        <CreateAccountInputTitle>이메일</CreateAccountInputTitle>
+        <CreateAccountInput onChange={handleFormChange} name='email' type="text" value={form.email} />
       </div>
       <div>
-        <p>비밀번호</p>
-        <input onChange={handleFormChange} name='password' type="text" value={form.password} />
+        <CreateAccountInputTitle>비밀번호</CreateAccountInputTitle>
+        <CreateAccountInput onChange={handleFormChange} name='password' type="text" value={form.password} />
       </div>
       <div>
-        <p>전화번호</p>
-        <input onChange={handleFormChange} name='phone' type="text" value={form.phone} />
+        <CreateAccountInputTitle>전화번호</CreateAccountInputTitle>
+        <CreateAccountInput onChange={handleFormChange} name='phone' type="text" value={form.phone} />
       </div>
-      <div>
+      <CreateAccountSelectBox>
         <p>직급</p>
-        <select onChange={handleFormChange} name="position" id="1" value={form.position}>
+        <CreateAccountSelect onChange={handleFormChange} name="position" id="1" value={form.position}>
           <option value="이사">이사</option>
           <option value="과장">과장</option>
           <option value="사원">사원</option>
-        </select>
-      </div>
-      <div>
-        <input onChange={handleCheckboxChange} type="checkbox" name='approve' checked={form.approve} />
+        </CreateAccountSelect>
+      </CreateAccountSelectBox>
+      <CreateAccountApproveBox>
+        <CreateAccountApproveCheck onChange={handleCheckboxChange} type="checkbox" name='approve' checked={form.approve} />
         <span>이용약관 개인정보 수집 및 정보이용에 동의합니다.</span>
-      </div>
-      <button onClick={handleButtonClick} type='button' >가입하기</button>
+      </CreateAccountApproveBox>
+      <CreateAccountBtn onClick={handleButtonClick} type='button' >가입하기</CreateAccountBtn>
     </CreateAccountLayout>
   )
 }
