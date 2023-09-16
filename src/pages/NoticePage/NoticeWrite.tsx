@@ -85,6 +85,7 @@ function NoticeWrite({ isEdit, data }: any) {
           subject,
           contents,
           imageUrl,
+          imageName,
           createAt: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
         });
       }
@@ -140,7 +141,7 @@ function NoticeWrite({ isEdit, data }: any) {
         <S.Label>사진첨부</S.Label>
 
         <S.ImageWrapper>
-          <S.ImageName type='text' value={imageName} readOnly />
+          <S.ImageName type='text' value={data?.imageName ?? imageName} readOnly />
           <S.ImageLabel htmlFor='input-file'>
             업로드
             <S.ImageUpload id='input-file' type='file' onChange={onChangeImage} />
@@ -151,7 +152,9 @@ function NoticeWrite({ isEdit, data }: any) {
         <S.SubmitBtn type='button' onClick={onClickSubmit}>
           {isEdit ? '수정' : '등록'}
         </S.SubmitBtn>
-        <S.CancelBtn type='button'>취소</S.CancelBtn>
+        <S.CancelBtn type='button' onClick={() => navigate(-1)}>
+          취소
+        </S.CancelBtn>
       </S.BtnWrapper>
     </S.Wrapper>
   );
