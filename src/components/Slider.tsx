@@ -1,17 +1,17 @@
 import React from 'react';
 
-interface SlideText {
+interface ISlideText {
   text: string;
   style: React.CSSProperties;
 }
 
-interface SlideProps {
+interface ISlideProps {
   backgroundColor: string;
-  text: SlideText[];
+  text: ISlideText[];
   imageSrc: string;
 }
 
-const Slide: React.FC<SlideProps> = ({ backgroundColor, text, imageSrc }) => {
+const Slide: React.FC<ISlideProps> = ({ backgroundColor, text, imageSrc }) => {
   const slideStyle = {
     backgroundColor: backgroundColor,
   };
@@ -27,7 +27,7 @@ const Slide: React.FC<SlideProps> = ({ backgroundColor, text, imageSrc }) => {
                   ...textItem.style,
                   backgroundColor: textItem.style.backgroundColor,
                   display: 'inline-block', // 텍스트 세로 정렬을 위해 추가
-                  marginBottom: '40px', 
+                  marginBottom: '40px',
                 }}
               >
                 {textItem.text}
