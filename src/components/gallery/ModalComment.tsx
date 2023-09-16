@@ -9,10 +9,14 @@ interface Props {
   imgId: string;
   categoryId: string;
   commentsListData?: string[];
+  userId: string;
+  nickName: string;
 }
 // Modal 댓글창
 
 export function ModalComment({
+  userId,
+  nickName,
   image,
   imgId,
   categoryId,
@@ -32,22 +36,22 @@ export function ModalComment({
     e.preventDefault();
     if (comment !== '') {
       const newCommentList: any = [...commentList, comment];
-      setCommentList(newCommentList);
-      uploadCommentList(commentList, imgId, categoryId);
+      setCommentList(newCommentList); //새 배열에 comment저장 후 set
+      uploadCommentList(commentList, imgId, categoryId); //DB에 배열저장
       alert('Success! 저장에 성공했습니다.');
     } else if (comment == '') {
       alert(' Fail! 입력칸에 내용을  입력해주세요.');
     }
     //location.reload();
     setComment('');
-    console.log(comment);
-    console.log(commentList);
+    console.log('현재 입력 제출된 comment 값 : ', comment);
+    console.log('현재 DB에 저장되어 있는 commentList 값 : ', commentList);
   };
 
   return (
     <div>
       <h2>{categoryId}</h2>
-      <h3>자유롭게 대화해 보세요!</h3>
+      <h3>작성자 {nickName}</h3>
 
       <div className="imageView">
         <img src={image} alt={image} />

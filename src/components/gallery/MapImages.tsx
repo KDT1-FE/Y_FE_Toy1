@@ -1,7 +1,13 @@
 import React, { useRef } from 'react';
 import { ModalComment } from './ModalComment';
 
-export function MapImages({ image, categoryId, commentsListData }: any) {
+export function MapImages({
+  userId,
+  nickName,
+  image,
+  categoryId,
+  commentsListData,
+}: any) {
   const modalRef: any = useRef();
 
   return (
@@ -22,11 +28,19 @@ export function MapImages({ image, categoryId, commentsListData }: any) {
             imgId={image.id}
             categoryId={categoryId}
             commentsListData={commentsListData}
+            userId={userId}
+            nickName={nickName}
           />
 
           <button
             type="button"
-            onClick={() => modalRef.current?.close()} // 📍 모달 닫기
+            onClick={() => {
+              try {
+                modalRef.current?.close();
+              } catch {
+                console.error();
+              }
+            }} // 📍 모달 닫기
           >
             Close
           </button>

@@ -37,6 +37,8 @@ export function Swiper({ categoryId }: Props) {
             image={image}
             commentsListData={image.comments}
             categoryId={categoryId}
+            userId={image.uid}
+            nickName={image.nickname}
           />
         ))}
       </div>

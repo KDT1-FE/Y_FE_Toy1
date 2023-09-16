@@ -1,6 +1,7 @@
 import { storage, db } from './firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { addDoc, doc, setDoc, getDocs, collection } from 'firebase/firestore';
+import { userId, userNickname } from 'pages/Gallery';
 
 // 이미지 storage와 db에 업로드
 async function UploadImage(selected, file) {
@@ -15,6 +16,8 @@ async function UploadImage(selected, file) {
           timestamp: new Date(),
           category: selected,
           comments: ['테스트'],
+          uid: userId,
+          nickname: userNickname,
         });
       });
     });
@@ -38,6 +41,8 @@ async function getImageData(categoryId) {
         image: doc.data().imgUrl,
         timestamp: doc.data().timestamp,
         comments: doc.data().comments,
+        uid: doc.data().uid,
+        nickname: doc.data().nickname,
       });
     });
     return rowImages;
