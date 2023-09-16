@@ -63,7 +63,7 @@ export const createChannelDoc = async (collectionName: string, documentName: str
         throw error;
     }
 };
-
+// user의 타임로그 배열 형태로 저장
 export const createTimelog = async (collectionName: string, documentName: string, currentTime: string) => {
     const value = currentTime;
     const documentRef = doc(firestore, collectionName, documentName);

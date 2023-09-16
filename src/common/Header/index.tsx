@@ -28,13 +28,14 @@ const Header: React.FC = () => {
             setTimerOn(sessionTimerOn === '1' ? true : false);
             const sessionTimelog = sessionStorage.getItem('timelog');
             setTimeLog(sessionTimelog ? sessionTimelog : '');
+            console.log(userId);
         }
     }, [pathname]);
     // 퇴실버튼을 누르거나 로그아웃 시 firestore에 데이터 전송
     useEffect(() => {
         if (!timerOn) {
             if (timeLog.length > 0) {
-                createTimelog('user', 'asdasd', timeLog);
+                createTimelog('user', userId, timeLog);
                 setTimeLog('');
                 sessionStorage.setItem('timerOn', '0');
                 sessionStorage.setItem('timelog', '');
@@ -70,7 +71,10 @@ const Header: React.FC = () => {
                                     );
                                     setTimerOn(false);
                                 }
-                                logOutHandler();
+                                // 타임로그 기록 전 아이디 정보가 사라지는 것을 막기위해 setTimeout처리
+                                setTimeout(() => {
+                                    logOutHandler();
+                                }, 100);
                             }}
                         >
                             LogOut
