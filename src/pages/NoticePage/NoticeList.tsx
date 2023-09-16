@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { DocumentData } from 'firebase/firestore';
 import * as S from '../../styled/NoticePage/NoticeList.styles';
@@ -6,12 +6,12 @@ import FetchNoticeData from '../../utils/NoticePage/FetchNoticeData';
 import Pagination from '../../components/NoticePage/Pagination';
 
 function NoticeList() {
+  const [keyword, setKeyword] = useState('');
   const [noticeList, setNoticeList] = useState<DocumentData[] | null>([]);
   const [page, setPage] = useState(1);
   const totalPages = Math.ceil((noticeList?.length ?? 10) / 5);
   const startNotice = (page - 1) * 5;
   const currentPageList = noticeList?.slice(startNotice, startNotice + 5);
-
   const navigate = useNavigate();
 
   // 공지사항 전체 가져오기
@@ -24,6 +24,20 @@ function NoticeList() {
     }
   };
 
+  const onChangeKeywords = (event: ChangeEvent<HTMLInputElement>) => {
+    setKeyword(event.target.value);
+  };
+
+  // 검색 함수
+  const onClickSearch = async (): Promise<void> => {
+    const dataList = await FetchNoticeData();
+    const searchList = dataList?.filter((el) => el.subject.includes(keyword));
+    if (searchList !== undefined) setNoticeList(searchList);
+    else setNoticeList(noticeList);
+
+    setPage(1);
+  };
+
   useEffect(() => {
     getNoticeList();
   }, []);
@@ -31,8 +45,10 @@ function NoticeList() {
   return (
     <S.Wrapper>
       <S.SearchDiv>
-        <S.SearchInput type='text' placeholder='공지사항 제목을 입력해주세요.' />
-        <S.SearchButton type='button'>검색하기</S.SearchButton>
+        <S.SearchInput onChange={onChangeKeywords} type='text' placeholder='공지사항 제목을 입력해주세요.' />
+        <S.SearchButton onClick={onClickSearch} type='button'>
+          검색하기
+        </S.SearchButton>
       </S.SearchDiv>
       <S.TableTop> </S.TableTop>
 

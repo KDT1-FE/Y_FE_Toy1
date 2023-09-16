@@ -33,6 +33,8 @@ export const SearchButton = styled.button`
   border: none;
   background-color: #484aad;
   border-radius: 10px;
+
+  cursor: pointer;
 `;
 
 export const TableTop = styled.div`
