@@ -12,6 +12,11 @@ export const SearchDiv = styled.div`
   align-items: center;
 `;
 
+export const SearchWrapper = styled.div`
+  border: 1px solid black;
+  position: relative;
+`;
+
 export const SearchInput = styled.input`
   box-sizing: border-box;
   width: 776px;
@@ -35,6 +40,13 @@ export const SearchButton = styled.button`
   border-radius: 10px;
 
   cursor: pointer;
+`;
+
+export const SearchNoResultMessage = styled.div`
+  text-align: center;
+  height: 52px;
+  line-height: 52px;
+  border-bottom: 1px solid gray;
 `;
 
 export const TableTop = styled.div`
