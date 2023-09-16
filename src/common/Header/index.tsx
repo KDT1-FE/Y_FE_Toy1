@@ -23,6 +23,7 @@ const Header: React.FC = () => {
                 <RightAnchorContainer>
                     <ListAnchor href="/wiki">wiki</ListAnchor>
                     <ListAnchor href="/gallery">gallery</ListAnchor>
+                    <ListAnchor href="/recruitment/study01">recruitment</ListAnchor>
                     {userId ? (
                         <button onClick={logOutHandler}>LogOut</button>
                     ) : (

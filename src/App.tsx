@@ -10,6 +10,7 @@ import LogIn from './pages/LogIn';
 
 import { useRecoilState } from 'recoil';
 import { UserId } from './utils/recoil';
+import RecruitmentDetail from './pages/RecruitmentDetail';
 
 const App: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
@@ -28,6 +29,7 @@ const App: React.FC = () => {
                     <Route path="/gallery" element={<Gallery />}></Route>
                     <Route path="/signin" element={<SignIn />}></Route>
                     <Route path="/login" element={<LogIn />}></Route>
+                    <Route path="/recruitment/study01" element={<RecruitmentDetail />}></Route>
                 </Routes>
             </div>
         </BrowserRouter>
