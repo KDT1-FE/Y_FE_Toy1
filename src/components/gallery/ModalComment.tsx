@@ -1,5 +1,5 @@
-import { uploadCommentList } from 'data/galleryComment';
-import React, { useState } from 'react';
+import { updateLike, uploadCommentList } from 'data/galleryComment';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AddCommentList } from './AddCommentList';
 import { deleteImage, getImageData } from 'data/galleryImage';
@@ -12,6 +12,7 @@ interface Props {
   commentsListData?: string[];
   writerId: string;
   writerName: string;
+  likeData: string;
 }
 // Modal 댓글창
 
@@ -22,11 +23,13 @@ export function ModalComment({
   imgId,
   categoryId,
   commentsListData,
+  likeData,
 }: Props) {
-  const navigate = useNavigate();
   const [like, setLike] = useState(0);
   const [comment, setComment]: any = useState();
   const [commentList, setCommentList] = useState(['테스트입니다.']);
+
+  const modalRef: any = useRef();
 
   //댓글 저장
   const handleComments = (e: any) => {
@@ -39,7 +42,7 @@ export function ModalComment({
     if (comment !== '') {
       const newCommentList: any = [...commentList, comment];
       setCommentList(newCommentList); //새 배열에 comment저장 후 set
-      uploadCommentList(commentList, imgId, categoryId); //DB에 배열저장
+      uploadCommentList(commentList, imgId, categoryId, like); //DB에 배열저장
       alert('Success! 저장에 성공했습니다.');
     } else if (comment == '') {
       alert(' Fail! 입력칸에 내용을  입력해주세요.');
@@ -63,6 +66,17 @@ export function ModalComment({
     }
   }
 
+  async function handleLike(e: any) {
+    e.preventDefault();
+    await setLike(like + 1);
+    updateLike(imgId, categoryId, like);
+    console.log(like);
+  }
+
+  React.useEffect(() => {
+    setLike(Number(likeData));
+  }, []);
+
   return (
     <div>
       <div className="header">
@@ -76,7 +90,7 @@ export function ModalComment({
       <div className="imageView">
         <img src={image} alt={image} />
         <h3>
-          <span onClick={() => setLike(like + 1)}>♥</span>
+          <span onClick={handleLike}>♥</span>
           {like}
         </h3>
       </div>

@@ -7,6 +7,7 @@ export function MapImages({
   image,
   categoryId,
   commentsListData,
+  like,
 }: any) {
   const modalRef: any = useRef();
 
@@ -30,6 +31,7 @@ export function MapImages({
             commentsListData={commentsListData}
             writerId={userId}
             writerName={nickName}
+            likeData={like}
           />
 
           <button

@@ -15,28 +15,19 @@ import { userId, userNickname } from 'pages/Gallery';
 
 // 댓글 업로드
 
-const uploadCommentList = (data, imgId, categoryId) => {
+const uploadCommentList = (data, imgId, categoryId, like) => {
   const commentRef = doc(db, categoryId, imgId);
   updateDoc(commentRef, {
     comments: data,
+    like: like,
   });
 };
 
-export { uploadCommentList };
-
-// 댓글 다운로드
-// export async function getCommentList(imgId, categoryId) {
-//   const querySnapshot = await getDoc(doc(db, categoryId, imgId));
-//   let commentsData = [];
-//   try {
-//     querySnapshot.forEach((doc) => {
-//       commentsData.push({
-//         comments: doc.data().comments,
-//       });
-//     });
-//     return commentsData;
-//   } catch (error) {
-//     console.error();
-//   }
-//   return;
-// }
+// like 업데이트
+const updateLike = (imgId, categoryId, like) => {
+  const likeRef = doc(db, categoryId, imgId);
+  updateDoc(likeRef, {
+    like: like,
+  });
+};
+export { uploadCommentList, updateLike };

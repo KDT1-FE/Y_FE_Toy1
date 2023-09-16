@@ -30,6 +30,7 @@ async function UploadImage(selected, file) {
           comments: ['테스트'],
           uid: userId,
           nickname: userNickname,
+          like: 0,
         });
       });
     });
@@ -55,6 +56,7 @@ async function getImageData(categoryId) {
         comments: doc.data().comments,
         uid: doc.data().uid,
         nickname: doc.data().nickname,
+        like: doc.data().like,
       });
     });
     return rowImages;
