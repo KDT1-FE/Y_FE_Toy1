@@ -22,6 +22,7 @@
       { "namedComponents": ["arrow-function", "function-declaration"] }
     ],
     "react/button-has-type": "off",
-    "react/no-array-index-key": "off"
+    "react/no-array-index-key": "off",
+    "import/prefer-default-export": "off" // 에러 무시
   }
 }

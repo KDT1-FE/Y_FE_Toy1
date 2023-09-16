@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { DocumentData, doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebaseSDK";
 
 const ProjectDetail: React.FC = () => {
   const [project, setProject] = useState<DocumentData | undefined>({});
   const { projectId } = useParams<{ projectId: string }>(); // RouteParams로 변경
+  const navigate = useNavigate();
 
   // 프로젝트 정보 가져오기 함수
   const FetchProjectData = async (): Promise<void> => {
@@ -28,13 +29,14 @@ const ProjectDetail: React.FC = () => {
       <h2>프로젝트 상세 정보</h2>
       {project ? (
         <div>
+          <button>수정</button>
+          <button>삭제</button>
           <h3>{project.projectTitle}</h3>
           <p>{project.projectContent}</p>
           <p>팀명: {project.projectTeamName}</p>
           <p>참여 인원: {project.projectMember}</p>
           <p>마감일: {project.projectDeadline}</p>
-          <button>수정</button>
-          <button>삭제</button>
+          <button onClick={() => navigate(`/projectList`)}>목록으로</button>
         </div>
       ) : (
         <p>프로젝트 정보를 불러오는 중...</p>
