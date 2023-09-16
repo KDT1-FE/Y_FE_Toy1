@@ -1,7 +1,7 @@
 import {doc, getDoc} from "firebase/firestore";
 import {db} from "../../utils/firebaseConfig";
 
-async function ReadContent(dataKey: string): Promise<any> {
+async function ReadWiki(dataKey: string): Promise<any> {
   const wikiRef = doc(db, "wiki", dataKey);
   const wikiSnap = await getDoc(wikiRef);
   const wiki = wikiSnap.data();
@@ -9,4 +9,4 @@ async function ReadContent(dataKey: string): Promise<any> {
   return wiki;
 }
 
-export default ReadContent;
+export default ReadWiki;
