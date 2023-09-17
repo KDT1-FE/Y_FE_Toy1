@@ -24,7 +24,7 @@ export default function Navigation() {
   const categories = [['MAIN', ''], ['WIKI', 'wiki'], ['NOTICE', 'notice'], ['PROJECT', 'projectlist'], ['journal', 'journal']]
   const NavCategories = categories.map((arr) => {
     if (arr[1] === currentCategory) {
-      return <NavCategoryCurrentLink to={arr[1]}>{arr[0]}</NavCategoryCurrentLink>
+      return <NavCategoryCurrentLink key={arr[0]} to={arr[1]}>{arr[0]}</NavCategoryCurrentLink>
     }
     return <NavCategoryLink key={arr[0]} to={arr[1]}>{arr[0]}</NavCategoryLink>
   })
