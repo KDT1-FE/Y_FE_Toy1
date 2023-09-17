@@ -158,3 +158,20 @@ export const updateFieldKeyInDoc = async (
         throw error;
     }
 };
+
+export const getRecruitmentDetail = async (channel: string, path: string) => {
+    const docRef = doc(firestore, 'recruitmentContainer', 'recruitment', channel, path);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        console.log('Document data:', docSnap.data());
+        const userDocRef = doc(firestore, 'user', docSnap.data().uid);
+        const userDocSnap = await getDoc(userDocRef);
+        console.log(userDocSnap.data());
+        const data = { ...docSnap.data(), ...userDocSnap.data() };
+        return data;
+    } else {
+        // docSnap.data() will be undefined in this case
+        console.log('No such document!');
+    }
+};
