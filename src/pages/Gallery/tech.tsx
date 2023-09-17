@@ -1,147 +1,123 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import ModalT from './UploadModal/ModalT';
+import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
+import { ref, deleteObject } from 'firebase/storage';
+import { firestore, storage } from '../../utils/firebase';
 
-interface ListItem {
-    id: number; // 이미지의 고유 ID
-    emoji: JSX.Element;
-    name: string;
-}
+const Tech: React.FC = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [articleTs, setArticleTs] = useState<any[]>([]);
+    const storeRef = doc(firestore, 'gallery', '레퍼런스 공유');
 
-interface DragAndDropState {
-    draggedFrom: number | null;
-    draggedTo: number | null;
-    isDragging: boolean;
-    originalOrder: ListItem[];
-    updatedOrder: ListItem[];
-}
-
-function DragAndDropList() {
-    const [dragAndDrop, setDragAndDrop] = useState<DragAndDropState>({
-        draggedFrom: null,
-        draggedTo: null,
-        isDragging: false,
-        originalOrder: [],
-        updatedOrder: [],
-    });
-
-    const [list, setList] = useState<ListItem[]>([]);
-
-    const onDragStart = (event: React.DragEvent<HTMLLIElement>, position: number) => {
-        event.currentTarget.style.opacity = '0.4';
-        setDragAndDrop({
-            ...dragAndDrop,
-            draggedFrom: position,
-            originalOrder: list,
-        });
+    const openModal = () => {
+        setIsModalOpen(true);
     };
 
-    const onDragOver = (event: React.DragEvent<HTMLLIElement>, position: number) => {
-        event.preventDefault();
-        let newList = dragAndDrop.originalOrder;
-        const draggedFrom = dragAndDrop.draggedFrom!;
-        const draggedTo = position;
-        const itemDragged = newList[draggedFrom];
-        const remainingItems = newList.filter((item, index) => index !== draggedFrom);
-        newList = [...remainingItems.slice(0, draggedTo), itemDragged, ...remainingItems.slice(draggedTo)];
-        newList = newList.map((item, index) => ({ ...item, id: index })); // 인덱스 업데이트
-        if (draggedTo !== dragAndDrop.draggedTo) {
-            setDragAndDrop({
-                ...dragAndDrop,
-                updatedOrder: newList,
-                draggedTo: draggedTo,
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+    const handleDragEnd = async (result: any) => {
+        if (result.destination && result.destination.droppableId === 'trashCan') {
+            const itemToDelete = articleTs[result.source.index];
+
+            // Firestore에서 해당 요소 삭제
+            const updatedArticleTs = [...articleTs];
+            updatedArticleTs.splice(result.source.index, 1);
+            await updateDoc(storeRef, {
+                '취업.articleT': updatedArticleTs,
+            });
+
+            // Storage에서 이미지 파일 삭제
+            const imageRef = ref(storage, `thumbnailT/${itemToDelete.index}`);
+            await deleteObject(imageRef);
+
+            // 상태 업데이트
+            setArticleTs(updatedArticleTs);
+            return;
+        }
+
+        // 기존 드래그 앤 드롭 로직 (항목의 순서 변경)
+        if (result.destination) {
+            const newArticleRs = [...articleTs];
+            const [reorderedItem] = newArticleRs.splice(result.source.index, 1);
+            newArticleRs.splice(result.destination.index, 0, reorderedItem);
+
+            await updateDoc(storeRef, {
+                '취업.articleT': newArticleRs,
             });
         }
     };
-
-    const onDrop = () => {
-        setList(dragAndDrop.updatedOrder);
-        setDragAndDrop({
-            ...dragAndDrop,
-            draggedFrom: null,
-            draggedTo: null,
+    useEffect(() => {
+        const unsubscribe = onSnapshot(storeRef, (docSnapshot) => {
+            if (docSnapshot.exists()) {
+                const data = docSnapshot.data();
+                const articleTData = data?.테크?.articleT || [];
+                setArticleTs(articleTData);
+            } else {
+                console.log('Document does not exist.');
+            }
         });
-    };
 
-    const onDragLeave = (event: React.DragEvent<HTMLLIElement>) => {
-        event.currentTarget.classList.remove('over');
-        setDragAndDrop({
-            ...dragAndDrop,
-            draggedTo: null,
-        });
-    };
-
-    const onDragEnter = (event: React.DragEvent<HTMLLIElement>) => {
-        event.currentTarget.classList.add('over');
-    };
-
-    const onDragEnd = (event: React.DragEvent<HTMLLIElement>) => {
-        event.currentTarget.style.opacity = '1';
-        const listItems = document.querySelectorAll('.draggable');
-        listItems.forEach((item) => {
-            item.classList.remove('over');
-        });
-    };
-
-    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const files = event.target.files;
-        if (files) {
-            const newImages = Array.from(files).map((file) => {
-                return {
-                    id: list.length, // 새 이미지에 고유 ID 부여
-                    emoji: <img src={URL.createObjectURL(file)} alt={file.name} />,
-                    name: file.name,
-                };
-            });
-            setList([...list, ...newImages]);
-        }
-    };
-
-    const handleTrashDrop = (event: React.DragEvent<HTMLDivElement>) => {
-        event.preventDefault();
-        const imageIndex = dragAndDrop.draggedFrom;
-        if (imageIndex !== null) {
-            const updatedList = list.filter((_, index) => index !== imageIndex);
-            setList(updatedList);
-            setDragAndDrop({
-                ...dragAndDrop,
-                draggedFrom: null,
-                draggedTo: null,
-            });
-        }
-    };
+        return () => {
+            unsubscribe();
+        };
+    }, []);
 
     return (
-        <div>
-            <input type="file" accept="image/*" onChange={handleFileUpload} />
-            <div className="trash-can" onDragOver={(e) => e.preventDefault()} onDrop={handleTrashDrop}>
-                🗑️
+        <>
+            <div>
+                <button onClick={openModal}>업로드</button>
+                {isModalOpen && <ModalT onClose={closeModal} />}
             </div>
-            <ul>
-                {list.map((item, index) => {
-                    return (
-                        <li
-                            style={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            }}
-                            className="draggable"
-                            key={item.id} // 이미지의 고유 ID를 키로 사용
-                            draggable={true}
-                            data-position={item.id} // 이미지의 고유 ID를 포지션으로 사용
-                            onDragStart={(e) => onDragStart(e, item.id)}
-                            onDragOver={(e) => onDragOver(e, item.id)}
-                            onDragLeave={onDragLeave}
-                            onDrop={onDrop}
-                            onDragEnter={onDragEnter}
-                            onDragEnd={onDragEnd}
-                        >
-                            {item.emoji}
-                        </li>
-                    );
-                })}
-            </ul>
-        </div>
+            <DragDropContext onDragEnd={handleDragEnd}>
+                <Droppable droppableId="trashCan">
+                    {(provided) => (
+                        <div ref={provided.innerRef} {...provided.droppableProps} className="trash-can">
+                            🗑️
+                            {provided.placeholder}
+                        </div>
+                    )}
+                </Droppable>
+                <Droppable droppableId="yourDroppableId">
+                    {(
+                        provided,
+                        // 하나의 자식 함수로 변경
+                    ) => (
+                        <div ref={provided.innerRef} {...provided.droppableProps}>
+                            {articleTs.map((articleT, index) => (
+                                <Draggable
+                                    key={articleT.index.toString()}
+                                    draggableId={articleT.index.toString()}
+                                    index={index}
+                                >
+                                    {(provided) => (
+                                        <div
+                                            ref={provided.innerRef}
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
+                                        >
+                                            {/* 요소 내용 */}
+                                            <a
+                                                href={articleT.recruitURL}
+                                                key={articleT.index}
+                                                id={articleT.index}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                <img src={articleT.thumbnailURL} alt={`article ${articleT.index}`} />
+                                            </a>
+                                        </div>
+                                    )}
+                                </Draggable>
+                            ))}
+                            {provided.placeholder}
+                        </div>
+                    )}
+                </Droppable>
+            </DragDropContext>
+        </>
     );
-}
+};
 
-export default DragAndDropList;
+export default Tech;

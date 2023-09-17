@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Modal from './UploadModal/Modal';
 import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
-import { firestore } from '../../utils/firebase';
+import { ref, deleteObject } from 'firebase/storage';
+import { firestore, storage } from '../../utils/firebase';
 
 const Recruit: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,25 +17,37 @@ const Recruit: React.FC = () => {
     const closeModal = () => {
         setIsModalOpen(false);
     };
-
     const handleDragEnd = async (result: any) => {
-        if (!result.destination) {
+        if (result.destination && result.destination.droppableId === 'trashCan') {
+            const itemToDelete = articleRs[result.source.index];
+
+            // Firestore에서 해당 요소 삭제
+            const updatedArticleRs = [...articleRs];
+            updatedArticleRs.splice(result.source.index, 1);
+            await updateDoc(storeRef, {
+                '취업.articleR': updatedArticleRs,
+            });
+
+            // Storage에서 이미지 파일 삭제
+            const imageRef = ref(storage, `thumbnailR/${itemToDelete.index}`);
+            await deleteObject(imageRef);
+
+            // 상태 업데이트
+            setArticleRs(updatedArticleRs);
             return;
         }
 
-        const newArticleRs = [...articleRs];
-        const [reorderedItem] = newArticleRs.splice(result.source.index, 1);
-        newArticleRs.splice(result.destination.index, 0, reorderedItem);
+        // 기존 드래그 앤 드롭 로직 (항목의 순서 변경)
+        if (result.destination) {
+            const newArticleRs = [...articleRs];
+            const [reorderedItem] = newArticleRs.splice(result.source.index, 1);
+            newArticleRs.splice(result.destination.index, 0, reorderedItem);
 
-        try {
             await updateDoc(storeRef, {
                 '취업.articleR': newArticleRs,
             });
-        } catch (error) {
-            console.error('Error updating data:', error);
         }
     };
-
     useEffect(() => {
         const unsubscribe = onSnapshot(storeRef, (docSnapshot) => {
             if (docSnapshot.exists()) {
@@ -58,6 +71,14 @@ const Recruit: React.FC = () => {
                 {isModalOpen && <Modal onClose={closeModal} />}
             </div>
             <DragDropContext onDragEnd={handleDragEnd}>
+                <Droppable droppableId="trashCan">
+                    {(provided) => (
+                        <div ref={provided.innerRef} {...provided.droppableProps} className="trash-can">
+                            🗑️
+                            {provided.placeholder}
+                        </div>
+                    )}
+                </Droppable>
                 <Droppable droppableId="yourDroppableId">
                     {(
                         provided,
