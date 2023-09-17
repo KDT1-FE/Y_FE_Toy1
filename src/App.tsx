@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Wiki from "./pages/WikiPage/Wiki";
 import WikiWrite from "./pages/WikiPage/WikiWrite";
-import ItemContent from "./pages/WikiPage/ItemContent";
+import WikiItem from "./pages/WikiPage/WikiItem";
 import WikiEdit from "./pages/WikiPage/WikiEdit";
 import Login from "./pages/LoginPage/Login";
 import SignUp from "./pages/LoginPage/SignUp";
@@ -40,7 +40,7 @@ function App() {
         <Route path="/projectlist" element={<ProjectList />} />
         <Route path="/wiki" element={<Wiki />} />
         <Route path="/wiki/write" element={<WikiWrite />} />
-        <Route path="/wiki/content" element={<ItemContent />} />
+        <Route path="/wiki/content" element={<WikiItem />} />
         <Route path="/wiki/edit" element={<WikiEdit />} />
       </Route>
     </Routes>
