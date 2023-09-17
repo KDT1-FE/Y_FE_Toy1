@@ -21,7 +21,7 @@ const ProjectEdit: React.FC = () => {
     projectTitle: "",
     projectContent: "",
   });
-  const firstInputRef = useRef<HTMLInputElement | null>(null); // Ref 생성
+  const firstInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const fetchProjectData = async () => {
@@ -31,7 +31,6 @@ const ProjectEdit: React.FC = () => {
         if (docSnap.exists()) {
           setProjectData(docSnap.data() as any);
         } else {
-          // Handle the case where the project with the given ID doesn't exist
           console.log("Project not found.");
         }
       } catch (error) {
@@ -61,7 +60,6 @@ const ProjectEdit: React.FC = () => {
       const projectRef = doc(db, "project", String(projectId));
       await updateDoc(projectRef, projectData);
 
-      // Redirect to the project details page after the update
       navigate(`/project/${projectId}`);
     } catch (error) {
       console.error("Error updating project: ", error);
@@ -76,7 +74,7 @@ const ProjectEdit: React.FC = () => {
           <Submit type="submit">저장</Submit>
         </form>
       </WriteDiv>
-      {/* Render form inputs with existing project data */}
+
       <div>
         <WriteInput
           type="text"

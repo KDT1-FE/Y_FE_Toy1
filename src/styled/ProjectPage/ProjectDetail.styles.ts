@@ -12,6 +12,7 @@ export const Container = styled.div`
 export const TeamName = styled.h2`
   font-size: 40px;
   font-weight: bold;
+  font-family: RobotoMono;
 `;
 
 export const DivContainer = styled.div`
@@ -27,19 +28,23 @@ export const Date = styled.p`
   font-size: 20px;
   margin-left: 20px;
   padding: 10px;
+  font-family: RobotoMono;
 `;
 
 export const DetailTitle = styled.h3`
   font-size: 40px;
   color: #484aad;
   margin: 50px 0 0 20px;
+  font-family: RobotoMono;
 `;
+
 export const DetailContent = styled.p`
   font-size: 15px;
   margin: 20px 0 0 20px;
   border: 1px solid #484aad;
   height: 300px;
   padding: 20px;
+  font-family: RobotoMono;
 `;
 
 export const ListBtn = styled.button`
@@ -58,13 +63,16 @@ export const ListBtn = styled.button`
 export const UpdateDiv = styled.div`
   margin-right: 20px;
   cursor: pointer; /* 마우스 커서를 포인터 모양으로 지정 */
+  font-family: RobotoMono;
 `;
 export const DeleteDiv = styled.div`
   color: red;
   cursor: pointer; /* 마우스 커서를 포인터 모양으로 지정 */
+  font-family: RobotoMono;
 `;
 
 export const BtnDiv = styled.div`
   display: flex;
   margin-right: 10px;
+  font-family: RobotoMono;
 `;

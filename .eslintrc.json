@@ -23,6 +23,8 @@
     ],
     "react/button-has-type": "off",
     "react/no-array-index-key": "off",
-    "import/prefer-default-export": "off" // 에러 무시
+    "import/prefer-default-export": "off", // 에러 무시
+    "no-alert": "off",
+    "react/no-array-index-key": "off"
   }
 }

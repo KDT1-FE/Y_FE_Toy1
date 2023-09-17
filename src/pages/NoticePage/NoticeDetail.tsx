@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { DocumentData, doc, getDoc } from "firebase/firestore";
-import { Link, useParams } from "react-router-dom";
-import { db } from "../../firebaseSDK";
+import { DocumentData, deleteDoc, doc, getDoc } from "firebase/firestore";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { deleteObject, ref } from "firebase/storage";
+import { db, storage } from "../../firebaseSDK";
 import * as S from "../../styled/NoticePage/NoticeDetail.styles";
 
 function NoticeDetail() {
   const [noticeData, setNoticeData] = useState<DocumentData | undefined>({});
   const { noticeId } = useParams();
+  const navigate = useNavigate();
 
   // 공지사항 정보 가져오기 함수
-  const FetchNoticeData = async (): Promise<void> => {
+  const getNoticeData = async (): Promise<void> => {
     try {
       const docRef = doc(db, "notice", String(noticeId));
       const docSnap = (await getDoc(docRef)).data();
@@ -20,8 +22,22 @@ function NoticeDetail() {
     }
   };
 
+  // 공지사항 삭제 함수
+  const onClickDeleteData = async (): Promise<void> => {
+    try {
+      const desertRef = ref(storage, `notice/${noticeData?.imageName}`);
+      await deleteObject(desertRef);
+      await deleteDoc(doc(db, "notice", String(noticeId)));
+      alert("삭제되었습니다!");
+    } catch (error) {
+      console.log("Error: ", error);
+    } finally {
+      navigate("/notice");
+    }
+  };
+
   useEffect(() => {
-    FetchNoticeData();
+    getNoticeData();
   }, []);
 
   return (
@@ -34,7 +50,7 @@ function NoticeDetail() {
             <S.EditBtn>
               <Link to={`/notice/${noticeId}/edit`}>수정</Link>
             </S.EditBtn>
-            <S.DeleteBtn>삭제</S.DeleteBtn>
+            <S.DeleteBtn onClick={onClickDeleteData}>삭제</S.DeleteBtn>
           </S.ActionsWrapper>
         </S.DateAndActionsWrapper>
       </S.Header>
