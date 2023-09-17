@@ -1,5 +1,8 @@
+// import Lottie from 'lottie-react';
+import batteryLottie from 'assets/lottieJSON/battery.json';
 import About from 'components/About';
 import Carousel from 'components/Carousel';
+import MainLottie from 'components/Common/MainLottie';
 import styled from 'styled-components';
 
 function Main() {
@@ -21,6 +24,10 @@ function Main() {
         </StyledTitleTextBox>
         <About />
       </StyledAboutContainer>
+      <StyledBottomWrapper>
+        <div>Clock Component</div>
+        <MainLottie lottieData={batteryLottie} width={200} height={200} />
+      </StyledBottomWrapper>
     </>
   );
 }
@@ -70,6 +77,11 @@ const StyledAboutContainer = styled.div`
   flex-direction: column;
   margin: 0 auto;
   margin-top: 6rem;
+`;
+
+const StyledBottomWrapper = styled.div`
+  width: 60rem;
+  margin: 0 auto;
 `;
 
 export default Main;

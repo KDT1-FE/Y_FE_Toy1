@@ -2,17 +2,34 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import ReactModal from 'react-modal';
 import closeButton from '../../assets/icons/closeButton.svg';
+import { addFirestore, addStorage } from 'apis/Gallery';
+import { useLocation, Link } from 'react-router-dom';
 
 function UploadGallery() {
   const [modalOpen, setModalOpen] = useState(false);
   const [preview, setPreview] = useState<string | ArrayBuffer | null>('');
+  const [imageURL, setImageURL] = useState<string>('');
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const selectedCategory = searchParams.get('category');
+  const url = `/gallery?category=${selectedCategory}`;
 
   const closeModal = () => {
     setModalOpen(false);
     setPreview(null);
   };
 
-  const handleChangeImg = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeImg = (
+    event: React.ChangeEvent<HTMLInputElement & EventTarget>,
+  ) => {
+    event.preventDefault();
+    const file = event.target.files;
+    console.log('file: ', file);
+    if (!file) return null;
+
+    addStorage(file, setImageURL);
+
     if (event.target.files !== null) {
       const file = event.target.files[0];
       const reader = new FileReader();
@@ -31,6 +48,7 @@ function UploadGallery() {
       return;
     }
     closeModal();
+    addFirestore(imageURL, selectedCategory as string);
   };
 
   return (
@@ -51,13 +69,13 @@ function UploadGallery() {
           onClick={closeModal}
         ></StyledCloseImg>
         <StyledContainer>
-          <StyledImgContainer>
+          <StyledPreviewContainer>
             {preview ? (
               <StyledUploadImg src={preview as string}></StyledUploadImg>
             ) : (
               <StyledImgText>⚠️ 파일을 업로드 해주세요</StyledImgText>
             )}
-          </StyledImgContainer>
+          </StyledPreviewContainer>
           <StyledButtonContainer>
             <StyledContainerInput>
               <label htmlFor="ex_file">
@@ -65,7 +83,10 @@ function UploadGallery() {
               </label>
               <input type="file" id="ex_file" onChange={handleChangeImg} />
             </StyledContainerInput>
-            <StyledImgAdd onClick={imgRegister}>사진 등록</StyledImgAdd>
+            <StyledImgAdd onClick={imgRegister}>
+              사진 등록
+              <Link to={url}></Link>
+            </StyledImgAdd>
           </StyledButtonContainer>
         </StyledContainer>
       </ReactModal>
@@ -141,7 +162,7 @@ const StyledImgText = styled.p`
   font-weight: 700;
 `;
 
-const StyledImgContainer = styled.div`
+const StyledPreviewContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;

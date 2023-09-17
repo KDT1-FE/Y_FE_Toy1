@@ -12,6 +12,7 @@ import {
 } from 'constants/time';
 import useInterval from 'hooks/useInterval';
 import { dayFormat, timeFormat } from 'utils/format';
+import { addWorkTimeData } from 'apis';
 
 function CommuteModal() {
   const [showModal, setShowModal] = useState(false);
@@ -33,6 +34,7 @@ function CommuteModal() {
     setIsRunning(false);
     setIsFinishing(false);
     setIsStopping(false);
+    addWorkTimeData(workTime);
   };
 
   const showWorkStateText = () => {
