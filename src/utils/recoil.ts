@@ -8,3 +8,13 @@ export const UserId = atom({
     default: '',
     effects_UNSTABLE: [persistAtom],
 });
+
+export const channelState = atom({
+    key: 'channelState',
+    default: '',
+});
+
+export const subChannelState = atom({
+    key: 'subChannelState',
+    default: '',
+});
