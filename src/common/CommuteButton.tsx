@@ -1,10 +1,10 @@
-import { ReactNode } from 'react';
+import { MouseEventHandler, ReactNode } from 'react';
 import styled from 'styled-components';
 
 interface Props {
   children: ReactNode;
   className?: string;
-  onClick?: () => void;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const CommuteButton = ({ children, className, onClick }: Props) => {

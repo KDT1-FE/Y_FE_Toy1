@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { MouseEventHandler, useEffect, useState } from 'react';
 import { formatMsToTime } from '../utils/formatTime';
 import CommuteButton from '../common/CommuteButton';
 import { uploadCommuteInfo } from '../utils/firebaseUtils';
@@ -26,44 +26,45 @@ const CommuteModal = ({ isModalOpen, toggleModal }: Props) => {
     return () => clearInterval(intervalId);
   }, []);
 
-  const handleCommute = () => {
-    let updatedCommuteInfo;
-
-    // 퇴근 눌렀을 때
-    if (isWorking) {
-      updatedCommuteInfo = {
-        ...commuteInfo,
-        date: Date.now(),
-        isWorking: false,
-        endTime: Date.now(),
-        workingTime: Date.now() - startTime,
-      };
-
-      setCommuteInfo(updatedCommuteInfo);
-    } else {
-      // 출근 눌렀을 때
-      setCommuteInfo({
-        ...commuteInfo,
-        isWorking: true,
-        startTime: Date.now(),
-      });
+  const handleCommute: MouseEventHandler = (): void => {
+    // 출근 눌렀을 때
+    if (!isWorking) {
+      // 모달이 사라지는 동안 퇴근 버튼이 바로 보이는 것 방지
+      setTimeout(() => {
+        setCommuteInfo((prev) => ({
+          ...prev,
+          isWorking: true,
+          startTime: Date.now(),
+        }));
+      }, 200);
       toggleModal();
+      return;
     }
+    // 퇴근 눌렀을 때
+    const updatedCommuteInfo = {
+      ...commuteInfo,
+      date: Date.now(),
+      isWorking: false,
+      endTime: Date.now(),
+      workingTime: Date.now() - startTime,
+    };
+
+    setCommuteInfo(updatedCommuteInfo);
   };
 
   // 확인 눌렀을 때
-  const confirmWorkingTime = () => {
+  const confirmWorkingTime: MouseEventHandler = (): void => {
     uploadCommuteInfo(uid, commuteInfo);
-    setCommuteInfo({
-      ...commuteInfo,
+    setCommuteInfo((prev) => ({
+      ...prev,
       hasWorked: true,
       workingTime: 0,
-    });
+    }));
     toggleModal();
   };
 
   // 수정 기능은 보류
-  const editWorkingTime = () => {
+  const editWorkingTime: MouseEventHandler = (): void => {
     toggleModal();
   };
 
@@ -76,6 +77,7 @@ const CommuteModal = ({ isModalOpen, toggleModal }: Props) => {
   };
 
   const renderContentMessage = () => {
+    if (!uid) return <span>로그인이 필요합니다.</span>;
     if (hasWorked && !isWorking && !workingTime) {
       return <span>이미 출근 기록이 있습니다. 다시 출근 하시겠습니까?</span>;
     }
@@ -85,7 +87,7 @@ const CommuteModal = ({ isModalOpen, toggleModal }: Props) => {
     if (isWorking) {
       return <span>퇴근 하시겠습니까?</span>;
     }
-    if (!isWorking && workingTime) {
+    if (workingTime) {
       return (
         <span>
           총 근무 시간이 맞으면 확인을 눌러주세요. <strong>{formatMsToTime(workingTime)}</strong>

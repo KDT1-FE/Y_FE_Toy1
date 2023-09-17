@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { commuteState, commuteType } from '../data/atoms';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { commuteState } from '../data/atoms';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../common/config';
 
