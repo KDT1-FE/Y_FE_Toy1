@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { signInWithEmailAndPassword } from "firebase/auth"
+import { GithubAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
 import { useSetRecoilState } from "recoil"
 
 import { auth } from "../../firebaseSDK"
@@ -35,6 +35,39 @@ function Login() {
       });
   }
 
+  const handleClickGithub = () => {
+    const provider = new GithubAuthProvider();
+
+    signInWithPopup(auth, provider)
+      .then(async (result) => {
+        // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+        const credential = await GithubAuthProvider.credentialFromResult(result);
+        console.log(credential)
+        // The signed-in user info.
+        // DB에서 uid를 이용해 데이터 조회하기
+        // const { user } = result;
+        // const userId = user.uid
+
+        await setUserState({
+          isLogin: true,
+          userInfo: {}
+        })
+
+        navigate("/")
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode)
+        console.log(errorMessage)
+        // The email of the user's account used.
+        // const email = error.customData.email;
+        // The AuthCredential type that was used.
+        // const credential = GithubAuthProvider.credentialFromError(error);
+        // ...
+      });
+  }
+
   return (
     <LoginLayout>
       <LoginTitle>
@@ -51,6 +84,7 @@ function Login() {
       <ButtonBox>
         <SignUpBtn type="button"><StyledLink to="/signup">SIGN UP</StyledLink></SignUpBtn>
         <LoginBtn onClick={handleButtonClick} type="button">LOGIN</LoginBtn>
+        <LoginBtn onClick={handleClickGithub} type="button">GITHUB</LoginBtn>
       </ButtonBox>
     </LoginLayout>
   )

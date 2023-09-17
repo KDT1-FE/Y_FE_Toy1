@@ -1,10 +1,45 @@
 import React from "react";
+import { GithubAuthProvider, signInWithPopup } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+
 import {
-  DivideBox, DivideLine, DivideSpan, SignUpBox, GitHubSignUpBoxSpan, SignUpBtnBox,
-  SignUpLayout, SignUpTitle, SignUpTitleETC, TitleBox, ToLoginLink, ToCreateLink
+  DivideBox, DivideLine, DivideSpan, SignUpBox, SignUpBtnBox,
+  SignUpLayout, SignUpTitle, SignUpTitleETC, TitleBox, ToLoginLink, ToCreateLink, GitHubSignUpBoxSpan
 } from "../../styled/LoginPage/SignUp";
+import { auth } from "../../firebaseSDK";
 
 function SignUp() {
+
+  const navigate = useNavigate()
+
+  const handleClickGithub = () => {
+    const provider = new GithubAuthProvider();
+
+    signInWithPopup(auth, provider)
+      .then(async (result) => {
+        // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+        const credential = await GithubAuthProvider.credentialFromResult(result);
+        console.log(credential)
+        // The signed-in user info.
+        // DB에서 uid를 이용해 데이터 조회하기
+        // const { user } = result;
+        // const userId = user.uid
+
+        navigate("/")
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode)
+        console.log(errorMessage)
+        // The email of the user's account used.
+        // const email = error.customData.email;
+        // The AuthCredential type that was used.
+        // const credential = GithubAuthProvider.credentialFromError(error);
+        // ...
+      });
+  }
+
   return (
     <SignUpLayout>
       <TitleBox>
@@ -12,7 +47,7 @@ function SignUp() {
       </TitleBox>
       <SignUpBtnBox>
         <SignUpBox>
-          <GitHubSignUpBoxSpan>Github(으)로 계속하기</GitHubSignUpBoxSpan>
+          <GitHubSignUpBoxSpan onClick={handleClickGithub}>Github(으)로 계속하기</GitHubSignUpBoxSpan>
         </SignUpBox>
         <DivideBox>
           <DivideLine />
