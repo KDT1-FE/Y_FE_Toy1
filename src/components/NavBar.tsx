@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   NavBar,
@@ -10,8 +10,12 @@ import {
 import Calendar from "../assets/img/Calendar.svg";
 import Todo from "../assets/img/Todo.svg";
 import Profile from "../assets/img/Profile.svg";
+import ProfileModal from "../pages/MainPage/ProfileModal";
+import { ProfileBtn } from "../styled/MainPage/ProfileModal";
 
 export default function Navigation() {
+  const [showProfile, setShowProfile] = useState(false);
+
   return (
     <NavBar>
       <NavTitle>WIKINITY</NavTitle>
@@ -25,8 +29,12 @@ export default function Navigation() {
       <NavModalBox>
         <img src={Calendar} alt="calendar" />
         <img src={Todo} alt="todo" />
-        <img src={Profile} alt="profile" />
+        <ProfileBtn onClick={() => setShowProfile(!showProfile)}>
+          <img src={Profile} alt="profile" />
+        </ProfileBtn>
       </NavModalBox>
+      {/* Modals */}
+      {showProfile ? <ProfileModal setShowProfile={setShowProfile} /> : null}
     </NavBar>
   );
 }

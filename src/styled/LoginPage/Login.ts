@@ -51,6 +51,7 @@ export const LoginInput = styled.input`
   height: 40px;
   border: none;
   border-bottom: 1px solid #96a0ff;
+  font-size: 16px;
 `;
 
 export const SignUpBtn = styled.button`
@@ -73,4 +74,7 @@ export const LoginBtn = styled.button`
   font-size: 24px;
   font-weight: 600;
   color: white;
+  &:hover {
+    cursor: pointer;
+  }
 `;

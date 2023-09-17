@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { useSetRecoilState } from "recoil"
 
-import { auth } from "../../firebaseSDK"
+import { doc, getDoc } from "firebase/firestore"
+import { auth, db } from "../../firebaseSDK"
 import { ButtonBox, LoginBtn, LoginInput, LoginInputBox, LoginLayout, LoginTitle, P, SignUpBtn, SignUpText, StyledLink } from "../../styled/LoginPage/Login"
 import userState from "../../recoil/atoms/userState"
 
@@ -21,9 +22,13 @@ function Login() {
       .then(async (userCredential) => {
         // Signed in 
         const { user } = userCredential;
+        const userId = userCredential.user.uid
+        const docRef = doc(db, "user", userId);
+        const docSnap = (await getDoc(docRef));
         await setUserState({
           isLogin: true,
-          userInfo: user
+          userCredential: user,
+          userData: docSnap.data()
         })
         navigate("/")
       })
