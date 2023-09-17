@@ -12,7 +12,6 @@
   align-items: center;
   width: 100%;
   box-sizing: border-box;
-  margin-bottom: 1.5rem;
 
   &__logo {
     width: 120px;
@@ -75,6 +74,7 @@
       text-align: center;
       & li {
         padding: 0.5rem;
+        cursor: pointer;
         &a {
           display: inline-block;
         }
