@@ -1,19 +1,65 @@
 import NavigationWiki from 'components/NavigationWiki';
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom'
-import { ROUTES } from 'constants/routes';
+import MDEditor from '@uiw/react-md-editor';
+import { useState } from 'react'
+import { create } from 'apis/Wiki';
+import { useLocation } from 'react-router-dom'
 
-function Wiki() {
+interface props {
+  setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function WikiCreate({ setIsEdit }: props, ) {
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
   const selectedCategory = searchParams.get('category')
+  const [textValue, setTextValue] = useState('')  
+  const handleSetValue = (text: string) => {
+    setTextValue(text);
+  };
+
+  return (
+    <TextareaContainer>
+      <ButtonContainer>
+        <button onClick={() => {
+          if (textValue === '') {
+            alert('빈 내용은 등록하실 수 없습니다.')
+            return;
+          } else {
+            // 빈 내용이 아닌 올바른 내용을 생성한 후, 위키 작성시 firebase api 호출을 통해 글 등록
+            create(selectedCategory as string, textValue)
+            setIsEdit(false)
+          }
+        }}>등록하기</button>
+      </ButtonContainer>
+      <MDEditor 
+        placeholder='등록할 내용을 입력해주세요.'
+        value={textValue}
+        onChange={(event) => {handleSetValue(event as string)}}
+      /> 
+    </TextareaContainer>
+  )
+  
+}
+
+function Wiki() {
+  const [isEdit, setIsEdit] = useState(false)
+  console.log(isEdit)
 
   return (
     <WikiContainer>
       <NavigationWiki></NavigationWiki>
       <div>
-        <h1>아직 작성된 글이 없습니다.</h1>
-        <Link to={`${ROUTES.WIKICREATE}?category=${selectedCategory === null ? 'companyRule' : selectedCategory}`}>글 작성하기</Link>
+        {isEdit === true ? (
+          <WikiCreate setIsEdit={setIsEdit}></WikiCreate>
+        ) : (
+          <div onClick={() => {
+            setIsEdit(true)
+          }}>
+            <h1>아직 작성된 글이 없습니다.</h1>
+            글 작성하기
+          </div>
+        )}
       </div>
     </WikiContainer>
   )
@@ -22,6 +68,16 @@ function Wiki() {
 const WikiContainer = styled.div`
   display: grid;
   grid-template-columns: 0.2fr 0.8fr
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const TextareaContainer = styled.div`
+  margin: 2rem;
+
 `;
 
 export default Wiki;
