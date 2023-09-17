@@ -1,5 +1,5 @@
-import React, { Dispatch, SetStateAction } from 'react';
-import * as S from '../../styled/NoticePage/Pagination.styles';
+import React, { Dispatch, SetStateAction } from "react";
+import * as S from "../../styled/NoticePage/Pagination.styles";
 
 interface IPaginationProps {
   totalPages: number;
@@ -11,7 +11,7 @@ function Pagination({ totalPages, setPage }: IPaginationProps) {
     <S.Wrapper>
       {new Array(totalPages).fill(1).map((_, index) => (
         <S.Page key={index}>
-          <S.PageBtn type='button' onClick={() => setPage(index + 1)}>
+          <S.PageBtn type="button" onClick={() => setPage(index + 1)}>
             {index + 1}
           </S.PageBtn>
         </S.Page>
