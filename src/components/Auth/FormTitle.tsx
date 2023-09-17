@@ -1,7 +1,9 @@
-import React from 'react';
-
 import '../../scss/components/auth/formTitle.scss';
 
-export const FormTitle = ({ title }): JSX.Element => {
+interface TitleProps {
+  title: string;
+}
+
+export const FormTitle = ({ title }: TitleProps): JSX.Element => {
   return <div className="authForm__title">{title}</div>;
 };

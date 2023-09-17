@@ -1,20 +1,37 @@
-import React from 'react';
+import { Icon, ErrorMsg } from '../../components/Auth';
 
 import '../../scss/components/auth/input.scss';
 
-export const InputEmail = (): JSX.Element => {
+interface InputType {
+  value: string;
+  validationPass: boolean;
+}
+
+interface EmailProps {
+  email: InputType;
+  handleEmail: React.ChangeEventHandler<HTMLInputElement>;
+}
+
+export const InputEmail = ({ email, handleEmail }: EmailProps): JSX.Element => {
   return (
     <div className="input-container">
-      <input type="text" id="signin-userid" name="userid" required autoComplete="off" />
+      <input
+        type="text"
+        name="email"
+        id="email"
+        value={email.value}
+        onChange={handleEmail}
+        required
+        autoComplete="off"
+      />
 
-      <label htmlFor="signin-userid">Email</label>
+      <label htmlFor="email">Email</label>
 
       <span className="input-container__bar"></span>
 
-      <i className="icon icon-success bx bxs-check-circle hidden"></i>
-      <i className="icon icon-error bx bxs-x-circle hidden"></i>
+      <Icon input={email} />
 
-      <div className="error"></div>
+      <ErrorMsg target="email" input={email} />
     </div>
   );
 };

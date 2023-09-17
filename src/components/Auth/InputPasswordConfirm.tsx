@@ -1,22 +1,37 @@
-import React from 'react';
+import { Icon, ErrorMsg } from '../../components/Auth';
 
 import '../../scss/components/auth/input.scss';
 
-// import '../../scss/components/auth/input.scss';
+interface InputType {
+  value: string;
+  validationPass: boolean;
+}
 
-export const InputPasswordConfirm = (): JSX.Element => {
+interface PasswordConfirmProps {
+  passwordConfirm: InputType;
+  handlePasswordConfirm: React.ChangeEventHandler<HTMLInputElement>;
+}
+
+export const InputPasswordConfirm = ({ passwordConfirm, handlePasswordConfirm }: PasswordConfirmProps): JSX.Element => {
   return (
     <div className="input-container">
-      <input type="password" id="signup-confirm-password" name="confirm-password" required autoComplete="off" />
+      <input
+        type="password"
+        name="password-confirm"
+        id="password-confirm"
+        value={passwordConfirm.value}
+        onChange={handlePasswordConfirm}
+        required
+        autoComplete="off"
+      />
 
-      <label htmlFor="signup-confirm-password">Confirm Password</label>
+      <label htmlFor="password-confirm">Confirm Password</label>
 
       <span className="input-container__bar"></span>
 
-      <i className="icon icon-success bx bxs-check-circle hidden"></i>
-      <i className="icon icon-error bx bxs-x-circle hidden"></i>
+      <Icon input={passwordConfirm} />
 
-      <div className="error"></div>
+      <ErrorMsg target="passwordConfirm" input={passwordConfirm} />
     </div>
   );
 };
