@@ -1,13 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import SimpleSlider from "components/Carousel";
+import Carousel from "components/Carousel";
+import RecentPost from "components/RecentPost";
 
 const Home = () => {
   return (
     <Container>
-      <SimpleSlider />
+      <Carousel />
       <HomeBox />
       <Recentgalley />
+      <RecentPost />
     </Container>
   );
 };

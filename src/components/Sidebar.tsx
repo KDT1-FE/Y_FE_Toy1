@@ -6,7 +6,7 @@ const Sidebar = () => {
   const location = useLocation();
   const hashSplit = location.pathname.split("/");
 
-  if (hashSplit[1] === "Wiki" || "home") {
+  if (hashSplit[1] === "Wiki") {
     //const sideLink = ["", "행정", "학습일정"]
     const sideName = ["출석", "행정", "학습일정"];
     const sideLinkAttendance = ["출석 인정", "QR출결 정정 프로세스"];

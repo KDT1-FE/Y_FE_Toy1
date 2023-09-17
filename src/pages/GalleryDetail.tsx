@@ -38,7 +38,7 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({setOnEdit}) => {
       }
     };
     getUsers();
-    console.log('테스트')
+    console.log('테스트') // 테스트코드 지워야할것같습니닷
   }, []);
   
   // 데이터 삭제하기
