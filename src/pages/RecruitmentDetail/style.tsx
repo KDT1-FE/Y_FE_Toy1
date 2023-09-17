@@ -87,6 +87,8 @@ export const ContentTitleWrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    position: relative;
 `;
 
 export const ContentSub = styled.div`
@@ -139,6 +141,8 @@ export const CommentItem = styled.div`
     justify-content: center;
 
     border: 1px solid #efefef;
+
+    position: relative;
 `;
 
 export const CommentName = styled.div`
@@ -153,4 +157,27 @@ export const CommentContent = styled.div`
 export const CommentTime = styled.div`
     font-size: 1rem;
     color: #efefef;
+`;
+
+export const BtnWrapper = styled.div`
+    position: absolute;
+
+    top: 20px;
+    right: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+`;
+
+export const Btn = styled.div`
+    font-size: 0.8rem;
+
+    color: black;
+    background-color: #efefef;
+
+    margin-right: 10px;
+    padding: 3px 6px;
+
+    border-radius: 5px;
 `;

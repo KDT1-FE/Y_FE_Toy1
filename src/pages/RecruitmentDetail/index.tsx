@@ -3,6 +3,8 @@ import {
     CommentBtn,
     CommentContent,
     CommentItem,
+    Btn,
+    BtnWrapper,
     CommentName,
     CommentTime,
     CommentWrapper,
@@ -19,8 +21,12 @@ import {
 import SidebarGallery from '../../components/SidebarGallery';
 import { getRecruitmentDetail } from '../../utils/firebase';
 import MDEditor from '@uiw/react-md-editor';
+import { useRecoilState } from 'recoil';
+import { UserId } from '../../utils/recoil';
 
 const RecruitmentDetail: React.FC = () => {
+    const [userId, setUserId] = useRecoilState(UserId);
+
     const [clickedValue, setClickedValue] = useState<any>(null);
     const [data, setData] = useState<any>({});
 
@@ -44,8 +50,6 @@ const RecruitmentDetail: React.FC = () => {
             });
     }, [channel, path]);
 
-    console.log(data);
-
     return (
         <RecruitmentDetailContainer>
             <SidebarGallery onKeyClick={handleKeyClick} />
@@ -62,6 +66,14 @@ const RecruitmentDetail: React.FC = () => {
                     <ContentTitleWrapper>
                         <h2>{data.title}</h2>
                         <p>09/16 12:11</p>
+                        {userId == data.uid ? (
+                            <BtnWrapper>
+                                <Btn>수정하기</Btn>
+                                <Btn>삭제하기</Btn>
+                            </BtnWrapper>
+                        ) : (
+                            ''
+                        )}
                     </ContentTitleWrapper>
                     <ContentSub>
                         <p>분야 : {data.category}</p>
@@ -83,6 +95,14 @@ const RecruitmentDetail: React.FC = () => {
                                       </CommentName>
                                       <CommentContent>{v.content}</CommentContent>
                                       <CommentTime>{v.time}</CommentTime>
+                                      {userId == v.uid ? (
+                                          <BtnWrapper>
+                                              <Btn>수정</Btn>
+                                              <Btn>삭제</Btn>
+                                          </BtnWrapper>
+                                      ) : (
+                                          ''
+                                      )}
                                   </CommentItem>
                               ))
                             : ''}
