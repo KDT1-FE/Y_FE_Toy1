@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import ModalT from './UploadModal/ModalT';
-import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
+import { onSnapshot, updateDoc } from 'firebase/firestore';
 import { ref, deleteObject } from 'firebase/storage';
-import { firestore, storage } from '../../utils/firebase';
+import { storeRef, storage } from '../../utils/firebase';
 
 const Tech: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [articleTs, setArticleTs] = useState<any[]>([]);
-    const storeRef = doc(firestore, 'gallery', '레퍼런스 공유');
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -80,10 +79,7 @@ const Tech: React.FC = () => {
                     )}
                 </Droppable>
                 <Droppable droppableId="yourDroppableId">
-                    {(
-                        provided,
-                        // 하나의 자식 함수로 변경
-                    ) => (
+                    {(provided) => (
                         <div ref={provided.innerRef} {...provided.droppableProps}>
                             {articleTs.map((articleT, index) => (
                                 <Draggable
