@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BoardNav } from './BoardNav';
 import { BoardContent } from './BoardContent';
-import {Provider,useSelector} from 'react-redux'
+import {useSelector} from 'react-redux'
 
 
 

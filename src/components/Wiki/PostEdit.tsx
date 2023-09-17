@@ -1,10 +1,7 @@
 import * as React from 'react';
-import { Wiki } from './Wiki';
 import { BoardNav } from './BoardNav';
 import {useState} from 'react'
-import { useSelector } from 'react-redux';
-import { addNewPostDB, readLastPostId, readPostData, updatePostData } from 'data/wikiboard';
-import moment from 'moment';
+import {  readPostData, updatePostData } from 'data/wikiboard';
 import { useNavigate, useParams } from 'react-router-dom';
 
 type Post = {
@@ -15,6 +12,8 @@ type Post = {
     id:any,
 }
 export function PostEdit (props: any) {
+
+    
     const {boardState,id} = useParams()
     
     const readPrevData = async ()=>{
@@ -25,8 +24,9 @@ export function PostEdit (props: any) {
         
         
     }
-
+    
     React.useEffect(()=>{
+        checkPermission()
         readPrevData()
     },[])
     const navigate = useNavigate()
@@ -70,6 +70,14 @@ export function PostEdit (props: any) {
         await updatePostData(boardState,id,newPostData);
         navigate('/wiki')
     }
+
+    const checkPermission = async ()=>{
+        const prevData = await readPrevData()
+        if (prevData?.uid !== sessionStorage.user){
+            navigate('404')
+        }
+    }
+    
     
   return (
     <div>
