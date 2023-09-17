@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import { commuteType } from '../data/atoms';
 import { formatMsToTime } from '../utils/formatTime';
 
@@ -31,4 +31,4 @@ const ModalMessage = ({ uid, commuteInfo }: Props) => {
   }
 };
 
-export default React.memo(ModalMessage);
+export default memo(ModalMessage);

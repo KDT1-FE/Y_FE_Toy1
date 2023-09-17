@@ -4,15 +4,24 @@ import { commuteState } from '../data/atoms';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../common/config';
 import { uploadCommuteInfo } from '../utils/firebaseUtils';
+import { formatDate } from '../utils/formatTime';
 
 const useCommute = (uid: string | null | undefined, toggleModal: () => void) => {
   const [commuteInfo, setCommuteInfo] = useRecoilState(commuteState);
 
   useEffect(() => {
+    const getDateInSeoul = () => {
+      const formattedDate = formatDate();
+      const dateArr = formattedDate.split('. ');
+      const [year, month, day] = dateArr;
+
+      return `${year}-${month}-${day}`;
+    };
+
     const fetchOldCommuteInfo = async () => {
       if (!uid) return;
 
-      const dateStr = new Date().toISOString().split('T')[0];
+      const dateStr = getDateInSeoul();
       const commuteDateRef = doc(db, 'commute', uid, 'commuteDays', dateStr);
       const commuteDateDoc = await getDoc(commuteDateRef);
       console.log(commuteDateDoc.data());

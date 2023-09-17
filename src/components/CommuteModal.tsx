@@ -3,6 +3,7 @@ import { MouseEventHandler, useEffect, useState } from 'react';
 import CommuteButton from '../common/CommuteButton';
 import { commuteType } from '../data/atoms';
 import ModalMessage from './ModalMessage';
+import { formatDate } from '../utils/formatTime';
 
 interface Props {
   isModalOpen: boolean;
@@ -21,6 +22,7 @@ const CommuteModal = ({
   commuteInfo,
   uid,
 }: Props) => {
+  // useRecoilState로 commuteInfo를 가져오기 vs commuteInfo를 props로 받기
   const [currentTime, setCurrentTime] = useState(new Date());
   const { isWorking, workingTime } = commuteInfo;
 
@@ -37,14 +39,6 @@ const CommuteModal = ({
     toggleModal();
   };
 
-  const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    weekday: 'long',
-    timeZone: 'UTC',
-  };
-
   // 이 부분도 수정 필요
   const mainButtonLabel = workingTime ? '확인' : isWorking ? '퇴근' : '출근';
   const mainButtonHandler = workingTime ? confirmWorkingTime : handleCommute;
@@ -56,7 +50,7 @@ const CommuteModal = ({
       <Overlay onClick={toggleModal} className={isModalOpen ? 'open' : ''} />
       <ModalContainer className={isModalOpen ? 'open' : ''} id="commute-modal">
         <TimerWrapper>
-          <span className="date">{currentTime.toLocaleDateString('ko-KR', options)}</span>
+          <span className="date">{formatDate()}</span>
           <span className="time">{currentTime.toLocaleTimeString('it-IT')}</span>
         </TimerWrapper>
 
