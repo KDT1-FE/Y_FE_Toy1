@@ -1,4 +1,5 @@
 import React from "react";
+import "../../styles/WikiTeamCard.css";
 import SaveTeam from "./SaveTeam";
 import TeamCard from "./TeamCard";
 
@@ -15,13 +16,7 @@ function TeamContent() {
     ? (teamList = JSON.parse(teamListString).teamName)
     : SaveTeam();
 
-  return (
-    <div className="TeamContent">
-      {teamList.map((teamName: string) => (
-        <TeamCard teamName={teamName} />
-      ))}
-    </div>
-  );
+  return teamList.map((teamName: string) => <TeamCard teamName={teamName} />);
 }
 
 export default TeamContent;

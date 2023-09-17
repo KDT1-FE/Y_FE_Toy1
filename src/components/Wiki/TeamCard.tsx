@@ -42,19 +42,27 @@ function TeamCard({teamName}: {teamName: string}) {
   };
 
   return (
-    <div className="TeamCard">
-      <div className="TeamCardContent">
+    <div className="TeamContent">
+      <div className="TeamCard">
         <img className="TeamImg" src={team.img} alt="팀 이미지" />
-        <div className="Mentor">{team.멘티}</div>
-        <div className="Mentee">{team.멘토}</div>
+        <div className="TeamCardBg">
+          <div className="TeamText">
+            <p className="TeamName">{teamName}</p>
+            <p className="Mentor">{team.멘티}</p>
+            <p className="Mentee">{team.멘토}</p>
+          </div>
+        </div>
+      </div>
+      <div className="TeamCardContent">
         {isEditorOpen ? (
-          <form onSubmit={onSubmit}>
-            <textarea onChange={onChange} defaultValue={text} />
-            <button type="submit">submit</button>
-          </form>
+          <textarea
+            className="TeamCardTextarea"
+            onChange={onChange}
+            defaultValue={text}
+          />
         ) : (
           <ReactMarkdown
-            className="markdown-body"
+            className="markdown-body markdown-body-team"
             remarkPlugins={[remarkGfm]}
             rawSourcePos
             rehypePlugins={[rehypeRaw as any]}
@@ -62,10 +70,21 @@ function TeamCard({teamName}: {teamName: string}) {
             {teamContent}
           </ReactMarkdown>
         )}
+        <div className="TeamCardBtns">
+          <button className="TeamCardEditBtn" type="button" onClick={clickEdit}>
+            {isEditorOpen ? "Cancel" : "Edit"}
+          </button>
+          {isEditorOpen ? (
+            <form className="TeamCardForm" onSubmit={onSubmit}>
+              <button className="TeamCardSubmitBtn" type="submit">
+                submit
+              </button>
+            </form>
+          ) : (
+            ""
+          )}
+        </div>
       </div>
-      <button type="button" onClick={clickEdit}>
-        {isEditorOpen ? "Cancel" : "Edit"}
-      </button>
     </div>
   );
 }
