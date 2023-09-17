@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export const Ul = styled.ul`
-  background-color: rgba(150, 160, 255, 0.15);
-`;
+// export const Ul = styled.ul`
+//   background-color: rgba(150, 160, 255, 0.15);
+// `;
 
 export const Container = styled.div`
   max-width: 1200px;
@@ -46,6 +46,7 @@ export const List = styled.div`
   border: 2px solid #484aad;
   border-radius: 10px;
   margin: 30px;
+  height: 220px;
 `;
 export const ListItem = styled.div`
   display: flex;
@@ -66,4 +67,9 @@ export const Deadline = styled.p`
 export const Member = styled.p`
   font-size: 20px;
   margin-right: 70px;
+`;
+
+export const SVG = styled.div`
+  display: flex;
+  align-items: center;
 `;

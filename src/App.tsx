@@ -17,6 +17,7 @@ import EditWrite from "./pages/NoticePage/write/NewWrite";
 import ProjectWrite from "./pages/ProjectPage/ProjectWrite";
 import ProjectDetail from "./pages/ProjectPage/ProjectDetail";
 import ProjectList from "./pages/ProjectPage/ProjectList";
+import ProjectEdit from "./pages/ProjectPage/ProjectEdit";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
       <Route element={<PublicRoute />}>
         <Route path="/project/:projectId" element={<ProjectDetail />} />
         <Route path="/projectwrite" element={<ProjectWrite />} />
+        <Route path="/project/edit/:projectId" element={<ProjectEdit />} />
         <Route path="/projectlist" element={<ProjectList />} />
         <Route path="/" element={<Main />} />
         <Route path="/wiki" element={<Wiki />} />

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebaseSDK";
+import ProjectSVG from "./components/ProjectSVG";
+
 import {
   Container,
   TitleContainer,
@@ -13,7 +15,7 @@ import {
   Deadline,
   TeamName,
   List,
-  Ul,
+  SVG,
 } from "../../styled/ProjectPage/ProjectList.styles";
 
 interface Project {
@@ -58,7 +60,7 @@ const ProjectList: React.FC = () => {
           프로젝트 작성하기
         </WriteBtn>
       </TitleContainer>
-      <Ul>
+      <ul>
         {projects.map((project) => (
           <li key={project.id}>
             <TeamName
@@ -71,7 +73,10 @@ const ProjectList: React.FC = () => {
               role="button"
               tabIndex={0}
             >
-              {project.projectTeamName} Project
+              <SVG>
+                <ProjectSVG />
+                {project.projectTeamName} Project
+              </SVG>
             </TeamName>
             <List>
               <ListItem>
@@ -89,7 +94,7 @@ const ProjectList: React.FC = () => {
             </List>
           </li>
         ))}
-      </Ul>
+      </ul>
     </Container>
   );
 };

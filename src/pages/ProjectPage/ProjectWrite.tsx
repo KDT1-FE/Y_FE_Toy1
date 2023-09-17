@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   collection,
@@ -20,7 +20,7 @@ import {
 } from "../../styled/ProjectPage/ProjectWrite.styles";
 
 const ProjectWrite: React.FC = () => {
-  const navigate = useNavigate(); // useNavigate Hook을 사용합니다.
+  const navigate = useNavigate();
   const [projectData, setProjectData] = useState({
     projectIndex: 0,
     projectTeamName: "",
@@ -29,6 +29,16 @@ const ProjectWrite: React.FC = () => {
     projectTitle: "",
     projectContent: "",
   });
+
+  // 첫 번째 인풋 요소에 대한 ref 생성
+  const firstInputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    // 페이지가 로드될 때 첫 번째 인풋 요소에 포커스 설정
+    if (firstInputRef.current) {
+      firstInputRef.current.focus();
+    }
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -100,6 +110,7 @@ const ProjectWrite: React.FC = () => {
           value={projectData.projectTeamName}
           onChange={handleChange}
           required
+          ref={firstInputRef}
         />
       </div>
       <div>
