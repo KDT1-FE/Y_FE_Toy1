@@ -17,11 +17,11 @@ function Header() {
     onBreak,
     setOnBreak,
     timerArray,
+    playTime,
+    setPlayTime,
+    stopTime,
+    setStopTime,
   } = useTimer();
-
-  // const handleToggle = () => {
-  //   toggle();
-  // };
 
   return (
     <div className="Main">
@@ -68,6 +68,10 @@ function Header() {
           toggle={toggle}
           onBreak={onBreak}
           setOnBreak={setOnBreak}
+          playTime={playTime}
+          setPlayTime={setPlayTime}
+          stopTime={stopTime}
+          setStopTime={setStopTime}
         />
       </Modal>
     </div>

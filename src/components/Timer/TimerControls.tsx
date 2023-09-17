@@ -11,6 +11,8 @@ function Controls(props: ControlsProps) {
     setStudyDuration,
     onBreak,
     setOnBreak,
+    setPlayTime,
+    setStopTime,
   } = props;
   const [startTime, setStartTime] = useState<number | null>(null);
   const [breakStartTime, setBreakStartTime] = useState<number | null>(null);
@@ -24,6 +26,15 @@ function Controls(props: ControlsProps) {
     setTimeInSeconds(0);
   };
 
+  const addZero = (num: number): string => `${num}`.padStart(2, "0");
+
+  const getCurrentTime = (): string => {
+    const currentDate = new Date();
+    return `${addZero(currentDate.getHours())}:${addZero(
+      currentDate.getMinutes(),
+    )}:${addZero(currentDate.getSeconds())}`;
+  };
+
   // 타이머 시작, 재시작을 위한 핸들러
   const handlePlayButton = () => {
     if (!isRunning && isFirstPlay) {
@@ -34,6 +45,8 @@ function Controls(props: ControlsProps) {
       }
       setIsFirstPlay(false);
     }
+    setPlayTime(getCurrentTime());
+    setStopTime(null);
   };
 
   // 타이머 중지, 학습 시간 저장을 위한 핸들러
@@ -56,6 +69,7 @@ function Controls(props: ControlsProps) {
       setStudyDuration(studyDuration);
       resetTimer();
     }
+    setStopTime(getCurrentTime());
   };
 
   // 휴식 모드 전환, 휴식 중 타이머 재시작을 위한 핸들러

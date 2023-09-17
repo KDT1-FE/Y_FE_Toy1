@@ -19,6 +19,8 @@ function TimerModal(props: TimerModalProps) {
   const [studyDuration, setStudyDuration] = useState<string>("");
   const [breakStartTime, setBreakStartTime] = useState<number | null>(null);
   const [username, setUsername] = useState<string>("");
+  const [playTime, setPlayTime] = useState<string | null>(null);
+  const [stopTime, setStopTime] = useState<string | null>(null);
 
   const handleCloseModal = () => {
     onClose();
@@ -68,7 +70,11 @@ function TimerModal(props: TimerModalProps) {
             setOnBreak={setOnBreak}
             breakStartTime={breakStartTime}
             setBreakStartTime={setBreakStartTime}
+            setPlayTime={setPlayTime}
+            setStopTime={setStopTime}
           />
+          {playTime && <p className="PlayTime">{playTime}</p>}
+          {stopTime && <p className="StopTime">{stopTime}</p>}
           <div className="StudyDurationContainer">{studyDuration}</div>
           {!isRunning && studyDuration && (
             <div className="SubmitSection">
