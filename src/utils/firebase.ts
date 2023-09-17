@@ -12,6 +12,7 @@ import {
     onSnapshot,
     QuerySnapshot,
     arrayUnion,
+    arrayRemove,
     updateDoc,
 } from 'firebase/firestore';
 
@@ -196,6 +197,7 @@ export const getUserName = async (uid: string) => {
 interface Value {
     uid: string;
     content: string;
+    time: string;
 }
 
 export const createComment = async (channel: string, path: string, value: Value) => {
@@ -206,6 +208,18 @@ export const createComment = async (channel: string, path: string, value: Value)
         console.log('댓글 작성에 성공했습니다');
     } catch (error) {
         console.error('댓글 작성에 실패했습니다.', error);
+        throw error;
+    }
+};
+
+export const deleteComment = async (channel: string, path: string, value: Value) => {
+    const docRef = doc(firestore, 'recruitmentContainer', 'recruitment', channel, path);
+
+    try {
+        const deleteComment = await updateDoc(docRef, { comment: arrayRemove(value) });
+        console.log('댓글 삭제에 성공했습니다');
+    } catch (error) {
+        console.error('댓글 삭제에 실패했습니다.', error);
         throw error;
     }
 };

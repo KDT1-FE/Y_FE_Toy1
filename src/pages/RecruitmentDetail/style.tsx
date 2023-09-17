@@ -150,12 +150,25 @@ export const CommentName = styled.div`
     font-weight: 500;
 `;
 
-export const CommentContent = styled.div`
-    font-size: 1.2rem;
+export const CommentForm = styled.form`
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `;
 
-export const CommentTime = styled.div`
+export const CommentContent = styled.input`
+    font-size: 1.2rem;
+    background-color: white;
+    border: none;
+`;
+
+export const CommentTime = styled.input`
     font-size: 1rem;
+
+    background-color: white;
+    border: none;
+
     color: #efefef;
 `;
 
@@ -170,7 +183,7 @@ export const BtnWrapper = styled.div`
     justify-content: space-around;
 `;
 
-export const Btn = styled.div`
+export const Btn = styled.button`
     font-size: 0.8rem;
 
     color: black;

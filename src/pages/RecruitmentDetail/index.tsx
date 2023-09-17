@@ -17,9 +17,10 @@ import {
     ContentTitleWrapper,
     ContentWrapper,
     RecruitmentDetailContainer,
+    CommentForm,
 } from './style';
 import SidebarGallery from '../../components/SidebarGallery';
-import { getRecruitmentDetail, getUserName, createComment } from '../../utils/firebase';
+import { getRecruitmentDetail, getUserName, createComment, deleteComment } from '../../utils/firebase';
 import MDEditor from '@uiw/react-md-editor';
 import { useRecoilState } from 'recoil';
 import { UserId } from '../../utils/recoil';
@@ -63,16 +64,49 @@ const RecruitmentDetail: React.FC = () => {
             });
     }, [channel, path]);
 
-    const handleSubmit = async (e: any) => {
+    const handleCreateCommentSubmit = async (e: any) => {
         e.preventDefault();
 
-        console.log(e.target, e.target.uid, e.target.content);
         // e.target 및 속성의 존재 여부 확인
         if (e.target && e.target.uid && e.target.content && e.target.uid.value && e.target.content.value) {
-            const value = { uid: e.target.uid.value, content: e.target.content.value };
+            const fullDate = new Date();
+            const date =
+                fullDate.getFullYear() +
+                '/' +
+                (fullDate.getMonth() + 1) +
+                '/' +
+                fullDate.getDate() +
+                ' ' +
+                fullDate.getHours() +
+                ':' +
+                fullDate.getMinutes();
+            const value = { uid: e.target.uid.value, content: e.target.content.value, time: date };
             console.log(value);
             await createComment(channel, path, value);
             console.log('댓글 작성');
+            location.reload();
+        } else {
+            console.error('uid 또는 content가 정의되지 않았습니다.');
+        }
+    };
+
+    const handleDeleteCommentSubmit = async (e: any) => {
+        e.preventDefault();
+
+        console.log(e.target.time.value);
+        // e.target 및 속성의 존재 여부 확인
+        if (
+            e.target &&
+            e.target.uid &&
+            e.target.content &&
+            e.target.time &&
+            e.target.uid.value &&
+            e.target.content.value &&
+            e.target.time.value
+        ) {
+            const value = { uid: e.target.uid.value, content: e.target.content.value, time: e.target.time.value };
+            await deleteComment(channel, path, value);
+
             location.reload();
         } else {
             console.error('uid 또는 content가 정의되지 않았습니다.');
@@ -118,17 +152,23 @@ const RecruitmentDetail: React.FC = () => {
                 {data.comment ? (
                     <CommentWrapper>
                         {data.comment
-                            ? data.comment.map((v: any) => (
+                            ? data.comment.map((v: any, i: number) => (
                                   <CommentItem>
                                       <CommentName>
                                           {v.uid == data.uid ? <span style={{ color: 'blue' }}>글쓴이</span> : v.name}
                                       </CommentName>
-                                      <CommentContent>{v.content}</CommentContent>
-                                      <CommentTime>{v.time}</CommentTime>
+                                      <CommentForm id={'commentForm' + i} onSubmit={handleDeleteCommentSubmit}>
+                                          <input defaultValue={v.uid} name="uid" style={{ display: 'none' }} disabled />
+                                          <CommentContent defaultValue={v.content} name="content" disabled />
+                                          <CommentTime defaultValue={v.time} name="time" disabled />
+                                      </CommentForm>
+
                                       {userId == v.uid ? (
                                           <BtnWrapper>
                                               <Btn>수정</Btn>
-                                              <Btn>삭제</Btn>
+                                              <Btn type="submit" form={'commentForm' + i}>
+                                                  삭제
+                                              </Btn>
                                           </BtnWrapper>
                                       ) : (
                                           ''
@@ -138,7 +178,7 @@ const RecruitmentDetail: React.FC = () => {
                             : ''}
                         <CommentItem>
                             <CommentName>{userName}</CommentName>
-                            <form id="comment" onSubmit={handleSubmit}>
+                            <form id="comment" onSubmit={handleCreateCommentSubmit}>
                                 <input
                                     type="text"
                                     name="uid"
