@@ -11,10 +11,14 @@ import {
     setDoc,
     onSnapshot,
     QuerySnapshot,
+    addDoc,
+    updateDoc,
+    arrayUnion,
 } from 'firebase/firestore';
 
 import { getStorage } from 'firebase/storage';
 import { getAuth } from 'firebase/auth';
+import { Snapshot } from 'recoil';
 
 const firebaseConfig = {
     apiKey: 'AIzaSyDdTBAy3IzoA_tx-3xM8D59o4S1nZzEax4',
@@ -56,6 +60,20 @@ export const createChannelDoc = async (collectionName: string, documentName: str
         console.log('채널 생성 성공!');
     } catch (error) {
         console.error('채널 생성 실패!', error);
+        throw error;
+    }
+};
+// user의 타임로그 배열 형태로 저장
+export const createTimelog = async (collectionName: string, documentName: string, currentTime: string) => {
+    const value = currentTime;
+    const documentRef = doc(firestore, collectionName, documentName);
+    try {
+        const pushTimeLog = await updateDoc(documentRef, { timelog: arrayUnion(value) });
+        alert(`${value}\n입/퇴실기록이 정상 기록되었습니다!`);
+        console.log(value);
+        console.log('입/퇴실기록이 정상 기록되었습니다!');
+    } catch (error) {
+        console.error('타임로그 생성 실패!', error);
         throw error;
     }
 };
