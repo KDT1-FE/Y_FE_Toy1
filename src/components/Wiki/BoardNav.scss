@@ -1,15 +1,14 @@
-@import './reset.css';
+@import '../../styles/reset.css';
 
 nav {
-    width: 70%;
-    height: 100%;
-    margin: auto;
+  width: 70%;
+  height: 100%;
+  margin: auto;
 }
 
 .boardList {
-    display: flex;
-    flex-direction: row;
-    font-size: 50px;
-    justify-content: space-around;
-    
+  display: flex;
+  flex-direction: row;
+  font-size: 50px;
+  justify-content: space-around;
 }

@@ -1,59 +1,54 @@
-
 import * as React from 'react';
 import {readBoardData} from '../../data/wikiboard'
 import {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
-import './BoardContent.scss'
+import './BoardContent.scss';
 // export interface IAppProps {
 
 // }
 type Post = {
-  name:string,
-  title:string,
-  time:string,
-  content:string,
-  id:string,
-}
+  name: string;
+  title: string;
+  time: string;
+  content: string;
+  id: string;
+};
 
+export function BoardContent({ boardState }: any) {
+  const [boardData, setboardData] = useState<Post[]>([]);
+  const navigate = useNavigate();
 
-export function BoardContent ({boardState}:any) {
-  const [boardData,setboardData] = useState<Post[]>([])
-  const navigate = useNavigate()
-
-  const handleClickBoard = (event:any)=>{
+  const handleClickBoard = (event: any) => {
     const selectId = event.currentTarget.querySelector('.post__id')?.innerHTML;
-    if (boardState == 'QA'){
-      navigate(`/wiki/QABoard/${selectId}`)
+    if (boardState == 'QA') {
+      navigate(`/wiki/QABoard/${selectId}`);
+    } else if (boardState == 'Free') {
+      navigate(`/wiki/FreeBoard/${selectId}`);
+    } else if (boardState == 'Best') {
+      navigate(`/wiki/BestBoard/${selectId}`);
+    } else {
+      return;
     }
-    else if (boardState == 'Free'){
-      navigate(`/wiki/FreeBoard/${selectId}`)
-    }
-    else if (boardState == 'Best'){
-      navigate(`/wiki/BestBoard/${selectId}`)
-    }
-    else {return }
-  }
-  
-  const handledleClickButton = ()=>{
-    if (boardState == 'QA'){
-      navigate(`/wiki/question/new`)
-    }
-    else if (boardState == 'Free'){
-      navigate(`/wiki/free/new`)
-    }
-    else if (boardState == 'Best'){
-      navigate(`/wiki/best/new`)
-    }
-    else {return }
-  }
-  
-  React.useEffect(()=>{
-    const data = readBoardData(boardState)
-    data.then((item:any)=>{
-      setboardData(item)
-    })
-  },[boardState])
+  };
 
+  const handledleClickButton = () => {
+    if (boardState == 'QA') {
+      navigate(`/wiki/question/new`);
+    } else if (boardState == 'Free') {
+      navigate(`/wiki/free/new`);
+    } else if (boardState == 'Best') {
+      navigate(`/wiki/best/new`);
+    } else {
+      return;
+    }
+  };
+
+  React.useEffect(() => {
+    const data = readBoardData(boardState);
+    data.then((item: any) => {
+      setboardData(item);
+    });
+  }, [boardState]);
 
   return (
     <div>
@@ -73,10 +68,13 @@ export function BoardContent ({boardState}:any) {
   );
 }
 
-function textLengthOverCut(txt='lorem is', len=50, lastTxt='...'):string {
-
+function textLengthOverCut(
+  txt = 'lorem is',
+  len = 50,
+  lastTxt = '...',
+): string {
   if (txt.length > len) {
-      txt = txt.substr(0, len) + lastTxt;
+    txt = txt.substr(0, len) + lastTxt;
   }
   return txt;
 }

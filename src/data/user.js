@@ -29,6 +29,7 @@ export const createUserData = async (user, id) => {
     email,
     nickname,
     image,
+    accumulateCount: 0,
   });
 };
 

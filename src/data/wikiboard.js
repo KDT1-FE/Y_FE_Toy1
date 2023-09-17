@@ -123,7 +123,6 @@ async function updateLastPostId (boardState,newPostId){
 
 
 async function updatePostData (boardState,postId,updateData){
-    console.log(boardState,postId)
     const postRef = doc(db,boardState,postId);
     
     try {
