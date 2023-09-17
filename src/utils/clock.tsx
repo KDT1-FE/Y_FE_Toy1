@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from "react";
 
-function Clock() {
+type ClockProps = {
+  isModal?: boolean; // 모달에서 사용되는 경우에 true
+};
+
+function Clock({isModal = false}: ClockProps) {
   const [timeString, setTimeString] = useState("");
   function addZero(num: number): string {
     return `${num}`.padStart(2, "0");
@@ -15,12 +19,19 @@ function Clock() {
     const week: string[] = ["일", "월", "화", "수", "목", "금", "토"];
     const hours: number = date.getHours();
     const minutes: number = date.getMinutes();
+    const seconds: number = date.getSeconds();
 
-    setTimeString(
-      `${year}년 ${addZero(month + 1)}월 ${addZero(nowDate)}일 ${
-        week[day]
-      }요일 ${addZero(hours)}시 ${addZero(minutes)}분`,
-    );
+    if (isModal) {
+      setTimeString(
+        `${addZero(hours)}:${addZero(minutes)}:${addZero(seconds)}`,
+      );
+    } else {
+      setTimeString(
+        `${year}년 ${addZero(month + 1)}월 ${addZero(nowDate)}일 ${
+          week[day]
+        }요일 ${addZero(hours)}시 ${addZero(minutes)}분`,
+      );
+    }
   }
 
   function init() {
@@ -33,7 +44,15 @@ function Clock() {
     init();
   }, []);
 
-  return <h2 id="clock">{timeString}</h2>;
+  return (
+    <p id="Clock" className={isModal ? "ModalClock" : "HeaderClock"}>
+      {timeString}
+    </p>
+  );
 }
+
+Clock.defaultProps = {
+  isModal: false,
+};
 
 export default Clock;
