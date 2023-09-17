@@ -50,7 +50,7 @@ const CommuteModal = ({
     if (hasWorked && !isWorking && !workingTime) {
       return <span>이미 출근 기록이 있습니다. 다시 출근 하시겠습니까?</span>;
     }
-    if (!hasWorked && !isWorking) {
+    if (!hasWorked && !isWorking && !workingTime) {
       return <span>출근 하시겠습니까?</span>;
     }
     if (isWorking) {
@@ -119,9 +119,9 @@ const ModalContainer = styled.div`
   max-width: 300px;
   min-height: 400px;
 
-  border-radius: 0.6rem;
-  border: 1px solid #eeeeee;
-  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+  /* border-radius: 0.6rem; */
+  border: ${(props) => props.theme.colors.card.border};
+  box-shadow: ${(props) => props.theme.colors.card.shadow};
 
   background-color: #ffffff;
 
