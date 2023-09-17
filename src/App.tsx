@@ -6,17 +6,18 @@ import { UserProvider } from './common/UserContext';
 
 function App() {
   return (
-    <Container>
-      <Wrapper>
-        <UserProvider>
+
+    <UserProvider>
+      <Container>
+        <Wrapper>
           <Header />
           <MainWrapper>
             <NavBar />
             <Outlet />
           </MainWrapper>
-        </UserProvider>
-      </Wrapper>
-    </Container>
+        </Wrapper>
+      </Container>
+    </UserProvider>
   );
 }
 

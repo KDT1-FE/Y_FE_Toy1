@@ -10,6 +10,7 @@ import Info from '../pages/wiki/Info';
 import Team from '../pages/wiki/Team';
 import Login from '../pages/Login';
 import Join from '../pages/Join';
+import Detail from '../pages/detail/Detail';
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: 'detail',
+        element: <Detail />,
       },
       {
         path: 'wiki',

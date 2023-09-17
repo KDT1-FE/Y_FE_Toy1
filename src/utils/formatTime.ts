@@ -3,12 +3,12 @@ export const timeToLocaleTimeString = (timestamp: number) => {
   return time.toLocaleTimeString('it-IT');
 };
 
-export const formatMsToTime = (Ms: number) => {
-  let totalSeconds = Math.floor(Ms / 1000);
-  const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
-  totalSeconds %= 3600;
-  const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
-  const seconds = String(totalSeconds % 60).padStart(2, '0');
+export const formatMsToTime = (time: number) => {
+  const newTime = new Date(time).toISOString();
+  const startIndex = newTime.indexOf('T');
+  const lastIndex = newTime.indexOf('.');
+  const formattedTime = newTime.slice(startIndex + 1, lastIndex);
 
-  return `${hours}:${minutes}:${seconds}`;
+  console.log(formattedTime);
+  return formattedTime;
 };
