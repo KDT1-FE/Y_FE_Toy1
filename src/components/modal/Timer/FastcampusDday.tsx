@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Dday } from './style';
-import Logo from '../../common/fastcampusIcon.png';
+import Logo from '../../../common/fastcampusIcon.png';
 
 interface OwnProps {
     timeRenewal: string | void;

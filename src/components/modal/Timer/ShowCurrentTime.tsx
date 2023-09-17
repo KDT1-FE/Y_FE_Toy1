@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Now, Timebox } from './style';
-import { CreateTime } from './Hooks/WhatTime';
+import { CreateTime } from '../Hooks/WhatTime';
 
 interface OwnProps {
     setTimeRenewal: React.Dispatch<React.SetStateAction<string | void>>;

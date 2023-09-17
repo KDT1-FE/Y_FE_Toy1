@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import GlobalStyle from './GlobalStyle';
 import Header from './common/Header';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
@@ -7,8 +7,6 @@ import Wiki from './pages/Wiki';
 import Gallery from './pages/Gallery';
 import SignIn from './pages/SignIn';
 import LogIn from './pages/LogIn';
-
-import { useRecoilState } from 'recoil';
 
 const App: React.FC = () => {
     return (
