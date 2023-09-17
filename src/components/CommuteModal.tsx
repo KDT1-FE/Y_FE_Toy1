@@ -2,21 +2,27 @@ import styled from 'styled-components';
 import { MouseEventHandler, useEffect, useState } from 'react';
 import { formatMsToTime } from '../utils/formatTime';
 import CommuteButton from '../common/CommuteButton';
-import { uploadCommuteInfo } from '../utils/firebaseUtils';
-import { useUser } from '../common/UserContext';
-import useCommute from '../hooks/useCommute';
+import { commuteType } from '../data/atoms';
 
 interface Props {
   isModalOpen: boolean;
   toggleModal: () => void;
+  confirmWorkingTime: MouseEventHandler<HTMLButtonElement>;
+  handleCommute: MouseEventHandler<HTMLButtonElement>;
+  commuteInfo: commuteType;
+  uid: string | undefined;
 }
 
-const CommuteModal = ({ isModalOpen, toggleModal }: Props) => {
+const CommuteModal = ({
+  isModalOpen,
+  toggleModal,
+  confirmWorkingTime,
+  handleCommute,
+  commuteInfo,
+  uid,
+}: Props) => {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const { user } = useUser();
-  const uid = user?.uid;
-  const { commuteInfo, setCommuteInfo } = useCommute(uid);
-  const { isWorking, hasWorked, workingTime, startTime } = commuteInfo;
+  const { isWorking, hasWorked, workingTime } = commuteInfo;
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -25,43 +31,6 @@ const CommuteModal = ({ isModalOpen, toggleModal }: Props) => {
 
     return () => clearInterval(intervalId);
   }, []);
-
-  const handleCommute: MouseEventHandler = (): void => {
-    // 출근 눌렀을 때
-    if (!isWorking) {
-      // 모달이 사라지는 동안 퇴근 버튼이 바로 보이는 것 방지
-      setTimeout(() => {
-        setCommuteInfo((prev) => ({
-          ...prev,
-          isWorking: true,
-          startTime: Date.now(),
-        }));
-      }, 200);
-      toggleModal();
-      return;
-    }
-    // 퇴근 눌렀을 때
-    const updatedCommuteInfo = {
-      ...commuteInfo,
-      date: Date.now(),
-      isWorking: false,
-      endTime: Date.now(),
-      workingTime: Date.now() - startTime,
-    };
-
-    setCommuteInfo(updatedCommuteInfo);
-  };
-
-  // 확인 눌렀을 때
-  const confirmWorkingTime: MouseEventHandler = (): void => {
-    uploadCommuteInfo(uid, commuteInfo);
-    setCommuteInfo((prev) => ({
-      ...prev,
-      hasWorked: true,
-      workingTime: 0,
-    }));
-    toggleModal();
-  };
 
   // 수정 기능은 보류
   const editWorkingTime: MouseEventHandler = (): void => {
