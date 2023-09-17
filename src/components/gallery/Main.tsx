@@ -1,22 +1,20 @@
 import React from 'react';
-import { Swiper } from './Swiper';
+import { Slide } from './Slide';
 
-export function MainSwipers(): JSX.Element {
-  const studyTipsId = 'StudyTipsGallery';
-
+export function MainSlides(): JSX.Element {
   return (
     <div>
       <div className="inner">
         <div id="studyTips" className="studyTips-title">
-          <Swiper categoryId="StudyTipsGallery" />
+          <Slide categoryId="StudyTipsGallery" />
         </div>
 
         <div id="events" className="events-title">
-          <Swiper categoryId="EventsGallery" />
+          <Slide categoryId="EventsGallery" />
         </div>
 
         <div id="humors" className="humors-title">
-          <Swiper categoryId="HumorsGallery" />
+          <Slide categoryId="HumorsGallery" />
         </div>
       </div>
     </div>

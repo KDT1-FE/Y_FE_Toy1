@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { ModalComment } from './ModalComment';
 
 export function MapImages({
@@ -12,7 +12,7 @@ export function MapImages({
   const modalRef: any = useRef();
 
   return (
-    <div>
+    <div className="slide-card-image">
       <div
         key={image.id}
         id={categoryId}

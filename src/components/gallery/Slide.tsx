@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
-import './Swiper.scss';
-
+import React, { useEffect, useRef, useState } from 'react';
+import { gsap } from 'gsap';
+import './Slide.scss';
 import { getImageData } from '../../data/galleryImage';
 import { MapImages } from './MapImages';
 //images 받아오기
@@ -10,7 +10,7 @@ interface Props {
   image?: string;
 }
 
-export function Swiper({ categoryId }: Props) {
+export function Slide({ categoryId }: Props) {
   const imageData = getImageData(categoryId);
   const [imageDataInfo, setImageDataInfo]: any = useState();
 
@@ -20,18 +20,22 @@ export function Swiper({ categoryId }: Props) {
     });
   }, []);
 
+  useEffect(() => {
+    gsap.to('.slide-card', {
+      x: -1200,
+      duration: 15,
+      repeat: -1,
+      repeatDelay: 0,
+      ease: 'none',
+    });
+  }, []);
+
   return (
-    <div>
+    <div className="slide-row">
       <h2>{categoryId}</h2>
 
-      <div className="slider">
+      <div className="slide-card">
         {imageDataInfo?.map((image: any) => (
-          // let commentsListData={image.comments};
-
-          // commentsListData.comments.map(()=>{
-          //   <li>{comment}</li>
-          // })
-
           <MapImages
             key={image.id}
             image={image}
