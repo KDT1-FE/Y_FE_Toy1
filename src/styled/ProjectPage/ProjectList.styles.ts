@@ -38,26 +38,24 @@ export const WriteBtn = styled.button`
   font-family: RobotoMono;
 `;
 export const TeamName = styled.div`
-  font-size: 30px;
-  font-weight: bold;
+  font-size: 20px;
   margin-left: 40px;
   margin-top: 40px;
   cursor: pointer; /* 마우스 커서를 포인터 모양으로 지정 */
 `;
 export const List = styled.div`
-  border: 2px solid #484aad;
+  border: 1px solid #484aad;
   border-radius: 10px;
-  margin: 30px;
-  height: 220px;
+  margin: 20px;
+  height: 170px;
 `;
 export const ListItem = styled.div`
   display: flex;
   margin: 20px;
-  padding: 10px;
 `;
 
 export const ProjectTitle = styled.p`
-  font-size: 25px;
+  font-size: 20px;
   margin-right: 50px;
   font-family: RobotoMono;
 `;

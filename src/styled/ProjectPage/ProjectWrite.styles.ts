@@ -49,7 +49,7 @@ export const WriteInput = styled.input`
   border-radius: 3px;
   width: 100%;
   height: 70px;
-  font-size: 20px;
+  font-size: 15px;
   padding: 20px;
   margin: 20px;
   &:hover {
@@ -63,7 +63,7 @@ export const WriteContentInput = styled.textarea`
   border-radius: 3px;
   width: 100%;
   height: 200px;
-  font-size: 20px;
+  font-size: 15px;
   padding: 20px;
   margin: 20px;
   &:hover {

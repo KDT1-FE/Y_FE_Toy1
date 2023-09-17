@@ -25,15 +25,16 @@ export const DivContainer = styled.div`
 `;
 
 export const Date = styled.p`
-  font-size: 20px;
+  font-size: 15px;
   margin-left: 20px;
-  padding: 10px;
+  padding: 8px;
   font-family: RobotoMono;
 `;
 
 export const DetailTitle = styled.h3`
-  font-size: 40px;
+  font-size: 30px;
   color: #484aad;
+  padding: 10px;
   margin: 50px 0 0 20px;
   font-family: RobotoMono;
 `;
