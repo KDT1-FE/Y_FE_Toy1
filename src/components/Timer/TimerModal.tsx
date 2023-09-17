@@ -18,9 +18,18 @@ function TimerModal(props: TimerModalProps) {
   } = props;
   const [studyDuration, setStudyDuration] = useState<string>("");
   const [breakStartTime, setBreakStartTime] = useState<number | null>(null);
+  const [username, setUsername] = useState<string>("");
 
   const handleCloseModal = () => {
     onClose();
+  };
+
+  const handleSubmitStudyTime = () => {
+    if (!username) {
+      alert("이름을 입력하세요.");
+      return;
+    }
+    console.log("이름:", username, ", 공부시간:", studyDuration);
   };
 
   if (hidden) {
@@ -61,6 +70,26 @@ function TimerModal(props: TimerModalProps) {
             setBreakStartTime={setBreakStartTime}
           />
           <div className="StudyDurationContainer">{studyDuration}</div>
+          {!isRunning && studyDuration && (
+            <div className="SubmitSection">
+              <label htmlFor="username">
+                이름:
+                <input
+                  type="text"
+                  id="username"
+                  value={username}
+                  onChange={e => setUsername(e.target.value)}
+                />
+              </label>
+              <button
+                type="button"
+                className="SubmitButton"
+                onClick={handleSubmitStudyTime}
+              >
+                전송
+              </button>
+            </div>
+          )}
         </main>
         <button
           type="button"
