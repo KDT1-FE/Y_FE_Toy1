@@ -7,6 +7,7 @@ import { doc, getDoc } from "firebase/firestore"
 import { auth, db } from "../../firebaseSDK"
 import { ButtonBox, LoginBtn, LoginInput, LoginInputBox, LoginLayout, LoginTitle, P, SignUpBtn, SignUpText, StyledLink } from "../../styled/LoginPage/Login"
 import userState from "../../recoil/atoms/userState"
+import loginState from "../../recoil/atoms/loginState"
 
 function Login() {
 
@@ -16,6 +17,7 @@ function Login() {
   const [password, setPassword] = useState("")
 
   const setUserState = useSetRecoilState(userState)
+  const setLoginState = useSetRecoilState(loginState)
 
   const handleButtonClick = async () => {
     signInWithEmailAndPassword(auth, email, password)
@@ -26,10 +28,10 @@ function Login() {
         const docRef = doc(db, "user", userId);
         const docSnap = (await getDoc(docRef));
         await setUserState({
-          isLogin: true,
           userCredential: user,
           userData: docSnap.data()
         })
+        await setLoginState(true)
         navigate("/")
       })
       .catch((error) => {
