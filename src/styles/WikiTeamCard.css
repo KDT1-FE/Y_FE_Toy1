@@ -91,7 +91,7 @@
 
 .TeamCardBtns {
   width: 100%;
-  height: 10vh;
+  height: 6vh;
 
   display: flex;
   justify-content: space-evenly;
@@ -101,7 +101,7 @@
 .TeamCardEditBtn,
 .TeamCardSubmitBtn {
   width: 15vw;
-  height: 5vh;
+  height: 4vh;
 
   border: none;
   border-radius: 10px;
@@ -119,7 +119,7 @@
 .TeamCardTextarea,
 .markdown-body-team {
   width: 50vw;
-  height: 35vh;
+  height: 39vh;
 
   border: none;
   padding: 30px;
