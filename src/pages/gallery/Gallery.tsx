@@ -4,6 +4,7 @@ import GalleryHeader from "@components/gallery/GalleryHeader";
 import GallerySide from "@components/gallery/GallerySide";
 import GalleryMain from "@components/gallery/GalleryMain";
 import Addlist from "@components/gallery/AddList";
+import CurrentImg from "@/components/gallery/CurrentImg";
 import {
   getFirestore,
   collection,
@@ -30,7 +31,8 @@ export default function Gallery() {
   const [album, setAlbum] = useState("album1");
   const [albumId, setAlbumId] = useState("1moHSjI2ZdSS9iPoZMnp");
   const [imagePaths, setImagePaths] = useState<string[]>([]);
-  const [currentImg, setCurrentImg] = useState<string>("");
+  const [curImg, setCurImg] = useState<string>("");
+  const [viewImg, setViewImg] = useState<boolean>(false);
 
   // console.log(albumId);
 
@@ -110,7 +112,13 @@ export default function Gallery() {
           album={album}
           setAlbumId={setAlbumId}
         />
-        <GalleryMain album={album} imagePaths={imagePaths} />
+        <GalleryMain
+          album={album}
+          imagePaths={imagePaths}
+          viewImg={viewImg}
+          setViewImg={setViewImg}
+          setCurImg={setCurImg}
+        />
       </style.MainWrap>
       {addListModal ? (
         <Addlist
@@ -119,7 +127,14 @@ export default function Gallery() {
           setGalleryData={setGalleryData}
         />
       ) : null}
-      <div></div>
+      {viewImg ? (
+        <CurrentImg
+          setViewImg={setViewImg}
+          curImg={curImg}
+          imagePaths={imagePaths}
+          setCurImg={setCurImg}
+        ></CurrentImg>
+      ) : null}
     </style.Gallery>
   );
 }
