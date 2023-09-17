@@ -6,7 +6,7 @@ import { WikiItemContainer } from '../../styled/WikiPage/Container';
 import { ItemTitleText, TimeTitleText, ItemCategoryText } from '../../styled/WikiPage/Text';
 import { BackToListBtn } from '../../styled/WikiPage/Button';
 
-export default function ItemContent() {
+export default function WikiItem() {
   const wikiList = useRecoilValue(wikiListState); // wikiListState의 값을 가져옴
 
   // URL에서 id 파라미터 가져오기
