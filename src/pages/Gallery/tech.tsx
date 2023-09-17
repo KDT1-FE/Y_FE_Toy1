@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import Modal from './UploadModal/Modal';
+import ModalT from './UploadModal/ModalT';
 import { onSnapshot, updateDoc } from 'firebase/firestore';
 import { ref, deleteObject } from 'firebase/storage';
 import { storeRef, storage } from '../../utils/firebase';
 
-const Recruit: React.FC = () => {
+const Tech: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [articleRs, setArticleRs] = useState<any[]>([]);
+    const [articleTs, setArticleTs] = useState<any[]>([]);
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -18,42 +18,41 @@ const Recruit: React.FC = () => {
     };
     const handleDragEnd = async (result: any) => {
         if (result.destination && result.destination.droppableId === 'trashCan') {
-            const itemToDelete = articleRs[result.source.index];
+            const itemToDelete = articleTs[result.source.index];
 
             // Firestore에서 해당 요소 삭제
-            const updatedArticleRs = [...articleRs];
-            updatedArticleRs.splice(result.source.index, 1);
+            const updatedArticleTs = [...articleTs];
+            updatedArticleTs.splice(result.source.index, 1);
             await updateDoc(storeRef, {
-                '취업.articleR': updatedArticleRs,
+                '취업.articleT': updatedArticleTs,
             });
 
             // Storage에서 이미지 파일 삭제
-            const imageRef = ref(storage, `thumbnailR/${itemToDelete.index}`);
+            const imageRef = ref(storage, `thumbnailT/${itemToDelete.index}`);
             await deleteObject(imageRef);
 
             // 상태 업데이트
-            setArticleRs(updatedArticleRs);
+            setArticleTs(updatedArticleTs);
             return;
         }
 
         // 기존 드래그 앤 드롭 로직 (항목의 순서 변경)
         if (result.destination) {
-            const newArticleRs = [...articleRs];
+            const newArticleRs = [...articleTs];
             const [reorderedItem] = newArticleRs.splice(result.source.index, 1);
             newArticleRs.splice(result.destination.index, 0, reorderedItem);
 
             await updateDoc(storeRef, {
-                '취업.articleR': newArticleRs,
+                '취업.articleT': newArticleRs,
             });
         }
     };
-    // 실시간 데이터 연동
     useEffect(() => {
         const unsubscribe = onSnapshot(storeRef, (docSnapshot) => {
             if (docSnapshot.exists()) {
                 const data = docSnapshot.data();
-                const articleRData = data?.취업?.articleR || [];
-                setArticleRs(articleRData);
+                const articleTData = data?.테크?.articleT || [];
+                setArticleTs(articleTData);
             } else {
                 console.log('Document does not exist.');
             }
@@ -68,7 +67,7 @@ const Recruit: React.FC = () => {
         <>
             <div>
                 <button onClick={openModal}>업로드</button>
-                {isModalOpen && <Modal onClose={closeModal} />}
+                {isModalOpen && <ModalT onClose={closeModal} />}
             </div>
             <DragDropContext onDragEnd={handleDragEnd}>
                 <Droppable droppableId="trashCan">
@@ -82,10 +81,10 @@ const Recruit: React.FC = () => {
                 <Droppable droppableId="yourDroppableId">
                     {(provided) => (
                         <div ref={provided.innerRef} {...provided.droppableProps}>
-                            {articleRs.map((articleR, index) => (
+                            {articleTs.map((articleT, index) => (
                                 <Draggable
-                                    key={articleR.index.toString()}
-                                    draggableId={articleR.index.toString()}
+                                    key={articleT.index.toString()}
+                                    draggableId={articleT.index.toString()}
                                     index={index}
                                 >
                                     {(provided) => (
@@ -96,13 +95,13 @@ const Recruit: React.FC = () => {
                                         >
                                             {/* 요소 내용 */}
                                             <a
-                                                href={articleR.recruitURL}
-                                                key={articleR.index}
-                                                id={articleR.index}
+                                                href={articleT.recruitURL}
+                                                key={articleT.index}
+                                                id={articleT.index}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                             >
-                                                <img src={articleR.thumbnailURL} alt={`article ${articleR.index}`} />
+                                                <img src={articleT.thumbnailURL} alt={`article ${articleT.index}`} />
                                             </a>
                                         </div>
                                     )}
@@ -117,4 +116,4 @@ const Recruit: React.FC = () => {
     );
 };
 
-export default Recruit;
+export default Tech;

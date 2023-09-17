@@ -19,8 +19,8 @@ export const RecruitConstainer = styled.div`
     flex-direction: column;
 `;
 
-export const ModalR = styled.div`
-    width: 300px;
+export const ModalContainer = styled.div`
+    width: 400px;
     height: 200px;
     z-index: 999;
     position: absolute;
@@ -30,4 +30,11 @@ export const ModalR = styled.div`
     background-color: gray;
     border: 1px solid black;
     border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+`;
+
+export const InputContainer = styled.div`
+    display: flex;
+    flex-direction: column;
 `;

@@ -30,6 +30,7 @@ const app = initializeApp(firebaseConfig);
 export const storage = getStorage(app);
 export const firestore: Firestore = getFirestore(app);
 export const auth = getAuth(app);
+export const storeRef = doc(firestore, 'gallery', '레퍼런스 공유');
 
 export type DocumentData = { [key: string]: any };
 
