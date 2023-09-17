@@ -19,7 +19,7 @@ export const RecruitmentDetailContainer = styled.div`
 `;
 
 export const ContentContainer = styled.div`
-    background-color: pink;
+    background-color: #efefef;
     width: 100%;
     height: 100%;
 
@@ -49,7 +49,7 @@ export const ContentHeader = styled.div`
 export const ContentHeaderName = styled.div`
     margin-left: 20px;
 
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 `;
 
 export const ContentHeaderValuedTrue = styled.div`
@@ -60,6 +60,18 @@ export const ContentHeaderValuedTrue = styled.div`
 
     color: white;
     background-color: var(--active-item);
+
+    border-radius: 15px;
+`;
+
+export const ContentHeaderValuedFalse = styled.div`
+    margin-right: 20px;
+    padding: 4px 10px;
+
+    font-size: 1rem;
+
+    color: black;
+    background-color: #efefef;
 
     border-radius: 15px;
 `;
@@ -114,4 +126,31 @@ export const CommentWrapper = styled.div`
     background-color: white;
 
     margin: 20px auto;
+`;
+
+export const CommentItem = styled.div`
+    width: 100%;
+    height: 100px;
+
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    border: 1px solid #efefef;
+`;
+
+export const CommentName = styled.div`
+    font-size: 1rem;
+    font-weight: 500;
+`;
+
+export const CommentContent = styled.div`
+    font-size: 1.2rem;
+`;
+
+export const CommentTime = styled.div`
+    font-size: 1rem;
+    color: #efefef;
 `;

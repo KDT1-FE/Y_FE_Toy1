@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import {
     CommentBtn,
+    CommentContent,
+    CommentItem,
+    CommentName,
+    CommentTime,
     CommentWrapper,
     ContentContainer,
     ContentHeader,
     ContentHeaderName,
+    ContentHeaderValuedFalse,
     ContentHeaderValuedTrue,
     ContentSub,
     ContentTitleWrapper,
@@ -39,7 +44,7 @@ const RecruitmentDetail: React.FC = () => {
             });
     }, [channel, path]);
 
-    console.log(data.comment);
+    console.log(data);
 
     return (
         <RecruitmentDetailContainer>
@@ -48,7 +53,11 @@ const RecruitmentDetail: React.FC = () => {
                 <ContentWrapper>
                     <ContentHeader>
                         <ContentHeaderName>{data.name}</ContentHeaderName>
-                        <ContentHeaderValuedTrue>{data.recruitValued ? '모집중' : '모집완료'}</ContentHeaderValuedTrue>
+                        {data.recruitValued ? (
+                            <ContentHeaderValuedTrue>모집중</ContentHeaderValuedTrue>
+                        ) : (
+                            <ContentHeaderValuedFalse>모집완료</ContentHeaderValuedFalse>
+                        )}
                     </ContentHeader>
                     <ContentTitleWrapper>
                         <h2>{data.title}</h2>
@@ -64,7 +73,23 @@ const RecruitmentDetail: React.FC = () => {
                     />
                 </ContentWrapper>
                 <CommentBtn>댓글 쓰기</CommentBtn>
-                <CommentWrapper></CommentWrapper>
+                {data.comment ? (
+                    <CommentWrapper>
+                        {data.comment
+                            ? data.comment.map((v: any) => (
+                                  <CommentItem>
+                                      <CommentName>
+                                          {v.uid == data.uid ? <span style={{ color: 'blue' }}>글쓴이</span> : v.name}
+                                      </CommentName>
+                                      <CommentContent>{v.content}</CommentContent>
+                                      <CommentTime>{v.time}</CommentTime>
+                                  </CommentItem>
+                              ))
+                            : ''}
+                    </CommentWrapper>
+                ) : (
+                    ''
+                )}
             </ContentContainer>
         </RecruitmentDetailContainer>
     );

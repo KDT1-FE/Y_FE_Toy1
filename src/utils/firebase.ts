@@ -167,8 +167,12 @@ export const getRecruitmentDetail = async (channel: string, path: string) => {
         console.log('Document data:', docSnap.data());
         const userDocRef = doc(firestore, 'user', docSnap.data().uid);
         const userDocSnap = await getDoc(userDocRef);
-        console.log(userDocSnap.data());
         const data = { ...docSnap.data(), ...userDocSnap.data() };
+        for (let i = 0; i < data.comment.length; i++) {
+            const commentUserDocRef = doc(firestore, 'user', data.comment[i].uid);
+            const commentUserDocSnap = await getDoc(commentUserDocRef);
+            data.comment[i] = { ...data.comment[i], ...commentUserDocSnap.data() };
+        }
         return data;
     } else {
         // docSnap.data() will be undefined in this case
