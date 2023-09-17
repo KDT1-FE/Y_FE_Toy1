@@ -1,4 +1,8 @@
-import { updateLike, uploadCommentList } from 'data/galleryComment';
+import {
+  updateLike,
+  uploadCommentList,
+  uploadCommentList2,
+} from 'data/galleryComment';
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AddCommentList } from './AddCommentList';
@@ -26,10 +30,8 @@ export function ModalComment({
   likeData,
 }: Props) {
   const [like, setLike] = useState(0);
-  const [comment, setComment]: any = useState();
-  const [commentList, setCommentList] = useState(['테스트입니다.']);
-
-  const modalRef: any = useRef();
+  const [comment, setComment]: any = useState('');
+  const [commentList, setCommentList]: any = useState([]);
 
   //댓글 저장
   const handleComments = (e: any) => {
@@ -42,20 +44,15 @@ export function ModalComment({
     if (comment !== '') {
       const newCommentList: any = [...commentList, comment];
       setCommentList(newCommentList); //새 배열에 comment저장 후 set
-      //DB에 배열저장
+      //uploadCommentList2(commentList, imgId, categoryId); //DB에 배열저장
+
       alert('Success! 저장에 성공했습니다.');
     } else if (comment == '') {
       alert(' Fail! 입력칸에 내용을  입력해주세요.');
     }
     //location.reload();
     setComment('');
-    console.log('현재 입력 제출된 comment 값 : ', comment);
-    console.log('현재 DB에 저장되어 있는 commentList 값 : ', commentList);
   };
-
-  // useEffect(() => {
-  //   uploadCommentList(commentList, imgId, categoryId);
-  // }, [commentList]);
 
   // 이미지 게시글 삭제 버튼
   async function handleDeleteImage(e: any) {
@@ -66,7 +63,6 @@ export function ModalComment({
       location.reload();
     } else {
       alert('삭제 권한이 없습니다.');
-      console.log('Fail to delete', writerId);
     }
   }
 
@@ -79,13 +75,20 @@ export function ModalComment({
   //like DB 저장
   useEffect(() => {
     updateLike(imgId, categoryId, like);
-    console.log('여기는 useEffect', like);
   }, [like]);
 
   // 초기값 지정
   useEffect(() => {
     setLike(Number(likeData));
+    setCommentList(commentsListData);
   }, []);
+
+  //실시간업데이트
+  useEffect(() => {
+    //uploadCommentList(imgId, categoryId, comment);
+    uploadCommentList2(commentList, imgId, categoryId);
+    console.log('여기는 useEffect', commentList);
+  }, [commentList]);
 
   return (
     <div>
@@ -119,7 +122,7 @@ export function ModalComment({
         </form>
 
         <ul>
-          {commentsListData?.map((comment: any) => {
+          {commentList.map((comment: any) => {
             return <li key={comment.id}>{comment}</li>;
           })}
         </ul>

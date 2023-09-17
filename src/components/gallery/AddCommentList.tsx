@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
-//import { getCommentList } from '../../data/galleryComment';
+import { userId, userNickname } from 'pages/Gallery';
+import { uploadCommentList } from 'data/galleryComment';
 
 interface Props {
-  imgId: string;
-  categoryId: string;
   commentsListData?: string[];
+  comment: string;
+  imgId?: string;
+  categoryId?: string;
+  commentList: any;
+  setCommentList: any;
 }
 
 type Comment = {
@@ -15,30 +19,47 @@ const initialData: Comment = {
   comments: '댓글',
 };
 
-export function AddCommentList({ imgId, categoryId, commentsListData }: Props) {
-  //const commentData = getCommentList(imgId, categoryId);
-  //const commentData: any = commentsListData;
-  const [commentDataInfo, setCommentDataInfo]: any =
-    useState<Comment>(initialData);
+// export function AddCommentList3 ({ commentsListData }: Props) {
+//   //const commentData = getCommentList(imgId, categoryId);
+//   //const commentData: any = commentsData;
 
-  // React.useEffect(() => {
-  //   commentData.then((item: any) => {
-  //     setCommentDataInfo(item.data());
-  //   });
+//   // React.useEffect(() => {
+//   //   setCommentList(commentsData)
+//   // }, []);
+
+//   // React.useEffect(() => {
+//   //   commentData.then((item: string) => {
+//   //     setCommentDataInfo(item);
+//   //   });
+//   // }, []);
+
+//   return (
+//     <ul>
+//       <li>댓글 넣기</li>
+//       {/* {commentDataInfo?.map((comment: any) => {
+//         <li>{comment}</li>;
+//       })} */}
+//     </ul>
+//   );
+// }
+
+export function AddCommentList({
+  commentsListData,
+  comment,
+  imgId,
+  categoryId,
+  commentList,
+  setCommentList,
+}: Props) {
+  //초기값
+  // useEffect(() => {
+  //   setCommentList(commentsListData);
   // }, []);
 
-  // React.useEffect(() => {
-  //   commentData.then((item: string) => {
-  //     setCommentDataInfo(item);
-  //   });
-  // }, []);
+  // //실시간업데이트
+  // useEffect(() => {
+  //   uploadCommentList(imgId, categoryId, comment);
+  // }, [commentList]);
 
-  return (
-    <ul>
-      <li>댓글 넣기</li>
-      {/* {commentDataInfo?.map((comment: any) => {
-        <li>{comment}</li>;
-      })} */}
-    </ul>
-  );
+  return <></>;
 }
