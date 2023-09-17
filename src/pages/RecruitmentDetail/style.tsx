@@ -130,7 +130,7 @@ export const CommentWrapper = styled.div`
     margin: 20px auto;
 `;
 
-export const CommentItem = styled.div`
+export const CommentItemWrapper = styled.div`
     width: 100%;
     height: 100px;
 

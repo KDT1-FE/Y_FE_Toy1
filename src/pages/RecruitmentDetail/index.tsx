@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {
     CommentBtn,
-    CommentContent,
-    CommentItem,
+    CommentItemWrapper,
     Btn,
     BtnWrapper,
     CommentName,
-    CommentTime,
     CommentWrapper,
     ContentContainer,
     ContentHeader,
@@ -17,10 +15,10 @@ import {
     ContentTitleWrapper,
     ContentWrapper,
     RecruitmentDetailContainer,
-    CommentForm,
 } from './style';
+import CommentItem from './CommentItem';
 import SidebarGallery from '../../components/SidebarGallery';
-import { getRecruitmentDetail, getUserName, createComment, deleteComment } from '../../utils/firebase';
+import { getRecruitmentDetail, getUserName, createComment } from '../../utils/firebase';
 import MDEditor from '@uiw/react-md-editor';
 import { useRecoilState } from 'recoil';
 import { UserId } from '../../utils/recoil';
@@ -90,29 +88,6 @@ const RecruitmentDetail: React.FC = () => {
         }
     };
 
-    const handleDeleteCommentSubmit = async (e: any) => {
-        e.preventDefault();
-
-        console.log(e.target.time.value);
-        // e.target 및 속성의 존재 여부 확인
-        if (
-            e.target &&
-            e.target.uid &&
-            e.target.content &&
-            e.target.time &&
-            e.target.uid.value &&
-            e.target.content.value &&
-            e.target.time.value
-        ) {
-            const value = { uid: e.target.uid.value, content: e.target.content.value, time: e.target.time.value };
-            await deleteComment(channel, path, value);
-
-            location.reload();
-        } else {
-            console.error('uid 또는 content가 정의되지 않았습니다.');
-        }
-    };
-
     return (
         <RecruitmentDetailContainer>
             <SidebarGallery onKeyClick={handleKeyClick} />
@@ -151,32 +126,8 @@ const RecruitmentDetail: React.FC = () => {
 
                 {data.comment ? (
                     <CommentWrapper>
-                        {data.comment
-                            ? data.comment.map((v: any, i: number) => (
-                                  <CommentItem>
-                                      <CommentName>
-                                          {v.uid == data.uid ? <span style={{ color: 'blue' }}>글쓴이</span> : v.name}
-                                      </CommentName>
-                                      <CommentForm id={'commentForm' + i} onSubmit={handleDeleteCommentSubmit}>
-                                          <input defaultValue={v.uid} name="uid" style={{ display: 'none' }} disabled />
-                                          <CommentContent defaultValue={v.content} name="content" disabled />
-                                          <CommentTime defaultValue={v.time} name="time" disabled />
-                                      </CommentForm>
-
-                                      {userId == v.uid ? (
-                                          <BtnWrapper>
-                                              <Btn>수정</Btn>
-                                              <Btn type="submit" form={'commentForm' + i}>
-                                                  삭제
-                                              </Btn>
-                                          </BtnWrapper>
-                                      ) : (
-                                          ''
-                                      )}
-                                  </CommentItem>
-                              ))
-                            : ''}
-                        <CommentItem>
+                        {data.comment ? data.comment.map((v: any, i: number) => <CommentItem comment={v} i={i} />) : ''}
+                        <CommentItemWrapper>
                             <CommentName>{userName}</CommentName>
                             <form id="comment" onSubmit={handleCreateCommentSubmit}>
                                 <input
@@ -190,7 +141,7 @@ const RecruitmentDetail: React.FC = () => {
 
                                 <button type="submit">작성하기</button>
                             </form>
-                        </CommentItem>
+                        </CommentItemWrapper>
                     </CommentWrapper>
                 ) : (
                     ''
