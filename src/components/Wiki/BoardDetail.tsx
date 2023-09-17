@@ -30,14 +30,15 @@ export function BoardDetail(props: any) {
   const [commentContent, setCommentContent] = useState('');
   const [boardInfo, setBoardInfo] = useState<Board>(initialData);
   const itemData = readPostData(boardState, id);
+  const [isChange,setChange] = useState(true);
 
+  
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const now = moment();
     const formattedDate = now.format('YY-MM-DD HH:mm');
     const userData = await selectUserData(sessionStorage.user);
     const nickName = userData?.nickname;
-    console.log(boardInfo.comment['0']);
     const updateData = {
       ...boardInfo,
       comment: [
@@ -55,7 +56,8 @@ export function BoardDetail(props: any) {
       ],
     };
     await updatePostData(boardState, id, updateData);
-    navigate('./');
+    setChange(prev=>!prev)
+    setCommentContent('')
   };
 
   const handleEditConfirm = async (e: any) => {
@@ -91,7 +93,6 @@ export function BoardDetail(props: any) {
             time:comment.time + '(수정 됨)'
           };
         } else {
-          console.log('comment 그냥 전달')
           return comment
         }
       }),
@@ -144,11 +145,34 @@ export function BoardDetail(props: any) {
     commentContent.classList.remove('hide');
   }
 
+  const handleDeleteComment = async (e:any ) =>{
+    const result = confirm("작업을 진행하시겠습니까?");
+    if (!result){
+      return;
+    }
+    else {
+      const modifyCommentId = e.target
+      .closest('.comment')
+      .querySelector('.info__hide')
+      .innerHTML;
+
+      const updateData = {
+        ...boardInfo,
+        comment: boardInfo.comment.filter((comment:any)=>comment.id != modifyCommentId)
+      };
+      await updatePostData(boardState,id,updateData);
+      setChange(prev=>!prev)
+      
+      
+
+    }
+  }
+
   React.useEffect(() => {
     itemData.then((item: any) => {
       setBoardInfo(item.data());
     });
-  }, []);
+  }, [isChange]);
 
   return (
     <div className="board">
@@ -198,7 +222,7 @@ export function BoardDetail(props: any) {
               {commentData.uid === sessionStorage.user && (
               <div className='comment__state__box'>
                 <button onClick={handleClickModify}>수정</button>
-                <button>삭제</button>
+                <button onClick={handleDeleteComment}>삭제</button>
               </div>
             )}
             </div>
