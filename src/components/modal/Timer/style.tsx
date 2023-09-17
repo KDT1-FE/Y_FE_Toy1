@@ -1,5 +1,18 @@
 import styled from 'styled-components';
 
+export const ModalBtnBox = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const HeaderModalBtn = styled.div`
+    font-weight: 500;
+    font-size: 24px;
+    color: var(--text);
+    cursor: pointer;
+`;
+
 export const Modal = styled.div`
     position: fixed;
     top: 50%;
@@ -49,6 +62,7 @@ export const ModalHeader = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #fff;
 `;
 
 export const Utils = styled.div`

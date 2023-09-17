@@ -23,3 +23,8 @@ export const TimeLog = atom({
     key: 'TimeLog',
     default: '',
 });
+
+export const SlideOn = atom({
+    key: 'SlideOn',
+    default: false,
+});
