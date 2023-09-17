@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
+import { doc, updateDoc } from 'firebase/firestore';
 import { DuoButtonBox, CloseImg, ProfileInfoBox, ProfileModalCloseBtn, ProfileModalHeader, ProfileModalHeaderText, ProfileModalLayout, SingleButtonBox } from '../../styled/MainPage/ProfileModal'
 import ClostButton from "../../assets/img/CloseButton.svg"
 import userState from '../../recoil/atoms/userState';
+import { db } from '../../firebaseSDK';
 
 interface ProfileProp {
   setShowProfile: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,11 +14,25 @@ interface ProfileProp {
 export default function ProfileModal({ setShowProfile }: ProfileProp) {
 
   const user = useRecoilValue(userState);
+  const setUserState = useSetRecoilState(userState)
 
   const [showEdit, setShowEdit] = useState(false)
 
-  const handleProfileEdit = () => {
-    console.log(user)
+  const [initialValue, setInitialValue] = useState({ ...user.userData })
+
+  const handleProfileEdit = async () => {
+    const userId = user.userCredential.uid
+    await updateDoc(doc(db, 'user', userId), {
+      // name: form.name,
+      // email: form.email,
+      phone: initialValue.phone,
+      position: initialValue.position
+    });
+    setUserState({
+      ...user,
+      userData: initialValue
+    })
+    setShowEdit(false)
   }
 
   return (
@@ -31,9 +47,21 @@ export default function ProfileModal({ setShowProfile }: ProfileProp) {
         <div>
           {user.userData.name}
         </div>
-        <div>
-          {user.userData.position}
-        </div>
+        {
+          showEdit ?
+            <div>
+              <select value={initialValue.position} onChange={(e) => setInitialValue({ ...initialValue, 'position': e.target.value })}>
+                <option value="이사">이사</option>
+                <option value="과장">과장</option>
+                <option value="사원">사원</option>
+              </select>
+            </div>
+            :
+            <div>
+              {user.userData.position}
+            </div>
+        }
+
       </ProfileInfoBox>
       <ProfileInfoBox>
         <div>
@@ -41,9 +69,16 @@ export default function ProfileModal({ setShowProfile }: ProfileProp) {
         </div>
       </ProfileInfoBox>
       <ProfileInfoBox>
-        <div>
-          {user.userData.phone}
-        </div>
+        {
+          showEdit ?
+            <div>
+              <input type="text" value={initialValue.phone} onChange={(e) => setInitialValue({ ...initialValue, 'phone': e.target.value })} />
+            </div>
+            :
+            <div>
+              {user.userData.phone}
+            </div>
+        }
       </ProfileInfoBox>
 
       {
@@ -58,8 +93,11 @@ export default function ProfileModal({ setShowProfile }: ProfileProp) {
           </DuoButtonBox>
           :
           <SingleButtonBox>
-            <button onClick={() => setShowEdit(true)}>
-              수정
+            <button onClick={() => {
+              setInitialValue({ ...user.userData })
+              setShowEdit(true)
+            }}>
+              편집
             </button>
           </SingleButtonBox>
       }
