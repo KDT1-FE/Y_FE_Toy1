@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { MouseEventHandler, useEffect, useState } from 'react';
-import { formatMsToTime } from '../utils/formatTime';
 import CommuteButton from '../common/CommuteButton';
 import { commuteType } from '../data/atoms';
+import ModalMessage from './ModalMessage';
 
 interface Props {
   isModalOpen: boolean;
@@ -22,7 +22,7 @@ const CommuteModal = ({
   uid,
 }: Props) => {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const { isWorking, hasWorked, workingTime } = commuteInfo;
+  const { isWorking, workingTime } = commuteInfo;
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -45,26 +45,7 @@ const CommuteModal = ({
     timeZone: 'UTC',
   };
 
-  const renderContentMessage = () => {
-    if (!uid) return <span>로그인이 필요합니다.</span>;
-    if (hasWorked && !isWorking && !workingTime) {
-      return <span>이미 출근 기록이 있습니다. 다시 출근 하시겠습니까?</span>;
-    }
-    if (!hasWorked && !isWorking && !workingTime) {
-      return <span>출근 하시겠습니까?</span>;
-    }
-    if (isWorking) {
-      return <span>퇴근 하시겠습니까?</span>;
-    }
-    if (workingTime) {
-      return (
-        <span>
-          총 근무 시간이 맞으면 확인을 눌러주세요. <strong>{formatMsToTime(workingTime)}</strong>
-        </span>
-      );
-    }
-  };
-
+  // 이 부분도 수정 필요
   const mainButtonLabel = workingTime ? '확인' : isWorking ? '퇴근' : '출근';
   const mainButtonHandler = workingTime ? confirmWorkingTime : handleCommute;
   const secondaryButtonLabel = workingTime ? '수정' : '취소';
@@ -79,7 +60,9 @@ const CommuteModal = ({
           <span className="time">{currentTime.toLocaleTimeString('it-IT')}</span>
         </TimerWrapper>
 
-        <ContentWrapper>{renderContentMessage()}</ContentWrapper>
+        <ContentWrapper>
+          <ModalMessage commuteInfo={commuteInfo} uid={uid} />
+        </ContentWrapper>
 
         <ButtonWrapper>
           <CommuteButton onClick={mainButtonHandler}>{mainButtonLabel}</CommuteButton>
