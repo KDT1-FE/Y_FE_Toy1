@@ -42,3 +42,10 @@ export const NavCategoryLink = styled(Link)`
   text-decoration: none;
   color: white;
 `;
+
+export const NavCategoryCurrentLink = styled(Link)`
+  font-family: 'RobotoMono';
+  font-size: 24px;
+  text-decoration: none;
+  color: yellow;
+`;

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 
+import { useLocation } from "react-router-dom";
 import {
   NavBar,
   NavCategoryBox,
+  NavCategoryCurrentLink,
   NavCategoryLink,
   NavModalBox,
   NavTitle,
@@ -16,15 +18,22 @@ import { ProfileBtn } from "../styled/MainPage/ProfileModal";
 export default function Navigation() {
   const [showProfile, setShowProfile] = useState(false);
 
+  const location = useLocation()
+  const currentCategory = location.pathname.split("/")[1]
+
+  const categories = [['MAIN', ''], ['WIKI', 'wiki'], ['NOTICE', 'notice'], ['PROJECT', 'projectlist'], ['journal', 'journal']]
+  const NavCategories = categories.map((arr) => {
+    if (arr[1] === currentCategory) {
+      return <NavCategoryCurrentLink to={arr[1]}>{arr[0]}</NavCategoryCurrentLink>
+    }
+    return <NavCategoryLink key={arr[0]} to={arr[1]}>{arr[0]}</NavCategoryLink>
+  })
+
   return (
     <NavBar>
       <NavTitle>WIKINITY</NavTitle>
       <NavCategoryBox>
-        <NavCategoryLink to="/">MAIN</NavCategoryLink>
-        <NavCategoryLink to="/wiki">WIKI</NavCategoryLink>
-        <NavCategoryLink to="/notice">NOTICE</NavCategoryLink>
-        <NavCategoryLink to="/projectList">PROJECT</NavCategoryLink>
-        <NavCategoryLink to="/#">JOURNAL</NavCategoryLink>
+        {NavCategories}
       </NavCategoryBox>
       <NavModalBox>
         <img src={Calendar} alt="calendar" />
