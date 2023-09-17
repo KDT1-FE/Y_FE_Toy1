@@ -15,13 +15,20 @@ import { userId, userNickname } from 'pages/Gallery';
 
 // 댓글 업로드
 
-const uploadCommentList = (data, imgId, categoryId, like) => {
+const uploadCommentList = (data, imgId, categoryId) => {
   const commentRef = doc(db, categoryId, imgId);
   updateDoc(commentRef, {
     comments: data,
-    like: like,
   });
 };
+
+//새로 수정해보기
+// const uploadCommentList2 = (data, imgId, categoryId) => {
+//   const commentRef = doc(db, categoryId, imgId);
+//   updateDoc(commentRef, {
+//     comments: data,
+//   });
+// };
 
 // like 업데이트
 const updateLike = (imgId, categoryId, like) => {

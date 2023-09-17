@@ -1,5 +1,5 @@
 import { updateLike, uploadCommentList } from 'data/galleryComment';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AddCommentList } from './AddCommentList';
 import { deleteImage, getImageData } from 'data/galleryImage';
@@ -42,7 +42,7 @@ export function ModalComment({
     if (comment !== '') {
       const newCommentList: any = [...commentList, comment];
       setCommentList(newCommentList); //새 배열에 comment저장 후 set
-      uploadCommentList(commentList, imgId, categoryId, like); //DB에 배열저장
+      //DB에 배열저장
       alert('Success! 저장에 성공했습니다.');
     } else if (comment == '') {
       alert(' Fail! 입력칸에 내용을  입력해주세요.');
@@ -52,6 +52,10 @@ export function ModalComment({
     console.log('현재 입력 제출된 comment 값 : ', comment);
     console.log('현재 DB에 저장되어 있는 commentList 값 : ', commentList);
   };
+
+  // useEffect(() => {
+  //   uploadCommentList(commentList, imgId, categoryId);
+  // }, [commentList]);
 
   // 이미지 게시글 삭제 버튼
   async function handleDeleteImage(e: any) {
@@ -68,12 +72,18 @@ export function ModalComment({
 
   async function handleLike(e: any) {
     e.preventDefault();
-    await setLike(like + 1);
-    updateLike(imgId, categoryId, like);
+    setLike(like + 1);
+
     console.log(like);
   }
+  //like DB 저장
+  useEffect(() => {
+    updateLike(imgId, categoryId, like);
+    console.log('여기는 useEffect', like);
+  }, [like]);
 
-  React.useEffect(() => {
+  // 초기값 지정
+  useEffect(() => {
     setLike(Number(likeData));
   }, []);
 
