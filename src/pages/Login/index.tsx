@@ -1,8 +1,15 @@
 import styled from 'styled-components';
 import loginIcon from '../../assets/icons/loginIcon.svg';
 import googleIcon from '../../assets/icons/googleIcons.svg';
+import { useNavigate } from 'react-router-dom';
+import { login } from 'apis';
 
 function Login() {
+  const navigate = useNavigate();
+  const handleGoogleLogin = async () => {
+    await login();
+    navigate('/');
+  };
   return (
     <StyledSection>
       <StyledContainer>
@@ -13,7 +20,7 @@ function Login() {
       <StyledLoginContainer>
         <StyledMainText>WIKI</StyledMainText>
         로그인 하기
-        <StyledLoginButton>
+        <StyledLoginButton onClick={handleGoogleLogin}>
           <StyledGoogleLogo src={googleIcon} />
           Google로 간편 로그인
         </StyledLoginButton>
