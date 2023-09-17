@@ -181,3 +181,8 @@ export const Btn = styled.div`
 
     border-radius: 5px;
 `;
+
+export const CommentNameInput = styled.input`
+    font-size: 1rem;
+    font-weight: 500;
+`;

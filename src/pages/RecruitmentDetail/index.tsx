@@ -19,16 +19,20 @@ import {
     RecruitmentDetailContainer,
 } from './style';
 import SidebarGallery from '../../components/SidebarGallery';
-import { getRecruitmentDetail } from '../../utils/firebase';
+import { getRecruitmentDetail, getUserName, createComment } from '../../utils/firebase';
 import MDEditor from '@uiw/react-md-editor';
 import { useRecoilState } from 'recoil';
 import { UserId } from '../../utils/recoil';
+import { useNavigate } from 'react-router-dom';
 
 const RecruitmentDetail: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
+    const [userName, setUserName] = useState('');
 
     const [clickedValue, setClickedValue] = useState<any>(null);
     const [data, setData] = useState<any>({});
+
+    const navigate = useNavigate();
 
     const handleKeyClick = (value: any) => {
         setClickedValue(value);
@@ -48,7 +52,32 @@ const RecruitmentDetail: React.FC = () => {
                 // 에러 핸들링
                 console.error('Error fetching data:', error);
             });
+
+        getUserName(userId)
+            .then((result) => {
+                setUserName(result);
+            })
+            .catch((error) => {
+                // 에러 핸들링
+                console.error('Error fetching data:', error);
+            });
     }, [channel, path]);
+
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+
+        console.log(e.target, e.target.uid, e.target.content);
+        // e.target 및 속성의 존재 여부 확인
+        if (e.target && e.target.uid && e.target.content && e.target.uid.value && e.target.content.value) {
+            const value = { uid: e.target.uid.value, content: e.target.content.value };
+            console.log(value);
+            await createComment(channel, path, value);
+            console.log('댓글 작성');
+            location.reload();
+        } else {
+            console.error('uid 또는 content가 정의되지 않았습니다.');
+        }
+    };
 
     return (
         <RecruitmentDetailContainer>
@@ -85,6 +114,7 @@ const RecruitmentDetail: React.FC = () => {
                     />
                 </ContentWrapper>
                 <CommentBtn>댓글 쓰기</CommentBtn>
+
                 {data.comment ? (
                     <CommentWrapper>
                         {data.comment
@@ -106,6 +136,21 @@ const RecruitmentDetail: React.FC = () => {
                                   </CommentItem>
                               ))
                             : ''}
+                        <CommentItem>
+                            <CommentName>{userName}</CommentName>
+                            <form id="comment" onSubmit={handleSubmit}>
+                                <input
+                                    type="text"
+                                    name="uid"
+                                    defaultValue={userId}
+                                    disabled
+                                    style={{ display: 'none' }}
+                                />
+                                <textarea name="content" style={{ width: '100%' }} required />
+
+                                <button type="submit">작성하기</button>
+                            </form>
+                        </CommentItem>
                     </CommentWrapper>
                 ) : (
                     ''

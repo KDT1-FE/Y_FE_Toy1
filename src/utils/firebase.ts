@@ -11,6 +11,8 @@ import {
     setDoc,
     onSnapshot,
     QuerySnapshot,
+    arrayUnion,
+    updateDoc,
 } from 'firebase/firestore';
 
 import { getStorage } from 'firebase/storage';
@@ -177,5 +179,33 @@ export const getRecruitmentDetail = async (channel: string, path: string) => {
     } else {
         // docSnap.data() will be undefined in this case
         console.log('No such document!');
+    }
+};
+
+export const getUserName = async (uid: string) => {
+    const docRef = doc(firestore, 'user', uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        return docSnap.data().name;
+    } else {
+        console.log('No such document!');
+    }
+};
+
+interface Value {
+    uid: string;
+    content: string;
+}
+
+export const createComment = async (channel: string, path: string, value: Value) => {
+    const docRef = doc(firestore, 'recruitmentContainer', 'recruitment', channel, path);
+
+    try {
+        const pushComment = await updateDoc(docRef, { comment: arrayUnion(value) });
+        console.log('댓글 작성에 성공했습니다');
+    } catch (error) {
+        console.error('댓글 작성에 실패했습니다.', error);
+        throw error;
     }
 };
