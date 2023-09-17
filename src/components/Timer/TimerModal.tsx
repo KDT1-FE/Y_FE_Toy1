@@ -1,18 +1,24 @@
-import React from "react";
+import React, {useState} from "react";
 import "../../styles/Modal.css";
 import "../../styles/TimerModal.css";
 import {TimerModalProps} from "../../types/Modal";
 import Controls from "./TimerControls";
 import Clock from "../../utils/clock";
 
-export default function TimerModal({
-  onClose,
-  hidden,
-  timeInSeconds,
-  setTimeInSeconds,
-  isRunning,
-  setIsRunning,
-}: TimerModalProps) {
+function TimerModal(props: TimerModalProps) {
+  const {
+    onClose,
+    hidden,
+    timeInSeconds,
+    setTimeInSeconds,
+    isRunning,
+    setIsRunning,
+    onBreak,
+    setOnBreak,
+  } = props;
+  const [studyDuration, setStudyDuration] = useState<string>("");
+  const [breakStartTime, setBreakStartTime] = useState<number | null>(null);
+
   const handleCloseModal = () => {
     onClose();
   };
@@ -33,7 +39,7 @@ export default function TimerModal({
         </button>
         <main>
           <section className="CurrentTimeContainer">
-            <Clock />
+            <Clock isModal />
           </section>
           <section className="TimeContainer">
             <p className="timer-text">{Math.floor(timeInSeconds / 3600)}</p>
@@ -48,7 +54,13 @@ export default function TimerModal({
             setTimeInSeconds={setTimeInSeconds}
             setIsRunning={setIsRunning}
             isRunning={isRunning}
+            setStudyDuration={setStudyDuration}
+            onBreak={onBreak}
+            setOnBreak={setOnBreak}
+            breakStartTime={breakStartTime}
+            setBreakStartTime={setBreakStartTime}
           />
+          <div className="StudyDurationContainer">{studyDuration}</div>
         </main>
         <button
           type="button"
@@ -64,3 +76,5 @@ export default function TimerModal({
     </div>
   );
 }
+
+export default TimerModal;

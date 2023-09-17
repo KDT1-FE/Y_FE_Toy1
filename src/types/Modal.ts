@@ -28,10 +28,17 @@ export interface TimerModalProps extends ModalProps {
   isRunning: boolean;
   setIsRunning: React.Dispatch<React.SetStateAction<boolean>>;
   timerArray: Array<number | string>;
+  onBreak: boolean;
+  setOnBreak: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface ControlsProps {
   setTimeInSeconds: React.Dispatch<React.SetStateAction<number>>;
   setIsRunning: React.Dispatch<React.SetStateAction<boolean>>;
   isRunning: boolean;
+  onBreak: boolean;
+  setOnBreak: React.Dispatch<React.SetStateAction<boolean>>;
+  setStudyDuration: (duration: string) => void;
+  breakStartTime: number | null;
+  setBreakStartTime: React.Dispatch<React.SetStateAction<number | null>>;
 }
