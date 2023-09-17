@@ -23,9 +23,10 @@ function App() {
   return (
     <Routes>
       <Route element={<PublicRoute />}>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/createaccount" element={<CreateAccount />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<SignUp />} />
+        <Route path='/createaccount' element={<CreateAccount />} />
+        <Route path='/createoauthaccount' element={<CreateAccount />} />
       </Route>
       <Route element={<PrivateRoute />}>
         <Route path="/" element={<Main />} />
@@ -33,13 +34,10 @@ function App() {
         <Route path="/notice/write" element={<NewWrite />} />
         <Route path="/notice/:noticeId/edit" element={<EditWrite />} />
         <Route path="/notice/:noticeId" element={<NoticeDetail />} />
-      </Route>
-      <Route element={<PublicRoute />}>
         <Route path="/project/:projectId" element={<ProjectDetail />} />
         <Route path="/projectwrite" element={<ProjectWrite />} />
         <Route path="/project/edit/:projectId" element={<ProjectEdit />} />
         <Route path="/projectlist" element={<ProjectList />} />
-        <Route path="/" element={<Main />} />
         <Route path="/wiki" element={<Wiki />} />
         <Route path="/wiki/write" element={<WikiWrite />} />
         <Route path="/wiki/content" element={<ItemContent />} />
