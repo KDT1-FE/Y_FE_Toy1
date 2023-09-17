@@ -27,7 +27,7 @@ async function UploadImage(selected, file) {
           imgUrl: url,
           timestamp: new Date(),
           category: selected,
-          comments: ['테스트'],
+          comments: [{}],
           uid: userId,
           nickname: userNickname,
           like: 0,

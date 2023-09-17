@@ -4,10 +4,11 @@ import {
   uploadCommentList2,
 } from 'data/galleryComment';
 import React, { useState, useRef, useEffect } from 'react';
+import './ModalComment.scss';
 import { useNavigate } from 'react-router-dom';
 import { AddCommentList } from './AddCommentList';
 import { deleteImage, getImageData } from 'data/galleryImage';
-import { userId } from 'pages/Gallery';
+import { userId, userNickname } from 'pages/Gallery';
 
 interface Props {
   image: string;
@@ -32,29 +33,20 @@ export function ModalComment({
   const [like, setLike] = useState(0);
   const [comment, setComment]: any = useState('');
   const [commentList, setCommentList]: any = useState([]);
+  const [isChange, setChange]: any = useState(true);
 
-  //댓글 저장
-  const handleComments = (e: any) => {
-    setComment(e.target.value);
-  };
-
-  //submit 후 DB 저장
-  const handleSubmit = async (e: any) => {
+  //like
+  async function handleLike(e: any) {
     e.preventDefault();
-    if (comment !== '') {
-      const newCommentList: any = [...commentList, comment];
-      setCommentList(newCommentList); //새 배열에 comment저장 후 set
-      //uploadCommentList2(commentList, imgId, categoryId); //DB에 배열저장
+    setLike(like + 1);
+  }
 
-      alert('Success! 저장에 성공했습니다.');
-    } else if (comment == '') {
-      alert(' Fail! 입력칸에 내용을  입력해주세요.');
-    }
-    //location.reload();
-    setComment('');
-  };
+  //like DB 저장
+  useEffect(() => {
+    updateLike(imgId, categoryId, like);
+  }, [like]);
 
-  // 이미지 게시글 삭제 버튼
+  // 이미지 게시글 삭제
   async function handleDeleteImage(e: any) {
     e.preventDefault();
     if (writerId == userId) {
@@ -66,16 +58,35 @@ export function ModalComment({
     }
   }
 
-  async function handleLike(e: any) {
-    e.preventDefault();
-    setLike(like + 1);
+  //댓글 저장
+  const handleComments = (e: any) => {
+    setComment(e.target.value);
+  };
 
-    console.log(like);
-  }
-  //like DB 저장
+  //submit 후 DB 저장
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    if (comment !== '') {
+      const newCommentList: any = [...commentList, comment];
+      await setCommentList(newCommentList); //새 배열에 comment저장 후 set
+      alert('Success! 저장에 성공했습니다.');
+      await setChange((prev: any) => !prev);
+      location.reload();
+    } else if (comment == '') {
+      alert(' Fail! 입력칸에 내용을  입력해주세요.');
+    }
+  };
+
+  //댓글 실시간업데이트 -> 수정예정
   useEffect(() => {
-    updateLike(imgId, categoryId, like);
-  }, [like]);
+    if (comment !== '') {
+      const upload: any = uploadCommentList(imgId, categoryId, comment);
+      upload?.then(setCommentList(commentsListData));
+      console.log('여기는 useEffect', commentList);
+      setComment('');
+    }
+    console.log('isChange는~~', isChange);
+  }, [isChange]);
 
   // 초기값 지정
   useEffect(() => {
@@ -83,18 +94,11 @@ export function ModalComment({
     setCommentList(commentsListData);
   }, []);
 
-  //실시간업데이트
-  useEffect(() => {
-    //uploadCommentList(imgId, categoryId, comment);
-    uploadCommentList2(commentList, imgId, categoryId);
-    console.log('여기는 useEffect', commentList);
-  }, [commentList]);
-
   return (
     <div>
       <div className="header">
-        <h2>{categoryId}</h2>
-        <h3>작성자 {writerName}</h3>
+        <h2>Close 버튼이 안먹혀요ㅠ Esc 키 눌러주세요!</h2>
+        <h3>작성자 : {writerName}</h3>
         <button className="btn--delImage" onClick={handleDeleteImage}>
           이미지 게시글 삭제
         </button>
@@ -110,7 +114,9 @@ export function ModalComment({
 
       <div className="commentContainer">
         <form onSubmit={handleSubmit} className="commentForm">
-          <label htmlFor="comment">write a comment</label>
+          <label htmlFor="comment">
+            {userNickname ? userNickname : '로그인이 필요합니다.'}
+          </label>
           <input
             type="text"
             id="comment"
@@ -122,10 +128,22 @@ export function ModalComment({
         </form>
 
         <ul>
-          {commentList.map((comment: any) => {
-            return <li key={comment.id}>{comment}</li>;
-          })}
+          {commentList?.map((comment: any) => (
+            <li key={comment.commentsTime} className="commentItem">
+              <h3>{comment.commentUser}</h3>
+              <span className="commentText">{comment.text}</span>
+            </li>
+          ))}
         </ul>
+
+        {/* <AddCommentList
+          commentsListData={commentsListData}
+          comment={comment}
+          imgId={imgId}
+          categoryId={categoryId}
+          commentList={commentList}
+          setCommentList={setCommentList}
+        /> */}
       </div>
     </div>
   );

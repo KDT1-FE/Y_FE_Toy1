@@ -1,5 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { AddImageDragDrop } from './ImageDragDrop';
+import './ModalImage.scss';
+import { AddImageDragDrop } from './AddImage';
 
 export function AddImageModal() {
   const modalRef: any = useRef();
@@ -7,7 +8,7 @@ export function AddImageModal() {
     <div>
       <button // 이미지 추가하는 버튼 (Modal open)
         type="button"
-        className="btn btn-primary btn--galleryModalOpen"
+        className="btn btn-primary btn--AddImage"
         onClick={() => modalRef.current?.showModal()}
       >
         이미지 추가
