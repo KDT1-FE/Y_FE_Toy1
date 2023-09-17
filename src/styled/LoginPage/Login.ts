@@ -29,6 +29,21 @@ export const LoginTitle = styled.h1`
   font-size: 96px;
   color: #484aad;
   font-family: 'PlayfairDisplay';
+  margin-top: 96px;
+  margin-bottom: 96px;
+`;
+
+export const SignUpText = styled.span`
+  position: absolute;
+  font-size: 15px;
+  text-align: center;
+  bottom: 80px;
+  left: 40px;
+  color: gray;
+`;
+
+export const LoginInputBox = styled.div`
+  margin-top: 30px;
 `;
 
 export const LoginInput = styled.input`
@@ -39,6 +54,8 @@ export const LoginInput = styled.input`
 `;
 
 export const SignUpBtn = styled.button`
+  position: relative;
+
   background-color: #96a0ff;
   border: none;
   width: 192px;
