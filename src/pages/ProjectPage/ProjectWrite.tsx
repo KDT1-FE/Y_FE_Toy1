@@ -8,8 +8,8 @@ import {
   getDocs,
   query,
   orderBy,
-} from "firebase/firestore";
-import { db } from "../../firebaseSDK";
+} from "firebase/firestore"; // Firebase Firestore에서 필요한 함수 가져오기
+import { db } from "../../firebaseSDK"; // Firebase 설정 가져오기
 import {
   Container,
   WriteDiv,
@@ -64,9 +64,11 @@ const ProjectWrite: React.FC = () => {
       return;
     }
 
+    // Firestore에 데이터 추가 및 인덱스 업데이트
     try {
-      const projectCollection = collection(db, "project");
+      const projectCollection = collection(db, "project"); // "project" 컬렉션을 대상으로 합니다.
 
+      // 현재 프로젝트 개수를 가져와서 다음 인덱스를 설정합니다.
       const projectQuery = query(
         projectCollection,
         orderBy("projectIndex", "desc")
@@ -75,12 +77,15 @@ const ProjectWrite: React.FC = () => {
       const currentProjectCount = projectQuerySnapshot.size;
       const nextProjectIndex = currentProjectCount + 1;
 
+      // 새 문서 추가
       const newDocRef = await addDoc(projectCollection, projectData);
 
+      // 추가된 문서의 인덱스 필드 업데이트
       const newDocId = newDocRef.id;
       const newDoc = doc(projectCollection, newDocId);
       await setDoc(newDoc, { projectIndex: nextProjectIndex }, { merge: true });
 
+      // 프로젝트가 추가되면 원하는 경로로 리디렉션
       navigate(`/project/${newDocId}`);
       console.log(newDocId);
     } catch (error) {
