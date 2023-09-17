@@ -34,27 +34,14 @@ function App() {
         <Route path="/notice/write" element={<NewWrite />} />
         <Route path="/notice/:noticeId/edit" element={<EditWrite />} />
         <Route path="/notice/:noticeId" element={<NoticeDetail />} />
-<<<<<<< HEAD
-        <Route path="/wiki" element={<Wiki />} />
-        <Route path="/wiki/write" element={<WikiWrite />} />
-        <Route path="/wiki/content" element={<WikiItem />} />
-        <Route path="/wiki/edit" element={<WikiEdit />} />
-      </Route>
-      <Route element={<PublicRoute />}>
-=======
->>>>>>> ff732cd08bd3b79bdc04cc99f0eca56c78ae0cb2
         <Route path="/project/:projectId" element={<ProjectDetail />} />
         <Route path="/projectwrite" element={<ProjectWrite />} />
         <Route path="/project/edit/:projectId" element={<ProjectEdit />} />
         <Route path="/projectlist" element={<ProjectList />} />
-<<<<<<< HEAD
-        
-=======
         <Route path="/wiki" element={<Wiki />} />
         <Route path="/wiki/write" element={<WikiWrite />} />
-        <Route path="/wiki/content" element={<ItemContent />} />
+        <Route path="/wiki/content" element={<WikiItem />} />
         <Route path="/wiki/edit" element={<WikiEdit />} />
->>>>>>> ff732cd08bd3b79bdc04cc99f0eca56c78ae0cb2
       </Route>
     </Routes>
   );
