@@ -1,17 +1,21 @@
 import React, { ChangeEvent, useRef, useState } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+
 
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { doc, updateDoc } from 'firebase/firestore';
 import {
-  DuoButtonBox, CloseImg, ProfileInfoBox, ProfileModalCloseBtn, ProfileModalHeader, ProfileModalHeaderText,
-  ProfileModalLayout, SingleButtonBox, ProfileImg, ProfileInput, ProfileInputBtn, ProfileCameraImg
+  ButtonBox, CloseImg, ProfileInfoBox, ProfileModalCloseBtn, ProfileModalHeader, ProfileModalHeaderText,
+  ProfileModalLayout, ProfileImg, ProfileInput, ProfileInputBtn, ProfileCameraImg
 } from '../../styled/MainPage/ProfileModal'
 import ClostButton from "../../assets/img/CloseButton.svg"
 import userState from '../../recoil/atoms/userState';
-import { db, storage } from '../../firebaseSDK';
+import { auth, db, storage } from '../../firebaseSDK';
 import DefaultProfile from '../../assets/img/DefaultProfile.png'
 import Camera from '../../assets/img/Camera.svg'
+import loginState from '../../recoil/atoms/loginState';
 
 interface ProfileProp {
   setShowProfile: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,10 +23,13 @@ interface ProfileProp {
 
 export default function ProfileModal({ setShowProfile }: ProfileProp) {
 
+  const navigate = useNavigate()
+
   const imgInputRef = useRef<HTMLInputElement>(null)
 
   const user = useRecoilValue(userState);
   const setUserState = useSetRecoilState(userState)
+  const setLoginState = useSetRecoilState(loginState)
 
   const [showEdit, setShowEdit] = useState(false)
   const [initialValue, setInitialValue] = useState({ ...user.userData })
@@ -72,6 +79,18 @@ export default function ProfileModal({ setShowProfile }: ProfileProp) {
     })
     setUploadFile(null)
     setShowEdit(false)
+  }
+
+  const handleLogout = async () => {
+
+    signOut(auth).then(async () => {
+      await setLoginState(false)
+      navigate("/login")
+      setUserState({
+        isLogin: false,
+        userInfo: {}
+      })
+    })
   }
 
   return (
@@ -135,7 +154,7 @@ export default function ProfileModal({ setShowProfile }: ProfileProp) {
       </ProfileInfoBox>
       {
         showEdit ?
-          <DuoButtonBox>
+          <ButtonBox>
             <button onClick={handleProfileEdit}>
               수정
             </button>
@@ -145,9 +164,9 @@ export default function ProfileModal({ setShowProfile }: ProfileProp) {
             }}>
               취소
             </button>
-          </DuoButtonBox>
+          </ButtonBox>
           :
-          <SingleButtonBox>
+          <ButtonBox>
             <button onClick={() => {
               if (user.userData.profile !== "") { setImgState(user.userData.profile) }
               setInitialValue({ ...user.userData })
@@ -155,7 +174,8 @@ export default function ProfileModal({ setShowProfile }: ProfileProp) {
             }}>
               편집
             </button>
-          </SingleButtonBox>
+            <button type="button" onClick={handleLogout}>로그아웃</button>
+          </ButtonBox>
       }
     </ProfileModalLayout>
   )
