@@ -18,16 +18,18 @@ const LoginPage = (): JSX.Element => {
   };
 
   return (
-    <form className="authForm signin" onSubmit={handleSubmit}>
-      <FormTitle title="SIGN IN" />
+    <div className="auth-wrapper">
+      <form className="authForm signin" onSubmit={handleSubmit}>
+        <FormTitle title="SIGN IN" />
 
-      <InputEmail email={email} handleEmail={handleEmail} />
-      <InputPassword password={password} handlePassword={handlePassword} />
+        <InputEmail email={email} handleEmail={handleEmail} />
+        <InputPassword password={password} handlePassword={handlePassword} />
 
-      <SubmitButton content="SIGN IN" activate={buttonActivate} />
+        <SubmitButton content="SIGN IN" activate={buttonActivate} />
 
-      <ChangeAuthPage target="/register" />
-    </form>
+        <ChangeAuthPage target="/register" />
+      </form>
+    </div>
   );
 };
 

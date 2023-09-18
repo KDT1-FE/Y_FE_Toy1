@@ -8,4 +8,32 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+
+  .write-form__title {
+    width: 100%;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid $lightGray;
+
+    &__item {
+      display: block;
+      width: 100%;
+      height: auto;
+      font-size: $font-lg;
+      color: $titleTextColor;
+      outline: none;
+      border: none;
+      resize: none;
+      line-height: 1.2;
+      overflow: hidden;
+      background-color: $bg-light;
+      border-radius: 4px;
+    }
+  }
+
+  .write-form__button {
+    display: block;
+    font-size: $font-base;
+    margin-left: auto;
+    margin-top: 3rem;
+  }
 }
