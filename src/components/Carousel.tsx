@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 
-const SimpleSlider: React.FC = () => {
+const Carousel: React.FC = () => {
   const settings: settingsType = {
     dots: true, // 개수 표시 점
     infinite: true, // 무한 캐러셀
@@ -121,4 +121,6 @@ const Container = styled.div`
   margin-bottom: 50px;
 `;
 
-export default SimpleSlider;
+export default Carousel;
+
+

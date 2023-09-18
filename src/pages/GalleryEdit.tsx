@@ -48,7 +48,7 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0'); 
     const day = String(today.getDate()).padStart(2, '0');
-    const formattedDate = `${today}`;
+    const formattedDate = `${today}`; // 타임스탬프 = new Date()
     const printedData = `${year}-${month}-${day}`;
 
     // 등록할 썸네일 변수선언
@@ -119,7 +119,7 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0'); 
     const day = String(today.getDate()).padStart(2, '0');
-    const formattedDate = `${today}`;
+    const formattedDate = `${today}`; // new Date()
     const printedData = `${year}-${month}-${day}`;
 
     // 해당 문서의 참조 얻기

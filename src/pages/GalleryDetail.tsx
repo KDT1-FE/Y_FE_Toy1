@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import styled from "styled-components"
 import { db } from "../firebase"
-import { doc, collection, getDocs, deleteDoc } from  "firebase/firestore"
+import { doc, collection, getDocs, deleteDoc } from  "firebase/firestore" // timestamp 추가
 import { Link, useParams, useNavigate } from "react-router-dom";
 
   // 함수 인자 타입 선언
@@ -15,7 +15,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
     category: string,
     title: string,
     date: string,
-    timestamp: string,
+    timestamp: string// TimeStamp,
     writer: string,
     desc: string
   }
@@ -39,7 +39,7 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({setOnEdit}) => {
       }
     };
     getUsers();
-    console.log('테스트')
+    console.log('테스트') // 테스트코드 지워야할것같습니닷
   }, []);
   
   // 데이터 삭제하기
