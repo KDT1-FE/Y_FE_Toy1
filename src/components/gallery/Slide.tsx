@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import './Slide.scss';
 import { getImageData } from '../../data/galleryImage';

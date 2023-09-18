@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useRef } from 'react';
 import './ModalImage.scss';
 import { AddImageDragDrop } from './AddImage';
 

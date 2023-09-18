@@ -1,5 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { gsap } from 'gsap';
+import React, { useRef } from 'react';
 import { ModalComment } from './ModalComment';
 
 export function MapImages({

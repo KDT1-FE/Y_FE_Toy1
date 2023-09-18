@@ -1,0 +1,58 @@
+@import '~bootstrap/scss/bootstrap';
+@import '../../styles/common';
+
+.profile-form {
+  font-family: $fontMain;
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  .form-image {
+    label {
+      display: block;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      span {
+        font-weight: bold;
+      }
+    }
+
+    img {
+      max-width: 200px;
+      max-height: 200px;
+      object-fit: cover;
+      margin-top: 10px;
+      border-radius: 50%;
+      border: solid 5px $highlightColor;
+    }
+  }
+
+  .form-nickname {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 8fr 2fr;
+
+    .btn {
+      background-color: $grayColor;
+      color: $whiteColor;
+      font-weight: 700;
+      margin-left: 10px;
+    }
+  }
+
+  .btn-next {
+    align-self: flex-end;
+    background-color: $highlightColor;
+    color: $whiteColor;
+    font-weight: 700;
+    width: 100px;
+
+    &:hover {
+      color: $highlightColor;
+    }
+  }
+}

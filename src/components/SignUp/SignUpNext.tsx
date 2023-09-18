@@ -2,6 +2,7 @@ import { IHandleChange, IHandleNothing, IUser } from 'pages/SignUp';
 import React, { useState } from 'react';
 import { createAuth } from 'data/user';
 import { useNavigate } from 'react-router-dom';
+import './SignUpNext.scss';
 
 interface ISignUpNextProps {
   user: IUser;
@@ -64,9 +65,10 @@ export function SignUpNext({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="name">
+    <form className="info-form" onSubmit={handleSubmit}>
+      <div className="form-name">
         <input
+          className="form-control form-control-lg"
           type="text"
           name="username"
           value={user.username}
@@ -75,8 +77,9 @@ export function SignUpNext({
           required
         />
       </div>
-      <div className="email">
+      <div className="form-email">
         <input
+          className="form-control form-control-lg"
           type="email"
           name="email"
           value={user.email}
@@ -85,8 +88,9 @@ export function SignUpNext({
           required
         />
       </div>
-      <div className="password">
+      <div className="form-password">
         <input
+          className="form-control form-control-lg"
           type="password"
           name="password"
           value={user.password}
@@ -95,6 +99,7 @@ export function SignUpNext({
           required
         />
         <input
+          className="form-control form-control-lg"
           type="password"
           name="repassword"
           value={user.repassword}
@@ -105,6 +110,7 @@ export function SignUpNext({
       </div>
       <div className="checkbox">
         <input
+          className="form-check-input"
           type="checkbox"
           onChange={handleCheck}
           id="agree"
@@ -114,12 +120,18 @@ export function SignUpNext({
           이용약관 개인정보 수집 및 정보이용에 동의합니다.
         </label>
       </div>
-      {errorMessage ?? <p>{errorMessage}</p>}
+      <p className="error">{errorMessage ?? errorMessage}</p>
       <div className="button">
-        <button type="button" onClick={handleTogglePage}>
+        <button
+          className="btn btn-prev"
+          type="button"
+          onClick={handleTogglePage}
+        >
           이전으로
         </button>
-        <button type="submit">제출하기</button>
+        <button className="btn btn-submit" type="submit">
+          가입하기
+        </button>
       </div>
     </form>
   );

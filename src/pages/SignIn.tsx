@@ -2,9 +2,10 @@ import { selectUserData } from 'data/getUser';
 import { getLoginUserUid } from 'data/user';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { loginAction } from 'redux/action';
 import { IUser } from './SignUp';
+import '../styles/pages/SignIn.scss';
 
 export function SignIn() {
   const [email, setEmail] = useState(localStorage.getItem('email') ?? '');
@@ -65,11 +66,12 @@ export function SignIn() {
   };
 
   return (
-    <>
-      <h2>Login</h2>
+    <div className="login-container">
+      <h2>로그인</h2>
       <form onSubmit={handleLogin}>
-        <div>
+        <div className="form-email">
           <input
+            className="form-control form-control-lg"
             type="email"
             value={email}
             onChange={handleEmailChange}
@@ -77,8 +79,9 @@ export function SignIn() {
             required
           />
         </div>
-        <div>
+        <div className="form-password">
           <input
+            className="form-control form-control-lg"
             type="password"
             value={password}
             onChange={handlePasswordChange}
@@ -86,9 +89,10 @@ export function SignIn() {
             required
           />
         </div>
-        <div>
-          <label>
+        <div className="form-check">
+          <label className="form-check-label">
             <input
+              className="form-check-input"
               type="checkbox"
               checked={rememberEmail}
               onChange={handleRememberMeChange}
@@ -96,9 +100,14 @@ export function SignIn() {
             이메일 기억하기
           </label>
         </div>
-        {errorMessage ?? <p>{errorMessage}</p>}
-        <button type="submit">Login</button>
+        <p className="error">{errorMessage ?? errorMessage}</p>
+        <button className="btn btn-submit" type="submit">
+          로그인하기
+        </button>
       </form>
-    </>
+      <Link className="link" to="/signup">
+        회원가입하기
+      </Link>
+    </div>
   );
 }

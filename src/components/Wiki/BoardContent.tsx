@@ -1,12 +1,9 @@
 import * as React from 'react';
 import { readBoardData } from '../../data/wikiboard';
-import { useState, ReactNode } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './BoardContent.scss';
-// export interface IAppProps {
 
-// }
 type Post = {
   name: string;
   title: string;
@@ -53,7 +50,9 @@ export function BoardContent({ boardState }: any) {
 
   return (
     <div>
-      <button onClick={handledleClickButton}>작성하기</button>
+      {sessionStorage.uid && (
+        <button onClick={handledleClickButton}>작성하기</button>
+      )}
       {boardData.map((item, index) => (
         <article key={index} className="post" onClick={handleClickBoard}>
           <div className="post__info">
