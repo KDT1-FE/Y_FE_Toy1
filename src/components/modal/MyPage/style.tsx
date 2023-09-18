@@ -64,8 +64,8 @@ export const MyPageProfile = styled.div`
     gap: 20px;
 `;
 export const ProfileImg = styled.img`
-    width: 22rem;
-    height: 22rem;
+    width: 20rem;
+    height: 20rem;
     background-color: red;
     border-radius: 20px;
 `;
@@ -82,7 +82,7 @@ export const ProfileEdit = styled.span`
 `;
 export const ProfileIntroduce = styled.div`
     width: 100%;
-    height: 22rem;
+    height: 25%;
     border-radius: 20px;
     border: 1px solid #ece7ec;
     background-color: #fff;
