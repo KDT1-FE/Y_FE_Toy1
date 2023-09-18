@@ -52,7 +52,7 @@ const Profile: React.FC = () => {
 
     return (
         <ProfileContainer>
-            <div style={{ padding: '10px' }}>
+            <div style={{ padding: '10px', position: 'fixed' }}>
                 <div style={{ font: '16px', fontWeight: 'bold' }}>모든 수강생 {'>'} 프로필</div>
             </div>
             <StyleProfile>

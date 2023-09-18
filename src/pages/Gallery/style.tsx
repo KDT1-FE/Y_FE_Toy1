@@ -11,8 +11,10 @@ export const GalleryContainer = styled.div`
 
 // 컨텐츠 영역
 export const ProfileContainer = styled.div`
+    width: 100%;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
 `;
 
 export const RecruitConstainer = styled.div`
@@ -59,10 +61,24 @@ export const TrashCan = styled.div`
     font-size: 60px;
 `;
 
+export const ImgContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+    padding: 10px;
+    &:-moz-window-dragging {
+        transform: scale(0.85);
+        transition: transform 1s ease;
+    }
+`;
+
 export const StyleProfile = styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    overflow-y: scroll;
+    margin-top: 40px;
 `;
 
 export const ProfileWrapper = styled.div`
