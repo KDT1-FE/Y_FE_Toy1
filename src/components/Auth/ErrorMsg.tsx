@@ -8,7 +8,7 @@ interface ErrorProps {
   input: InputType;
 }
 
-export const ErrorMsg = ({ target, input }: ErrorProps): JSX.Element => {
+const ErrorMsg = ({ target, input }: ErrorProps): JSX.Element => {
   const showError = () => {
     if (target === 'email') {
       return '이메일 형식에 맞게 입력해 주세요.';
@@ -28,3 +28,5 @@ export const ErrorMsg = ({ target, input }: ErrorProps): JSX.Element => {
     <div className="input-container__errorMsg">{input.value ? (input.validationPass ? '' : showError()) : null}</div>
   );
 };
+
+export default ErrorMsg;

@@ -7,7 +7,7 @@ import SideBar from '../components/SideBar';
 import '../scss/base/_index.scss';
 import '../scss/landingPage.scss';
 
-export const LandingPage = (): JSX.Element => {
+const LandingPage = (): JSX.Element => {
   return (
     <div>
       <Header />
@@ -18,3 +18,5 @@ export const LandingPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default LandingPage;
