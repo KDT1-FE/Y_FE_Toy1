@@ -27,7 +27,7 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, pwd)
       .then(() => {
         alert("로그인 성공");
-        navigate("/")
+        navigate(-1)
       })
       .catch(e => {
         alert(e);
@@ -42,7 +42,7 @@ const Login = () => {
         <div className="authentication__form-el"><label htmlFor="pwd"> 비밀번호 </label> <input type="password" id="pwd" onChange={handlePwd} value={pwd} /></div>
         <button className="btn" type="submit"> 로그인 </button>
       </form>
-      <Link to={`/signup`}> <b>회원가입</b> </Link>
+      <Link to={`/signup`} replace={true}> <b>회원가입</b> </Link>
     </Container>
   )
 }

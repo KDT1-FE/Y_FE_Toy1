@@ -1,14 +1,10 @@
 import Sidebar from "components/Sidebar";
 import React from "react";
 import styled from "styled-components";
-import { Route, Routes } from "react-router-dom";
-import Administration from "../components/Admin";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Curriculum from "../components/Curriculum";
-import Attendance from "components/Attendance";
-import AttRecognition from "components/AttRecognition";
-import AttCorrection from "components/AttCorrection";
-import Leave from "components/Leave";
-import TrainingIncentive from "components/TrainingIncentive";
+import WikiDetail from "./WikiDetail";
+import WikiEdit from "./WikiEdit";
 
 const Wiki = () => {
   return (
@@ -16,14 +12,13 @@ const Wiki = () => {
       <Sidebar />
       <Container>
         <Routes>
-          <Route path="" element={<Attendance />}></Route>
-          <Route path="출석 인정" element={<AttRecognition />}></Route>
-          <Route
-            path="QR출결 정정 프로세스"
-            element={<AttCorrection />}
-          ></Route>
-          <Route path="휴가" element={<Leave />}></Route>
-          <Route path="훈련장려금" element={<TrainingIncentive />}></Route>
+          {/* 리다이렉션 */}
+          <Route path="/" element={<Navigate to="/Wiki/출석" />} />
+          {/* 디테일 페이지 */}
+          <Route path="/:page" element={<WikiDetail />}></Route>
+          {/* 수정 페이지 */}
+          <Route path="/:page/edit" element={<WikiEdit />}></Route>
+          {/* 금주의 학습 일정 */}
           <Route path="학습 일정" element={<Curriculum />}></Route>
         </Routes>
       </Container>
@@ -33,9 +28,9 @@ const Wiki = () => {
 
 const Container = styled.section`
   position: relative;
-  left: 180px;
+  left: 200px;
   height: calc(100% - 60px);
-  width: calc(100% - 180px);
+  width: calc(100% - 200px);
   padding: 5px;
   box-sizing: border-box;
 `;

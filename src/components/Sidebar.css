@@ -1,10 +1,11 @@
 .sidebar__link-wrapper {
   height: calc(100vh - 300px);
   min-height: 200px;
-  overflow-y: auto;  
+  overflow-y: auto;
   display: flex;
   flex-flow: column;
   gap: 20px;
+  margin-top: 30px;
 }
 
 .sidebar__bottom {
@@ -12,3 +13,25 @@
   text-align: center;
 }
 
+.sidebar__menu {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 140%;
+  /* identical to box height, or 30px */
+
+  color: #000000;
+}
+
+.sidebar__item a {
+  color: #7a7c85;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 148%;
+}
+
+.sidebar__item.active a {
+  color: var(--main-color);
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 148%;
+}
