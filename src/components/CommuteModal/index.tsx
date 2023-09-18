@@ -170,7 +170,7 @@ const CommuteMenu = styled.div`
   }
   cursor: pointer;
 
-  ${media.desktop_lg(`
+  ${media.tablet(`
   padding: 0.3rem;
   font-size: 0.9rem;
   margin-left:0;

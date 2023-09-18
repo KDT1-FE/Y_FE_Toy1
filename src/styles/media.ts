@@ -17,12 +17,12 @@ export const media = {
     }
   `,
   tablet: (styles: string) => css`
-    @media screen and (min-width: 576px) and (max-width: 767px) {
+    @media screen and (max-width: 767px) {
       ${styles}
     }
   `,
   mobile: (styles: string) => css`
-    @media screen and (max-width: 576px) {
+    @media screen and (max-width: 575px) {
       ${styles}
     }
   `,

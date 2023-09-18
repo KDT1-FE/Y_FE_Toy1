@@ -3,6 +3,7 @@ import logo from '../../assets/icons/mainLogo.svg';
 import wikiLogo from '../../assets/icons/wiki.svg';
 import galleryLogo from '../../assets/icons/gallery.svg';
 import menu from '../../assets/icons/menu.svg';
+import closeMenuButton from '../../assets/icons/closeMenuButton.svg';
 import { ROUTES } from 'constants/routes';
 import { Link, useNavigate } from 'react-router-dom';
 import CommuteModal from 'components/CommuteModal';
@@ -42,7 +43,7 @@ function Header() {
             setMenuToggle(!menuToggle);
           }}
         >
-          <img src={menu}></img>
+          <img src={menuToggle ? closeMenuButton : menu}></img>
         </StyledHamburgerButton>
         {menuToggle && (
           <StyledSideBar>
@@ -127,10 +128,10 @@ const MenuContainer = styled.div`
   gap: 1rem;
   flex: 1;
   ${media.tablet(`
-  display:none;
-`)} ${media.mobile(`
-display:none;
-`)};
+    display:none;
+  `)} ${media.mobile(`
+    display:none;
+  `)};
 `;
 
 const StyledHamburgerButton = styled.button`
@@ -148,16 +149,21 @@ const StyledHamburgerButton = styled.button`
 `;
 
 const StyledSideBar = styled.div`
+  display: none;
+
+  ${media.tablet(`
   position: absolute;
   background-color: white;
   top: 4rem;
   height: 100vh;
   width: 100vw;
   z-index: 10000;
+
   display: flex;
   flex-direction: column;
   padding: 3rem;
   gap: 2rem;
+`)}
 `;
 const StyledSideText = styled.div`
   font-size: 1.2rem;
