@@ -6,7 +6,7 @@ export const ProfileModalLayout = styled.div`
   align-items: center;
 
   width: 480px;
-  height: 380px;
+  height: 410px;
   border-radius: 20px;
   background-color: #dfe3ff;
 
@@ -45,10 +45,15 @@ export const ProfileModalCloseBtn = styled.button`
 
 export const ProfileInfoBox = styled.div`
   display: flex;
+  margin-bottom: 15px;
+  gap: 20px;
+
+  align-items: center;
 `;
 
 export const ButtonBox = styled.div`
   width: 100%;
+  margin-top: auto;
 
   display: flex;
   justify-content: space-between;
@@ -71,6 +76,10 @@ export const ProfileInputBtn = styled.button`
 `;
 
 export const ProfileCameraImg = styled.img`
+  position: absolute;
+
+  right: 0;
+  top: 60px;
   width: 40px;
   height: 40px;
   padding: 5px;
@@ -84,4 +93,61 @@ export const ProfileInput = styled.input`
   padding: 0;
   overflow: hidden;
   border: 0;
+`;
+
+export const ProfileInfoText = styled.div`
+  font-size: 20px;
+  font-weight: 600;
+`;
+
+export const ProfileInfoEmail = styled.div`
+  font-size: 16px;
+`;
+
+export const CorrectBtn = styled.button`
+  background-color: #484aad;
+  border: none;
+  width: 144px;
+  height: 48px;
+  border-radius: 50px;
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const CancelBtn = styled.button`
+  background-color: #ef6363;
+  border: none;
+  width: 144px;
+  height: 48px;
+  border-radius: 50px;
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const PositionSelect = styled.select`
+  width: 80px;
+  padding: 1px;
+  height: 24px;
+  font-weight: 600;
+  font-size: 16px;
+  border: 2px solid #96a0ff;
+  border-radius: 5px;
+  text-align: center;
+`;
+
+export const InputText = styled.input`
+  border: 2px solid #96a0ff;
+  border-radius: 5px;
+  padding: 1px;
+  font-size: 16px;
+  height: 24px;
+  text-align: center;
 `;
