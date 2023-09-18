@@ -23,6 +23,8 @@
 
     img {
       max-width: 200px;
+      max-height: 200px;
+      object-fit: cover;
       margin-top: 10px;
       border-radius: 50%;
       border: solid 5px $highlightColor;
@@ -33,6 +35,13 @@
     width: 100%;
     display: grid;
     grid-template-columns: 8fr 2fr;
+
+    .btn {
+      background-color: $grayColor;
+      color: $whiteColor;
+      font-weight: 700;
+      margin-left: 10px;
+    }
   }
 
   .btn-next {
