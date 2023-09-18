@@ -6,7 +6,7 @@ export const ProfileModalLayout = styled.div`
   align-items: center;
 
   width: 480px;
-  height: 320px;
+  height: 380px;
   border-radius: 20px;
   background-color: #dfe3ff;
 
@@ -61,4 +61,35 @@ export const DuoButtonBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
+
+export const ProfileImg = styled.img`
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+`;
+
+export const ProfileInputBtn = styled.button`
+  position: absolute;
+
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: none;
+`;
+
+export const ProfileCameraImg = styled.img`
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  border-radius: 20px;
+  background-color: white;
+`;
+
+export const ProfileInput = styled.input`
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
 `;

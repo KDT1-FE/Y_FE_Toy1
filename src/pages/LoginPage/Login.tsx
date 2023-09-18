@@ -19,9 +19,6 @@ function Login() {
   const setUserState = useSetRecoilState(userState)
   const setLoginState = useSetRecoilState(loginState)
 
-
-
-
   const handleButtonClick = async () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
