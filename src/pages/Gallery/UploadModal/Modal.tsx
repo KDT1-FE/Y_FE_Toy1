@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import {
+    BtnAlign,
+    CancelBtn,
     Formalign,
+    InputAndPreview,
     InputContainer,
     LinkInput,
     LinkInputContainer,
@@ -9,7 +12,6 @@ import {
     PlaceHolder,
     PreviewBox,
     SubmitBtn,
-    SubmitBtnAlign,
 } from '../style';
 import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
@@ -72,40 +74,56 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
     return (
         <ModalContainer>
             <ModalFirstLine>
-                <h2>취업 링크 공유</h2>
-                <span className="close" onClick={onClose}>
+                <h2>취업 정보 공유</h2>
+                <span className="close" onClick={onClose} style={{ cursor: 'pointer' }}>
                     &times;
                 </span>
             </ModalFirstLine>
             <Formalign onSubmit={handleSubmit}>
-                <InputContainer>
-                    <LinkInputContainer>
-                        <label htmlFor="link">링크</label>
-                        <br />
-                        <LinkInput type="text" id="link" value={link} onChange={handleLinkChange} required />
-                    </LinkInputContainer>
-                    <div>
-                        <label htmlFor="image">이미지 업로드</label>
-                        <input type="file" id="image" accept="image/*" onChange={handleImageChange} required />
-                    </div>
-                </InputContainer>
-                <PreviewBox>
-                    <p>미리보기</p>
-                    {imageFile ? (
-                        <a href={link} target="_blank">
-                            <img
-                                src={URL.createObjectURL(imageFile)}
-                                alt="미리보기"
-                                style={{ width: '100px', height: '100px' }}
+                <InputAndPreview>
+                    <InputContainer>
+                        <div>
+                            <label htmlFor="image">회사 로고</label>
+                            <br />
+                            <input type="file" id="image" accept="image/*" onChange={handleImageChange} required />
+                        </div>
+                        <LinkInputContainer>
+                            <label htmlFor="link">링크</label>
+                            <br />
+                            <LinkInput
+                                type="text"
+                                id="link"
+                                value={link}
+                                onChange={handleLinkChange}
+                                required
+                                placeholder="https://www.example.com"
                             />
-                        </a>
-                    ) : (
-                        <PlaceHolder />
-                    )}
-                    <SubmitBtnAlign>
-                        <SubmitBtn type="submit">제출</SubmitBtn>
-                    </SubmitBtnAlign>
-                </PreviewBox>
+                        </LinkInputContainer>
+                        <div>
+                            <label htmlFor="description">본 채용 설명</label>
+                            <br />
+                            <input type="textarea" placeholder="ex)회사이름, 채용일정 등..." />
+                        </div>
+                    </InputContainer>
+                    <PreviewBox>
+                        <p>미리보기</p>
+                        {imageFile ? (
+                            <a href={link} target="_blank">
+                                <img
+                                    src={URL.createObjectURL(imageFile)}
+                                    alt="미리보기"
+                                    style={{ width: '100px', height: '100px' }}
+                                />
+                            </a>
+                        ) : (
+                            <PlaceHolder />
+                        )}
+                    </PreviewBox>
+                </InputAndPreview>
+                <BtnAlign>
+                    <CancelBtn onClick={onClose}>취소</CancelBtn>
+                    <SubmitBtn type="submit">제출</SubmitBtn>
+                </BtnAlign>
             </Formalign>
         </ModalContainer>
     );

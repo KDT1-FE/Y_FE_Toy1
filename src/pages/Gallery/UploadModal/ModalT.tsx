@@ -6,7 +6,7 @@ import {
     ModalContainer,
     ModalFirstLine,
     SubmitBtn,
-    SubmitBtnAlign,
+    BtnAlign,
     PlaceHolder,
     LinkInputContainer,
     PreviewBox,
@@ -102,9 +102,9 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
                     ) : (
                         <PlaceHolder />
                     )}
-                    <SubmitBtnAlign>
+                    <BtnAlign>
                         <SubmitBtn type="submit">제출</SubmitBtn>
-                    </SubmitBtnAlign>
+                    </BtnAlign>
                 </PreviewBox>
             </Formalign>
         </ModalContainer>

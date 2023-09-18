@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 //갤러리 전체
@@ -14,7 +14,6 @@ export const ProfileContainer = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
 `;
 
 export const RecruitConstainer = styled.div`
@@ -31,20 +30,35 @@ export const ContentContainer = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 10px;
+`;
+
+export const ArticleContainer = styled.div`
+    --paddingTop: 10%;
+    overflow-y: auto;
+    height: calc(100vh - var(--paddingTop));
+    padding-left: 8%;
+    padding-top: var(--paddingTop);
+    padding-right: 8%;
+    box-sizing: border-box;
 `;
 
 export const ContentFirstLine = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-right: 20px;
+    position: fixed;
+    z-index: 2;
+    left: 22%;
+    top: 100px;
+    font-size: 30px;
 `;
 
 export const UploadBtn = styled.button`
-    width: 70px;
-    border-radius: 5px;
+    position: fixed;
+    right: 8.5%;
+    top: 92px;
+    z-index: 2;
+    width: 170px;
+    height: 70px;
+    border-radius: 10px;
+    font-size: 30px;
     padding: 10px;
     box-sizing: border-box;
     vertical-align: middle;
@@ -52,13 +66,32 @@ export const UploadBtn = styled.button`
     background-color: var(--active-current-status);
     color: white;
     cursor: pointer;
+    &:hover {
+        font-weight: bold;
+        filter: brightness(110%);
+    }
 `;
 
 // 아티클 영역
+const jumpShaking = keyframes`
+  0% { transform: translateX(0) }
+  25% { transform: translateY(-9px) }
+  35% { transform: translateY(-9px) rotate(17deg) }
+  55% { transform: translateY(-9px) rotate(-17deg) }
+  65% { transform: translateY(-9px) rotate(17deg) }
+  75% { transform: translateY(-9px) rotate(-17deg) }
+  100% { transform: translateY(0) rotate(0) }
+`;
+
 export const TrashCan = styled.div`
     width: 80px;
     height: 80px;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
     font-size: 60px;
+    animation: ${jumpShaking} 2s ease-in-out infinite;
+    z-index: 2;
 `;
 
 export const ImgContainer = styled.div`
@@ -95,8 +128,8 @@ export const ProfileIMG = styled.img`
 
 // 모달
 export const ModalContainer = styled.div`
-    width: 400px;
-    height: 220px;
+    width: 33%;
+    height: 43%;
     z-index: 999;
     position: fixed;
     top: 50%;
@@ -106,7 +139,7 @@ export const ModalContainer = styled.div`
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    padding: 20px;
 `;
 
 export const ModalBackground = styled.div`
@@ -126,6 +159,11 @@ export const ModalFirstLine = styled.div`
 `;
 
 export const Formalign = styled.form`
+    display: flex;
+    flex-direction: column;
+`;
+
+export const InputAndPreview = styled.div`
     display: flex;
     flex-direction: row;
 `;
@@ -167,8 +205,19 @@ export const SubmitBtn = styled.button`
     color: white;
     cursor: pointer;
 `;
+export const CancelBtn = styled.button`
+    width: 70px;
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    border: none;
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+`;
 
-export const SubmitBtnAlign = styled.div`
+export const BtnAlign = styled.div`
     display: flex;
     justify-content: center;
 `;
