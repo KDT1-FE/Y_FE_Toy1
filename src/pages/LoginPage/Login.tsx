@@ -19,6 +19,9 @@ function Login() {
   const setUserState = useSetRecoilState(userState)
   const setLoginState = useSetRecoilState(loginState)
 
+
+
+
   const handleButtonClick = async () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
@@ -27,8 +30,9 @@ function Login() {
         const userId = userCredential.user.uid
         const docRef = doc(db, "user", userId);
         const docSnap = (await getDoc(docRef));
+        const userCopy = JSON.parse(JSON.stringify(user));
         await setUserState({
-          userCredential: user,
+          userCredential: userCopy,
           userData: docSnap.data()
         })
         await setLoginState(true)
@@ -53,7 +57,7 @@ function Login() {
       </LoginInputBox>
       <LoginInputBox>
         <P>비밀번호</P>
-        <LoginInput type="text" value={password} placeholder="비밀번호를 입력하세요" onChange={(e) => setPassword(e.target.value)} />
+        <LoginInput type="password" value={password} placeholder="비밀번호를 입력하세요" onChange={(e) => setPassword(e.target.value)} />
       </LoginInputBox>
       <ButtonBox>
         <SignUpBtn type="button">
