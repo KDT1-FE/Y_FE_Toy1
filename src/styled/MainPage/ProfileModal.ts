@@ -47,15 +47,7 @@ export const ProfileInfoBox = styled.div`
   display: flex;
 `;
 
-export const SingleButtonBox = styled.div`
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const DuoButtonBox = styled.div`
+export const ButtonBox = styled.div`
   width: 100%;
 
   display: flex;
