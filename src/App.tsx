@@ -17,7 +17,34 @@ function App() {
     {
       path: '/',
       element: <Root />,
-      children: [{ path: '/study', element: <Study /> }],
+      children: [{ path: '/study', element: <Study />},
+      {
+        path : '/wiki/:boardState/:id',
+        element : <Provider store={wikiStore}>
+        <WikiDetail />,
+      </Provider>
+      },
+      {
+        path : '/wiki/:boardState/new',
+        element : <Provider store={wikiStore}>
+        <PostAdd />,
+      </Provider>
+      },
+      {
+        path : '/wiki/:boardState/:id/edit',
+        element : <Provider store={wikiStore}>
+        <PostEdit />,
+      </Provider>
+      },
+      {
+        path : '/wiki',
+        element: 
+        <Provider store={wikiStore}>
+        <Wiki/>,
+      </Provider>
+      
+      }
+    ],
     },
     {
       path: '/signup',
@@ -27,32 +54,7 @@ function App() {
       path: '/signin',
       element: <SignIn />,
     },
-    {
-      path : '/wiki',
-      element: 
-      <Provider store={wikiStore}>
-      <Wiki/>,
-    </Provider>
     
-    },
-    {
-      path : '/wiki/:boardState/:id',
-      element : <Provider store={wikiStore}>
-      <WikiDetail />,
-    </Provider>
-    },
-    {
-      path : '/wiki/:boardState/new',
-      element : <Provider store={wikiStore}>
-      <PostAdd />,
-    </Provider>
-    },
-    {
-      path : '/wiki/:boardState/:id/edit',
-      element : <Provider store={wikiStore}>
-      <PostEdit />,
-    </Provider>
-    },
   ]);
   return <RouterProvider router={router} />;
 }

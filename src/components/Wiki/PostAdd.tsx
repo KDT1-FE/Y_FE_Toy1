@@ -1,11 +1,13 @@
 import * as React from 'react';
-import { Wiki } from './Wiki';
 import { BoardNav } from './BoardNav';
 import {useState} from 'react'
 import { useSelector } from 'react-redux';
 import { addNewPostDB, readLastPostId } from 'data/wikiboard';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
+import './PostAdd.scss'
+import MdEditor from '@uiw/react-md-editor';
+
 
 type Post = {
     title:string|undefined,
@@ -15,7 +17,7 @@ type Post = {
     id:any,
 }
 export function PostAdd (props: any) {
-    
+
     const navigate = useNavigate()
     const [title,setTitle] = useState('');
     const [content,setContent] = useState('');
@@ -36,10 +38,12 @@ export function PostAdd (props: any) {
             if (lastPostId){
                 newPostData = {
                     title,
-                    content,
+                    content:markdown,
                     time:formattedDate,
-                    name:'사용자',
-                    id: lastPostId.data()?.LASTPOSTID + 1
+                    name:sessionStorage.nickname,
+                    id: lastPostId.data()?.LASTPOSTID + 1,
+                    uid : sessionStorage.uid,
+                    comment:[]
                 }
                 
             }
@@ -56,9 +60,15 @@ export function PostAdd (props: any) {
         await addNewPostDB(boardState,newPostData);
         navigate('/wiki')
     }
+    const [markdown, setMarkdown] = useState('');
+
+  const handleChange = (value:any) => {
+    setMarkdown(value);
+  };
+   
     
   return (
-    <div>
+    <div className="post__page--add">
       <BoardNav />
       <h1>게시글 작성하기</h1>
       <form onSubmit={handleSubmit}>
@@ -67,11 +77,19 @@ export function PostAdd (props: any) {
             <input type="text" onChange={handleChangeTitle} value={title}/>
         </div>
         <div>
-            <label htmlFor="">본문 : </label>
-            <input type="text" onChange={handleChangeContent} value={content}/>
-        </div>
+      <MdEditor
+        data-color-mode="light"
+        value={markdown}
+        onChange={handleChange}
+        height={500}
+      />
+      
+    </div>
         <button type='submit'>작성하기</button>
       </form>
+
+
     </div>
+    
   );
 }
