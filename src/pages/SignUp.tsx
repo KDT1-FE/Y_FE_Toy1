@@ -1,4 +1,4 @@
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 import { createUserWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
 import React, { useState } from 'react'
 import styled from 'styled-components'
@@ -37,7 +37,7 @@ const SignUp = () => {
       }
       signOut(auth)
       alert('회원가입이 완료됐습니다.')
-      navigate("/login")
+      navigate("/login",{replace:true})
     }catch(e){
       alert(e)
     }
