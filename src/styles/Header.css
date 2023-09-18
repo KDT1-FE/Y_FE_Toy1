@@ -127,16 +127,11 @@
 }
 
 .SubList:hover {
-  font-size: 24px;
-
-  transition: all 0.3;
-
-  cursor: pointer;
+  color: black;
 }
 
+.SubList:hover,
 .SubListMain:hover {
-  font-size: 30px;
-
   transition: all 0.3;
 
   cursor: pointer;
