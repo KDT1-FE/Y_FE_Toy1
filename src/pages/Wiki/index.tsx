@@ -1,4 +1,3 @@
-// Wiki.tsx 파일 내에서
 import React, { useState } from 'react';
 import { WikiContainer } from './style';
 import SidebarWiki from '../../components/SidebarWiki';

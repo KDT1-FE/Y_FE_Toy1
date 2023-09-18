@@ -28,14 +28,9 @@ const RecruitmentDetail: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
     const [userName, setUserName] = useState('');
 
-    const [clickedValue, setClickedValue] = useState<any>(null);
     const [data, setData] = useState<any>({});
 
     const navigate = useNavigate();
-
-    const handleKeyClick = (value: any) => {
-        setClickedValue(value);
-    };
 
     const channel = location.pathname.split('/')[2];
     const path = location.pathname.split('/')[3];
@@ -90,7 +85,6 @@ const RecruitmentDetail: React.FC = () => {
 
     return (
         <RecruitmentDetailContainer>
-            <SidebarGallery onKeyClick={handleKeyClick} />
             <ContentContainer>
                 <ContentWrapper>
                     <ContentHeader>
