@@ -13,15 +13,13 @@ const Team = () => {
   const editorRef = useRef<Editor | null>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [lastEdited, setLastEdited] = useState<null | Date>(null);
-  const { user } = useUser(); //유저 받아오기
+  const { user } = useUser();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const docRef = doc(db, 'wiki', 'team');
         const docSnapshot = await getDoc(docRef);
-
-        console.log('user확인하기', user?.name); //user값 확인
 
         if (docSnapshot.exists()) {
           const data = docSnapshot.data();
@@ -43,8 +41,7 @@ const Team = () => {
   }, []);
 
   const handleEditClick = async () => {
-    if (1) {
-      //유저가 있어야만 수정 되게
+    if (user) {
       if (isEditing && editorRef.current) {
         const editedMarkdown = editorRef.current.getInstance().getMarkdown();
         setMarkdown(editedMarkdown);
@@ -55,7 +52,7 @@ const Team = () => {
             title,
             content: editedMarkdown,
             lastEdited: currentTime,
-            editor,
+            editor: user.name,
           });
           setLastEdited(currentTime.toDate());
         } catch (error) {
