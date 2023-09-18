@@ -14,7 +14,11 @@ const CommuteModal: React.FC<OwnProps> = ({ handleModal }) => {
     const [timeRenewal, setTimeRenewal] = useState<string | void>();
 
     return (
-        <ModalWall>
+        <ModalWall
+            onClick={(e) => {
+                e.stopPropagation();
+            }}
+        >
             <Modal>
                 <ModalHeader>
                     <span>공부 기록</span>

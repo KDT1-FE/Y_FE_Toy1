@@ -24,7 +24,6 @@ export default function MyPageBtn() {
             }, 100);
         }
     };
-
     return (
         <ModalBtn
             onClick={() => {

@@ -21,7 +21,6 @@ export const Modal = styled.div`
     width: 720px;
     height: 540px;
     background-color: #fff;
-    z-index: 10;
     border-radius: 20px;
     box-shadow: 0 5px 5px 2px #7e7e7e;
     overflow: hidden;
@@ -33,6 +32,7 @@ export const ModalWall = styled.div`
     left: 0;
     width: 100vw;
     height: 100vh;
+    z-index: 100;
     background-color: rgba(0, 0, 0, 0.6);
 `;
 
