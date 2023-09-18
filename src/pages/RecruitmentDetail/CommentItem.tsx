@@ -52,7 +52,7 @@ const CommentItem: React.FC<CommentProps> = (props) => {
                 const value = { uid: e.target.uid.value, content: e.target.content.value, time: e.target.time.value };
                 await deleteComment(channel, path, value);
 
-                console.log(value);
+                location.reload();
             } else {
                 console.error('uid 또는 content가 정의되지 않았습니다.');
             }

@@ -35,6 +35,8 @@ const RecruitmentDetail: React.FC = () => {
     const channel = location.pathname.split('/')[2];
     const path = location.pathname.split('/')[3];
 
+    console.log(location.pathname);
+
     useEffect(() => {
         // 데이터를 비동기로 가져오기 위해 useEffect를 사용합니다.
         getRecruitmentDetail(channel, path)

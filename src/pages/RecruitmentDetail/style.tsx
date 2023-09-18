@@ -1,29 +1,21 @@
 import styled from '@emotion/styled';
 
-// --navigation-background : #350d36;
-// --cell-background: #3F0E40;
-// --active-item: #1164A3;
-// --active-item-text: #FFFFFF;
-// --point-item: #4D2A51;
-// --text: #FFF;
-// --active-current-status: #2BAC76;
-// --mention-badge: #ECE7EC;
-// --navigation-background: #350D36;
-// --navigation-text: #FFF;
-
 export const RecruitmentDetailContainer = styled.div`
     display: flex;
     padding-top: 72px;
     height: 100vh;
     width: 100vw;
+
+    overflow: auto;
+    background-color: #efefef;
 `;
 
 export const ContentContainer = styled.div`
-    background-color: #efefef;
     width: 100%;
+    max-width: 1080px;
     height: 100%;
 
-    overflow: auto;
+    margin: 0 auto;
 `;
 
 export const ContentWrapper = styled.div`
