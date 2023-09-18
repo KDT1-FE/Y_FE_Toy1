@@ -1,0 +1,27 @@
+@use '../../abstracts' as *;
+@use '../../base' as *;
+
+.authForm__button {
+  width: 100%;
+  line-height: 6.4rem;
+  font-weight: $font-bold900;
+  font-size: $font-base;
+  margin: 6rem 0 2rem;
+  border: 3px solid transparent;
+  background-color: $blue;
+  color: $white;
+  cursor: pointer;
+  outline: none;
+  transition: 0.2s ease;
+
+  &:disabled {
+    background-color: transparent;
+    border: 3px solid rgba(0, 0, 0, 0.3);
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  &:enabled:hover {
+    background-color: $darkBlue;
+    font-size: 180%;
+  }
+}

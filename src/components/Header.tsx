@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
+import UserInfo from './UserInfo';
 import AttendanceModal from './AttendanceModal';
 
+import '../scss/components/_userInfo.scss';
 import '../scss/components/_header.scss';
 
 const Header = (): JSX.Element => {
+  const [userInfoOpen, setUserInfoOpen] = useState<boolean>(false);
   const [modal, setModal] = useState<boolean>(false);
 
   return (
     <>
-      {modal && <AttendanceModal isOpen={modal} onClose={() => setModal(false)} />}
       <header className="header shadow">
         <div className="header__logo">
           <Link to="/">
@@ -18,11 +19,18 @@ const Header = (): JSX.Element => {
             {/* <img src="" alt="" />*/}
           </Link>
         </div>
-
         <div className="header__user">
-          <div className="header__user-img"></div>
-          <span className="header__user-name">김땡땡</span>
-          <button className="header__user-login-btn btn">로그인</button>
+          <div
+            className="header__user-info"
+            onClick={() => {
+              setUserInfoOpen(!userInfoOpen);
+            }}>
+            <div className="header__user-info-img"></div>
+            <span className="header__user-info-name">김땡땡</span>
+          </div>
+          <Link to="/login">
+            <button className="header__user-login-btn btn">로그인</button>
+          </Link>
         </div>
         <nav className="header__drop-down shadow">
           <ul>
@@ -38,7 +46,9 @@ const Header = (): JSX.Element => {
             <li>로그아웃</li>
           </ul>
         </nav>
+        {userInfoOpen && <UserInfo />}
       </header>
+      {modal && <AttendanceModal isOpen={modal} onClose={() => setModal(false)} />}
     </>
   );
 };

@@ -1,0 +1,23 @@
+@use '../../abstracts' as *;
+@use '../../base' as *;
+
+.authForm__title {
+  position: relative;
+  width: 100%;
+  line-height: 5rem;
+  font-size: $font-lg;
+  font-weight: $font-bold700;
+  letter-spacing: 2px;
+  color: $white;
+
+  &::before {
+    content: '';
+    width: 17rem;
+    height: 100%;
+    position: absolute;
+    z-index: -50;
+    top: 0;
+    left: -3rem;
+    background: $blue;
+  }
+}

@@ -1,12 +1,32 @@
-import React from 'react';
-import { BsFillXCircleFill, BsCheckCircleFill } from 'react-icons/bs';
+import { useInput, useButtonActivate } from '../hooks/auth';
 
-export const LoginPage = () => {
+import { FormTitle, InputEmail, InputPassword, SubmitButton, ChangeAuthPage } from '../components/Auth';
+
+import '../scss/authPage.scss';
+
+export const LoginPage = (): JSX.Element => {
+  const [email, handleEmail] = useInput('email', { value: '', validationPass: false });
+
+  const [password, handlePassword] = useInput('password', { value: '', validationPass: false });
+
+  const buttonActivate = useButtonActivate(email, password);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    /* -------------------------------- firebase Authentication -------------------------------- */
+  };
+
   return (
-    <div>
-      LoginPage
-      <BsFillXCircleFill />
-      <BsCheckCircleFill />
-    </div>
+    <form className="authForm signin" onSubmit={handleSubmit}>
+      <FormTitle title="SIGN IN" />
+
+      <InputEmail email={email} handleEmail={handleEmail} />
+      <InputPassword password={password} handlePassword={handlePassword} />
+
+      <SubmitButton content="SIGN IN" activate={buttonActivate} />
+
+      <ChangeAuthPage target="/register" />
+    </form>
   );
 };

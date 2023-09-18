@@ -1,0 +1,20 @@
+@use '../../abstracts' as *;
+@use '../../base' as *;
+
+.link {
+  font-size: $font-base;
+  margin: 1rem 0 2rem;
+  color: $black;
+  text-align: center;
+  transition: 0.2s ease;
+
+  a {
+    color: $blue;
+    transition: 0.1s ease;
+  }
+}
+
+.link > a:hover {
+  font-weight: $font-bold700;
+  color: $blue;
+}
