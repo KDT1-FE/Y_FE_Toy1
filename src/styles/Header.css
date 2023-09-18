@@ -1,5 +1,5 @@
 .Main {
-  padding: 18px 50px;
+  padding: 4px 30px;
 
   background-color: rgba(255, 55, 115, 0.8);
 }
@@ -13,6 +13,10 @@
   display: flex;
 
   align-items: center;
+}
+
+.Logo h1 {
+  font-size: 26px;
 }
 
 .List {
@@ -51,8 +55,8 @@
 
   position: relative;
 
-  padding: 1em 2.5em;
-  margin: 0 10px;
+  padding: 0.4em 1em;
+  margin: 10px;
 
   border: none;
   border-radius: 6em;
@@ -61,7 +65,7 @@
 
   color: black;
 
-  font-size: 16px;
+  font-size: 20px;
   font-family: inherit;
   font-weight: bold;
 
