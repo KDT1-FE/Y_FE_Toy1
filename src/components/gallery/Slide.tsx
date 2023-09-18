@@ -8,9 +8,13 @@ import { MapImages } from './MapImages';
 interface Props {
   categoryId: string;
   image?: string;
+  slideClassName: string;
 }
 
-export function Slide({ categoryId }: Props) {
+export function CarouselSlide({
+  categoryId,
+  slideClassName,
+}: Props): JSX.Element {
   const imageData = getImageData(categoryId);
   const [imageDataInfo, setImageDataInfo]: any = useState();
 
@@ -21,8 +25,16 @@ export function Slide({ categoryId }: Props) {
   }, []);
 
   useEffect(() => {
-    gsap.to('.slide-card', {
+    gsap.to('.leftSlideItem', {
       x: -1200,
+      duration: 15,
+      repeat: -1,
+      repeatDelay: 0,
+      ease: 'none',
+      draggable: true,
+    });
+    gsap.to('.rightSlideItem', {
+      x: 1200,
       duration: 15,
       repeat: -1,
       repeatDelay: 0,
@@ -34,16 +46,17 @@ export function Slide({ categoryId }: Props) {
     <div className="slide-row">
       <h2>{categoryId}</h2>
 
-      <div className="slide-card">
+      <div className={slideClassName}>
         {imageDataInfo?.map((image: any) => (
           <MapImages
-            key={image.id}
+            key={image.timestamp}
             image={image}
             commentsListData={image.comments}
             categoryId={categoryId}
             userId={image.uid}
             nickName={image.nickname}
             like={image.like}
+            slideClassName={slideClassName}
           />
         ))}
       </div>

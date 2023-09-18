@@ -2,8 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { UploadImage } from '../../data/galleryImage';
 
-//https://react-dropzone.js.org/#!/Previews
-
 export function AddImageDragDrop() {
   const [files, setFiles] = useState([]);
   const selectList = ['StudyTipsGallery', 'EventsGallery', 'HumorsGallery'];
@@ -33,7 +31,6 @@ export function AddImageDragDrop() {
       <div>
         <img
           src={file.preview}
-          // Revoke data uri after image is loaded
           onLoad={() => {
             URL.revokeObjectURL(file.preview);
           }}

@@ -1,15 +1,12 @@
-import {
-  realtimeCommentList,
-  updateLike,
-  uploadCommentList,
-  uploadCommentList2,
-} from 'data/galleryComment';
 import { db } from 'data/firebase';
-import { doc, collection, onSnapshot } from 'firebase/firestore';
+import { doc, onSnapshot } from 'firebase/firestore';
 import React, { useState, useRef, useEffect } from 'react';
 import './ModalComment.scss';
-import { useNavigate } from 'react-router-dom';
-import { AddCommentList } from './AddCommentList';
+import {
+  updateLike,
+  uploadCommentList,
+  uploadCommentWholeList,
+} from 'data/galleryComment';
 import { deleteImage, getImageData } from 'data/galleryImage';
 import { userId, userNickname } from 'pages/Gallery';
 
@@ -53,7 +50,7 @@ export function ModalComment({
   async function handleDeleteImage(e: any) {
     e.preventDefault();
     if (writerId == userId) {
-      await deleteImage(categoryId, imgId, image);
+      await deleteImage(categoryId, imgId);
       alert('삭제에 성공했습니다.');
       location.reload();
     } else {
@@ -72,21 +69,20 @@ export function ModalComment({
     if (comment !== '') {
       const newCommentList: any = [...commentList, comment];
       await setCommentList(newCommentList); //새 배열에 comment저장 후 set
+      await uploadCommentList(imgId, categoryId, comment); //댓글 업로드
       alert('Success! 저장에 성공했습니다.');
       await setChange((prev: any) => !prev);
-      //location.reload();
     } else if (comment == '') {
       alert(' Fail! 입력칸에 내용을  입력해주세요.');
     }
   };
 
-  function realtime() {
+  //실시간 댓글리스트 업데이트 함수
+  function getRealTimeCommentList() {
     const fetchList = async (categoryId: any, imgId: any) => {
       // ... try, catch 생략
-      const userRef = doc(db, categoryId, imgId);
-      const unsub = onSnapshot(userRef, (doc: any) => {
-        console.log('Current comments: ', doc.data().comments);
-        console.log('Current data: ', doc.data());
+      const commentsRef = doc(db, categoryId, imgId);
+      const unsub = onSnapshot(commentsRef, (doc: any) => {
         setCommentList(doc.data().comments);
       });
       return unsub;
@@ -94,12 +90,13 @@ export function ModalComment({
     return fetchList(categoryId, imgId);
   }
 
+  //실시간 댓글리스트 업데이트
   useEffect((): any => {
     if (comment !== '') {
-      uploadCommentList(imgId, categoryId, comment);
-      realtime();
+      getRealTimeCommentList(); //실시간 가져오기
     }
     setComment('');
+    console.log('Changed!', isChange);
   }, [isChange, doc, onSnapshot]);
 
   // 초기값 지정
@@ -108,56 +105,87 @@ export function ModalComment({
     setCommentList(commentsListData);
   }, []);
 
+  const handleDeleteComment = async (e: any) => {
+    try {
+      //선택 text값
+      const getDelText: string = e.target.previousElementSibling.innerHTML;
+      const getDelUid: string = e.target.closest('.commentItem').id;
+      //filter
+      const updatedData = commentList.filter((comment: any) => {
+        // text 내용 같은 요소만 제거
+        return (
+          comment.text !== getDelText.trim() &&
+          comment.commentUid !== getDelUid.trim()
+        );
+      });
+
+      await setCommentList(updatedData);
+
+      //배열 형태로 db업로드
+      await uploadCommentWholeList(updatedData, imgId, categoryId);
+
+      await setChange((prev: any) => !prev);
+      console.log('Deleted Comment Text:', updatedData);
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+    }
+  };
+
   return (
     <div>
       <div className="header">
-        <h2>Close 버튼이 안먹혀요ㅠ Esc 키 눌러주세요!</h2>
+        <h2>!</h2>
         <h3>작성자 : {writerName}</h3>
-        <button className="btn--delImage" onClick={handleDeleteImage}>
-          이미지 게시글 삭제
-        </button>
+
+        {userNickname === writerName ? (
+          <button className="btn--delImage" onClick={handleDeleteImage}>
+            이미지 게시글 삭제
+          </button>
+        ) : null}
       </div>
 
       <div className="imageView">
         <img src={image} alt={image} />
         <h3>
-          <span onClick={handleLike}>♥</span>
+          <span onClick={handleLike}>💖</span>
           {like}
         </h3>
       </div>
 
       <div className="commentContainer">
-        <form onSubmit={handleSubmit} className="commentForm">
-          <label htmlFor="comment">
-            {userNickname ? userNickname : '로그인이 필요합니다.'}
-          </label>
-          <input
-            type="text"
-            id="comment"
-            placeholder="작성 후 수정이 안되니 잘 생각하고 남기도록✏"
-            value={comment}
-            onChange={handleComments}
-          />
-          <button type="submit">제출</button>
-        </form>
+        {userNickname ? (
+          <form onSubmit={handleSubmit} className="commentForm">
+            <label htmlFor="comment"></label>
+            <input
+              type="text"
+              id="comment"
+              placeholder="작성 후 수정이 안되니 잘 생각하고 남기도록✏"
+              value={comment}
+              onChange={handleComments}
+            />
+            <button type="submit">제출</button>
+          </form>
+        ) : (
+          <h2>댓글 작성을 위해 로그인이 필요합니다.</h2>
+        )}
 
         <ul>
           {commentList?.map((comment: any) => (
-            <li key={comment.commentsTime} className="commentItem">
+            <li
+              key={comment.commentsTime}
+              id={comment.commentUid}
+              className="commentItem"
+            >
               <h3>{comment.commentUser}</h3>
-              <span className="commentText">{comment.text}</span>
+              <span className="commentText">{comment.text} </span>
+              {userNickname === comment.commentUser ? (
+                <span className="btn--delComment" onClick={handleDeleteComment}>
+                  🗑
+                </span>
+              ) : null}
             </li>
           ))}
         </ul>
-
-        {/* <AddCommentList
-          commentsListData={commentsListData}
-          comment={comment}
-          imgId={imgId}
-          categoryId={categoryId}
-          commentList={commentList}
-          setCommentList={setCommentList}
-        /> */}
       </div>
     </div>
   );

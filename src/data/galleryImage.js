@@ -1,18 +1,11 @@
 import { storage, db } from './firebase';
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  refFromURL,
-  deleteObject,
-} from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import {
   deleteDoc,
   doc,
   setDoc,
   getDocs,
   collection,
-  onSnapshot,
 } from 'firebase/firestore';
 import { userId, userNickname } from 'pages/Gallery';
 
@@ -41,7 +34,7 @@ async function UploadImage(selected, file) {
   return;
 }
 
-// 이미지 다운로드
+// 이미지, 댓글 다운로드
 async function getImageData(categoryId) {
   let querySnapshot = '';
 
@@ -67,16 +60,9 @@ async function getImageData(categoryId) {
   return;
 }
 
-async function deleteImage(categoryId, imgId, image) {
+// 이미지 db 삭제
+async function deleteImage(categoryId, imgId) {
   await deleteDoc(doc(db, categoryId, imgId));
-  // let imageStorageRef = ref(storage, `${categoryId}/ ${image}`);
-  // deleteObject(imageStorageRef)
-  //   .then(() => {
-  //     console.log('storage 삭제 성공');
-  //   })
-  //   .catch((error) => {
-  //     console.error();
-  //   });
 }
 
 export { UploadImage, getImageData, deleteImage };
