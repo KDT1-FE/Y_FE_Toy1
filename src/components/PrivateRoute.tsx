@@ -2,20 +2,20 @@ import React, { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import userState from '../recoil/atoms/userState';
 import Navigation from './NavBar';
+import loginState from '../recoil/atoms/loginState';
 
 function LoginCheckRoute() {
   const navigate = useNavigate();
-  const user = useRecoilValue(userState);
+  const isLogin = useRecoilValue(loginState);
 
   useEffect(() => {
-    if (!user.isLogin) {
+    if (!isLogin) {
       navigate('/login');
     }
   }, []);
 
-  return user.isLogin !== true ? null : (
+  return isLogin !== true ? null : (
     <>
       <Navigation />
       <Outlet />

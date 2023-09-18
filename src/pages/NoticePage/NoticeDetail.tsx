@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { DocumentData, deleteDoc, doc, getDoc } from 'firebase/firestore';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { deleteObject, ref } from 'firebase/storage';
-import { db, storage } from '../../firebaseSDK';
-import * as S from '../../styled/NoticePage/NoticeDetail.styles';
+import React, { useEffect, useState } from "react";
+import { DocumentData, deleteDoc, doc, getDoc } from "firebase/firestore";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { deleteObject, ref } from "firebase/storage";
+import { db, storage } from "../../firebaseSDK";
+import * as S from "../../styled/NoticePage/NoticeDetail.styles";
 
 function NoticeDetail() {
   const [noticeData, setNoticeData] = useState<DocumentData | undefined>({});
@@ -13,12 +13,12 @@ function NoticeDetail() {
   // 공지사항 정보 가져오기 함수
   const getNoticeData = async (): Promise<void> => {
     try {
-      const docRef = doc(db, 'notice', String(noticeId));
+      const docRef = doc(db, "notice", String(noticeId));
       const docSnap = (await getDoc(docRef)).data();
 
       setNoticeData(docSnap);
     } catch (error) {
-      console.log('Error: ', error);
+      console.log("Error: ", error);
     }
   };
 
@@ -27,12 +27,12 @@ function NoticeDetail() {
     try {
       const desertRef = ref(storage, `notice/${noticeData?.imageName}`);
       await deleteObject(desertRef);
-      await deleteDoc(doc(db, 'notice', String(noticeId)));
-      alert('삭제되었습니다!');
+      await deleteDoc(doc(db, "notice", String(noticeId)));
+      alert("삭제되었습니다!");
     } catch (error) {
-      console.log('Error: ', error);
+      console.log("Error: ", error);
     } finally {
-      navigate('/notice');
+      navigate("/notice");
     }
   };
 
@@ -62,7 +62,7 @@ function NoticeDetail() {
         <S.Contents>{noticeData?.contents}</S.Contents>
       </S.Body>
       <S.MoveToListBtn>
-        <Link to='/notice'>목록으로</Link>
+        <Link to="/notice">목록으로</Link>
       </S.MoveToListBtn>
     </S.Wrapper>
   );

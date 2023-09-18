@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { useSetRecoilState } from "recoil"
 
-import { auth } from "../../firebaseSDK"
-import { ButtonBox, LoginBtn, LoginInput, LoginLayout, LoginTitle, P, SignUpBtn, StyledLink } from "../../styled/LoginPage/Login"
+import { doc, getDoc } from "firebase/firestore"
+import { auth, db } from "../../firebaseSDK"
+import { ButtonBox, LoginBtn, LoginInput, LoginInputBox, LoginLayout, LoginTitle, P, SignUpBtn, SignUpText, StyledLink } from "../../styled/LoginPage/Login"
 import userState from "../../recoil/atoms/userState"
+import loginState from "../../recoil/atoms/loginState"
 
 function Login() {
 
@@ -15,16 +17,21 @@ function Login() {
   const [password, setPassword] = useState("")
 
   const setUserState = useSetRecoilState(userState)
+  const setLoginState = useSetRecoilState(loginState)
 
   const handleButtonClick = async () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         // Signed in 
         const { user } = userCredential;
+        const userId = userCredential.user.uid
+        const docRef = doc(db, "user", userId);
+        const docSnap = (await getDoc(docRef));
         await setUserState({
-          isLogin: true,
-          userInfo: user
+          userCredential: user,
+          userData: docSnap.data()
         })
+        await setLoginState(true)
         navigate("/")
       })
       .catch((error) => {
@@ -40,16 +47,19 @@ function Login() {
       <LoginTitle>
         WIKINITY
       </LoginTitle>
-      <div>
+      <LoginInputBox>
         <P>이메일</P>
         <LoginInput type="text" value={email} placeholder="이메일을 입력하세요" onChange={(e) => setEmail(e.target.value)} />
-      </div>
-      <div>
+      </LoginInputBox>
+      <LoginInputBox>
         <P>비밀번호</P>
         <LoginInput type="text" value={password} placeholder="비밀번호를 입력하세요" onChange={(e) => setPassword(e.target.value)} />
-      </div>
+      </LoginInputBox>
       <ButtonBox>
-        <SignUpBtn type="button"><StyledLink to="/signup">SIGN UP</StyledLink></SignUpBtn>
+        <SignUpBtn type="button">
+          <SignUpText>신입사원이신가요?</SignUpText>
+          <StyledLink to="/signup">SIGN UP</StyledLink>
+        </SignUpBtn>
         <LoginBtn onClick={handleButtonClick} type="button">LOGIN</LoginBtn>
       </ButtonBox>
     </LoginLayout>

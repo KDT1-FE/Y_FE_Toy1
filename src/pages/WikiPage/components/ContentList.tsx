@@ -6,6 +6,7 @@ import ContentListItem from './ContentListItem';
 import { wikiListState } from '../../../recoil/atoms/wiki/wikiListAtom';
 import {db} from '../../../firebaseSDK';
 import { filteredWikiListSelector } from '../../../recoil/atoms/wiki/CategoryAtom';
+import searchKeywordState from '../../../recoil/atoms/wiki/SearchAtom';
 
 interface WikiListItem {
   id: string;
@@ -18,7 +19,7 @@ interface WikiListItem {
 export default function ContentList() {
   const [, setWikiList] = useRecoilState(wikiListState);
   const filteredWikiList = useRecoilValue(filteredWikiListSelector);
-
+  const searchKeyword = useRecoilValue(searchKeywordState);
   const fetchWikiList = async () => {
     try {
       const wikiCollection = collection(db, '/wiki');
@@ -54,10 +55,12 @@ export default function ContentList() {
     };
     fetchedList();
   }, [setWikiList]); // wikiListState가 변경될 때만 useEffect가 실행됩니다.
-
+  const searchItem = filteredWikiList.filter((item) =>
+    item.title.includes(searchKeyword)
+  );
   return (
     <ContentListItemContainer>
-      {filteredWikiList.map((wikiItem) => (
+      {searchItem.map((wikiItem) => (
         <ContentListItem key={wikiItem.id} item={wikiItem} />
       ))}
     </ContentListItemContainer>

@@ -14,6 +14,7 @@
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "@uiw/react-md-editor": "^3.23.5",
+    "axios": "^1.5.0",
     "firebase": "^10.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -21,6 +22,7 @@
     "react-scripts": "5.0.1",
     "recoil": "^0.7.7",
     "recoil-persist": "^5.1.0",
+    "style-components": "^0.1.0",
     "styled-components": "^6.0.7",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"

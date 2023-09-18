@@ -2,19 +2,19 @@ import React, { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import userState from '../recoil/atoms/userState';
+import loginState from '../recoil/atoms/loginState';
 
 function PublicRoute() {
   const navigate = useNavigate();
-  const user = useRecoilValue(userState);
+  const isLogin = useRecoilValue(loginState)
 
   useEffect(() => {
-    if (user.isLogin) {
+    if (isLogin) {
       navigate('/');
     }
   }, []);
 
-  return user.isLogin === true ? null : <Outlet />;
+  return isLogin === true ? null : <Outlet />;
 }
 
 export default PublicRoute;
