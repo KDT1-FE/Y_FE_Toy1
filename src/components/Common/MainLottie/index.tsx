@@ -34,7 +34,7 @@ const StyledLottieContainer = styled.div`
   position: relative;
   width: 100%;
   margin: 0 auto;
-  /* ${media.desktop_lg(`
+  ${media.desktop_lg(`
     min-width: 1024px;
     display: none;
   `)}
@@ -47,7 +47,7 @@ const StyledLottieContainer = styled.div`
   ${media.mobile(`
     min-width: 576px;
     display: none;
-  `)} */
+  `)}
 `;
 
 export default MainLottie;
