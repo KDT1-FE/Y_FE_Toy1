@@ -83,7 +83,15 @@ function Wiki() {
                 <h1>아직 작성된 글이 없습니다.</h1>
                 글 작성하기
               </div> : 
-                <MDEditor.Markdown source={data?.content} /> 
+                <div>
+                  <ButtonContainer>
+                    <div>
+                      <button>수정하기</button>
+                      <button>삭제하기</button>
+                    </div>
+                  </ButtonContainer>
+                  <MDEditor.Markdown source={data?.content} /> 
+                </div>
             }
           </TextareaContainer>
         )}
@@ -100,6 +108,10 @@ const WikiContainer = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+
+  button {
+    margin: 1rem;
+  }
 `;
 
 const TextareaContainer = styled.div`
