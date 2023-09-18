@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { ModalComment } from './ModalComment';
 
 export function MapImages({

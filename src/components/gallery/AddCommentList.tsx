@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { userId, userNickname } from 'pages/Gallery';
-import { uploadCommentList } from 'data/galleryComment';
+import React from 'react';
 
 interface Props {
   commentsListData?: string[];
@@ -27,16 +25,6 @@ export function AddCommentList({
   commentList,
   setCommentList,
 }: Props) {
-  //초기값
-  // useEffect(() => {
-  //   setCommentList(commentsListData);
-  // }, []);
-
-  // //실시간업데이트
-  // useEffect(() => {
-  //   uploadCommentList(imgId, categoryId, comment);
-  // }, [commentList]);
-
   return (
     <>
       <ul>

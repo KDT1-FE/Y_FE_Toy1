@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { UploadImage } from '../../data/galleryImage';
-
-//https://react-dropzone.js.org/#!/Previews
 
 export function AddImageDragDrop() {
   const [files, setFiles] = useState([]);
