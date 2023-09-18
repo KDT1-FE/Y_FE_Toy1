@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { ChangeEvent, useRef, useState } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { signOut } from 'firebase/auth';
@@ -8,7 +9,8 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { doc, updateDoc } from 'firebase/firestore';
 import {
   ButtonBox, CloseImg, ProfileInfoBox, ProfileModalCloseBtn, ProfileModalHeader, ProfileModalHeaderText,
-  ProfileModalLayout, ProfileImg, ProfileInput, ProfileInputBtn, ProfileCameraImg
+  ProfileModalLayout, ProfileImg, ProfileInput, ProfileInputBtn, ProfileCameraImg, ProfileInfoText,
+  ProfileInfoEmail, CorrectBtn, CancelBtn, PositionSelect, InputText
 } from '../../styled/MainPage/ProfileModal'
 import ClostButton from "../../assets/img/CloseButton.svg"
 import userState from '../../recoil/atoms/userState';
@@ -104,47 +106,47 @@ export default function ProfileModal({ setShowProfile }: ProfileProp) {
       <ProfileInfoBox>
         {
           showEdit ?
-            <div style={{ position: 'relative' }}>
+            <>
               <ProfileInputBtn onClick={() => imgInputRef.current?.click()}>
                 <ProfileCameraImg src={Camera} alt="" />
                 <ProfileInput ref={imgInputRef} type='file' onChange={handlePreviewImgChange} />
               </ProfileInputBtn>
               <ProfileImg src={imgState === "" ? DefaultProfile : imgState} alt="" />
-            </div>
+            </>
             :
             <ProfileImg src={user.userData.profile ? user.userData.profile : DefaultProfile} />
         }
       </ProfileInfoBox>
 
       <ProfileInfoBox>
-        <div>
+        <ProfileInfoText>
           {user.userData.name}
-        </div>
+        </ProfileInfoText>
         {
           showEdit ?
             <div>
-              <select value={initialValue.position} onChange={(e) => setInitialValue({ ...initialValue, 'position': e.target.value })}>
+              <PositionSelect value={initialValue.position} onChange={(e) => setInitialValue({ ...initialValue, 'position': e.target.value })}>
                 <option value="이사">이사</option>
                 <option value="과장">과장</option>
                 <option value="사원">사원</option>
-              </select>
+              </PositionSelect>
             </div>
             :
-            <div>
+            <ProfileInfoText>
               {user.userData.position}
-            </div>
+            </ProfileInfoText>
         }
       </ProfileInfoBox>
       <ProfileInfoBox>
-        <div>
+        <ProfileInfoEmail>
           {user.userData.email}
-        </div>
+        </ProfileInfoEmail>
       </ProfileInfoBox>
       <ProfileInfoBox>
         {
           showEdit ?
             <div>
-              <input type="text" value={initialValue.phone} onChange={(e) => setInitialValue({ ...initialValue, 'phone': e.target.value })} />
+              <InputText type="text" value={initialValue.phone} onChange={(e) => setInitialValue({ ...initialValue, 'phone': e.target.value })} />
             </div>
             :
             <div>
@@ -155,26 +157,26 @@ export default function ProfileModal({ setShowProfile }: ProfileProp) {
       {
         showEdit ?
           <ButtonBox>
-            <button onClick={handleProfileEdit}>
+            <CorrectBtn onClick={handleProfileEdit}>
               수정
-            </button>
-            <button onClick={() => {
+            </CorrectBtn>
+            <CancelBtn onClick={() => {
               setImgState("")
               setShowEdit(false)
             }}>
               취소
-            </button>
+            </CancelBtn>
           </ButtonBox>
           :
           <ButtonBox>
-            <button onClick={() => {
+            <CorrectBtn onClick={() => {
               if (user.userData.profile !== "") { setImgState(user.userData.profile) }
               setInitialValue({ ...user.userData })
               setShowEdit(true)
             }}>
               편집
-            </button>
-            <button type="button" onClick={handleLogout}>로그아웃</button>
+            </CorrectBtn>
+            <CancelBtn type="button" onClick={handleLogout}>로그아웃</CancelBtn>
           </ButtonBox>
       }
     </ProfileModalLayout>
