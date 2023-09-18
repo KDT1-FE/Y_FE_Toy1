@@ -14,6 +14,7 @@ function CreateAccount() {
     email: "",
     phone: "",
     password: "",
+    profile: "",
     position: "이사",
     approve: false
   })
