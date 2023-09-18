@@ -39,12 +39,11 @@ const CommuteModal = ({
     toggleModal();
   };
 
-  // 이 부분도 수정 필요
   const mainButtonLabel = workingTime ? '확인' : isWorking ? '퇴근' : '출근';
   const mainButtonHandler = workingTime ? confirmWorkingTime : handleCommute;
   const secondaryButtonLabel = workingTime ? '수정' : '취소';
   const secondaryButtonHandler = workingTime ? editWorkingTime : toggleModal;
-
+  
   return (
     <>
       <Overlay onClick={toggleModal} className={isModalOpen ? 'open' : ''} />
