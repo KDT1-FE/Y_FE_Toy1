@@ -3,6 +3,7 @@ import "../../styles/Wiki.css";
 import "../../styles/ReactMarkdown.css";
 import {useParams} from "react-router-dom";
 import ReadWiki from "./ReadWiki";
+import SaveTeam from "./SaveTeam";
 import EditButton from "./EditButton";
 import TeamContent from "./TeamContent";
 import OtherContent from "./OtherContent";
@@ -27,7 +28,7 @@ function Content() {
     setDataKey(id);
     setIsEditorOpen(false);
 
-    if (id === "스터디구성") {
+    if (id === "팀구성") {
       setisTeamContent(true);
     } else {
       setisTeamContent(false);
@@ -42,6 +43,8 @@ function Content() {
       setText(doc.content);
     });
   }
+
+  SaveTeam();
 
   return (
     <div className="WikiContentWrap">

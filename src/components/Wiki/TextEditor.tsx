@@ -1,5 +1,8 @@
 import React, {useState} from "react";
 import "../../styles/Wiki.css";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 import {TextEditorProps} from "../../types/Wiki";
 import PostWiki from "./PostWiki";
 
@@ -19,7 +22,15 @@ function TextEditor({dataKey, content, setIsEditorOpen}: TextEditorProps) {
 
   return (
     <div className="TextEditorWrap">
-      <form id="editor-form" onSubmit={onSubmit}>
+      <ReactMarkdown
+        className="markdown-body markdown-body-editor"
+        remarkPlugins={[remarkGfm]}
+        rawSourcePos
+        rehypePlugins={[rehypeRaw as any]}
+      >
+        {text}
+      </ReactMarkdown>
+      <form className="EditorForm" onSubmit={onSubmit}>
         <textarea onChange={onChange} value={text} />
         <button
           className="WikiButton"

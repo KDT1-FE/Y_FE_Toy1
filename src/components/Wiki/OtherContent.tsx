@@ -14,25 +14,21 @@ function OtherContent({
   content,
   setIsEditorOpen,
 }: OtherContentProps) {
-  return (
-    <div id="mainContent">
-      {isEditorOpen ? (
-        <TextEditor
-          dataKey={dataKey}
-          content={text}
-          setIsEditorOpen={setIsEditorOpen}
-        />
-      ) : (
-        <ReactMarkdown
-          className="markdown-body"
-          remarkPlugins={[remarkGfm]}
-          rawSourcePos
-          rehypePlugins={[rehypeRaw as any]}
-        >
-          {content}
-        </ReactMarkdown>
-      )}
-    </div>
+  return isEditorOpen ? (
+    <TextEditor
+      dataKey={dataKey}
+      content={text}
+      setIsEditorOpen={setIsEditorOpen}
+    />
+  ) : (
+    <ReactMarkdown
+      className="markdown-body"
+      remarkPlugins={[remarkGfm]}
+      rawSourcePos
+      rehypePlugins={[rehypeRaw as any]}
+    >
+      {content}
+    </ReactMarkdown>
   );
 }
 
