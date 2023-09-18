@@ -12,7 +12,7 @@ interface NameProps {
   handleName: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-export const InputName = ({ name, handleName }: NameProps): JSX.Element => {
+const InputName = ({ name, handleName }: NameProps): JSX.Element => {
   return (
     <div className="input-container">
       <input type="text" name="name" id="name" value={name.value} onChange={handleName} required autoComplete="off" />
@@ -27,3 +27,5 @@ export const InputName = ({ name, handleName }: NameProps): JSX.Element => {
     </div>
   );
 };
+
+export default InputName;

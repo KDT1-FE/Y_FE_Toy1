@@ -12,7 +12,7 @@ interface PasswordProps {
   handlePassword: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-export const InputPassword = ({ password, handlePassword }: PasswordProps): JSX.Element => {
+const InputPassword = ({ password, handlePassword }: PasswordProps): JSX.Element => {
   return (
     <div className="input-container">
       <input
@@ -35,3 +35,5 @@ export const InputPassword = ({ password, handlePassword }: PasswordProps): JSX.
     </div>
   );
 };
+
+export default InputPassword;

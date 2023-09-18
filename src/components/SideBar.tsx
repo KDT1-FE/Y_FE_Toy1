@@ -5,6 +5,7 @@ import { AiFillHome, AiOutlineRight } from 'react-icons/ai';
 import { BsFillBuildingFill } from 'react-icons/bs';
 import { FaListUl } from 'react-icons/fa6';
 import { HiPhotograph } from 'react-icons/hi';
+import { BiTime } from 'react-icons/bi';
 
 import '../scss/components/_sidebar.scss';
 
@@ -43,6 +44,12 @@ const SideBar = (): JSX.Element => {
             <Link to={'/gallery'} className="nav-depth__link">
               <HiPhotograph className="nav-depth__logo" />
               갤러리
+            </Link>
+          </li>
+          <li className="nav__depth__item">
+            <Link to={'/attendance'} className="nav-depth__link">
+              <BiTime className="nav-depth__logo" />
+              근태관리
             </Link>
           </li>
         </ul>

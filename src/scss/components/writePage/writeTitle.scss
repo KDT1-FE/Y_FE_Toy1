@@ -15,7 +15,9 @@
     outline: none;
     border: none;
     resize: none;
-    line-height: $font-lg;
+    line-height: 1.2;
     overflow: hidden;
+    background-color: $bg-light;
+    border-radius: 4px;
   }
 }
