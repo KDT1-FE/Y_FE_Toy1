@@ -43,7 +43,7 @@ const SignUp = () => {
           displayName: nickname
         })
       }
-      console.log(userCredential)
+      
       await setDoc(doc(db,"user", userCredential.user.uid),{
         uid: userCredential.user.uid,
         nickName: nickname,
