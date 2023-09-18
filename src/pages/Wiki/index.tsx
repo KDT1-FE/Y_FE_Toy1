@@ -14,8 +14,10 @@ function WikiCreate({ setIsEdit }: props) {
   const searchParams = new URLSearchParams(location.search)
   const selectedCategory = searchParams.get('category')
   const [textValue, setTextValue] = useState('')  
-  const handleSetValue = (text: string) => {
-    setTextValue(text);
+  const handleSetValue = (text: string | undefined) => {
+    if (text) {
+      setTextValue(text);
+    }
   };
 
   return (
@@ -33,7 +35,7 @@ function WikiCreate({ setIsEdit }: props) {
       <MDEditor
         placeholder='등록할 내용을 입력해주세요.'
         value={textValue}
-        onChange={(event) => {handleSetValue(event as string)}}
+        onChange={(event) => {handleSetValue(event as string | undefined)}}
         id='markdownEditor'
       />
     </TextareaContainer>
