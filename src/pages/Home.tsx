@@ -8,8 +8,7 @@ const Home = () => {
     <Container>
       <Carousel />
       <HomeBox />
-      <Recentgalley />
-      <RecentPost />
+        <RecentPost />
     </Container>
   );
 };
@@ -25,10 +24,6 @@ const HomeBox = styled.div`
   margin-bottom: 50px;
 `;
 
-const Recentgalley = styled.div`
-  background-color: gray;
-  width: 1202px;
-  height: 500px;
-`;
+
 
 export default Home;

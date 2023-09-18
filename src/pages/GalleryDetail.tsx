@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import styled from "styled-components"
 import { db } from "../firebase"
-import { doc, collection, getDocs, deleteDoc } from  "firebase/firestore"
+import { doc, collection, getDocs, deleteDoc } from  "firebase/firestore" // timestamp 추가
 import { Link, useParams, useNavigate } from "react-router-dom";
 
   // 함수 인자 타입 선언
@@ -15,7 +15,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
     category: string,
     title: string,
     date: string,
-    timestamp: string,
+    timestamp: string// TimeStamp,
     writer: string,
     desc: string
   }
