@@ -80,7 +80,12 @@ function CommuteModal() {
         Commute
         <img src={commuteLogo}></img>
       </CommuteMenu>
-      <ReactModal isOpen={showModal} ariaHideApp={false} style={StyledModal}>
+      <CustomModal
+        isOpen={showModal}
+        ariaHideApp={false}
+        className="modal"
+        style={StyledModal}
+      >
         <TopContainer>
           <Title>
             출퇴근<StyledDate>{dayFormat()}</StyledDate>
@@ -120,7 +125,7 @@ function CommuteModal() {
             </StyledButton>
           </BottomContainer>
         </StyledContainer>
-      </ReactModal>
+      </CustomModal>
     </>
   );
 }
@@ -132,25 +137,39 @@ const StyledModal: ReactModal.Styles = {
     position: 'fixed',
     zIndex: '90000',
   },
-  content: {
-    width: '34.25rem',
-    height: '27.5rem',
-    zIndex: '90000',
-
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-
-    borderRadius: '0.375rem',
-    paddingTop: '1.4375rem',
-    paddingBottom: '5.6rem',
-    border: 'none',
-
-    transform: 'translate(-50%, -50%)',
-    backgroundColor: 'white',
-    outline: 'none',
-  },
 };
+
+const CustomModal = styled(ReactModal)`
+  &.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 34.25rem;
+    height: 27.5rem;
+
+    background-color: #fff;
+    transform: translate(-50%, -50%);
+    z-index: 90000;
+
+    outline: none;
+    border: none;
+    padding-top: 1.4375rem;
+    padding-bottom: 5.6rem;
+    border-radius: 0.375rem;
+
+    ${media.tablet(`
+    width: 28rem;
+    height: 22rem;
+    padding-top: 0.7rem;
+  `)}
+    ${media.mobile(`
+  width: 18rem;
+  height: 18rem;
+  padding-top: 0.7rem;
+`)}
+  }
+`;
 const CommuteMenu = styled.div`
   font-size: 1.1rem;
   font-weight: 300;
@@ -182,9 +201,17 @@ const CommuteMenu = styled.div`
 const TopContainer = styled.section`
   display: flex;
   justify-content: space-between;
+
   box-sizing: border-box;
   padding: 0 1.875rem;
   height: 7rem;
+
+  ${media.tablet(`
+  height: 5rem;
+`)}
+  ${media.mobile(`
+  height: 3rem;
+`)}
 `;
 const Title = styled.div`
   font-size: 2rem;
@@ -193,6 +220,11 @@ const Title = styled.div`
   align-self: flex-end;
 
   cursor: default;
+
+  ${media.mobile(`
+  font-size: 1.4rem;
+  font-weight:600;
+`)}
 `;
 const CloseImg = styled.img`
   width: 1.25rem;
@@ -204,6 +236,10 @@ const StyledDate = styled.div`
   font-size: 0.875rem;
   font-weight: 600;
   margin-top: 0.3rem;
+
+  ${media.mobile(`
+  display:none;
+`)}
 `;
 const StyledContainer = styled.section`
   height: 10rem;
@@ -221,11 +257,21 @@ const BottomContainer = styled.section`
   width: 22rem;
   align-items: center;
   justify-content: flex-end;
+
+  ${media.mobile(`
+  width:15rem;
+  gap:0.4rem;
+`)}
 `;
 const StyledStateText = styled.div`
   color: #4a5568;
   font-size: 1.1rem;
   font-weight: 600;
+
+  ${media.mobile(`
+  font-size: 1rem;
+  font-weight: 400;
+`)}
 `;
 
 const StyledButton = styled.button`
@@ -247,6 +293,14 @@ const StyledButton = styled.button`
   &:hover {
     background-color: #1b64da;
   }
+
+  ${media.mobile(`
+  font-weight: 500;
+  font-size: 1.1rem;
+
+  width: 4rem;
+  height: 2rem;
+`)}
 `;
 
 const StyledFinishText = styled.div`
@@ -254,6 +308,11 @@ const StyledFinishText = styled.div`
   font-weight: 600;
 
   padding-top: 1rem;
+
+  ${media.mobile(`
+  font-size: 1.3rem;
+
+`)}
 `;
 
 const StyledStopButton = styled.button`
@@ -267,6 +326,17 @@ const StyledStopButton = styled.button`
 
   background-color: #e2e8f0;
   border: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ${media.mobile(`
+  width: 3rem;
+  height: 2rem;
+  font-weight: 500;
+
+`)}
 `;
 
 const StyledMainContainer = styled.div`
