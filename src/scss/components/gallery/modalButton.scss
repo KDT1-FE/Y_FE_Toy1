@@ -1,0 +1,25 @@
+@use '../../abstracts' as *;
+@use '../../base' as *;
+
+.modal__button {
+  width: 100%;
+  line-height: 4rem;
+  font-weight: $font-bold700;
+  font-size: $font-base;
+  margin: 2rem 0;
+  border: 2px solid $blue;
+  background-color: $white;
+  color: $blue;
+  cursor: pointer;
+  outline: none;
+  text-transform: uppercase;
+  //   cursor: pointer;
+  transition: 0.5s;
+
+  &:active,
+  &:hover,
+  &:focus {
+    background-color: $blue;
+    color: $white;
+  }
+}

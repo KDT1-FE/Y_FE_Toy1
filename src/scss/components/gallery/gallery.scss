@@ -1,0 +1,33 @@
+@use '../../abstracts' as *;
+@use '../../base' as *;
+
+.gallery {
+  width: 100%;
+  height: 100vh;
+  background: $lightGray;
+  padding: 4rem;
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $darkBlue;
+    padding: 0rem 1rem;
+
+    & h1 {
+      font-size: $font-lg;
+      color: $darkBlue;
+    }
+
+    &__add-btn {
+      font-size: xx-large;
+      color: $blue;
+      cursor: pointer;
+      transition: 0.5s;
+
+      &:hover {
+        scale: 1.1;
+      }
+    }
+  }
+}
