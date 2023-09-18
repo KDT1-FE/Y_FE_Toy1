@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { wikiStore } from 'redux/store';
 import Root from 'pages/Root';
 import { SignUp } from 'pages/SignUp';
+import { Gallery } from 'pages/Gallery';
 import { Study } from 'pages/Study';
 import { WikiDetail } from 'components/Wiki/WikiDetail';
 import { PostAdd } from 'components/Wiki/PostAdd';
@@ -18,6 +19,8 @@ function App() {
       path: '/',
       element: <Root />,
       children: [
+        { path: '/study', element: <Study /> },
+        { path: '/gallery', element: <Gallery /> },
         { path: '/study', element: <Study /> },
         {
           path: '/wiki/:boardState/:id',
