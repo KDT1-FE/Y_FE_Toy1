@@ -40,7 +40,8 @@
   display: flex;
   flex-direction: column;
 
-  width: 250px;
+  min-width: 250px;
+  min-height: 100vh;
 
   padding: 2rem 0;
 
@@ -68,8 +69,11 @@
   padding: 1.2rem 0rem;
 }
 
-.CategoryListWrapper > a {
-  padding: 0.6rem 1rem;
+.CategoryListWrapper a {
+  width: inherit;
+
+  padding: 0.6rem;
+  padding-left: 2.5rem;
 
   color: white;
 
@@ -79,11 +83,18 @@
   cursor: pointer;
 }
 
-.CategoryListWrapper > a:hover {
+.CategoryListWrapper a:hover {
   font-weight: 600;
+  color: #ff648f;
 
   transition: all 0.3s;
-  transform: scale(1.07);
+}
+
+.CategoryListWrapper a:focus {
+  font-weight: 600;
+  color: #ff648f;
+
+  transition: all 0.3s;
 }
 
 .markdown-body {
@@ -115,6 +126,7 @@
   padding: 1.4rem;
 
   text-align: left;
+  font-size: 22px;
 }
 
 /* src/component/Wiki/TextEditor */
@@ -144,5 +156,6 @@ textarea {
   background-color: #f1f4f6;
 
   color: #3d4e62;
-  font-size: 1rem;
+  font-size: 0.8rem;
+  line-height: 1.8rem;
 }

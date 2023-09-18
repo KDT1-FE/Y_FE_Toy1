@@ -42,7 +42,8 @@
   display: flex;
   flex-direction: column;
 
-  width: 250px;
+  min-width: 250px;
+  min-height: 100vh;
 
   padding: 2rem 0;
 
@@ -70,8 +71,9 @@
   padding: 1.2rem 0rem;
 }
 
-.GalleryListWrapper > a {
-  padding: 0.6rem 1rem;
+.GalleryListWrapper a {
+  padding: 0.6rem;
+  padding-left: 2.5rem;
 
   color: white;
 
@@ -81,11 +83,18 @@
   cursor: pointer;
 }
 
-.GalleryListWrapper > a:hover {
+.GalleryListWrapper a:hover {
   font-weight: 600;
+  color: #ff648f;
 
   transition: all 0.3s;
-  transform: scale(1.07);
+}
+
+.GalleryListWrapper a:focus {
+  font-weight: 600;
+  color: #ff648f;
+
+  transition: all 0.3s;
 }
 
 .GalleryContentSection {
