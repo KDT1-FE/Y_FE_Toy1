@@ -1,37 +1,34 @@
-import Sidebar from "components/Sidebar";
-import React, { useState, useEffect, useContext } from "react";
-import styled from "styled-components";
-import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import React, { useContext } from "react"
+import styled from "styled-components"
 import { Link, useNavigate } from "react-router-dom";
 import "../components/Wiki.css";
 import { AuthContext } from "authentication/authContext";
 
-const GalleryList: React.FC = () => {
-  // user의 문서정보 상태관리
-  const [users, setUsers] = useState<any[]>([]);
-  const usersCollectionRef = collection(db, "gallery");
+interface userData {
+  id?: string,
+  category?: string,
+  title?: string,
+  date?: string,
+  timestamp?: string,
+  writer?: string,
+  desc?: string,
+  thumbnail?: string,
+  uid?: string
+}
+
+const GalleryList: React.FC<{ galleryData: userData[] }> = ({ galleryData }) => {
 
   const user = useContext(AuthContext);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const getUsers = async () => {
-      // 비동기로 user의 데이터 가져오기
-      const data = await getDocs(usersCollectionRef);
-      // 가져온 데이터 setUsers에 데이터 할당
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-    getUsers();
-  }, []);
-
+ 
   return (
     <>
       <section className="wiki__wrapper">
         <div className="wiki__header">
-          <div className="wiki__title"> Gallery의 카테고리 출력영역 </div>
-          {user?.displayName ? (
-            <Link to="/Gallery/edit">
+          <div className="wiki__title"> Gallery </div>
+          {
+            user?.displayName ?
+              <Link to="/Gallery/edit">
               <button type="button" className="wiki__btn-edit">
                 새 글 작성
               </button>
@@ -56,7 +53,7 @@ const GalleryList: React.FC = () => {
           )}
         </div>
         <ListWrapper>
-          {users.map((user) => {
+          {galleryData.map((user) => {
             return (
               <Link to={`/Gallery/detail/${user.id}`} key={user.id}>
                 <div className="Gallery__link">
@@ -79,7 +76,6 @@ const GalleryList: React.FC = () => {
 };
 
 // 스타일
-
 const ListWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
