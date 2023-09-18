@@ -1,7 +1,11 @@
-import React from 'react';
-import '../scss/components/_header.scss';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import UserInfo from './UserInfo';
+import '../scss/components/_header.scss';
+import '../scss/components/_userInfo.scss';
+
 const Header = (): JSX.Element => {
+  const [userInfoOpen, setUserInfoOpen] = useState<boolean>(false);
   return (
     <header className="header shadow">
       <div className="header__logo">
@@ -12,21 +16,19 @@ const Header = (): JSX.Element => {
       </div>
 
       <div className="header__user">
-        <div className="header__user-img"></div>
-        <span className="header__user-name">김땡땡</span>
-        <button className="header__user-login-btn btn">로그인</button>
+        <div
+          className="header__user-info"
+          onClick={() => {
+            setUserInfoOpen(!userInfoOpen);
+          }}>
+          <div className="header__user-info-img"></div>
+          <span className="header__user-info-name">김땡땡</span>
+        </div>
+        <Link to="/login">
+          <button className="header__user-login-btn btn">로그인</button>
+        </Link>
       </div>
-      <nav className="header__drop-down shadow">
-        <ul>
-          <li>
-            <Link to="/">근태관리</Link>
-          </li>
-          <li>
-            <Link to="/">마이페이지</Link>
-          </li>
-          <li>로그아웃</li>
-        </ul>
-      </nav>
+      {userInfoOpen && <UserInfo />}
     </header>
   );
 };

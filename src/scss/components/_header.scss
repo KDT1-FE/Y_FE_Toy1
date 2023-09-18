@@ -1,4 +1,5 @@
 @use '../abstracts' as *;
+@use '../base' as *;
 
 .header {
   padding: 1rem 4rem;
@@ -12,7 +13,6 @@
   align-items: center;
   width: 100%;
   box-sizing: border-box;
-  margin-bottom: 1.5rem;
 
   &__logo {
     width: 120px;
@@ -40,44 +40,27 @@
     align-items: center;
     gap: 14px;
     position: relative;
-
-    &-img {
-      display: block;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      border: 1px solid #ccc;
+    &-info {
       cursor: pointer;
-      margin: auto;
-      transition: 0.3s;
-      background-image: url('https://startbootstrap.github.io/startbootstrap-sb-admin-2/img/undraw_profile.svg');
-      background-size: cover;
-    }
-    &-img:hover {
-      transform: scale(1.2);
-    }
-    &-img img {
-      width: 100%;
-    }
-  }
-
-  &__drop-down {
-    @include flex-center-col;
-    width: 120px;
-    background: $white;
-    position: absolute;
-    top: 65px;
-    right: 5px;
-    box-sizing: border-box;
-    border-radius: 10px;
-    & ul {
-      width: 100%;
-      text-align: center;
-      & li {
-        padding: 0.5rem;
-        &a {
-          display: inline-block;
-        }
+      @include flex-center-row;
+      gap: 1rem;
+      &-img {
+        display: block;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        margin: auto;
+        transition: 0.3s;
+        background-image: url('https://startbootstrap.github.io/startbootstrap-sb-admin-2/img/undraw_profile.svg');
+        background-size: cover;
+      }
+      &-img:hover {
+        transform: scale(1.2);
+      }
+      &-img img {
+        width: 100%;
       }
     }
   }
@@ -99,9 +82,7 @@
   border-radius: 4px;
   display: inline-block;
   width: auto;
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  @include shadow;
   cursor: pointer;
   transition: 0.5s;
 }
@@ -110,10 +91,6 @@
 .btn:focus {
   background: $darkBlue;
   outline: 0;
-}
-
-.shadow {
-  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
 }
 
 @media (max-width: 600px) {
