@@ -3,7 +3,7 @@ import { CloseBtn, Modal, ModalHeader } from '../Timer/style';
 import { TimelogBox, TimelogBoxScroll, TimelogEl } from './style';
 import { useRecoilState } from 'recoil';
 import { UserId } from '../../../utils/recoil';
-import { readTimelog } from '../../../utils/firebase';
+import { readUser } from '../../../utils/firebase';
 
 interface OwnProps {
     handleTimelog(): void;
@@ -14,9 +14,14 @@ const TimelogModal: React.FC<OwnProps> = ({ handleTimelog }) => {
     const [timelogData, setTimelogData] = useState([]);
     useEffect(() => {
         async function getTimelog() {
-            const timelogData = await readTimelog('user', userId);
-            if (timelogData) {
-                setTimelogData(timelogData);
+            try {
+                const userData = await readUser('user', userId);
+                if (userData) {
+                    const timelog = userData['timelog'];
+                    setTimelogData(timelog);
+                }
+            } catch {
+                console.log('error');
             }
         }
         getTimelog();

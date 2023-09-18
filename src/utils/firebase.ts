@@ -77,14 +77,15 @@ export const createTimelog = async (collectionName: string, userName: string, cu
         throw error;
     }
 };
-export const readTimelog = async (collectionName: string, userName: string) => {
+
+export const readUser = async (collectionName: string, userName: string) => {
     const userRef = doc(firestore, collectionName, userName);
     try {
         const Docs = await getDoc(userRef);
         if (Docs) {
             const data = Docs.data();
             if (data) {
-                return data['timelog'];
+                return data;
             }
         }
     } catch (error) {

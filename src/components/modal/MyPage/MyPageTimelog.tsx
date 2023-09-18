@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { MarginLeftContents, MyPageContents, RedCircle } from './style';
 import TimelogModal from './TimelogModal';
+import { useRecoilState } from 'recoil';
+import { TimerOn } from '../../../utils/recoil';
 
 export default function MyPageTimelog() {
     const [timelogModal, setTimelogModal] = useState(false);
+    const [timerOn, setTimerOn] = useRecoilState(TimerOn);
     function handleTimelog() {
         if (timelogModal) {
             setTimelogModal(false);
@@ -14,7 +17,7 @@ export default function MyPageTimelog() {
     return (
         <MyPageContents>
             <MarginLeftContents onClick={handleTimelog}>입/퇴실 기록</MarginLeftContents>
-            <RedCircle>·</RedCircle>
+            <RedCircle value={timerOn}>·</RedCircle>
             {timelogModal && <TimelogModal handleTimelog={handleTimelog} />}
         </MyPageContents>
     );
