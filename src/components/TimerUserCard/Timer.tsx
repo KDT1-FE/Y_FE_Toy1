@@ -10,7 +10,7 @@ import {
   collection,
 } from 'firebase/firestore';
 import { db } from 'data/firebase';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/types'; // RootState 타입 추가
 
 //unix timestamp
@@ -61,7 +61,7 @@ export function Timer({ id }: TimerProps): JSX.Element {
         }
       });
     });
-  });
+  }, [count]);
 
   //시작 버튼 동작
   const handleStart: (event: any) => void = useCallback(async (event) => {
