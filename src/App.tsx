@@ -8,6 +8,7 @@ import Gallery from './pages/Gallery';
 import SignIn from './pages/SignIn';
 import LogIn from './pages/LogIn';
 import Recruitment from './pages/Recruitment';
+import RecruitmentDetail from './pages/RecruitmentDetail';
 
 import { useRecoilState } from 'recoil';
 import { UserId } from './utils/recoil';
@@ -30,6 +31,7 @@ const App: React.FC = () => {
                     <Route path="/signin" element={<SignIn />}></Route>
                     <Route path="/login" element={<LogIn />}></Route>
                     <Route path="/recruitment" element={<Recruitment />}></Route>
+                    <Route path="/recruitment/:channel/:path" element={<RecruitmentDetail />}></Route>
                 </Routes>
             </div>
         </BrowserRouter>

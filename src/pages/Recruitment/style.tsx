@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 export const RecruitmentContainer = styled.div`
     display: flex;
-    margin-top: 72px;
+    padding-top: 72px;
     height: 100vh;
     width: 100vw;
 `;
@@ -10,6 +10,9 @@ export const RecruitmentContainer = styled.div`
 export const PostsContainer = styled.div`
     background-color: var(--mention-badge);
     width: 100vw;
+    height: 100%;
+
+    overflow: auto;
     padding: 20px;
 
     display: flex;

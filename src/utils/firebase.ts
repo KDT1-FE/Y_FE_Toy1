@@ -227,7 +227,7 @@ export const showRecruitmentFields = async (
     collectionName: string,
     documentName: string,
     subcollectionName: string,
-): Promise<any[]> => {
+): Promise<{ docSnapshots: any[] }> => {
     const documentRef = doc(firestore, collectionName, documentName);
 
     try {
@@ -237,11 +237,15 @@ export const showRecruitmentFields = async (
             const subcollectionRef = collection(documentRef, subcollectionName);
             const querySnapshot = await getDocs(subcollectionRef);
 
-            const studyData = querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
-            return studyData; // 데이터를 반환
+            const docSnapshots = querySnapshot.docs.map((docSnapshot) => ({
+                id: docSnapshot.id,
+                data: docSnapshot.data(),
+            }));
+
+            return { docSnapshots };
         } else {
             console.error('상위 문서가 존재하지 않습니다.');
-            return []; // 빈 배열을 반환하여 오류 시 데이터가 없음을 표시
+            return { docSnapshots: [] }; // 빈 배열을 반환하여 오류 시 데이터가 없음을 표시
         }
     } catch (error) {
         console.error('데이터 가져오기 실패!', error);

@@ -22,8 +22,6 @@ import { showRecruitmentFields } from '../../utils/firebase';
 const Recruitment: React.FC = () => {
     const channel = useRecoilValue(channelState);
     const subChannel = useRecoilValue(subChannelState);
-    console.log('channel', channel);
-    console.log('subChannel', subChannel);
 
     const [recruitmentData, setRecruitmentData] = useState<any[]>([]);
     const [filteredData, setFilteredData] = useState<any[]>([]);
@@ -52,8 +50,13 @@ const Recruitment: React.FC = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await showRecruitmentFields('recruitmentContainer', 'recruitment', channel);
-                const filteredData = subChannel === 'all' ? data : data.filter((item) => item.category === subChannel);
+                const { docSnapshots } = await showRecruitmentFields('recruitmentContainer', 'recruitment', channel);
+                const filteredData =
+                    subChannel === 'all'
+                        ? docSnapshots.map((item) => ({ id: item.id, data: item.data }))
+                        : docSnapshots
+                              .filter((item) => item.data.category === subChannel)
+                              .map((item) => ({ id: item.id, data: item.data }));
 
                 setRecruitmentData(filteredData);
             } catch (error) {
@@ -82,16 +85,20 @@ const Recruitment: React.FC = () => {
                 </PostNav>
                 <PostsWrapper>
                     {searching
-                        ? filteredData.map((data, index) => <Post data={data} index={index} channel={channel} />)
-                        : recruitmentData.map((data, index) => <Post data={data} index={index} channel={channel} />)}
+                        ? filteredData.map((data, index) => (
+                              <Post key={index} data={data.data} id={data.id} index={index} channel={channel} />
+                          ))
+                        : recruitmentData.map((data, index) => (
+                              <Post key={index} data={data.data} id={data.id} index={index} channel={channel} />
+                          ))}
                 </PostsWrapper>
             </PostsContainer>
         </RecruitmentContainer>
     );
 };
 
-const Post: React.FC<{ data: any; index: number; channel: string }> = ({ data, index, channel }) => (
-    <Link to={'/recruitment/' + channel + '/' + data}>
+const Post: React.FC<{ data: any; id: string; index: number; channel: string }> = ({ data, id, index, channel }) => (
+    <Link to={`/recruitment/${channel}/${id}`}>
         {/* ex) /recruitment/study/SD521S3SF3EB3H5 */}
         <PostWrapper key={index} style={index >= 1 ? { borderTop: '1px solid #BEBEBE' } : {}}>
             <div style={{ display: 'flex' }}>
