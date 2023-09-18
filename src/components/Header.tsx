@@ -4,7 +4,6 @@ import { CiSearch } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import CommuteModal from './CommuteModal';
-import { UserProvider } from '../common/UserContext';
 import UserResult from './UserProfile';
 
 const Header = () => {
@@ -23,7 +22,7 @@ const Header = () => {
           </div>
           <InputWrapper>
             <div className="icon">
-              <button>
+              <button className="btn">
                 <CiSearch size="20" />
               </button>
             </div>
@@ -33,8 +32,9 @@ const Header = () => {
 
         <div className="nav-wrapper">
           <div className="icon">
-            <CommuteModal isModalOpen={isModalOpen} />
+            <CommuteModal isModalOpen={isModalOpen} toggleModal={toggleModal} />
             <button
+              className="btn"
               onClick={toggleModal}
               aria-haspopup="dialog"
               aria-labelledby="commute-modal"
@@ -45,9 +45,7 @@ const Header = () => {
           </div>
 
           <div className="icon">
-            <UserProvider>
-              <UserResult />
-            </UserProvider>
+            <UserResult />
           </div>
         </div>
       </Navbar>
@@ -66,6 +64,8 @@ const Container = styled.header`
   padding: 0 2rem;
   background-color: ${({ theme }) => theme.colors.white};
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+
+  z-index: 20;
 `;
 
 const Navbar = styled.nav`
@@ -94,7 +94,7 @@ const Navbar = styled.nav`
     align-items: center;
     justify-content: center;
 
-    button {
+    button.btn {
       display: flex;
       justify-content: center;
       align-items: center;

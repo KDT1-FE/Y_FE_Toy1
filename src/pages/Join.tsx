@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { auth } from '../common/config';
 import {
   createUserWithEmailAndPassword,
@@ -6,8 +6,8 @@ import {
   updatePhoneNumber,
   RecaptchaVerifier,
   PhoneAuthProvider,
+  User,
 } from 'firebase/auth';
-import { useUser } from '../common/UserContext';
 
 const Join = () => {
   const [email, setEmail] = useState('');
@@ -15,9 +15,10 @@ const Join = () => {
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [uid, setUid] = useState('');
   const [photoUrl, setPhotoUrl] = useState('');
-  const { updateUser } = useUser(); // UserContext에서 updateUser 함수 불러오기
+
+  const defaultUser: User | null = null;
+  const [user, setUser] = useState<User | null>(defaultUser);
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -43,28 +44,80 @@ const Join = () => {
     setPhotoUrl(e.target.value);
   };
 
+  const passwordCheck = (password: string, passwordCheck: string) => {
+    if (password === passwordCheck) {
+      return true;
+    } else {
+      alert('비밀번호와 비밀번호 확인의 값이 다릅니다.');
+      return false;
+    }
+  };
+
   const handleJoin = async () => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password).then((result) => {
-        updateProfile(result.user, {
+      const result = await passwordCheck(password, passwordConfirm);
+      if (result) {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const newUser = userCredential.user;
+
+        // 프로필 업데이트
+        await updateProfile(newUser, {
           displayName: name,
           photoURL: photoUrl,
         });
-        new RecaptchaVerifier(auth, 'recaptcha-container', {
-          size: 'normal',
-          callback: (result: any) => {
-            const credential = PhoneAuthProvider.credential(result.verificationId, result.code);
-            updatePhoneNumber(result.user, credential);
-          },
-          'expired-callback': () => {
-            // Response expired. Ask user to solve reCAPTCHA again.
-          },
-        });
-      });
+
+        setUser(newUser); // 사용자 정보 상태 변수 업데이트
+      }
     } catch (error) {
       console.error('회원가입 실패:', error);
     }
   };
+
+  useEffect(() => {
+    // RecaptchaVerifier 초기화
+    if (user) {
+      // 사용자 정보가 있을 때만 실행
+      const appVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+        size: 'normal',
+        callback: (recaptchaToken: string) => {
+          // Callback 로직
+          const phoneNumber = `+82${phone}`;
+          const provider = new PhoneAuthProvider(auth);
+          provider
+            .verifyPhoneNumber(phoneNumber, appVerifier)
+            .then((verificationId) => {
+              appVerifier.clear();
+              const code = window.prompt('인증 코드를 입력하세요:');
+              if (code) {
+                const credential = PhoneAuthProvider.credential(verificationId, code);
+                if (verificationId === code) {
+                  return updatePhoneNumber(user, credential);
+                } else {
+                  window.location.reload();
+                  alert('인증 코드를 다시 확인해 주세요.');
+                }
+              }
+            })
+            .catch((error) => {
+              if (error.code === 'auth/invalid-verification-code') {
+              } else if (error.code === 'auth/account-exists-with-different-credential') {
+                alert('이미 등록된 번호입니다.');
+              } else alert('정의되지 않은 오류입니다. 관리자에 문의해 주세요.');
+            });
+        },
+        'expired-callback': () => {
+          alert('reCAPTCHA가 만료되었습니다. 다시 풀어주세요.');
+          // reCAPTCHA 다시 렌더링
+          appVerifier.render();
+        },
+      });
+
+      console.log(user);
+
+      // reCAPTCHA 인증을 요청합니다.
+      appVerifier.render();
+    }
+  }, [phone, user]);
 
   return (
     <div>
@@ -88,6 +141,7 @@ const Join = () => {
       <div>
         <label>휴대폰번호:</label>
         <input type="number" value={phone} onChange={handlePhoneChange} />
+        <div id="recaptcha-container"></div>
       </div>
       <div>
         <label>사진:</label>

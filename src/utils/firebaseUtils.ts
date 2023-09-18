@@ -1,20 +1,23 @@
 import { db } from '../common/config';
 import { commuteType } from '../data/atoms';
-import { doc, updateDoc } from 'firebase/firestore';
+import { arrayUnion, doc, getDoc, setDoc } from 'firebase/firestore';
 
-export const uploadCommuteInfo = async (uid: string, commuteData: commuteType) => {
-  const userDoc = doc(db, 'commute', uid);
+export const uploadCommuteInfo = async (uid: string | undefined, commuteData: commuteType) => {
+  if (!uid) return;
+
   const dateStr = new Date(commuteData.date).toISOString().split('T')[0];
+  const commuteDateRef = doc(db, 'commute', uid, 'commuteDays', dateStr);
+  // const commuteDateDoc = await getDoc(commuteDateRef);
 
   const updateData = {
-    [dateStr]: {
-      // date: commuteData.date,
-      // commute: commuteData.commute,
-      startTime: commuteData.startTime,
-      endTime: commuteData.endTime,
-      workingTime: commuteData.workingTime,
-    },
+    startTime: commuteData.startTime,
+    endTime: commuteData.endTime,
+    workingTime: commuteData.workingTime,
   };
 
-  await updateDoc(userDoc, updateData);
+  await setDoc(commuteDateRef, { session: arrayUnion(updateData) }, { merge: true });
+
+  // Fetch and log the document after uploading
+  const updatedCommuteDateDoc = await getDoc(commuteDateRef);
+  console.log('Data after upload:', updatedCommuteDateDoc.data());
 };
