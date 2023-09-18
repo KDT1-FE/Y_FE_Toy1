@@ -9,7 +9,7 @@ interface props {
   setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function WikiCreate({ setIsEdit }: props, ) {
+function WikiCreate({ setIsEdit }: props) {
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
   const selectedCategory = searchParams.get('category')
@@ -26,17 +26,17 @@ function WikiCreate({ setIsEdit }: props, ) {
             alert('빈 내용은 등록하실 수 없습니다.')
             return;
           } else {
-            // 빈 내용이 아닌 올바른 내용을 생성한 후, 위키 작성시 firebase api 호출을 통해 글 등록
             create(selectedCategory as string, textValue)
             setIsEdit(false)
           }
         }}>등록하기</button>
       </ButtonContainer>
-      <MDEditor 
+      <MDEditor
         placeholder='등록할 내용을 입력해주세요.'
         value={textValue}
         onChange={(event) => {handleSetValue(event as string)}}
-      /> 
+        id='markdownEditor'
+      />
     </TextareaContainer>
   )
   
@@ -77,7 +77,12 @@ const ButtonContainer = styled.div`
 
 const TextareaContainer = styled.div`
   margin: 2rem;
+  position: relative;
+  height: 50vw;
 
+  #markdownEditor {
+    height: 100% !important;
+  }
 `;
 
 export default Wiki;

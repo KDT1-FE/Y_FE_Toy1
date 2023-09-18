@@ -8,7 +8,6 @@ import Main from 'pages/Main';
 import { ROUTES } from 'constants/routes';
 import Gallery from 'pages/Gallery';
 import Wiki from 'pages/Wiki';
-// import WikiCreate from 'pages/WikiCreate';
 import Header from 'components/Header';
 import Login from 'pages/Login';
 import { auth } from 'apis/firebase';
