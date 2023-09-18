@@ -1,19 +1,15 @@
 import * as React from 'react';
 import { BoardNav } from './BoardNav';
 import { BoardContent } from './BoardContent';
-import {Provider,useSelector} from 'react-redux'
+import { useSelector } from 'react-redux';
 
+export function Wiki(props: any) {
+  const boardState = useSelector((state: any) => state.boardState.value);
 
-
-export function Wiki (props: any) {
-  const boardState = useSelector((state:any)=>state.boardState.value)
-  
-  
-    return (
-    
+  return (
     <>
-    <BoardNav/>
-    <BoardContent boardState={boardState}/>
+      <BoardNav />
+      <BoardContent boardState={boardState} />
     </>
   );
 }
