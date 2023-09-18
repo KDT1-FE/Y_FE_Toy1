@@ -6,6 +6,8 @@ import {
   Unsubscribe,
   getDoc,
   serverTimestamp,
+  query,
+  collection,
 } from 'firebase/firestore';
 import { db } from 'data/firebase';
 import { useSelector, useDispatch } from 'react-redux';
@@ -49,6 +51,17 @@ export function Timer({ id }: TimerProps): JSX.Element {
     };
     fetchData();
   }, [id]);
+  //firestore에서 데이터 업데이트 발생 시 데이터 받아오기
+  useEffect(() => {
+    const docRefs = query(collection(db, 'User'));
+    onSnapshot(docRefs, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        if (doc.id === id) {
+          setCount(doc.data().accumulateCount);
+        }
+      });
+    });
+  });
 
   //시작 버튼 동작
   const handleStart: (event: any) => void = useCallback(async (event) => {
