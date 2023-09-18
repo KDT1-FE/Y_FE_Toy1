@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-interface StudyTimeProps {
-  isStudying: boolean;
-  studyStartTime: number | null;
-  toggleStudyStatus: () => void;
-}
-
 const Clock: React.FC = () => {
   const [currentTime, setCurrentTime] = useState<string>("00:00:00");
 
@@ -20,7 +14,6 @@ const Clock: React.FC = () => {
 
     const intervalId = setInterval(updateTime, 1000);
 
-    // 컴포넌트가 언마운트될 때 clearInterval을 호출하여 인터벌을 정리합니다.
     return () => {
       clearInterval(intervalId);
     };
@@ -32,6 +25,12 @@ const Clock: React.FC = () => {
     </div>
   );
 };
+
+interface StudyTimeProps {
+  isStudying: boolean;
+  studyStartTime: number | null;
+  toggleStudyStatus: () => void;
+}
 
 const StudyTime: React.FC<StudyTimeProps> = ({
   isStudying,
