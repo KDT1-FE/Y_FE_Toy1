@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 import { Wiki } from 'components/Wiki/Wiki';
 import { Provider } from 'react-redux';
+import { Provider } from 'react-redux';
 import { wikiStore } from 'redux/store';
 import Root from 'pages/Root';
 import { SignUp } from 'pages/SignUp';
@@ -23,6 +24,39 @@ function App() {
       children: [
         { path: '/study', element: <Study /> },
         { path: '/gallery', element: <Gallery /> },
+        { path: '/study', element: <Study /> },
+        {
+          path: '/wiki/:boardState/:id',
+          element: (
+            <Provider store={wikiStore}>
+              <WikiDetail />,
+            </Provider>
+          ),
+        },
+        {
+          path: '/wiki/:boardState/new',
+          element: (
+            <Provider store={wikiStore}>
+              <PostAdd />,
+            </Provider>
+          ),
+        },
+        {
+          path: '/wiki/:boardState/:id/edit',
+          element: (
+            <Provider store={wikiStore}>
+              <PostEdit />,
+            </Provider>
+          ),
+        },
+        {
+          path: '/wiki',
+          element: (
+            <Provider store={wikiStore}>
+              <Wiki />,
+            </Provider>
+          ),
+        },
         { path: '/study', element: <Study /> },
         {
           path: '/wiki/:boardState/:id',

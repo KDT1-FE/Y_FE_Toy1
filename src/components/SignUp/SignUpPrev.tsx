@@ -2,6 +2,7 @@ import { createNickname, uploadUserImage } from 'data/user';
 import { IHandleChange, IHandleNothing, IUser } from 'pages/SignUp';
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import './SignUpPrev.scss';
+import './SignUpPrev.scss';
 
 interface ISignUpPrevProps {
   user: IUser;
@@ -50,6 +51,8 @@ export function SignUpPrev({
   return (
     <form className="profile-form" onSubmit={handleSubmit}>
       <div className="form-image">
+    <form className="profile-form" onSubmit={handleSubmit}>
+      <div className="form-image">
         <input
           type="file"
           id="img"
@@ -61,9 +64,14 @@ export function SignUpPrev({
         <label htmlFor="img">
           <span>프로필 사진 변경하기</span>
         </label>
+        <label htmlFor="img">
+          <span>프로필 사진 변경하기</span>
+        </label>
       </div>
       <div className="form-nickname">
+      <div className="form-nickname">
         <input
+          className="form-control form-control-lg"
           className="form-control form-control-lg"
           type="text"
           name="nickname"
