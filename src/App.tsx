@@ -3,7 +3,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 import { Wiki } from 'components/Wiki/Wiki';
 import { Provider } from 'react-redux';
-import { Provider } from 'react-redux';
 import { wikiStore } from 'redux/store';
 import Root from 'pages/Root';
 import { SignUp } from 'pages/SignUp';

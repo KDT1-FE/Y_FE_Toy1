@@ -6,7 +6,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { loginAction } from 'redux/action';
 import { IUser } from './SignUp';
 import '../styles/pages/SignIn.scss';
-import '../styles/pages/SignIn.scss';
 
 export function SignIn() {
   const [email, setEmail] = useState(localStorage.getItem('email') ?? '');
@@ -69,13 +68,9 @@ export function SignIn() {
   return (
     <div className="login-container">
       <h2>로그인</h2>
-    <div className="login-container">
-      <h2>로그인</h2>
       <form onSubmit={handleLogin}>
         <div className="form-email">
-        <div className="form-email">
           <input
-            className="form-control form-control-lg"
             className="form-control form-control-lg"
             type="email"
             value={email}
@@ -85,9 +80,7 @@ export function SignIn() {
           />
         </div>
         <div className="form-password">
-        <div className="form-password">
           <input
-            className="form-control form-control-lg"
             className="form-control form-control-lg"
             type="password"
             value={password}
@@ -98,10 +91,7 @@ export function SignIn() {
         </div>
         <div className="form-check">
           <label className="form-check-label">
-        <div className="form-check">
-          <label className="form-check-label">
             <input
-              className="form-check-input"
               className="form-check-input"
               type="checkbox"
               checked={rememberEmail}
@@ -110,10 +100,6 @@ export function SignIn() {
             이메일 기억하기
           </label>
         </div>
-        <p className="error">{errorMessage ?? errorMessage}</p>
-        <button className="btn btn-submit" type="submit">
-          로그인하기
-        </button>
         <p className="error">{errorMessage ?? errorMessage}</p>
         <button className="btn btn-submit" type="submit">
           로그인하기
