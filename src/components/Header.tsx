@@ -128,6 +128,7 @@ const InnerContainer = styled.div`
   box-sizing: border-box;
   max-width: 1200px;
   display:flex;
+  align-items:center;
   justify-content: space-between;
   word-break: keep-all;
 `;

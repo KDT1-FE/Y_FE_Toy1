@@ -5,41 +5,11 @@ import styled from "styled-components";
 const Sidebar = () => {
   const location = useLocation();
   const hashSplit = location.pathname.split("/");
-  const [displayToggle, setDisplayToggle] = useState(true)
 
   // active 관리
   const [activeItem, setActiveItem] = useState("");
 
   if (hashSplit[1] === "Wiki") {
-<<<<<<< HEAD
-    const sideLinkAttendance = ["출석 인정", "QR출결 정정 프로세스"];
-    const sideLinkAdmin = ["휴가", "훈련장려금"];
-    
-    // Wiki 사이드바
-    return (
-      <Container>
-        <ul className="sidebar__link-wrapper">
-          <li key={"출석"}>
-            <Link to={`/Wiki/`}><p className="sidebar__title-text">출석</p></Link>
-          </li>
-          {sideLinkAttendance.map((link, idx) => (
-            <li key={sideLinkAttendance[idx]}>
-              <Link to={`/Wiki/${link}`}><p className="sidebar__normal-text">{link}</p></Link>
-            </li>
-          ))}
-          <li key={"행정"} onClick={()=>setDisplayToggle(prev=>!prev)}><p style={{cursor:'pointer'}} className="sidebar__title-text">{displayToggle?'▼ ':'▶ ' }행정</p></li>
-
-          {displayToggle && <ul className="sidebar__toggle">
-            {sideLinkAdmin.map((link, idx) => (
-            <li key={sideLinkAdmin[idx]}>
-              <Link to={`/Wiki/${link}`}> <p className="sidebar__normal-text">{link}</p> </Link>
-            </li>))}
-          </ul>}
-
-          <li key={"학습 일정"}>
-            <Link to={`/Wiki/학습 일정`}><p className="sidebar__title-text">금주의 학습 일정</p></Link>
-=======
-    const sideName = ["출석", "행정", "학습일정"];
     const sideLinkAttendance = ["출석 인정", "QR출결 정정 "];
     const sideLinkAdmin = ["휴가", "훈련장려금"];
 
@@ -72,7 +42,6 @@ const Sidebar = () => {
           })}
           <li key={"행정"} className="sidebar__menu">
             행정
->>>>>>> dev
           </li>
           {sideLinkAdmin.map((page, idx) => {
             return (
@@ -136,39 +105,6 @@ const Container = styled.aside`
   z-index: 9;
   width: 200px;
   height: 100%;
-<<<<<<< HEAD
-  box-sizing: border-box;
-  padding: 10px;
-  user-select: none;
-  p{
-    margin: 0;
-    padding: 10px 0;
-  }
-  .active{
-    color: var(--main-color);
-  }
-  .sidebar__title-text{
-    padding-top: 20px;
-    font-size: 18px;
-  }
-  .sidebar__normal-text{
-    font-size: 16px;
-    color: #777;
-  }
-  .sidebar__link-wrapper {
-    height: calc(100vh - 300px);
-    min-height: 200px;
-    overflow-y: auto;  
-    display: flex;
-    flex-flow: column;
-    box-sizing: border-box;
-    padding: 20px 0 10px 10px;
-  }
-  .sidebar__bottom {
-    bottom: 0;
-    text-align: center;
-=======
-  // background-color: #ddd;
   border-right: 3px solid #ddd;
 
   .sidebar__bottom {
@@ -198,7 +134,6 @@ const Container = styled.aside`
     font-size: 18px;
     line-height: 148%;
   }
->>>>>>> dev
 `;
 
 const SidebarBottom = (): JSX.Element => {
@@ -247,5 +182,13 @@ const SidebarBottom = (): JSX.Element => {
     </SidebarBottomBox>
   );
 };
-
+/* 토글버튼
+<li key={"행정"} onClick={()=>setDisplayToggle(prev=>!prev)}><p style={{cursor:'pointer'}} className="sidebar__title-text">{displayToggle?'▼ ':'▶ ' }행정</p></li>
+{displayToggle && <ul className="sidebar__toggle">
+  {sideLinkAdmin.map((link, idx) => (
+  <li key={sideLinkAdmin[idx]}>
+    <Link to={`/Wiki/${link}`}> <p className="sidebar__normal-text">{link}</p> </Link>
+  </li>))}
+</ul>}
+*/
 export default Sidebar;
