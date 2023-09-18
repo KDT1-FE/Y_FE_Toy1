@@ -3,6 +3,7 @@ import { MyPageProfile, ProfileContent, ProfileEdit, ProfileImg, ProfileIntroduc
 import { readUser } from '../../../utils/firebase';
 import { useRecoilState } from 'recoil';
 import { UserId } from '../../../utils/recoil';
+import UserEditBtn from './UserEditBtn';
 
 export default function MyPageUser() {
     const [userId, setUserId] = useRecoilState(UserId);
@@ -32,7 +33,7 @@ export default function MyPageUser() {
             <ProfileImg src={userImg}></ProfileImg>
             <ProfileContent>
                 <span>{userName}</span>
-                <ProfileEdit>편집</ProfileEdit>
+                <UserEditBtn />
             </ProfileContent>
             <ProfileContent>{userEmail}</ProfileContent>
             <ProfileIntroduce>
