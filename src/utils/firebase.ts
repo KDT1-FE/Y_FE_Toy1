@@ -5,6 +5,7 @@ import {
     Firestore,
     doc,
     getDocs,
+    addDoc,
     collection,
     deleteDoc,
     getDoc,
@@ -249,6 +250,19 @@ export const showRecruitmentFields = async (
         }
     } catch (error) {
         console.error('데이터 가져오기 실패!', error);
+        throw error;
+    }
+};
+
+export const createRecruitment = async (channel: string, value: any) => {
+    try {
+        const addRecruitment = await addDoc(
+            collection(firestore, 'recruitmentContainer', 'recruitment', channel),
+            value,
+        );
+        console.log('게시글 생성에 성공했습니다');
+    } catch (error) {
+        console.error('게시글 작성에 실패했습니다.', error);
         throw error;
     }
 };
