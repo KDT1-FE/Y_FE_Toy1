@@ -25,10 +25,9 @@ function WikiCreate({ setIsEdit }: props) {
           if (textValue === '') {
             alert('빈 내용은 등록하실 수 없습니다.')
             return;
-          } else {
-            create(selectedCategory as string, textValue)
-            setIsEdit(false)
           }
+          create(selectedCategory as string, textValue)
+          setIsEdit(false)
         }}>등록하기</button>
       </ButtonContainer>
       <MDEditor
