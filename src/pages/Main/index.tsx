@@ -31,7 +31,6 @@ function Main() {
           <StyledWorkTimeSmallText>업무 시간기록</StyledWorkTimeSmallText>
         </StyledTitleTextBox>
         <StyledHrLine />
-        {/* 이제 여기에 통근시간리스트 컴포넌트 부분 개발 */}
         <div>
           <CommuteList />
         </div>
