@@ -2,6 +2,7 @@ import WikiEditButton from "./WikiButton";
 import * as Styled from "./WikiContentStyle";
 import { WikiForm } from "./WikiForm";
 import { Wiki } from "@/pages/wiki/WikiType";
+import { Editor } from "@toast-ui/react-editor";
 
 interface Props {
   Wiki: Wiki | null;
@@ -10,6 +11,7 @@ interface Props {
   onFormChange: (key: keyof Wiki, value: string) => void;
   onWikiButtonClick: () => void;
   toggleEditMode: () => void;
+  editorRef: React.MutableRefObject<Editor | null>;
 }
 
 export default function WikiContent({
@@ -19,6 +21,7 @@ export default function WikiContent({
   toggleEditMode,
   form,
   onFormChange,
+  editorRef,
 }: Props) {
   function onEditButtonClick() {
     onWikiButtonClick();
@@ -29,7 +32,11 @@ export default function WikiContent({
   return (
     <Styled.ContentsWrapper>
       {isEditMode ? (
-        <WikiForm form={form} onFormChange={onFormChange} />
+        <WikiForm
+          form={form}
+          onFormChange={onFormChange}
+          editorRef={editorRef}
+        />
       ) : (
         <>
           <Styled.ContentsTitle>
@@ -46,6 +53,7 @@ export default function WikiContent({
               ></WikiEditButton>
             </div>
           </Styled.ContentsTitle>
+
           <div>
             <Styled.WikiContent>{Wiki.content}</Styled.WikiContent>
           </div>

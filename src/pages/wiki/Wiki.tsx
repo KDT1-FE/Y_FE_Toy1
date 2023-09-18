@@ -1,31 +1,36 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import * as S from "./WikiStyle";
 import wikiInitData from "@/db/wiki/wikiInitData.json";
 import WikiContent from "@/components/wiki/WikiContent";
 import WikiCategoryList from "@/components/wiki/WikiCategoryList";
 import WikiTop from "@/components/wiki/WikiTop";
 import { Wiki } from "./WikiType";
+import { Editor } from "@toast-ui/react-editor";
 
 export default function WikiPage() {
   const [wikiData, setWikiData] = useState<Wiki[]>(wikiInitData);
   const [isEditMode, setIsEditMode] = useState(false);
   const [showCategoryList, setShowCategoryList] = useState(true);
-  const [form, setForm] = useState<Wiki>({
-    wikiID: "",
-    parentID: "",
-    title: "",
-    content: "",
-    authorID: "",
-    createdAt: "",
-    updatedAt: "",
-  });
+  const firstParentWiki = wikiInitData.find((wiki) => !wiki.parentID) || null;
+  const initialFormValue = firstParentWiki
+    ? firstParentWiki
+    : {
+        wikiID: "",
+        parentID: "",
+        title: "",
+        content: "",
+        authorID: "",
+        createdAt: "",
+        updatedAt: "",
+      };
+  const [form, setForm] = useState<Wiki>(initialFormValue);
   const [displayedWikis, setDisplayedWikis] = useState<Wiki[]>(
     wikiData.filter((wiki) => !wiki.parentID),
   );
-  const firstParentWiki = wikiInitData.find((wiki) => !wiki.parentID) || null;
   const [selectedEntry, setSelectedEntry] = useState<Wiki | null>(
     firstParentWiki,
   );
+  const editorRef = useRef<Editor | null>(null);
 
   useEffect(() => {
     setWikiData(wikiInitData);
@@ -91,6 +96,9 @@ export default function WikiPage() {
     setIsEditMode(false);
     setShowCategoryList(true);
     alert("위키를 저장했습니다.");
+    //markdown 내용
+    const markDownContent = editorRef.current?.getInstance().getMarkdown();
+    console.log(markDownContent);
   }
 
   function handleFormChange(key: keyof typeof form, value: string) {
@@ -99,6 +107,7 @@ export default function WikiPage() {
       [key]: value,
     }));
   }
+  console.log(form);
 
   return (
     <>
@@ -124,6 +133,7 @@ export default function WikiPage() {
               toggleEditMode={toggleEditMode}
               form={form}
               onFormChange={handleFormChange}
+              editorRef={editorRef}
             />
           }
         </S.Container>
