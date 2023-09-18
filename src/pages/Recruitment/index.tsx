@@ -82,16 +82,17 @@ const Recruitment: React.FC = () => {
                 </PostNav>
                 <PostsWrapper>
                     {searching
-                        ? filteredData.map((data, index) => <Post data={data} index={index} />)
-                        : recruitmentData.map((data, index) => <Post data={data} index={index} />)}
+                        ? filteredData.map((data, index) => <Post data={data} index={index} channel={channel} />)
+                        : recruitmentData.map((data, index) => <Post data={data} index={index} channel={channel} />)}
                 </PostsWrapper>
             </PostsContainer>
         </RecruitmentContainer>
     );
 };
 
-const Post: React.FC<{ data: any; index: number }> = ({ data, index }) => (
-    <Link to="/">
+const Post: React.FC<{ data: any; index: number; channel: string }> = ({ data, index, channel }) => (
+    <Link to={'/recruitment/' + channel + '/' + data}>
+        {/* ex) /recruitment/study/SD521S3SF3EB3H5 */}
         <PostWrapper key={index} style={index >= 1 ? { borderTop: '1px solid #BEBEBE' } : {}}>
             <div style={{ display: 'flex' }}>
                 <RecruitValued isRecruitCompleted={!data.recruitValued}>
