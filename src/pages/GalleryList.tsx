@@ -28,12 +28,12 @@ const GalleryList: React.FC<{ galleryData: userData[] }> = ({ galleryData }) => 
           <div className="wiki__title"> Gallery </div>
           {
             user?.displayName ?
-              <Link to="/Gallery/edit">
+              (<Link to="/Gallery/edit">
               <button type="button" className="wiki__btn-edit">
                 새 글 작성
               </button>
-            </Link>
-          ) : (
+            </Link>)
+          : (
             <button
               type="button"
               className="wiki__btn-edit"
