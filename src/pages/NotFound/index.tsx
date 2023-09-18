@@ -1,34 +1,18 @@
 import lottie404 from 'assets/lottieJSON/lottie404.json';
 import LottieWrapper from 'components/Common/Lottie';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { ROUTES } from 'constants/routes';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 function NotFound() {
-  const [showAlert, setShowAlert] = useState(false);
-  const navigate = useNavigate();
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowAlert(true);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const navigateHome = () => {
-    navigate('/');
-  };
   return (
     <>
       <Styled404Container>
         <LottieWrapper lottieData={lottie404} />
         <div>
-          {showAlert && (
-            <StyledAlertContainer>
-              <StyledAlertButton onClick={navigateHome}>
-                홈으로 돌아가기
-              </StyledAlertButton>
-            </StyledAlertContainer>
-          )}
+          <StyledAlertContainer>
+            <StyledAlertLink to={ROUTES.MAIN}>홈으로 돌아가기</StyledAlertLink>
+          </StyledAlertContainer>
         </div>
       </Styled404Container>
     </>
@@ -61,7 +45,7 @@ const StyledAlertContainer = styled.div`
   align-items: center;
 `;
 
-const StyledAlertButton = styled.button`
+const StyledAlertLink = styled(Link)`
   background-color: #292929;
   color: #fff;
 
