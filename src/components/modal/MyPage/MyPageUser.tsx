@@ -12,22 +12,6 @@ export default function MyPageUser() {
     const [userInfo, setUserInfo] = useRecoilState(UserInfo);
     const [userImg, setUserImg] = useRecoilState(UserImg);
 
-    useEffect(() => {
-        async function getUserData() {
-            try {
-                const user = await readUser('user', userId);
-                if (user) {
-                    setUserName(user['name']);
-                    setUserEmail(user['email']);
-                    setUserImg(user['imageURL']);
-                    setUserInfo(user['info']);
-                }
-            } catch {
-                console.log('error');
-            }
-        }
-        getUserData();
-    }, []);
     return (
         <MyPageProfile>
             <ProfileImg src={userImg}></ProfileImg>

@@ -1,14 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ModalBtn, ModalBtnImg } from './style';
 import MyPageModal from './MyPageModal';
 import { useRecoilState } from 'recoil';
-import { SlideOn, UserId, UserImg } from '../../../utils/recoil';
+import { SlideOn, UserEmail, UserId, UserImg, UserInfo, UserName } from '../../../utils/recoil';
+import { readUser } from '../../../utils/firebase';
 
 export default function MyPageBtn() {
     const [userId, setUserId] = useRecoilState(UserId);
     const [showMyPage, setShowMyPage] = useState(false);
     const [slideOn, setSlideOn] = useRecoilState(SlideOn);
+    const [userName, setUserName] = useRecoilState(UserName);
+    const [userEmail, setUserEmail] = useRecoilState(UserEmail);
+    const [userInfo, setUserInfo] = useRecoilState(UserInfo);
     const [userImg, setUserImg] = useRecoilState(UserImg);
+
+    useEffect(() => {
+        async function getUserData() {
+            try {
+                const user = await readUser('user', userId);
+                if (user) {
+                    setUserName(user['name']);
+                    setUserEmail(user['email']);
+                    setUserImg(user['imageURL']);
+                    setUserInfo(user['info']);
+                    console.log(userImg);
+                }
+            } catch {
+                console.log('error');
+            }
+        }
+        getUserData();
+    }, [userId]);
 
     const handleMyPage = () => {
         if (showMyPage) {

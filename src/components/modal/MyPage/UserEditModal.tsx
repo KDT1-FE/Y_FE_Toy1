@@ -22,6 +22,7 @@ const UserEditModal: React.FC<ownProps> = ({ handleEdit }) => {
             const img = await image.target.files[0];
             const imgURL = await URL.createObjectURL(img);
             setUserImgPre(imgURL);
+            window.URL.revokeObjectURL(imgURL);
         }
     }
     async function updateProfile() {
