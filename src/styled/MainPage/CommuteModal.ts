@@ -87,16 +87,15 @@ export const TimerBtn = styled.div`
 `;
 
 interface CommuteBtnProps {
-    isCommute: boolean;
+    commute: string;
   }
-
-export const CommuteBtn = styled.div<CommuteBtnProps>`
-    background-color : ${props => 
-    props.isCommute ? '#EB9494' : 'rgba(72, 74, 173, 0.8)'};
-    color : white;
-    border-radius : 50px;
-    padding : 7px 0;
-    width : 196px;
-    text-align : center;
+  export const CommuteBtn = styled.div<CommuteBtnProps>`
+  background-color: ${props =>
+    props.commute ==='true' ? '#EB9494' : 'rgba(72, 74, 173, 0.8)'}; // 출근 시와 퇴근 시의 색상을 조절합니다.
+  color: white;
+  border-radius: 50px;
+  padding: 7px 0;
+  width: 196px;
+  text-align: center;
 `;
 

@@ -73,7 +73,7 @@ export default function CommuteModal({ setShowCommute} : CommuteProps) {
         <BtnContainer>
             <TimerBtn>Time  {calculatElapsedTime()}</TimerBtn>
             <CommuteBtn 
-            isCommute = {isCommute}
+            commute = {isCommute? 'true' : 'false'}
             onClick={handleCommuteBtnClick}>
                 {isCommute ? '퇴근' : '출근'}
             </CommuteBtn>
