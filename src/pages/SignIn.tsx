@@ -2,7 +2,7 @@ import { selectUserData } from 'data/getUser';
 import { getLoginUserUid } from 'data/user';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { loginAction } from 'redux/action';
 import { IUser } from './SignUp';
 import '../styles/pages/SignIn.scss';
@@ -105,6 +105,9 @@ export function SignIn() {
           로그인하기
         </button>
       </form>
+      <Link className="link" to="/signup">
+        회원가입하기
+      </Link>
     </div>
   );
 }
