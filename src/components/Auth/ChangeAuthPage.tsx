@@ -1,9 +1,12 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 import '../../scss/components/auth/changeAuthPage.scss';
 
-export const ChangeAuthPage = ({ target }): JSX.Element => {
+interface ChangeAuthPageProps {
+  target: string;
+}
+
+export const ChangeAuthPage = ({ target }: ChangeAuthPageProps): JSX.Element => {
   const checkTarget = (target: string) => {
     return <Link to={target}>{target === '/register' ? 'Sign Up' : 'Sign In'}</Link>;
   };

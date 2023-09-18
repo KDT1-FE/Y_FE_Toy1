@@ -1,5 +1,4 @@
-import React from 'react';
-import { BsFillXCircleFill, BsCheckCircleFill } from 'react-icons/bs';
+import { useInput, useButtonActivate } from '../hooks/auth';
 
 import {
   FormTitle,
@@ -14,10 +13,22 @@ import {
 import '../scss/authPage.scss';
 
 export const RegisterPage = (): JSX.Element => {
+  const [email, handleEmail] = useInput('email', { value: '', validationPass: false });
+
+  const [name, handleName] = useInput('name', { value: '', validationPass: false });
+
+  const [password, handlePassword] = useInput('password', { value: '', validationPass: false });
+
+  const [passwordConfirm, handlePasswordConfirm] = useInput(
+    'passwordConfirm',
+    { value: '', validationPass: false },
+    password,
+  );
+
+  const buttonActivate = useButtonActivate(email, name, password, passwordConfirm);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    /* ------------------------------------ validation function ----------------------------------- */
 
     /* ------------------------------ set firestore ----------------------------- */
 
@@ -28,12 +39,15 @@ export const RegisterPage = (): JSX.Element => {
     <form className="authForm signup" onSubmit={handleSubmit}>
       <FormTitle title="SIGN UP" />
 
-      <InputEmail />
-      <InputName />
-      <InputPassword />
-      <InputPasswordConfirm />
+      <InputEmail email={email} handleEmail={handleEmail} />
 
-      <SubmitButton content="SIGN UP" />
+      <InputName name={name} handleName={handleName} />
+
+      <InputPassword password={password} handlePassword={handlePassword} />
+
+      <InputPasswordConfirm passwordConfirm={passwordConfirm} handlePasswordConfirm={handlePasswordConfirm} />
+
+      <SubmitButton content="SIGN UP" activate={buttonActivate} />
 
       <ChangeAuthPage target="/login" />
     </form>

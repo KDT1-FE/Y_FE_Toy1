@@ -1,20 +1,37 @@
-import React from 'react';
+import { Icon, ErrorMsg } from '../../components/Auth';
 
 import '../../scss/components/auth/input.scss';
 
-export const InputPassword = (): JSX.Element => {
+interface InputType {
+  value: string;
+  validationPass: boolean;
+}
+
+interface PasswordProps {
+  password: InputType;
+  handlePassword: React.ChangeEventHandler<HTMLInputElement>;
+}
+
+export const InputPassword = ({ password, handlePassword }: PasswordProps): JSX.Element => {
   return (
     <div className="input-container">
-      <input type="password" id="signin-password" name="password" required autoComplete="off" />
+      <input
+        type="password"
+        name="password"
+        id="password"
+        value={password.value}
+        onChange={handlePassword}
+        required
+        autoComplete="off"
+      />
 
-      <label htmlFor="signin-password">Password</label>
+      <label htmlFor="password">Password</label>
 
       <span className="input-container__bar"></span>
 
-      <i className="icon icon-success bx bxs-check-circle hidden"></i>
-      <i className="icon icon-error bx bxs-x-circle hidden"></i>
+      <Icon input={password} />
 
-      <div className="error"></div>
+      <ErrorMsg target="password" input={password} />
     </div>
   );
 };

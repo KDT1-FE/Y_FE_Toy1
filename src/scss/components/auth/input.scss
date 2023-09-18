@@ -67,4 +67,31 @@
   input:focus ~ &__bar:after {
     width: 50%;
   }
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 1.8rem;
+    right: 0.4rem;
+    font-size: 1.4rem;
+    pointer-events: none;
+  }
+
+  &__icon.success {
+    color: $blue;
+  }
+
+  &__icon.error {
+    color: $failed;
+  }
+
+  &__errorMsg {
+    position: absolute;
+    top: 120%;
+    font-weight: $font-bold500;
+    left: 0.4rem;
+    font-size: 1.2rem;
+    color: $failed;
+  }
 }
