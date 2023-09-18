@@ -52,7 +52,7 @@ export function BoardContent({ boardState }: any) {
 
   return (
     <div>
-      {sessionStorage.uid && <button onClick={handledleClickButton}>작성하기</button>}
+      {sessionStorage.uid && <button  onClick={handledleClickButton}>작성하기</button>}
       {boardData.map((item,index)=>
       <article key={index} className="post" onClick={handleClickBoard}>
         <div className="post__info">

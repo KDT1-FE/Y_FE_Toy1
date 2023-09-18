@@ -5,6 +5,7 @@ import { boardStateSlice } from 'redux/store';
 import { useNavigate } from 'react-router-dom';
 
 
+
 type BoardState = 'QA' | 'Free' | 'Best';
 
 export function BoardNav (props: any) {
@@ -33,14 +34,30 @@ export function BoardNav (props: any) {
     
     
   return (
-    <nav>
-        <ul className='boardList'>
-            <li onClick={handleBoardClick}>Q & A</li>
-            <li onClick={handleBoardClick}>커뮤니티</li>
-            <li onClick={handleBoardClick}>지식 공유</li>
-        </ul>
-        {/* <p>상태 : {boardState}</p> */}
-    </nav>
+    // <nav>
+    //     <ul className='boardList'>
+    //         <li onClick={handleBoardClick}>Q & A</li>
+    //         <li onClick={handleBoardClick}>커뮤니티</li>
+    //         <li onClick={handleBoardClick}>지식 공유</li>
+    //     </ul>
+    //     {/* <p>상태 : {boardState}</p> */}
+        
+    // </nav>
+    <nav id="navbar-example2" className="navbar bg-body-tertiary px-3 mb-3">
+  <a className="navbar-brand" href="#">wiki</a>
+  <ul className="nav nav-pills">
+    <li className="nav-item">
+      <a className="nav-link" href="#scrollspyHeading1" onClick={handleBoardClick}>Q & A</a>
+    </li>
+    <li className="nav-item">
+      <a className="nav-link" href="#scrollspyHeading2" onClick={handleBoardClick}>커뮤니티</a>
+    </li>
+    <li className="nav-item">
+      <a className="nav-link" href="#scrollspyHeading2" onClick={handleBoardClick}>지식 공유</a>
+    </li>
+  </ul>
+</nav>
+
       
     
   );
