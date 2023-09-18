@@ -25,7 +25,7 @@ const ProjectWrite: React.FC = () => {
     projectIndex: 0,
     projectTeamName: "",
     projectDeadline: "",
-    projectMember: 0,
+    projectMember: "",
     projectTitle: "",
     projectContent: "",
   });
@@ -148,7 +148,7 @@ const ProjectWrite: React.FC = () => {
       </div>
       <div>
         <WriteInput
-          type="number"
+          type="text"
           id="projectMember"
           name="projectMember"
           placeholder="프로젝트 참여 인원을 입력해주세요"

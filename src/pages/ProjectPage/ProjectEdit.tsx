@@ -80,7 +80,7 @@ const ProjectEdit: React.FC = () => {
           type="text"
           id="projectTeamName"
           name="projectTeamName"
-          placeholder="Team Name"
+          placeholder="팀명을 입력해주세요"
           value={projectData.projectTeamName}
           onChange={handleChange}
           required
@@ -92,7 +92,7 @@ const ProjectEdit: React.FC = () => {
           type="text"
           id="projectTitle"
           name="projectTitle"
-          placeholder="Project Title"
+          placeholder="프로젝트 주제를 입력해주세요"
           value={projectData.projectTitle}
           onChange={handleChange}
           required
@@ -102,7 +102,7 @@ const ProjectEdit: React.FC = () => {
         <WriteContentInput
           id="projectContent"
           name="projectContent"
-          placeholder="Project Description"
+          placeholder="프로젝트를 설명해주세요"
           value={projectData.projectContent}
           onChange={handleChange}
           required
@@ -113,7 +113,7 @@ const ProjectEdit: React.FC = () => {
           type="text"
           id="projectDeadline"
           name="projectDeadline"
-          placeholder="Deadline (e.g., 2023-09-22)"
+          placeholder="프로젝트 마감일을 입력해주세요 (ex.2023-09-22)"
           value={projectData.projectDeadline}
           onChange={handleChange}
           required
@@ -121,10 +121,10 @@ const ProjectEdit: React.FC = () => {
       </div>
       <div>
         <WriteInput
-          type="number"
+          type="text"
           id="projectMember"
           name="projectMember"
-          placeholder="Number of Members"
+          placeholder="프로젝트 참여 인원을 입력해주세요"
           value={projectData.projectMember}
           onChange={handleChange}
           required
