@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useRecoilState } from 'recoil';
 import { CommuteModalContainer, CommuteHeader,ExitBtn,CommuteTitle,
     TimerContainer,
     TimerText
@@ -6,24 +7,28 @@ import { CommuteModalContainer, CommuteHeader,ExitBtn,CommuteTitle,
 ,BtnContainer
 ,TimerBtn
 ,CommuteBtn } from '../../styled/MainPage/CommuteModal';
+import { isCommuteState, startTimeState } from '../../recoil/atoms/main/CommuteAtom';
 
 
 interface CommuteProps {
     setShowCommute: React.Dispatch<React.SetStateAction<boolean>>;
-  }
+};
+
 
 export default function CommuteModal({ setShowCommute} : CommuteProps) {
     const [time, setTime] = useState(new Date());
     const [date, setDate] = useState('');
-    const [isCommute, setIsCommute] = useState(false);
-    const [startTime, setStartTime] = useState<Date | null>(null);
+    const [isCommute, setIsCommute] = useRecoilState(isCommuteState);
+    const [startTime, setStartTime] = useRecoilState(startTimeState);
 
+    
     useEffect(() => {
         const interval = setInterval(() => {
             setTime(new Date());
         },1000);
         return () => clearInterval(interval);
     },[]);
+
     useEffect(() => {
         const currentDate = new Date();
         const formattedDate = `${currentDate.getFullYear()} - ${currentDate.getMonth() + 1} - ${currentDate.getDate()}`;
@@ -32,9 +37,11 @@ export default function CommuteModal({ setShowCommute} : CommuteProps) {
 
     const formattedTime = time.toLocaleTimeString();
 
+
     useEffect(()=> {
         if(isCommute && !startTime) {
-            setStartTime(new Date());
+            const currentTime = new Date();
+            setStartTime(currentTime);
         }
         else if(!isCommute && startTime) {
             setStartTime(null);
@@ -42,7 +49,7 @@ export default function CommuteModal({ setShowCommute} : CommuteProps) {
     },[isCommute]);
     
 
-    const handleCommuteBtnClick = () => {
+    const handleCommuteBtnClick = () : void => {
        setIsCommute(!isCommute);
 
     }
