@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Viewer } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 
 interface ContentsViewerProps {
-  contents: string;
+  content: string;
 }
-function ContentsViewer({ contents }: ContentsViewerProps) {
-  return <Viewer initialValue={contents || ""} />;
+
+function ContentsViewer({ content }: ContentsViewerProps) {
+  useEffect(() => {}, [content]);
+
+  return <Viewer key={content} initialValue={content || ""} />;
 }
 
 export default ContentsViewer;
