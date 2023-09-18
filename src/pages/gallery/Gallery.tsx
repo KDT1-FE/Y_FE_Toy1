@@ -39,7 +39,7 @@ export default function Gallery() {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const imagesRef = ref(storage, albumId);
+        const imagesRef = ref(storage, `Gallery/${albumId}`);
         const imageList = await listAll(imagesRef);
 
         const paths = imageList.items.map(async (item) => {
