@@ -2,7 +2,10 @@ import { db } from '../common/config';
 import { commuteType } from '../data/atoms';
 import { arrayUnion, doc, getDoc, setDoc } from 'firebase/firestore';
 
-export const uploadCommuteInfo = async (uid: string | undefined, commuteData: commuteType) => {
+export const uploadCommuteInfo = async (
+  uid: string | null | undefined,
+  commuteData: commuteType,
+) => {
   if (!uid) return;
 
   const dateStr = new Date(commuteData.date).toISOString().split('T')[0];

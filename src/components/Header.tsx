@@ -5,13 +5,18 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import CommuteModal from './CommuteModal';
 import UserResult from './UserProfile';
+import useCommute from '../hooks/useCommute';
+import { useUser } from '../common/UserContext';
 
 const Header = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const { user } = useUser();
+  const uid = user?.uid;
+  const { commuteInfo, confirmWorkingTime, handleCommute } = useCommute(uid, toggleModal);
 
-  const toggleModal = () => {
+  function toggleModal() {
     setModalOpen(!isModalOpen);
-  };
+  }
 
   return (
     <Container>
@@ -32,7 +37,14 @@ const Header = () => {
 
         <div className="nav-wrapper">
           <div className="icon">
-            <CommuteModal isModalOpen={isModalOpen} toggleModal={toggleModal} />
+            <CommuteModal
+              uid={uid}
+              isModalOpen={isModalOpen}
+              toggleModal={toggleModal}
+              confirmWorkingTime={confirmWorkingTime}
+              handleCommute={handleCommute}
+              commuteInfo={commuteInfo}
+            />
             <button
               className="btn"
               onClick={toggleModal}
