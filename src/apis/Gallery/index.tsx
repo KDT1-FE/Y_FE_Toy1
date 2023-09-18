@@ -1,5 +1,15 @@
 import { db, storage } from 'apis/firebase';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  serverTimestamp,
+  getDocs,
+  query,
+  orderBy,
+  // doc,
+  // deleteDoc,
+} from 'firebase/firestore';
+
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 export const addFirestore = (imageURL: string, selectedCategory: string) => {
@@ -26,4 +36,33 @@ export const addStorage = (
       setImageURL(downloadURL);
     });
   });
+};
+
+export interface GalleryData {
+  category: string;
+  src: string;
+  timestamp: string;
+  id: string;
+}
+
+export const getStorage = async (
+  setGalleryRead: React.Dispatch<React.SetStateAction<GalleryData[]>>,
+) => {
+  try {
+    const getImg = await collection(db, 'gallery');
+    const result = await getDocs(query(getImg, orderBy('timestamp', 'desc')));
+    const resultArray: GalleryData[] = [];
+    result.forEach((doc) => {
+      const galleryData = doc.data();
+      resultArray.push({
+        category: galleryData.category,
+        src: galleryData.src,
+        timestamp: galleryData.timestamp,
+        id: doc.id,
+      });
+    });
+    setGalleryRead(resultArray);
+  } catch (error) {
+    alert('오류가 발생했습니다.');
+  }
 };
