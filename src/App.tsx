@@ -36,6 +36,14 @@ function App() {
         <PostEdit />,
       </Provider>
       },
+      {
+        path : '/wiki',
+        element: 
+        <Provider store={wikiStore}>
+        <Wiki/>,
+      </Provider>
+      
+      }
     ],
     },
     {
@@ -46,14 +54,7 @@ function App() {
       path: '/signin',
       element: <SignIn />,
     },
-    {
-      path : '/wiki',
-      element: 
-      <Provider store={wikiStore}>
-      <Wiki/>,
-    </Provider>
     
-    },
   ]);
   return <RouterProvider router={router} />;
 }

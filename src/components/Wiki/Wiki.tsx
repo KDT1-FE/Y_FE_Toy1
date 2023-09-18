@@ -11,7 +11,7 @@ export function Wiki (props: any) {
   
   return (
     <>
-      <Header />
+      
       <BoardNav />
       <BoardContent boardState={boardState} />
     </>
