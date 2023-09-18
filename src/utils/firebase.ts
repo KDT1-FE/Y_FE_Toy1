@@ -14,6 +14,8 @@ import {
     arrayUnion,
     arrayRemove,
     updateDoc,
+    query,
+    orderBy,
 } from 'firebase/firestore';
 
 import { getStorage } from 'firebase/storage';
@@ -236,12 +238,19 @@ export const showRecruitmentFields = async (
         if (documentSnapshot.exists()) {
             const subcollectionRef = collection(documentRef, subcollectionName);
             const querySnapshot = await getDocs(subcollectionRef);
-
             const docSnapshots = querySnapshot.docs.map((docSnapshot) => ({
                 id: docSnapshot.id,
                 data: docSnapshot.data(),
             }));
+            // time 최신순으로 정렬
+            docSnapshots.sort((a, b) => {
+                const timeA = a.data.time;
+                const timeB = b.data.time;
 
+                if (timeA > timeB) return -1;
+                if (timeA < timeB) return 1;
+                return 0;
+            });
             return { docSnapshots };
         } else {
             console.error('상위 문서가 존재하지 않습니다.');
