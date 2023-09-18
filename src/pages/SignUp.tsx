@@ -40,7 +40,8 @@ const SignUp = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, pwd)
       if(userCredential){
         await updateProfile(userCredential.user, {
-          displayName: nickname
+          displayName: nickname,
+          photoURL: 'https://firebasestorage.googleapis.com/v0/b/fastcampus-wiki.appspot.com/o/userImage%2FAKR20220218060400005_01_i_P2.jpg?alt=media&token=2ac0c906-73f7-4c7d-8e6d-7fd53ea7c1a3'
         })
       }
 
