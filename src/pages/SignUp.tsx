@@ -43,11 +43,12 @@ const SignUp = () => {
           displayName: nickname
         })
       }
-      
+
       await setDoc(doc(db,"user", userCredential.user.uid),{
         uid: userCredential.user.uid,
         nickName: nickname,
-        email
+        email,
+        studyTime: 0
       })
 
       signOut(auth)
