@@ -48,6 +48,12 @@ const SideBar = (): JSX.Element => {
               갤러리
             </Link>
           </li>
+          <li className="nav__depth__item">
+            <Link to={'/attendance'} className="nav__depth__link">
+              <img src="./src/assets/clock.svg" alt="근태관리" className="nav__depth__logo" />
+              근태관리
+            </Link>
+          </li>
         </ul>
       </aside>
     </>

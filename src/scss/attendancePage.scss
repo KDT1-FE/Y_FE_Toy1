@@ -1,0 +1,87 @@
+@use './abstracts' as *;
+
+#attendancePage {
+  @include flex-center-col;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 20px;
+  .attendancePage__title-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    h2 {
+      font-size: $font-lg;
+      font-weight: $font-bold700;
+    }
+    div {
+      @include flex-center-row;
+      width: 100px;
+      height: 40px;
+      border: 1px solid #999;
+      border-radius: 15px;
+      font-size: $font-base;
+      cursor: pointer;
+    }
+  }
+  .attendance__list {
+    display: flex;
+    width: 100%;
+    padding: 1rem;
+    > div {
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+    }
+    &-wrap {
+      position: relative;
+      @include flex-center-col;
+      width: 100%;
+      height: 100%;
+      border: 1px solid #999;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+    &__title {
+      display: flex;
+      width: 100%;
+      padding: 1rem;
+      border-bottom: 1px solid #999;
+      background: $blue;
+      color: #fff;
+      div {
+        position: relative;
+        width: 100%;
+        text-align: center;
+        font-size: $font-base;
+        &:nth-child(2) {
+          &::after,
+          &::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 90%;
+            background: #999;
+          }
+          &::before {
+            left: 0;
+          }
+          &::after {
+            right: 0;
+          }
+        }
+      }
+    }
+    &-box {
+      width: 100%;
+      height: 100%;
+    }
+    &__pagination {
+      width: 100%;
+      height: 50px;
+      background: orange;
+    }
+  }
+}

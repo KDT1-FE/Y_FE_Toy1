@@ -4,6 +4,7 @@ import LandingPage from './views/LandingPage';
 import LoginPage from './views/LoginPage';
 import RegisterPage from './views/RegisterPage';
 import { Company, Notice, Chart, Bylaws } from './views/company';
+import Attendance from './views/AttendancePage';
 import ProjectList from './views/ProjectList';
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="attendance" element={<Attendance />} />
       </Routes>
     </BrowserRouter>
   );
