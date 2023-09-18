@@ -14,13 +14,15 @@ import NotFound from 'pages/NotFound';
 import { auth } from 'apis/firebase';
 // import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import Loading from 'components/Common/Loading';
 
 function App() {
   const [user, loading, error] = useAuthState(auth);
 
   if (loading) {
-    return <div>loading 중</div>;
+    return <Loading />;
   }
+
   if (error) {
     return <div>알 수 없는 error 가 발생했습니다</div>;
   }
