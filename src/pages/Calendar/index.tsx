@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { EventContentArg } from '@fullcalendar/core';
 import ReactModal from 'react-modal';
 import { FormEvent } from 'react';
+import { uploadCalendarData } from 'apis/Calendar';
 
 export const renderEventContent = (eventInfo: EventContentArg) => {
   return (
@@ -19,17 +20,12 @@ function Calendar() {
     { title: 'Meeting2', start: new Date('2023-9-30') },
   ];
 
-  const checkValidate = (
-    endDate: FormDataEntryValue | null,
-    startDate: FormDataEntryValue | null,
-  ) => {
-    if (
-      typeof endDate === 'string' &&
-      typeof startDate === 'string' &&
-      new Date(endDate) < new Date(startDate)
-    ) {
+  const checkValidate = (endDate: string, startDate: string) => {
+    if (new Date(endDate) > new Date(startDate)) {
       alert('종료일이 시작일보다 먼저입니다 다시 작성해주세요');
+      return false;
     }
+    return true;
   };
 
   const handleSubmit = (event: FormEvent) => {
@@ -39,10 +35,14 @@ function Calendar() {
       const content = formData.get('content');
       const startDate = formData.get('start_date');
       const endDate = formData.get('end_date');
-      checkValidate(endDate, startDate);
-      console.log(startDate);
-      console.log(endDate);
-      console.log(content);
+      if (
+        typeof endDate !== 'string' ||
+        typeof startDate !== 'string' ||
+        typeof content !== 'string'
+      )
+        return;
+      if (!checkValidate(startDate, endDate)) return;
+      uploadCalendarData({ content, startDate, endDate });
     }
   };
 
