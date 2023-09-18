@@ -5,6 +5,7 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Wiki from "./pages/Wiki";
 import Gallery from "./pages/Gallery";
+import Ranking from "./pages/Ranking";
 import "./styles/Reset.css";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/gallery" element={<Gallery />}>
           <Route path=":id" element={<Gallery />} />
         </Route>
+        <Route path="/ranking" element={<Ranking />} />
       </Routes>
       <Footer />
     </div>
