@@ -1,6 +1,7 @@
 import React from 'react';
 import Lottie, { Options } from 'react-lottie';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { media } from 'styles/media';
 
 interface IMainLottieProps {
   lottieData: object;
@@ -29,31 +30,11 @@ function MainLottie({ lottieData, width, height }: IMainLottieProps) {
   );
 }
 
-// 메인 컴포넌트 구성 완료시 반응형 확인하기 위한 코드 부분(주척 처리 부분 포함)
-
-const media = {
-  desktop: (styles: string) => css`
-    @media only screen and (max-width: 1024px) {
-      ${styles}
-    }
-  `,
-  tablet: (styles: string) => css`
-    @media only screen and (min-width: 576px) and (max-width: 767px) {
-      ${styles}
-    }
-  `,
-  mobile: (styles: string) => css`
-    @media only screen and (max-width: 575px) {
-      ${styles}
-    }
-  `,
-};
-
 const StyledLottieContainer = styled.div`
   position: relative;
   width: 100%;
   margin: 0 auto;
-  /* ${media.desktop(`
+  /* ${media.desktop_lg(`
     min-width: 1024px;
     display: none;
   `)}
