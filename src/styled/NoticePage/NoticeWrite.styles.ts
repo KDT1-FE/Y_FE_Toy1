@@ -128,3 +128,10 @@ export const CancelBtn = styled.button`
   color: #ffffff;
   cursor: pointer;
 `;
+
+export const ErrorDiv = styled.div`
+  font-size: 14px;
+  color: red;
+  margin-top: 10px;
+  margin-left: 5px;
+`;

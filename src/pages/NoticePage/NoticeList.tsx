@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { DocumentData } from 'firebase/firestore';
 import * as S from '../../styled/NoticePage/NoticeList.styles';
-import FetchNoticeData from '../../utils/NoticePage/FetchNoticeData';
+import getNoticesData from '../../utils/NoticePage/getNoticesData';
 import Pagination from '../../components/NoticePage/Pagination';
 
 function NoticeList() {
@@ -18,7 +18,7 @@ function NoticeList() {
   // 공지사항 전체 가져오기
   const getNoticeList = async (): Promise<void> => {
     try {
-      const dataList = await FetchNoticeData();
+      const dataList = await getNoticesData();
       setDataFetch(dataList);
       setNoticeList(dataList);
     } catch (error) {
