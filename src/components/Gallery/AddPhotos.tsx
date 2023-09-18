@@ -22,19 +22,21 @@ function AddPhotos({file, name, deleteFiles, setDeleteFiles}: AddPhotosProps) {
   return (
     <div className="Photo">
       <div className="PhotoImgDiv">
-        <img
-          className={`PhotoImg ${checked ? "checked" : ""}`}
-          src={file}
-          alt="Album"
-        />
-        <input
-          type="checkbox"
-          className="checkBox"
-          onChange={handleCheck}
-          checked={checked}
-        />
+        <div className="PhotoContainer">
+          <img
+            className={`PhotoImg ${checked ? "checked" : ""}`}
+            src={file}
+            alt="Album"
+          />
+          <input
+            type="checkbox"
+            className="checkBox"
+            onChange={handleCheck}
+            checked={checked}
+          />
+          <div className="name">{name}</div>
+        </div>
       </div>
-      <div className="name">{name}</div>
     </div>
   );
 }
