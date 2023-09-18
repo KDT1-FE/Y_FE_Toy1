@@ -1,24 +1,22 @@
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import styled from 'styled-components';
-import { EventContentArg } from '@fullcalendar/core';
 import ReactModal from 'react-modal';
-import { FormEvent } from 'react';
-import { uploadCalendarData } from 'apis/Calendar';
+import { FormEvent, useEffect, useState } from 'react';
+import { getCalendarData, uploadCalendarData } from 'apis/Calendar';
 
-export const renderEventContent = (eventInfo: EventContentArg) => {
-  return (
-    <>
-      <i style={{ color: '#3584F4' }}>{eventInfo.event.title}</i>
-    </>
-  );
-};
-
+interface IEvent {
+  title: string;
+  start: Date;
+  end: Date;
+}
 function Calendar() {
-  const events = [
-    { title: 'Meeting1', start: new Date('2023-9-29') },
-    { title: 'Meeting2', start: new Date('2023-9-30') },
-  ];
+  const [event, setEvent] = useState<IEvent[] | []>();
+  const [showModal, setShowModal] = useState(false);
+  const getEvent = async () => {
+    const responseArray = await getCalendarData();
+    setEvent(responseArray);
+  };
 
   const checkValidate = (endDate: string, startDate: string) => {
     if (new Date(endDate) > new Date(startDate)) {
@@ -28,7 +26,7 @@ function Calendar() {
     return true;
   };
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     if (event.currentTarget instanceof HTMLFormElement) {
       const formData = new FormData(event.currentTarget);
@@ -42,10 +40,14 @@ function Calendar() {
       )
         return;
       if (!checkValidate(startDate, endDate)) return;
-      uploadCalendarData({ content, startDate, endDate });
+      await uploadCalendarData({ content, startDate, endDate });
+      setShowModal(false);
     }
   };
 
+  useEffect(() => {
+    getEvent();
+  }, [showModal]);
   return (
     <>
       <StyledContainer>
@@ -59,23 +61,22 @@ function Calendar() {
           <FullCalendar
             plugins={[dayGridPlugin]}
             initialView="dayGridMonth"
-            events={events}
+            events={event}
             headerToolbar={{
               right: 'prev,next myCustomButton',
             }}
-            eventContent={renderEventContent}
             customButtons={{
               myCustomButton: {
                 text: '일정 등록',
                 click: () => {
-                  console.log('first');
+                  setShowModal(true);
                 },
               },
             }}
           />
         </StyledCalendarContainer>
       </StyledContainer>
-      <ReactModal isOpen={true} ariaHideApp={false} style={StyledModal}>
+      <ReactModal isOpen={showModal} ariaHideApp={false} style={StyledModal}>
         일정을 등록해주세요
         <StyledForm onSubmit={handleSubmit}>
           <label>일정 내용</label>
