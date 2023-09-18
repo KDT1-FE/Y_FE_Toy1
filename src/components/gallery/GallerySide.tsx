@@ -27,11 +27,12 @@ interface GallerySideProps {
   galleryData: Folders[];
   addListModal: Boolean;
   configList: Boolean;
+  album: string;
   setConfigList: React.Dispatch<React.SetStateAction<boolean>>;
   setGalleryData: React.Dispatch<React.SetStateAction<Folders[]>>;
   setAlbum: React.Dispatch<React.SetStateAction<string>>;
   setAlbumId: React.Dispatch<React.SetStateAction<string>>;
-  album: string;
+  setImgLoad: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function GallerySide({
@@ -42,11 +43,13 @@ export default function GallerySide({
   setGalleryData,
   setAlbum,
   setAlbumId,
+  setImgLoad,
 }: GallerySideProps) {
   type Drop = boolean[];
   type AlbumName = string[];
   const [drop, setDrop] = useState<Drop>([]);
   const [albumName, setAlbumName] = useState<AlbumName>([]);
+  const [prevAlbum, setPrevAlbum] = useState("album1");
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -161,16 +164,24 @@ export default function GallerySide({
       querySnapshot.forEach((doc) => {
         setAlbumId(doc.id);
       });
-
-      // 상태 업데이트
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
-  const albumClickHandle = (title: string) => {
-    // console.log(title);
-    fetchData(title);
+  const albumClickHandle = async (title: string) => {
+    try {
+      setImgLoad(true);
+      setPrevAlbum(title);
+      if (title === prevAlbum) {
+        setImgLoad(false);
+      }
+      // console.log(title);
+      // console.log(prevAlbum);
+      await fetchData(title);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   return (
@@ -201,7 +212,8 @@ export default function GallerySide({
                         albumClickHandle(v);
                       }}
                     >
-                      ⌞{v}
+                      <style.icon></style.icon>
+                      {v}
                     </style.List>
                   ) : null;
                 })}
@@ -243,8 +255,8 @@ export default function GallerySide({
             ></Button>
           ) : (
             <Button
-              text="편집"
-              padding=".3rem .6rem"
+              text="카테고리 편집"
+              padding=".3rem 2rem"
               onClick={openConfigListHandle}
             ></Button>
           )}

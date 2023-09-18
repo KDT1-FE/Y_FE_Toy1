@@ -38,7 +38,6 @@ function Modal({
         if (onClickToggleModal) {
           onClickToggleModal();
         }
-
       })
       .catch((e) => {
         if (e.code == "auth/email-already-in-use") {
@@ -51,9 +50,7 @@ function Modal({
           alert("네트워크 연결에 실패 하였습니다. 잠시 후 다시 시도해주세요.");
         }
         if (e.code == "auth/invalid-email") {
-          alert(
-            "잘못된 이메일 형식입니다.",
-          );
+          alert("잘못된 이메일 형식입니다.");
         }
       });
   };

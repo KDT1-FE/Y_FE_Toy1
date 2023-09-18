@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "@firebase/auth";
 import { auth } from "../../../firebase";
 import Modal from "./SignUp";
-
 import * as style from "./signinStyle";
 
 export default function SignIn() {
@@ -34,7 +33,6 @@ export default function SignIn() {
   const handleClickCreate = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     console.log("안녕하세요");
-
     signInWithEmailAndPassword(auth, email, pwd)
       .then(() => {
         alert("로그인 성공");
@@ -70,6 +68,7 @@ export default function SignIn() {
             <style.Input
               type="email"
               name="email"
+              placeholder="abc@abc.com"
               onChange={handleEmail}
               value={email}
             />
@@ -80,6 +79,7 @@ export default function SignIn() {
             <style.Input
               type="password"
               name="pwd"
+              placeholder="******"
               onChange={handlePwd}
               value={pwd}
             />

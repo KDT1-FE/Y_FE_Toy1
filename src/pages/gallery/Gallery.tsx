@@ -4,6 +4,7 @@ import GalleryHeader from "@components/gallery/GalleryHeader";
 import GallerySide from "@components/gallery/GallerySide";
 import GalleryMain from "@components/gallery/GalleryMain";
 import Addlist from "@components/gallery/AddList";
+import CurrentImg from "@/components/gallery/CurrentImg";
 import {
   getFirestore,
   collection,
@@ -30,13 +31,16 @@ export default function Gallery() {
   const [album, setAlbum] = useState("album1");
   const [albumId, setAlbumId] = useState("1moHSjI2ZdSS9iPoZMnp");
   const [imagePaths, setImagePaths] = useState<string[]>([]);
+  const [curImg, setCurImg] = useState<string>("");
+  const [viewImg, setViewImg] = useState<boolean>(false);
+  const [imgLoad, setImgLoad] = useState(true);
 
   // console.log(albumId);
 
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const imagesRef = ref(storage, albumId);
+        const imagesRef = ref(storage, `Gallery/${albumId}`);
         const imageList = await listAll(imagesRef);
 
         const paths = imageList.items.map(async (item) => {
@@ -45,6 +49,7 @@ export default function Gallery() {
         });
         const urls = await Promise.all(paths);
         setImagePaths(urls);
+        setImgLoad(false);
       } catch (error) {
         console.error("이미지 목록을 가져오는 중 오류 발생:", error);
       }
@@ -81,6 +86,8 @@ export default function Gallery() {
     };
 
     fetchData();
+
+    setImgLoad(false);
   }, []);
 
   // console.log(galleryData);
@@ -108,8 +115,16 @@ export default function Gallery() {
           setAlbum={setAlbum}
           album={album}
           setAlbumId={setAlbumId}
+          setImgLoad={setImgLoad}
         />
-        <GalleryMain album={album} imagePaths={imagePaths} />
+        <GalleryMain
+          album={album}
+          imagePaths={imagePaths}
+          viewImg={viewImg}
+          setViewImg={setViewImg}
+          setCurImg={setCurImg}
+          imgLoad={imgLoad}
+        />
       </style.MainWrap>
       {addListModal ? (
         <Addlist
@@ -117,6 +132,14 @@ export default function Gallery() {
           galleryData={galleryData}
           setGalleryData={setGalleryData}
         />
+      ) : null}
+      {viewImg ? (
+        <CurrentImg
+          setViewImg={setViewImg}
+          curImg={curImg}
+          imagePaths={imagePaths}
+          setCurImg={setCurImg}
+        ></CurrentImg>
       ) : null}
     </style.Gallery>
   );
