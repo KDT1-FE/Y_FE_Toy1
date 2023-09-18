@@ -5,6 +5,8 @@ import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "authentication/authContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
+// import { firestore, serverTimestamp, updateDoc, doc } from "firebase/firestore";
+import StudyTime from "./StudyTime";
 import UserInfo from "./UserInfo";
 
 const Header = () => {
@@ -15,8 +17,20 @@ const Header = () => {
   const [displayUserInfo, setDisplayUserInfo] = useState(false)
 
   const [isModalActive, setIsModalActive] = useState(false);
+  const [studyStartTime, setStudyStartTime] = useState<number | null>(null);
+  const [studyEndTime, setStudyEndTime] = useState<number | null>(null);
+  const [isStudying, setIsStudying] = useState(false);
+
   const openModal = () => {
     setIsModalActive(true);
+  };
+
+  const toggleStudyStatus = () => {
+    if (!isStudying) {
+      const startTime = new Date().getTime();
+      setStudyStartTime(startTime);
+    }
+    setIsStudying(!isStudying);
   };
 
   useEffect(() => {
@@ -45,7 +59,7 @@ const Header = () => {
           })}
           <li>
             <StyledButton onClick={openModal}>
-              <p> 학습 시간</p>
+              <p> 학습 기록</p>{" "}
             </StyledButton>
           </li>
           <li>
@@ -74,7 +88,13 @@ const Header = () => {
           setModal={setIsModalActive}
           width="400"
           height="200"
-          element={<div>Hello Modal!</div>}
+          element={
+            <StudyTime
+              isStudying={isStudying}
+              studyStartTime={studyStartTime}
+              toggleStudyStatus={toggleStudyStatus}
+            />
+          }
         />
       )}
     </Container>
