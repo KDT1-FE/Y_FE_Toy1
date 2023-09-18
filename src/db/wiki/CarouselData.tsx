@@ -3,30 +3,30 @@ const CarouselData = [
 
     { 
       id: 0, 
-      title: "9월 사내행사 일정", 
-      text: "9월 17일 현혈, 9월 20일 시낭송의 밤, 9월 22일 사내 동호회 정기 만찬", 
-      url: "/images/notification01.png" 
+      title: "회사 연휴 알림", 
+      text: "추석 연휴로 인해 회사는 9월 10일부터 9월 12일까지 휴무입니다.", 
+      url: "/images/notification01.jpg" 
     },
 
     { 
       id: 1, 
-      title: `2023 직장인건강검진`, 
-      text: "대상자 조회", 
-      url: "/images/notification02.png"
+      title: "급여 조정 관련", 
+      text: "올해 급여 조정은 10월 중으로 진행될 예정입니다.", 
+      url: "/images/notification02.jpg"
     },
 
     { 
       id: 2, 
-      title: "워크샵 일정", 
-      text: "10월 4일 Excel을 활용한 실무 데이터 분석, 10월 29일 리더에게 필요한 메타인지와 스피치 트레이닝", 
-      url: "/images/notification03.png" 
+      title: "오리엔테이션 일정", 
+      text: "신입사원 오리엔테이션은 입사 후 첫 주 월요일에 진행됩니다.", 
+      url: "/images/notification03.jpg" 
     },
 
     { 
       id: 3, 
-      title: "근무 시간 조정 안내",
-      text: "신청 안내, 신청 폼 다운로드", 
-      url: "/images/notification04.png" 
+      title: "교육 자료",
+      text: "모든 교육 자료는 사내 포털에서 다운로드 가능합니다.", 
+      url: "/images/notification04.jpg" 
     }
 
 ]

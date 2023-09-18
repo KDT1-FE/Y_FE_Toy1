@@ -5,39 +5,41 @@ import { app } from '../../../firebase';
 import { getStorage, ref, list, getDownloadURL } from "firebase/storage";
 
 
+interface GalleryPreviewStyle {
+  galleryImages: string[];
+  currentIndex: number;
+}
+
 export default function GalleryPreview () {
-  
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const galleryImagesRef = useRef<number | null>(null);
 
-
   useEffect(() => {
-    const storage = getStorage(app);
-    const listRef = ref(storage, "1moHSjI2ZdSS9iPoZMnp");
+      const storage = getStorage(app);
+      const listRef = ref(storage, "1moHSjI2ZdSS9iPoZMnp");
 
-    async function fetchImageURLs() {
-      try {
-        const listResult = await list(listRef, { maxResults: 3 });
+      async function fetchImageURLs() {
+        try {
+          const listResult = await list(listRef, { maxResults: 3 });
 
-        const paths = listResult.items.map(item => item.fullPath);
+          const paths = listResult.items.map(item => item.fullPath);
 
-        const urlPromises = paths.map(async (path) => {
-          return await getDownloadURL(ref(storage, path));
-        });
+          const urlPromises = paths.map(async (path) => {
+            return await getDownloadURL(ref(storage, path));
+          });
 
-        const urls = await Promise.all(urlPromises);
+          const urls = await Promise.all(urlPromises);
 
-        setGalleryImages(urls);
-      } catch (error) {
-        console.error("Error fetching URLs:", error);
+          setGalleryImages(urls);
+        } catch (error) {
+          console.error("Error fetching URLs:", error);
+        }
       }
-    }
 
-    fetchImageURLs();
+      fetchImageURLs();
+      console.log("Fetching images...");
   }, []); 
-
-  console.log(galleryImages);
 
 
   const goToNext = useCallback (() => {
@@ -47,12 +49,12 @@ export default function GalleryPreview () {
   }, [currentIndex, galleryImages]);
   
   useEffect(() => {
-    console.log('useEffect called');
+    console.log('B useEffect called');
 
     if (galleryImagesRef.current !== null) {
         clearTimeout(galleryImagesRef.current);
     }
-    galleryImagesRef.current = setTimeout(() => {
+    galleryImagesRef.current = window.setTimeout(() => {
       goToNext();
     }, 3000);
 
@@ -73,12 +75,14 @@ export default function GalleryPreview () {
   );
 }
 
-
-const GalleryPreviewStyle = styled.div`
+const GalleryPreviewStyle = styled.div<GalleryPreviewStyle>`
   background-image: ${({ galleryImages, currentIndex }) => `url(${galleryImages[currentIndex]})`};
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 10px;
+  min-width: 150px;
 `
+
+
 
