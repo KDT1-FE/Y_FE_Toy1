@@ -1,5 +1,4 @@
 import React from "react";
-import { auth } from "../../../firebase";
 import SignIn from "@components/login/SignIn";
 
 import * as style from "./loginStyle";
