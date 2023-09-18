@@ -1,7 +1,7 @@
 @use 'abstracts' as *;
 @use 'base' as *;
 
-body {
+.auth-wrapper {
   min-height: 100vh;
   width: 100%;
   font-weight: $font-thin;

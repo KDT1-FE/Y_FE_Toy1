@@ -36,21 +36,23 @@ const RegisterPage = (): JSX.Element => {
   };
 
   return (
-    <form className="authForm signup" onSubmit={handleSubmit}>
-      <FormTitle title="SIGN UP" />
+    <div className="auth-wrapper">
+      <form className="authForm signup" onSubmit={handleSubmit}>
+        <FormTitle title="SIGN UP" />
 
-      <InputEmail email={email} handleEmail={handleEmail} />
+        <InputEmail email={email} handleEmail={handleEmail} />
 
-      <InputName name={name} handleName={handleName} />
+        <InputName name={name} handleName={handleName} />
 
-      <InputPassword password={password} handlePassword={handlePassword} />
+        <InputPassword password={password} handlePassword={handlePassword} />
 
-      <InputPasswordConfirm passwordConfirm={passwordConfirm} handlePasswordConfirm={handlePasswordConfirm} />
+        <InputPasswordConfirm passwordConfirm={passwordConfirm} handlePasswordConfirm={handlePasswordConfirm} />
 
-      <SubmitButton content="SIGN UP" activate={buttonActivate} />
+        <SubmitButton content="SIGN UP" activate={buttonActivate} />
 
-      <ChangeAuthPage target="/login" />
-    </form>
+        <ChangeAuthPage target="/login" />
+      </form>
+    </div>
   );
 };
 
