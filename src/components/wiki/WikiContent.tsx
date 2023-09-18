@@ -1,25 +1,19 @@
 import WikiEditButton from "./WikiButton";
 import * as Styled from "./WikiContentStyle";
 import { WikiForm } from "./WikiForm";
+import { Wiki } from "@/pages/wiki/WikiType";
 
-type WikiFormType = {
-  title: string;
-  content: string;
-  authorName: string;
-  updatedAt: string;
-};
-
-type Props = {
-  entry: WikiFormType | null;
-  form: WikiFormType;
+interface Props {
+  Wiki: Wiki | null;
+  form: Wiki;
   isEditMode: boolean;
-  onFormChange: (key: keyof WikiFormType, value: string) => void;
+  onFormChange: (key: keyof Wiki, value: string) => void;
   onWikiButtonClick: () => void;
   toggleEditMode: () => void;
-};
+}
 
 export default function WikiContent({
-  entry,
+  Wiki,
   isEditMode,
   onWikiButtonClick,
   toggleEditMode,
@@ -31,18 +25,19 @@ export default function WikiContent({
     toggleEditMode();
   }
 
+  if (!Wiki) return null;
   return (
     <Styled.ContentsWrapper>
-      {isEditMode || !entry ? (
+      {isEditMode ? (
         <WikiForm form={form} onFormChange={onFormChange} />
       ) : (
         <>
           <Styled.ContentsTitle>
-            <Styled.TitleText>{entry.title}</Styled.TitleText>
+            <Styled.TitleText>{Wiki.title}</Styled.TitleText>
             <div>
-              <span> 최종수정일: {entry.updatedAt}</span>
+              <span> 최종수정일: {Wiki.updatedAt}</span>
               <Styled.EditDetails>
-                최종수정자: {entry.authorName}
+                최종수정자: {Wiki.authorID}
               </Styled.EditDetails>
               <WikiEditButton
                 text={"수정"}
@@ -52,7 +47,7 @@ export default function WikiContent({
             </div>
           </Styled.ContentsTitle>
           <div>
-            <Styled.WikiContent>{entry.content}</Styled.WikiContent>
+            <Styled.WikiContent>{Wiki.content}</Styled.WikiContent>
           </div>
         </>
       )}

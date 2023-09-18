@@ -1,35 +1,36 @@
 import * as Styled from "./WikiCategoryListStyle";
-
-type WikiEntry = {
-  title: string;
-  content: string;
-  authorName: string;
-  updatedAt: string;
-};
-
-type WikiCategory = {
-  categoryName: string;
-  entries: WikiEntry[];
-};
+import { Wiki } from "@/pages/wiki/WikiType";
 
 type Props = {
-  data: WikiCategory[];
-  onEntryClick: (entry: WikiEntry) => void;
+  WiKiList: Wiki[];
+
+  onEntryClick: (entry: Wiki) => void;
   style?: React.CSSProperties;
 };
 
-const WikiCategoryList = ({ data, onEntryClick, style }: Props) => {
+const WikiCategoryList = ({
+  WiKiList,
+  onEntryClick,
+
+  style,
+}: Props) => {
   return (
     <Styled.Wrapper style={style}>
       <Styled.CategoryList>
-        {data.map((category) => (
-          <Styled.CategoryItem key={category.categoryName}>
-            <span>{category.categoryName}</span>
-            <Styled.EntryList>
+        {WiKiList.map((Wiki) => (
+          <Styled.CategoryItem
+            key={Wiki.wikiID}
+            onClick={() => onEntryClick(Wiki)}
+          >
+            <span>{Wiki.title}</span>
+            {/* <Styled.EntryList>
               {category.entries.map((entry) => (
                 <Styled.EntryItem
                   key={entry.title}
-                  onClick={() => onEntryClick(entry)}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    onEntryClick(entry);
+                  }}
                 >
                   <Styled.EntryContent>
                     <Styled.DepthSymbol></Styled.DepthSymbol>
@@ -37,7 +38,7 @@ const WikiCategoryList = ({ data, onEntryClick, style }: Props) => {
                   </Styled.EntryContent>
                 </Styled.EntryItem>
               ))}
-            </Styled.EntryList>
+            </Styled.EntryList> */}
           </Styled.CategoryItem>
         ))}
       </Styled.CategoryList>

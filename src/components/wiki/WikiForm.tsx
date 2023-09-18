@@ -1,17 +1,11 @@
 import * as Styled from "./WikiContentStyle";
 import * as FormStyled from "./WikiFormStyle";
-
-type WikiFormType = {
-  title: string;
-  content: string;
-  authorName: string;
-  updatedAt: string;
-};
+import { Wiki } from "@/pages/wiki/WikiType";
 
 type WikiFormProps = {
-  form: WikiFormType;
+  form: Wiki;
 
-  onFormChange: (key: keyof WikiFormType, value: string) => void;
+  onFormChange: (key: keyof Wiki, value: string) => void;
 };
 
 export const WikiForm = ({ form, onFormChange }: WikiFormProps) => {

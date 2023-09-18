@@ -4,42 +4,28 @@ import wikiInitData from "@/db/wiki/wikiInitData.json";
 import WikiContent from "@/components/wiki/WikiContent";
 import WikiCategoryList from "@/components/wiki/WikiCategoryList";
 import WikiTop from "@/components/wiki/WikiTop";
-
-type WikiEntry = {
-  title: string;
-  content: string;
-  authorName: string;
-  updatedAt: string;
-};
-
-type WikiCategory = {
-  categoryName: string;
-  entries: WikiEntry[];
-};
+import { Wiki } from "./WikiType";
 
 export default function WikiPage() {
-  const [wikiData, setWikiData] = useState<WikiCategory[]>(wikiInitData);
+  const [wikiData, setWikiData] = useState<Wiki[]>(wikiInitData);
+  const [selectedEntry, setSelectedEntry] = useState<Wiki | null>(null);
   const [isEditMode, setIsEditMode] = useState(false);
   const [showCategoryList, setShowCategoryList] = useState(true);
-  const [selectedEntry, setSelectedEntry] = useState<WikiEntry | null>(null);
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<Wiki>({
+    wikiID: "",
+    parentID: "",
     title: "",
     content: "",
-    authorName: "",
-    updatedAt: new Date().toISOString(),
+    authorID: "",
+    createdAt: "",
+    updatedAt: "",
   });
 
   useEffect(() => {
     setWikiData(wikiInitData);
-
-    // 첫 번째 카테고리의 첫 번째 위키 선택
-    if (wikiInitData.length && wikiInitData[0].entries.length) {
-      setSelectedEntry(wikiInitData[0].entries[0]);
-      setForm(wikiInitData[0].entries[0]);
-    }
   }, []);
 
-  function handleEntryClick(entry: WikiEntry) {
+  function handleEntryClick(entry: Wiki) {
     setSelectedEntry(entry);
     setForm(entry);
   }
@@ -56,10 +42,13 @@ export default function WikiPage() {
     setIsEditMode(true);
     setShowCategoryList(false);
     setForm({
+      wikiID: "",
+      parentID: "",
       title: "",
       content: "",
-      authorName: "",
-      updatedAt: new Date().toISOString(),
+      authorID: "",
+      createdAt: "",
+      updatedAt: "",
     });
   }
 
@@ -88,18 +77,20 @@ export default function WikiPage() {
         ></WikiTop>
         <S.Container>
           <WikiCategoryList
-            data={wikiData}
+            WiKiList={wikiData}
             onEntryClick={handleEntryClick}
             style={{ display: showCategoryList ? "block" : "none" }}
           />
-          <WikiContent
-            entry={selectedEntry}
-            isEditMode={isEditMode}
-            onWikiButtonClick={handleWikiButtonClick}
-            toggleEditMode={toggleEditMode}
-            form={form}
-            onFormChange={handleFormChange}
-          />
+          {
+            <WikiContent
+              Wiki={selectedEntry}
+              isEditMode={isEditMode}
+              onWikiButtonClick={handleWikiButtonClick}
+              toggleEditMode={toggleEditMode}
+              form={form}
+              onFormChange={handleFormChange}
+            />
+          }
         </S.Container>
       </S.WikiWrapper>
     </>
