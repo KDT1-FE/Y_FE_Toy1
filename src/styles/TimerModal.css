@@ -82,8 +82,14 @@
   gap: 50px;
 }
 
+.PlayTimeStopTimeContainer {
+  display: absolute;
+  bottom: 140px;
+}
 .PlayTime {
-  display: flex;
+  /* display: flex; */
+  display: absolute;
+  bottom: 140px;
   /* justify-content: center;   */
   /* align-items: center;       */
   gap: 50px;

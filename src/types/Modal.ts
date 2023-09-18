@@ -54,3 +54,8 @@ export interface ControlsProps {
   startTime: number | null;
   setStartTime: React.Dispatch<React.SetStateAction<number | null>>;
 }
+
+export interface TimeLabelsProps {
+  playTime: string | null;
+  stopTime: string | null;
+}

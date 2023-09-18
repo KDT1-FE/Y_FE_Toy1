@@ -25,14 +25,6 @@ function Header() {
     setStartTime,
   } = useTimer();
 
-  // const customToggle = () => {
-  //   // 모달이 열려 있을 때 (즉, 닫히게 될 때)
-  //   // if (isOpen) {
-  //   //   setStartTime(1);
-  //   // }
-  //   toggle();
-  // };
-
   return (
     <div className="Main">
       <header className="HeaderMain">

@@ -103,7 +103,6 @@ function Controls(props: ControlsProps) {
             >
               play_circle
             </button>
-            <div className="PlayLabel">공부 시작</div>
           </div>
           <div className="StopButtonContainer">
             <button
@@ -113,7 +112,6 @@ function Controls(props: ControlsProps) {
             >
               stop_circle
             </button>
-            <div className="StopLabel">공부 끝</div>
           </div>
         </div>
       </div>

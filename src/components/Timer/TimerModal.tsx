@@ -4,6 +4,7 @@ import "../../styles/TimerModal.css";
 import {TimerModalProps} from "../../types/Modal";
 import Controls from "./TimerControls";
 import Clock from "../../utils/clock";
+import TimeLabels from "./TimeLabels";
 
 function TimerModal(props: TimerModalProps) {
   const {
@@ -22,6 +23,7 @@ function TimerModal(props: TimerModalProps) {
     setStopTime,
     setStartTime,
   } = props;
+
   const [studyDuration, setStudyDuration] = useState<string>("");
   const [breakStartTime, setBreakStartTime] = useState<number | null>(null);
   const [username, setUsername] = useState<string>("");
@@ -48,7 +50,6 @@ function TimerModal(props: TimerModalProps) {
           <section className="CurrentTimeContainer">
             <Clock isModal />
           </section>
-          {/* <div className="TimerControlsContainer">  */}
           <section className="TimeContainer">
             <p className="TimerText">{Math.floor(timeInSeconds / 3600)}</p>
             <span>:</span>
@@ -60,7 +61,7 @@ function TimerModal(props: TimerModalProps) {
             <p className="TimerSpace"> </p>
             <p className="TimerText"> 동안 공부 중</p>
           </section>
-          {/* </div> */}
+          <TimeLabels playTime={playTime} stopTime={stopTime} />
           <Controls
             setTimeInSeconds={setTimeInSeconds}
             setIsRunning={setIsRunning}
@@ -75,10 +76,7 @@ function TimerModal(props: TimerModalProps) {
             startTime={startTime}
             setStartTime={setStartTime}
           />
-          <div className="PlayTimeStopTimeContainer">
-            {playTime && <p className="PlayTime">{playTime}</p>}
-            {stopTime && <p className="StopTime">{stopTime}</p>}
-          </div>
+          {/* <TimeLabels playTime={playTime} stopTime={stopTime} />  */}
           <div className="StudyDurationContainer">{studyDuration}</div>
           {!isRunning && studyDuration && (
             <div className="SubmitSection">
