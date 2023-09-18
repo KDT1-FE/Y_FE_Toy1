@@ -6,17 +6,17 @@ interface GalleryProps {
   handleClick: (category: string) => void;
 }
 
-const Sidebar: React.FC<GalleryProps> = ({handleClick}) => {
-    return (
-      <Container>
-        <ul className="sidebar__link-wrapper">
-          <li onClick={() => handleClick("notice")}>공지사항</li>
-          <li onClick={() => handleClick("news")}>모집공고</li>
-          <li onClick={() => handleClick("random")}>랜덤토크</li>
-        </ul>
-        <SidebarBottom />
-      </Container>
-    );
+const Sidebar: React.FC<GalleryProps> = ({ handleClick }) => {
+  return (
+    <Container>
+      <ul className="sidebar__link-wrapper">
+        <li onClick={() => handleClick("notice")}>공지사항</li>
+        <li onClick={() => handleClick("news")}>모집공고</li>
+        <li onClick={() => handleClick("random")}>랜덤토크</li>
+      </ul>
+      <SidebarBottom />
+    </Container>
+  );
 };
 
 const Container = styled.aside`
@@ -42,19 +42,19 @@ function SidebarBottom(): JSX.Element {
         <div className="sidebar__bottom_icon">
           <a href="https://www.notion.so/X-24f85bf2ff4e4c69bd45ddc4e05d464b">
             <img
-              src={process.env.PUBLIC_URL + "/svg/icon-notion.svg"}
+              src={process.env.PUBLIC_URL + "/svg/notion_icon.svg"}
               alt="notion"
             />
           </a>
           <a href="https://docs.google.com/spreadsheets/d/1Ffg--2TCzecwLMODoBHrTAk7zWufPLrJoyLVCwE4ea4/edit#gid=1823006152">
             <img
-              src={process.env.PUBLIC_URL + "/svg/icon-sheet.svg"}
+              src={process.env.PUBLIC_URL + "/svg/sheet_icon.svg"}
               alt="sheet"
             />
           </a>
           <a href="https://us06web.zoom.us/j/4912611157?pwd=N2swc3kxRG9uYTFKa2lBTUI2dS9NZz09#success">
             <img
-              src={process.env.PUBLIC_URL + "/svg/icon-zoom.svg"}
+              src={process.env.PUBLIC_URL + "/svg/zoom_icon.svg"}
               alt="zoom"
             />
           </a>
