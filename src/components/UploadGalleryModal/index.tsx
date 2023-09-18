@@ -24,11 +24,6 @@ function UploadGallery() {
     event: React.ChangeEvent<HTMLInputElement & EventTarget>,
   ) => {
     event.preventDefault();
-    const file = event.target.files;
-    console.log('file: ', file);
-    if (!file) return null;
-
-    addStorage(file, setImageURL);
 
     if (event.target.files !== null) {
       const file = event.target.files[0];
@@ -37,6 +32,7 @@ function UploadGallery() {
         setPreview(reader.result);
       };
       reader.readAsDataURL(file);
+      addStorage(event.target.files, setImageURL);
     } else {
       setPreview(null);
     }
@@ -54,13 +50,15 @@ function UploadGallery() {
   return (
     <>
       <StyledGalleryContainer>
-        <StyledButton
-          onClick={() => {
-            setModalOpen(true);
-          }}
-        >
-          + 사진 등록하기
-        </StyledButton>
+        {searchParams.size > 0 && (
+          <StyledButton
+            onClick={() => {
+              setModalOpen(true);
+            }}
+          >
+            + 사진 등록하기
+          </StyledButton>
+        )}
       </StyledGalleryContainer>
       <ReactModal isOpen={modalOpen} style={StyledModal}>
         <StyledCloseImg
@@ -96,8 +94,6 @@ function UploadGallery() {
 
 const StyledGalleryContainer = styled.div`
   margin: 1.875rem;
-  width: 100%;
-  height: 56rem;
   position: relative;
 `;
 
