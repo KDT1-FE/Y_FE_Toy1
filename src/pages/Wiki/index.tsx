@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import MDEditor from '@uiw/react-md-editor';
 import { useState } from 'react'
 import { create } from 'apis/Wiki';
+// import { create, read } from 'apis/Wiki';
 import { useLocation } from 'react-router-dom'
 
 interface props {
@@ -46,6 +47,11 @@ function WikiCreate({ setIsEdit }: props) {
 function Wiki() {
   const [isEdit, setIsEdit] = useState(false)
   console.log(isEdit)
+  const location = useLocation()
+  const searchParams = new URLSearchParams(location.search)
+  const selectedCategory = searchParams.get('category')
+  console.log('now location ', selectedCategory)
+  // read(selectedCategory as string)
 
   return (
     <WikiContainer>
