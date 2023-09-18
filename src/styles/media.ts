@@ -22,7 +22,7 @@ export const media = {
     }
   `,
   mobile: (styles: string) => css`
-    @media screen and (max-width: 575px) {
+    @media screen and (max-width: 576px) {
       ${styles}
     }
   `,
