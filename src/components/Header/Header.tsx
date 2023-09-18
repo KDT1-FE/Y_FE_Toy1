@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import Clock from "../../utils/clock";
 import "../../styles/Header.css";
@@ -9,6 +9,7 @@ import useTimer from "../../hooks/useTimer";
 
 function Header() {
   const {isOpen, toggle} = useModal();
+  const [statusText, setStatusText] = useState<string | null>(null);
   const {
     timeInSeconds,
     setTimeInSeconds,
@@ -76,11 +77,11 @@ function Header() {
           setStopTime={setStopTime}
           startTime={startTime}
           setStartTime={setStartTime}
-          // playTime={playTime}
-          // stopTime={stopTime}
-          // startTime={startTime}
+          statusText={statusText}
+          setStatusText={setStatusText}
         />
       </Modal>
+      {/* <StudyStatus statusText={statusText} setStatusText={setStatusText} /> */}
     </div>
   );
 }

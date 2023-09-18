@@ -5,6 +5,7 @@ import {TimerModalProps} from "../../types/Modal";
 import Controls from "./TimerControls";
 import Clock from "../../utils/clock";
 import TimeLabels from "./TimeLabels";
+import StudyStatus from "./StudyStatus";
 
 function TimerModal(props: TimerModalProps) {
   const {
@@ -22,6 +23,8 @@ function TimerModal(props: TimerModalProps) {
     setPlayTime,
     setStopTime,
     setStartTime,
+    setStatusText,
+    statusText,
   } = props;
 
   const [studyDuration, setStudyDuration] = useState<string>("");
@@ -49,6 +52,10 @@ function TimerModal(props: TimerModalProps) {
         <main>
           <section className="CurrentTimeContainer">
             <Clock isModal />
+            <StudyStatus
+              statusText={statusText}
+              setStatusText={setStatusText}
+            />
           </section>
           <section className="TimeContainer">
             <p className="TimerText">{Math.floor(timeInSeconds / 3600)}</p>
@@ -75,6 +82,8 @@ function TimerModal(props: TimerModalProps) {
             setStopTime={setStopTime}
             startTime={startTime}
             setStartTime={setStartTime}
+            statusText={statusText}
+            setStatusText={setStatusText}
           />
           {/* <TimeLabels playTime={playTime} stopTime={stopTime} />  */}
           <div className="StudyDurationContainer">{studyDuration}</div>

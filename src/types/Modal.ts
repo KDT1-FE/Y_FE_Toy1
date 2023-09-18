@@ -38,6 +38,9 @@ export interface TimerModalProps extends ModalProps {
 
   startTime: number | null;
   setStartTime: React.Dispatch<React.SetStateAction<number | null>>;
+
+  statusText: string | null;
+  setStatusText: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export interface ControlsProps {
@@ -53,9 +56,15 @@ export interface ControlsProps {
   setStopTime: React.Dispatch<React.SetStateAction<string | null>>;
   startTime: number | null;
   setStartTime: React.Dispatch<React.SetStateAction<number | null>>;
+  setStatusText: React.Dispatch<React.SetStateAction<string | null>>;
+  statusText: string | null;
 }
 
 export interface TimeLabelsProps {
   playTime: string | null;
   stopTime: string | null;
+}
+
+export interface StudyStatusProps {
+  statusText: string | null;
 }

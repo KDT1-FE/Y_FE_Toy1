@@ -15,6 +15,8 @@ function Controls(props: ControlsProps) {
     setStopTime,
     startTime,
     setStartTime,
+    // statusText,
+    setStatusText,
   } = props;
 
   const [breakStartTime, setBreakStartTime] = useState<number | null>(null);
@@ -36,6 +38,7 @@ function Controls(props: ControlsProps) {
     setBreakStartTime(null);
     setTotalBreakTime(0);
     setTimeInSeconds(0);
+    setStatusText(null);
   };
 
   // 타이머 시작, 재시작을 위한 핸들러
@@ -50,11 +53,11 @@ function Controls(props: ControlsProps) {
     }
     setPlayTime(getCurrentTime());
     setStopTime(null);
+    setStatusText("공부 중");
   };
 
   // 타이머 중지, 학습 시간 저장을 위한 핸들러
   const handleStopButton = () => {
-    console.log(startTime);
     if ((isRunning || onBreak) && startTime !== null) {
       setIsRunning(false);
       setOnBreak(false);
@@ -74,6 +77,7 @@ function Controls(props: ControlsProps) {
       resetTimer();
     }
     setStopTime(getCurrentTime());
+    setStatusText(null);
   };
 
   // 휴식 모드 전환, 휴식 중 타이머 재시작을 위한 핸들러
@@ -82,12 +86,14 @@ function Controls(props: ControlsProps) {
       setIsRunning(false);
       setOnBreak(true);
       setBreakStartTime(Date.now());
+      setStatusText("휴식 중");
     } else if (onBreak) {
       setIsRunning(true);
       setOnBreak(false);
       const breakDuration = Date.now() - (breakStartTime as number);
       setTotalBreakTime(prev => prev + breakDuration);
       setBreakStartTime(null);
+      setStatusText("공부 중");
     }
   };
 
@@ -116,19 +122,19 @@ function Controls(props: ControlsProps) {
       </div>
       {/* </div> */}
 
-      <div className="BreakResumeContainer">
-        <button
-          type="button"
-          className={onBreak ? "ResumeButton" : "BreakButton"}
-          onClick={handleBreakButton}
-        >
-          {onBreak ? "휴식끝" : "휴식"}
-        </button>
-        <button type="button" className="ResetButton" onClick={resetTimer}>
-          Reset
-        </button>
-      </div>
+      {/* <div className="BreakResumeContainer"> */}
+      <button
+        type="button"
+        className={onBreak ? "ResumeButton" : "BreakButton"}
+        onClick={handleBreakButton}
+      >
+        {onBreak ? "휴식끝" : "휴식"}
+      </button>
+      <button type="button" className="ResetButton" onClick={resetTimer}>
+        Reset
+      </button>
     </div>
+    // </div>
   );
 }
 
