@@ -1,5 +1,16 @@
 import React, { useState } from 'react';
-import { InputContainer, ModalContainer } from '../style';
+import {
+    Formalign,
+    InputContainer,
+    LinkInput,
+    ModalContainer,
+    ModalFirstLine,
+    SubmitBtn,
+    SubmitBtnAlign,
+    PlaceHolder,
+    LinkInputContainer,
+    PreviewBox,
+} from '../style';
 import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { storage, firestore } from '../../../utils/firebase';
@@ -60,33 +71,42 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
 
     return (
         <ModalContainer>
-            <form onSubmit={handleSubmit}>
+            <ModalFirstLine>
+                <h2>테크 링크 공유</h2>
+                <span className="close" onClick={onClose}>
+                    &times;
+                </span>
+            </ModalFirstLine>
+            <Formalign onSubmit={handleSubmit}>
                 <InputContainer>
-                    <span className="close" onClick={onClose}>
-                        &times;
-                    </span>
-                    <h2>테크 링크 공유</h2>
-                    <label htmlFor="link">링크:</label>
-                    <input type="text" id="link" value={link} onChange={handleLinkChange} />
-                    <label htmlFor="image">이미지 업로드:</label>
-                    <input type="file" id="image" accept="image/*" onChange={handleImageChange} />
-                    <button type="submit">제출</button>
+                    <LinkInputContainer>
+                        <label htmlFor="link">링크</label>
+                        <br />
+                        <LinkInput type="text" id="link" value={link} onChange={handleLinkChange} required />
+                    </LinkInputContainer>
+                    <div>
+                        <label htmlFor="image">이미지 업로드</label>
+                        <input type="file" id="image" accept="image/*" onChange={handleImageChange} required />
+                    </div>
                 </InputContainer>
-            </form>
-            <div>
-                {imageFile && (
-                    <div className="image-preview">
-                        <h3>미리보기</h3>
-                        <a href={link}>
+                <PreviewBox>
+                    <p>미리보기</p>
+                    {imageFile ? (
+                        <a href={link} target="_blank">
                             <img
                                 src={URL.createObjectURL(imageFile)}
                                 alt="미리보기"
                                 style={{ width: '100px', height: '100px' }}
                             />
                         </a>
-                    </div>
-                )}
-            </div>
+                    ) : (
+                        <PlaceHolder />
+                    )}
+                    <SubmitBtnAlign>
+                        <SubmitBtn type="submit">제출</SubmitBtn>
+                    </SubmitBtnAlign>
+                </PreviewBox>
+            </Formalign>
         </ModalContainer>
     );
 };

@@ -4,6 +4,7 @@ import Modal from './UploadModal/Modal';
 import { onSnapshot, updateDoc } from 'firebase/firestore';
 import { ref, deleteObject } from 'firebase/storage';
 import { storeRef, storage } from '../../utils/firebase';
+import { ContentContainer, ContentFirstLine, ModalBackground, TrashCan, UploadBtn } from './style';
 
 const Recruit: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -65,23 +66,38 @@ const Recruit: React.FC = () => {
     }, []);
 
     return (
-        <>
-            <div>
-                <button onClick={openModal}>업로드</button>
-                {isModalOpen && <Modal onClose={closeModal} />}
-            </div>
+        <ContentContainer>
+            {isModalOpen && (
+                <ModalBackground>
+                    <Modal onClose={closeModal} />
+                </ModalBackground>
+            )}
+            <ContentFirstLine>
+                <div style={{ font: '16px', fontWeight: 'bold' }}>레퍼런스 공유 {'>'} 취업</div>
+                <UploadBtn onClick={openModal}>업로드</UploadBtn>
+            </ContentFirstLine>
             <DragDropContext onDragEnd={handleDragEnd}>
                 <Droppable droppableId="trashCan">
                     {(provided) => (
-                        <div ref={provided.innerRef} {...provided.droppableProps} className="trash-can">
+                        <TrashCan ref={provided.innerRef} {...provided.droppableProps} className="trash-can">
                             🗑️
                             {provided.placeholder}
-                        </div>
+                        </TrashCan>
                     )}
                 </Droppable>
                 <Droppable droppableId="yourDroppableId">
                     {(provided) => (
-                        <div ref={provided.innerRef} {...provided.droppableProps}>
+                        <div
+                            ref={provided.innerRef}
+                            style={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                gap: '20px',
+                                justifyContent: 'flex-start',
+                                padding: '10px',
+                            }}
+                            {...provided.droppableProps}
+                        >
                             {articleRs.map((articleR, index) => (
                                 <Draggable
                                     key={articleR.index.toString()}
@@ -102,7 +118,16 @@ const Recruit: React.FC = () => {
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                             >
-                                                <img src={articleR.thumbnailURL} alt={`article ${articleR.index}`} />
+                                                <img
+                                                    style={{
+                                                        width: '300px',
+                                                        height: '200px',
+                                                        boxShadow: '2px 2px 2px 2px rbga(0,0,0,0.3)',
+                                                        borderRadius: '10px',
+                                                    }}
+                                                    src={articleR.thumbnailURL}
+                                                    alt={`article ${articleR.index}`}
+                                                />
                                             </a>
                                         </div>
                                     )}
@@ -113,7 +138,7 @@ const Recruit: React.FC = () => {
                     )}
                 </Droppable>
             </DragDropContext>
-        </>
+        </ContentContainer>
     );
 };
 
