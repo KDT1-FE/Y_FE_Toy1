@@ -15,6 +15,13 @@
   align-items: center;
 }
 
+.Logo:hover {
+  transform: scale(1.05);
+  transition: all 0.3s;
+
+  cursor: pointer;
+}
+
 .Logo h1 {
   font-size: 26px;
 }
@@ -119,9 +126,13 @@
   transform: scaleX(1.4) scaleY(1.6);
 }
 
+.SubList:hover {
+  color: black;
+}
+
 .SubList:hover,
 .SubListMain:hover {
-  color: black;
+  transition: all 0.3;
 
   cursor: pointer;
 }
