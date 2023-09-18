@@ -5,6 +5,14 @@ export const StyledLink = styled(Link)`
   text-decoration: none;
   color: white;
   font-weight: 600;
+
+  display: block;
+  background-color: #96a0ff;
+  border: none;
+  width: 192px;
+  height: 73px;
+  border-radius: 50px;
+  line-height: 3;
 `;
 
 export const P = styled.p`
