@@ -23,6 +23,8 @@
 
     img {
       max-width: 200px;
+      max-height: 200px;
+      object-fit: cover;
       margin-top: 10px;
       border-radius: 50%;
       border: solid 5px $highlightColor;
