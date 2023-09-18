@@ -1,9 +1,8 @@
 import NavigationWiki from 'components/NavigationWiki';
 import styled from 'styled-components';
 import MDEditor from '@uiw/react-md-editor';
-import { useState } from 'react'
-import { create } from 'apis/Wiki';
-// import { create, read } from 'apis/Wiki';
+import { useState, useEffect } from 'react'
+import { create, read } from 'apis/Wiki';
 import { useLocation } from 'react-router-dom'
 
 interface props {
@@ -13,7 +12,8 @@ interface props {
 function WikiCreate({ setIsEdit }: props) {
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
-  const selectedCategory = searchParams.get('category')
+  let selectedCategory = searchParams.get('category')
+  if (selectedCategory === null) selectedCategory = 'companyRule'
   const [textValue, setTextValue] = useState('')  
   const handleSetValue = (text: string | undefined) => {
     if (text) {
@@ -46,12 +46,27 @@ function WikiCreate({ setIsEdit }: props) {
 
 function Wiki() {
   const [isEdit, setIsEdit] = useState(false)
-  console.log(isEdit)
-  const location = useLocation()
+  const [isDocumentExist, setDocumentExist] = useState(false)
+  const [data, setData] = useState(Object);
+  const location = useLocation()  
   const searchParams = new URLSearchParams(location.search)
-  const selectedCategory = searchParams.get('category')
-  console.log('now location ', selectedCategory)
-  // read(selectedCategory as string)
+  let selectedCategory = searchParams.get('category')
+  if (selectedCategory === null) selectedCategory = 'companyRule'
+
+  const getDocumentList = async () => {
+    const document = await read(selectedCategory as string); 
+    document === undefined ? setDocumentExist(false) : setDocumentExist(true)
+    setData(document)
+  }
+
+  useEffect(() => {
+    const fetchData = async() => {
+      const documentData = await getDocumentList();
+      return documentData
+    }
+    fetchData();
+  }, [selectedCategory]);
+
 
   return (
     <WikiContainer>
@@ -60,12 +75,17 @@ function Wiki() {
         {isEdit === true ? (
           <WikiCreate setIsEdit={setIsEdit}></WikiCreate>
         ) : (
-          <div onClick={() => {
-            setIsEdit(true)
-          }}>
-            <h1>아직 작성된 글이 없습니다.</h1>
-            글 작성하기
-          </div>
+          <TextareaContainer>
+            { isDocumentExist === false ? 
+              <div onClick={() => {
+                setIsEdit(true)
+              }}>
+                <h1>아직 작성된 글이 없습니다.</h1>
+                글 작성하기
+              </div> : 
+                <MDEditor.Markdown source={data?.content} /> 
+            }
+          </TextareaContainer>
         )}
       </div>
     </WikiContainer>
