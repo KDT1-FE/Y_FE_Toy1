@@ -2,8 +2,23 @@ import React, { useState, useEffect } from 'react';
 import './SideBar.scss';
 import { AddImageModal } from './ModalImage';
 import { userId, userNickname } from 'pages/Gallery';
+import gsap from 'gsap';
 
 export function SideBarLink() {
+  //   useEffect(() => {
+  //     if (window.scrollY > 550) {
+  //       gsap.to('.sideBar-container', 0.6, {
+  //         opacity: 0,
+  //         display: 'none',
+  //       });
+  //     } else {
+  //       gsap.to('.sideBar-container', 0.6, {
+  //         opacity: 1,
+  //         display: 'block',
+  //       });
+  //     }
+  // }, []);
+
   return (
     <div className="sideBar-container">
       <h3>

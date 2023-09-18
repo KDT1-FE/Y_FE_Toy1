@@ -12,6 +12,7 @@ import {
   setDoc,
   getDocs,
   collection,
+  onSnapshot,
 } from 'firebase/firestore';
 import { userId, userNickname } from 'pages/Gallery';
 

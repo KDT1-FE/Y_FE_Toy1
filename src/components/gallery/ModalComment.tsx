@@ -1,8 +1,11 @@
 import {
+  realtimeCommentList,
   updateLike,
   uploadCommentList,
   uploadCommentList2,
 } from 'data/galleryComment';
+import { db } from 'data/firebase';
+import { doc, collection, onSnapshot } from 'firebase/firestore';
 import React, { useState, useRef, useEffect } from 'react';
 import './ModalComment.scss';
 import { useNavigate } from 'react-router-dom';
@@ -71,22 +74,33 @@ export function ModalComment({
       await setCommentList(newCommentList); //새 배열에 comment저장 후 set
       alert('Success! 저장에 성공했습니다.');
       await setChange((prev: any) => !prev);
-      location.reload();
+      //location.reload();
     } else if (comment == '') {
       alert(' Fail! 입력칸에 내용을  입력해주세요.');
     }
   };
 
-  //댓글 실시간업데이트 -> 수정예정
-  useEffect(() => {
+  function realtime() {
+    const fetchList = async (categoryId: any, imgId: any) => {
+      // ... try, catch 생략
+      const userRef = doc(db, categoryId, imgId);
+      const unsub = onSnapshot(userRef, (doc: any) => {
+        console.log('Current comments: ', doc.data().comments);
+        console.log('Current data: ', doc.data());
+        setCommentList(doc.data().comments);
+      });
+      return unsub;
+    };
+    return fetchList(categoryId, imgId);
+  }
+
+  useEffect((): any => {
     if (comment !== '') {
-      const upload: any = uploadCommentList(imgId, categoryId, comment);
-      upload?.then(setCommentList(commentsListData));
-      console.log('여기는 useEffect', commentList);
-      setComment('');
+      uploadCommentList(imgId, categoryId, comment);
+      realtime();
     }
-    console.log('isChange는~~', isChange);
-  }, [isChange]);
+    setComment('');
+  }, [isChange, doc, onSnapshot]);
 
   // 초기값 지정
   useEffect(() => {
