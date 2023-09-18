@@ -12,12 +12,14 @@ import { WikiDetail } from 'components/Wiki/WikiDetail';
 import { PostAdd } from 'components/Wiki/PostAdd';
 import { PostEdit } from 'components/Wiki/PostEdit';
 import { SignIn } from 'pages/SignIn';
+import { Error } from 'pages/Error';
 
 function App() {
   const router = createBrowserRouter([
     {
       path: '/',
       element: <Root />,
+      errorElement: <Error />,
       children: [
         { path: '/study', element: <Study /> },
         { path: '/gallery', element: <Gallery /> },

@@ -33,6 +33,13 @@
     width: 100%;
     display: grid;
     grid-template-columns: 8fr 2fr;
+
+    .btn {
+      background-color: $grayColor;
+      color: $whiteColor;
+      font-weight: 700;
+      margin-left: 10px;
+    }
   }
 
   .btn-next {

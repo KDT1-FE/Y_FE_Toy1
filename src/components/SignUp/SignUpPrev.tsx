@@ -73,13 +73,17 @@ export function SignUpPrev({
         />
         <button
           type="button"
-          className="btn btn-secondary"
+          className="btn"
           onClick={handleClickNicknameButton}
         >
           추천받기!
         </button>
       </div>
-      <button type="submit" className="btn btn-next">
+      <button
+        type="submit"
+        className="btn btn-next"
+        disabled={nickname ? false : true}
+      >
         다음으로
       </button>
     </form>
