@@ -80,6 +80,7 @@ export const getWorkTimeData = async () => {
         name: workTimeData.name,
       });
     });
+    return responseArray;
   } catch (error) {
     alert('알 수 없는 오류입니다');
   }
