@@ -14,7 +14,7 @@ function Album() {
   const [albumKey, setAlbumKey] = useState<string>("");
   const [allFiles, setAllFiles] = useState<string[]>([]);
   const [files, setFiles] = useState<{name: string; imageUrl: string}[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isModal, setIsModal] = useState<boolean>(false);
   const [deleteFiles, setDeleteFiles] = useState<string[]>([]);
 
