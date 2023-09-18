@@ -1,4 +1,3 @@
-// Attendance.tsx
 import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
 
@@ -6,10 +5,10 @@ import '../scss/components/_attendanceModal.scss';
 
 interface AttendanceProps {
   isOpen: boolean;
-  onClose: () => void; // 이 함수는 모달을 닫을 때 사용할 수 있습니다.
+  onClose: () => void;
 }
 
-const Attendance: React.FC<AttendanceProps> = ({ isOpen, onClose }) => {
+const Attendance = ({ isOpen, onClose }: AttendanceProps) => {
   const [time, setTime] = useState(new Date());
   const [attendStatus, setAttendStatus] = useState('출근');
   const [attendActive, setAttendActive] = useState<boolean>(false);
