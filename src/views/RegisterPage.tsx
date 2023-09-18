@@ -12,7 +12,7 @@ import {
 
 import '../scss/authPage.scss';
 
-export const RegisterPage = (): JSX.Element => {
+const RegisterPage = (): JSX.Element => {
   const [email, handleEmail] = useInput('email', { value: '', validationPass: false });
 
   const [name, handleName] = useInput('name', { value: '', validationPass: false });
@@ -53,3 +53,5 @@ export const RegisterPage = (): JSX.Element => {
     </form>
   );
 };
+
+export default RegisterPage;

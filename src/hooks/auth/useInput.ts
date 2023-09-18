@@ -5,7 +5,7 @@ interface InputType {
   validationPass: boolean;
 }
 
-export const useInput = (
+const useInput = (
   target: string,
   initial: InputType,
   password?: InputType,
@@ -39,3 +39,5 @@ export const useInput = (
 
   return [input, handleChange];
 };
+
+export default useInput;

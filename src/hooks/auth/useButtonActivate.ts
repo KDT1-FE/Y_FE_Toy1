@@ -5,7 +5,7 @@ interface InputType {
   validationPass: boolean;
 }
 
-export const useButtonActivate = (...input: InputType[]): boolean => {
+const useButtonActivate = (...input: InputType[]): boolean => {
   const [buttonActivate, setButtonActivate] = useState(false);
 
   useEffect((): void => {
@@ -16,7 +16,9 @@ export const useButtonActivate = (...input: InputType[]): boolean => {
         ? true
         : false,
     );
-  });
+  }, [input]);
 
   return buttonActivate;
 };
+
+export default useButtonActivate;

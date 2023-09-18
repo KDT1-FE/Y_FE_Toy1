@@ -4,7 +4,7 @@ import { FormTitle, InputEmail, InputPassword, SubmitButton, ChangeAuthPage } fr
 
 import '../scss/authPage.scss';
 
-export const LoginPage = (): JSX.Element => {
+const LoginPage = (): JSX.Element => {
   const [email, handleEmail] = useInput('email', { value: '', validationPass: false });
 
   const [password, handlePassword] = useInput('password', { value: '', validationPass: false });
@@ -30,3 +30,5 @@ export const LoginPage = (): JSX.Element => {
     </form>
   );
 };
+
+export default LoginPage;

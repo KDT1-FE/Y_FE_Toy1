@@ -3,10 +3,11 @@
 
 .nav {
   width: 224px;
-  height: 100vh;
+  height: calc(100vh - 60px);
   background-color: $blue;
   color: $white;
   font-size: 1.4rem;
+  flex-shrink: 0;
 
   .nav-depth {
     display: flex;

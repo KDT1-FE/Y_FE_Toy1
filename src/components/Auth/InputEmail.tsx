@@ -12,7 +12,7 @@ interface EmailProps {
   handleEmail: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-export const InputEmail = ({ email, handleEmail }: EmailProps): JSX.Element => {
+const InputEmail = ({ email, handleEmail }: EmailProps): JSX.Element => {
   return (
     <div className="input-container">
       <input
@@ -35,3 +35,5 @@ export const InputEmail = ({ email, handleEmail }: EmailProps): JSX.Element => {
     </div>
   );
 };
+
+export default InputEmail;
