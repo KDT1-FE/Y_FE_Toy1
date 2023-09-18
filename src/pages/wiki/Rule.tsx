@@ -3,44 +3,13 @@ import { Editor, Viewer } from '@toast-ui/react-editor';
 import { db } from '../../common/config';
 import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import styled from 'styled-components';
+import { StyledContainer, StyledTitle, StyledButton, StyledTime } from './Info';
 import { useUser } from '../../common/UserContext';
 
-export const StyledContainer = styled.div`
-  padding: 20px;
-`;
-
-export const StyledTitle = styled.input`
-  display: block;
-  margin-bottom: 10px;
-  width: 100%;
-  padding: 8px;
-  font-size: 16px;
-`;
-
-export const StyledButton = styled.button`
-  margin-top: 10px;
-  padding: 5px 15px;
-  font-size: 14px;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-
-  &:hover {
-    background-color: gray;
-  }
-`;
-
-export const StyledTime = styled.div`
-  margin-top: 5px;
-  font-size: 14px;
-  color: gray;
-`;
-
-const Info = () => {
+const Rule = () => {
   const [title, setTitle] = useState<string>('');
   const [markdown, setMarkdown] = useState<string>('');
-  const [editor, setEditor] = useState<string>(''); //작성자 추가
+  const [editor, setEditor] = useState<string>('');
   const editorRef = useRef<Editor | null>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [lastEdited, setLastEdited] = useState<null | Date>(null);
@@ -49,7 +18,7 @@ const Info = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const docRef = doc(db, 'wiki', 'info');
+        const docRef = doc(db, 'wiki', 'rule');
         const docSnapshot = await getDoc(docRef);
 
         console.log('user확인하기', user?.name); //user값 확인
@@ -58,7 +27,7 @@ const Info = () => {
           const data = docSnapshot.data();
           setMarkdown(data.content);
           setTitle(data.title || '');
-          setEditor(data.editor || '');
+          setEditor(data.editor);
           if (data.lastEdited) {
             setLastEdited(data.lastEdited.toDate());
           }
@@ -75,13 +44,13 @@ const Info = () => {
 
   const handleEditClick = async () => {
     if (1) {
-      //유저가 있어야만 수정 되게  ->지금 유저가 null이라서 이 부분 안됨
+      //유저가 있어야만 수정 되게
       if (isEditing && editorRef.current) {
         const editedMarkdown = editorRef.current.getInstance().getMarkdown();
         setMarkdown(editedMarkdown);
         const currentTime = Timestamp.now();
         try {
-          const docRef = doc(db, 'wiki', 'info');
+          const docRef = doc(db, 'wiki', 'rule');
           await setDoc(docRef, {
             title,
             content: editedMarkdown,
@@ -127,14 +96,14 @@ const Info = () => {
               마지막 수정: {lastEdited.toLocaleString()} / 최근 편집자: {editor}
             </StyledTime>
           )}
-
           <Viewer key={markdown} initialValue={markdown} />
         </>
       )}
       <hr />
+
       <StyledButton onClick={handleEditClick}>{isEditing ? '저장' : '편집'}</StyledButton>
     </StyledContainer>
   );
 };
 
-export default Info;
+export default Rule;
