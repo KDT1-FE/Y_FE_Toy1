@@ -13,18 +13,13 @@ function Controls(props: ControlsProps) {
     setOnBreak,
     setPlayTime,
     setStopTime,
+    startTime,
+    setStartTime,
   } = props;
-  const [startTime, setStartTime] = useState<number | null>(null);
+
   const [breakStartTime, setBreakStartTime] = useState<number | null>(null);
   const [totalBreakTime, setTotalBreakTime] = useState(0);
   const [isFirstPlay, setIsFirstPlay] = useState(true);
-
-  const resetTimer = () => {
-    setStartTime(null);
-    setBreakStartTime(null);
-    setTotalBreakTime(0);
-    setTimeInSeconds(0);
-  };
 
   const addZero = (num: number): string => `${num}`.padStart(2, "0");
 
@@ -33,6 +28,14 @@ function Controls(props: ControlsProps) {
     return `${addZero(currentDate.getHours())}:${addZero(
       currentDate.getMinutes(),
     )}:${addZero(currentDate.getSeconds())}`;
+  };
+
+  // 타이머 초기화를 위한 핸들러
+  const resetTimer = () => {
+    setStartTime(null);
+    setBreakStartTime(null);
+    setTotalBreakTime(0);
+    setTimeInSeconds(0);
   };
 
   // 타이머 시작, 재시작을 위한 핸들러
@@ -51,6 +54,7 @@ function Controls(props: ControlsProps) {
 
   // 타이머 중지, 학습 시간 저장을 위한 핸들러
   const handleStopButton = () => {
+    // console.log(isRunning, onBreak, startTime);
     if ((isRunning || onBreak) && startTime !== null) {
       setIsRunning(false);
       setOnBreak(false);

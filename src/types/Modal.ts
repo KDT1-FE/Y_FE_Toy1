@@ -32,8 +32,12 @@ export interface TimerModalProps extends ModalProps {
   setOnBreak: React.Dispatch<React.SetStateAction<boolean>>;
   playTime: string | null;
   setPlayTime: React.Dispatch<React.SetStateAction<string | null>>;
+
   stopTime: string | null;
   setStopTime: React.Dispatch<React.SetStateAction<string | null>>;
+
+  startTime: number | null;
+  setStartTime: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
 export interface ControlsProps {
@@ -47,4 +51,6 @@ export interface ControlsProps {
   setBreakStartTime: React.Dispatch<React.SetStateAction<number | null>>;
   setPlayTime: React.Dispatch<React.SetStateAction<string | null>>;
   setStopTime: React.Dispatch<React.SetStateAction<string | null>>;
+  startTime: number | null;
+  setStartTime: React.Dispatch<React.SetStateAction<number | null>>;
 }

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 
 type ClockProps = {
-  isModal?: boolean; // 모달에서 사용되는 경우에 true
+  isModal?: boolean;
 };
 
 function Clock({isModal = false}: ClockProps) {
