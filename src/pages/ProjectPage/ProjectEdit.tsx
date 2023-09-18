@@ -10,14 +10,22 @@ import {
   WriteInput,
   WriteContentInput,
 } from "../../styled/ProjectPage/ProjectWrite.styles";
+import {
+  ProgressDiv,
+  Ing,
+  ProgressImg,
+} from "../../styled/ProjectPage/ProjectList.styles";
+import Progress from "../../assets/img/Progress.svg";
+import Complete from "../../assets/img/Complete.svg";
 
 const ProjectEdit: React.FC = () => {
   const navigate = useNavigate();
   const { projectId } = useParams<{ projectId: string }>();
   const [projectData, setProjectData] = useState({
+    projectProgress: "",
     projectTeamName: "",
     projectDeadline: "",
-    projectMember: 0,
+    projectMember: "",
     projectTitle: "",
     projectContent: "",
   });
@@ -66,8 +74,39 @@ const ProjectEdit: React.FC = () => {
     }
   };
 
+  const handleProgressToggle = () => {
+    const newProgress =
+      projectData.projectProgress === "진행중" ? "완료" : "진행중";
+
+    setProjectData({
+      ...projectData,
+      projectProgress: newProgress,
+    });
+  };
+
   return (
     <Container>
+      <ProgressDiv
+        className={
+          projectData.projectProgress === "진행중" ? "inProgress" : "completed"
+        }
+      >
+        <Ing
+          className={
+            projectData.projectProgress === "진행중"
+              ? "inProgress"
+              : "completed"
+          }
+          onClick={handleProgressToggle}
+        >
+          {projectData.projectProgress}
+        </Ing>
+        {projectData.projectProgress === "진행중" ? (
+          <ProgressImg src={Progress} alt="진행 중 이미지" />
+        ) : (
+          <ProgressImg src={Complete} alt="완료 이미지" />
+        )}{" "}
+      </ProgressDiv>
       <WriteDiv>
         <WriteProject>Edit Project</WriteProject>
         <form onSubmit={handleSubmit}>

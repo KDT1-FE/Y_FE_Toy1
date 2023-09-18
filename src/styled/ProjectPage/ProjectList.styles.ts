@@ -19,6 +19,7 @@ export const TitleContainer = styled.div`
   padding: 10px;
   align-items: center;
 `;
+
 export const WriteText = styled.h2`
   font-size: 40px;
   margin-left: 10px;
@@ -56,7 +57,7 @@ export const ListItem = styled.div`
 
 export const ProjectTitle = styled.p`
   font-size: 20px;
-  margin-right: 50px;
+  margin-right: 70px;
   font-family: RobotoMono;
 `;
 
@@ -76,4 +77,37 @@ export const SVG = styled.div`
   display: flex;
   align-items: center;
   font-family: RobotoMono;
+`;
+export const ProgressDiv = styled.div`
+  display: flex;
+  align-items: center;
+  font-family: RobotoMono;
+  border: 1px solid;
+  border-radius: 20px;
+  margin-left: 20px;
+  padding: 6px;
+  cursor: pointer;
+
+  &.inProgress {
+    width: 78px;
+    border-color: #53e56b;
+  }
+  /* "완료" 상태에 대한 스타일 */
+  &.completed {
+    width: 68px;
+    border-color: #ff0000;
+  }
+`;
+export const Ing = styled.p`
+  font-size: 14px;
+  width: 78px;
+  &.inProgress {
+    color: #53e56b;
+  }
+  &.completed {
+    color: #ff0000;
+  }
+`;
+export const ProgressImg = styled.img`
+  padding-left: 5px;
 `;

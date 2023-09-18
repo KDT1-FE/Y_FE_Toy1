@@ -19,7 +19,6 @@ export const DivContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 50px;
   margin-left: 14px;
   padding: 10px;
 `;
@@ -76,4 +75,38 @@ export const BtnDiv = styled.div`
   display: flex;
   margin-right: 10px;
   font-family: RobotoMono;
+`;
+export const ProgressDiv = styled.div`
+  display: flex;
+  align-items: center;
+  font-family: RobotoMono;
+  border: 1px solid;
+  border-radius: 20px;
+  margin-left: 20px;
+  margin-top: 50px;
+
+  padding: 6px;
+
+  &.inProgress {
+    width: 78px;
+    border-color: #53e56b;
+  }
+  /* "완료" 상태에 대한 스타일 */
+  &.completed {
+    width: 68px;
+    border-color: #ff0000;
+  }
+`;
+export const Ing = styled.p`
+  font-size: 14px;
+  width: 78px;
+  &.inProgress {
+    color: #53e56b;
+  }
+  &.completed {
+    color: #ff0000;
+  }
+`;
+export const ProgressImg = styled.img`
+  padding-left: 5px;
 `;
