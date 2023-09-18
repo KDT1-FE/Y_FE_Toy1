@@ -1,13 +1,13 @@
 import { db } from 'data/firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ModalComment.scss';
 import {
   updateLike,
   uploadCommentList,
   uploadCommentWholeList,
 } from 'data/galleryComment';
-import { deleteImage, getImageData } from 'data/galleryImage';
+import { deleteImage } from 'data/galleryImage';
 import { userId, userNickname } from 'pages/Gallery';
 
 interface Props {
@@ -19,7 +19,6 @@ interface Props {
   writerName: string;
   likeData: string;
 }
-// Modal 댓글창
 
 export function ModalComment({
   writerId,
@@ -99,12 +98,7 @@ export function ModalComment({
     console.log('Changed!', isChange);
   }, [isChange, doc, onSnapshot]);
 
-  // 초기값 지정
-  useEffect(() => {
-    setLike(Number(likeData));
-    setCommentList(commentsListData);
-  }, []);
-
+  // 댓글 삭제
   const handleDeleteComment = async (e: any) => {
     try {
       //선택 text값
@@ -115,21 +109,24 @@ export function ModalComment({
         // text 내용 같은 요소만 제거
         return (
           comment.text !== getDelText.trim() &&
-          comment.commentUid !== getDelUid.trim()
+          comment.commentUid == getDelUid.trim()
         );
       });
-
       await setCommentList(updatedData);
-
       //배열 형태로 db업로드
       await uploadCommentWholeList(updatedData, imgId, categoryId);
-
       await setChange((prev: any) => !prev);
       console.log('Deleted Comment Text:', updatedData);
     } catch (error) {
       console.error('Error deleting comment:', error);
     }
   };
+
+  // 초기값 지정
+  useEffect(() => {
+    setLike(Number(likeData));
+    setCommentList(commentsListData);
+  }, []);
 
   return (
     <div>

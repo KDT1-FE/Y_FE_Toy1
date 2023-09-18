@@ -13,7 +13,7 @@ export function MapImages({
   const modalRef: any = useRef();
 
   return (
-    <div className={slideClassName}>
+    <div className="slide__card">
       <div key={image.id} id={categoryId} className="slide__images">
         <img src={image.image} onClick={() => modalRef.current?.showModal()} />
 

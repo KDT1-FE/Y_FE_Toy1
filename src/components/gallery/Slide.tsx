@@ -34,8 +34,8 @@ export function CarouselSlide({
       draggable: true,
     });
     gsap.to('.rightSlideItem', {
-      x: 1200,
-      duration: 15,
+      x: 700,
+      duration: 10,
       repeat: -1,
       repeatDelay: 0,
       ease: 'none',
