@@ -60,6 +60,7 @@ export const MyPageProfile = styled.div`
     padding: 10% 5%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     gap: 20px;
 `;
@@ -118,4 +119,30 @@ export const RedCircle = styled.span`
     font-size: 60px;
     font-weight: 700;
     line-height: 1;
+`;
+
+export const TimelogBox = styled.div`
+    width: 100%;
+    height: calc(100% - 80px);
+    padding: 10%;
+`;
+export const TimelogBoxScroll = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+`;
+
+export const TimelogEl = styled.div`
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 30%;
+    border: 1px solid black;
 `;

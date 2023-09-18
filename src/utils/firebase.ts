@@ -64,14 +64,29 @@ export const createChannelDoc = async (collectionName: string, documentName: str
     }
 };
 // user의 타임로그 배열 형태로 저장
-export const createTimelog = async (collectionName: string, documentName: string, currentTime: string) => {
+export const createTimelog = async (collectionName: string, userName: string, currentTime: string) => {
     const value = currentTime;
-    const documentRef = doc(firestore, collectionName, documentName);
+    const userRef = doc(firestore, collectionName, userName);
     try {
-        const pushTimeLog = await updateDoc(documentRef, { timelog: arrayUnion(value) });
+        const pushTimeLog = await updateDoc(userRef, { timelog: arrayUnion(value) });
         alert(`${value}\n입/퇴실기록이 정상 기록되었습니다!`);
         console.log(value);
         console.log('입/퇴실기록이 정상 기록되었습니다!');
+    } catch (error) {
+        console.error('타임로그 생성 실패!', error);
+        throw error;
+    }
+};
+export const readTimelog = async (collectionName: string, userName: string) => {
+    const userRef = doc(firestore, collectionName, userName);
+    try {
+        const Docs = await getDoc(userRef);
+        if (Docs) {
+            const data = Docs.data();
+            if (data) {
+                return data['timelog'];
+            }
+        }
     } catch (error) {
         console.error('타임로그 생성 실패!', error);
         throw error;
