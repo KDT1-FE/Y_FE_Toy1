@@ -4,12 +4,14 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom';
 import './Authentication.css'
+import { collection, doc, getDocs, query, setDoc, where } from 'firebase/firestore';
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [nickname, setNickname] = useState("");
   const navigate = useNavigate()
+  const userRef = collection(db, "user");
 
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -29,15 +31,29 @@ const SignUp = () => {
   const handleClickCreate = async (e: React.FormEvent) => {
     e.preventDefault();
     try{
+      const q = query(userRef, where("nickName", "==", nickname))
+      const querySnapshot = await getDocs(q)
+      if(!querySnapshot.empty){
+        throw new Error('닉네임이 중복됐습니다.')
+      }
+
       const userCredential = await createUserWithEmailAndPassword(auth, email, pwd)
       if(userCredential){
         await updateProfile(userCredential.user, {
           displayName: nickname
         })
       }
+      console.log(userCredential)
+      await setDoc(doc(db,"user", userCredential.user.uid),{
+        uid: userCredential.user.uid,
+        nickName: nickname,
+        email
+      })
+
       signOut(auth)
       alert('회원가입이 완료됐습니다.')
       navigate("/login",{replace:true})
+
     }catch(e){
       alert(e)
     }
@@ -55,6 +71,8 @@ const SignUp = () => {
     </Container>
   )
 }
+
+
 const Container = styled.main`
   margin: 0 auto;
   margin-top: 60px;
