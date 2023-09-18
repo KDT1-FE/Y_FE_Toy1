@@ -18,6 +18,8 @@ export const addFirestore = (imageURL: string, selectedCategory: string) => {
       src: imageURL,
       category: selectedCategory,
       timestamp: serverTimestamp(),
+    }).then(() => {
+      window.location.reload();
     });
   } catch (error) {
     alert(error);
@@ -45,12 +47,11 @@ export interface GalleryData {
   id: string;
 }
 
-export const getStorage = async (
-  setGalleryRead: React.Dispatch<React.SetStateAction<GalleryData[]>>,
-) => {
+export const getStorage = async () => {
   try {
-    const getImg = await collection(db, 'gallery');
+    const getImg = collection(db, 'gallery');
     const result = await getDocs(query(getImg, orderBy('timestamp', 'desc')));
+
     const resultArray: GalleryData[] = [];
     result.forEach((doc) => {
       const galleryData = doc.data();
@@ -61,7 +62,7 @@ export const getStorage = async (
         id: doc.id,
       });
     });
-    setGalleryRead(resultArray);
+    return resultArray;
   } catch (error) {
     alert('오류가 발생했습니다.');
   }
