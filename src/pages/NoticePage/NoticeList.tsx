@@ -12,7 +12,7 @@ function NoticeList() {
   const [page, setPage] = useState(1);
   const totalPages = Math.ceil((noticeList?.length ?? 10) / 5);
   const startNotice = (page - 1) * 5;
-  const currentPageList = noticeList?.slice(startNotice, startNotice + 5);
+  const currentNoticeList = noticeList?.slice(startNotice, startNotice + 5);
   const navigate = useNavigate();
 
   // 공지사항 전체 가져오기
@@ -31,7 +31,7 @@ function NoticeList() {
   };
 
   // 검색 함수
-  const onClickSearch = async (): Promise<void> => {
+  const onClickSearch = (): void => {
     const searchList = dataFetch?.filter((el: any) => el.subject.includes(keyword));
     if (searchList !== undefined) setNoticeList(searchList);
     else setNoticeList(noticeList);
@@ -61,7 +61,7 @@ function NoticeList() {
         <S.SearchNoResultMessage>일치하는 공지사항이 없습니다.</S.SearchNoResultMessage>
       )}
       {noticeList?.length !== 0 &&
-        currentPageList?.map((notice) => (
+        currentNoticeList?.map((notice) => (
           <S.Row key={notice.noticeNumber} onClick={() => navigate(`/notice/${notice.noticeNumber}`)}>
             <S.ColumnHeaderBasic>{notice.noticeNumber}</S.ColumnHeaderBasic>
             <S.ColumnHeaderSubject>{notice.subject}</S.ColumnHeaderSubject>
