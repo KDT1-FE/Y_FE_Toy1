@@ -27,12 +27,12 @@ function TimerModal(props: TimerModalProps) {
     onClose();
   };
 
-  const handleSubmitStudyTime = () => {
-    // eslint-disable-next-line no-alert
-    if (!username) {
-      alert("이름을 입력하세요.");
-    }
-  };
+  // const handleSubmitStudyTime = () => {
+  // eslint-disable-next-line no-alert
+  //   if (!username) {
+  //     alert("이름을 입력하세요.");
+  //   }
+  // };
 
   if (hidden) {
     return null;
@@ -92,7 +92,7 @@ function TimerModal(props: TimerModalProps) {
               <button
                 type="button"
                 className="SubmitButton"
-                onClick={handleSubmitStudyTime}
+                // onClick={handleSubmitStudyTime}
               >
                 전송
               </button>
