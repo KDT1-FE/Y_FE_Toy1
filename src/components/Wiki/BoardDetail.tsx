@@ -13,7 +13,7 @@ type Board = {
   title: string;
   uid: string;
   comment: any;
-  id : number;
+  id: number;
 };
 
 const initialData: Board = {
@@ -22,7 +22,7 @@ const initialData: Board = {
   time: '15:23',
   title: '글제목',
   uid: 'string',
-  id : 0,
+  id: 0,
   comment: [{}],
 };
 
@@ -32,9 +32,8 @@ export function BoardDetail(props: any) {
   const [commentContent, setCommentContent] = useState('');
   const [boardInfo, setBoardInfo] = useState<Board>(initialData);
   const itemData = readPostData(boardState, id);
-  const [isChange,setChange] = useState(true);
+  const [isChange, setChange] = useState(true);
 
-  
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const now = moment();
@@ -58,33 +57,31 @@ export function BoardDetail(props: any) {
       ],
     };
     await updatePostData(boardState, id, updateData);
-    setChange(prev=>!prev)
-    setCommentContent('')
+    setChange((prev) => !prev);
+    setCommentContent('');
   };
 
   const handleEditConfirm = async (e: any) => {
     const modifyCommentId = e.target
       .closest('.comment')
-      .querySelector('.info__hide')
-      .innerHTML;
+      .querySelector('.info__hide').innerHTML;
 
     const editContent = e.target
       .closest('.comment')
       .querySelector('.input--mod');
 
-      const content = e.target
+    const content = e.target
       .closest('.comment')
       .querySelector('.comment__content');
 
-      const commentContent = e.target
+    const commentContent = e.target
       .closest('.comment')
       .querySelector('.comment__content__box');
-    
-      const editBox = e.target
+
+    const editBox = e.target
       .closest('.comment')
       .querySelector('.input__edit__box');
 
-    
     const updateData = {
       ...boardInfo,
       comment: boardInfo.comment.map((comment: any) => {
@@ -92,93 +89,84 @@ export function BoardDetail(props: any) {
           return {
             ...comment,
             content: editContent.value,
-            time:comment.time + '(수정 됨)'
+            time: comment.time + '(수정 됨)',
           };
         } else {
-          return comment
+          return comment;
         }
       }),
     };
-    
-    await updatePostData(boardState,id,updateData);
+
+    await updatePostData(boardState, id, updateData);
     content.innerHTML = editContent.value;
-    
+
     editBox.classList.add('hide');
     commentContent.classList.remove('hide');
-    
   };
 
-
   const handleClickModify = async (e: any) => {
-    
     const commentContent = e.target
       .closest('.comment')
       .querySelector('.comment__content__box');
-    
-      const editBox = e.target
-      .closest('.comment')
-      .querySelector('.input__edit__box');
 
-      const input = e.target
-      .closest('.comment')
-      .querySelector('.input--mod');
-
-      const prevCommentContent = e.target
-      .closest('.comment')
-      .querySelector('.comment__content').innerHTML;
-
-      
-    input.value = prevCommentContent
-    
-    commentContent.classList.add('hide');
-    editBox.classList.remove('hide');
-  };
-
-  const handleCancelEdit = (e:any) => {
     const editBox = e.target
       .closest('.comment')
       .querySelector('.input__edit__box');
 
-      const commentContent = e.target
+    const input = e.target.closest('.comment').querySelector('.input--mod');
+
+    const prevCommentContent = e.target
+      .closest('.comment')
+      .querySelector('.comment__content').innerHTML;
+
+    input.value = prevCommentContent;
+
+    commentContent.classList.add('hide');
+    editBox.classList.remove('hide');
+  };
+
+  const handleCancelEdit = (e: any) => {
+    const editBox = e.target
+      .closest('.comment')
+      .querySelector('.input__edit__box');
+
+    const commentContent = e.target
       .closest('.comment')
       .querySelector('.comment__content__box');
 
     editBox.classList.add('hide');
     commentContent.classList.remove('hide');
-  }
+  };
 
-  const handleDeleteComment = async (e:any ) =>{
-    const result = confirm("작업을 진행하시겠습니까?");
-    if (!result){
+  const handleDeleteComment = async (e: any) => {
+    const result = confirm('작업을 진행하시겠습니까?');
+    if (!result) {
       return;
-    }
-    else {
+    } else {
       const modifyCommentId = e.target
-      .closest('.comment')
-      .querySelector('.info__hide')
-      .innerHTML;
+        .closest('.comment')
+        .querySelector('.info__hide').innerHTML;
 
       const updateData = {
         ...boardInfo,
-        comment: boardInfo.comment.filter((comment:any)=>comment.id != modifyCommentId)
+        comment: boardInfo.comment.filter(
+          (comment: any) => comment.id != modifyCommentId,
+        ),
       };
-      await updatePostData(boardState,id,updateData);
-      setChange(prev=>!prev)
-      
-      
-
+      await updatePostData(boardState, id, updateData);
+      setChange((prev) => !prev);
     }
-  }
+  };
 
-  const handleDelete = async ()=>{
+  const handleDelete = async () => {
     const deleteConfirm = confirm('삭제 하시겠습니까?');
-    
+
     // console.log(boardInfo)
-    if (deleteConfirm && boardInfo.uid === sessionStorage.uid){
-      await deletePostData(boardState,boardInfo.id)
-      navigate('/wiki')
+    if (deleteConfirm && boardInfo.uid === sessionStorage.uid) {
+      await deletePostData(boardState, boardInfo.id);
+      navigate('/wiki');
     }
-  }
+  };
 
   React.useEffect(() => {
     itemData.then((item: any) => {
@@ -196,11 +184,10 @@ export function BoardDetail(props: any) {
         {boardInfo.uid === sessionStorage.uid && (
           <div>
             <Link to="./edit">
-            <p>글 수정</p>
-          </Link>
-          <button onClick={handleDelete}>글 삭제</button>
+              <p>글 수정</p>
+            </Link>
+            <button onClick={handleDelete}>글 삭제</button>
           </div>
-          
         )}
       </div>
       <div>
@@ -235,19 +222,15 @@ export function BoardDetail(props: any) {
             <div className="comment__content__box">
               <p className="comment__content">{commentData.content}</p>
               {commentData.uid === sessionStorage.uid && (
-              <div className='comment__state__box'>
-                <button onClick={handleClickModify}>수정</button>
-                <button onClick={handleDeleteComment}>삭제</button>
-              </div>
-            )}
+                <div className="comment__state__box">
+                  <button onClick={handleClickModify}>수정</button>
+                  <button onClick={handleDeleteComment}>삭제</button>
+                </div>
+              )}
             </div>
-            
-            <div className='input__edit__box hide'>
-              <input 
-                type="text"
-                className="input--mod"
-                
-              />
+
+            <div className="input__edit__box hide">
+              <input type="text" className="input--mod" />
               <button onClick={handleEditConfirm}>수정</button>
               <button onClick={handleCancelEdit}>취소</button>
             </div>

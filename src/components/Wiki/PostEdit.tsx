@@ -1,107 +1,99 @@
 import * as React from 'react';
 import { BoardNav } from './BoardNav';
-import {useState} from 'react'
-import {  readPostData, updatePostData } from 'data/wikiboard';
+import { useState } from 'react';
+import { readPostData, updatePostData } from 'data/wikiboard';
 import { useNavigate, useParams } from 'react-router-dom';
 import MdEditor from '@uiw/react-md-editor';
 
 type Post = {
-    title:string|undefined,
-    content:string|undefined,
-    time:string,
-    name:string,
-    id:any,
-}
-export function PostEdit (props: any) {
+  title: string | undefined;
+  content: string | undefined;
+  time: string;
+  name: string;
+  id: any;
+};
+export function PostEdit(props: any) {
+  const { boardState, id } = useParams();
 
-    
-    const {boardState,id} = useParams()
-    
-    const readPrevData = async ()=>{
-        const postData = await readPostData(boardState,id)
-        setTitle(postData?.data()?.title)
-        setContent(postData?.data()?.content)
-        return postData?.data()
-        
-        
-    }
-    
-    React.useEffect(()=>{
-        checkPermission()
-        readPrevData()
-    },[])
-    const navigate = useNavigate()
-    const [title,setTitle] = useState('');
-    const [content,setContent] = useState('');
-    
+  const readPrevData = async () => {
+    const postData = await readPostData(boardState, id);
+    setTitle(postData?.data()?.title);
+    setContent(postData?.data()?.content);
+    return postData?.data();
+  };
 
-    const handleChangeTitle = (event:any)=>{
-        setTitle(event.target.value)
-    }
-    const handleChangeContent = (event:any)=>{
-        setContent(event.target.value)
-    }
-    const updateNewPostData = async ()=>{
-        const postData = await readPostData(boardState,id)
-        let newPostData;
-        try {
-            const postData = await readPostData(boardState,id)
-            
-            if (postData){
-                newPostData = {
-                    title,
-                    content,
-                    time:postData.data()?.time,
-                    name:postData.data()?.name,
-                    id: postData.data()?.id,
-                }
-                
-            }
-        }
-        catch (error){
-            console.error('error')
-        }
-        return newPostData;
-    }
+  React.useEffect(() => {
+    checkPermission();
+    readPrevData();
+  }, []);
+  const navigate = useNavigate();
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
 
-    const handleSubmit = async (event:any)=>{
-        event.preventDefault();
-        const newPostData = await updateNewPostData()
-        
-        await updatePostData(boardState,id,newPostData);
-        navigate('/wiki')
-    }
+  const handleChangeTitle = (event: any) => {
+    setTitle(event.target.value);
+  };
+  const handleChangeContent = (event: any) => {
+    setContent(event.target.value);
+  };
+  const updateNewPostData = async () => {
+    const postData = await readPostData(boardState, id);
+    let newPostData;
+    try {
+      const postData = await readPostData(boardState, id);
 
-    const checkPermission = async ()=>{
-        const prevData = await readPrevData()
-        if (prevData?.uid !== sessionStorage.uid){
-            navigate('404')
-        }
+      if (postData) {
+        newPostData = {
+          title,
+          content,
+          time: postData.data()?.time,
+          name: postData.data()?.name,
+          id: postData.data()?.id,
+        };
+      }
+    } catch (error) {
+      console.error('error');
     }
-    
-    const [markdown, setMarkdown] = useState('');
-    const handleChange = (value:any) => {
-        setContent(value);
-      };
-    
+    return newPostData;
+  };
+
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+    const newPostData = await updateNewPostData();
+
+    await updatePostData(boardState, id, newPostData);
+    navigate('/wiki');
+  };
+
+  const checkPermission = async () => {
+    const prevData = await readPrevData();
+    if (prevData?.uid !== sessionStorage.uid) {
+      navigate('404');
+    }
+  };
+
+  const [markdown, setMarkdown] = useState('');
+  const handleChange = (value: any) => {
+    setContent(value);
+  };
+
   return (
     <div>
       <BoardNav />
       <h1>게시글 수정하기</h1>
       <form onSubmit={handleSubmit}>
         <div>
-            <label htmlFor="">제목 : </label>
-            <input type="text" onChange={handleChangeTitle} value={title} />
+          <label htmlFor="">제목 : </label>
+          <input type="text" onChange={handleChangeTitle} value={title} />
         </div>
         <MdEditor
-        data-color-mode="light"
-        value={content}
-        onChange={handleChange}
-        height={500}
-      />
-        <button type='submit'>작성하기</button>
+          data-color-mode="light"
+          value={content}
+          onChange={handleChange}
+          height={500}
+        />
+        <button type="submit">작성하기</button>
       </form>
-      
     </div>
   );
 }
