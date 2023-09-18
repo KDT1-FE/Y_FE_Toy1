@@ -2,8 +2,8 @@
   position: relative;
   z-index: 1001;
 
-  width: 500px;
-  height: 300px;
+  width: 520px;
+  height: 400px;
 
   padding: 20px;
 
@@ -11,10 +11,105 @@
   border-radius: 8px;
 }
 
+/* 현재시각 */
 .ModalClock {
   position: absolute;
-  top: 20px;
+  top: 32px;
   left: 50%;
-  transform: translateX(-50%);
-  color: blue;
+  transform: translateX(-55%);
+
+  font-size: 48px;
+  /* font-weight: 500; */
+  /* font-weight: bold; */
+}
+
+/* 타이머 */
+.TimeContainer {
+  display: flex;
+  align-items: center;
+  /* gap: 20px; */
+  position: absolute;
+  bottom: 140px;
+  right: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  border: 2px solid #c4c1c1;
+  /* border-radius: 10px;  */
+  background-color: #f9f9f9;
+}
+
+.TimerText,
+.TimeContainer span {
+  margin: 0 5px;
+  font-size: 12px;
+}
+
+/* 타이머와 "동안 공부" 중 사이 공백 */
+.TimerSpace {
+  margin: 0 2px;
+}
+.BreakResetContainer {
+  display: flex;
+  /* margin-top: 50px; */
+}
+.Resume,
+.BreakButton,
+.ResetButton {
+  background-color: #f9f9f9;
+  border: 2px solid #c4c1c1;
+  margin-right: 20px;
+}
+/* play, stop 아이콘 */
+.material-symbols-outlined {
+  font-size: 58px !important;
+}
+
+.ControlsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  margin-top: 100px;
+}
+
+.PlayStopContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+.PlayTime {
+  display: flex;
+  /* justify-content: center;   */
+  /* align-items: center;       */
+  gap: 50px;
+}
+
+.StopTime {
+  display: flex;
+}
+
+.PlayButtonContainer,
+.StopButtonContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.PlayLabel,
+.StopLabel {
+  font-size: 12px;
+  margin-top: 8px;
+  margin-right: 20px;
+}
+
+.BreakResumeContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }

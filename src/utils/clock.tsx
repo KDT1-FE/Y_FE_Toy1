@@ -23,7 +23,7 @@ function Clock({isModal = false}: ClockProps) {
 
     if (isModal) {
       setTimeString(
-        `${addZero(hours)}:${addZero(minutes)}:${addZero(seconds)}`,
+        `${addZero(hours)}   :   ${addZero(minutes)}   :   ${addZero(seconds)}`,
       );
     } else {
       setTimeString(

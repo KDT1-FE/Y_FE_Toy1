@@ -54,7 +54,7 @@ function Controls(props: ControlsProps) {
 
   // 타이머 중지, 학습 시간 저장을 위한 핸들러
   const handleStopButton = () => {
-    // console.log(isRunning, onBreak, startTime);
+    console.log(startTime);
     if ((isRunning || onBreak) && startTime !== null) {
       setIsRunning(false);
       setOnBreak(false);
@@ -92,24 +92,45 @@ function Controls(props: ControlsProps) {
   };
 
   return (
-    <section className="ControlsContainer">
-      <button type="button" className="PlayButton" onClick={handlePlayButton}>
-        Play
-      </button>
-      <button type="button" className="StopButton" onClick={handleStopButton}>
-        Stop
-      </button>
-      <button
-        type="button"
-        className={onBreak ? "ResumeButton" : "BreakButton"}
-        onClick={handleBreakButton}
-      >
-        {onBreak ? "다시공부시작~!" : "휴식"}
-      </button>
-      <button type="button" className="ResetButton" onClick={resetTimer}>
-        Reset
-      </button>
-    </section>
+    <div className="MainContainer">
+      <div className="ControlsContainer">
+        <div className="PlayStopContainer">
+          <div className="PlayButtonContainer">
+            <button
+              type="button"
+              className="material-symbols-outlined"
+              onClick={handlePlayButton}
+            >
+              play_circle
+            </button>
+            <div className="PlayLabel">공부 시작</div>
+          </div>
+          <div className="StopButtonContainer">
+            <button
+              type="button"
+              className="material-symbols-outlined"
+              onClick={handleStopButton}
+            >
+              stop_circle
+            </button>
+            <div className="StopLabel">공부 끝</div>
+          </div>
+        </div>
+      </div>
+
+      <div className="BreakResetContainer">
+        <button
+          type="button"
+          className={onBreak ? "ResumeButton" : "BreakButton"}
+          onClick={handleBreakButton}
+        >
+          {onBreak ? "휴식끝" : "휴식"}
+        </button>
+        <button type="button" className="ResetButton" onClick={resetTimer}>
+          Reset
+        </button>
+      </div>
+    </div>
   );
 }
 

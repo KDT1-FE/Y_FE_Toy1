@@ -15,24 +15,20 @@ function TimerModal(props: TimerModalProps) {
     setIsRunning,
     onBreak,
     setOnBreak,
+    playTime,
+    stopTime,
+    startTime,
+    setPlayTime,
+    setStopTime,
+    setStartTime,
   } = props;
   const [studyDuration, setStudyDuration] = useState<string>("");
   const [breakStartTime, setBreakStartTime] = useState<number | null>(null);
   const [username, setUsername] = useState<string>("");
-  const [playTime, setPlayTime] = useState<string | null>(null);
-  const [stopTime, setStopTime] = useState<string | null>(null);
-  const [startTime, setStartTime] = useState<number | null>(null);
 
   const handleCloseModal = () => {
     onClose();
   };
-
-  // const handleSubmitStudyTime = () => {
-  // eslint-disable-next-line no-alert
-  //   if (!username) {
-  //     alert("이름을 입력하세요.");
-  //   }
-  // };
 
   if (hidden) {
     return null;
@@ -52,15 +48,19 @@ function TimerModal(props: TimerModalProps) {
           <section className="CurrentTimeContainer">
             <Clock isModal />
           </section>
+          {/* <div className="TimerControlsContainer">  */}
           <section className="TimeContainer">
-            <p className="timer-text">{Math.floor(timeInSeconds / 3600)}</p>
+            <p className="TimerText">{Math.floor(timeInSeconds / 3600)}</p>
             <span>:</span>
-            <p className="timer-text">
+            <p className="TimerText">
               {Math.floor((timeInSeconds % 3600) / 60)}
             </p>
             <span>:</span>
-            <p className="timer-text">{timeInSeconds % 60}</p>
+            <p className="TimerText">{timeInSeconds % 60} </p>
+            <p className="TimerSpace"> </p>
+            <p className="TimerText"> 동안 공부 중</p>
           </section>
+          {/* </div> */}
           <Controls
             setTimeInSeconds={setTimeInSeconds}
             setIsRunning={setIsRunning}
@@ -75,8 +75,10 @@ function TimerModal(props: TimerModalProps) {
             startTime={startTime}
             setStartTime={setStartTime}
           />
-          {playTime && <p className="PlayTime">{playTime}</p>}
-          {stopTime && <p className="StopTime">{stopTime}</p>}
+          <div className="PlayTimeStopTimeContainer">
+            {playTime && <p className="PlayTime">{playTime}</p>}
+            {stopTime && <p className="StopTime">{stopTime}</p>}
+          </div>
           <div className="StudyDurationContainer">{studyDuration}</div>
           {!isRunning && studyDuration && (
             <div className="SubmitSection">
