@@ -4,7 +4,6 @@ import SignIn from "@components/login/SignIn";
 
 import * as style from "./loginStyle";
 
-console.log(auth);
 const LoginPage = () => {
   return (
     <style.Container>
