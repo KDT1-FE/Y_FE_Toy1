@@ -13,10 +13,9 @@ interface IresponseArray {
 
 function CommuteList() {
   const [workTimeData, setWorkTimeData] = useState<IresponseArray[]>([]);
-  const reversedTimeData = [...workTimeData].reverse();
 
   useEffect(() => {
-    const fetchDataFromFirestore = async () => {
+    const fetchData = async () => {
       try {
         const responseArray = await getWorkTimeData();
         if (responseArray) {
@@ -26,20 +25,18 @@ function CommuteList() {
         console.log('데이터를 불러오지 못했습니다.', error);
       }
     };
-    fetchDataFromFirestore();
+    fetchData();
   }, []);
 
   return (
     <>
-      <ul>
-        {reversedTimeData.slice(0, 5).map((data: IresponseArray) => (
-          <StyledListContainer key={data.uid}>
-            <span>{data.name}님</span>
-            <span>{useSecondsFormat(data.workTime)}동안 근무하셨어요!</span>
-            <span>{usedateFormat(new Date(data.timeStamp))}</span>
-          </StyledListContainer>
-        ))}
-      </ul>
+      {workTimeData.slice(0, 5).map((data, index) => (
+        <StyledListContainer key={index}>
+          <div>{data.name}님</div>
+          <div>{useSecondsFormat(data.workTime)}동안 근무하셨어요!</div>
+          <div>{usedateFormat(new Date(data.timeStamp))}</div>
+        </StyledListContainer>
+      ))}
     </>
   );
 }
