@@ -83,14 +83,14 @@ function Wiki() {
                 <h1>아직 작성된 글이 없습니다.</h1>
                 글 작성하기
               </div> : 
-                <div>
+                <div className='document'>
                   <ButtonContainer>
                     <div>
                       <button>수정하기</button>
                       <button>삭제하기</button>
                     </div>
                   </ButtonContainer>
-                  <MDEditor.Markdown source={data?.content} /> 
+                  <MDEditor.Markdown className='markdownViewer' source={data?.content} /> 
                 </div>
             }
           </TextareaContainer>
@@ -121,6 +121,19 @@ const TextareaContainer = styled.div`
 
   #markdownEditor {
     height: 100% !important;
+  }
+
+  .document {
+    height: 100%;
+  }
+
+  .document .markdownViewer {
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+  .document .markdownViewer::-webkit-scrollbar {
+    display: none;
   }
 `;
 
