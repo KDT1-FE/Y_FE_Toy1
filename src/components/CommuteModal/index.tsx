@@ -130,11 +130,12 @@ const StyledModal: ReactModal.Styles = {
     backgroundColor: ' rgba(0, 0, 0, 0.4)',
     inset: '0px',
     position: 'fixed',
+    zIndex: '90000',
   },
   content: {
     width: '34.25rem',
     height: '27.5rem',
-    zIndex: '1',
+    zIndex: '90000',
 
     position: 'absolute',
     top: '50%',
