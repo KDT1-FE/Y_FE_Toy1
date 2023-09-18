@@ -14,14 +14,15 @@ export default function MyPageBtn() {
 
     const handleMyPage = () => {
         if (showMyPage) {
-            setShowMyPage(false);
-
             setSlideOn(false);
+            setTimeout(() => {
+                setShowMyPage(false);
+            }, 1000);
         } else {
             setShowMyPage(true);
             setTimeout(() => {
                 setSlideOn(true);
-            }, 100);
+            }, 10);
         }
     };
     return (

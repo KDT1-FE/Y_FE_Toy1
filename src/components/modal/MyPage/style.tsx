@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const ModalBtnImg = styled.img`
     width: 50px;
@@ -26,7 +26,7 @@ export const MyPage = styled.div<{ value: boolean }>`
     border-left: 1px solid #ece7ec;
     box-sizing: border-box;
     z-index: 11;
-    transition: 1.5s;
+    transition: 1s;
 `;
 
 export const MyPageExitBtn = styled.button`
@@ -80,6 +80,10 @@ export const ProfileEdit = styled.span`
     font-size: 18px;
     color: var(--active-item);
     cursor: pointer;
+    &:hover {
+        transform: scale(1.1);
+        transition: 0.3s;
+    }
 `;
 export const ProfileIntroduce = styled.div`
     width: 100%;
@@ -114,11 +118,24 @@ export const MarginLeftContents = styled(MarginLeft)`
 export const GreenCircle = styled.span`
     color: var(--active-current-status);
 `;
-export const RedCircle = styled.span`
+
+const Blink = keyframes`
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+`;
+export const RedCircle = styled.span<{ value: boolean }>`
+    display: ${(value) => (value.value ? 'block' : 'none')};
     color: #ca1212;
     font-size: 60px;
     font-weight: 700;
     line-height: 1;
+    margin-bottom: 10px;
+    animation: ${Blink} 1.5s 0s infinite;
+    animation-timing-function: linear;
 `;
 
 export const TimelogBox = styled.div`
@@ -130,12 +147,21 @@ export const TimelogBoxScroll = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
     width: 100%;
     height: 100%;
     overflow: auto;
     &::-webkit-scrollbar {
-        display: none;
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+        width: 5px;
+        border-radius: 10px;
+        background-color: var(--navigation-background);
+    }
+    &::-webkit-scrollbar-track {
+        background-color: #fff;
+        box-shadow: 0 3px 3px 1px #a7a7a8 inset;
     }
 `;
 

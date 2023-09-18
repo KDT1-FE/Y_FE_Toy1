@@ -1,20 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { MyPageProfile, ProfileContent, ProfileEdit, ProfileImg, ProfileIntroduce } from './style';
+import { readUser } from '../../../utils/firebase';
+import { useRecoilState } from 'recoil';
+import { UserId } from '../../../utils/recoil';
 
 export default function MyPageUser() {
-    const imgSrc =
-        'https://firebasestorage.googleapis.com/v0/b/wiki-for-fastcampus.appspot.com/o/images%2Fson.jpeg?alt=media&token=f343cb1b-a335-40a9-8f68-f25662f68a40';
+    const [userId, setUserId] = useRecoilState(UserId);
+    const [userName, setUserName] = useState('');
+    const [userEmail, setUserEmail] = useState('');
+    const [userImg, setUserImg] = useState('');
+    const [userInfo, setUserInfo] = useState('');
 
+    useEffect(() => {
+        async function getUserData() {
+            try {
+                const user = await readUser('user', userId);
+                if (user) {
+                    setUserName(user['name']);
+                    setUserEmail(user['email']);
+                    setUserImg(user['imageURL']);
+                    setUserInfo(user['info']);
+                }
+            } catch {
+                console.log('error');
+            }
+        }
+        getUserData();
+    }, []);
     return (
         <MyPageProfile>
-            <ProfileImg src={imgSrc}></ProfileImg>
+            <ProfileImg src={userImg}></ProfileImg>
             <ProfileContent>
-                <span>백상원</span>
+                <span>{userName}</span>
                 <ProfileEdit>편집</ProfileEdit>
             </ProfileContent>
-            <ProfileContent>rnffjt@gmail.com</ProfileContent>
+            <ProfileContent>{userEmail}</ProfileContent>
             <ProfileIntroduce>
-                <p>안녕하세요 백상원입니다.</p>
+                <p>{userInfo}</p>
             </ProfileIntroduce>
         </MyPageProfile>
     );
