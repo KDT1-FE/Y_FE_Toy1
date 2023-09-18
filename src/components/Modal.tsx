@@ -1,4 +1,4 @@
-import React, { useState, Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 
 const ModalContainer = styled.div<{ width: string; height: string }>`
