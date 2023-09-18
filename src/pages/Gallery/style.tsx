@@ -97,7 +97,6 @@ export const TrashCan = styled.div`
 export const ImgContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
     justify-content: flex-start;
     padding: 10px;
     &:-moz-window-dragging {
@@ -107,25 +106,37 @@ export const ImgContainer = styled.div`
 `;
 
 export const StyleProfile = styled.div`
+    --paddingTop: 10%;
     display: flex;
+    justify-content: space-around;
     flex-wrap: wrap;
+    height: 100%;
+    box-sizing: border-box;
     gap: 20px;
-    overflow-y: scroll;
-    margin-top: 40px;
+    padding-top: var(--paddingTop);
+    padding-left: 8%;
+    padding-right: 8%;
+    overflow-y: auto;
 `;
 
 export const ProfileWrapper = styled.div`
     display: flex;
     flex-direction: column;
+    width: 200px;
+    height: 250px;
     text-align: center;
+    border-radius: 10px;
+    box-shadow: 2px 2px 1px 2px rgba(0, 0, 0, 0.3);
 `;
 export const ProfileIMG = styled.img`
-    width: 150px;
-    height: 150px;
-    border-radius: 50px;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
+    width: 200px;
+    height: 200px;
 `;
-
+export const ProfileName = styled.div`
+    text-align: center;
+    font-size: 30px;
+    font-weight: 500;
+`;
 // 모달
 export const ModalContainer = styled.div`
     width: 33%;
