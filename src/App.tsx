@@ -6,6 +6,7 @@ import RegisterPage from './views/RegisterPage';
 import { Company, Notice, Chart, Bylaws } from './views/company';
 import Attendance from './views/AttendancePage';
 import ProjectList from './views/ProjectList';
+import GalleryPage from './views/galleryPage';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
             <Route path="/company/bylaws" element={<Bylaws />} />
           </Route>
           <Route path="project" element={<ProjectList />} />
+          <Route path="/gallery" element={<GalleryPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
