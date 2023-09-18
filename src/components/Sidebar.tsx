@@ -10,7 +10,6 @@ const Sidebar = () => {
   const [activeItem, setActiveItem] = useState("");
 
   if (hashSplit[1] === "Wiki") {
-    const sideName = ["출석", "행정", "학습일정"];
     const sideLinkAttendance = ["출석 인정", "QR출결 정정 "];
     const sideLinkAdmin = ["휴가", "훈련장려금"];
 
@@ -104,9 +103,8 @@ const SidebarBottomBox = styled.div`
 const Container = styled.aside`
   position: fixed;
   z-index: 9;
-  width: 140px;
+  width: 200px;
   height: 100%;
-  // background-color: #ddd;
   border-right: 3px solid #ddd;
 
   .sidebar__bottom {
@@ -184,5 +182,13 @@ const SidebarBottom = (): JSX.Element => {
     </SidebarBottomBox>
   );
 };
-
+/* 토글버튼
+<li key={"행정"} onClick={()=>setDisplayToggle(prev=>!prev)}><p style={{cursor:'pointer'}} className="sidebar__title-text">{displayToggle?'▼ ':'▶ ' }행정</p></li>
+{displayToggle && <ul className="sidebar__toggle">
+  {sideLinkAdmin.map((link, idx) => (
+  <li key={sideLinkAdmin[idx]}>
+    <Link to={`/Wiki/${link}`}> <p className="sidebar__normal-text">{link}</p> </Link>
+  </li>))}
+</ul>}
+*/
 export default Sidebar;

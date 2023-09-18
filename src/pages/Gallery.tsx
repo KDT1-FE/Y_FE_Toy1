@@ -27,9 +27,9 @@ const Gallery = () => {
 
 const Container = styled.section`
   position: relative;
-  left: 180px;
+  left: 200px;
   height: calc(100% - 60px);
-  width: calc(100% - 180px);
+  width: calc(100% - 200px);
   padding: 5px;
   box-sizing: border-box;
 `;
