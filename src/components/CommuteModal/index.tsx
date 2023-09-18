@@ -13,6 +13,7 @@ import {
 import useInterval from 'hooks/useInterval';
 import { dayFormat, timeFormat } from 'utils/format';
 import { addWorkTimeData } from 'apis';
+import { media } from 'styles/media';
 
 function CommuteModal() {
   const [showModal, setShowModal] = useState(false);
@@ -157,6 +158,7 @@ const CommuteMenu = styled.div`
   border-radius: 0.9rem;
   padding: 0.5rem;
   border: 1px solid #e2e8f0;
+  margin-left: 1rem;
 
   display: flex;
   align-items: center;
@@ -167,6 +169,13 @@ const CommuteMenu = styled.div`
     border-bottom: none;
   }
   cursor: pointer;
+
+  ${media.desktop_lg(`
+  padding: 0.3rem;
+  font-size: 0.9rem;
+  margin-left:0;
+  margin-right:1rem
+`)}
 `;
 
 const TopContainer = styled.section`

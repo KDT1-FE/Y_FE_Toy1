@@ -2,27 +2,27 @@ import { css } from 'styled-components';
 
 export const media = {
   desktop_2xl: (styles: string) => css`
-    @media only screen and (max-width: 1440px) {
+    @media screen and (max-width: 1440px) {
       ${styles}
     }
   `,
   desktop_xl: (styles: string) => css`
-    @media only screen and (max-width: 1280px) {
+    @media screen and (max-width: 1280px) {
       ${styles}
     }
   `,
   desktop_lg: (styles: string) => css`
-    @media only screen and (max-width: 1024px) {
+    @media screen and (max-width: 1024px) {
       ${styles}
     }
   `,
   tablet: (styles: string) => css`
-    @media only screen and (min-width: 576px) and (max-width: 767px) {
+    @media screen and (min-width: 576px) and (max-width: 767px) {
       ${styles}
     }
   `,
   mobile: (styles: string) => css`
-    @media only screen and (max-width: 575px) {
+    @media screen and (max-width: 576px) {
       ${styles}
     }
   `,
