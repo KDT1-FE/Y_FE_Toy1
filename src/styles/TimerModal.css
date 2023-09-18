@@ -19,84 +19,36 @@
   transform: translateX(-55%);
 
   font-size: 48px;
-  /* font-weight: 500; */
-  /* font-weight: bold; */
-}
-
-/* 타이머 */
-.TimeContainer {
-  display: flex;
-  align-items: center;
-  /* gap: 20px; */
-  position: absolute;
-  bottom: 140px;
-  right: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 10px;
-  border: 2px solid #c4c1c1;
-  /* border-radius: 10px;  */
-  background-color: #f9f9f9;
-}
-
-.TimerText,
-.TimeContainer span {
-  margin: 0 5px;
-  font-size: 12px;
-}
-
-/* 타이머와 "동안 공부" 중 사이 공백 */
-.TimerSpace {
-  margin: 0 2px;
-}
-.BreakResetContainer {
-  display: flex;
-  /* margin-top: 50px; */
-}
-.Resume,
-.BreakButton,
-.ResetButton {
-  background-color: #f9f9f9;
-  border: 2px solid #c4c1c1;
-  margin-right: 20px;
 }
 /* play, stop 아이콘 */
 .material-symbols-outlined {
-  font-size: 58px !important;
-}
-
-.ControlsContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  margin-top: 100px;
+  font-size: 56px !important;
 }
 
 .PlayStopContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 50px;
+
+  position: absolute;
+  top: 32%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.PlayTimeStopTimeContainer {
-  display: absolute;
-  bottom: 140px;
-}
-.PlayTime {
-  /* display: flex; */
-  display: absolute;
-  bottom: 140px;
-  /* justify-content: center;   */
-  /* align-items: center;       */
-  gap: 50px;
-}
+.PlayStopContainer::before {
+  content: "";
 
-.StopTime {
-  display: flex;
+  position: absolute;
+  top: 1%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: -1;
+
+  height: calc(150% + 16px);
+  width: 1px;
+
+  background-color: gray;
 }
 
 .PlayButtonContainer,
@@ -107,15 +59,177 @@
   justify-content: center;
 }
 
-.PlayLabel,
+.PlayButtonContainer {
+  margin-right: 22px;
+}
+
+.StopButtonContainer {
+  margin-left: 42px;
+}
+
+.TimeLabelsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  line-height: 16px;
+}
+
 .StopLabel {
-  font-size: 12px;
-  margin-top: 8px;
   margin-right: 20px;
 }
 
-.BreakResumeContainer {
+.StopTime {
+  margin-right: 22px;
+  font-size: 12px;
+}
+
+.PlayLabel,
+.StopLabel {
+  font-size: 14px;
+}
+
+.PlayTime {
+  margin-left: 8px;
+  font-size: 12px;
+}
+
+/* ResumeButton, BreakButton & ResetButton */
+.ResumeButton,
+.BreakButton,
+.ResetButton {
+  position: absolute;
+  top: 60%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+
+  height: 30px;
+  width: 80px;
+
+  background-color: #f9f9f9;
+  border: 1px solid #dddada;
+
+  cursor: pointer;
+}
+.ResetButton {
+  left: 80%;
+}
+
+.ResumeButton:hover,
+.BreakButton:hover,
+.ResetButton:hover {
+  background-color: #eaeaea;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+  cursor: pointer;
+}
+
+/* 타이머 */
+.TimeContainer {
   display: flex;
   align-items: center;
-  gap: 20px;
+  justify-content: center;
+
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  height: 30px;
+  width: 160px;
+
+  border: 1px solid #dddada;
+  background-color: #f9f9f9;
+}
+
+.TimerText,
+.TimeContainer span {
+  margin: 0 5px;
+
+  font-size: 12px;
+}
+
+/* 타이머와 "동안 공부" 중 사이 공백 */
+.TimerSpace {
+  margin: 0 2px;
+}
+
+.StudyDurationContainer {
+  position: absolute;
+  top: 72%;
+  left: 31%;
+  transform: translate(-50%, -50%);
+
+  font-size: 16px;
+  color: rgb(170, 175, 175);
+}
+
+.input input {
+  position: absolute;
+  top: 80%;
+  left: 12%;
+
+  width: 100%;
+  max-width: 220px;
+  width: auto;
+  height: 10px;
+
+  padding: 12px;
+
+  border-radius: 12px;
+  border: 1.5px solid lightgrey;
+  box-shadow: 0px 0px 20px -18px;
+
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.input input:hover {
+  border: 2px solid lightgrey;
+  box-shadow: 0px 0px 20px -17px;
+}
+
+.input input:active {
+  transform: scale(0.95);
+}
+
+.input input:focus {
+  border: 2px solid grey;
+}
+
+.SubmitButton {
+  position: absolute;
+  top: 80%;
+  left: 48%;
+
+  padding: 8px 10px;
+
+  border: none;
+  border-radius: 4px;
+  background-color: #c0c2c5;
+  box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, 0.2);
+
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.SubmitButton:hover {
+  background-color: #d5d7da;
+}
+
+.SubmitButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(187, 189, 190, 0.5);
+}
+
+.SubmitButton:active {
+  background-color: #c7c8c9;
+  box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.2);
 }

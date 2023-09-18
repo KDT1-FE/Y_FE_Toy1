@@ -80,32 +80,34 @@ function TimerModal(props: TimerModalProps) {
           <div className="StudyDurationContainer">{studyDuration}</div>
           {!isRunning && studyDuration && (
             <div className="SubmitSection">
-              <label htmlFor="username">
-                이름:
-                <input
-                  type="text"
-                  id="username"
-                  value={username}
-                  onChange={e => setUsername(e.target.value)}
-                />
-              </label>
+              <div className="input">
+                <label htmlFor="username">
+                  <input
+                    type="text"
+                    id="username"
+                    value={username}
+                    onChange={e => setUsername(e.target.value)}
+                    placeholder="이름을 입력하세요"
+                  />
+                </label>
+              </div>
               <button
                 type="button"
                 className="SubmitButton"
                 // onClick={handleSubmitStudyTime}
               >
-                전송
+                Submit
               </button>
             </div>
           )}
         </main>
-        <button
+        {/* <button
           type="button"
           className="CancelButton"
           onClick={handleCloseModal}
         >
           Cancel
-        </button>
+        </button> */}
         <button type="button" className="OKButton" onClick={handleCloseModal}>
           OK
         </button>

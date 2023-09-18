@@ -93,30 +93,30 @@ function Controls(props: ControlsProps) {
 
   return (
     <div className="MainContainer">
-      <div className="ControlsContainer">
-        <div className="PlayStopContainer">
-          <div className="PlayButtonContainer">
-            <button
-              type="button"
-              className="material-symbols-outlined"
-              onClick={handlePlayButton}
-            >
-              play_circle
-            </button>
-          </div>
-          <div className="StopButtonContainer">
-            <button
-              type="button"
-              className="material-symbols-outlined"
-              onClick={handleStopButton}
-            >
-              stop_circle
-            </button>
-          </div>
+      {/* <div className="ControlsContainer"> */}
+      <div className="PlayStopContainer">
+        <div className="PlayButtonContainer">
+          <button
+            type="button"
+            className="material-symbols-outlined"
+            onClick={handlePlayButton}
+          >
+            play_circle
+          </button>
+        </div>
+        <div className="StopButtonContainer">
+          <button
+            type="button"
+            className="material-symbols-outlined"
+            onClick={handleStopButton}
+          >
+            stop_circle
+          </button>
         </div>
       </div>
+      {/* </div> */}
 
-      <div className="BreakResetContainer">
+      <div className="BreakResumeContainer">
         <button
           type="button"
           className={onBreak ? "ResumeButton" : "BreakButton"}
