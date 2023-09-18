@@ -14,9 +14,11 @@ import Todo from "../assets/img/Todo.svg";
 import Profile from "../assets/img/Profile.svg";
 import ProfileModal from "../pages/MainPage/ProfileModal";
 import { ProfileBtn } from "../styled/MainPage/ProfileModal";
+import CommuteModal from "../pages/MainPage/CommuteModal";
 
 export default function Navigation() {
   const [showProfile, setShowProfile] = useState(false);
+  const [showCommute, setShowCommute ] = useState(false);
 
   const location = useLocation()
   const currentCategory = location.pathname.split("/")[1]
@@ -36,7 +38,9 @@ export default function Navigation() {
         {NavCategories}
       </NavCategoryBox>
       <NavModalBox>
-        <img src={Calendar} alt="calendar" />
+        <ProfileBtn onClick={()=>setShowCommute(!showCommute) }>
+          <img src={Calendar} alt="commute" />
+        </ProfileBtn>
         <img src={Todo} alt="todo" />
         <ProfileBtn onClick={() => setShowProfile(!showProfile)}>
           <img src={Profile} alt="profile" />
@@ -44,6 +48,7 @@ export default function Navigation() {
       </NavModalBox>
       {/* Modals */}
       {showProfile ? <ProfileModal setShowProfile={setShowProfile} /> : null}
+      {showCommute ? <CommuteModal setShowCommute = {setShowCommute} /> : null}
     </NavBar>
   );
 }
