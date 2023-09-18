@@ -10,6 +10,7 @@ import LogIn from './pages/LogIn';
 import Recruitment from './pages/Recruitment';
 import RecruitmentDetail from './pages/RecruitmentDetail';
 import RecruitmentPost from './pages/RecruitmentPost';
+import RecruitmentEdit from './pages/RecruitmentEdit.tsx';
 
 import { useRecoilState } from 'recoil';
 import { UserId } from './utils/recoil';
@@ -34,6 +35,7 @@ const App: React.FC = () => {
                     <Route path="/recruitment" element={<Recruitment />}></Route>
                     <Route path="/recruitment/:channel/:path" element={<RecruitmentDetail />}></Route>
                     <Route path="/recruitment/post" element={<RecruitmentPost />}></Route>
+                    <Route path="/recruitment/edit/:channel/:path" element={<RecruitmentEdit />}></Route>
                 </Routes>
             </div>
         </BrowserRouter>

@@ -266,3 +266,26 @@ export const createRecruitment = async (channel: string, value: any) => {
         throw error;
     }
 };
+
+export const updateRecruitment = async (channel: string, path: string, value: any) => {
+    try {
+        const updateRecruitment = await setDoc(
+            doc(firestore, 'recruitmentContainer', 'recruitment', channel, path),
+            value,
+        );
+        console.log('게시글 생성에 성공했습니다');
+    } catch (error) {
+        console.error('게시글 작성에 실패했습니다.', error);
+        throw error;
+    }
+};
+
+export const deleteRecruitment = async (channel: string, path: string) => {
+    try {
+        const updateRecruitment = await deleteDoc(doc(firestore, 'recruitmentContainer', 'recruitment', channel, path));
+        console.log('게시글 삭제에 성공했습니다');
+    } catch (error) {
+        console.error('게시글 삭제에 실패했습니다.', error);
+        throw error;
+    }
+};

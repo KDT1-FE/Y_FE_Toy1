@@ -18,19 +18,23 @@ import {
 } from './style';
 import CommentItem from './CommentItem';
 import SidebarGallery from '../../components/SidebarGallery';
-import { getRecruitmentDetail, getUserName, createComment } from '../../utils/firebase';
+import { getRecruitmentDetail, getUserName, createComment, deleteRecruitment } from '../../utils/firebase';
 import MDEditor from '@uiw/react-md-editor';
 import { useRecoilState } from 'recoil';
 import { UserId } from '../../utils/recoil';
 import { useNavigate } from 'react-router-dom';
+import { RecruitmentData } from '../../utils/recoil';
 
 const RecruitmentDetail: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
     const [userName, setUserName] = useState('');
+    const [recruitmentData, setRecruitmentData] = useRecoilState(RecruitmentData);
 
     const [data, setData] = useState<any>({});
 
     const navigate = useNavigate();
+
+    console.log(data);
 
     const channel = location.pathname.split('/')[2];
     const path = location.pathname.split('/')[3];
@@ -82,7 +86,23 @@ const RecruitmentDetail: React.FC = () => {
         }
     };
 
-    console.log();
+    const handleEdit = () => {
+        for (let i = 0; i < data.comment.length; i++) {
+            data.comment[i] = {
+                uid: data.comment[i].uid,
+                time: data.comment[i].time,
+                content: data.comment[i].content,
+            };
+        }
+        setRecruitmentData({ ...data, channel: channel });
+        navigate('/recruitment/edit/' + channel + '/' + path, data);
+    };
+
+    const handleDeleteRcruitment = (e: any) => {
+        deleteRecruitment(channel, path);
+        navigate('/recruitment');
+    };
+
     return (
         <RecruitmentDetailContainer>
             <ContentContainer>
@@ -100,8 +120,8 @@ const RecruitmentDetail: React.FC = () => {
                         <p>{new Date(data.time?.toMillis()).toLocaleString()}</p>
                         {userId == data.uid ? (
                             <BtnWrapper>
-                                <Btn>수정하기</Btn>
-                                <Btn>삭제하기</Btn>
+                                <Btn onClick={handleEdit}>수정하기</Btn>
+                                <Btn onClick={handleDeleteRcruitment}>삭제하기</Btn>
                             </BtnWrapper>
                         ) : (
                             ''
