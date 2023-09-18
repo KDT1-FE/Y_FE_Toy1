@@ -3,7 +3,7 @@ import { CommentContent, CommentItemWrapper, Btn, BtnWrapper, CommentName, Comme
 import { getRecruitmentDetail, getUserName, deleteComment } from '../../utils/firebase';
 import { useRecoilState } from 'recoil';
 import { UserId } from '../../utils/recoil';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 interface CommentProps {
     comment: {
@@ -18,43 +18,46 @@ const CommentItem: React.FC<CommentProps> = (props) => {
     const [userId, setUserId] = useRecoilState(UserId);
 
     const [data, setData] = useState<any>({});
-
-    const channel = location.pathname.split('/')[2];
-    const path = location.pathname.split('/')[3];
+    const { channel, path } = useParams<{ channel: string; path: string }>();
+    // const channel = location.pathname.split('/')[2];
+    // const path = location.pathname.split('/')[3];
 
     useEffect(() => {
-        // 데이터를 비동기로 가져오기 위해 useEffect를 사용합니다.
-        getRecruitmentDetail(channel, path)
-            .then((result) => {
-                // 데이터를 성공적으로 가져온 후에 setData를 사용하여 값을 설정합니다.
-                setData(result);
-            })
-            .catch((error) => {
-                // 에러 핸들링
-                console.error('Error fetching data:', error);
-            });
+        if (channel && path) {
+            // Null 체크
+            getRecruitmentDetail(channel, path)
+                .then((result) => {
+                    setData(result);
+                })
+                .catch((error) => {
+                    console.error('Error fetching data:', error);
+                });
+        }
     }, [channel, path]);
 
     const handleDeleteCommentSubmit = async (e: any) => {
         e.preventDefault();
 
-        // e.target 및 속성의 존재 여부 확인
-        if (
-            e.target &&
-            e.target.uid &&
-            e.target.content &&
-            e.target.time &&
-            e.target.uid.value &&
-            e.target.content.value &&
-            e.target.time.value
-        ) {
-            const value = { uid: e.target.uid.value, content: e.target.content.value, time: e.target.time.value };
-            await deleteComment(channel, path, value);
+        if (channel && path) {
+            // Null 체크
+            if (
+                e.target &&
+                e.target.uid &&
+                e.target.content &&
+                e.target.time &&
+                e.target.uid.value &&
+                e.target.content.value &&
+                e.target.time.value
+            ) {
+                const value = { uid: e.target.uid.value, content: e.target.content.value, time: e.target.time.value };
+                await deleteComment(channel, path, value);
 
-            console.log(value);
-            // location.reload();
+                console.log(value);
+            } else {
+                console.error('uid 또는 content가 정의되지 않았습니다.');
+            }
         } else {
-            console.error('uid 또는 content가 정의되지 않았습니다.');
+            console.error('channel 또는 path가 정의되지 않았습니다.');
         }
     };
 
