@@ -33,6 +33,7 @@ export default function Gallery() {
   const [imagePaths, setImagePaths] = useState<string[]>([]);
   const [curImg, setCurImg] = useState<string>("");
   const [viewImg, setViewImg] = useState<boolean>(false);
+  const [imgLoad, setImgLoad] = useState(true);
 
   // console.log(albumId);
 
@@ -48,6 +49,7 @@ export default function Gallery() {
         });
         const urls = await Promise.all(paths);
         setImagePaths(urls);
+        setImgLoad(false);
       } catch (error) {
         console.error("이미지 목록을 가져오는 중 오류 발생:", error);
       }
@@ -84,6 +86,8 @@ export default function Gallery() {
     };
 
     fetchData();
+
+    setImgLoad(false);
   }, []);
 
   // console.log(galleryData);
@@ -111,6 +115,7 @@ export default function Gallery() {
           setAlbum={setAlbum}
           album={album}
           setAlbumId={setAlbumId}
+          setImgLoad={setImgLoad}
         />
         <GalleryMain
           album={album}
@@ -118,6 +123,7 @@ export default function Gallery() {
           viewImg={viewImg}
           setViewImg={setViewImg}
           setCurImg={setCurImg}
+          imgLoad={imgLoad}
         />
       </style.MainWrap>
       {addListModal ? (

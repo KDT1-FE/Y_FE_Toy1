@@ -5,6 +5,7 @@ interface GalleryMainProps {
   album: string;
   imagePaths: string[];
   viewImg: boolean;
+  imgLoad: boolean;
   setViewImg: React.Dispatch<React.SetStateAction<boolean>>;
   setCurImg: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -12,6 +13,7 @@ interface GalleryMainProps {
 export default function GalleryMain({
   album,
   imagePaths,
+  imgLoad,
   setViewImg,
   setCurImg,
 }: GalleryMainProps) {
@@ -50,6 +52,7 @@ export default function GalleryMain({
                   img="#efefef"
                   background={img}
                   onClick={clickImgHandle}
+                  className={imgLoad ? "skeleton" : ""}
                 ></style.Img>
               </style.ImgWrap>
             );
