@@ -27,6 +27,9 @@ const GlobalStyle = createGlobalStyle`
     background-color:#fff;
     border:none;
   }
+  input{
+    outline:none;
+  }
 `;
 
 export default GlobalStyle;
