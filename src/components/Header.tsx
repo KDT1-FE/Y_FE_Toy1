@@ -5,13 +5,14 @@ import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "authentication/authContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
+import UserInfo from "./UserInfo";
 
 const Header = () => {
-  const pageLink = ["", "Wiki", "Gallery"];
-  const pageName = ["Home", "Wiki", "Gallery"];
+  const pageLink = ["Wiki", "Gallery"];
   const user = useContext(AuthContext);
   const [pathLink, setPathLink] = useState("");
   const location = useLocation();
+  const [displayUserInfo, setDisplayUserInfo] = useState(false)
 
   const [isModalActive, setIsModalActive] = useState(false);
   const openModal = () => {
@@ -25,36 +26,44 @@ const Header = () => {
   return (
     <Container>
       <InnerContainer>
+        <li>
+          <Link to={`/`}>
+            <h1>FASTWIKI</h1> 
+          </Link>
+        </li>
         <ul className="header__link-wrapper">
           {pageLink.map((link, idx) => {
             let name = "";
             if (pathLink === pageLink[idx]) name += "active";
             return (
-              <li key={pageName[idx]}>
+              <li key={pageLink[idx]}>
                 <Link to={`/${link}`}>
-                  <h1 className={name}> {pageName[idx]} </h1>{" "}
+                  <h2 className={name}> {pageLink[idx]} </h2>{" "}
                 </Link>
               </li>
             );
           })}
           <li>
-            {" "}
             <StyledButton onClick={openModal}>
-              {" "}
-              <p> 학습 시간</p>{" "}
+              <p> 학습 시간</p>
             </StyledButton>
           </li>
           <li>
             {user?.displayName ? (
               <>
-                {sliceStr(user.displayName, 10)}님{" "}
-                <button onClick={handlerLogout}>
-                  <h2>로그아웃</h2>
-                </button>
+                <div className='header__user-name' >
+                    <p onClick={()=>{setDisplayUserInfo(prev=>!prev)}}>{sliceStr(user.displayName, 7)}님</p>
+                    <div className='header__user-info'>
+                      {displayUserInfo? <UserInfo 
+                        handlerLogout= {handlerLogout}
+                        user={user}
+                        /> : <></>}
+                    </div>
+                </div>
               </>
             ) : (
               <Link to={`/login`}>
-                <h2>로그인</h2>{" "}
+                <h3>로그인</h3>{" "}
               </Link>
             )}{" "}
           </li>
@@ -73,7 +82,7 @@ const Header = () => {
 };
 
 const sliceStr = (str: string, n: number) => {
-  return str.length >= n ? str.slice(0, n + 1) + "..." : str;
+  return str.length >= n ? str.slice(0, n) + "..." : str;
 };
 
 const handlerLogout = () => {
@@ -95,10 +104,16 @@ const StyledButton = styled.button`
 
 const InnerContainer = styled.div`
   margin: 0 auto;
+  padding: 0 2rem;
+  box-sizing: border-box;
   max-width: 1200px;
+  display:flex;
+  justify-content: space-between;
+  word-break: keep-all;
 `;
 
 const Container = styled.nav`
+  user-select:none;
   position: fixed;
   left: 0;
   top: 0;
@@ -109,10 +124,14 @@ const Container = styled.nav`
   font-size: 1rem;
   z-index: 10;
   background-color: #fff;
-  h1 {
-    font-size: 1.2rem;
+  h1{
+    font-size: 1.4rem;
+    font-weight : bold;
   }
   h2 {
+    font-size: 1.2rem;
+  }
+  h3 {
     font-size: 0.9rem;
   }
   .active {
@@ -122,8 +141,21 @@ const Container = styled.nav`
     display: flex;
     justify-content: flex-end;
     margin-right: 3rem;
-    gap: 20px;
+    gap: 50px;
     align-items: center;
+  }
+  .header__user-name{
+    position: relative;
+  }
+  .header__user-name p{
+    cursor:pointer;
+    text-decoration: underline solid 1px;
+  }
+  .header__user-info{
+    position:absolute;
+    top:60px;
+    right:0;
+
   }
 `;
 

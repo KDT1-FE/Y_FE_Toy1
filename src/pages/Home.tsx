@@ -24,6 +24,4 @@ const HomeBox = styled.div`
   margin-bottom: 50px;
 `;
 
-
-
 export default Home;
