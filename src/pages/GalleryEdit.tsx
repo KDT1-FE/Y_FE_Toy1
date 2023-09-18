@@ -17,11 +17,7 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
 
   // 에디터 컴포넌트에 사용될 ref
   const quillRef = useRef();
-
-  // 현재 로그인 유저정보 가져오기
   const user = useContext(AuthContext);
-
-  // user 컬렉션 가져오기
   const usersCollectionRef = collection(db, "gallery");
 
   // addDoc할 상태관리
@@ -48,7 +44,7 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0'); 
     const day = String(today.getDate()).padStart(2, '0');
-    const formattedDate = `${today}`;
+    const formattedDate = `${today}`; // 타임스탬프 = new Date()
     const printedData = `${year}-${month}-${day}`;
 
     // 등록할 썸네일 변수선언
@@ -88,6 +84,7 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
        timestamp: formattedDate,
        date: printedData, 
        writer: user?.displayName,
+       uid : user?.uid,
        thumbnail: thumbnailUrl
       });
 
@@ -119,7 +116,7 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0'); 
     const day = String(today.getDate()).padStart(2, '0');
-    const formattedDate = `${today}`;
+    const formattedDate = `${today}`; // new Date()
     const printedData = `${year}-${month}-${day}`;
 
     // 해당 문서의 참조 얻기
@@ -161,6 +158,27 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
       console.error("문서 업데이트 실패:", error);
     }
   }
+  
+  // 이미지 미리보기
+  const [previewUrl, setPreviewUrl] = useState("");
+
+  const updateUrl = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const uploadedFile = event.target.files?.[0];
+    if (uploadedFile) {
+      setImageEdit(uploadedFile)
+      console.log('이미지 업로드')
+  
+      const imageRef = ref(storage, `image/${uploadedFile.name}`);
+      try {
+        const snapshot = await uploadBytes(imageRef, uploadedFile);
+        const editUrl = await getDownloadURL(snapshot.ref);
+        setPreviewUrl(editUrl);
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        // 이미지 업로드 실패 처리
+      }
+    }
+  }
 
   // 수정된 데이터 상태관리
   const [formData, setFormData] = useState({
@@ -177,7 +195,6 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
       // ... try, catch 생략
       const usersCollectionRef = collection(db, "gallery");
       const userRef = doc(usersCollectionRef, id);
-      
       const userSnap = await getDoc(userRef);
       if (userSnap.exists()){
         const {category, title, desc, thumbnail, date} = userSnap.data()
@@ -212,15 +229,12 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
         <Editor value={formData.desc} onChange={onEditorEdit} quillRef={quillRef} />
         </FormList>
         <FormList>
-        <label htmlFor="thumbnail">썸네일 : </label>
-        <input type="file" id="thumbnail" onChange={(event) => {
-            const uploadedFile = event.target.files?.[0];
-            if (uploadedFile) {
-              setImageEdit(uploadedFile)
-              console.log('이미지 업로드')
-            }
-        }}
-        />
+        {/* <label htmlFor="thumbnail">썸네일 : </label> */}
+        <div className="preview">
+          {previewUrl ? <img src={previewUrl} alt="썸네일"/> : <img src={formData.thumbnail} alt="썸네일"/>}
+          <input type="file" id="thumbnail" onChange={updateUrl}
+          />
+        </div>
         </FormList>
         <GalleryBtn>
           <button type="submit">제출</button>
@@ -274,7 +288,41 @@ const FormList = styled.div`
     border: 1px solid #ccc;
     height:30px;
   }
-
+  .preview{
+    position: relative;
+    width: 200px;
+    height: 100px;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    &:after{
+      content:'썸네일 수정';
+      position: absolute;
+      z-index:1;
+      left:0;
+      top:0;
+      width:100%;
+      height:100%;
+      background-color:rgba(0,0,0,0.5);
+      color:white;
+      display:inline-flex;
+      justify-content: center;
+      align-items: center;
+    }
+    img{
+      width:auto;
+    }
+    input{
+      opacity:0;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index:3;
+      left: 0;
+      top: 0;
+    }
+  }
 `
 
 const GalleryBtn = styled.div`
