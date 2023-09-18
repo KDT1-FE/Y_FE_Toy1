@@ -1,3 +1,17 @@
 .InputFile {
   padding-top: 3rem;
 }
+
+.InnerModalContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.InnerModalContent img {
+  width: 150px;
+}
+
+.InnerModalContent input {
+  margin: 2px 10px;
+  width: 40%;
+}
