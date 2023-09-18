@@ -5,8 +5,11 @@ import {
   onSnapshot,
   Unsubscribe,
   getDoc,
+  serverTimestamp,
 } from 'firebase/firestore';
 import { db } from 'data/firebase';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../redux/types'; // RootState 타입 추가
 
 //unix timestamp
 const timeStamp = Math.floor(new Date().getTime() / 1000);
@@ -31,6 +34,8 @@ export function Timer({ id }: TimerProps): JSX.Element {
 
   let unsubscribe: Unsubscribe | undefined;
   let timer: any;
+  //스토어 유저 정보
+  const user = useSelector((state: RootState) => state);
 
   //페이지 로드 시 count 데이터 불러오기
   useEffect(() => {
@@ -118,10 +123,12 @@ export function Timer({ id }: TimerProps): JSX.Element {
         {currentMinutes < 10 ? `0${currentMinutes}` : currentMinutes}:
         {currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
       </p>
-      <button id={id} onClick={handleStart}>
-        시작
-      </button>
-      <button onClick={handleStop}>정지</button>
+      {user.uid === id && (
+        <button id={id} onClick={handleStart}>
+          시작
+        </button>
+      )}
+      {user.uid === id && <button onClick={handleStop}>정지</button>}
     </div>
   );
 }
