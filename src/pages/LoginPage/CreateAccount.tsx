@@ -14,6 +14,7 @@ function CreateAccount() {
     email: "",
     phone: "",
     password: "",
+    profile: "",
     position: "이사",
     approve: false
   })
@@ -40,7 +41,8 @@ function CreateAccount() {
         name: form.name,
         email: form.email,
         phone: form.phone,
-        position: form.position
+        position: form.position,
+        profile: ""
       });
       navigate('/login')
     } catch (error) {

@@ -105,8 +105,6 @@ export const PaginationDiv = styled.div`
 export const WriteBtn = styled.button`
   position: absolute;
   right: 0;
-  width: 120px;
-  height: 52px;
   background-color: #484aad;
   color: white;
   border: none;
@@ -114,7 +112,9 @@ export const WriteBtn = styled.button`
   cursor: pointer;
 
   a {
+    display: block;
     color: white;
     text-decoration: none;
+    padding: 18px;
   }
 `;

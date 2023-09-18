@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   max-width: 1200px;
@@ -16,14 +16,14 @@ export const Header = styled.div`
 `;
 
 export const Subject = styled.div`
-  font-family: "Inter";
+  font-family: 'Inter';
   font-weight: 700;
   font-size: 2.2rem;
   margin-bottom: 30px;
 `;
 
 export const DateAndActionsWrapper = styled.div`
-  font-family: "Inter";
+  font-family: 'Inter';
   font-size: 0.875rem;
   display: flex;
   flex-direction: row;
@@ -94,19 +94,19 @@ export const Contents = styled.div`
 
 export const MoveToListBtn = styled.button`
   margin: 0 auto;
-  width: 200px;
-  height: 50px;
   background-color: #484aad;
   border: none;
   border-radius: 50px;
-  font-family: "Inter";
+  font-family: 'Inter';
   font-weight: 700;
   font-size: 1.5rem;
   color: #ffffff;
   cursor: pointer;
 
   a {
+    display: block;
     color: white;
     text-decoration: none;
+    padding: 10px 50px;
   }
 `;
