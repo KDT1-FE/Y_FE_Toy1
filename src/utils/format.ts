@@ -62,3 +62,17 @@ const nowTimeString = (workTime: string) => {
 const finishTimeString = (workTime: string) => {
   return `${workTime} 동안 업무하셨습니다!`;
 };
+
+export const calendarDayFormat = (dateString: Date | undefined) => {
+  if (!dateString) {
+    return '';
+  }
+  const date = new Date(dateString);
+
+  const year = date.getFullYear();
+  // JavaScript의 getMonth()는 0부터 시작하므로 +1이 필요합니다.
+  const month = ('0' + (date.getMonth() + 1)).slice(-2);
+  const day = ('0' + date.getDate()).slice(-2);
+
+  return `${year}-${month}-${day}`;
+};

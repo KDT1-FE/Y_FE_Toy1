@@ -179,7 +179,7 @@ const CommuteMenu = styled.div`
 `)}
 `;
 
-const TopContainer = styled.section`
+export const TopContainer = styled.section`
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
@@ -194,7 +194,7 @@ const Title = styled.div`
 
   cursor: default;
 `;
-const CloseImg = styled.img`
+export const CloseImg = styled.img`
   width: 1.25rem;
   height: 1.25rem;
   cursor: pointer;

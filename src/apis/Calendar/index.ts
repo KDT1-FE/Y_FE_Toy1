@@ -1,5 +1,13 @@
 import { db } from 'apis/firebase';
-import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+  where,
+} from 'firebase/firestore';
 import { getSessionUserData } from 'utils/user';
 
 interface ICalendarData {
@@ -37,6 +45,7 @@ interface IresponseArray {
   start: Date;
   end: Date;
   title: string;
+  id: string;
 }
 
 export const getCalendarData = async () => {
@@ -49,10 +58,18 @@ export const getCalendarData = async () => {
         title: calendarData.content,
         start: new Date(calendarData.startDate),
         end: new Date(calendarData.endDate),
+        id: doc.id,
       });
     });
     return responseArray;
   } catch (error) {
     alert('알 수 없는 오류입니다');
+  }
+};
+export const deleteCalendarData = async (id: string) => {
+  try {
+    await deleteDoc(doc(db, 'calendar', id));
+  } catch (error) {
+    alert('데이터를 삭제하는 과정에서 오류가 발생했습니다.');
   }
 };

@@ -2,20 +2,32 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import styled from 'styled-components';
 import ReactModal from 'react-modal';
+import closeButton from '../../assets/icons/closeButton.svg';
 import { FormEvent, useEffect, useState } from 'react';
-import { getCalendarData, uploadCalendarData } from 'apis/Calendar';
+import {
+  deleteCalendarData,
+  getCalendarData,
+  uploadCalendarData,
+} from 'apis/Calendar';
+import { CloseImg } from 'components/CommuteModal';
+import { calendarDayFormat } from 'utils/format';
+import Swal from 'sweetalert2';
 
 interface IEvent {
   title: string;
   start: Date;
   end: Date;
 }
+
 function Calendar() {
-  const [event, setEvent] = useState<IEvent[] | []>();
+  const [events, setEvents] = useState<IEvent[] | []>();
   const [showModal, setShowModal] = useState(false);
+  const [isDelete, setIsDelete] = useState(false);
+
   const getEvent = async () => {
     const responseArray = await getCalendarData();
-    setEvent(responseArray);
+    console.log(responseArray);
+    setEvents(responseArray);
   };
 
   const checkValidate = (endDate: string, startDate: string) => {
@@ -47,37 +59,62 @@ function Calendar() {
 
   useEffect(() => {
     getEvent();
-  }, [showModal]);
+  }, [showModal, isDelete]);
+
   return (
     <>
       <StyledContainer>
-        <StyledInfo>
-          <StyledInfoImg />
-          <StyledInfoText>박가현님</StyledInfoText>
-          <StyledLogoutButton>로그아웃</StyledLogoutButton>
-        </StyledInfo>
         <StyledCalendarContainer>
           <StyledCalendarText>나의 캘린더</StyledCalendarText>
           <FullCalendar
             plugins={[dayGridPlugin]}
             initialView="dayGridMonth"
-            events={event}
+            events={events}
             headerToolbar={{
-              right: 'prev,next myCustomButton',
+              right: 'prev,next addButton',
             }}
             customButtons={{
-              myCustomButton: {
+              addButton: {
                 text: '일정 등록',
                 click: () => {
                   setShowModal(true);
                 },
               },
             }}
+            eventClick={(info) => {
+              Swal.fire({
+                title: `${info.event._def?.title}`,
+                text: `${calendarDayFormat(
+                  info.event._instance?.range.end,
+                )}~${calendarDayFormat(info.event._instance?.range.start)}`,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#001529',
+                confirmButtonText: '일정 삭제',
+                cancelButtonText: '취소',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  deleteCalendarData(info.event._def?.publicId).then(() => {
+                    setIsDelete(!isDelete);
+                  });
+                }
+              });
+            }}
           />
         </StyledCalendarContainer>
       </StyledContainer>
+      {/* 일정 등록 모달 */}
       <ReactModal isOpen={showModal} ariaHideApp={false} style={StyledModal}>
-        일정을 등록해주세요
+        <StyledTopContainer>
+          일정을 등록해주세요
+          <CloseImg
+            src={closeButton}
+            onClick={() => {
+              setShowModal(false);
+            }}
+            alt="close icon"
+          />
+        </StyledTopContainer>
         <StyledForm onSubmit={handleSubmit}>
           <label>일정 내용</label>
           <StyledTextInput type="text" id="content" name="content" required />
@@ -118,14 +155,19 @@ const StyledModal: ReactModal.Styles = {
     backgroundColor: 'white',
     outline: 'none',
 
-    fontSize: '2rem',
-    fontWeight: '600',
-
     display: 'flex',
     flexDirection: 'column',
     gap: '2rem',
   },
 };
+
+const StyledTopContainer = styled.section`
+  font-size: 2rem;
+  font-weight: 600;
+
+  display: flex;
+  justify-content: space-between;
+`;
 
 const StyledForm = styled.form`
   font-size: 1.2rem;
@@ -167,42 +209,19 @@ const StyledBottomContainer = styled.section`
 `;
 
 const StyledContainer = styled.div`
-  padding: 18vh 0 0 0;
+  padding: 13vh 0 0 0;
   max-width: 75rem;
   margin: 0 auto;
   display: flex;
-  gap: 7rem;
-`;
-const StyledInfo = styled.section`
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 3rem;
-  border: 1px solid blue;
 `;
+
 const StyledCalendarContainer = styled.section`
   height: 20rem;
   width: 50rem;
 `;
-const StyledInfoImg = styled.img`
-  width: 5rem;
-  height: 4.75rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 100px;
-  background-color: #d9d9d9;
-`;
-const StyledInfoText = styled.div`
-  font-size: 2rem;
-  font-weight: 700;
-`;
-const StyledLogoutButton = styled.button`
-  border-radius: 0.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.26);
-  padding: 0.375rem 1rem;
-`;
+
 const StyledCalendarText = styled.div`
   font-size: 2.2rem;
   font-weight: 700;
