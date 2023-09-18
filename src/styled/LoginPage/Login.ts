@@ -12,6 +12,7 @@ export const StyledLink = styled(Link)`
   width: 192px;
   height: 73px;
   border-radius: 50px;
+  line-height: 3;
 `;
 
 export const P = styled.p`
