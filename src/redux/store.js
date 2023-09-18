@@ -1,6 +1,7 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit';
 import { createStore } from 'redux';
 
+
 // wiki page
 const boardStateSlice = createSlice({
   name: 'boardState',
@@ -63,3 +64,6 @@ store.subscribe(() => {
 });
 
 export { wikiStore, boardStateSlice, store };
+
+
+ 

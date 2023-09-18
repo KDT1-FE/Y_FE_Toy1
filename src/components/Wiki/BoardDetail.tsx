@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import './BoardDetail.scss';
-import { readPostData, updatePostData } from 'data/wikiboard';
+import { deletePostData, readPostData, updatePostData } from 'data/wikiboard';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
 import MdEditor from '@uiw/react-md-editor';
@@ -13,6 +13,7 @@ type Board = {
   title: string;
   uid: string;
   comment: any;
+  id : number;
 };
 
 const initialData: Board = {
@@ -21,6 +22,7 @@ const initialData: Board = {
   time: '15:23',
   title: '글제목',
   uid: 'string',
+  id : 0,
   comment: [{}],
 };
 
@@ -168,6 +170,16 @@ export function BoardDetail(props: any) {
     }
   }
 
+  const handleDelete = async ()=>{
+    const deleteConfirm = confirm('삭제 하시겠습니까?');
+    
+    // console.log(boardInfo)
+    if (deleteConfirm && boardInfo.uid === sessionStorage.uid){
+      await deletePostData(boardState,boardInfo.id)
+      navigate('/wiki')
+    }
+  }
+
   React.useEffect(() => {
     itemData.then((item: any) => {
       setBoardInfo(item.data());
@@ -182,9 +194,13 @@ export function BoardDetail(props: any) {
           <p className="profile__time">{boardInfo.time}</p>
         </div>
         {boardInfo.uid === sessionStorage.uid && (
-          <Link to="./edit">
-            <p>글 수정하기</p>
+          <div>
+            <Link to="./edit">
+            <p>글 수정</p>
           </Link>
+          <button onClick={handleDelete}>글 삭제</button>
+          </div>
+          
         )}
       </div>
       <div>
