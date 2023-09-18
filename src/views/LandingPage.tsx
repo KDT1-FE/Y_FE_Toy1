@@ -6,6 +6,7 @@ import SideBar from '../components/SideBar';
 
 import '../scss/base/_index.scss';
 import '../scss/landingPage.scss';
+import WritePage from './WritePage';
 
 export const LandingPage = (): JSX.Element => {
   return (
@@ -13,6 +14,7 @@ export const LandingPage = (): JSX.Element => {
       <Header />
       <div className="landingContent">
         <SideBar />
+        <WritePage />
         <Outlet />
       </div>
     </div>
