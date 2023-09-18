@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {AddPhotosProps} from "../../types/Gallery";
 
-function AddPhotos({file, deleteFiles, setDeleteFiles}: AddPhotosProps) {
+function AddPhotos({file, name, deleteFiles, setDeleteFiles}: AddPhotosProps) {
   const [checked, setChecked] = useState(false);
 
   const handleCheck = () => {
@@ -23,6 +23,7 @@ function AddPhotos({file, deleteFiles, setDeleteFiles}: AddPhotosProps) {
       <div className="PhotoImgDiv">
         <input type="checkbox" onChange={handleCheck} checked={checked} />
         <img className="PhotoImg" src={file} alt="Album" />
+        <p>{name}</p>
       </div>
     </div>
   );
