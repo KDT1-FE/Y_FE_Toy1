@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import './PostAdd.scss'
 import MdEditor from '@uiw/react-md-editor';
 
+
 type Post = {
     title:string|undefined,
     content:string|undefined,
@@ -39,9 +40,9 @@ export function PostAdd (props: any) {
                     title,
                     content:markdown,
                     time:formattedDate,
-                    name:'사용자',
+                    name:sessionStorage.nickname,
                     id: lastPostId.data()?.LASTPOSTID + 1,
-                    uid : sessionStorage.user,
+                    uid : sessionStorage.uid,
                     comment:[]
                 }
                 
@@ -81,9 +82,6 @@ export function PostAdd (props: any) {
         value={markdown}
         onChange={handleChange}
         height={500}
-        
-        
-    
       />
       
     </div>

@@ -37,7 +37,7 @@ export function BoardDetail(props: any) {
     e.preventDefault();
     const now = moment();
     const formattedDate = now.format('YY-MM-DD HH:mm');
-    const userData = await selectUserData(sessionStorage.user);
+    const userData = await selectUserData(sessionStorage.uid);
     const nickName = userData?.nickname;
     const updateData = {
       ...boardInfo,
@@ -50,7 +50,7 @@ export function BoardDetail(props: any) {
               : 0,
           content: commentContent,
           time: formattedDate,
-          uid: sessionStorage.user,
+          uid: sessionStorage.uid,
           nickname: nickName,
         },
       ],
@@ -181,7 +181,7 @@ export function BoardDetail(props: any) {
           <p className="profile__name">{boardInfo.name}</p>
           <p className="profile__time">{boardInfo.time}</p>
         </div>
-        {boardInfo.uid === sessionStorage.user && (
+        {boardInfo.uid === sessionStorage.uid && (
           <Link to="./edit">
             <p>글 수정하기</p>
           </Link>
@@ -211,7 +211,6 @@ export function BoardDetail(props: any) {
         <div key={index} className="comment">
           <div className="comment__header">
             <div className="profile">
-              <img src="#" alt="유저 이미지" />
               <div className="user__data">
                 <p>{commentData.nickname}</p>
                 <p>{commentData.time}</p>
@@ -219,7 +218,7 @@ export function BoardDetail(props: any) {
             </div>
             <div className="comment__content__box">
               <p className="comment__content">{commentData.content}</p>
-              {commentData.uid === sessionStorage.user && (
+              {commentData.uid === sessionStorage.uid && (
               <div className='comment__state__box'>
                 <button onClick={handleClickModify}>수정</button>
                 <button onClick={handleDeleteComment}>삭제</button>

@@ -3,6 +3,7 @@ import { BoardNav } from './BoardNav';
 import {useState} from 'react'
 import {  readPostData, updatePostData } from 'data/wikiboard';
 import { useNavigate, useParams } from 'react-router-dom';
+import MdEditor from '@uiw/react-md-editor';
 
 type Post = {
     title:string|undefined,
@@ -73,11 +74,15 @@ export function PostEdit (props: any) {
 
     const checkPermission = async ()=>{
         const prevData = await readPrevData()
-        if (prevData?.uid !== sessionStorage.user){
+        if (prevData?.uid !== sessionStorage.uid){
             navigate('404')
         }
     }
     
+    const [markdown, setMarkdown] = useState('');
+    const handleChange = (value:any) => {
+        setContent(value);
+      };
     
   return (
     <div>
@@ -88,12 +93,15 @@ export function PostEdit (props: any) {
             <label htmlFor="">제목 : </label>
             <input type="text" onChange={handleChangeTitle} value={title} />
         </div>
-        <div>
-            <label htmlFor="">본문 : </label>
-            <input type="text" onChange={handleChangeContent} value={content}/>
-        </div>
+        <MdEditor
+        data-color-mode="light"
+        value={content}
+        onChange={handleChange}
+        height={500}
+      />
         <button type='submit'>작성하기</button>
       </form>
+      
     </div>
   );
 }
