@@ -72,7 +72,7 @@ const Recruitment: React.FC = () => {
             <SidebarRecruitment />
             <PostsContainer>
                 <PostNav>
-                    <Link to="/">
+                    <Link to="/recruitment/post">
                         <PostButton>게시글 작성</PostButton>
                     </Link>
 
@@ -110,7 +110,7 @@ const Post: React.FC<{ data: any; id: string; index: number; channel: string }> 
             </div>
             <Title>{data.title}</Title>
             <div style={{ display: 'flex' }}>
-                <Time>{new Date(data.time.toMillis()).toLocaleString()}</Time>
+                <Time>{new Date(data.time?.toMillis()).toLocaleString()}</Time>
             </div>
         </PostWrapper>
     </Link>

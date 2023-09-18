@@ -35,8 +35,6 @@ const RecruitmentDetail: React.FC = () => {
     const channel = location.pathname.split('/')[2];
     const path = location.pathname.split('/')[3];
 
-    console.log(location.pathname);
-
     useEffect(() => {
         // 데이터를 비동기로 가져오기 위해 useEffect를 사용합니다.
         getRecruitmentDetail(channel, path)
@@ -76,7 +74,6 @@ const RecruitmentDetail: React.FC = () => {
                 ':' +
                 fullDate.getMinutes();
             const value = { uid: e.target.uid.value, content: e.target.content.value, time: date };
-            console.log(value);
             await createComment(channel, path, value);
             console.log('댓글 작성');
             location.reload();
@@ -85,6 +82,7 @@ const RecruitmentDetail: React.FC = () => {
         }
     };
 
+    console.log();
     return (
         <RecruitmentDetailContainer>
             <ContentContainer>
@@ -99,7 +97,7 @@ const RecruitmentDetail: React.FC = () => {
                     </ContentHeader>
                     <ContentTitleWrapper>
                         <h2>{data.title}</h2>
-                        <p>09/16 12:11</p>
+                        <p>{new Date(data.time?.toMillis()).toLocaleString()}</p>
                         {userId == data.uid ? (
                             <BtnWrapper>
                                 <Btn>수정하기</Btn>

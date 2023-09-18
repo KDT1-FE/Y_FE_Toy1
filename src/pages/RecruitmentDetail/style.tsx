@@ -156,12 +156,12 @@ export const CommentContent = styled.input`
 `;
 
 export const CommentTime = styled.input`
-    font-size: 1rem;
+    font-size: 0.8rem;
 
     background-color: white;
     border: none;
 
-    color: #efefef;
+    color: black;
 `;
 
 export const BtnWrapper = styled.div`
