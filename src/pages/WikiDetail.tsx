@@ -5,7 +5,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import ContentsViewer from "components/ContentViewer";
 import Swal from "sweetalert2";
-import "./Wiki.css";
+import "../components/Wiki.css";
 
 const WikiDetail = () => {
   const navigate = useNavigate();
