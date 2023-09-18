@@ -1,0 +1,21 @@
+@use '../../abstracts' as *;
+@use '../../base' as *;
+
+.writeForm__title {
+  width: 100%;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid $lightGray;
+
+  &__item {
+    display: block;
+    width: 100%;
+    height: auto;
+    font-size: $font-lg;
+    color: $titleTextColor;
+    outline: none;
+    border: none;
+    resize: none;
+    line-height: $font-lg;
+    overflow: hidden;
+  }
+}

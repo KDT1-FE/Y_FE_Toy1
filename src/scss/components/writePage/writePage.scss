@@ -1,0 +1,11 @@
+@use '../../abstracts' as *;
+@use '../../base' as *;
+
+.write-form {
+  padding-top: 5rem;
+  width: 80%;
+  max-width: 86rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
