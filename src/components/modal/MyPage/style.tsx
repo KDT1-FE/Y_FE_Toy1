@@ -20,6 +20,7 @@ export const MyPage = styled.div<{ value: boolean }>`
     flex-direction: column;
     width: 30vw;
     max-width: 500px;
+    min-width: 350px;
     height: calc(100vh - 72px);
     background-color: #fafafa;
     top: 72px;
@@ -77,13 +78,12 @@ export const ProfileContent = styled(MyPageCase)`
     padding: 0;
 `;
 export const ProfileEdit = styled.span`
-    position: relative;
     font-size: 18px;
     color: var(--active-item);
     cursor: pointer;
+    transition: 0.3s;
     &:hover {
         transform: scale(1.1);
-        transition: 0.3s;
     }
 `;
 export const ProfileIntroduce = styled.div`
@@ -195,7 +195,7 @@ export const TimelogEl = styled.div`
 
 export const EditBox = styled.div`
     width: 100%;
-    padding: 8% 10% 0 10%;
+    padding: 5% 10% 0 10%;
     display: flex;
     justify-content: space-between;
 `;
@@ -211,4 +211,37 @@ export const InputLabel = styled.div`
 `;
 export const EditInput = styled.input`
     height: 30px;
+    border-radius: 10px;
+    border: 1px solid #7e7e7e;
+    &:focus {
+        outline: none;
+        border: none;
+        box-shadow: 0 1px 6px var(--active-item);
+    }
+`;
+export const InputImg = styled.img`
+    width: 15rem;
+    height: 15rem;
+    border-radius: 20px;
+    background-color: gray;
+`;
+export const SubmitBtn = styled.button`
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 120px;
+    height: 72px;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+    background-color: var(--navigation-background);
+    box-shadow: '0 3px 3px 1px #ced0d3';
+`;
+export const FlexBox = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
 `;

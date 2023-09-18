@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { ProfileEdit } from './style';
-import UserEdit from './UserEdit';
+import UserEditMdoal from './UserEditModal';
 
-export default function UserEditBtn() {
+const UserEditBtn: React.FC = () => {
     const [userEditOn, setUserEditOn] = useState(false);
     function handleEdit() {
         if (userEditOn) {
@@ -14,7 +14,8 @@ export default function UserEditBtn() {
     return (
         <div>
             <ProfileEdit onClick={handleEdit}>편집</ProfileEdit>
-            {userEditOn && <UserEdit handleEdit={handleEdit} />}
+            {userEditOn && <UserEditMdoal handleEdit={handleEdit} />}
         </div>
     );
-}
+};
+export default UserEditBtn;

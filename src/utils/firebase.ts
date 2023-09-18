@@ -77,7 +77,7 @@ export const createTimelog = async (collectionName: string, userName: string, cu
         throw error;
     }
 };
-
+// user의 정보를 가져옴
 export const readUser = async (collectionName: string, userName: string) => {
     const userRef = doc(firestore, collectionName, userName);
     try {
@@ -90,6 +90,46 @@ export const readUser = async (collectionName: string, userName: string) => {
         }
     } catch (error) {
         console.error('타임로그 생성 실패!', error);
+        throw error;
+    }
+};
+export const updateUserName = async (collectionName: string, userName: string, updateData: string) => {
+    const value = updateData;
+    const userRef = doc(firestore, collectionName, userName);
+    try {
+        const pushTimeLog = await updateDoc(userRef, { name: value });
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+export const updateUserEmail = async (collectionName: string, userName: string, updateData: string) => {
+    const value = updateData;
+    const userRef = doc(firestore, collectionName, userName);
+    try {
+        const pushTimeLog = await updateDoc(userRef, { email: value });
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+export const updateUserInfo = async (collectionName: string, userName: string, updateData: string) => {
+    const value = updateData;
+    const userRef = doc(firestore, collectionName, userName);
+    try {
+        const pushTimeLog = await updateDoc(userRef, { info: value });
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+export const updateUserImg = async (collectionName: string, userName: string, updateData: string) => {
+    const value = updateData;
+    const userRef = doc(firestore, collectionName, userName);
+    try {
+        const pushTimeLog = await updateDoc(userRef, { imageURL: value });
+    } catch (error) {
+        console.error(error);
         throw error;
     }
 };
