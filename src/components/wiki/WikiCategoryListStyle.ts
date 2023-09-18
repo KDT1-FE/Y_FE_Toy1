@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface isSelectedWiki {
+  selected: boolean;
+}
+
 export const Wrapper = styled.div`
   padding-top: 1.88rem;
   margin-right: 1.88rem;
@@ -11,47 +15,39 @@ export const Wrapper = styled.div`
   overflow-x: hidden;
 `;
 
-export const CategoryList = styled.ul`
-  font-weight: 500;
+export const WikiList = styled.ul`
   font-size: 1rem;
   color: var(--color-gray);
   cursor: pointer;
 `;
 
-export const CategoryItem = styled.li`
+export const WikiItem = styled.li`
+  display: flex;
+  align-items: center;
   padding: 0.5rem 1.88rem;
   padding-right: 0;
-  overflow-x: hidden;
+  overflow: hidden;
+  height: 3rem;
 
-  &:hover {
-    color: var(--color-main);
-    font-weight: 900;
-  }
-`;
-export const EntryList = styled.ul`
-  margin-top: 0.5rem;
-`;
-export const EntryItem = styled.li`
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: 40px;
   &:hover {
     background-color: rgba(0, 22, 80, 0.05);
-    width: calc(100% + 1.88rem);
-    color: var(--color-main);
-    left: -1.88rem;
-  }
-  ${CategoryItem}:hover & {
-    color: var(--color-gray);
-    font-weight: 500;
   }
 `;
 
-export const EntryContent = styled.div`
-  padding-left: 0.75rem;
+export const ParentWikiWrapper = styled.div`
+  width: 100%;
   display: flex;
-  align-items: center;
+  justify-content: space-between;
+`;
+
+export const ChildWikiWrapper = styled.div``;
+
+export const WikiTitle = styled.span<isSelectedWiki>`
+  overflow: hidden;
+  white-space: nowrap;
+  color: ${(props) =>
+    props.selected ? "var(--color-main)" : "var(--color-gray)"};
+  font-weight: ${(props) => (props.selected ? 600 : 500)};
 `;
 
 export const DepthSymbol = styled.div`
@@ -60,4 +56,11 @@ export const DepthSymbol = styled.div`
   border-left: 1px solid var(--color-light-gray);
   border-bottom: 1px solid var(--color-light-gray);
   margin-right: 0.59rem;
+`;
+
+export const ArrowIcon = styled.div`
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
 `;

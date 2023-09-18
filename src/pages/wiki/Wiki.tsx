@@ -8,7 +8,6 @@ import { Wiki } from "./WikiType";
 
 export default function WikiPage() {
   const [wikiData, setWikiData] = useState<Wiki[]>(wikiInitData);
-  const [selectedEntry, setSelectedEntry] = useState<Wiki | null>(null);
   const [isEditMode, setIsEditMode] = useState(false);
   const [showCategoryList, setShowCategoryList] = useState(true);
   const [form, setForm] = useState<Wiki>({
@@ -20,10 +19,47 @@ export default function WikiPage() {
     createdAt: "",
     updatedAt: "",
   });
+  const [displayedWikis, setDisplayedWikis] = useState<Wiki[]>(
+    wikiData.filter((wiki) => !wiki.parentID),
+  );
+  const firstParentWiki = wikiInitData.find((wiki) => !wiki.parentID) || null;
+  const [selectedEntry, setSelectedEntry] = useState<Wiki | null>(
+    firstParentWiki,
+  );
 
   useEffect(() => {
     setWikiData(wikiInitData);
   }, []);
+
+  function toggleChildWikis(parentWiki: Wiki) {
+    const childWikis = wikiData.filter(
+      (wiki) => wiki.parentID === parentWiki.wikiID,
+    );
+
+    setDisplayedWikis((prev) => {
+      const newDisplayedWikis = [...prev];
+      const parentIndex = newDisplayedWikis.findIndex(
+        (wiki) => wiki.wikiID === parentWiki.wikiID,
+      );
+
+      if (
+        newDisplayedWikis[parentIndex + 1] &&
+        newDisplayedWikis[parentIndex + 1].parentID === parentWiki.wikiID
+      ) {
+        let childIndex = parentIndex + 1;
+        while (
+          newDisplayedWikis[childIndex] &&
+          newDisplayedWikis[childIndex].parentID === parentWiki.wikiID
+        ) {
+          childIndex++;
+        }
+        newDisplayedWikis.splice(parentIndex + 1, childIndex - parentIndex - 1);
+      } else {
+        newDisplayedWikis.splice(parentIndex + 1, 0, ...childWikis);
+      }
+      return newDisplayedWikis;
+    });
+  }
 
   function handleEntryClick(entry: Wiki) {
     setSelectedEntry(entry);
@@ -38,7 +74,6 @@ export default function WikiPage() {
   }
 
   function handleRegisterClick() {
-    // 위키 작성 폼을 표시하는 로직
     setIsEditMode(true);
     setShowCategoryList(false);
     setForm({
@@ -52,7 +87,6 @@ export default function WikiPage() {
     });
   }
 
-  // 위키 저장
   function handleSaveClick() {
     setIsEditMode(false);
     setShowCategoryList(true);
@@ -77,8 +111,9 @@ export default function WikiPage() {
         ></WikiTop>
         <S.Container>
           <WikiCategoryList
-            WiKiList={wikiData}
+            WiKiList={displayedWikis}
             onEntryClick={handleEntryClick}
+            onArrowClick={toggleChildWikis}
             style={{ display: showCategoryList ? "block" : "none" }}
           />
           {
