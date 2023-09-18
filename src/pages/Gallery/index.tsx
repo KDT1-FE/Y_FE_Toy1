@@ -1,5 +1,5 @@
 import NavigationGallery from 'components/NavigationGallery';
-import UploadGallery from 'components/UploadGallery';
+import UploadGalleryModal from 'components/UploadGalleryModal';
 import ReadGallery from 'components/ReadGallery';
 import styled from 'styled-components';
 
@@ -9,7 +9,7 @@ function Gallery() {
       <StyledContainer>
         <NavigationGallery></NavigationGallery>
         <StyledGalleryContainer>
-          <UploadGallery></UploadGallery>
+          <UploadGalleryModal></UploadGalleryModal>
           <ReadGallery></ReadGallery>
         </StyledGalleryContainer>
       </StyledContainer>
