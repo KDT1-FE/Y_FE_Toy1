@@ -25,7 +25,7 @@ const GalleryList: React.FC<{ galleryData: userData[] }> = ({ galleryData }) => 
     <>
     <section className="wiki__wrapper">
         <div className="wiki__header">
-          <div className="wiki__title"> Gallery의 카테고리 출력영역 </div>
+          <div className="wiki__title"> Gallery </div>
           {
             user?.displayName ?
               <Link to="/Gallery/edit">
