@@ -4,6 +4,7 @@ import { TimelogBox, TimelogBoxScroll, TimelogEl } from './style';
 import { useRecoilState } from 'recoil';
 import { UserId } from '../../../utils/recoil';
 import { readUser } from '../../../utils/firebase';
+import { display, height } from '@mui/system';
 
 interface OwnProps {
     handleTimelog(): void;
@@ -17,7 +18,7 @@ const TimelogModal: React.FC<OwnProps> = ({ handleTimelog }) => {
             try {
                 const userData = await readUser('user', userId);
                 if (userData) {
-                    const timelog = userData['timelog'];
+                    const timelog = userData['timelog'].reverse();
                     setTimelogData(timelog);
                 }
             } catch {
@@ -37,7 +38,16 @@ const TimelogModal: React.FC<OwnProps> = ({ handleTimelog }) => {
                 <TimelogBoxScroll>
                     {timelogData.map((e: string, i) => (
                         <TimelogEl key={i}>
-                            <div>{e}</div>
+                            <div
+                                style={{
+                                    height: '100px',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                {e}
+                            </div>
                         </TimelogEl>
                     ))}
                 </TimelogBoxScroll>

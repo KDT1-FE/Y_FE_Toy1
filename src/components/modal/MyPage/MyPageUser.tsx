@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { MyPageProfile, ProfileContent, ProfileEdit, ProfileImg, ProfileIntroduce } from './style';
 import { readUser } from '../../../utils/firebase';
 import { useRecoilState } from 'recoil';
-import { UserId } from '../../../utils/recoil';
+import { UserId, UserName, UserEmail, UserInfo, UserImg } from '../../../utils/recoil';
+import UserEditBtn from './UserEditBtn';
 
 export default function MyPageUser() {
     const [userId, setUserId] = useRecoilState(UserId);
-    const [userName, setUserName] = useState('');
-    const [userEmail, setUserEmail] = useState('');
-    const [userImg, setUserImg] = useState('');
-    const [userInfo, setUserInfo] = useState('');
+    const [userName, setUserName] = useRecoilState(UserName);
+    const [userEmail, setUserEmail] = useRecoilState(UserEmail);
+    const [userInfo, setUserInfo] = useRecoilState(UserInfo);
+    const [userImg, setUserImg] = useRecoilState(UserImg);
 
     useEffect(() => {
         async function getUserData() {
@@ -32,7 +33,7 @@ export default function MyPageUser() {
             <ProfileImg src={userImg}></ProfileImg>
             <ProfileContent>
                 <span>{userName}</span>
-                <ProfileEdit>편집</ProfileEdit>
+                <UserEditBtn />
             </ProfileContent>
             <ProfileContent>{userEmail}</ProfileContent>
             <ProfileIntroduce>
