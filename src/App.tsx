@@ -14,20 +14,11 @@ import { auth } from 'apis/firebase';
 // import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Loading from 'components/Common/Loading';
-import { useEffect, useState } from 'react';
 
 function App() {
   const [user, loading, error] = useAuthState(auth);
-  const [showLoading, setShowLoading] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowLoading(false);
-    }, 500);
-    return () => clearTimeout(timer);
-  });
-
-  if (loading || showLoading) {
+  if (loading) {
     return <Loading />;
   }
 
