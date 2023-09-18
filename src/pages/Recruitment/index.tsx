@@ -27,50 +27,14 @@ const Recruitment: React.FC = () => {
     const [filteredData, setFilteredData] = useState<any[]>([]);
     const [searchTitle, setSearchTitle] = useState('');
     const [searching, setSearching] = useState(false);
-    const [page, setPage] = useState(1);
 
-    const [loading, setLoading] = useState(false);
-    const [hasMore, setHasMore] = useState(true);
-
-    const postsPerPage = 2;
-
-    const fetchData = async () => {
-        try {
-            setLoading(true);
-            const { docSnapshots } = await showRecruitmentFields('recruitmentContainer', 'recruitment', channel);
-            const newRecruitmentData =
-                subChannel === 'all'
-                    ? docSnapshots.map((item) => ({ id: item.id, data: item.data }))
-                    : docSnapshots
-                          .filter((item) => item.data.category === subChannel)
-                          .map((item) => ({ id: item.id, data: item.data }));
-
-            if (newRecruitmentData.length === 0) {
-                setHasMore(false);
-            } else {
-                setRecruitmentData((prevData) => [...prevData, ...newRecruitmentData]);
-                setPage((prevPage) => prevPage + 1);
-            }
-        } catch (error) {
-            console.error('데이터 가져오기 실패:', error);
-        } finally {
-            setLoading(false);
+    const handleEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            setSearching(true);
+        } else {
+            setSearching(false);
         }
     };
-
-    const handleScroll = () => {
-        const scrollTop = document.documentElement.scrollTop;
-        const windowHeight = window.innerHeight;
-        const scrollHeight = document.documentElement.scrollHeight;
-
-        if (scrollTop + windowHeight >= scrollHeight - 100 && !loading && hasMore) {
-            fetchData();
-        }
-    };
-
-    useEffect(() => {
-        fetchData();
-    }, [channel, subChannel]);
 
     useEffect(() => {
         if (searching) {
@@ -81,14 +45,27 @@ const Recruitment: React.FC = () => {
         } else {
             setFilteredData([]);
         }
-    }, [searching, searchTitle, recruitmentData]);
+    }, [searching]);
 
     useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
+        const fetchData = async () => {
+            try {
+                const { docSnapshots } = await showRecruitmentFields('recruitmentContainer', 'recruitment', channel);
+                const filteredData =
+                    subChannel === 'all'
+                        ? docSnapshots.map((item) => ({ id: item.id, data: item.data }))
+                        : docSnapshots
+                              .filter((item) => item.data.category === subChannel)
+                              .map((item) => ({ id: item.id, data: item.data }));
+
+                setRecruitmentData(filteredData);
+            } catch (error) {
+                console.error('데이터 가져오기 실패:', error);
+            }
         };
-    }, [handleScroll]);
+
+        fetchData();
+    }, [channel, subChannel]);
 
     return (
         <RecruitmentContainer>
@@ -103,6 +80,7 @@ const Recruitment: React.FC = () => {
                         placeholder="찾으시는 모임이 있나요?"
                         value={searchTitle}
                         onChange={(event) => setSearchTitle(event.target.value)}
+                        onKeyDown={handleEnterKey}
                     ></SearchInput>
                 </PostNav>
                 <PostsWrapper>
@@ -110,13 +88,10 @@ const Recruitment: React.FC = () => {
                         ? filteredData.map((data, index) => (
                               <Post key={index} data={data.data} id={data.id} index={index} channel={channel} />
                           ))
-                        : recruitmentData
-                              .slice(0, page * postsPerPage)
-                              .map((data, index) => (
-                                  <Post key={index} data={data.data} id={data.id} index={index} channel={channel} />
-                              ))}
+                        : recruitmentData.map((data, index) => (
+                              <Post key={index} data={data.data} id={data.id} index={index} channel={channel} />
+                          ))}
                 </PostsWrapper>
-                {loading && <div>Loading...</div>}
             </PostsContainer>
         </RecruitmentContainer>
     );
@@ -124,6 +99,7 @@ const Recruitment: React.FC = () => {
 
 const Post: React.FC<{ data: any; id: string; index: number; channel: string }> = ({ data, id, index, channel }) => (
     <Link to={`/recruitment/${channel}/${id}`}>
+        {/* ex) /recruitment/study/SD521S3SF3EB3H5 */}
         <PostWrapper key={index} style={index >= 1 ? { borderTop: '1px solid #BEBEBE' } : {}}>
             <div style={{ display: 'flex' }}>
                 <RecruitValued isRecruitCompleted={!data.recruitValued}>
