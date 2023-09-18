@@ -2,7 +2,7 @@ import ListBox from '../../components/ListBox';
 import '../../scss/projectList.scss';
 const NoticeList = (): JSX.Element => {
   const handleWriteBtn = (): void => {
-    location.href = '/write';
+    location.href = '/notice/write';
   };
 
   return (

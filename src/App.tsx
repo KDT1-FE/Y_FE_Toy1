@@ -7,7 +7,7 @@ import { Notice, Chart, Bylaws } from './views/company';
 import Attendance from './views/AttendancePage';
 import ProjectList from './views/ProjectList';
 import GalleryPage from './views/galleryPage';
-import WritePage from './views/WritePage';
+import NoticeWritePage from './views/NoticeWritePage';
 
 const App = () => {
   return (
@@ -19,7 +19,7 @@ const App = () => {
           <Route path="/company/bylaws" element={<Bylaws />} />
           <Route path="project" element={<ProjectList />} />
           <Route path="/gallery" element={<GalleryPage />} />
-          <Route path="/write" element={<WritePage />} />
+          <Route path="/notice/write" element={<NoticeWritePage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
