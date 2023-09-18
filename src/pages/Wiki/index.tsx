@@ -4,6 +4,7 @@ import MDEditor from '@uiw/react-md-editor';
 import { useState, useEffect } from 'react'
 import { create, read } from 'apis/Wiki';
 import { useLocation } from 'react-router-dom'
+import { Timestamp } from 'firebase/firestore'
 
 interface props {
   setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
@@ -48,6 +49,7 @@ function Wiki() {
   const [isEdit, setIsEdit] = useState(false)
   const [isDocumentExist, setDocumentExist] = useState(false)
   const [data, setData] = useState(Object);
+  const [documentTime, setDocumentTime] = useState('')
   const location = useLocation()  
   const searchParams = new URLSearchParams(location.search)
   let selectedCategory = searchParams.get('category')
@@ -57,6 +59,10 @@ function Wiki() {
     const document = await read(selectedCategory as string); 
     document === undefined ? setDocumentExist(false) : setDocumentExist(true)
     setData(document)
+    const time = document?.writeTime as Timestamp
+    if (time) {
+      setDocumentTime(time.toDate().toString())
+    } 
   }
 
   useEffect(() => {
@@ -90,6 +96,8 @@ function Wiki() {
                       <button>삭제하기</button>
                     </div>
                   </ButtonContainer>
+                  <p>최종 수정 시간: {documentTime}</p>
+                  <br/>
                   <MDEditor.Markdown className='markdownViewer' source={data?.content} /> 
                 </div>
             }
