@@ -3,6 +3,7 @@ import WriteTitle from '../components/write/WriteTitle';
 import WriteSubmitBtn from '../components/write/WriteSubmitBtn';
 
 import '../scss/components/writePage/writePage.scss';
+import ToastUi from '../components/write/ToastUi';
 
 const WritePage = () => {
   const handleSubmit = (e: React.FormEvent) => {
@@ -12,6 +13,7 @@ const WritePage = () => {
   return (
     <form className="write-form" onSubmit={handleSubmit}>
       <WriteTitle />
+      <ToastUi />
       <WriteSubmitBtn />
     </form>
   );
