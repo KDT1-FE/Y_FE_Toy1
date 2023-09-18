@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getStorage, GalleryData } from 'apis/Gallery';
 import { useLocation } from 'react-router-dom';
-// import DeleteGallery from 'components/DeleteGallery';
+import DeleteGallery from 'components/DeleteGallery';
 import styled from 'styled-components';
 import deleteIcon from '../../assets/icons/deleteIcon.png';
 
@@ -35,7 +35,7 @@ function ReadGallery() {
                   id={item.id}
                   src={deleteIcon}
                   onClick={() => {
-                    // DeleteGallery(item.id);
+                    DeleteGallery(item.id);
                   }}
                 ></StyledDeleteIcon>
               </StyledPhotoContainer>
