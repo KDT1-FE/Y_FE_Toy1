@@ -4,6 +4,8 @@ interface TitleProps {
   title: string;
 }
 
-export const FormTitle = ({ title }: TitleProps): JSX.Element => {
+const FormTitle = ({ title }: TitleProps): JSX.Element => {
   return <div className="authForm__title">{title}</div>;
 };
+
+export default FormTitle;

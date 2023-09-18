@@ -9,7 +9,7 @@ interface IconProps {
   input: InputType;
 }
 
-export const Icon = ({ input }: IconProps): JSX.Element => {
+const Icon = ({ input }: IconProps): JSX.Element => {
   if (!input.value) return <></>;
 
   if (input.validationPass) {
@@ -26,3 +26,5 @@ export const Icon = ({ input }: IconProps): JSX.Element => {
     );
   }
 };
+
+export default Icon;

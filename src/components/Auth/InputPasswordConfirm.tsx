@@ -12,7 +12,7 @@ interface PasswordConfirmProps {
   handlePasswordConfirm: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-export const InputPasswordConfirm = ({ passwordConfirm, handlePasswordConfirm }: PasswordConfirmProps): JSX.Element => {
+const InputPasswordConfirm = ({ passwordConfirm, handlePasswordConfirm }: PasswordConfirmProps): JSX.Element => {
   return (
     <div className="input-container">
       <input
@@ -35,3 +35,5 @@ export const InputPasswordConfirm = ({ passwordConfirm, handlePasswordConfirm }:
     </div>
   );
 };
+
+export default InputPasswordConfirm;
