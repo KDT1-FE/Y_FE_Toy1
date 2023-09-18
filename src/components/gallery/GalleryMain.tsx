@@ -4,10 +4,32 @@ import Button from "../common/Button";
 interface GalleryMainProps {
   album: string;
   imagePaths: string[];
+  viewImg: boolean;
+  imgLoad: boolean;
+  setViewImg: React.Dispatch<React.SetStateAction<boolean>>;
+  setCurImg: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function GalleryMain({ album, imagePaths }: GalleryMainProps) {
+export default function GalleryMain({
+  album,
+  imagePaths,
+  imgLoad,
+  setViewImg,
+  setCurImg,
+}: GalleryMainProps) {
   // console.log(imagePaths);
+
+  const clickImgHandle = (e: React.MouseEvent<HTMLImageElement>) => {
+    const backgroundStyle = window
+      .getComputedStyle(e.currentTarget)
+      .getPropertyValue("background-image");
+    const curImg = backgroundStyle.match(/url\("([^"]+)"\)/);
+    if (curImg) {
+      // console.log(curImg[1]);
+      setCurImg(curImg[1]);
+    }
+    setViewImg(true);
+  };
   return (
     <>
       <style.GalleryMain>
@@ -26,7 +48,12 @@ export default function GalleryMain({ album, imagePaths }: GalleryMainProps) {
           {imagePaths.map((img, i) => {
             return (
               <style.ImgWrap key={i}>
-                <style.Img img="#efefef" background={img}></style.Img>
+                <style.Img
+                  img="#efefef"
+                  background={img}
+                  onClick={clickImgHandle}
+                  className={imgLoad ? "skeleton" : ""}
+                ></style.Img>
               </style.ImgWrap>
             );
           })}

@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const GallerySide = styled.div`
-  // border: 1px solid green;
-  padding: 1rem 0;
+  border: 1px solid green;
+  padding-top: 1.88rem;
+  margin-right: 1.88rem;
   border: 0.06rem solid var(--color-light-gray);
   border-radius: 0.94rem;
   background-color: var(--color-white);
@@ -40,7 +41,7 @@ export const ListWrap = styled.ul`
 
 export const List = styled.li`
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   align-items: center;
   position: relative;
   cursor: pointer;
@@ -50,7 +51,7 @@ export const List = styled.li`
   font-size: 1rem;
   line-height: normal;
   text-align: left;
-  margin-left: 0.5rem;
+  padding-left: 2.63rem;
   user-select: none;
   &:hover,
   &.active {
@@ -58,8 +59,9 @@ export const List = styled.li`
     font-weight: bold;
   }
   &.bold {
+    justify-content: space-between;
     font-weight: bold;
-    margin-left: 0;
+    padding-left: 1.88rem;
   }
   &.add-list {
     background: #0016500c;
@@ -67,11 +69,20 @@ export const List = styled.li`
   }
 `;
 
+export const icon = styled.div`
+  width: 4.5px;
+  height: 4px;
+  border-left: 1px solid var(--color-light-gray);
+  border-bottom: 1px solid var(--color-light-gray);
+  margin-right: 0.59rem;
+`;
+
 export const Arrow = styled.span`
   height: 100%;
 `;
 
 export const ButtonWrap = styled.div`
+  margin-bottom: 1.88rem;
   display: flex;
   align-items: center;
   justify-content: center;
