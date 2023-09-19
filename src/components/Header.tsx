@@ -73,6 +73,7 @@ const Header = () => {
                         user={user}
                         /> : <></>}
                     </div>
+                    {displayUserInfo? <div onClick={()=>{setDisplayUserInfo(false)}} className="header__user-info-back"></div> : <></>}
                 </div>
               </>
             ) : (
@@ -176,7 +177,16 @@ const Container = styled.nav`
     position:absolute;
     top:60px;
     right:0;
-
+    z-index:15;
+  }
+  .header__user-info-back{
+    content:"";
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 14;
   }
 `;
 
