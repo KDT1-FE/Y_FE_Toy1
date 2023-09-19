@@ -1,10 +1,8 @@
-import React from 'react'
+import React from 'react';
+import Carousel from './Carousel';
 
-export default function Main() {
-
-  return (
-    <div>
-      Main
-    </div>
-  )
+function Main() {
+  return <Carousel />;
 }
+
+export default Main;
