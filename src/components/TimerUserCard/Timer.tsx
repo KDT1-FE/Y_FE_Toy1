@@ -12,6 +12,7 @@ import {
 import { db } from 'data/firebase';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/types'; // RootState 타입 추가
+import { formatTime } from 'data/formatTime';
 
 //unix timestamp
 const timeStamp = Math.floor(new Date().getTime() / 1000);
@@ -27,10 +28,6 @@ interface TimerProps {
 
 //Timer 컴포넌트
 export function Timer({ id }: TimerProps): JSX.Element {
-  const [currentHours, setCurrentHours] = useState(0);
-  const [currentMinutes, setCurrentMinutes] = useState(0);
-  const [currentSeconds, setCurrentSeconds] = useState(0);
-
   const [count, setCount] = useState(0);
   const intervalRef: React.MutableRefObject<unknown | null> = useRef(null);
 
@@ -114,14 +111,7 @@ export function Timer({ id }: TimerProps): JSX.Element {
     setCount(0);
   }, []);
 
-  useEffect(() => {
-    const hours = Math.floor(count / 3600);
-    const minutes = Math.floor((count % 3600) / 60);
-    const seconds = count % 60;
-    setCurrentHours(hours);
-    setCurrentSeconds(seconds);
-    setCurrentMinutes(minutes);
-  }, [count]);
+  const formattedTime = formatTime(count);
 
   const currentDate = getCurrentDateFromStamp(timeStamp);
 
@@ -131,11 +121,7 @@ export function Timer({ id }: TimerProps): JSX.Element {
 
   return (
     <div>
-      <p>
-        {currentHours < 10 ? `0${currentHours}` : currentHours}:
-        {currentMinutes < 10 ? `0${currentMinutes}` : currentMinutes}:
-        {currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
-      </p>
+      <p>{formattedTime}</p>
       {user.uid === id && (
         <button id={id} onClick={handleStart}>
           시작
