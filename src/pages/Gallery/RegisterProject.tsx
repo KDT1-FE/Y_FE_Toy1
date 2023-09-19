@@ -1,39 +1,25 @@
-import { ChangeEvent, useState, Dispatch, SetStateAction } from 'react';
+import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import { GalleryMainContainer, CategoryTitleSection, BreadCrumb } from './Project';
-
-// export const handleInputFileChangeAndSetState =
-//   <T extends any>(setState: Dispatch<SetStateAction<T>>, key: string) =>
-//   (e: ChangeEvent<HTMLInputElement>) => {
-//     const file = e.target.files && e.target.files[0];
-//     if (file) {
-//       const reader = new FileReader();
-//       reader.onload = (e) => {
-//         const newImageUrl = e.target?.result;
-//         setState((prevInfo) => ({
-//           ...(prevInfo as any),
-//           [key]: newImageUrl,
-//         }));
-//       };
-//       reader.readAsDataURL(file);
-//     }
-//   };
+import { collection, addDoc } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { db, storage } from '../../common/config';
 
 const RegisterProject = () => {
   const [projectInfo, setProjectInfo] = useState({
-    imageUrl: '',
+    imageUrl: '' as any,
     state: 'ongoing',
   });
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
         const newImageUrl = e.target?.result;
         setProjectInfo((prevInfo) => ({
           ...prevInfo,
-          imageUrl: newImageUrl as string,
+          imageUrl: newImageUrl,
         }));
       };
       reader.readAsDataURL(file);
@@ -48,9 +34,29 @@ const RegisterProject = () => {
     }));
   };
 
-  const postNewProject = () => {
-    alert('생성 완료');
-    window.location.href = `${projectInfo.state}`;
+  const postNewProject = async () => {
+    try {
+      if (projectInfo.imageUrl !== '') {
+        const imageBlob = await fetch(projectInfo.imageUrl).then((res) => res.blob());
+        const storageRef = ref(storage, `projectImage/${new Date().getTime()}`);
+        await uploadBytes(storageRef, imageBlob);
+        const imageUrl = await getDownloadURL(storageRef);
+
+        await addDoc(collection(db, 'projectData'), {
+          state: projectInfo.state,
+          imageUrl: imageUrl,
+        });
+      } else {
+        await addDoc(collection(db, 'projectData'), {
+          state: projectInfo.state,
+        });
+      }
+
+      alert('프로젝트 생성 완료');
+      window.location.href = `${projectInfo.state}`;
+    } catch (error) {
+      console.error('Error: ', error);
+    }
   };
 
   return (
