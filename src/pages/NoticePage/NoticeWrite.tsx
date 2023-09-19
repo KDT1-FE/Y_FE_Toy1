@@ -1,17 +1,22 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-import { doc, setDoc, updateDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { useNavigate } from "react-router-dom";
-import { db, storage } from "../../firebaseSDK";
-import * as S from "../../styled/NoticePage/NoticeWrite.styles";
-import FetchNoticeData from "../../utils/NoticePage/FetchNoticeData";
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import { doc, setDoc, updateDoc } from 'firebase/firestore';
+import { v4 as uuid } from 'uuid';
+import { deleteObject, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { useNavigate } from 'react-router-dom';
+import { db, storage } from '../../firebaseSDK';
+import * as S from '../../styled/NoticePage/NoticeWrite.styles';
+import getNoticesData from '../../utils/NoticePage/getNoticesData';
 
-function NoticeWrite({ isEdit, data }: any) {
+function NoticeWrite({ isEdit, noticeData }: any) {
   const [noticeNumber, setNoticeNumber] = useState(1);
-  const [password, setPassword] = useState("");
-  const [subject, setSubject] = useState("");
-  const [contents, setContents] = useState("");
-  const [imageName, setImageName] = useState("");
+  const [password, setPassword] = useState('');
+  const [subject, setSubject] = useState('');
+  const [contents, setContents] = useState('');
+  const [imageName, setImageName] = useState('');
+
+  const [passwordError, setPasswordError] = useState('');
+  const [subjectError, setSubjectError] = useState('');
+  const [contentsError, setContentsError] = useState('');
   const [uploadFile, setUploadFile] = useState<File | null>(null);
   const navigate = useNavigate();
 
@@ -22,6 +27,8 @@ function NoticeWrite({ isEdit, data }: any) {
     subject?: string;
     contents?: string;
     imageUrl?: string;
+    imageName?: string;
+    imageId?: string;
   };
 
   const onChangePassword = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -44,78 +51,139 @@ function NoticeWrite({ isEdit, data }: any) {
     }
   };
 
-  // 공지 등록 or 수정 함수
-  const onClickSubmit = async (): Promise<void> => {
-    const date = new Date();
-    let imageUrl = "";
+  // 공지사항 등록 유효성 검사
+  const isValid = (): void => {
+    if (password === '') {
+      setPasswordError('비밀번호를 입력해주세요.');
+    } else {
+      setPasswordError('');
+    }
 
+    if (isEdit === false) {
+      if (subject === '') {
+        setSubjectError('제목을 입력해주세요.');
+      } else {
+        setSubjectError('');
+      }
+
+      if (contents === '') {
+        setContentsError('공지내용을 입력해주세요.');
+      } else {
+        setContentsError('');
+      }
+    }
+  };
+
+  // 공지 등록 함수
+  const onClickSubmit = async (): Promise<void> => {
     try {
+      const date = new Date();
+      let imageUrl = '';
+      let imageId = '';
+
+      isValid();
+      if (password === '' || subject === '' || contents === '') return;
+
+      if (uploadFile !== null) {
+        // 이미지 업로드
+        imageId = uuid();
+        const imageRef = ref(storage, `notice/${imageId}`);
+
+        await uploadBytes(imageRef, uploadFile);
+        imageUrl = await getDownloadURL(imageRef);
+      }
+
+      await setDoc(doc(db, 'notice', String(noticeNumber)), {
+        noticeNumber,
+        password,
+        subject,
+        contents,
+        imageUrl,
+        imageName,
+        imageId,
+        createAt: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+      });
+
+      // eslint-disable-next-line no-alert
+      alert(`공지가 등록 되었습니다.`);
+      navigate(`/notice/${noticeNumber}`);
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
+
+  // 공지 수정 함수
+  const onClickUpdate = async (): Promise<void> => {
+    try {
+      const date = new Date();
+      let imageUrl = '';
+      let imageId = '';
+
+      isValid();
+      if (password === '') return;
+
       // 이미지 업로드
       if (uploadFile !== null) {
-        const imageRef = ref(storage, `notice/${uploadFile.name}`);
+        // 기존 이미지 삭제
+        if (noticeData?.imageId) {
+          const desertRef = ref(storage, `notice/${noticeData?.imageId}`);
+          await deleteObject(desertRef);
+        }
+
+        imageId = uuid();
+        const imageRef = ref(storage, `notice/${imageId}`);
         await uploadBytes(imageRef, uploadFile);
 
         imageUrl = await getDownloadURL(imageRef);
       }
 
-      if (isEdit) {
-        const updatedData: UpdatedData = {
-          noticeNumber: data?.noticeNumber,
-          createAt: `${date.getFullYear()}-${
-            date.getMonth() + 1
-          }-${date.getDate()}`,
-        };
+      const updatedData: UpdatedData = {
+        noticeNumber: noticeData?.noticeNumber,
+        createAt: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+      };
 
-        if (password !== "") {
-          updatedData.password = password;
-        }
-        if (subject !== "") {
-          updatedData.subject = subject;
-        }
-        if (contents !== "") {
-          updatedData.contents = contents;
-        }
-        if (imageUrl !== "") {
-          updatedData.imageUrl = imageUrl;
-        }
-
-        await updateDoc(
-          doc(db, "notice", String(data.noticeNumber)),
-          updatedData
-        );
-      } else {
-        await setDoc(doc(db, "notice", String(noticeNumber)), {
-          noticeNumber,
-          password,
-          subject,
-          contents,
-          imageUrl,
-          imageName,
-          createAt: `${date.getFullYear()}-${
-            date.getMonth() + 1
-          }-${date.getDate()}`,
-        });
+      if (password !== '') {
+        updatedData.password = password;
+      }
+      if (subject !== '') {
+        updatedData.subject = subject;
+      }
+      if (contents !== '') {
+        updatedData.contents = contents;
+      }
+      if (imageUrl !== '') {
+        updatedData.imageUrl = imageUrl;
       }
 
-      // eslint-disable-next-line no-alert
-      alert(`공지가 ${isEdit ? "수정" : "등록"} 되었습니다.`);
-      navigate(`/notice/${isEdit ? data.noticeNumber : noticeNumber}`);
+      if (imageName !== '') {
+        updatedData.imageName = imageName;
+      }
+
+      if (imageId !== '') {
+        updatedData.imageId = imageId;
+      }
+
+      await updateDoc(doc(db, 'notice', String(noticeData.noticeNumber)), updatedData);
     } catch (error) {
-      console.log("Error:", error);
+      console.log('Error: ', error);
     }
+
+    // eslint-disable-next-line no-alert
+    alert(`공지가 수정 되었습니다.`);
+    navigate(`/notice/${noticeData.noticeNumber}`);
   };
 
   // 공지사항 게시물 마지막 번호 가져오기 함수
   const getNoticeLastId = async (): Promise<void> => {
     try {
-      const dataList = await FetchNoticeData();
+      const dataList = await getNoticesData();
 
       if (dataList) {
         const lastNumber = dataList[0].noticeNumber;
         setNoticeNumber(lastNumber + 1);
       }
     } catch (error) {
-      console.log("Error:", error);
+      console.log('Error:', error);
     }
   };
 
@@ -126,56 +194,47 @@ function NoticeWrite({ isEdit, data }: any) {
 
   return (
     <S.Wrapper>
-      <S.Title>공지사항 {isEdit ? "수정" : "등록"}하기</S.Title>
+      <S.Title>공지사항 {isEdit ? '수정' : '등록'}하기</S.Title>
       <S.InputWrapper>
         <S.Label>공지 비밀번호</S.Label>
-        <S.Password
-          type="password"
-          placeholder="비밀번호를 입력해주세요."
-          onChange={onChangePassword}
-        />
+        <S.Password type='password' placeholder='비밀번호를 입력해주세요.' onChange={onChangePassword} />
+        <S.ErrorDiv>{passwordError}</S.ErrorDiv>
       </S.InputWrapper>
       <S.InputWrapper>
         <S.Label>제목</S.Label>
         <S.Subject
-          type="text"
-          placeholder="제목을 입력해주세요."
+          type='text'
+          placeholder='제목을 입력해주세요.'
           onChange={onChangeSubject}
-          defaultValue={data?.subject}
+          defaultValue={noticeData?.subject}
         />
+        <S.ErrorDiv>{subjectError}</S.ErrorDiv>
       </S.InputWrapper>
       <S.InputWrapper>
         <S.Label>공지내용</S.Label>
         <S.Contents
           onChange={onChangeContents}
-          placeholder="공지내용을 입력해주세요."
-          defaultValue={data?.contents}
+          placeholder='공지내용을 입력해주세요.'
+          defaultValue={noticeData?.contents}
         />
+        <S.ErrorDiv>{contentsError}</S.ErrorDiv>
       </S.InputWrapper>
       <S.InputWrapper>
         <S.Label>사진첨부</S.Label>
 
         <S.ImageWrapper>
-          <S.ImageName
-            type="text"
-            value={data?.imageName ?? imageName}
-            readOnly
-          />
-          <S.ImageLabel htmlFor="input-file">
+          <S.ImageName type='text' value={imageName || noticeData?.imageName || ''} readOnly />
+          <S.ImageLabel htmlFor='input-file'>
             업로드
-            <S.ImageUpload
-              id="input-file"
-              type="file"
-              onChange={onChangeImage}
-            />
+            <S.ImageUpload id='input-file' type='file' onChange={onChangeImage} />
           </S.ImageLabel>
         </S.ImageWrapper>
       </S.InputWrapper>
       <S.BtnWrapper>
-        <S.SubmitBtn type="button" onClick={onClickSubmit}>
-          {isEdit ? "수정" : "등록"}
+        <S.SubmitBtn type='button' onClick={isEdit === true ? onClickUpdate : onClickSubmit}>
+          {isEdit ? '수정' : '등록'}
         </S.SubmitBtn>
-        <S.CancelBtn type="button" onClick={() => navigate(-1)}>
+        <S.CancelBtn type='button' onClick={() => navigate(-1)}>
           취소
         </S.CancelBtn>
       </S.BtnWrapper>
