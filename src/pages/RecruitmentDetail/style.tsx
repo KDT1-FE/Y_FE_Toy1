@@ -114,12 +114,13 @@ export const ContentSub = styled.div`
 
 export const CommentWrapper = styled.div`
     width: 95%;
-    min-height: 200px;
+    min-height: 140px;
     height: auto;
 
     background-color: white;
 
     margin: 20px auto;
+    padding: 20px 0;
 `;
 
 export const CommentItemWrapper = styled.div`
@@ -127,12 +128,13 @@ export const CommentItemWrapper = styled.div`
     height: 100px;
 
     padding: 20px;
+    margin-bottom: 20px;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
 
-    border: 1px solid #efefef;
+    border-bottom: 1px solid #efefef;
 
     position: relative;
 `;
@@ -140,6 +142,7 @@ export const CommentItemWrapper = styled.div`
 export const CommentName = styled.div`
     font-size: 1rem;
     font-weight: 500;
+    margin-bottom: 10px;
 `;
 
 export const CommentForm = styled.form`
@@ -231,6 +234,28 @@ export const CommentNameInput = styled.input`
     font-weight: 500;
 `;
 
+export const CommentCreateWrapper = styled.div`
+    width: 98%;
+
+    margin: 0 auto;
+    padding: 20px;
+
+    border-radius: 20px;
+    border: 1px solid gray;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+`;
+
+export const CommentInputWrapper = styled.div`
+    display: flex;
+`;
+
+export const CommentBtn = styled.button`
+    margin-left: 20px;
+    height: 60px;
+`;
 // DeleteModal
 
 export const DeleteModalContainer = styled.div`

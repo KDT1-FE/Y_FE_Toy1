@@ -24,6 +24,9 @@ import {
     DeleteText,
     RecruitmentEndBtn,
     ContentUserImage,
+    CommentCreateWrapper,
+    CommentInputWrapper,
+    CommentBtn,
 } from './style';
 import CommentItem from './CommentItem';
 import {
@@ -204,21 +207,28 @@ const RecruitmentDetail: React.FC = () => {
                 {data.comment ? (
                     <CommentWrapper>
                         {data.comment ? data.comment.map((v: any, i: number) => <CommentItem comment={v} i={i} />) : ''}
-                        <CommentItemWrapper>
-                            <CommentName>{userName}</CommentName>
-                            <form id="comment" onSubmit={handleCreateCommentSubmit}>
-                                <input
-                                    type="text"
-                                    name="uid"
-                                    defaultValue={userId}
-                                    disabled
-                                    style={{ display: 'none' }}
-                                />
-                                <textarea name="content" style={{ width: '100%' }} required />
-
-                                <button type="submit">작성하기</button>
-                            </form>
-                        </CommentItemWrapper>
+                        <CommentCreateWrapper>
+                            <CommentName>댓글 쓰기</CommentName>
+                            <CommentInputWrapper>
+                                <form id="comment" onSubmit={handleCreateCommentSubmit}>
+                                    <input
+                                        type="text"
+                                        name="uid"
+                                        defaultValue={userId}
+                                        disabled
+                                        style={{ display: 'none' }}
+                                    />
+                                    <textarea
+                                        name="content"
+                                        style={{ width: '880px', height: '60px', border: '1px solid gray' }}
+                                        required
+                                    />
+                                </form>
+                                <CommentBtn type="submit" form="comment">
+                                    작성하기
+                                </CommentBtn>
+                            </CommentInputWrapper>
+                        </CommentCreateWrapper>
                     </CommentWrapper>
                 ) : (
                     ''
