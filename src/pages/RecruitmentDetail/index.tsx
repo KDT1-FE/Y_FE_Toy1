@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-    CommentBtn,
     CommentItemWrapper,
     Btn,
     BtnWrapper,
@@ -23,9 +22,18 @@ import {
     DeleteFallbackButton,
     DeleteCreateButton,
     DeleteText,
+    RecruitmentEndBtn,
+    ContentUserImage,
 } from './style';
 import CommentItem from './CommentItem';
-import { getRecruitmentDetail, getUserName, createComment, deleteRecruitment } from '../../utils/firebase';
+import {
+    getRecruitmentDetail,
+    getUserName,
+    createComment,
+    deleteRecruitment,
+    updateRecruitment,
+    getUserImageURL,
+} from '../../utils/firebase';
 import MDEditor from '@uiw/react-md-editor';
 import { useRecoilState } from 'recoil';
 import { UserId } from '../../utils/recoil';
@@ -35,6 +43,7 @@ import { RecruitmentData } from '../../utils/recoil';
 const RecruitmentDetail: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
     const [userName, setUserName] = useState('');
+    const [userImageURL, setUserImageURL] = useState('');
     const [recruitmentData, setRecruitmentData] = useRecoilState(RecruitmentData);
     const [deleteModalValued, setDeleteModalValued] = useState(false);
 
@@ -62,6 +71,15 @@ const RecruitmentDetail: React.FC = () => {
         getUserName(userId)
             .then((result) => {
                 setUserName(result);
+            })
+            .catch((error) => {
+                // 에러 핸들링
+                console.error('Error fetching data:', error);
+            });
+
+        getUserImageURL(userId)
+            .then((result) => {
+                setUserImageURL(result);
             })
             .catch((error) => {
                 // 에러 핸들링
@@ -115,6 +133,13 @@ const RecruitmentDetail: React.FC = () => {
         setDeleteModalValued(!deleteModalValued);
     };
 
+    const handleRecruitmentValued = () => {
+        data.recruitValued = !data.recruitValued;
+        updateRecruitment(channel, path, data);
+
+        navigate('/recruitment');
+    };
+
     return (
         <RecruitmentDetailContainer>
             {deleteModalValued ? (
@@ -136,6 +161,7 @@ const RecruitmentDetail: React.FC = () => {
             <ContentContainer>
                 <ContentWrapper>
                     <ContentHeader>
+                        <ContentUserImage src={userImageURL} />
                         <ContentHeaderName>{data.name}</ContentHeaderName>
                         {data.recruitValued ? (
                             <ContentHeaderValuedTrue>모집중</ContentHeaderValuedTrue>
@@ -148,7 +174,8 @@ const RecruitmentDetail: React.FC = () => {
                         <p>{new Date(data.time?.toMillis()).toLocaleString()}</p>
                         {userId == data.uid ? (
                             <BtnWrapper>
-                                <Btn onClick={handleEdit}>수정하기</Btn>
+                                {data.recruitValued ? <Btn onClick={handleEdit}>수정하기</Btn> : ''}
+
                                 <Btn onClick={handleDeleteModal}>삭제하기</Btn>
                             </BtnWrapper>
                         ) : (
@@ -163,8 +190,16 @@ const RecruitmentDetail: React.FC = () => {
                         source={data.content}
                         style={{ width: '100%', padding: '20px', backgroundColor: 'white' }}
                     />
+                    {userId == data.uid ? (
+                        data.recruitValued ? (
+                            <RecruitmentEndBtn onClick={handleRecruitmentValued}>모집 마감</RecruitmentEndBtn>
+                        ) : (
+                            ''
+                        )
+                    ) : (
+                        ''
+                    )}
                 </ContentWrapper>
-                <CommentBtn>댓글 쓰기</CommentBtn>
 
                 {data.comment ? (
                     <CommentWrapper>

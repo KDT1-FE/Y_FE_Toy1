@@ -7,7 +7,7 @@ export const RecruitmentDetailContainer = styled.div`
     width: 100vw;
 
     overflow: auto;
-    background-color: #efefef;
+    background-color: var(--mention-badge);
 
     position: relative;
 `;
@@ -27,6 +27,8 @@ export const ContentWrapper = styled.div`
     width: 95%;
     min-height: 500px;
     height: auto;
+
+    position: relative;
 `;
 
 export const ContentHeader = styled.div`
@@ -38,12 +40,24 @@ export const ContentHeader = styled.div`
     align-items: center;
 
     border-bottom: 1px solid #efefef;
+    position: relative;
 `;
 
 export const ContentHeaderName = styled.div`
-    margin-left: 20px;
+    margin-left: 50px;
 
     font-size: 1.2rem;
+    font-weight: 500;
+`;
+
+export const ContentUserImage = styled.img`
+    width: 30px;
+    height: 30px;
+    border-radius: 20px;
+
+    position: absolute;
+    top: 8px;
+    left: 10px;
 `;
 
 export const ContentHeaderValuedTrue = styled.div`
@@ -53,7 +67,7 @@ export const ContentHeaderValuedTrue = styled.div`
     font-size: 1rem;
 
     color: white;
-    background-color: var(--active-item);
+    background-color: var(--active-current-status);
 
     border-radius: 15px;
 `;
@@ -96,22 +110,6 @@ export const ContentSub = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-`;
-
-export const CommentBtn = styled.div`
-    width: 150px;
-    height: 50px;
-
-    padding: 10px 20px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    color: white;
-    background-color: var(--active-item);
-
-    margin-left: 2.5%;
 `;
 
 export const CommentWrapper = styled.div`
@@ -178,15 +176,54 @@ export const BtnWrapper = styled.div`
 `;
 
 export const Btn = styled.button`
-    font-size: 0.8rem;
-
-    color: black;
-    background-color: #efefef;
-
     margin-right: 10px;
     padding: 3px 6px;
 
-    border-radius: 5px;
+    background-color: #ffffff;
+    color: black;
+
+    height: 30px;
+    width: 70px;
+
+    font-size: 0.8rem;
+    font-weight: bold;
+
+    border: 1px solid gray;
+    border-radius: 8px;
+    border: 0.5px solid black;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #efefef;
+    }
+`;
+
+export const RecruitmentEndBtn = styled.button`
+    margin-right: 10px;
+    padding: 3px 6px;
+
+    background-color: #ffffff;
+    color: black;
+
+    height: 35px;
+    width: 80px;
+
+    font-size: 1rem;
+    font-weight: bold;
+
+    border: 1px solid gray;
+    border-radius: 8px;
+    border: 0.5px solid black;
+
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    &:hover {
+        cursor: pointer;
+        background-color: #efefef;
+    }
 `;
 
 export const CommentNameInput = styled.input`

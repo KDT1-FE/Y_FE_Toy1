@@ -197,6 +197,17 @@ export const getUserName = async (uid: string) => {
     }
 };
 
+export const getUserImageURL = async (uid: string) => {
+    const docRef = doc(firestore, 'user', uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        return docSnap.data().imageURL;
+    } else {
+        console.log('No such document!');
+    }
+};
+
 interface Value {
     uid: string;
     content: string;

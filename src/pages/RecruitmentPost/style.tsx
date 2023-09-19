@@ -6,7 +6,7 @@ export const RecruitmentPostContainer = styled.div`
     width: 100vw;
 
     overflow: auto;
-    background-color: #efefef;
+    background-color: var(--mention-badge);
 `;
 
 export const PostContainer = styled.div`
