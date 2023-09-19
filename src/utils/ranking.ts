@@ -21,14 +21,10 @@ export async function getDocsToArr() {
 
 // 이름 & 공부시간 firestore에 포스트
 export async function postData(id: string, secs: number) {
-  try {
-    await setDoc(doc(db, "ranking", id), {
-      name: id,
-      time: secs,
-    });
-  } catch (err) {
-    console.error(err);
-  }
+  await setDoc(doc(db, "ranking", id), {
+    name: id,
+    time: secs,
+  });
 }
 
 // 공부량순으로 정렬하기
