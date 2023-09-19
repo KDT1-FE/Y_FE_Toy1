@@ -58,3 +58,7 @@ export const UserImg = atom({
     key: 'UserImg',
     default: '',
 });
+export const Render = atom({
+    key: 'Render',
+    default: true,
+});

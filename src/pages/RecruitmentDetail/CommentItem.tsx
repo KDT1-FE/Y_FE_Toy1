@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { CommentContent, CommentItemWrapper, Btn, BtnWrapper, CommentName, CommentTime, CommentForm } from './style';
 import { getRecruitmentDetail, getUserName, deleteComment } from '../../utils/firebase';
 import { useRecoilState } from 'recoil';
-import { UserId } from '../../utils/recoil';
+import { UserId, Render } from '../../utils/recoil';
 import { useParams, useNavigate } from 'react-router-dom';
 
 interface CommentProps {
@@ -16,6 +16,7 @@ interface CommentProps {
 }
 const CommentItem: React.FC<CommentProps> = (props) => {
     const [userId, setUserId] = useRecoilState(UserId);
+    const [render, setRender] = useRecoilState(Render);
 
     const [data, setData] = useState<any>({});
     const { channel, path } = useParams<{ channel: string; path: string }>();
@@ -51,8 +52,7 @@ const CommentItem: React.FC<CommentProps> = (props) => {
             ) {
                 const value = { uid: e.target.uid.value, content: e.target.content.value, time: e.target.time.value };
                 await deleteComment(channel, path, value);
-
-                location.reload();
+                setRender(!render);
             } else {
                 console.error('uid 또는 content가 정의되지 않았습니다.');
             }

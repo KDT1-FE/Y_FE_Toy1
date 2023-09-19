@@ -68,6 +68,7 @@ const RecruitmentPost: React.FC = () => {
 
             const value = {
                 uid: userId,
+                name: userName,
                 category: e.target.category.value,
                 title: e.target.title.value,
                 content: e.target.content.value,
