@@ -1,7 +1,7 @@
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { db } from '../../firebaseSDK';
 
-const FetchNoticeData = async () => {
+const getNoticeData = async () => {
   try {
     const notice = collection(db, 'notice');
     const querySnapshot = await getDocs(query(notice, orderBy('noticeNumber', 'desc')));
@@ -12,4 +12,4 @@ const FetchNoticeData = async () => {
   return null;
 };
 
-export default FetchNoticeData;
+export default getNoticeData;
