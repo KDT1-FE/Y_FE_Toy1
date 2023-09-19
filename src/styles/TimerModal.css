@@ -224,37 +224,90 @@
   border: 2px solid grey;
 }
 
+/* 전송버튼 */
 .SubmitButton {
+  display: inline-block;
+
   position: absolute;
   top: 80%;
   left: 48%;
 
-  padding: 8px 10px;
+  width: 66px;
+  height: 36px;
 
-  border: none;
-  border-radius: 4px;
-  background-color: #c0c2c5;
-  box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, 0.2);
+  padding: 8px 8px;
+  margin: 0;
+
+  box-sizing: border-box;
+
+  background-color: #1899d6;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
 
   color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  text-align: center;
+  vertical-align: middle;
+
+  letter-spacing: 0.8px;
+  line-height: 20px;
+  white-space: nowrap;
+
+  appearance: button;
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
-}
-
-.SubmitButton:hover {
-  background-color: #d5d7da;
-}
-
-.SubmitButton:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(187, 189, 190, 0.5);
+  overflow: visible;
+  touch-action: manipulation;
+  transform: translateZ(0);
+  transition: filter 0.2s;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.SubmitButton:after {
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: -1;
+
+  background-clip: padding-box;
+  background-color: #02a4f0;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+
+  content: "";
+}
+
+.SubmitButton:main,
+.SubmitButton:focus {
+  user-select: auto;
+}
+
+.SubmitButton:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.SubmitButton:disabled {
+  cursor: auto;
+}
+
+.SubmitButton:active:after {
+  border-width: 0 0 0px;
 }
 
 .SubmitButton:active {
-  background-color: #c7c8c9;
-  box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.2);
+  padding-bottom: 10px;
 }
 
+/* 제출 설명 */
 .SubmitDescription {
   position: absolute;
   top: 90%;
