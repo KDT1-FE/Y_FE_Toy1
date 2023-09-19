@@ -1,19 +1,13 @@
 import WikiSaveButton from "./WikiButton";
+import { WikiTopProps } from "./WikiCommonType";
 import * as Styled from "./WikiTopStyle";
-
-type Props = {
-  title: string;
-  isEditMode: boolean;
-  onRegister: () => void;
-  onSave: () => void;
-};
 
 export default function WikiTop({
   title,
   isEditMode,
   onSave,
   onRegister,
-}: Props) {
+}: WikiTopProps) {
   return (
     <Styled.WikiTop>
       <Styled.WikiTitle>{title}</Styled.WikiTitle>

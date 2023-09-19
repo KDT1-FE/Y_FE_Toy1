@@ -1,20 +1,7 @@
 import WikiEditButton from "./WikiButton";
 import * as Styled from "./WikiContentStyle";
 import { WikiForm } from "./WikiForm";
-import { Wiki } from "@/pages/wiki/WikiType";
-import { Editor } from "@toast-ui/react-editor";
-
-interface Props {
-  Wiki: Wiki | null;
-  form: Wiki;
-  isEditMode: boolean;
-  onFormChange: (key: keyof Wiki, value: string) => void;
-  onWikiEditButtonClick: () => void;
-  onWikiDeleteButtonClick: () => void;
-  toggleEditMode: () => void;
-  editorRef: React.MutableRefObject<Editor | null>;
-  parents: Wiki[];
-}
+import { WikiContentProps } from "@/components/wiki/WikiCommonType";
 
 export default function WikiContent({
   Wiki,
@@ -26,7 +13,7 @@ export default function WikiContent({
   onFormChange,
   editorRef,
   parents,
-}: Props) {
+}: WikiContentProps) {
   function onEditButtonClick() {
     onWikiEditButtonClick();
     toggleEditMode();
@@ -47,9 +34,13 @@ export default function WikiContent({
           <Styled.ContentsTitle>
             <Styled.TitleText>{Wiki.title}</Styled.TitleText>
             <div>
-              <span> 최종수정일: {Wiki.updatedAt}</span>
+              {Wiki.updatedAt === ""
+                ? `작성일: ${Wiki.createdAt}`
+                : `최종수정일: ${Wiki.updatedAt}`}
               <Styled.EditDetails>
-                최종수정자: {Wiki.authorID}
+                {Wiki.lastUpdatedBy === ""
+                  ? `작성자: ${Wiki.authorID}`
+                  : `최종수정자: ${Wiki.lastUpdatedBy}`}
               </Styled.EditDetails>
               <WikiEditButton
                 text={"삭제"}

@@ -1,18 +1,16 @@
 import * as Styled from "./WikiContentStyle";
 import * as FormStyled from "./WikiFormStyle";
-import { Wiki } from "@/pages/wiki/WikiType";
+import { WikiFormProps } from "@/components/wiki/WikiCommonType";
 import "@toast-ui/editor/dist/toastui-editor.css";
-import { Editor } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/i18n/ko-kr";
+import { WikiEditor } from "./WikiEditor";
 
-type Props = {
-  form: Wiki;
-  onFormChange: (key: keyof Wiki, value: string) => void;
-  editorRef: React.MutableRefObject<Editor | null>;
-  parents: Wiki[];
-};
-
-export const WikiForm = ({ form, onFormChange, editorRef, parents }: Props) => {
+export const WikiForm = ({
+  form,
+  onFormChange,
+  editorRef,
+  parents,
+}: WikiFormProps) => {
   return (
     <>
       <Styled.ContentsTitle>
@@ -37,7 +35,8 @@ export const WikiForm = ({ form, onFormChange, editorRef, parents }: Props) => {
         </Styled.TitleText>
       </Styled.ContentsTitle>
 
-      <Editor
+      <WikiEditor form={form} editorRef={editorRef}></WikiEditor>
+      {/*   <Editor
         height="550px"
         ref={editorRef}
         initialValue={form.content ? form.content : " "}
@@ -51,7 +50,7 @@ export const WikiForm = ({ form, onFormChange, editorRef, parents }: Props) => {
           ["code", "codeblock"],
         ]}
         language="ko-KR"
-      ></Editor>
+      ></Editor> */}
     </>
   );
 };

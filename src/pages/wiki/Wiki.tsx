@@ -4,10 +4,11 @@ import wikiInitData from "@/db/wiki/wikiInitData.json";
 import WikiContent from "@/components/wiki/WikiContent";
 import WikiCategoryList from "@/components/wiki/WikiCategoryList";
 import WikiTop from "@/components/wiki/WikiTop";
-import { Wiki } from "./WikiType";
+import { Wiki } from "../../components/wiki/WikiCommonType";
 import { Editor } from "@toast-ui/react-editor";
+import { Props } from "@/App";
 
-export default function WikiPage() {
+export default function WikiPage({ email }: Props) {
   const [wikiData, setWikiData] = useState<Wiki[]>(wikiInitData);
   const [isEditMode, setIsEditMode] = useState(false);
   const [showCategoryList, setShowCategoryList] = useState(true);
@@ -23,6 +24,7 @@ export default function WikiPage() {
         authorID: "",
         createdAt: "",
         updatedAt: "",
+        lastUpdatedBy: email,
       };
   const [form, setForm] = useState<Wiki>(initialFormValue);
   const [displayedWikis, setDisplayedWikis] = useState<Wiki[]>(
@@ -90,6 +92,7 @@ export default function WikiPage() {
       authorID: "",
       createdAt: "",
       updatedAt: "",
+      lastUpdatedBy: email,
     });
   }
 
