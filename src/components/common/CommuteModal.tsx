@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Button from "./Button";
 import * as style from "./commuteModalStyle";
 
@@ -6,6 +7,15 @@ interface Props {
 }
 
 export default function CommuteModal({ onCommuteClick }: Props) {
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <style.Container>
       <style.ModalWrapper>
@@ -15,8 +25,10 @@ export default function CommuteModal({ onCommuteClick }: Props) {
         ></style.Xicon>
         <style.Title>출퇴근 처리</style.Title>
         <style.TimeBox>
-          <style.Date>2023.09.08</style.Date>
-          <style.NowTime>19:00:00</style.NowTime>
+          <style.Date>
+            {time.getFullYear()}.{time.getMonth() + 1}.{time.getDate()}
+          </style.Date>
+          <style.NowTime>{time.toLocaleTimeString()}</style.NowTime>
         </style.TimeBox>
 
         <style.CommuteTimeWrapper>
