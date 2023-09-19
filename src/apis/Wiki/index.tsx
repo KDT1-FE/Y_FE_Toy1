@@ -1,4 +1,4 @@
-import { getFirestore, collection, addDoc, query, getDocs, where, orderBy, limit, serverTimestamp } from 'firebase/firestore/lite';
+import { getFirestore, collection, addDoc, doc, query, getDocs, where, orderBy, limit, serverTimestamp, deleteDoc } from 'firebase/firestore/lite';
 import { app } from 'apis/firebase';
 
 const db = getFirestore(app);
@@ -27,5 +27,16 @@ export const read = async function(category: string) {
     return latestDocument.docs[0].data();
   } else {
     return;
+  }
+}
+
+export const wikiDelete = async function (category: string) {
+  try {
+    await deleteDoc(doc(db, `wiki/${category}`))
+    console.log('wiki delete success')
+    window.location.reload()
+  } catch(e) {
+    alert('삭제에 실패했습니다.')
+    console.error(e)
   }
 }
