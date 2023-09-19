@@ -107,6 +107,7 @@ function TimerModal(props: TimerModalProps) {
               >
                 Submit
               </button>
+              <p className="SubmitDescription">내 공부 시간 랭킹에 기록하기</p>
             </div>
           )}
         </main>

@@ -254,3 +254,12 @@
   background-color: #c7c8c9;
   box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.2);
 }
+
+.SubmitDescription {
+  position: absolute;
+  top: 90%;
+  left: 30%;
+
+  color: rgb(170, 175, 175);
+  font-size: 12px;
+}
