@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { BsCalendar4Event } from 'react-icons/bs';
 import { CiSearch } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CommuteModal from './CommuteModal';
 import UserResult from './UserProfile';
 import useCommute from '../hooks/useCommute';
