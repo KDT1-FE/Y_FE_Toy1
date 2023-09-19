@@ -27,6 +27,10 @@ const RecruitmentEdit: React.FC = () => {
 
     const [categoryToggle, setCategoryToggle] = useState('toyProject');
     const [userName, setUserName] = useState('');
+    const [peopleValue, setPeopleValue] = useState(1);
+
+    const min = 1;
+    const max = 50;
 
     const navigate = useNavigate();
 
@@ -34,7 +38,7 @@ const RecruitmentEdit: React.FC = () => {
     const path = location.pathname.split('/')[4];
 
     useEffect(() => {
-        if (!recruitmentData.title) {
+        if (recruitmentData.uid != userId) {
             navigate('/recruitment');
         }
         getUserName(userId)
@@ -145,9 +149,21 @@ const RecruitmentEdit: React.FC = () => {
                         <TextField
                             defaultValue={recruitmentData.people}
                             id="standard-basic"
+                            label="모집 인원"
                             variant="standard"
                             type="number"
                             name="people"
+                            placeholder="1"
+                            inputProps={{ min, max }}
+                            value={peopleValue}
+                            onChange={(e) => {
+                                let peopleValue = parseInt(e.target.value, 10);
+
+                                if (peopleValue > max) peopleValue = max;
+                                if (peopleValue < min) peopleValue = min;
+
+                                setPeopleValue(peopleValue);
+                            }}
                             style={{ width: '150px' }}
                         />
                     </PostBox>
