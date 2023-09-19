@@ -1,0 +1,105 @@
+@use '../../abstracts' as *;
+@use '../../base' as *;
+
+@keyframes error-icon-border {
+  0% {
+    border-color: $failed;
+  }
+  50% {
+    border-color: $white;
+  }
+  100% {
+    border-color: $failed;
+  }
+}
+
+@keyframes error-icon-content {
+  0% {
+    background: $failed;
+  }
+  50% {
+    background: $white;
+  }
+  100% {
+    background: $failed;
+  }
+}
+
+.swal-overlay {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.swal-modal {
+  background: $bg-light;
+
+  &.error .swal-icon {
+    width: 5rem;
+    height: 5rem;
+    margin-bottom: 1rem;
+
+    &--warning {
+      animation: error-icon-border 1s;
+      animation-iteration-count: infinite;
+
+      &__body {
+        height: 2.2rem;
+      }
+      &__dot {
+        margin-left: -0.35rem;
+      }
+
+      &__body,
+      &__dot {
+        animation: error-icon-content 1s;
+        animation-iteration-count: infinite;
+      }
+    }
+  }
+
+  &.success .swal-icon--success {
+    border-color: $blue;
+
+    &__line {
+      background: $blue;
+    }
+
+    &__hide-corners {
+      display: none;
+    }
+
+    &::before {
+      display: none;
+    }
+    &::after {
+      display: none;
+    }
+  }
+
+  .swal-title {
+    font-size: $font-lg;
+  }
+
+  &.error .swal-text {
+    color: $failed;
+  }
+
+  &.error .swal-button {
+    background: $failed;
+
+    &:hover {
+      background-color: red;
+    }
+  }
+
+  &.success .swal-text {
+    color: $blue;
+  }
+
+  &.success .swal-button {
+    background: $blue;
+
+    &:hover {
+      background-color: $darkBlue;
+    }
+  }
+}
