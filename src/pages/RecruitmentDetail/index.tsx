@@ -13,6 +13,7 @@ import {
     ContentSub,
     ContentTitleWrapper,
     ContentWrapper,
+    Content,
     RecruitmentDetailContainer,
     DeleteModalContainer,
     DeleteModalWrapper,
@@ -189,10 +190,8 @@ const RecruitmentDetail: React.FC = () => {
                         <p>분야 : {data.category}</p>
                         <p>인원 : {data.people}</p>
                     </ContentSub>
-                    <MDEditor.Markdown
-                        source={data.content}
-                        style={{ width: '100%', padding: '20px', backgroundColor: 'white' }}
-                    />
+                    <Content>{data.content}</Content>
+
                     {userId == data.uid ? (
                         data.recruitValued ? (
                             <RecruitmentEndBtn onClick={handleRecruitmentValued}>모집 마감</RecruitmentEndBtn>
