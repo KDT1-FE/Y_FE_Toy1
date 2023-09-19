@@ -28,6 +28,7 @@ export default function CurrentImg({
   useEffect(() => {
     const index = imagePaths.findIndex((imagePath) => imagePath === curImg);
     setCurIndex(index);
+    console.log(curIndex);
   }, [curIndex]);
 
   const nextImg = () => {
@@ -117,9 +118,9 @@ export default function CurrentImg({
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") {
-        nextImg();
+        if (curIndex !== imagePaths.length - 1) nextImg();
       } else if (e.key === "ArrowLeft") {
-        prevtImg();
+        if (curIndex !== 0) prevtImg();
       }
     };
 
