@@ -15,6 +15,7 @@ import { auth } from 'apis/firebase';
 // import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Loading from 'components/Common/Loading';
+import Calendar from 'pages/Calendar';
 
 function App() {
   const [user, loading, error] = useAuthState(auth);
@@ -41,6 +42,10 @@ function App() {
         <Route
           path={ROUTES.WIKI}
           element={user ? <Wiki /> : <Navigate to="/login" />}
+        ></Route>
+        <Route
+          path={ROUTES.CALENDAR}
+          element={user ? <Calendar /> : <Navigate to="/login" />}
         ></Route>
         <Route
           path={ROUTES.LOGIN}

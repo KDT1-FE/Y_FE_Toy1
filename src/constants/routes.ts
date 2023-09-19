@@ -4,4 +4,5 @@ export const ROUTES = {
   GALLERY: '/gallery',
   LOGIN: '/login',
   MAIN: '/',
+  CALENDAR: '/calendar',
 };
