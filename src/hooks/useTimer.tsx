@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react";
-import calculateTimer from "../utils/timer";
+import {calculateTimer} from "../utils/timerAndRanking";
 
 export default function useTimer(initialTime: number = 0) {
   const [timeInSeconds, setTimeInSeconds] = useState<number>(initialTime);

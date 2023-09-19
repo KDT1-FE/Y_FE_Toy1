@@ -6,7 +6,7 @@ import {
   getDayAndReset,
   getDocsToArr,
   secsToMins,
-} from "../utils/ranking";
+} from "../utils/timerAndRanking";
 
 function Ranking() {
   const [data, setData] = useState<any[]>();

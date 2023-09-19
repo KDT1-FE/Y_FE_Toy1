@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {ControlsProps} from "../../types/Modal";
 import "../../styles/timer/timerModal.css";
-import calculateStudyTime from "../../utils/studyTimeCalculator";
+import {calculateStudyTime} from "../../utils/timerAndRanking";
 
 function Controls(props: ControlsProps) {
   const {

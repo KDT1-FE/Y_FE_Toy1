@@ -76,3 +76,28 @@ export function secsToMins(secs: number) {
     secs: seconds,
   };
 }
+
+export function calculateTimer(timeInSeconds: number): Array<number | string> {
+  const hours: number = Math.floor(timeInSeconds / 3600);
+  const minutes: number = Math.floor((timeInSeconds - hours * 3600) / 60);
+  const seconds: number = timeInSeconds - hours * 3600 - minutes * 60;
+
+  const hoursFormat = hours < 10 ? `0${hours}` : hours;
+  const minutesFormat = minutes < 10 ? `0${minutes}` : minutes;
+  const secondsFormat = seconds < 10 ? `0${seconds}` : seconds;
+
+  return [hoursFormat, minutesFormat, secondsFormat];
+}
+
+export const calculateStudyTime = (
+  startTime: number,
+  endTime: number,
+  totalBreakTime: number,
+): string => {
+  const studyDuration = endTime - startTime - totalBreakTime;
+  const hours = Math.floor(studyDuration / 3600000);
+  const minutes = Math.floor((studyDuration % 3600000) / 60000);
+  const seconds = Math.floor((studyDuration % 60000) / 1000);
+
+  return `총 공부 시간 : ${hours}시간 ${minutes}분 ${seconds}초`;
+};
