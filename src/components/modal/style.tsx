@@ -20,7 +20,7 @@ export const ModalWall = styled.div`
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(45, 45, 45, 0.4);
+    background-color: rgba(0, 0, 0, 0.6);
 `;
 
 export const CloseBtn = styled.button`
@@ -41,7 +41,7 @@ export const CloseBtn = styled.button`
 `;
 
 export const ModalHeader = styled.div`
-    background-color: #350d36;
+    background-color: var(--navigation-background);
     width: 100%;
     height: 80px;
     font-size: 28px;
@@ -70,7 +70,7 @@ export const ShowOn = styled.div<{ value: boolean }>`
     width: 60px;
     height: 40px;
     color: #fff;
-    background-color: #2bac76;
+    background-color: var(--active-current-status);
     border-radius: 15px;
     display: flex;
     justify-content: center;
@@ -116,7 +116,7 @@ export const OnBtn = styled.button<{ value: boolean }>`
     font-size: 24px;
     font-weight: 700;
     color: ${(value) => (value.value ? '#000' : '#fff')};
-    background-color: ${(value) => (value.value ? '#ece7ec' : '#350d36')};
+    background-color: ${(value) => (value.value ? '#ece7ec' : 'var(--navigation-background)')};
     box-shadow: ${(value) => (value.value ? '0 3px 3px 1px #ced0d3 inset' : '0 3px 3px 1px #ced0d3')};
 `;
 export const OffBtn = styled.button<{ value: boolean }>`
@@ -130,6 +130,6 @@ export const OffBtn = styled.button<{ value: boolean }>`
     border-radius: 20px;
     font-size: 24px;
     font-weight: 700;
-    background-color: ${(value) => (value.value ? '#350d36' : '#948D94')};
+    background-color: ${(value) => (value.value ? 'var(--navigation-background);' : '#948D94')};
     box-shadow: ${(value) => (value.value ? '0 3px 3px 1px #ced0d3' : 'none')};
 `;

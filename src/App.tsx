@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import GlobalStyle from './GlobalStyle';
 import Header from './common/Header';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
@@ -13,14 +13,8 @@ import RecruitmentPost from './pages/RecruitmentPost';
 import RecruitmentEdit from './pages/RecruitmentEdit';
 
 import { useRecoilState } from 'recoil';
-import { UserId } from './utils/recoil';
 
 const App: React.FC = () => {
-    const [userId, setUserId] = useRecoilState(UserId);
-
-    // userId로 사용자 uid 관리 가능 defalut = '' /
-    console.log(userId);
-
     return (
         <BrowserRouter>
             <GlobalStyle />

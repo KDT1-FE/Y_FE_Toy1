@@ -10,15 +10,8 @@ interface OwnProps {
 }
 
 const CommuteModal: React.FC<OwnProps> = ({ handleModal }) => {
-    const [timerOn, setTimerOn] = useState(false);
-    const [timeRenewal, setTimeRenewal] = useState(['g', 1]);
-    const timerHandler = () => {
-        if (timerOn) {
-            setTimerOn(false);
-        } else {
-            setTimerOn(true);
-        }
-    };
+    // 1초마다 상태가 변하기 때문에 모달 안에서만 렌더링 되게 하기 위해서 useState 사용
+    const [timeRenewal, setTimeRenewal] = useState<string | void>();
 
     return (
         <ModalWall>
@@ -29,10 +22,10 @@ const CommuteModal: React.FC<OwnProps> = ({ handleModal }) => {
                 </ModalHeader>
                 <Utils>
                     <FastcampusDday timeRenewal={timeRenewal} />
-                    <ShowState value={timerOn} />
+                    <ShowState />
                 </Utils>
                 <ShowCurrentTime setTimeRenewal={setTimeRenewal} />
-                <Btns timeHandler={timerHandler} />
+                <Btns />
             </Modal>
         </ModalWall>
     );
