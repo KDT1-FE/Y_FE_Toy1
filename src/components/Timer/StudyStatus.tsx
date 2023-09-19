@@ -24,7 +24,11 @@ function StudyStatus({
     }
   }, [statusText]);
 
-  return <div className="StatusTextContainer">{statusText}</div>;
+  if (statusText === null) {
+    return null;
+  }
+
+  return <div className="StatusContainer">{statusText}</div>;
 }
 
 export default StudyStatus;

@@ -20,6 +20,27 @@
 
   font-size: 48px;
 }
+
+.StatusContainer {
+  display: flex;
+
+  position: absolute;
+  top: 10%;
+  left: 80%;
+  transform: translateX(-55%);
+
+  width: 60px;
+  height: 30px;
+
+  background-color: rgb(159, 238, 238);
+  border-radius: 5px;
+
+  font-size: 12px;
+  font-weight: bold;
+
+  align-items: center;
+  justify-content: center;
+}
 /* play, stop 아이콘 */
 .material-symbols-outlined {
   font-size: 56px !important;
@@ -142,7 +163,7 @@
   transform: translate(-50%, -50%);
 
   height: 30px;
-  width: 160px;
+  width: 200px;
 
   border: 1px solid #dddada;
   background-color: #f9f9f9;

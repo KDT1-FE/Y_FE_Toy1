@@ -15,7 +15,6 @@ function Controls(props: ControlsProps) {
     setStopTime,
     startTime,
     setStartTime,
-    // statusText,
     setStatusText,
   } = props;
 

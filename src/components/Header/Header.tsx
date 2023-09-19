@@ -81,7 +81,6 @@ function Header() {
           setStatusText={setStatusText}
         />
       </Modal>
-      {/* <StudyStatus statusText={statusText} setStatusText={setStatusText} /> */}
     </div>
   );
 }
