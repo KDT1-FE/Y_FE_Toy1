@@ -55,6 +55,7 @@ function TimerModal(props: TimerModalProps) {
             <StudyStatus
               statusText={statusText}
               setStatusText={setStatusText}
+              onBreak={onBreak}
             />
           </section>
           <section className="TimeContainer">

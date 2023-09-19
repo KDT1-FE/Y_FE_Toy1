@@ -42,6 +42,11 @@
   align-items: center;
   justify-content: center;
 }
+
+.StatusContainer.onBreak {
+  background-color: rgb(159, 238, 238);
+}
+
 /* play, stop 아이콘 */
 .material-symbols-outlined {
   font-size: 56px !important;

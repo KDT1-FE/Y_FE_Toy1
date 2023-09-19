@@ -6,8 +6,10 @@ import {StudyStatusProps} from "../../types/Modal";
 function StudyStatus({
   statusText,
   setStatusText,
+  onBreak,
 }: StudyStatusProps & {
   setStatusText: React.Dispatch<React.SetStateAction<string | null>>;
+  onBreak: boolean;
 }) {
   useEffect(() => {
     const savedStatusText = localStorage.getItem("statusText");
@@ -28,7 +30,9 @@ function StudyStatus({
     return null;
   }
 
-  return <div className="StatusContainer">{statusText}</div>;
+  const statusClassName = `StatusContainer ${onBreak ? "onBreak" : ""}`;
+
+  return <div className={statusClassName}>{statusText}</div>;
 }
 
 export default StudyStatus;
