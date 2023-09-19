@@ -4,7 +4,8 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 //갤러리 전체
 export const GalleryContainer = styled.div`
     display: flex;
-    margin-top: 72px;
+    padding-top: 72px;
+
     height: 100vh;
     width: 100vw;
 `;

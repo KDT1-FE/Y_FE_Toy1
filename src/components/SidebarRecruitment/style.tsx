@@ -12,19 +12,20 @@ export const ChannelWrapper = styled.div`
     padding-left: 10%;
 `;
 
-export const ChannelFlexDiv = styled.div`
+export const ChannelDiv = styled.div`
+    font-size: 1.4rem;
+    font-weight: bold;
     display: flex;
     align-items: center;
     position: relative;
-    font-size: 1.4rem;
 `;
 
-export const SubChannelFlexDiv = styled.div`
+export const SubChannelDiv = styled.div`
+    font-size: 1.15rem;
     display: flex;
     align-items: center;
     position: relative;
-    font-size: 1.15rem;
-
+    padding: 5px;
     &:hover {
         background-color: #4d2a51;
         cursor: pointer;
@@ -33,15 +34,4 @@ export const SubChannelFlexDiv = styled.div`
 
 export const ChannelHr = styled.hr`
     border: solid 1px #4d2a51;
-`;
-
-export const ChannelDiv = styled.div`
-    font-size: 1.4rem;
-    font-weight: bold;
-`;
-
-export const SubChannelDiv = styled.div`
-    font-size: 1.15rem;
-    font-weight: bold;
-    padding: 5px;
 `;
