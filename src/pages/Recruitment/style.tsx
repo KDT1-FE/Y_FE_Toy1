@@ -61,7 +61,6 @@ export const PostWrapper = styled.div`
     padding: 20px 15px;
 
     &:hover {
-        background-color: skyblue;
         cursor: pointer;
     }
 `;
