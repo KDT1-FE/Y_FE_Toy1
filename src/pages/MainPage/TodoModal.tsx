@@ -39,6 +39,11 @@ function TodoModal({ setShowTodo }: TodoProps) {
   };
   
   const addItem = () => {
+    if(inputValue === null || inputValue === '') {
+      alert("값을 입력해주세요");
+      return;
+
+    }
     setTodoList((oldTodoList) => [
       ...oldTodoList,
       {
