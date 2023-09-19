@@ -5,14 +5,13 @@ import CommuteModal from "./CommuteModal";
 import { useState } from "react";
 
 export default function Header() {
-  const location = useLocation();
-  if (location.pathname === "/login") return null;
-
   const [showModal, setShowModal] = useState(false);
   const onCommuteClick = () => {
     setShowModal(!showModal);
   };
 
+  const location = useLocation();
+  if (location.pathname === "/login") return null;
   return (
     <>
       <style.Container>
