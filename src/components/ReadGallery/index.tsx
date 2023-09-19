@@ -126,7 +126,7 @@ const StyledReadGallery = styled.img`
   height: 100%;
   border-radius: 5px;
   cursor: default;
-  over-fit: contain;
+  object-fit: contain;
   box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.25);
 `;
 
@@ -177,7 +177,7 @@ const StyledReadGalleryNone = styled.div`
   height: 10rem;
   font-size: 1.5rem;
   top: 40%;
-`)} 
+`)}
 ${media.mobile(`
   font-size: 1.5rem;
   top: 50%;
