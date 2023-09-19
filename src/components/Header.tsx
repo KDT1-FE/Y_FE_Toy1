@@ -48,6 +48,11 @@ function Header() {
               </Link>
             </li>
             <li>
+              <Link to="/ranking" className="SubList">
+                Ranking
+              </Link>
+            </li>
+            <li>
               <button type="button" className="Timer" onClick={toggle}>
                 Timer
               </button>
