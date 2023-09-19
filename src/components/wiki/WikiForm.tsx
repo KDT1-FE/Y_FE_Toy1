@@ -1,24 +1,33 @@
 import * as Styled from "./WikiContentStyle";
 import * as FormStyled from "./WikiFormStyle";
+import { Wiki } from "@/pages/wiki/WikiType";
+import "@toast-ui/editor/dist/toastui-editor.css";
+import { Editor } from "@toast-ui/react-editor";
+import "@toast-ui/editor/dist/i18n/ko-kr";
 
-type WikiFormType = {
-  title: string;
-  content: string;
-  authorName: string;
-  updatedAt: string;
+type Props = {
+  form: Wiki;
+  onFormChange: (key: keyof Wiki, value: string) => void;
+  editorRef: React.MutableRefObject<Editor | null>;
+  parents: Wiki[];
 };
 
-type WikiFormProps = {
-  form: WikiFormType;
-
-  onFormChange: (key: keyof WikiFormType, value: string) => void;
-};
-
-export const WikiForm = ({ form, onFormChange }: WikiFormProps) => {
+export const WikiForm = ({ form, onFormChange, editorRef, parents }: Props) => {
   return (
     <>
       <Styled.ContentsTitle>
         <Styled.TitleText>
+          <FormStyled.Select
+            value={form.parentID}
+            onChange={(e) => onFormChange("parentID", e.target.value)}
+          >
+            <option value="">전체</option>
+            {parents.map((parent) => (
+              <option key={parent.wikiID} value={parent.wikiID}>
+                {parent.title}
+              </option>
+            ))}
+          </FormStyled.Select>
           <FormStyled.Input
             type="text"
             value={form.title}
@@ -28,11 +37,21 @@ export const WikiForm = ({ form, onFormChange }: WikiFormProps) => {
         </Styled.TitleText>
       </Styled.ContentsTitle>
 
-      <FormStyled.Textarea
-        value={form.content}
-        onChange={(e) => onFormChange("content", e.target.value)}
-        placeholder="내용 입력"
-      />
+      <Editor
+        height="550px"
+        ref={editorRef}
+        initialValue={form.content ? form.content : " "}
+        previewStyle="vertical"
+        hideModeSwitch={true}
+        toolbarItems={[
+          ["heading", "bold", "italic", "strike"],
+          ["hr", "quote"],
+          ["ul", "ol", "task", "indent", "outdent"],
+          ["table", "link"],
+          ["code", "codeblock"],
+        ]}
+        language="ko-KR"
+      ></Editor>
     </>
   );
 };

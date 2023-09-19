@@ -1,49 +1,62 @@
 import WikiEditButton from "./WikiButton";
 import * as Styled from "./WikiContentStyle";
 import { WikiForm } from "./WikiForm";
+import { Wiki } from "@/pages/wiki/WikiType";
+import { Editor } from "@toast-ui/react-editor";
 
-type WikiFormType = {
-  title: string;
-  content: string;
-  authorName: string;
-  updatedAt: string;
-};
-
-type Props = {
-  entry: WikiFormType | null;
-  form: WikiFormType;
+interface Props {
+  Wiki: Wiki | null;
+  form: Wiki;
   isEditMode: boolean;
-  onFormChange: (key: keyof WikiFormType, value: string) => void;
-  onWikiButtonClick: () => void;
+  onFormChange: (key: keyof Wiki, value: string) => void;
+  onWikiEditButtonClick: () => void;
+  onWikiDeleteButtonClick: () => void;
   toggleEditMode: () => void;
-};
+  editorRef: React.MutableRefObject<Editor | null>;
+  parents: Wiki[];
+}
 
 export default function WikiContent({
-  entry,
+  Wiki,
   isEditMode,
-  onWikiButtonClick,
+  onWikiEditButtonClick,
+  onWikiDeleteButtonClick,
   toggleEditMode,
   form,
   onFormChange,
+  editorRef,
+  parents,
 }: Props) {
   function onEditButtonClick() {
-    onWikiButtonClick();
+    onWikiEditButtonClick();
     toggleEditMode();
   }
 
+  if (!Wiki) return null;
   return (
     <Styled.ContentsWrapper>
-      {isEditMode || !entry ? (
-        <WikiForm form={form} onFormChange={onFormChange} />
+      {isEditMode ? (
+        <WikiForm
+          form={form}
+          onFormChange={onFormChange}
+          editorRef={editorRef}
+          parents={parents}
+        />
       ) : (
         <>
           <Styled.ContentsTitle>
-            <Styled.TitleText>{entry.title}</Styled.TitleText>
+            <Styled.TitleText>{Wiki.title}</Styled.TitleText>
             <div>
-              <span> 최종수정일: {entry.updatedAt}</span>
+              <span> 최종수정일: {Wiki.updatedAt}</span>
               <Styled.EditDetails>
-                최종수정자: {entry.authorName}
+                최종수정자: {Wiki.authorID}
               </Styled.EditDetails>
+              <WikiEditButton
+                text={"삭제"}
+                padding={"0.38rem 0.69rem"}
+                margin={"0 0.31rem 0 0"}
+                onClick={onWikiDeleteButtonClick}
+              ></WikiEditButton>
               <WikiEditButton
                 text={"수정"}
                 padding={"0.38rem 0.69rem"}
@@ -51,8 +64,9 @@ export default function WikiContent({
               ></WikiEditButton>
             </div>
           </Styled.ContentsTitle>
+
           <div>
-            <Styled.WikiContent>{entry.content}</Styled.WikiContent>
+            <Styled.WikiContent>{Wiki.content}</Styled.WikiContent>
           </div>
         </>
       )}

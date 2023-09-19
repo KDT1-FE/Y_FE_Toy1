@@ -1,50 +1,182 @@
 [
   {
-    "categoryId": "c1",
-    "categoryName": "공지사항",
-    "entries": [
-      {
-        "entryId": "e1",
-        "title": "회사 연휴 알림",
-        "content": "추석 연휴로 인해 회사는 9월 10일부터 9월 12일까지 휴무입니다.",
-        "authorEmail": "author1@email.com",
-        "authorName": "김철수",
-        "createdAt": "2023-09-01T14:30:45",
-        "updatedAt": "2023-09-02T15:30:45"
-      },
-      {
-        "entryId": "e2",
-        "title": "급여 조정 관련",
-        "content": "올해 급여 조정은 10월 중으로 진행될 예정입니다.",
-        "authorEmail": "author2@email.com",
-        "authorName": "이영희",
-        "createdAt": "2023-08-31T10:20:30",
-        "updatedAt": "2023-08-31T12:25:30"
-      }
-    ]
+    "wikiID": "w1",
+    "parentID": "",
+    "title": "공지사항",
+    "content": "## 공지사항\n\n사내 정전 관련 공지사항입니다. 자세한 내용과 대처 방법은 아래 항목들을 참조해주세요. 모든 직원들은 안전 지침을 준수하시기 바랍니다.",
+    "authorID": "Admin",
+    "createdAt": "2023-08-25T13:15:32",
+    "updatedAt": "2023-08-26T14:15:32"
   },
   {
-    "categoryId": "c2",
-    "categoryName": "신입사원 교육",
-    "entries": [
-      {
-        "entryId": "e3",
-        "title": "오리엔테이션 일정",
-        "content": "신입사원 오리엔테이션은 입사 후 첫 주 월요일에 진행됩니다.",
-        "authorEmail": "author3@email.com",
-        "authorName": "박지훈",
-        "createdAt": "2023-08-25T13:15:32",
-        "updatedAt": "2023-08-26T14:15:32"
-      },
-      {
-        "entryId": "e4",
-        "title": "교육 자료",
-        "content": "모든 교육 자료는 사내 포털에서 다운로드 가능합니다.",
-        "authorEmail": "author4@email.com",
-        "authorName": "최수빈",
-        "createdAt": "2023-08-24T09:10:12",
-        "updatedAt": "2023-08-24T10:10:12"
-      }
-    ]
+    "wikiID": "w2",
+    "parentID": "",
+    "title": "신입사원 교육",
+    "content": "신입사원 오리엔테이션은 입사 후 첫 주 월요일에 진행됩니다.",
+    "authorID": "Admin",
+    "createdAt": "2023-08-25T13:15:32",
+    "updatedAt": "2023-08-26T14:15:32"
+  },
+  {
+    "wikiID": "w3",
+    "parentID": "",
+    "title": "휴가 안내",
+    "content": "휴가는 사전에 팀장에게 신청해야 합니다. 연차는 연중 언제든 사용 가능하며, 반차도 사용 가능합니다.",
+    "authorID": "Admin",
+    "createdAt": "2023-08-27T10:05:52",
+    "updatedAt": "2023-08-27T10:06:52"
+  },
+  {
+    "wikiID": "w4",
+    "parentID": "",
+    "title": "근태 관리",
+    "content": "지각, 조퇴 시 사전에 팀장 또는 HR부서에 연락을 해야 합니다. 3회 이상 지각 시 경고가 발생될 수 있습니다.",
+    "authorID": "Admin",
+    "createdAt": "2023-08-28T11:25:11",
+    "updatedAt": "2023-08-28T11:26:11"
+  },
+  {
+    "wikiID": "w5",
+    "parentID": "",
+    "title": "보안 규정",
+    "content": "회사 내부 문서와 데이터는 외부에 누설되어서는 안됩니다. 보안을 위해 개인 PC나 외장하드에 저장하지 않도록 주의해주세요.",
+    "authorID": "Admin",
+    "createdAt": "2023-08-29T12:15:45",
+    "updatedAt": "2023-08-29T12:16:45"
+  },
+  {
+    "wikiID": "w6",
+    "parentID": "w1",
+    "title": "정전 조치 방법",
+    "content": "정전 시, 비상 발전기가 작동됩니다. 비상 출구로 대피하고 안전하게 대기하세요.",
+    "authorID": "Admin",
+    "createdAt": "2023-08-30T09:15:32",
+    "updatedAt": "2023-08-30T09:16:32"
+  },
+  {
+    "wikiID": "w7",
+    "parentID": "w1",
+    "title": "정전시 연락처",
+    "content": "정전 발생 시, 고장 담당팀에 연락하세요. 연락처: 012-345-6789",
+    "authorID": "Admin",
+    "createdAt": "2023-08-30T09:20:00",
+    "updatedAt": "2023-08-30T09:21:00"
+  },
+  {
+    "wikiID": "w8",
+    "parentID": "w1",
+    "title": "비상용 키트 위치",
+    "content": "비상용 키트는 각 부서별 저장소에 보관되어 있습니다. 필요 시 사용하세요.",
+    "authorID": "Admin",
+    "createdAt": "2023-08-30T09:25:32",
+    "updatedAt": "2023-08-30T09:26:32"
+  },
+  {
+    "wikiID": "w9",
+    "parentID": "w2",
+    "title": "오리엔테이션 준비물",
+    "content": "신입사원은 사전에 제공된 메뉴얼과 필기 도구를 준비하시기 바랍니다.",
+    "authorID": "Admin",
+    "createdAt": "2023-08-31T08:10:32",
+    "updatedAt": "2023-08-31T08:11:32"
+  },
+  {
+    "wikiID": "w10",
+    "parentID": "w2",
+    "title": "교육 장소",
+    "content": "오리엔테이션은 3층 대회의실에서 진행됩니다.",
+    "authorID": "Admin",
+    "createdAt": "2023-08-31T08:15:45",
+    "updatedAt": "2023-08-31T08:16:45"
+  },
+  {
+    "wikiID": "w11",
+    "parentID": "w2",
+    "title": "식사 안내",
+    "content": "오리엔테이션 기간 동안 점심은 회사에서 제공됩니다.",
+    "authorID": "Admin",
+    "createdAt": "2023-08-31T08:20:00",
+    "updatedAt": "2023-08-31T08:21:00"
+  },
+  {
+    "wikiID": "w12",
+    "parentID": "w3",
+    "title": "연차 신청 방법",
+    "content": "연차는 HR 시스템을 통해 사전에 신청해야 합니다.",
+    "authorID": "Admin",
+    "createdAt": "2023-09-01T09:15:32",
+    "updatedAt": "2023-09-01T09:16:32"
+  },
+  {
+    "wikiID": "w13",
+    "parentID": "w3",
+    "title": "휴가 유의사항",
+    "content": "휴가 중 연락처 및 대피소 위치를 반드시 남겨주세요.",
+    "authorID": "Admin",
+    "createdAt": "2023-09-01T09:20:00",
+    "updatedAt": "2023-09-01T09:21:00"
+  },
+  {
+    "wikiID": "w14",
+    "parentID": "w3",
+    "title": "휴가 중 대체 인력",
+    "content": "긴 휴가를 사용할 경우 대체 인력을 지정하고 업무 인수인계를 철저히 해야 합니다.",
+    "authorID": "Admin",
+    "createdAt": "2023-09-01T09:25:32",
+    "updatedAt": "2023-09-01T09:26:32"
+  },
+  {
+    "wikiID": "w15",
+    "parentID": "w4",
+    "title": "경고 제도",
+    "content": "지각 3회 이상 또는 부당한 결근 시, 경고 제도가 적용될 수 있습니다.",
+    "authorID": "Admin",
+    "createdAt": "2023-09-02T10:05:52",
+    "updatedAt": "2023-09-02T10:06:52"
+  },
+  {
+    "wikiID": "w16",
+    "parentID": "w4",
+    "title": "조퇴 시 유의사항",
+    "content": "조퇴 시, 반드시 팀장에게 사유를 알려야 합니다.",
+    "authorID": "Admin",
+    "createdAt": "2023-09-02T10:10:32",
+    "updatedAt": "2023-09-02T10:11:32"
+  },
+  {
+    "wikiID": "w17",
+    "parentID": "w4",
+    "title": "지각에 대한 조치",
+    "content": "지각은 팀별 규정에 따라 다를 수 있으므로, 팀 규정을 반드시 확인하세요.",
+    "authorID": "Admin",
+    "createdAt": "2023-09-02T10:15:45",
+    "updatedAt": "2023-09-02T10:16:45"
+  },
+  {
+    "wikiID": "w18",
+    "parentID": "w5",
+    "title": "보안 솔루션 설치",
+    "content": "모든 PC에는 회사에서 제공하는 보안 솔루션을 설치하고 정기적으로 업데이트 해야 합니다.",
+    "authorID": "Admin",
+    "createdAt": "2023-09-03T11:25:11",
+    "updatedAt": "2023-09-03T11:26:11"
+  },
+  {
+    "wikiID": "w19",
+    "parentID": "w5",
+    "title": "데이터 관리",
+    "content": "중요 데이터는 암호화하여 저장하며, 외부로의 전송은 허가된 경우에만 가능합니다.",
+    "authorID": "Admin",
+    "createdAt": "2023-09-03T11:30:00",
+    "updatedAt": "2023-09-03T11:31:00"
+  },
+  {
+    "wikiID": "w20",
+    "parentID": "w5",
+    "title": "비밀번호 정책",
+    "content": "비밀번호는 3개월마다 변경하며, 복잡한 조합을 사용해야 합니다.",
+    "authorID": "Admin",
+    "createdAt": "2023-09-03T11:35:32",
+    "updatedAt": "2023-09-03T11:36:32"
   }
 ]
