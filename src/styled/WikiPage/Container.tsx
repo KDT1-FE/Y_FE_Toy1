@@ -4,6 +4,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
     margin : 0;
     height : 800px;
+    background-color : rgba(150, 160, 255, 0.2);
 `;
 
 
@@ -12,9 +13,8 @@ export const RowContainer = styled.div`
     flex-direction : row;
     gap : 30px;
     max-width : 1200px;
-    margin : 30px auto;
-    padding : 0 30px;
-    background-color : rgba(150, 160, 255, 0.2);
+    margin : 0 auto;
+    padding : 20px 30px;
     height : 750px;
 `;
 
@@ -23,7 +23,6 @@ export const ColumnContainer = styled.div`
     display : flex;
     flex-direction : column;
     background-color : white;
-    align-items : start;
     margin : 20px 0;
 `;
 
