@@ -25,7 +25,7 @@ export const uploadCalendarData = async (calendarData: ICalendarData) => {
     const user = getSessionUserData();
     await addDoc(collection(db, 'calendar'), {
       ...calendarData,
-      uid: user.uid,
+      uid: user?.uid,
     });
     alert('등록 완료');
   } catch (error) {
@@ -33,10 +33,10 @@ export const uploadCalendarData = async (calendarData: ICalendarData) => {
   }
 };
 const searchUser = () => {
-  const user: IuserData = getSessionUserData();
+  const user: IuserData | undefined = getSessionUserData();
   const searchUserQuery = query(
     collection(db, 'calendar'),
-    where('uid', '==', user.uid),
+    where('uid', '==', user?.uid),
   );
   return searchUserQuery;
 };

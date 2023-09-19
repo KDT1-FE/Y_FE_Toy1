@@ -30,6 +30,9 @@ const GlobalStyle = createGlobalStyle`
   input{
     outline:none;
   }
+  .swal2-container{
+    z-index:90000;
+  }
 `;
 
 export default GlobalStyle;

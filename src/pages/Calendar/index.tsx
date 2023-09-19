@@ -12,6 +12,7 @@ import {
 import { CloseImg } from 'components/CommuteModal';
 import { calendarDayFormat } from 'utils/format';
 import Swal from 'sweetalert2';
+import { getSessionUserData } from 'utils/user';
 
 interface IEvent {
   title: string;
@@ -23,6 +24,10 @@ function Calendar() {
   const [events, setEvents] = useState<IEvent[] | []>();
   const [showModal, setShowModal] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
+
+  const getName = () => {
+    return getSessionUserData()?.displayName;
+  };
 
   const getEvent = async () => {
     const responseArray = await getCalendarData();
@@ -65,7 +70,7 @@ function Calendar() {
     <>
       <StyledContainer>
         <StyledCalendarContainer>
-          <StyledCalendarText>나의 캘린더</StyledCalendarText>
+          <StyledCalendarText>{`${getName()}님의 캘린더`}</StyledCalendarText>
           <FullCalendar
             plugins={[dayGridPlugin]}
             initialView="dayGridMonth"
@@ -209,7 +214,7 @@ const StyledBottomContainer = styled.section`
 `;
 
 const StyledContainer = styled.div`
-  padding: 13vh 0 0 0;
+  padding: 10vh 0 0 0;
   max-width: 75rem;
   margin: 0 auto;
   display: flex;
@@ -225,5 +230,7 @@ const StyledCalendarContainer = styled.section`
 const StyledCalendarText = styled.div`
   font-size: 2.2rem;
   font-weight: 700;
+
+  margin-bottom: 2rem;
 `;
 export default Calendar;
