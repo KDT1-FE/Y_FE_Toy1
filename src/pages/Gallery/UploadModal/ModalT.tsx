@@ -30,7 +30,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
     const [imageFile, setImageFile] = useState<Blob | null>(null); // 이미지 파일 상태
     const [thumbnailURL, setThumbnailURL] = useState<string | null>(null);
     const [textValue, setTextValue] = useState('');
-
+    const [isUploading, setIsUploading] = useState(false);
     const handleTextChange = (e: any) => {
         setTextValue(e.target.value);
     };
@@ -50,6 +50,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setIsUploading(true);
         // 유닉한 이미지 이름
         const uniqueName = Date.now();
         // storage 경로에 현재 시간을 추가하여 고유한 경로 참조
@@ -76,7 +77,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
         await updateDoc(storeRef, {
             '테크.articleT': arrayUnion(newArticle),
         });
-
+        setIsUploading(false);
         //모달 닫기
         onClose();
     };
@@ -132,7 +133,9 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
                         )}
                         <BtnAlign>
                             <CancelBtn onClick={onClose}>취소</CancelBtn>
-                            <SubmitBtn type="submit">제출</SubmitBtn>
+                            <SubmitBtn type="submit" disabled={isUploading}>
+                                {isUploading ? '업로드 중' : '제출'}
+                            </SubmitBtn>
                         </BtnAlign>
                     </PreviewBox>
                 </InputAndPreview>

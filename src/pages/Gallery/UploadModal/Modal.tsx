@@ -30,7 +30,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
     const [imageFile, setImageFile] = useState<Blob | null>(null); // 이미지 파일 상태
     const [thumbnailURL, setThumbnailURL] = useState<string | null>(null);
     const [textValue, setTextValue] = useState('');
-
+    const [isUploading, setIsUploading] = useState(false);
     const handleTextChange = (e: any) => {
         setTextValue(e.target.value);
     };
@@ -76,6 +76,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
         await updateDoc(storeRef, {
             '취업.articleR': arrayUnion(newArticle),
         });
+        setIsUploading(false);
 
         //모달 닫기
         onClose();
@@ -132,7 +133,9 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
                         )}
                         <BtnAlign>
                             <CancelBtn onClick={onClose}>취소</CancelBtn>
-                            <SubmitBtn type="submit">제출</SubmitBtn>
+                            <SubmitBtn type="submit" disabled={isUploading}>
+                                {isUploading ? '업로드 중' : '제출'}
+                            </SubmitBtn>
                         </BtnAlign>
                     </PreviewBox>
                 </InputAndPreview>
