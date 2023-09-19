@@ -5,14 +5,14 @@ import { MenuContext } from '../common/useMenu';
 import { FcMenu } from 'react-icons/fc';
 
 const NavBar = () => {
-  const { isMenuOpen, setMenuOpen } = useContext(MenuContext);
+  const { setMenuOpen } = useContext(MenuContext);
   const selectedCategory = useLocation().pathname.split('/')[1];
 
   return (
     <Container>
       <Categories>
-        <button className="menu-btn">
-          <FcMenu onClick={() => setMenuOpen(!isMenuOpen)} />
+        <button className="menu-btn" onClick={() => setMenuOpen(true)}>
+          <FcMenu size={21} />
         </button>
         <div className={`category ${selectedCategory === 'wiki' ? 'selected' : ''}`}>
           <Link to={'wiki'}>Wiki</Link>
@@ -52,12 +52,22 @@ const Categories = styled.div`
 
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 
-  button {
+  button.menu-btn {
     display: flex;
     position: absolute;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
+
+    background-color: transparent;
+    outline: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+
+    @media screen and (min-width: 1024px) {
+      display: none;
+    }
   }
 
   div.category {

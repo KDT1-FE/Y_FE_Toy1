@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { allCategories } from '../data/categories';
 import CategoryList from './CategoryList';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { MenuContext } from '../common/useMenu';
 
@@ -17,7 +17,7 @@ const SideBar = () => {
   return (
     <Container className={`${isMenuOpen ? 'open' : ''}`}>
       <button onClick={() => setMenuOpen(false)}>
-        <AiOutlineClose />
+        <AiOutlineClose size={21} />
       </button>
 
       <CategoryWrapper>
@@ -69,6 +69,10 @@ const Container = styled.aside`
       top: 1rem;
       right: 1rem;
       cursor: pointer;
+
+      background-color: transparent;
+      outline: none;
+      border: none;
     }
   }
 
