@@ -28,7 +28,6 @@ export default function CurrentImg({
   useEffect(() => {
     const index = imagePaths.findIndex((imagePath) => imagePath === curImg);
     setCurIndex(index);
-    console.log(curIndex);
   }, [curIndex]);
 
   const nextImg = () => {
