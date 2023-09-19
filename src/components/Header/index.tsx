@@ -24,9 +24,11 @@ function Header() {
   return (
     <StyledHeader>
       <Container>
-        <LogoContainer to={ROUTES.MAIN}>
-          <img src={logo}></img>
-          WIKI
+        <LogoContainer>
+          <StyledMainMenu to={ROUTES.MAIN}>
+            <img src={logo}></img>
+            WIKI
+          </StyledMainMenu>
         </LogoContainer>
         <MenuContainer>
           {menus.map((menu, index) => (
@@ -112,16 +114,22 @@ const Container = styled.div`
     max-width: 55rem;
   `)}
 `;
-const LogoContainer = styled(Link)`
+const LogoContainer = styled.div`
   width: 6.25rem;
+
+  flex-grow: 6;
 
   display: flex;
   align-items: center;
+`;
 
+const StyledMainMenu = styled(Link)`
   font-weight: 700;
   font-size: 1.5rem;
   color: #3584f4;
-  flex-grow: 6;
+
+  display: flex;
+  align-items: center;
 `;
 const MenuContainer = styled.div`
   display: flex;
