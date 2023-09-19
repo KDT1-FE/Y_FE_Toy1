@@ -5,7 +5,14 @@ export interface RootState {
     email: string | null;
     nickname: string | null;
     image: string | null;
-    // 기타 상태 필드 추가
+    // // 기타 상태 필드 추가
+    user: {
+      uid: string | null;
+      email: string | null;
+      nickname: string | null;
+      image: string | null;
+      // 기타 사용자 관련 상태 필드 추가
+    } | null;
   }
   
   export type UserData = {

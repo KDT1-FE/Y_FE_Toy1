@@ -10,6 +10,7 @@ import logo from '../../images/logo.png';
 export default function Header() {
   // useSelector를 통해 스토어의 유저 정보 읽어오기
   const user = useSelector((state: RootState) => state);
+  console.log(user)
 
   // useDispatch를 통해 로그아웃 액션 디스패치 함수 가져오기
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ export default function Header() {
   const handleLogout = () => {
   // 로그아웃 액션 디스패치
   dispatch(logoutAction());
+  
 
   // 세션 스토리지 업데이트
   sessionStorage.clear();

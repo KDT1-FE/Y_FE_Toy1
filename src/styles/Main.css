@@ -65,9 +65,10 @@
     margin-top: 100px;
   }
 
-  /* 모달 스타일 */
+/* 모달 스타일 */
 .modal {
-    display: none; /* 초기에는 보이지 않음 */
+    display: flex; /* 기본적으로는 flex로 설정합니다. */
+    ${isModalOpen ? 'display: flex;' : 'display: none;'} /* isModalOpen 상태에 따라 display 값 변경 */
     position: fixed;
     top: 0;
     left: 0;
@@ -77,7 +78,10 @@
     z-index: 999; /* 다른 요소 위에 표시되도록 z-index 설정 */
     justify-content: center;
     align-items: center;
-  }
+}
+
+
+
   
   .modal.open {
     display: flex; /* 열린 모달은 표시됨 */

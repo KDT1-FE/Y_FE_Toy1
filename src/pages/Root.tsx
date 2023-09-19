@@ -8,6 +8,8 @@ import { collection, addDoc, query, getDocs } from 'firebase/firestore';
 import { db } from '../data/firebase';
 import Header from '../components/Header/Header';
 import ImageSlider from '../components/ImageSlider/ImageSlider';
+import { RootState } from '../redux/types'; // RootState 타입 추가
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function Root() {
   const { auth } = useAuth();
@@ -18,19 +20,21 @@ export default function Root() {
 
   const location = useLocation();
 
+  const user = useSelector((state: RootState) => state);
+  console.log('유저정보', user);
+
   const handleSavePost = async (title: string, content: string) => {
-    if (auth.currentUser) {
+    if (user && user.uid) {
       const postsRef = collection(db, 'posts');
       try {
-        // Firebase Firestore에 데이터 추가
         await addDoc(postsRef, {
           title,
           content,
-          userId: auth.currentUser.uid,
-          username: auth.currentUser.displayName,
+          userId: user.uid,
+          username: user.nickname,
           timestamp: new Date(),
         });
-  
+
         console.log('모집글이 성공적으로 저장되었습니다.');
         setIsModalOpen(false);
         setTitle('');
@@ -40,42 +44,47 @@ export default function Root() {
       }
     } else {
       console.error('사용자가 로그인하지 않았습니다.');
+      // 사용자가 로그인하지 않았을 때 경고창 표시
+      alert('로그인 후에 포스트를 작성할 수 있습니다.');
     }
   };
 
-  // 포스트 목록 가져오기 함수
   const fetchPosts = async () => {
     const q = query(collection(db, 'posts'));
     try {
       const querySnapshot = await getDocs(q);
       const newPosts: FirestorePostData[] = [];
       querySnapshot.forEach((doc) => {
-        const data = doc.data() as FirestorePostData; // Firestore 데이터를 FirestorePostData로 형변환
-        newPosts.push({ ...data, username: '' }); // username을 빈 문자열로 초기화
+        const data = doc.data() as FirestorePostData;
+        newPosts.push({ ...data, username: '' });
       });
       setPosts(newPosts);
     } catch (error) {
       console.error('포스트 목록을 불러오는 중 오류 발생:', error);
     }
   };
-  
 
   useEffect(() => {
-    // 페이지 로드 시 포스트 목록 가져오기
     fetchPosts();
-  }, []);
+    console.log("auth.currentUser:", auth.currentUser);
+  }, [auth.currentUser]);
 
   return (
     <div>
       <Header />
       <section>
         <div className="main-container">
-          {/* ImageSlider를 메인 페이지에서만 렌더링 */}
           {location.pathname === '/' && <ImageSlider />}
           <Outlet />
         </div>
       </section>
-      <button onClick={() => setIsModalOpen(true)}>새 포스트 작성</button>
+      <div className="newPostBtn">
+        {user && user.uid ? (
+          <button onClick={() => setIsModalOpen(true)}>새 포스트 작성</button>
+        ) : (
+          <button onClick={() => alert('로그인 후에 포스트를 작성할 수 있습니다.')}>새 포스트 작성</button>
+        )}
+      </div>
       {isModalOpen && (
         <CreatePostModal
           onSave={handleSavePost}
