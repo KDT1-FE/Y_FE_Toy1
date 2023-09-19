@@ -45,6 +45,15 @@ export const SubmitButton = styled(Btn)`
 
 `;
 
+export const EditBackToListBtn = styled(Btn)`
+    background-color : #96A0FF;
+    padding : 10px 40px;
+    border : 0;
+    color : white;
+    margin: 30px 0;
+
+`;
+
 export const AddBtn = styled(Btn)`
     background-color : #484AAD;
     color : white;

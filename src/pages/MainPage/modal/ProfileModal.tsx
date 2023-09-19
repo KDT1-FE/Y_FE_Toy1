@@ -11,13 +11,13 @@ import {
   ButtonBox, CloseImg, ProfileInfoBox, ProfileModalCloseBtn, ProfileModalHeader, ProfileModalHeaderText,
   ProfileModalLayout, ProfileImg, ProfileInput, ProfileInputBtn, ProfileCameraImg, ProfileInfoText,
   ProfileInfoEmail, CorrectBtn, CancelBtn, PositionSelect, InputText
-} from '../../styled/MainPage/ProfileModal'
-import ClostButton from "../../assets/img/CloseButton.svg"
-import userState from '../../recoil/atoms/userState';
-import { auth, db, storage } from '../../firebaseSDK';
-import DefaultProfile from '../../assets/img/DefaultProfile.png'
-import Camera from '../../assets/img/Camera.svg'
-import loginState from '../../recoil/atoms/loginState';
+} from '../../../styled/MainPage/ProfileModal'
+import ClostButton from "../../../assets/img/CloseButton.svg"
+import userState from '../../../recoil/atoms/userState';
+import { auth, db, storage } from '../../../firebaseSDK';
+import DefaultProfile from '../../../assets/img/DefaultProfile.png'
+import Camera from '../../../assets/img/Camera.svg'
+import loginState from '../../../recoil/atoms/loginState';
 
 interface ProfileProp {
   setShowProfile: React.Dispatch<React.SetStateAction<boolean>>;

@@ -7,8 +7,8 @@ import { TodoModalLayout
   ,TodoItemContainer 
   ,TodoInput
   ,AddBtn
-,DeleteBtn} from "../../styled/MainPage/TodoModal";
-import { todoListState } from "../../recoil/atoms/main/TodoAtom";
+,DeleteBtn} from "../../../styled/MainPage/TodoModal";
+import { todoListState } from "../../../recoil/atoms/main/TodoAtom";
 
 interface TodoProps {
   setShowTodo: React.Dispatch<React.SetStateAction<boolean>>;

@@ -6,8 +6,8 @@ import { CommuteModalContainer, CommuteHeader,ExitBtn,CommuteTitle,
     ,DateText
 ,BtnContainer
 ,TimerBtn
-,CommuteBtn } from '../../styled/MainPage/CommuteModal';
-import { isCommuteState, startTimeState } from '../../recoil/atoms/main/CommuteAtom';
+,CommuteBtn } from '../../../styled/MainPage/CommuteModal';
+import { isCommuteState, startTimeState } from '../../../recoil/atoms/main/CommuteAtom';
 
 
 interface CommuteProps {
