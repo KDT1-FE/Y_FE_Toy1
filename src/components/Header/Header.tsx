@@ -76,10 +76,10 @@ export default function Header() {
           ) : (
             // 사용자가 로그인하지 않은 경우
             <>
-              <Link to="SignIn" className="auth-button1">
+              <Link to="SignIn" className="signInBtn">
                 로그인
               </Link>
-              <Link to="/SignUp" className="auth-button2">
+              <Link to="/SignUp" className="signUpBtn">
                 회원가입
               </Link>
             </>

@@ -8,3 +8,18 @@ export interface RootState {
     // 기타 상태 필드 추가
   }
   
+  export type UserData = {
+    uid: string;
+    username: string;
+    // 기타 필요한 필드 추가
+  };
+  
+  export interface FirestorePostData {
+    id: string; // 이 필드를 추가
+    title: string;
+    content: string;
+    username: string; // 이 필드를 추가
+    // 기타 필요한 속성 추가
+  }
+
+  
