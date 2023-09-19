@@ -108,14 +108,14 @@ export const ImgContainer = styled.div`
 export const StyleProfile = styled.div`
     --paddingTop: 10%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     flex-wrap: wrap;
-    height: 100%;
-    box-sizing: border-box;
-    gap: 20px;
+    height: calc(100vh - 72px);
+    gap: 40px;
     padding-top: var(--paddingTop);
     padding-left: 8%;
     padding-right: 8%;
+    padding-bottom: 8%;
     overflow-y: auto;
 `;
 
