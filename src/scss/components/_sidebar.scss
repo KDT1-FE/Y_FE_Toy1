@@ -3,13 +3,13 @@
 
 .nav {
   width: 224px;
-  height: 100vh;
+  height: calc(100vh - 60px);
   background-color: $blue;
   color: $white;
   font-size: 1.4rem;
   flex-shrink: 0;
 
-  .nav__depth {
+  .nav-depth {
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -50,7 +50,7 @@
       background-color: $blue;
 
       &.show {
-        &::after {
+        .nav-depth__icon {
           transform: rotate(90deg);
         }
       }
@@ -58,32 +58,18 @@
       &:hover {
         background-color: $darkBlue;
       }
-
-      &::after {
-        content: '';
-        margin-left: auto;
-        width: 8px;
-        height: 10px;
-        background: url('../../assets/right.svg') no-repeat center center / cover;
-        transition: transform 0.2s;
-      }
-    }
-
-    &__link[data-type='toggle']::after {
-      content: '';
-      width: 10px;
-      height: 12px;
-      background: url('../../assets/right.svg');
-      background-position: center;
-      background-repeat: no-repeat;
-      margin-left: auto;
     }
 
     &__logo {
       margin-right: 10px;
     }
 
-    .nav__detail {
+    &__icon {
+      margin-left: auto;
+      transition: transform 0.2s;
+    }
+
+    .nav-detail {
       background-color: $white;
       width: 180px;
       height: 0px;

@@ -1,0 +1,24 @@
+@use '../../abstracts' as *;
+@use '../../base' as *;
+
+.content-util {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  &__time {
+    font-size: 1.4rem;
+  }
+
+  &__modify {
+    font-size: 1.3rem;
+    background-color: $lightGray;
+    color: $black;
+    height: 3rem;
+
+    &:hover {
+      background-color: $gray;
+      color: $white;
+    }
+  }
+}

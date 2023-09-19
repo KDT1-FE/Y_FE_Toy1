@@ -7,7 +7,7 @@ interface Link {
 }
 
 const NavDetail = () => {
-  const [isClicked, setIsClicked] = useState(0);
+  const [isClicked, setIsClicked] = useState<number>(0);
 
   const handleClickLink = (index: number) => {
     setIsClicked(index);
@@ -20,12 +20,12 @@ const NavDetail = () => {
   ];
 
   return (
-    <ul className="nav__detail">
+    <ul className="nav-detail">
       {links.map((link: Link, index: number) => (
-        <li key={index} className="nav__detail__item">
+        <li key={index} className="nav-detail__item">
           <Link
             to={link.to}
-            className={`nav__detail__link ${index === isClicked ? 'on' : ''}`}
+            className={`nav-detail__link ${index === isClicked ? 'on' : ''}`}
             onClick={() => {
               handleClickLink(index);
             }}>
