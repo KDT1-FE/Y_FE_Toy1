@@ -1,9 +1,11 @@
 .SlideShow {
-  text-align: center;
   margin: 40px 0;
+
+  text-align: center;
 }
 
 .SlideShow img {
   width: 72%;
+
   height: 74vh;
 }
