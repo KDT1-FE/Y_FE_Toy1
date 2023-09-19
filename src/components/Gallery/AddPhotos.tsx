@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {AddPhotosProps} from "../../types/Gallery";
+import "../../styles/Gallery.css";
 
 function AddPhotos({file, name, deleteFiles, setDeleteFiles}: AddPhotosProps) {
   const [checked, setChecked] = useState(false);
@@ -21,9 +22,20 @@ function AddPhotos({file, name, deleteFiles, setDeleteFiles}: AddPhotosProps) {
   return (
     <div className="Photo">
       <div className="PhotoImgDiv">
-        <input type="checkbox" onChange={handleCheck} checked={checked} />
-        <img className="PhotoImg" src={file} alt="Album" />
-        <p>{name}</p>
+        <div className="PhotoContainer">
+          <img
+            className={`PhotoImg ${checked ? "checked" : ""}`}
+            src={file}
+            alt="Album"
+          />
+          <input
+            type="checkbox"
+            className="checkBox"
+            onChange={handleCheck}
+            checked={checked}
+          />
+          <div className="name">{name}</div>
+        </div>
       </div>
     </div>
   );

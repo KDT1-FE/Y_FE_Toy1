@@ -2,11 +2,323 @@
   position: relative;
   z-index: 1001;
 
-  width: 500px;
-  height: 300px;
+  width: 520px;
+  height: 400px;
 
   padding: 20px;
 
   background-color: white;
   border-radius: 8px;
+}
+
+/* 현재시각 */
+.ModalClock {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-55%);
+
+  font-size: 48px;
+}
+
+.StatusContainer {
+  display: flex;
+
+  position: absolute;
+  top: 10%;
+  left: 80%;
+  transform: translateX(-55%);
+
+  width: 60px;
+  height: 30px;
+
+  background-color: #ffcfda;
+  border-radius: 5px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  font-size: 12px;
+  font-weight: bold;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.StatusContainer.onBreak {
+  background-color: rgb(159, 238, 238);
+}
+
+/* play, stop 아이콘 */
+.material-symbols-outlined {
+  font-size: 56px !important;
+}
+
+.PlayStopContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 32%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.PlayStopContainer::before {
+  content: "";
+
+  position: absolute;
+  top: 1%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: -1;
+
+  height: calc(150% + 16px);
+  width: 1px;
+
+  background-color: gray;
+}
+
+.PlayButtonContainer,
+.StopButtonContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.PlayButtonContainer {
+  margin-right: 22px;
+}
+
+.StopButtonContainer {
+  margin-left: 42px;
+}
+
+.TimeLabelsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  line-height: 16px;
+}
+
+.StopLabel {
+  margin-right: 20px;
+}
+
+.StopTime {
+  margin-right: 22px;
+  font-size: 12px;
+}
+
+.PlayLabel,
+.StopLabel {
+  font-size: 14px;
+}
+
+.PlayTime {
+  margin-left: 8px;
+  font-size: 12px;
+}
+
+/* ResumeButton, BreakButton & ResetButton */
+.ResumeButton,
+.BreakButton,
+.ResetButton {
+  position: absolute;
+  top: 60%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+
+  height: 30px;
+  width: 80px;
+
+  background-color: #f9f9f9;
+  border: 1px solid #dddada;
+
+  cursor: pointer;
+}
+.ResetButton {
+  left: 80%;
+}
+
+.ResumeButton:hover,
+.BreakButton:hover,
+.ResetButton:hover {
+  background-color: #eaeaea;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+  cursor: pointer;
+}
+
+/* 타이머 */
+.TimeContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  height: 30px;
+  width: 200px;
+
+  border: 1px solid #dddada;
+  background-color: #f9f9f9;
+}
+
+.TimerText,
+.TimeContainer span {
+  margin: 0 5px;
+
+  font-size: 12px;
+}
+
+/* 타이머와 "동안 공부" 중 사이 공백 */
+.TimerSpace {
+  margin: 0 2px;
+}
+
+.StudyDurationContainer {
+  position: absolute;
+  top: 72%;
+  left: 31%;
+  transform: translate(-50%, -50%);
+
+  font-size: 16px;
+  color: rgb(170, 175, 175);
+}
+
+.input input {
+  position: absolute;
+  top: 80%;
+  left: 12%;
+
+  width: 100%;
+  max-width: 220px;
+  width: auto;
+  height: 10px;
+
+  padding: 12px;
+
+  border-radius: 12px;
+  border: 1.5px solid lightgrey;
+  box-shadow: 0px 0px 20px -18px;
+
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.input input:hover {
+  border: 2px solid lightgrey;
+  box-shadow: 0px 0px 20px -17px;
+}
+
+.input input:active {
+  transform: scale(0.95);
+}
+
+.input input:focus {
+  border: 2px solid grey;
+}
+
+/* 전송버튼 */
+.SubmitButton {
+  display: inline-block;
+
+  position: absolute;
+  top: 80%;
+  left: 48%;
+
+  width: 66px;
+  height: 36px;
+
+  padding: 8px 8px;
+  margin: 0;
+
+  box-sizing: border-box;
+
+  background-color: #1899d6;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  text-align: center;
+  vertical-align: middle;
+
+  letter-spacing: 0.8px;
+  line-height: 20px;
+  white-space: nowrap;
+
+  appearance: button;
+  cursor: pointer;
+  outline: none;
+  overflow: visible;
+  touch-action: manipulation;
+  transform: translateZ(0);
+  transition: filter 0.2s;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.SubmitButton:after {
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: -1;
+
+  background-clip: padding-box;
+  background-color: #02a4f0;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+
+  content: "";
+}
+
+.SubmitButton:main,
+.SubmitButton:focus {
+  user-select: auto;
+}
+
+.SubmitButton:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.SubmitButton:disabled {
+  cursor: auto;
+}
+
+.SubmitButton:active:after {
+  border-width: 0 0 0px;
+}
+
+.SubmitButton:active {
+  padding-bottom: 10px;
+}
+
+/* 제출 설명 */
+.SubmitDescription {
+  position: absolute;
+  top: 90%;
+  left: 30%;
+
+  color: rgb(170, 175, 175);
+  font-size: 12px;
 }

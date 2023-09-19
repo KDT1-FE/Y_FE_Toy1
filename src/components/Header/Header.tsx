@@ -1,12 +1,29 @@
-import React from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import "../../styles/Header.css";
 import Modal from "../Modal/Modal";
 import TimerModal from "../Timer/TimerModal";
 import useModal from "../../hooks/useModal";
+import useTimer from "../../hooks/useTimer";
 
 function Header() {
   const {isOpen, toggle} = useModal();
+  const [statusText, setStatusText] = useState<string | null>(null);
+  const {
+    timeInSeconds,
+    setTimeInSeconds,
+    isRunning,
+    setIsRunning,
+    onBreak,
+    setOnBreak,
+    timerArray,
+    playTime,
+    setPlayTime,
+    stopTime,
+    setStopTime,
+    startTime,
+    setStartTime,
+  } = useTimer();
 
   return (
     <div className="Main">
@@ -39,7 +56,26 @@ function Header() {
         </nav>
       </header>
       <Modal isOpen={isOpen} onClose={toggle}>
-        <TimerModal onClose={toggle} />
+        <TimerModal
+          onClose={toggle}
+          hidden={!isOpen}
+          timeInSeconds={timeInSeconds}
+          setTimeInSeconds={setTimeInSeconds}
+          isRunning={isRunning}
+          setIsRunning={setIsRunning}
+          timerArray={timerArray}
+          toggle={toggle}
+          onBreak={onBreak}
+          setOnBreak={setOnBreak}
+          playTime={playTime}
+          setPlayTime={setPlayTime}
+          stopTime={stopTime}
+          setStopTime={setStopTime}
+          startTime={startTime}
+          setStartTime={setStartTime}
+          statusText={statusText}
+          setStatusText={setStatusText}
+        />
       </Modal>
     </div>
   );

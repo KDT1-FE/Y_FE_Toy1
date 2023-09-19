@@ -4,6 +4,7 @@ import "../../styles/TimerModal.css";
 import "../../styles/UploadModal.css";
 import {UploadModalProps} from "../../types/Modal";
 import PostPhotos from "./PostPhotos";
+import UploadImg from "../../assets/uploadImg.jpeg";
 
 function UploadModal({onClose, albumKey}: UploadModalProps) {
   const [currentFile, setCurrentFile] = useState<File | undefined>(undefined);
@@ -33,8 +34,25 @@ function UploadModal({onClose, albumKey}: UploadModalProps) {
           Close
         </button>
         <p>사진 업로드</p>
-        <input type="file" className="InputFile" onChange={handleFileChange} />
-        <input type="text" className="InputName" onChange={handleNameChange} />
+        <div className="InnerModalContent">
+          <label htmlFor="fileInput">
+            <img src={UploadImg} alt="업로드이미지" />
+            <input
+              type="file"
+              id="fileInput"
+              className="InputFile"
+              onChange={handleFileChange}
+              style={{display: "block"}}
+              aria-label="사진 선택"
+            />
+          </label>
+          <input
+            type="text"
+            className="InputName"
+            onChange={handleNameChange}
+            placeholder="사진에 이름을 넣어주세요!"
+          />
+        </div>
         <button type="button" className="CancelButton" onClick={onClose}>
           Cancel
         </button>
