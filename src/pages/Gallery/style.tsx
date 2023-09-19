@@ -3,8 +3,8 @@ import styled, { keyframes } from 'styled-components';
 //갤러리 전체
 export const GalleryContainer = styled.div`
     display: flex;
-    margin-top: 72px;
     height: calc(100vh - 72px);
+    padding-top: 72px;
     width: 100vw;
     overflow: hidden;
 `;

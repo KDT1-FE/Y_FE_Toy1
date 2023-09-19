@@ -5,15 +5,18 @@ import {
     Firestore,
     doc,
     getDocs,
+    addDoc,
     collection,
     deleteDoc,
     getDoc,
     setDoc,
     onSnapshot,
     QuerySnapshot,
-    addDoc,
-    updateDoc,
     arrayUnion,
+    arrayRemove,
+    updateDoc,
+    query,
+    orderBy,
 } from 'firebase/firestore';
 
 import { getStorage } from 'firebase/storage';
@@ -174,6 +177,143 @@ export const updateFieldKeyInDoc = async (
         }
     } catch (error) {
         console.error('서브채널 수정 실패!', error);
+        throw error;
+    }
+};
+
+export const getRecruitmentDetail = async (channel: string, path: string) => {
+    const docRef = doc(firestore, 'recruitmentContainer', 'recruitment', channel, path);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        console.log('Document data:', docSnap.data());
+        const userDocRef = doc(firestore, 'user', docSnap.data().uid);
+        const userDocSnap = await getDoc(userDocRef);
+        const data = { ...docSnap.data(), ...userDocSnap.data() };
+        for (let i = 0; i < data.comment.length; i++) {
+            const commentUserDocRef = doc(firestore, 'user', data.comment[i].uid);
+            const commentUserDocSnap = await getDoc(commentUserDocRef);
+            data.comment[i] = { ...data.comment[i], ...commentUserDocSnap.data() };
+        }
+        return data;
+    } else {
+        // docSnap.data() will be undefined in this case
+        console.log('No such document!');
+    }
+};
+
+export const getUserName = async (uid: string) => {
+    const docRef = doc(firestore, 'user', uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        return docSnap.data().name;
+    } else {
+        console.log('No such document!');
+    }
+};
+
+export const getUserImageURL = async (uid: string) => {
+    const docRef = doc(firestore, 'user', uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        return docSnap.data().imageURL;
+    } else {
+        console.log('No such document!');
+    }
+};
+
+interface Value {
+    uid: string;
+    content: string;
+    time: string;
+}
+
+export const createComment = async (channel: string, path: string, value: Value) => {
+    const docRef = doc(firestore, 'recruitmentContainer', 'recruitment', channel, path);
+
+    try {
+        const pushComment = await updateDoc(docRef, { comment: arrayUnion(value) });
+        console.log('댓글 작성에 성공했습니다');
+    } catch (error) {
+        console.error('댓글 작성에 실패했습니다.', error);
+        throw error;
+    }
+};
+
+export const deleteComment = async (channel: string, path: string, value: Value) => {
+    const docRef = doc(firestore, 'recruitmentContainer', 'recruitment', channel, path);
+
+    try {
+        const deleteComment = await updateDoc(docRef, { comment: arrayRemove(value) });
+        console.log('댓글 삭제에 성공했습니다');
+    } catch (error) {
+        console.error('댓글 삭제에 실패했습니다.', error);
+    }
+};
+
+export const showRecruitmentFields = async (
+    collectionName: string,
+    documentName: string,
+    subcollectionName: string,
+): Promise<{ docSnapshots: any[] }> => {
+    const documentRef = doc(firestore, collectionName, documentName);
+
+    try {
+        const documentSnapshot = await getDoc(documentRef);
+
+        if (documentSnapshot.exists()) {
+            const subcollectionRef = collection(documentRef, subcollectionName);
+            const querySnapshot = await getDocs(query(subcollectionRef, orderBy('time', 'desc')));
+            const docSnapshots = querySnapshot.docs.map((docSnapshot) => ({
+                id: docSnapshot.id,
+                data: docSnapshot.data(),
+            }));
+
+            return { docSnapshots };
+        } else {
+            console.error('상위 문서가 존재하지 않습니다.');
+            return { docSnapshots: [] }; // 빈 배열을 반환하여 오류 시 데이터가 없음을 표시
+        }
+    } catch (error) {
+        console.error('데이터 가져오기 실패!', error);
+        throw error;
+    }
+};
+
+export const createRecruitment = async (channel: string, value: any) => {
+    try {
+        const addRecruitment = await addDoc(
+            collection(firestore, 'recruitmentContainer', 'recruitment', channel),
+            value,
+        );
+        console.log('게시글 생성에 성공했습니다');
+    } catch (error) {
+        console.error('게시글 작성에 실패했습니다.', error);
+        throw error;
+    }
+};
+
+export const updateRecruitment = async (channel: string, path: string, value: any) => {
+    try {
+        const updateRecruitment = await setDoc(
+            doc(firestore, 'recruitmentContainer', 'recruitment', channel, path),
+            value,
+        );
+        console.log('게시글 생성에 성공했습니다');
+    } catch (error) {
+        console.error('게시글 작성에 실패했습니다.', error);
+        throw error;
+    }
+};
+
+export const deleteRecruitment = async (channel: string, path: string) => {
+    try {
+        const updateRecruitment = await deleteDoc(doc(firestore, 'recruitmentContainer', 'recruitment', channel, path));
+        console.log('게시글 삭제에 성공했습니다');
+    } catch (error) {
+        console.error('게시글 삭제에 실패했습니다.', error);
         throw error;
     }
 };
