@@ -1,4 +1,6 @@
 /* src/pages/Gallery.tsx */
+@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
+
 .GalleryWrapper {
   display: flex;
 
@@ -84,6 +86,8 @@
 }
 
 .name {
+  font-family: "Hanna", sans-serif;
+
   position: absolute;
   right: 0;
   bottom: 0;
