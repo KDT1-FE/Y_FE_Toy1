@@ -27,6 +27,12 @@ const GlobalStyle = createGlobalStyle`
     background-color:#fff;
     border:none;
   }
+  input{
+    outline:none;
+  }
+  .swal2-container{
+    z-index:90000;
+  }
 `;
 
 export default GlobalStyle;
