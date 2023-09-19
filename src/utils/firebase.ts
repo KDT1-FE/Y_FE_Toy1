@@ -158,3 +158,12 @@ export const updateFieldKeyInDoc = async (
         throw error;
     }
 };
+
+export const addUser = async (uid: string, value: any) => {
+    try {
+        const addUserFirestore = await setDoc(doc(firestore, 'user', uid), value);
+    } catch (error) {
+        console.error('계정 등록에 실패했습니다.', error);
+        throw error;
+    }
+};
