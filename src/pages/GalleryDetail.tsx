@@ -4,30 +4,22 @@ import { db } from "../firebase"
 import { doc, collection, getDocs, deleteDoc } from  "firebase/firestore"
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { AuthContext } from "authentication/authContext";
+import userData from './UserData'
 
 // 함수 인자 타입 선언
 interface GalleryDetailProps {
   onEdit: boolean;
   setOnEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  setGalleryData: React.Dispatch<React.SetStateAction<userData[]>>;
 }
 
-interface userData {
-  id: string;
-  category: string;
-  title: string;
-  date: string;
-  timestamp: string; // TimeStamp,
-  writer: string;
-  desc: string;
-}
-
-const GalleryDetail: React.FC<GalleryDetailProps> = ({ setOnEdit }) => {
+const GalleryDetail: React.FC<GalleryDetailProps> = ({ setOnEdit, setGalleryData }) => {
   // 현재 url의 id값 구하기
   const { id } = useParams<string>();
   const navigate = useNavigate();
   const user = useContext(AuthContext);
 
-  const [users, setUsers] = useState<any[]>([]);
+  const [users, setUsers] = useState<userData[]>([]);
   const usersCollectionRef = collection(db, "gallery");
 
   // 데이터 가져오기
@@ -40,11 +32,10 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({ setOnEdit }) => {
       }
     };
     getUsers();
-    console.log("테스트"); // 테스트코드 지워야할것같습니닷
   }, []);
 
   // 데이터 삭제하기
-  const deleteGallery = async (id: string) => {
+  const deleteGallery = async (id: string | undefined) => {
     if(user){
     const userToDelete = users.find(user => user.id === id);
     if(userToDelete && user.uid === userToDelete.uid){
@@ -52,8 +43,13 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({ setOnEdit }) => {
     const confirmDelete = window.confirm("정말 삭제하시겠습니까?")
       if(confirmDelete){
         // 삭제할 id의 데이터 지우기
-        const userDoc = doc(db, "gallery", id);
+        const collectionRef = collection(db, "gallery");
+        const userDoc = doc(collectionRef, id);
         await deleteDoc(userDoc)
+
+        setGalleryData(prevData => prevData.filter(item => item.id !== id));
+        console.log('제거')
+
         alert('삭제 완료했습니다')
         // 삭제 후 리스트페이지로 이동
         navigate('/Gallery')
@@ -75,7 +71,7 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({ setOnEdit }) => {
   }
 
   // 데이터 수정하기
-  const editGallery = async (id: string) => {
+  const editGallery = async (id: string | undefined) => {
     if(user){
     const userToEdit = users.find(user => user.id === id);
     if(userToEdit && user.uid === userToEdit.uid){
@@ -97,7 +93,7 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({ setOnEdit }) => {
 
   return (
     <>
-      {users.map((user: userData) => {
+      {users.map((user) => {
         return (
           <div key={user.id} style={{ margin: "30px" }}>
             <GalleryHeader>
@@ -112,7 +108,7 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({ setOnEdit }) => {
               <span>{user.writer}</span>
             </GalleryDesc>
             <GalleryEditor>
-              <div dangerouslySetInnerHTML={{ __html: user.desc }}></div>
+              { user.desc ? <div dangerouslySetInnerHTML={{ __html: user.desc }}></div> : null }
             </GalleryEditor>
           </div>
         )
