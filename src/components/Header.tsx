@@ -14,7 +14,7 @@ const Header = () => {
   const user = useContext(AuthContext);
   const [pathLink, setPathLink] = useState("");
   const location = useLocation();
-  const [displayUserInfo, setDisplayUserInfo] = useState(false)
+  const [displayUserInfo, setDisplayUserInfo] = useState(false);
 
   const [isModalActive, setIsModalActive] = useState(false);
   const [studyStartTime, setStudyStartTime] = useState<number | null>(null);
@@ -42,7 +42,7 @@ const Header = () => {
       <InnerContainer>
         <li>
           <Link to={`/`}>
-            <h1>FASTWIKI</h1> 
+            <h1>FASTWIKI</h1>
           </Link>
         </li>
         <ul className="header__link-wrapper">
@@ -65,14 +65,21 @@ const Header = () => {
           <li>
             {user?.displayName ? (
               <>
-                <div className='header__user-name' >
-                    <p onClick={()=>{setDisplayUserInfo(prev=>!prev)}}>{sliceStr(user.displayName, 7)}님</p>
-                    <div className='header__user-info'>
-                      {displayUserInfo? <UserInfo 
-                        handlerLogout= {handlerLogout}
-                        user={user}
-                        /> : <></>}
-                    </div>
+                <div className="header__user-name">
+                  <p
+                    onClick={() => {
+                      setDisplayUserInfo((prev) => !prev);
+                    }}
+                  >
+                    {sliceStr(user.displayName, 7)}님
+                  </p>
+                  <div className="header__user-info">
+                    {displayUserInfo ? (
+                      <UserInfo handlerLogout={handlerLogout} user={user} />
+                    ) : (
+                      <></>
+                    )}
+                  </div>
                 </div>
               </>
             ) : (
@@ -86,8 +93,8 @@ const Header = () => {
       {isModalActive && (
         <Modal
           setModal={setIsModalActive}
-          width="400"
-          height="200"
+          width="500"
+          height="300"
           element={
             <StudyTime
               isStudying={isStudying}
@@ -127,14 +134,14 @@ const InnerContainer = styled.div`
   padding: 0 2rem;
   box-sizing: border-box;
   max-width: 1200px;
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
   justify-content: space-between;
   word-break: keep-all;
 `;
 
 const Container = styled.nav`
-  user-select:none;
+  user-select: none;
   position: fixed;
   left: 0;
   top: 0;
@@ -145,9 +152,9 @@ const Container = styled.nav`
   font-size: 1rem;
   z-index: 10;
   background-color: #fff;
-  h1{
+  h1 {
     font-size: 1.4rem;
-    font-weight : bold;
+    font-weight: bold;
   }
   h2 {
     font-size: 1.2rem;
@@ -165,18 +172,17 @@ const Container = styled.nav`
     gap: 50px;
     align-items: center;
   }
-  .header__user-name{
+  .header__user-name {
     position: relative;
   }
-  .header__user-name p{
-    cursor:pointer;
+  .header__user-name p {
+    cursor: pointer;
     text-decoration: underline solid 1px;
   }
-  .header__user-info{
-    position:absolute;
-    top:60px;
-    right:0;
-
+  .header__user-info {
+    position: absolute;
+    top: 60px;
+    right: 0;
   }
 `;
 
