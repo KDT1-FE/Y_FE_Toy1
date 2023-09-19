@@ -12,6 +12,7 @@ export default function WikiPage() {
   const [isEditMode, setIsEditMode] = useState(false);
   const [showCategoryList, setShowCategoryList] = useState(true);
   const firstParentWiki = wikiInitData.find((wiki) => !wiki.parentID) || null;
+  const parents = wikiData.filter((wiki) => !wiki.parentID);
   const initialFormValue = firstParentWiki
     ? firstParentWiki
     : {
@@ -70,7 +71,7 @@ export default function WikiPage() {
     setSelectedEntry(entry);
     setForm(entry);
   }
-  function handleWikiButtonClick() {
+  function handleWikiEditButtonClick() {
     setShowCategoryList(!showCategoryList);
   }
 
@@ -101,6 +102,10 @@ export default function WikiPage() {
     console.log(markDownContent);
   }
 
+  function handleWikiDeleteClick() {
+    confirm("해당 위키를 삭제 하시겠습니까?");
+  }
+
   function handleFormChange(key: keyof typeof form, value: string) {
     setForm((prev) => ({
       ...prev,
@@ -129,11 +134,13 @@ export default function WikiPage() {
             <WikiContent
               Wiki={selectedEntry}
               isEditMode={isEditMode}
-              onWikiButtonClick={handleWikiButtonClick}
+              onWikiEditButtonClick={handleWikiEditButtonClick}
+              onWikiDeleteButtonClick={handleWikiDeleteClick}
               toggleEditMode={toggleEditMode}
               form={form}
               onFormChange={handleFormChange}
               editorRef={editorRef}
+              parents={parents}
             />
           }
         </S.Container>

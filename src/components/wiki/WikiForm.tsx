@@ -3,18 +3,31 @@ import * as FormStyled from "./WikiFormStyle";
 import { Wiki } from "@/pages/wiki/WikiType";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
+import "@toast-ui/editor/dist/i18n/ko-kr";
 
 type Props = {
   form: Wiki;
   onFormChange: (key: keyof Wiki, value: string) => void;
   editorRef: React.MutableRefObject<Editor | null>;
+  parents: Wiki[];
 };
 
-export const WikiForm = ({ form, onFormChange, editorRef }: Props) => {
+export const WikiForm = ({ form, onFormChange, editorRef, parents }: Props) => {
   return (
     <>
       <Styled.ContentsTitle>
         <Styled.TitleText>
+          <FormStyled.Select
+            value={form.parentID}
+            onChange={(e) => onFormChange("parentID", e.target.value)}
+          >
+            <option value="">전체</option>
+            {parents.map((parent) => (
+              <option key={parent.wikiID} value={parent.wikiID}>
+                {parent.title}
+              </option>
+            ))}
+          </FormStyled.Select>
           <FormStyled.Input
             type="text"
             value={form.title}
@@ -23,12 +36,6 @@ export const WikiForm = ({ form, onFormChange, editorRef }: Props) => {
           />
         </Styled.TitleText>
       </Styled.ContentsTitle>
-
-      {/* <FormStyled.Textarea
-        value={form.content}
-        onChange={(e) => onFormChange("content", e.target.value)}
-        placeholder="내용 입력"
-      /> */}
 
       <Editor
         height="550px"
@@ -43,6 +50,7 @@ export const WikiForm = ({ form, onFormChange, editorRef }: Props) => {
           ["table", "link"],
           ["code", "codeblock"],
         ]}
+        language="ko-KR"
       ></Editor>
     </>
   );

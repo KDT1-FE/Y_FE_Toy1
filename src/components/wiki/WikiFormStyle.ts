@@ -33,3 +33,24 @@ export const Textarea = styled.textarea`
     outline: none;
   }
 `;
+
+export const Select = styled.select`
+  width: 8rem;
+  height: 1.88rem;
+  padding: 0.4rem;
+  margin-right: 1rem;
+
+  border-radius: 0.25rem;
+  background-color: var(--color-white);
+
+  font-size: 14px;
+  font-weight: 400;
+  color: #b4b4b4;
+
+  &:focus {
+    outline: none;
+  }
+  option:checked {
+    background-color: var(--color-light-gray);
+  }
+`;

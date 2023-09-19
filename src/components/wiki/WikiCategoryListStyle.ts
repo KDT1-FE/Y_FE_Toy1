@@ -60,7 +60,8 @@ export const DepthSymbol = styled.div`
 
 export const ArrowIcon = styled.div`
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1rem;
+  color: #b4b4b4;
   margin-right: 1rem;
   margin-left: 1rem;
 `;

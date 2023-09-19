@@ -9,22 +9,26 @@ interface Props {
   form: Wiki;
   isEditMode: boolean;
   onFormChange: (key: keyof Wiki, value: string) => void;
-  onWikiButtonClick: () => void;
+  onWikiEditButtonClick: () => void;
+  onWikiDeleteButtonClick: () => void;
   toggleEditMode: () => void;
   editorRef: React.MutableRefObject<Editor | null>;
+  parents: Wiki[];
 }
 
 export default function WikiContent({
   Wiki,
   isEditMode,
-  onWikiButtonClick,
+  onWikiEditButtonClick,
+  onWikiDeleteButtonClick,
   toggleEditMode,
   form,
   onFormChange,
   editorRef,
+  parents,
 }: Props) {
   function onEditButtonClick() {
-    onWikiButtonClick();
+    onWikiEditButtonClick();
     toggleEditMode();
   }
 
@@ -36,6 +40,7 @@ export default function WikiContent({
           form={form}
           onFormChange={onFormChange}
           editorRef={editorRef}
+          parents={parents}
         />
       ) : (
         <>
@@ -46,6 +51,12 @@ export default function WikiContent({
               <Styled.EditDetails>
                 최종수정자: {Wiki.authorID}
               </Styled.EditDetails>
+              <WikiEditButton
+                text={"삭제"}
+                padding={"0.38rem 0.69rem"}
+                margin={"0 0.31rem 0 0"}
+                onClick={onWikiDeleteButtonClick}
+              ></WikiEditButton>
               <WikiEditButton
                 text={"수정"}
                 padding={"0.38rem 0.69rem"}
