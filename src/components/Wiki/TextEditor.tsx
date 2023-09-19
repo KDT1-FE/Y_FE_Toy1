@@ -23,7 +23,7 @@ function TextEditor({dataKey, content, setIsEditorOpen}: TextEditorProps) {
   return (
     <div className="TextEditorWrap">
       <ReactMarkdown
-        className="markdown-body markdownBodyEditor"
+        className="markdown-body MarkdownBodyEditor"
         remarkPlugins={[remarkGfm]}
         rawSourcePos
         rehypePlugins={[rehypeRaw as any]}
