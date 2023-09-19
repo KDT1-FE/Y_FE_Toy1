@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { db } from '../common/config';
 import { doc, getDoc } from 'firebase/firestore';
-import { timeToLocaleTimeString, formatMsToTime } from '../utils/formatTime';
+import { formatDate, formatMsToTime } from '../utils/formatTime';
 import { useUser } from '../common/UserContext';
 
 type CommuteData = {
@@ -16,37 +16,36 @@ export default function Carousel() {
   const { user } = useUser();
   const [name, setName] = useState<string>('');
   const [data, setData] = useState<CommuteData[]>([]);
-  
+
   useEffect(() => {
     const fetchData = async (uid: string) => {
       if (!uid) {
-        return; 
+        return;
       }
-      
+
       try {
         const docRef = doc(db, 'commute', uid);
         const docSnapshot = await getDoc(docRef);
-  
+
         if (docSnapshot.exists()) {
           const data = docSnapshot.data();
           const formattedData = Object.keys(data).map((date) => ({
             date: date,
-            startTime: timeToLocaleTimeString(data[date].startTime),
-            endTime: timeToLocaleTimeString(data[date].endTime),
+            startTime: formatDate(data[date].startTime),
+            endTime: formatDate(data[date].endTime),
             workingTime: formatMsToTime(data[date].workingTime),
           }));
           setData(formattedData);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
-      } 
-    }
+      }
+    };
 
-    if(!user) 
-      return;
+    if (!user) return;
 
     // 유저 정보
-    if(user) {
+    if (user) {
       setName(user.name);
       fetchData(user.uid);
     }
@@ -54,41 +53,38 @@ export default function Carousel() {
 
   return (
     <>
-      {
-        user &&
-        (
+      {user && (
         <>
           <H1>{name}님의 출퇴근 기록</H1>
-            {data.length > 0 ? (
-              <Table>
-                <THead>
-                  <tr>
-                    <th>날짜</th>
-                    <th>출근 시간</th>
-                    <th>퇴근 시간</th>
-                    <th>근무 시간</th>
+          {data.length > 0 ? (
+            <Table>
+              <THead>
+                <tr>
+                  <th>날짜</th>
+                  <th>출근 시간</th>
+                  <th>퇴근 시간</th>
+                  <th>근무 시간</th>
+                </tr>
+              </THead>
+              <TBody>
+                {data.map((item, index) => (
+                  <tr key={index}>
+                    <TH>{item.date}</TH>
+                    <TH>{item.startTime}</TH>
+                    <TH>{item.endTime}</TH>
+                    <TH>{item.workingTime}</TH>
                   </tr>
-                </THead>
-                <TBody>
-                  {data.map((item, index) => (
-                    <tr key={index}>
-                      <TH>{item.date}</TH>
-                      <TH>{item.startTime}</TH>
-                      <TH>{item.endTime}</TH>
-                      <TH>{item.workingTime}</TH>
-                    </tr>
-                  ))}
-                </TBody>
-              </Table>
-            ) : (
-              <Message>출퇴근 기록이 없습니다.</Message>
-            )}  
+                ))}
+              </TBody>
+            </Table>
+          ) : (
+            <Message>출퇴근 기록이 없습니다.</Message>
+          )}
         </>
-        )
-      }
+      )}
     </>
   );
-};
+}
 
 const H1 = styled.h1`
   margin-top: 1.5rem;
@@ -97,7 +93,7 @@ const H1 = styled.h1`
 `;
 
 const Table = styled.table`
-  border: 1px solid #E2E2E2;
+  border: 1px solid #e2e2e2;
   border-radius: 10px;
   width: 100%;
   margin-top: 0.5rem;
@@ -106,8 +102,8 @@ const Table = styled.table`
 `;
 
 const THead = styled.thead`
-  background-color: #E2E2E2;
-  padding: 8px; 
+  background-color: #e2e2e2;
+  padding: 8px;
 
   th {
     padding: 8px;
@@ -115,7 +111,7 @@ const THead = styled.thead`
 `;
 
 const TH = styled.th`
-  border-bottom: 1px solid #E2E2E2;
+  border-bottom: 1px solid #e2e2e2;
   padding: 6px;
 `;
 
