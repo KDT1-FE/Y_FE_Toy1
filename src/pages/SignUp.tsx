@@ -52,9 +52,10 @@ const SignUp = () => {
         uid: userCredential.user.uid,
         nickName: nickname,
         email,
-        studyTime: 0
+        studyTime: 0,
+        class: 0
       })
-
+      localStorage.setItem('user', JSON.stringify("0"))
       signOut(auth)
       alert('회원가입이 완료됐습니다.')
       navigate("/login",{replace:true})

@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { auth } from '../firebase'
+import { auth, db } from '../firebase'
 import { Link } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import './Authentication.css'
 import Swal from 'sweetalert2';
 import { specificErrorContent } from '../utils/authentication';
+import { determineClass, getClassLocalStorage, chkClassChangeAndAlert } from "../utils/class"
+import { collection, doc, getDoc } from 'firebase/firestore';
+import { FirebaseError } from 'firebase/app'
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -23,25 +26,39 @@ const Login = () => {
     setPwd(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    try{
+      await signInWithEmailAndPassword(auth, email, pwd)
 
-    signInWithEmailAndPassword(auth, email, pwd)
-      .then(() => {
-        Swal.fire({
-          icon:"success",
-          title: "로그인에 성공하였습니다."
-        })
-        navigate(-1)
+      const userSnapShot = await getDoc(doc(db, "user", auth.currentUser!.uid));
+      const databaseUser = userSnapShot.data()
+
+      if(databaseUser){
+        const userClass = determineClass(databaseUser.studyTime)
+        if(userClass){
+          // 계급의 변화를 감지하여 로컬에 반영
+          if(chkClassChangeAndAlert(userClass, databaseUser.class)){
+            localStorage.setItem(auth.currentUser!.uid, JSON.stringify(userClass))
+          }
+        }   
+      }
+
+      Swal.fire({
+        icon:"success",
+        title: "로그인에 성공하였습니다."
       })
-      .catch(e => {
-        console.dir(e.code)
+      navigate(-1)
+
+    }catch(e) {
+      if(e instanceof FirebaseError){
         Swal.fire({
           icon: "error",
           title: e.code,
           text : specificErrorContent(e.code.split('/')[1]),
         })
-      });
+      }
+    }
   };
 
   return (
