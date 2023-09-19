@@ -152,6 +152,7 @@ export default function Gallery() {
           setViewImg={setViewImg}
           setCurImg={setCurImg}
           setAddImg={setAddImg}
+          setImgLoad={setImgLoad}
         />
       </style.MainWrap>
       {addListModal ? (

@@ -68,35 +68,24 @@ export const Img = styled.div<{ img?: string; background?: string }>`
   &:hover {
     background-size: 105%;
   }
+`;
 
-  &.skeleton {
-    position: relative;
-    background-color: var(--color-light-gray);
-    background-image: none;
-  }
-  &.skeleton::after {
-    content: "";
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-image: linear-gradient(
-      270deg,
-      rgba(0, 0, 0, 0),
-      rgba(0, 0, 0, 0.1),
-      rgba(0, 0, 0, 0)
-    );
-    transform: translateX(-100%);
-    animation: skeleton-loader 2s infinite;
-  }
+export const Loading = styled.div`
+  width: 30px;
+  height: 30px;
+  margin: 100px auto;
+  border: 4px solid var(--color-main);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: loader 1s infinite linear;
 
-  @keyframes skeleton-loader {
+  @keyframes loader {
     0% {
-      transform: translateX(-100%);
+      transform: rotate(0deg);
     }
+
     100% {
-      transform: translateX(100%);
+      transform: rotate(360deg);
     }
   }
 `;
