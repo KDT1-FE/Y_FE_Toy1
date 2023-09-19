@@ -1,5 +1,6 @@
 import * as style from "./GalleryMainStyle";
 import Button from "../common/Button";
+import { useEffect } from "react";
 
 interface GalleryMainProps {
   album: string;
@@ -8,6 +9,8 @@ interface GalleryMainProps {
   imgLoad: boolean;
   setViewImg: React.Dispatch<React.SetStateAction<boolean>>;
   setCurImg: React.Dispatch<React.SetStateAction<string>>;
+  setAddImg: React.Dispatch<React.SetStateAction<boolean>>;
+  setImgLoad: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function GalleryMain({
@@ -16,8 +19,12 @@ export default function GalleryMain({
   imgLoad,
   setViewImg,
   setCurImg,
+  setAddImg,
+  setImgLoad,
 }: GalleryMainProps) {
-  // console.log(imagePaths);
+  useEffect(() => {
+    setImgLoad(true);
+  }, []);
 
   const clickImgHandle = (e: React.MouseEvent<HTMLImageElement>) => {
     const backgroundStyle = window
@@ -41,23 +48,28 @@ export default function GalleryMain({
             normal="reverse"
             onClick={() => {
               console.log(album);
+              setAddImg(true);
             }}
           />
         </style.Container>
-        <style.ImgContainer>
-          {imagePaths.map((img, i) => {
-            return (
-              <style.ImgWrap key={i}>
-                <style.Img
-                  img="#efefef"
-                  background={img}
-                  onClick={clickImgHandle}
-                  className={imgLoad ? "skeleton" : ""}
-                ></style.Img>
-              </style.ImgWrap>
-            );
-          })}
-        </style.ImgContainer>
+
+        {imgLoad ? (
+          <style.Loading></style.Loading>
+        ) : (
+          <style.ImgContainer>
+            {imagePaths.map((img, i) => {
+              return (
+                <style.ImgWrap key={i}>
+                  <style.Img
+                    img="#efefef"
+                    background={img}
+                    onClick={clickImgHandle}
+                  ></style.Img>
+                </style.ImgWrap>
+              );
+            })}
+          </style.ImgContainer>
+        )}
       </style.GalleryMain>
     </>
   );

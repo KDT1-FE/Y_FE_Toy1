@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
 import * as style from "./CurrentImgStyle";
+import { getStorage, ref, deleteObject } from "firebase/storage";
+import { app } from "../../../firebase";
+
+const storage = getStorage(app);
 
 interface CurrentImgProps {
   curImg: string;
   imagePaths: string[];
   setViewImg: React.Dispatch<React.SetStateAction<boolean>>;
   setCurImg: React.Dispatch<React.SetStateAction<string>>;
+  setImagePaths: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export default function CurrentImg({
   setViewImg,
   setCurImg,
+  setImagePaths,
   curImg,
   imagePaths,
 }: CurrentImgProps) {
@@ -80,6 +86,31 @@ export default function CurrentImg({
     }
   };
 
+  const deleteBtn = () => {
+    const startIndex = curImg.indexOf("/o/") + 3; // '/o/' 다음 인덱스
+    const endIndex = curImg.indexOf("?alt=media&token="); // '?alt=media&token=' 이전 인덱스
+
+    const storagePath = decodeURIComponent(
+      curImg.substring(startIndex, endIndex),
+    );
+
+    const imageRef = ref(storage, storagePath);
+
+    deleteObject(imageRef)
+      .then(() => {
+        console.log("이미지 삭제 성공");
+      })
+      .catch((error) => {
+        console.error("이미지 삭제 실패", error);
+      });
+    const copy = [...imagePaths];
+    const index = copy.indexOf(curImg);
+    copy.splice(index, 1);
+
+    setImagePaths(copy);
+    setViewImg(false);
+  };
+
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") {
@@ -98,6 +129,7 @@ export default function CurrentImg({
 
   return (
     <style.CurrentImgBg scale={imgScale}>
+      <style.DeleteBtn onClick={deleteBtn}>삭제하기</style.DeleteBtn>
       <style.Exit
         onClick={() => {
           setViewImg(false);

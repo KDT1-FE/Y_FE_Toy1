@@ -122,3 +122,14 @@ export const Size = styled.div`
     background-color: rgba(150, 150, 150, 0.9);
   }
 `;
+
+export const DeleteBtn = styled.div`
+  border: 1px solid red;
+  cursor: pointer;
+  color: red;
+  font-weight: bold;
+  padding: 3px 6px;
+  position: fixed;
+  top: 2%;
+  right: 2%;
+`;
