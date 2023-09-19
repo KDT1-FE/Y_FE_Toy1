@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { SideBarLink } from 'components/Gallery/SideBar';
-import { MainSlides } from 'components/Gallery/Main';
+import { SideBarLink } from 'components/Gallery/NavBar';
+import { MainSlides } from 'components/Gallery/SlideContainer';
 
 const userNickname = sessionStorage.getItem('nickname');
 const userId = sessionStorage.getItem('uid');
