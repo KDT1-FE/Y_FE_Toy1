@@ -67,6 +67,10 @@ export const SubChannelFlexDiv = styled.div`
     &:hover {
         background-color: #4d2a51;
         cursor: pointer;
+        & ${MoreHorizIconWrapper} {
+            background-color: #3f0e40;
+            color: #ffffffb3;
+        }
     }
 `;
 
