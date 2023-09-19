@@ -28,6 +28,10 @@ const RecruitmentPost: React.FC = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (!userId) {
+            navigate('/recruitment');
+        }
+
         getUserName(userId)
             .then((result) => {
                 setUserName(result);
