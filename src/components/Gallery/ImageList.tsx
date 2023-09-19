@@ -1,35 +1,45 @@
 import React from 'react';
+import { UploadedImage } from './types';
+import { BsFillTrashFill, BsFillHeartFill } from 'react-icons/bs';
 
-//todo::type, view modal
+// view modal
+interface Props {
+  docList: UploadedImage[];
+  onImageClick: (index: number) => void;
+  likeImage: (id: string, like: number) => void;
+  deleteData: (id: string) => void;
+}
 
 const ImageList = ({ docList, likeImage, deleteData }) => {
   return (
     <>
       {docList.map((item: UploadedImage, index: number) => {
         return (
-          <div className=" gallery-list__img-box shadow" key={item.id} style={{ backgroundImage: `url(${item.url})` }}>
-            {' '}
-            <h1>Title: {item.title}</h1>
-            <span>User Name: {item.username}</span>
-            <span>content: {item.content}</span>
-            <span>like: {item.like}</span>
-            <button
-              onClick={(event: React.MouseEvent) => {
-                event.stopPropagation();
-                likeImage(item.id, item.like);
-              }}>
-              {' '}
-              ❤
-            </button>
-            <button
-              onClick={(event: React.MouseEvent) => {
-                event.stopPropagation();
-                deleteData(item.id);
-              }}>
-              {' '}
-              Delete data
-            </button>
-          </div>
+          <figure className="shadow" key={item.id} style={{ backgroundImage: `url(${item.url})` }}>
+            <figcaption>
+              <h3>{item.title}</h3>
+              <div className="icon-wrap">
+                <div className="like-icon">
+                  <BsFillHeartFill
+                    className="icon"
+                    onClick={(event: React.MouseEvent) => {
+                      event.stopPropagation();
+                      likeImage(item.id, item.like);
+                    }}
+                  />
+                  <span> {item.like}</span>
+                </div>
+
+                <BsFillTrashFill
+                  className="icon"
+                  onClick={(event: React.MouseEvent) => {
+                    event.stopPropagation();
+                    deleteData(item.id);
+                  }}
+                />
+              </div>
+            </figcaption>
+          </figure>
         );
       })}
     </>

@@ -82,8 +82,6 @@ const GalleryPage = () => {
       {imgModalOpen && <ImageViewModal />}
       <article className="gallery__list">
         <ImageList
-          like={like}
-          setLike={setLike}
           docList={docList}
           likeImage={likeImage}
           deleteData={deleteData}
