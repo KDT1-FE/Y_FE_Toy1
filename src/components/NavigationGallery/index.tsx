@@ -30,7 +30,7 @@ function NavigationGallery() {
 }
 
 const LogoText = styled.span`
-  margin: 1.875rem 0 1.875rem 0;
+  margin: 1.875rem 0;
   font-size: 1.5rem;
   font-weight: 700;
   color: #fff;

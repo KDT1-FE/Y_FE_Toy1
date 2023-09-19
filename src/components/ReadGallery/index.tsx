@@ -93,7 +93,6 @@ const StyledPhotoContainer = styled.div`
     width: 20rem;
     height: 10rem;
   `)}
-
   ${media.desktop_xl(`
     width: 18rem;
     height: 9rem;
