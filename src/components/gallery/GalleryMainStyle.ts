@@ -52,7 +52,7 @@ export const ImgWrap = styled.div`
   algin-items: center;
 `;
 
-export const Img = styled.div<{ img: string; background: string }>`
+export const Img = styled.div<{ img?: string; background?: string }>`
   cursor: pointer;
   border: 0.06rem solid var(--color-light-gray);
   border-radius: 0.94rem;

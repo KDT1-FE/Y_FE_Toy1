@@ -8,6 +8,7 @@ interface GalleryMainProps {
   imgLoad: boolean;
   setViewImg: React.Dispatch<React.SetStateAction<boolean>>;
   setCurImg: React.Dispatch<React.SetStateAction<string>>;
+  setAddImg: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function GalleryMain({
@@ -16,8 +17,11 @@ export default function GalleryMain({
   imgLoad,
   setViewImg,
   setCurImg,
+  setAddImg,
 }: GalleryMainProps) {
-  // console.log(imagePaths);
+  console.log(imagePaths);
+
+  // console.log(imgLoad);
 
   const clickImgHandle = (e: React.MouseEvent<HTMLImageElement>) => {
     const backgroundStyle = window
@@ -41,6 +45,7 @@ export default function GalleryMain({
             normal="reverse"
             onClick={() => {
               console.log(album);
+              setAddImg(true);
             }}
           />
         </style.Container>

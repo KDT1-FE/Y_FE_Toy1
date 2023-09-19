@@ -171,7 +171,6 @@ export default function GallerySide({
 
   const albumClickHandle = async (title: string) => {
     try {
-      setImgLoad(true);
       setPrevAlbum(title);
       if (title === prevAlbum) {
         setImgLoad(false);
@@ -208,6 +207,7 @@ export default function GallerySide({
                     <style.List
                       key={i}
                       onClick={() => {
+                        setImgLoad(true);
                         setAlbum(v);
                         albumClickHandle(v);
                       }}

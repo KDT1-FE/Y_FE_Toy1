@@ -5,6 +5,7 @@ import GallerySide from "@components/gallery/GallerySide";
 import GalleryMain from "@components/gallery/GalleryMain";
 import Addlist from "@components/gallery/AddList";
 import CurrentImg from "@/components/gallery/CurrentImg";
+import { AddImg } from "@/components/gallery/AddImg";
 import {
   getFirestore,
   collection,
@@ -12,7 +13,14 @@ import {
   Timestamp,
 } from "firebase/firestore";
 import { app } from "../../../firebase";
-import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
+import {
+  getStorage,
+  ref,
+  listAll,
+  getDownloadURL,
+  getMetadata,
+  FullMetadata,
+} from "firebase/storage";
 
 const firestore = getFirestore(app);
 const storage = getStorage(app);
@@ -22,6 +30,11 @@ interface Folders {
   id: string;
   sub: string[];
   title: string;
+}
+
+interface ImageInfo {
+  url: string;
+  metadata: FullMetadata;
 }
 
 export default function Gallery() {
@@ -34,6 +47,7 @@ export default function Gallery() {
   const [curImg, setCurImg] = useState<string>("");
   const [viewImg, setViewImg] = useState<boolean>(false);
   const [imgLoad, setImgLoad] = useState(true);
+  const [addImg, setAddImg] = useState(false);
 
   // console.log(albumId);
 
@@ -45,9 +59,23 @@ export default function Gallery() {
 
         const paths = imageList.items.map(async (item) => {
           const url = await getDownloadURL(item);
-          return url;
+          const metadata = await getMetadata(item);
+
+          return { url, metadata };
         });
-        const urls = await Promise.all(paths);
+
+        const imageInfoList: ImageInfo[] = await Promise.all(paths);
+        const sortedImages = imageInfoList.sort((a, b) => {
+          if (a.metadata.customMetadata) {
+          }
+          const timestampA = a.metadata.customMetadata!.timestamp;
+          const timestampB = b.metadata.customMetadata!.timestamp;
+          return (
+            new Date(timestampA).getTime() - new Date(timestampB).getTime()
+          );
+        });
+
+        const urls = sortedImages.map((item) => item.url);
         setImagePaths(urls);
         setImgLoad(false);
       } catch (error) {
@@ -55,6 +83,7 @@ export default function Gallery() {
       }
     };
 
+    // setImgLoad(false);
     fetchImages();
   }, [albumId]);
 
@@ -86,8 +115,6 @@ export default function Gallery() {
     };
 
     fetchData();
-
-    setImgLoad(false);
   }, []);
 
   // console.log(galleryData);
@@ -121,9 +148,10 @@ export default function Gallery() {
           album={album}
           imagePaths={imagePaths}
           viewImg={viewImg}
+          imgLoad={imgLoad}
           setViewImg={setViewImg}
           setCurImg={setCurImg}
-          imgLoad={imgLoad}
+          setAddImg={setAddImg}
         />
       </style.MainWrap>
       {addListModal ? (
@@ -140,6 +168,9 @@ export default function Gallery() {
           imagePaths={imagePaths}
           setCurImg={setCurImg}
         ></CurrentImg>
+      ) : null}
+      {addImg ? (
+        <AddImg setAddImg={setAddImg} albumId={albumId}></AddImg>
       ) : null}
     </style.Gallery>
   );
