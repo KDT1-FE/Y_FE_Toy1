@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import "../../styles/gallery/gallery.css";
 import {useParams} from "react-router-dom";
 import Modal from "../Modal";
+import Loading from "../Loading";
 import DeleteModal from "./DeleteModal";
 import useModal from "../../hooks/useModal";
 import ReadPhotos from "./ReadPhotos";
@@ -31,6 +32,10 @@ function Album() {
 
   useEffect(() => {
     SelectAlbum();
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
   }, [id]);
 
   useEffect(() => {
@@ -41,10 +46,11 @@ function Album() {
           const imageUrlArray = photoFiles.map(photo => photo.imageUrl);
           setAllFiles(imageUrlArray);
           setFiles(photoFiles);
-          setIsLoading(false);
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 1000);
         })
         .catch(err => {
-          setIsLoading(false);
           throw new Error(err);
         });
   }, [albumKey]);
@@ -84,7 +90,7 @@ function Album() {
       </div>
       <div id="AlbumContainer">
         {isLoading ? (
-          <p>로딩 중...</p>
+          <Loading />
         ) : (
           files.map(file => (
             <AddPhotos
