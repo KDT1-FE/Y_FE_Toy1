@@ -1,7 +1,9 @@
 # Wikinity
+
 패스트캠퍼스 프론트엔트 부트캠프 1차 토이프로젝트
 
 ## Contributors
+
 <table>
     <tr>
         <td align="center"><img alt="avatar" src="https://github.com/wowba.png" width="100"></td>
@@ -18,22 +20,23 @@
 </table>
 
 ## 커밋 컨벤션
-| 명칭 | 의미 |
-| --- | --- |
-| Feat | 새로운 기능 추가 |
-| Fix | 버그 수정 |
-| Docs | 문서 수정 |
-| Style | 코드 포맷팅, 세미콜론 누락 |
-| Refactor | 코드 리팩토링 |
-| Test | 테스트 코드, 리팩토링 테스트 코드 추가 |
-| Chore | 빌드 업무 수정, 패키지 매니저 수정 |
+
+| 명칭     | 의미                                   |
+| -------- | -------------------------------------- |
+| Feat     | 새로운 기능 추가                       |
+| Fix      | 버그 수정                              |
+| Docs     | 문서 수정                              |
+| Style    | 코드 포맷팅, 세미콜론 누락             |
+| Refactor | 코드 리팩토링                          |
+| Test     | 테스트 코드, 리팩토링 테스트 코드 추가 |
+| Chore    | 빌드 업무 수정, 패키지 매니저 수정     |
 
 ## 폴더 구조
+
 ```
 📦
 ├─ public - static 파일
 ├─ src
-│  ├─ api - firestore 등 외부 api
 │  ├─ assets - 이미지
 │  ├─ components - 공통 컴포넌트 (nav, sidebar...)
 │  ├─ pages - 페이지별 컴포넌트
@@ -49,8 +52,8 @@
 
 ```
 
-
 ## Stack
+
 <p align="left">
   <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
   <img src="https://img.shields.io/badge/Html-E34F26?style=for-the-badge&logo=html5&logoColor=white"/>
@@ -63,20 +66,24 @@
 </p>
 
 ## UserFlow
+
 <p align="left">
   <img src="https://github.com/wowba/Wikinity/assets/87873821/d03cd6fe-245e-4918-876a-dab3d44cfbad" />
 </p>
 
 ## Git Branches
+
 - main: 배포용 브랜치
 - feature: 개별 개발용 브랜치
 
 ## CRA - typescript && libraries
+
 - npx create-react-app <프로젝트 명 or ./ > --template typescript
 - npm install recoil styled-components react-router-dom
 - prettier & eslint setting
 
 ## Firebase setting
+
 0. firebase 프로젝트 생성 및 앱 등록
 1. curl -sL https://firebase.tools | bash (firebase mac설치)
 2. npm install firebase
