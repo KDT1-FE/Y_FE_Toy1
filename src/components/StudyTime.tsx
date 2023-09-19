@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button, ButtonWhite } from "./Button";
 import "../index.css";
+import { useContext } from "react";
+import { AuthContext } from "authentication/authContext";
+import { increment, doc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 const StyledClock = styled.p`
   font-variant-numeric: tabular-nums;
@@ -40,6 +44,7 @@ const StudyTime: React.FC<StudyTimeProps> = ({
   studyStartTime,
   toggleStudyStatus,
 }) => {
+  const user = useContext(AuthContext);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
 
   useEffect(() => {
@@ -51,6 +56,18 @@ const StudyTime: React.FC<StudyTimeProps> = ({
         const elapsedMilliseconds = currentTime - studyStartTime;
         setElapsedTime(elapsedMilliseconds);
       }, 1000);
+    } else {
+      if (studyStartTime) {
+        const endTime = new Date().getTime();
+        const elapsedMinutes = Math.floor((endTime - studyStartTime) / 60000);
+
+        if (user && user.uid) {
+          const userDocRef = doc(db, "user", user.uid);
+          updateDoc(userDocRef, {
+            studyTime: increment(elapsedMinutes),
+          });
+        }
+      }
     }
 
     return () => {
