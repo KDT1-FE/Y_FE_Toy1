@@ -8,6 +8,8 @@ export const RecruitmentDetailContainer = styled.div`
 
     overflow: auto;
     background-color: #efefef;
+
+    position: relative;
 `;
 
 export const ContentContainer = styled.div`
@@ -190,4 +192,120 @@ export const Btn = styled.button`
 export const CommentNameInput = styled.input`
     font-size: 1rem;
     font-weight: 500;
+`;
+
+// DeleteModal
+
+export const DeleteModalContainer = styled.div`
+    position: absolute;
+    margin-top: -72px;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 2;
+`;
+
+export const DeleteModalWrapper = styled.div`
+    width: 500px;
+    height: 350px;
+
+    padding: 20px;
+
+    background-color: white;
+
+    z-index: 3;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -70%);
+
+    border-radius: 20px;
+`;
+
+export const DeleteModal = styled.div`
+    position: relative;
+    width: 100%;
+    height: 100%;
+`;
+
+export const DeleteModalTitle = styled.div`
+    font-weight: bold;
+    font-size: 1.7rem;
+`;
+
+export const DeleteCloseButton = styled.button`
+    font-size: 1.5rem;
+    padding: 0 10px;
+
+    border: none;
+    border-radius: 5px;
+    background-color: #ffffff;
+
+    margin-right: 10px;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    &:hover {
+        background-color: #f0f0f0;
+        cursor: pointer;
+    }
+`;
+
+export const DeleteText = styled.div`
+    width: 100%;
+    height: 150px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 1.3rem;
+`;
+
+export const DeleteFallbackButton = styled.button`
+    background-color: #ffffff;
+    color: black;
+
+    height: 40px;
+    width: 80px;
+
+    font-size: 1.2rem;
+    font-weight: bold;
+
+    border: 1px solid gray;
+    border-radius: 5px;
+    border: 0.5px solid black;
+
+    margin-top: 1rem;
+    margin-left: 1rem;
+
+    &:hover {
+        cursor: pointer;
+    }
+`;
+
+export const DeleteCreateButton = styled.button`
+    background-color: #2bac76;
+    color: #ffffff;
+
+    height: 40px;
+    width: 80px;
+
+    font-size: 1.2rem;
+    font-weight: bold;
+
+    border: 1px solid gray;
+    border-radius: 5px;
+    border: none;
+
+    margin-top: 1rem;
+    margin-left: 30%;
+
+    &:hover {
+        cursor: pointer;
+    }
 `;

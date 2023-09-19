@@ -15,9 +15,16 @@ import {
     ContentTitleWrapper,
     ContentWrapper,
     RecruitmentDetailContainer,
+    DeleteModalContainer,
+    DeleteModalWrapper,
+    DeleteModalTitle,
+    DeleteCloseButton,
+    DeleteModal,
+    DeleteFallbackButton,
+    DeleteCreateButton,
+    DeleteText,
 } from './style';
 import CommentItem from './CommentItem';
-import SidebarGallery from '../../components/SidebarGallery';
 import { getRecruitmentDetail, getUserName, createComment, deleteRecruitment } from '../../utils/firebase';
 import MDEditor from '@uiw/react-md-editor';
 import { useRecoilState } from 'recoil';
@@ -29,6 +36,7 @@ const RecruitmentDetail: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
     const [userName, setUserName] = useState('');
     const [recruitmentData, setRecruitmentData] = useRecoilState(RecruitmentData);
+    const [deleteModalValued, setDeleteModalValued] = useState(false);
 
     const [data, setData] = useState<any>({});
 
@@ -103,8 +111,28 @@ const RecruitmentDetail: React.FC = () => {
         navigate('/recruitment');
     };
 
+    const handleDeleteModal = () => {
+        setDeleteModalValued(!deleteModalValued);
+    };
+
     return (
         <RecruitmentDetailContainer>
+            {deleteModalValued ? (
+                <DeleteModalContainer>
+                    <DeleteModalWrapper>
+                        <DeleteModal>
+                            <DeleteModalTitle>게시글 삭제</DeleteModalTitle>
+                            <DeleteCloseButton onClick={handleDeleteModal}>x</DeleteCloseButton>
+                            <DeleteText>정말 삭제하시겠습니까?</DeleteText>
+                            <DeleteCreateButton onClick={handleDeleteRcruitment}>삭제</DeleteCreateButton>
+                            <DeleteFallbackButton onClick={handleDeleteModal}>나가기</DeleteFallbackButton>
+                        </DeleteModal>
+                    </DeleteModalWrapper>
+                </DeleteModalContainer>
+            ) : (
+                ''
+            )}
+
             <ContentContainer>
                 <ContentWrapper>
                     <ContentHeader>
@@ -121,7 +149,7 @@ const RecruitmentDetail: React.FC = () => {
                         {userId == data.uid ? (
                             <BtnWrapper>
                                 <Btn onClick={handleEdit}>수정하기</Btn>
-                                <Btn onClick={handleDeleteRcruitment}>삭제하기</Btn>
+                                <Btn onClick={handleDeleteModal}>삭제하기</Btn>
                             </BtnWrapper>
                         ) : (
                             ''
