@@ -48,12 +48,12 @@ export const SubmitButton = styled(Btn)`
 export const AddBtn = styled(Btn)`
     background-color : #484AAD;
     color : white;
-    padding : 10px 15px;
-    margin : 20px 0 0 800px;
+    padding : 10px 30px;
     position : relative;
-    left : 0;
+    right : 0;
     font-weight : 500;
     border : 0;
+    margin : 20px 20px 0 0;
     
 
 `;

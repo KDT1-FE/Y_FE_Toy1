@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { deleteDoc, collection, doc } from 'firebase/firestore';
 import { ContentListItemContentContainer, ItemContainer } from '../../../styled/WikiPage/Container';
 import { DeleteBtn, EditContentBtn } from '../../../styled/WikiPage/Button';
-import {CategoryText, TitleText} from '../../../styled/WikiPage/Text';
+import {CategoryText, TitleText, DateText} from '../../../styled/WikiPage/Text';
 import {db} from '../../../firebaseSDK';
 import { wikiListState } from '../../../recoil/atoms/wiki/wikiListAtom';
 
@@ -49,11 +49,10 @@ export default function ContentListItem({item} : WikiItemProps) {
 
     return (
     <ItemContainer >
-    <input type="checkbox"/>
         <ContentListItemContentContainer onClick={handleItemClick}>
             <CategoryText>{item.category}</CategoryText>
             <TitleText>{item.title}</TitleText>
-            <TitleText>작성일 : {item.createdAt}</TitleText>
+            <DateText>작성일 : {item.createdAt}</DateText>
         </ContentListItemContentContainer>
         <EditContentBtn type='button' onClick={handleEditBtn}>수정</EditContentBtn>
         <DeleteBtn type='button' onClick={handleDeleteBtnClick}>삭제</DeleteBtn>

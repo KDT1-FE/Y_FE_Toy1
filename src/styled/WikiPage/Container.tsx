@@ -33,7 +33,8 @@ export const SearchContainer = styled(ColumnContainer)`
 
 export const ContentContainer = styled(ColumnContainer)`
     flex-grow : 1;
-    align-items : center;
+    align-items : end;
+    display : relative;
     
 `;
 
@@ -49,7 +50,7 @@ export const CategoryHeaderContainer = styled.div`
 `;
 
 export const CategoryListContainer = styled(ColumnContainer)`
-    padding : 10px 20px;
+    padding : 0px 20px;
     background-color : white;
     margin-top : 0;
     align-items : start;
@@ -73,7 +74,7 @@ export const ContentListItemContainer = styled.div`
     border-radius : 15px;
     max-width : 800px;
     width : 100%;
-    margin : 10px 30px 30px 30px;
+    margin : 30px;
     gap : 10px;
     flex-direction :column;
     height : 500px;

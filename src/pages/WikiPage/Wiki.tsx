@@ -5,7 +5,6 @@ import {useRecoilState } from "recoil";
 import { categoryNameState } from "../../recoil/atoms/wiki/CategoryAtom";
 import Search from "./components/Search";
 import Category from "./components/Category";
-import ContentHeader from "./components/ContentHeader";
 import ContentList from "./components/ContentList";
 import {
   Container,
@@ -62,7 +61,6 @@ export default function Wiki() {
           <AddBtn type="button" onClick={handleButtonClick}>
             추가하기
           </AddBtn>
-          <ContentHeader />
           <ContentList />
         </ContentContainer>
       </RowContainer>

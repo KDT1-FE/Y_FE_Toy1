@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 
 const TitleText = styled.div`
-    font-size : 14px;
+    font-size : 15px;
+    font-weight : bold;
+    color : black;
+`;
+export const DateText = styled.div`
+    font-size : 13px;
     font-weight : bold;
     color : #666a73;
 `;
