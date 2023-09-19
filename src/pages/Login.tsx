@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { auth } from '../firebase'
+import { auth, db } from '../firebase'
 import { Link } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import './Authentication.css'
+import Swal from 'sweetalert2';
+import { specificErrorContent } from '../utils/authentication';
+import { SynchroClassAndAlert } from "../utils/class"
+import { FirebaseError } from 'firebase/app'
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -21,17 +25,27 @@ const Login = () => {
     setPwd(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    try{
+      await signInWithEmailAndPassword(auth, email, pwd)
+      await SynchroClassAndAlert(auth.currentUser!)
 
-    signInWithEmailAndPassword(auth, email, pwd)
-      .then(() => {
-        alert("로그인 성공");
-        navigate(-1)
+      Swal.fire({
+        icon:"success",
+        title: "로그인에 성공하였습니다."
       })
-      .catch(e => {
-        alert(e);
-      });
+      navigate(-1)
+
+    }catch(e) {
+      if(e instanceof FirebaseError){
+        Swal.fire({
+          icon: "error",
+          title: e.code,
+          text : specificErrorContent(e.code.split('/')[1]),
+        })
+      }
+    }
   };
 
   return (
