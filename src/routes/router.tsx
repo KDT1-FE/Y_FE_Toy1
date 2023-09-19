@@ -12,6 +12,7 @@ import Team from '../pages/wiki/Team';
 import Login from '../pages/Login';
 import Join from '../pages/Join';
 import Detail from '../pages/detail/Detail';
+import Contact from '../pages/contact/Contact';
 
 export const router = createBrowserRouter([
   {
@@ -95,6 +96,10 @@ export const router = createBrowserRouter([
       {
         path: 'join',
         element: <Join />,
+      },
+      {
+        path: 'contact',
+        element: <Contact />,
       },
     ],
   },
