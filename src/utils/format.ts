@@ -4,6 +4,9 @@
  * @param {boolean} isFinishing 종료 여부
  */
 
+import { format, formatDistanceToNow } from 'date-fns';
+import { ko } from 'date-fns/locale';
+
 export const timeFormat = (workTime: number, isFinishing = false) => {
   if (workTime < 60) {
     return isFinishing
@@ -61,6 +64,46 @@ const nowTimeString = (workTime: string) => {
 
 const finishTimeString = (workTime: string) => {
   return `${workTime} 동안 업무하셨습니다!`;
+};
+
+/**
+ * @description 현재 시간에 따라 작성된 시간의 차를 알려주는 함수
+ * @param {Date} date
+ * @returns format된 형식의 날짜.
+ */
+export const usedateFormat = (date: Date) => {
+  const renewDate = new Date(date);
+  const now = Date.now();
+
+  const diff = (now - renewDate.getTime()) / 1000;
+  if (diff < 60 * 1) {
+    return '방금 전';
+  }
+
+  if (diff < 60 * 60 * 24 * 3) {
+    return formatDistanceToNow(renewDate, { addSuffix: true, locale: ko });
+  }
+  return format(renewDate, 'PPP EEE p', { locale: ko });
+};
+
+/**
+ * @description 초단위의 숫자를 받으면 원하는 초, 분, 시 형태로 포맷해주는 함수
+ * @param {number} seconds
+ * @returns 포맷된 형식의 시간
+ */
+export const useSecondsFormat = (seconds: number) => {
+  if (seconds < 60) {
+    return `${seconds}초`;
+  } else if (seconds < 3600) {
+    const minutes = Math.floor(seconds / 60);
+    const remainSeconds = seconds % 60;
+    return `${minutes}분 ${remainSeconds}초`;
+  } else {
+    const hours = Math.floor(seconds / 3600);
+    const remainMinutes = Math.floor((seconds % 3600) / 60);
+    const remainSeconds = seconds % 60;
+    return `${hours}시간${remainMinutes}분${remainSeconds}초`;
+  }
 };
 
 export const calendarDayFormat = (dateString: Date | undefined) => {
