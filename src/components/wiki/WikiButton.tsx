@@ -9,7 +9,7 @@ interface Props {
 
 function WikiButton({ text, padding, margin, onClick }: Props) {
   return (
-    <Styled.WikiButton margin={margin} padding={padding} onClick={onClick}>
+    <Styled.WikiButton $margin={margin} $padding={padding} onClick={onClick}>
       {text}
     </Styled.WikiButton>
   );
