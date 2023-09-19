@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { auth } from '../../utils/firebase';
+import { auth, addUser } from '../../utils/firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const defaultTheme = createTheme();
@@ -31,10 +31,24 @@ export default function SignIn() {
         const passwordEntry = data.get('password');
         const password = passwordEntry !== null ? passwordEntry.toString() : '';
 
+        const nameEntry = data.get('name');
+        const name = nameEntry !== null ? nameEntry.toString() : '';
+
         // firebase Auth 등록
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
+
+                const value = {
+                    name: name,
+                    email: email,
+                    info: `안녕하세요 ${name}입니다.`,
+                    login: false,
+                    imageURL:
+                        'https://firebasestorage.googleapis.com/v0/b/wiki-for-fastcampus.appspot.com/o/images%2Fprofile.jpeg?alt=media&token=29da086e-74a8-445c-99b3-7332569544f7',
+                    timelog: [],
+                };
+                addUser(user.uid, value);
 
                 // 회원가입 성공시 redirect
                 navigate('/login', { state: pathname });
@@ -68,6 +82,17 @@ export default function SignIn() {
                             margin="normal"
                             required
                             fullWidth
+                            name="name"
+                            label="name"
+                            type="text"
+                            id="name"
+                            autoComplete="name"
+                        />
+
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
                             id="email"
                             label="Email Address"
                             name="email"
@@ -84,6 +109,7 @@ export default function SignIn() {
                             id="password"
                             autoComplete="current-password"
                         />
+
                         <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                             Sign In
                         </Button>
