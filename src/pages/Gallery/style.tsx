@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 //갤러리 전체
 export const GalleryContainer = styled.div`
     display: flex;
-    height: calc(100vh - 72px);
+    height: 100vh;
     padding-top: 72px;
     width: 100vw;
     overflow: hidden;
@@ -124,6 +124,7 @@ export const ProfileWrapper = styled.div`
 export const ProfileIMG = styled.img`
     width: 200px;
     height: 200px;
+    border-radius: 10px;
 `;
 export const ProfileName = styled.div`
     text-align: center;
