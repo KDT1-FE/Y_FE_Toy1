@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  position: sticky;
+  top: 0;
+`;
 
 export const Top = styled.div`
   display: flex;
