@@ -62,7 +62,7 @@ function TeamCard({teamName}: {teamName: string}) {
           />
         ) : (
           <ReactMarkdown
-            className="markdown-body markdown-body-team"
+            className="markdown-body markdownBodyTeam"
             remarkPlugins={[remarkGfm]}
             rawSourcePos
             rehypePlugins={[rehypeRaw as any]}

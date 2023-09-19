@@ -23,7 +23,7 @@ function TextEditor({dataKey, content, setIsEditorOpen}: TextEditorProps) {
   return (
     <div className="TextEditorWrap">
       <ReactMarkdown
-        className="markdown-body markdown-body-editor"
+        className="markdown-body markdownBodyEditor"
         remarkPlugins={[remarkGfm]}
         rawSourcePos
         rehypePlugins={[rehypeRaw as any]}
@@ -31,7 +31,7 @@ function TextEditor({dataKey, content, setIsEditorOpen}: TextEditorProps) {
         {text}
       </ReactMarkdown>
       <form className="EditorForm" onSubmit={onSubmit}>
-        <textarea onChange={onChange} value={text} />
+        <textarea className="TextArea" onChange={onChange} value={text} />
         <button
           className="WikiButton"
           type="submit"

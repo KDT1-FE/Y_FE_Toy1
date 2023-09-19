@@ -49,7 +49,7 @@ function Content() {
   return (
     <div className="WikiContentWrap">
       <div className="ContentHeader">
-        <h1 id="contentTitle">{title}</h1>
+        <h1 className="ContentTitle">{title}</h1>
         {isTeamContent ? (
           ""
         ) : (
