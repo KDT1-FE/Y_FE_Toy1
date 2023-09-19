@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs, Firestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { firestore } from '../../utils/firebase'; // Firebase firestore 객체 가져오기
-import { ProfileContainer, ProfileIMG, ProfileWrapper, StyleProfile } from './style';
+import { ContentFirstLine, ProfileContainer, ProfileIMG, ProfileName, ProfileWrapper, StyleProfile } from './style';
 
 const Profile: React.FC = () => {
     const [users, setUsers] = useState<any[]>([]);
@@ -52,14 +52,12 @@ const Profile: React.FC = () => {
 
     return (
         <ProfileContainer>
-            <div style={{ padding: '10px' }}>
-                <div style={{ font: '16px', fontWeight: 'bold' }}>모든 수강생 {'>'} 프로필</div>
-            </div>
+            <ContentFirstLine style={{ font: '16px', fontWeight: 'bold' }}>레퍼런스 공유 {'>'} 취업</ContentFirstLine>
             <StyleProfile>
                 {users.map((user: any) => (
                     <ProfileWrapper key={user.id}>
                         <ProfileIMG src={user.imgURL} alt={`Profile of ${user.name}`} />
-                        <p>{user.name}</p>
+                        <ProfileName>{user.name}</ProfileName>
                     </ProfileWrapper>
                 ))}
             </StyleProfile>

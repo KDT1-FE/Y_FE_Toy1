@@ -13,7 +13,7 @@ const Gallery: React.FC = () => {
         console.log(value);
     };
     return (
-        <GalleryContainer>
+        <GalleryContainer id={'키값'}>
             <SidebarGallery onKeyClick={handleKeyClick} />
             {clickedValue && clickedValue.userInfo ? (
                 <Profile />
@@ -22,7 +22,7 @@ const Gallery: React.FC = () => {
             ) : clickedValue && clickedValue.articleT ? (
                 <Tech />
             ) : (
-                <div>채널을 선택해주세요.</div>
+                <Recruit />
             )}
         </GalleryContainer>
     );
