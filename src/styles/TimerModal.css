@@ -32,8 +32,9 @@
   width: 60px;
   height: 30px;
 
-  background-color: rgb(159, 238, 238);
+  background-color: #ffcfda;
   border-radius: 5px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
   font-size: 12px;
   font-weight: bold;
