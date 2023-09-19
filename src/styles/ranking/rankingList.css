@@ -12,9 +12,10 @@
   flex-direction: column;
   align-items: center;
 
-  padding: 2rem;
   min-width: 80%;
   min-height: 100%;
+
+  padding: 2rem;
 }
 
 .RankingTitle {
@@ -24,17 +25,23 @@
 .ListContainer {
   display: flex;
   justify-content: space-between;
-  background-color: #f1f4f6;
+
   width: 800px;
   height: 50px;
-  border-radius: 1rem;
+
   margin: 1rem;
+
+  border-radius: 1rem;
+
+  background-color: #f1f4f6;
 }
 
 .ListContainer div {
   display: flex;
   align-items: center;
   justify-content: center;
+
   width: 30%;
+
   font-weight: 600;
 }
