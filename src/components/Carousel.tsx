@@ -1,34 +1,60 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components'; 
-import slideImg1 from '../assets/slideImage1.png'; 
-import slideImg2 from '../assets/slideImage2.png'; 
-import slideImg3 from '../assets/slideImage3.png'; 
 import { GrFormNext } from 'react-icons/gr';
 import { GrFormPrevious } from 'react-icons/gr';
 import { GoDot } from 'react-icons/go';
 import { GoDotFill } from 'react-icons/go';
+import { storage } from '../common/config';
+import { ref, listAll, getDownloadURL } from 'firebase/storage';
 
 export default function Carousel() {
-  const imagesUrl = [slideImg1, slideImg2, slideImg3];
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
 
   const showImage = (index: number) => {
     setCurrentImageIndex(index);
   };
 
   const showNextImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % imagesUrl.length);
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % imageUrls.length);
   };
 
   const showPreviousImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + imagesUrl.length) % imagesUrl.length);
+    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + imageUrls.length) % imageUrls.length);
   };
 
   useEffect(() => {
+    const fetchImageUrls = async () => {
+      try {
+        const carouselFolderRef = ref(storage, 'notice/carousel');
+        const listResult = await listAll(carouselFolderRef);
+    
+        const imageUrls = [];
+    
+        // 각 이미지 URL 가져오기
+        for (const itemRef of listResult.items) {
+          const downloadUrl = await getDownloadURL(itemRef);
+          imageUrls.push(downloadUrl);
+        }
+    
+        setImageUrls(imageUrls);
+      } catch (error) {
+        console.error('이미지 URL을 가져오는 동안 오류 발생:', error);
+      }
+    };
+
+    fetchImageUrls();
+  }, []);
+
+  useEffect(() => {
+    if (imageUrls.length === 0) {
+      return;
+    }
+
     const intervalId = setInterval(showNextImage, 5000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [imageUrls, currentImageIndex]);
 
   return (
     <>
@@ -38,8 +64,8 @@ export default function Carousel() {
             <GrFormPrevious size='40px'/>
           </ArrowButtonLeft>
           {
-            imagesUrl &&
-            imagesUrl.map((image, index) => (
+            imageUrls &&
+            imageUrls.map((image, index) => (
               <Image
                 key={index}
                 src={image}
@@ -53,8 +79,8 @@ export default function Carousel() {
         </ImageWrap>
         <ImageButtonWrap>
           {
-            imagesUrl &&
-            imagesUrl.map((_, index) => (
+            imageUrls &&
+            imageUrls.map((_, index) => (
               <ImageButton 
                 key={index} 
                 onClick={() => showImage(index)}
@@ -114,6 +140,10 @@ const Image = styled.img`
   /* height: 18rem; */
   object-fit: cover;
   position: relative;
+  
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const ImageButtonWrap = styled.div`
