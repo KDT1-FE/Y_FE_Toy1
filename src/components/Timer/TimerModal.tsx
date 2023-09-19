@@ -6,6 +6,7 @@ import Controls from "./TimerControls";
 import Clock from "../../utils/clock";
 import TimeLabels from "./TimeLabels";
 import StudyStatus from "./StudyStatus";
+import {postData} from "../../utils/timerAndRanking";
 
 function TimerModal(props: TimerModalProps) {
   const {
@@ -85,6 +86,7 @@ function TimerModal(props: TimerModalProps) {
             setStartTime={setStartTime}
             statusText={statusText}
             setStatusText={setStatusText}
+            timeInSeconds={timeInSeconds}
           />
           {/* <TimeLabels playTime={playTime} stopTime={stopTime} />  */}
           <div className="StudyDurationContainer">{studyDuration}</div>
@@ -104,7 +106,9 @@ function TimerModal(props: TimerModalProps) {
               <button
                 type="button"
                 className="SubmitButton"
-                // onClick={handleSubmitStudyTime}
+                onClick={() => {
+                  postData(username);
+                }}
               >
                 Submit
               </button>

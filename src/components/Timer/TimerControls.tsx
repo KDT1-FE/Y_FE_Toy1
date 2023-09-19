@@ -1,7 +1,10 @@
 import React, {useState} from "react";
 import {ControlsProps} from "../../types/Modal";
 import "../../styles/timer/timerModal.css";
-import {calculateStudyTime} from "../../utils/timerAndRanking";
+import {
+  calculateStudyTime,
+  saveTimeInBrowser,
+} from "../../utils/timerAndRanking";
 
 function Controls(props: ControlsProps) {
   const {
@@ -16,6 +19,7 @@ function Controls(props: ControlsProps) {
     startTime,
     setStartTime,
     setStatusText,
+    timeInSeconds,
   } = props;
 
   const [breakStartTime, setBreakStartTime] = useState<number | null>(null);
@@ -80,6 +84,7 @@ function Controls(props: ControlsProps) {
         effectiveBreakTime,
       );
       setStudyDuration(studyDuration);
+      saveTimeInBrowser(timeInSeconds);
       resetTimer();
     }
     setStopTime(getCurrentTime());
