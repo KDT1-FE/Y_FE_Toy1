@@ -13,7 +13,7 @@ const Gallery: React.FC = () => {
         console.log(value);
     };
     return (
-        <GalleryContainer>
+        <GalleryContainer id={'키값'}>
             <SidebarGallery onKeyClick={handleKeyClick} />
             {clickedValue && clickedValue.userInfo ? (
                 <Profile />

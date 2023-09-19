@@ -1,17 +1,18 @@
-import { style } from '@mui/system';
 import styled, { keyframes } from 'styled-components';
 
 //갤러리 전체
 export const GalleryContainer = styled.div`
     display: flex;
     margin-top: 72px;
-    height: 100vh;
+    height: calc(100vh - 72px);
     width: 100vw;
+    overflow: hidden;
 `;
 
 // 컨텐츠 영역
 export const ProfileContainer = styled.div`
     width: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
 `;
