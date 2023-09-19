@@ -9,8 +9,8 @@ const colors = {
 
   card: {
     accent: '#FFCB09',
-    border: '10px solid #3267B1',
-    shadow: '5px 5px 0 0 #021856',
+    border: '1px solid #f2f2f2',
+    shadow: '0 0 15px 0 rgba(0, 0, 0, 0.1)',
   },
 };
 

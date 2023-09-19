@@ -43,7 +43,7 @@ const CommuteModal = ({
   const mainButtonHandler = workingTime ? confirmWorkingTime : handleCommute;
   const secondaryButtonLabel = workingTime ? '수정' : '취소';
   const secondaryButtonHandler = workingTime ? editWorkingTime : toggleModal;
-  
+
   return (
     <>
       <Overlay onClick={toggleModal} className={isModalOpen ? 'open' : ''} />
@@ -58,8 +58,12 @@ const CommuteModal = ({
         </ContentWrapper>
 
         <ButtonWrapper>
-          <CommuteButton onClick={mainButtonHandler}>{mainButtonLabel}</CommuteButton>
-          <CommuteButton onClick={secondaryButtonHandler}>{secondaryButtonLabel}</CommuteButton>
+          {uid && (
+            <>
+              <CommuteButton onClick={mainButtonHandler}>{mainButtonLabel}</CommuteButton>
+              <CommuteButton onClick={secondaryButtonHandler}>{secondaryButtonLabel}</CommuteButton>
+            </>
+          )}
         </ButtonWrapper>
       </ModalContainer>
     </>
@@ -92,23 +96,27 @@ const ModalContainer = styled.div`
   justify-content: space-between;
   padding: 1rem 2rem;
 
+  min-width: 250px;
   max-width: 300px;
   min-height: 400px;
 
-  /* border-radius: 0.6rem; */
   border: ${(props) => props.theme.colors.card.border};
+  border-radius: 0.6rem;
   box-shadow: ${(props) => props.theme.colors.card.shadow};
 
   background-color: #ffffff;
 
+  visibility: hidden;
   opacity: 0;
   transition:
     transform 0.2s ease,
-    opacity 0.2s ease;
+    opacity 0.2s ease,
+    visibility 0.2s ease;
 
   &.open {
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
+    visibility: visible;
   }
 `;
 
