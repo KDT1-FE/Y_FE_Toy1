@@ -3,12 +3,12 @@ import { Editor } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/i18n/ko-kr";
 import { Wiki } from "./WikiCommonType";
 
-type WikiEditorProps = {
+type MarkdownEditorProps = {
   form: Wiki;
   editorRef: React.MutableRefObject<Editor | null>;
 };
 
-export const WikiEditor = ({ form, editorRef }: WikiEditorProps) => {
+export const MarkdownEditor = ({ form, editorRef }: MarkdownEditorProps) => {
   return (
     <Editor
       height="550px"

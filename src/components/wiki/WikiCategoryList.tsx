@@ -7,7 +7,7 @@ const WikiCategoryList = ({
   WiKiList,
   onEntryClick,
   onArrowClick,
-  style,
+  isVisible,
 }: WikiCategoryProps) => {
   const firstParentWikiId =
     WiKiList.find((wiki) => !wiki.parentID)?.wikiID || null;
@@ -31,7 +31,7 @@ const WikiCategoryList = ({
   };
 
   return (
-    <Styled.Wrapper style={style}>
+    <Styled.Wrapper $isVisible={isVisible}>
       <Styled.WikiList>
         {WiKiList.map((wiki) => (
           <Styled.WikiItem

@@ -1,16 +1,15 @@
 import * as Styled from "./WikiContentStyle";
-import * as FormStyled from "./WikiFormStyle";
+import * as FormStyled from "./RenderWikiFormStyle";
 import { WikiFormProps } from "@/components/wiki/WikiCommonType";
-import "@toast-ui/editor/dist/toastui-editor.css";
 import "@toast-ui/editor/dist/i18n/ko-kr";
-import { WikiEditor } from "./WikiEditor";
+import { MarkdownEditor } from "./MarkdownEditor";
 
-export const WikiForm = ({
+export default function WikiForm({
   form,
   onFormChange,
   editorRef,
   parents,
-}: WikiFormProps) => {
+}: WikiFormProps) {
   return (
     <>
       <Styled.ContentsTitle>
@@ -35,22 +34,7 @@ export const WikiForm = ({
         </Styled.TitleText>
       </Styled.ContentsTitle>
 
-      <WikiEditor form={form} editorRef={editorRef}></WikiEditor>
-      {/*   <Editor
-        height="550px"
-        ref={editorRef}
-        initialValue={form.content ? form.content : " "}
-        previewStyle="vertical"
-        hideModeSwitch={true}
-        toolbarItems={[
-          ["heading", "bold", "italic", "strike"],
-          ["hr", "quote"],
-          ["ul", "ol", "task", "indent", "outdent"],
-          ["table", "link"],
-          ["code", "codeblock"],
-        ]}
-        language="ko-KR"
-      ></Editor> */}
+      <MarkdownEditor form={form} editorRef={editorRef}></MarkdownEditor>
     </>
   );
-};
+}
