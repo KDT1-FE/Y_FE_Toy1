@@ -30,12 +30,12 @@ export default function CurrentImg({
     setCurIndex(index);
   }, [curIndex]);
 
-  // console.log(curIndex);
-  // console.log(imagePaths.length - 1);
-
   const nextImg = () => {
     if (curIndex >= imagePaths.length - 2) {
       const cur = imagePaths[curIndex + 1];
+      let num = curIndex;
+      num++;
+      setCurIndex(num);
       setCurImg(cur);
       setNextBtn(false);
     } else {
@@ -54,6 +54,9 @@ export default function CurrentImg({
 
   const prevtImg = () => {
     if (curIndex <= 1) {
+      let num = curIndex;
+      num--;
+      setCurIndex(num);
       const cur = imagePaths[curIndex - 1];
       setCurImg(cur);
       setPrevBtn(false);
@@ -140,8 +143,12 @@ export default function CurrentImg({
       <style.ImgWrap>
         <img src={curImg} />
       </style.ImgWrap>
-      {prevBtn ? <style.Prev onClick={prevtImg}></style.Prev> : null}
-      {nextBtn ? <style.Next onClick={nextImg}></style.Next> : null}
+      {prevBtn && curIndex !== 0 ? (
+        <style.Prev onClick={prevtImg}></style.Prev>
+      ) : null}
+      {nextBtn && curIndex !== imagePaths.length - 1 ? (
+        <style.Next onClick={nextImg}></style.Next>
+      ) : null}
       <style.Size>
         <div className="minus" onClick={imgMinus}>
           -
