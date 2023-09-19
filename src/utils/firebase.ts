@@ -16,7 +16,7 @@ import {
     arrayUnion,
 } from 'firebase/firestore';
 
-import { getStorage } from 'firebase/storage';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { getAuth } from 'firebase/auth';
 import { Snapshot } from 'recoil';
 
@@ -231,4 +231,16 @@ export const updateFieldKeyInDoc = async (
         console.error('서브채널 수정 실패!', error);
         throw error;
     }
+};
+
+export const uploadStorage = async (userId: string, file: File) => {
+    const storageRef = ref(storage, 'user');
+    const userRef = ref(storageRef, userId);
+    uploadBytes(userRef, file);
+};
+export const downloadStorage = async (userId: string) => {
+    const storageRef = ref(storage, 'user');
+    const userRef = ref(storageRef, userId);
+    const imgURL = await getDownloadURL(userRef);
+    return imgURL;
 };

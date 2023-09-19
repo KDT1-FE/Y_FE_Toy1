@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, ModalWall, CloseBtn, ModalHeader, Utils } from './style';
+import { Modal, ModalWall, CloseBtn, ModalHeader, Utils, TimerModal } from './style';
 import FastcampusDday from './FastcampusDday';
 import ShowState from './ShowState';
 import ShowCurrentTime from './ShowCurrentTime';
@@ -19,7 +19,7 @@ const CommuteModal: React.FC<OwnProps> = ({ handleModal }) => {
                 e.stopPropagation();
             }}
         >
-            <Modal>
+            <TimerModal>
                 <ModalHeader>
                     <span>공부 기록</span>
                     <CloseBtn onClick={handleModal}>X</CloseBtn>
@@ -30,7 +30,7 @@ const CommuteModal: React.FC<OwnProps> = ({ handleModal }) => {
                 </Utils>
                 <ShowCurrentTime setTimeRenewal={setTimeRenewal} />
                 <Btns />
-            </Modal>
+            </TimerModal>
         </ModalWall>
     );
 };

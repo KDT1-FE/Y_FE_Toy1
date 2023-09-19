@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CloseBtn, Modal, ModalHeader } from '../Timer/style';
 import { EditBox, EditInput, EditInputBox, FlexBox, InputImg, InputLabel, SubmitBtn } from './style';
-import { updateUserEmail, updateUserImg, updateUserInfo, updateUserName } from '../../../utils/firebase';
+import {
+    downloadStorage,
+    updateUserEmail,
+    updateUserImg,
+    updateUserInfo,
+    updateUserName,
+    uploadStorage,
+} from '../../../utils/firebase';
 import { useRecoilState } from 'recoil';
 import { UserEmail, UserId, UserImg, UserInfo, UserName } from '../../../utils/recoil';
 
@@ -17,12 +24,19 @@ const UserEditModal: React.FC<ownProps> = ({ handleEdit }) => {
     const [userId, setUserId] = useRecoilState(UserId);
     const [userImgPre, setUserImgPre] = useState('');
 
+    useEffect(() => {
+        setUserImgPre(userImg);
+    }, []);
     async function updateImg(image: React.ChangeEvent<HTMLInputElement>) {
         if (image.target.files) {
+            console.log(image.target.files[0]);
             const img = await image.target.files[0];
-            const imgURL = await URL.createObjectURL(img);
+            await uploadStorage(userId, img);
+            const imgURL = await downloadStorage(userId);
+            console.log(imgURL);
+
             setUserImgPre(imgURL);
-            window.URL.revokeObjectURL(imgURL);
+            await window.URL.revokeObjectURL(imgURL);
         }
     }
     async function updateProfile() {

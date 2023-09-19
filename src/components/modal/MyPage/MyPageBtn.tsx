@@ -37,7 +37,7 @@ export default function MyPageBtn() {
             setSlideOn(false);
             setTimeout(() => {
                 setShowMyPage(false);
-            }, 1000);
+            }, 900);
         } else {
             setShowMyPage(true);
             setTimeout(() => {

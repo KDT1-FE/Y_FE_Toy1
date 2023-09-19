@@ -7,6 +7,7 @@ import MyPageTimelog from './MyPageTimelog';
 import MyPageAuthor from './MyPageAuthor';
 import { useRecoilState } from 'recoil';
 import { SlideOn } from '../../../utils/recoil';
+import TimelogModal from './TimelogModal';
 
 interface OwnProps {
     handleMyPage(): void;

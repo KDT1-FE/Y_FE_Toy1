@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { BtnClassic } from '../Timer/style';
 
 export const ModalBtnImg = styled.img`
     width: 50px;
@@ -18,9 +19,9 @@ export const MyPage = styled.div<{ value: boolean }>`
     position: absolute;
     display: flex;
     flex-direction: column;
-    width: 30vw;
-    max-width: 500px;
-    min-width: 350px;
+    width: 25vw;
+    max-width: 400px;
+    min-width: 250px;
     height: calc(100vh - 72px);
     background-color: #fafafa;
     top: 72px;
@@ -49,10 +50,11 @@ export const MyPageCase = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 8%;
+    height: 10%;
     padding: 0 5%;
 `;
 export const MyPageHeader = styled(MyPageCase)`
+    height: 8%;
     border-bottom: 1px solid #ece7ec;
 `;
 
@@ -66,14 +68,14 @@ export const MyPageProfile = styled.div`
     gap: 20px;
 `;
 export const ProfileImg = styled.img`
-    width: 20rem;
-    height: 20rem;
+    width: 18rem;
+    height: 18rem;
     background-color: rgba(15, 15, 15, 0.1);
     border-radius: 20px;
 `;
 export const ProfileContent = styled(MyPageCase)`
     height: 5%;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: 700;
     padding: 0;
 `;
@@ -88,22 +90,27 @@ export const ProfileEdit = styled.span`
 `;
 export const ProfileIntroduce = styled.div`
     width: 100%;
-    height: 25%;
-    border-radius: 20px;
-    border: 1px solid #ece7ec;
+    height: 20%;
     background-color: #fff;
-    padding: 2%;
+    border: 1px solid #ece7ec;
+    border-radius: 10px;
+    padding: 10px;
 `;
 export const MyPageContents = styled(MyPageCase)`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
     border-top: 1px solid #ece7ec;
 `;
 
 export const MyPageFooter = styled(MyPageContents)`
+    height: 8%;
     justify-content: center;
 `;
 
 export const MarginLeft = styled.span`
-    font-size: 25px;
+    font-size: 20px;
     font-weight: 700;
     cursor: default;
 `;
@@ -158,7 +165,7 @@ export const TimelogBoxScroll = styled.div`
     overflow: auto;
     transition: 1s;
     &::-webkit-scrollbar {
-        border-radius: 10px;
+        display: none;
     }
     &::-webkit-scrollbar-thumb {
         width: 3px;
@@ -195,14 +202,14 @@ export const TimelogEl = styled.div`
 
 export const EditBox = styled.div`
     width: 100%;
-    padding: 5% 10% 0 10%;
+    padding: 5% 10%;
     display: flex;
     justify-content: space-between;
 `;
 export const EditInputBox = styled.div`
     display: flex;
     width: 50%;
-    gap: 50px;
+    gap: 20px;
     flex-direction: column;
 `;
 export const InputLabel = styled.div`
@@ -210,8 +217,9 @@ export const InputLabel = styled.div`
     flex-direction: column;
 `;
 export const EditInput = styled.input`
-    height: 30px;
+    height: 35px;
     border-radius: 10px;
+    font-size: 18px;
     border: 1px solid #7e7e7e;
     &:focus {
         outline: none;
@@ -220,28 +228,17 @@ export const EditInput = styled.input`
     }
 `;
 export const InputImg = styled.img`
-    width: 15rem;
-    height: 15rem;
+    width: 13rem;
+    height: 13rem;
     border-radius: 20px;
     background-color: gray;
 `;
-export const SubmitBtn = styled.button`
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    width: 120px;
-    height: 72px;
-    color: #fff;
-    border: none;
-    border-radius: 20px;
-    font-size: 24px;
-    font-weight: 700;
+export const SubmitBtn = styled(BtnClassic)`
     color: var(--text);
-    background-color: var(--navigation-background);
+    background-color: var(--active-current-status);
     box-shadow: '0 3px 3px 1px #ced0d3';
 `;
 export const FlexBox = styled.div`
     display: flex;
     justify-content: center;
-    margin-top: 3%;
 `;
