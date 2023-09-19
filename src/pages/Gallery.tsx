@@ -13,12 +13,18 @@ const Gallery = () => {
   
   const [onEdit, setOnEdit] = useState<boolean>(false);
   const [galleryData, setGalleryData] = useState<userData[]>([]);
-  const [activeCategory, setActiveCategory] = useState('notice'); // 초기값 설정
+  const [activeCategory, setActiveCategory] = useState<string>('notice'); // 초기값 설정
   // 초기값
   useEffect(() => {
     const fetchData = async () => {
       const data = await getDocs(collection(db, "gallery"));
-      const galleryData = data.docs.map((doc) => ({...doc.data(), id: doc.id}));
+      const galleryData: userData[] = data.docs.map((doc) => ({...doc.data(), id: doc.id}));
+      galleryData.sort((a, b) => {
+        if (a.timestamp && b.timestamp) {
+          return b.timestamp.toMillis() - a.timestamp.toMillis();
+        }
+        return 0;
+      });
       setGalleryData(galleryData);
     };
 
@@ -29,7 +35,14 @@ const Gallery = () => {
   const handleClick = async (category: string) => {
     const q = query(collection(db, "gallery"), where("category", "==", category));
     const data = await getDocs(q);
-    setGalleryData(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+    const galleryData: userData[] = data.docs.map((doc) => ({...doc.data(), id: doc.id})) 
+    galleryData.sort((a, b) => {
+      if (a.timestamp && b.timestamp) {
+        return b.timestamp.toMillis() - a.timestamp.toMillis();
+      }
+      return 0;
+    });
+    setGalleryData(galleryData);
     setActiveCategory(category)
   };
 
@@ -38,7 +51,7 @@ const Gallery = () => {
     <GallerySidebar handleClick={handleClick} activeCategory={activeCategory}/>
     <Container>
       <Routes>
-        <Route path="" element={<GalleryList galleryData={galleryData} />} />
+        <Route path="" element={<GalleryList galleryData={galleryData} activeCategory={activeCategory} />} />
         <Route path="edit" element={<GalleryEdit onEdit={onEdit} setOnEdit={setOnEdit} setGalleryData={setGalleryData} />} />
         <Route path="edit/:id" element={<GalleryEdit onEdit={onEdit} setOnEdit={setOnEdit} setGalleryData={setGalleryData} />} />
         <Route path="detail/:id" element={<GalleryDetail onEdit={onEdit} setOnEdit={setOnEdit} setGalleryData={setGalleryData} />} />
@@ -55,6 +68,11 @@ const Container = styled.section`
   width: calc(100% - 200px);
   padding: 5px;
   box-sizing: border-box;
+  img{
+    max-width: 100%;
+  }
 `;
+
+
 
 export default Gallery

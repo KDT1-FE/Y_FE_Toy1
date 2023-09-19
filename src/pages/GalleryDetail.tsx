@@ -26,6 +26,7 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({ setOnEdit, setGalleryData
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(usersCollectionRef);
+      console.log('상세 데이터 가져오기')
       const user = data.docs.find((doc) => doc.id === id);
       if (user) {
         setUsers([{ ...user.data(), id: user.id }]);
@@ -96,17 +97,22 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({ setOnEdit, setGalleryData
       {users.map((user) => {
         return (
           <div key={user.id} style={{ margin: "30px" }}>
-            <GalleryHeader>
-              <div className="Gallery__title"> {user.title}</div>
-              <div className="Gallery__btn-wrap">
-              <button onClick={() => {deleteGallery(user.id)}} className="Gallery__btn delete">삭제</button>
-              <button onClick={() => {editGallery(user.id)}} className="Gallery__btn">수정</button>
-              </div>
-            </GalleryHeader>
-            <GalleryDesc>
-              <span>{user.date}</span>
-              <span>{user.writer}</span>
-            </GalleryDesc>
+              <GalleryHeader>
+                <div className="Gallery__btn-wrap">
+                <button onClick={() => {deleteGallery(user.id)}} className="Gallery__btn delete">삭제</button>
+                <button onClick={() => {editGallery(user.id)}} className="Gallery__btn">수정</button>
+                </div>
+              </GalleryHeader>
+              <GalleryThumb>
+                <img src={user.thumbnail} alt="썸네일"/>
+              <GalleryDesc>
+                <div className="Gallery__title"> {user.title}</div>
+                <div className="Gallery__desc">
+                  <span>{user.date}</span>
+                  <span>{user.writer}</span>
+                </div>
+              </GalleryDesc>
+            </GalleryThumb>
             <GalleryEditor>
               { user.desc ? <div dangerouslySetInnerHTML={{ __html: user.desc }}></div> : null }
             </GalleryEditor>
@@ -123,14 +129,11 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({ setOnEdit, setGalleryData
   );
 };
 
-const GalleryHeader = styled.div`
+const GalleryHeader = styled.div`  
   margin-top: 40px;
   display: flex;
-  justify-content: space-between;
-  .Gallery__title {
-    font-size: 1.4rem;
-    font-weight: 700;
-  }
+  justify-content: flex-end;
+  margin-bottom: 20px;
   .Gallery__btn-wrap {
     display: flex;
     gap: 10px;
@@ -156,14 +159,28 @@ const GalleryDesc = styled.div`
   font-size: 14px;
   font-weight: 400;
   margin-top: 10px;
-  position: relative;
-  overflow: hidden;
-  left: -0.5em;
-  > span {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index:10;
+  padding: 0 20px;
+  .Gallery__title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color:white;
+  }
+  .Gallery__desc{
+    position: relative;
+    overflow: hidden;
+    left: -0.5em;
+    margin-top:10px;
+    > span {
     position: relative;
     display: inline-block;
     padding: 0 0.5em;
-    color: #666;
+    color: rgba(255,255,255,0.6);
     font-weight: 400;
     &:before {
       content: "";
@@ -175,16 +192,17 @@ const GalleryDesc = styled.div`
       border-left: 1px solid #b3b3b3;
     }
   }
+  }
+
 `;
 
 const GalleryEditor = styled.div`
-  border-top: 1px solid #ddd;
   margin-top: 20px;
   padding-top: 10px;
 `;
 
 const GalleryBtn = styled.div`
-margin-top: 20px;
+margin-top: 60px;
 text-align:center;
   button{
     background-color: var(--main-color);
@@ -195,6 +213,28 @@ text-align:center;
     border: none;
     outline: none;
     cursor: pointer;
+  }
+`
+
+const GalleryThumb = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  height: 200px;
+  position:relative;
+  img{
+    width:100%;
+  }
+  &:after{
+    content:'';
+    position:absolute;
+    left:0;
+    top:0;
+    display:block;
+    background-color: rgba(0,0,0,0.25);
+    width:100%;
+    height:100%;
   }
 `
 

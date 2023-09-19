@@ -5,7 +5,7 @@ import "../components/Wiki.css";
 import { AuthContext } from "authentication/authContext";
 import userData from './UserData'
 
-const GalleryList: React.FC<{ galleryData: userData[] }> = ({ galleryData }) => {
+const GalleryList: React.FC<{ galleryData: userData[], activeCategory: string }> = ({ galleryData, activeCategory }) => {
 
   const user = useContext(AuthContext);
   const navigate = useNavigate();
@@ -14,7 +14,11 @@ const GalleryList: React.FC<{ galleryData: userData[] }> = ({ galleryData }) => 
     <>
       <section className="wiki__wrapper">
         <div className="wiki__header">
-          <div className="wiki__title"> Gallery </div>
+          <div className="wiki__title">
+            {activeCategory === 'notice' && '공지사항'}
+            {activeCategory === 'news' && '모집공고'}
+            {activeCategory === 'random' && '랜덤토크'}
+          </div>
           {
             user?.displayName ? (
               <Link to="/Gallery/edit">
