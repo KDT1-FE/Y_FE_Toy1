@@ -1,5 +1,5 @@
 import React from 'react';
-import { CarouselSlide } from './Slide';
+import { CarouselSlide } from './SlideRow';
 
 export function MainSlides(): JSX.Element {
   return (

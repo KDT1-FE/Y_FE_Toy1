@@ -1,0 +1,23 @@
+@import '../../styles/reset.css';
+
+img {
+  width: 200px;
+  height: 200px;
+  // width: auto;
+  // height: 60vh;
+}
+
+.slide-row {
+  h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ff6523;
+  }
+}
+
+.leftSlideItem,
+.rightSlideItem {
+  display: flex;
+  gap: 20px;
+  margin: 30px 40px;
+}

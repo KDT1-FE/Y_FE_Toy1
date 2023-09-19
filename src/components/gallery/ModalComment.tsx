@@ -100,13 +100,11 @@ export function ModalComment({
 
   // 댓글 삭제
   const handleDeleteComment = async (e: any) => {
+    const getDelText: string = e.target.previousElementSibling.innerHTML;
+    const getDelUid: string = e.target.closest('.commentItem').id;
+
     try {
-      //선택 text값
-      const getDelText: string = e.target.previousElementSibling.innerHTML;
-      const getDelUid: string = e.target.closest('.commentItem').id;
-      //filter
       const updatedData = commentList.filter((comment: any) => {
-        // text 내용 같은 요소만 제거
         return (
           comment.text !== getDelText.trim() &&
           comment.commentUid == getDelUid.trim()

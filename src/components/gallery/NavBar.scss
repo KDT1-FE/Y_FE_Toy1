@@ -1,0 +1,15 @@
+@import '../../styles/reset.css';
+
+nav {
+  width: 70%;
+  height: 100%;
+  margin: auto;
+}
+
+.category {
+  width: 70vh;
+  background-color: aqua;
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 30px;
+}

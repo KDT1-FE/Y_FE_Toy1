@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import './ModalImage.scss';
-import { AddImageDragDrop } from './AddImage';
+import { AddImageDragDrop } from './NavAddImage';
 
 export function AddImageModal() {
   const modalRef: any = useRef();

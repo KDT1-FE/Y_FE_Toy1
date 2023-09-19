@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './SideBar.scss';
+import './NavBar.scss';
 import { AddImageModal } from './ModalImage';
 import { userId, userNickname } from 'pages/Gallery';
 

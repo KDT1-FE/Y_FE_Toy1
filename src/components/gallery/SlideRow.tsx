@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { gsap } from 'gsap';
-import './Slide.scss';
+import './SlideRow.scss';
 import { getImageData } from '../../data/galleryImage';
-import { MapImages } from './MapImages';
+import { MapImages } from './SlideMapImages';
 //images 받아오기
 
 interface Props {
