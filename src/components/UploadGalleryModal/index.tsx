@@ -40,7 +40,7 @@ function UploadGallery() {
   };
 
   const imgRegister = () => {
-    if (preview === null) {
+    if (preview === '') {
       alert('사진 업로드 후 등록해주세요');
       return;
     }
