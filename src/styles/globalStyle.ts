@@ -7,6 +7,10 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 16px;
     box-sizing: border-box;
   }
+
+  #root {
+    position: relative;
+  }
   
   html {
     --color-main: #001650;
