@@ -4,9 +4,12 @@ html {
     "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   font-size: 16px;
+  font-weight: 400px;
   --main-color: #ed234b;
   --main-black: #171717;
 }
+
+볼드 700px -> 
 
 body {
   margin: 0;

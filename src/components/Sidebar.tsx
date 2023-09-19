@@ -112,6 +112,10 @@ const Container = styled.aside`
     text-align: center;
   }
 
+  .svg_icon {
+    margin: 5;
+  }
+
   .sidebar__menu {
     font-weight: 400;
     font-size: 20px;
@@ -157,6 +161,7 @@ const SidebarBottom = (): JSX.Element => {
           rel="noreferrer"
         >
           <img
+            className="svg_icon"
             src={process.env.PUBLIC_URL + "/svg/notion_icon.svg"}
             alt="notion"
           />
@@ -167,6 +172,7 @@ const SidebarBottom = (): JSX.Element => {
           rel="noreferrer"
         >
           <img
+            className="svg_icon"
             src={process.env.PUBLIC_URL + "/svg/sheet_icon.svg"}
             alt="sheet"
           />
@@ -176,7 +182,11 @@ const SidebarBottom = (): JSX.Element => {
           target="_blank"
           rel="noreferrer"
         >
-          <img src={process.env.PUBLIC_URL + "/svg/zoom_icon.svg"} alt="zoom" />
+          <img
+            className="svg_icon"
+            src={process.env.PUBLIC_URL + "/svg/zoom_icon.svg"}
+            alt="zoom"
+          />
         </a>
       </div>
     </SidebarBottomBox>
