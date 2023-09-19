@@ -7,15 +7,17 @@ import useModal from "../../hooks/useModal";
 import ReadPhotos from "./ReadPhotos";
 import AddPhotos from "./AddPhotos";
 import UploadModal from "./UploadModal";
+import {ReactComponent as DeleteBtn} from "../../assets/icons/DeleteBtn.svg";
+import {ReactComponent as Upload} from "../../assets/icons/Upload.svg";
 
 function Album() {
   const {id} = useParams<{id: string}>();
   const {isOpen, toggle} = useModal();
-  const [albumKey, setAlbumKey] = useState<string>("");
+  const [albumKey, setAlbumKey] = useState("");
   const [allFiles, setAllFiles] = useState<string[]>([]);
   const [files, setFiles] = useState<{name: string; imageUrl: string}[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isModal, setIsModal] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isModal, setIsModal] = useState(false);
   const [deleteFiles, setDeleteFiles] = useState<string[]>([]);
 
   //   앨범 선택 함수 : URL파라미터 값에 따라 앨범 선택, URL파라미터 없을 경우 1번 앨범 선택
@@ -60,28 +62,24 @@ function Album() {
       <div id="AlbumHeader">
         <h1 id="AlbumTitle">앨범: {albumKey}</h1>
         <div id="AlbumIcons">
-          <button
+          <DeleteBtn
             type="button"
-            className="material-symbols-outlined"
             id="AlbumDelete"
+            className="Button"
             onClick={() => {
               toggle();
               ChangeModalFalse();
             }}
-          >
-            delete
-          </button>
-          <button
+          />
+          <Upload
             type="button"
-            className="material-symbols-outlined"
             id="AlbumUpload"
+            className="Button"
             onClick={() => {
               toggle();
               ChangeModalTrue();
             }}
-          >
-            ios_share
-          </button>
+          />
         </div>
       </div>
       <div id="AlbumContainer">

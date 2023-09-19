@@ -30,11 +30,11 @@ function AddPhotos({file, name, deleteFiles, setDeleteFiles}: AddPhotosProps) {
           />
           <input
             type="checkbox"
-            className="checkBox"
+            className="CheckBox"
             onChange={handleCheck}
             checked={checked}
           />
-          <div className="name">{name}</div>
+          <div className="Name">{name}</div>
         </div>
       </div>
     </div>

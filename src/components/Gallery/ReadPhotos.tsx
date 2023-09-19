@@ -1,7 +1,8 @@
 import {collection, getDocs} from "firebase/firestore";
 import {db} from "../../utils/firebaseConfig";
+import {ImageInfo} from "../../types/Gallery";
 
-async function ReadPhotos(albumKey: string): Promise<any[]> {
+async function ReadPhotos(albumKey: string): Promise<ImageInfo[]> {
   try {
     const imageNameList = await getDocs(collection(db, `${albumKey}`));
     const downloadURLs: {name: string; imageUrl: string}[] = [];

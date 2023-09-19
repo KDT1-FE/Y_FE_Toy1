@@ -4,3 +4,8 @@ export interface AddPhotosProps {
   deleteFiles: string[];
   setDeleteFiles: (files: string[]) => void;
 }
+
+export interface ImageInfo {
+  name: string;
+  imageUrl: string;
+}

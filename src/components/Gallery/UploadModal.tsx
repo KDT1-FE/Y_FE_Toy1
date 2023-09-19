@@ -35,11 +35,11 @@ function UploadModal({onClose, albumKey}: UploadModalProps) {
         </button>
         <p>사진 업로드</p>
         <div className="InnerModalContent">
-          <label htmlFor="fileInput">
+          <label htmlFor="FileInput">
             <img src={UploadImg} alt="업로드이미지" />
             <input
               type="file"
-              id="fileInput"
+              id="FileInput"
               className="InputFile"
               onChange={handleFileChange}
               style={{display: "block"}}
