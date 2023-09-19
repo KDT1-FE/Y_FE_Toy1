@@ -20,7 +20,8 @@ export async function getDocsToArr() {
 }
 
 // 이름 & 공부시간 firestore에 포스트
-export async function postData(id: string, secs: number) {
+export async function postData(id: string) {
+  const secs = Number(localStorage.getItem("time"));
   await setDoc(doc(db, "ranking", id), {
     name: id,
     time: secs,
@@ -100,4 +101,8 @@ export const calculateStudyTime = (
   const seconds = Math.floor((studyDuration % 60000) / 1000);
 
   return `총 공부 시간 : ${hours}시간 ${minutes}분 ${seconds}초`;
+};
+
+export const saveTimeInBrowser = (time: number | null) => {
+  localStorage.setItem("time", String(time));
 };
