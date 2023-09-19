@@ -13,7 +13,7 @@ export const ChannelWrapper = styled.div`
 `;
 
 export const ChannelDiv = styled.div`
-    font-size: 20px;
+    font-size: 1.4rem;
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -21,10 +21,11 @@ export const ChannelDiv = styled.div`
 `;
 
 export const SubChannelDiv = styled.div`
+    font-size: 1.15rem;
     display: flex;
     align-items: center;
     position: relative;
-
+    padding: 5px;
     &:hover {
         background-color: #4d2a51;
         cursor: pointer;

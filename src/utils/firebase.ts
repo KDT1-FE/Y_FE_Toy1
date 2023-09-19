@@ -15,6 +15,8 @@ import {
     arrayUnion,
     arrayRemove,
     updateDoc,
+    query,
+    orderBy,
 } from 'firebase/firestore';
 
 import { getStorage } from 'firebase/storage';
@@ -236,8 +238,7 @@ export const showRecruitmentFields = async (
 
         if (documentSnapshot.exists()) {
             const subcollectionRef = collection(documentRef, subcollectionName);
-            const querySnapshot = await getDocs(subcollectionRef);
-
+            const querySnapshot = await getDocs(query(subcollectionRef, orderBy('time', 'desc')));
             const docSnapshots = querySnapshot.docs.map((docSnapshot) => ({
                 id: docSnapshot.id,
                 data: docSnapshot.data(),

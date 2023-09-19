@@ -109,8 +109,8 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
         };
     }, [dropdownStates, dropdownSubStates, docsWithFields]);
 
-    const handleKeyClick = (value: any) => {
-        onKeyClick(value); // 클릭된 값을 상위 컴포넌트로 전달
+    const handleKeyClick = (value: any, channel: string, subChannel: string) => {
+        onKeyClick({ value, channel, subChannel }); // 클릭된 값을 상위 컴포넌트로 전달
     };
     const openModal = () => {
         setIsModalOpen(true);
@@ -166,7 +166,9 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
 
                         <div style={{ marginLeft: '20px' }}>
                             {item.docKeys.map((item2, index2) => (
-                                <SubChannelFlexDiv onClick={() => handleKeyClick(item.docData[item2])}>
+                                <SubChannelFlexDiv
+                                    onClick={() => handleKeyClick(item.docData[item2], item.docId, item2)}
+                                >
                                     <div key={index2}>{item2}</div>
                                     <MoreHorizIconWrapper>
                                         <MoreHorizIcon
