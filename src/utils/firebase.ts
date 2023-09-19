@@ -19,7 +19,7 @@ import {
     orderBy,
 } from 'firebase/firestore';
 
-import { getStorage } from 'firebase/storage';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { getAuth } from 'firebase/auth';
 import { Snapshot } from 'recoil';
 
@@ -68,16 +68,72 @@ export const createChannelDoc = async (collectionName: string, documentName: str
     }
 };
 // user의 타임로그 배열 형태로 저장
-export const createTimelog = async (collectionName: string, documentName: string, currentTime: string) => {
+export const createTimelog = async (collectionName: string, userName: string, currentTime: string) => {
     const value = currentTime;
-    const documentRef = doc(firestore, collectionName, documentName);
+    const userRef = doc(firestore, collectionName, userName);
     try {
-        const pushTimeLog = await updateDoc(documentRef, { timelog: arrayUnion(value) });
+        const pushTimeLog = await updateDoc(userRef, { timelog: arrayUnion(value) });
         alert(`${value}\n입/퇴실기록이 정상 기록되었습니다!`);
         console.log(value);
         console.log('입/퇴실기록이 정상 기록되었습니다!');
     } catch (error) {
         console.error('타임로그 생성 실패!', error);
+        throw error;
+    }
+};
+// user의 정보를 가져옴
+export const readUser = async (collectionName: string, userName: string) => {
+    const userRef = doc(firestore, collectionName, userName);
+    try {
+        const Docs = await getDoc(userRef);
+        if (Docs) {
+            const data = Docs.data();
+            if (data) {
+                return data;
+            }
+        }
+    } catch (error) {
+        console.error('타임로그 생성 실패!', error);
+        throw error;
+    }
+};
+export const updateUserName = async (collectionName: string, userName: string, updateData: string) => {
+    const value = updateData;
+    const userRef = doc(firestore, collectionName, userName);
+    try {
+        const pushTimeLog = await updateDoc(userRef, { name: value });
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+export const updateUserEmail = async (collectionName: string, userName: string, updateData: string) => {
+    const value = updateData;
+    const userRef = doc(firestore, collectionName, userName);
+    try {
+        const pushTimeLog = await updateDoc(userRef, { email: value });
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+export const updateUserInfo = async (collectionName: string, userName: string, updateData: string) => {
+    const value = updateData;
+    const userRef = doc(firestore, collectionName, userName);
+    try {
+        const pushTimeLog = await updateDoc(userRef, { info: value });
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+export const updateUserImg = async (collectionName: string, userName: string, updateData: string) => {
+    const value = updateData;
+    const userRef = doc(firestore, collectionName, userName);
+    try {
+        const pushTimeLog = await updateDoc(userRef, { imageURL: value });
+    } catch (error) {
+        console.error(error);
         throw error;
     }
 };
@@ -180,6 +236,18 @@ export const updateFieldKeyInDoc = async (
         throw error;
     }
 };
+
+
+export const uploadStorage = async (userId: string, file: File) => {
+    const storageRef = ref(storage, 'user');
+    const userRef = ref(storageRef, userId);
+    uploadBytes(userRef, file);
+};
+export const downloadStorage = async (userId: string) => {
+    const storageRef = ref(storage, 'user');
+    const userRef = ref(storageRef, userId);
+    const imgURL = await getDownloadURL(userRef);
+    return imgURL;
 
 export const getRecruitmentDetail = async (channel: string, path: string) => {
     const docRef = doc(firestore, 'recruitmentContainer', 'recruitment', channel, path);

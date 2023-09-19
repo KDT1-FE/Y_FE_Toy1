@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import GlobalStyle from './GlobalStyle';
 import Header from './common/Header';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
@@ -11,8 +11,6 @@ import Recruitment from './pages/Recruitment';
 import RecruitmentDetail from './pages/RecruitmentDetail';
 import RecruitmentPost from './pages/RecruitmentPost';
 import RecruitmentEdit from './pages/RecruitmentEdit';
-
-import { useRecoilState } from 'recoil';
 
 const App: React.FC = () => {
     return (

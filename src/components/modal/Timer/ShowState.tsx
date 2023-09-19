@@ -1,6 +1,6 @@
 import React from 'react';
 import { ShowOn } from './style';
-import { TimerOn } from '../../utils/recoil';
+import { TimerOn } from '../../../utils/recoil';
 import { useRecoilState } from 'recoil';
 
 const ShowState: React.FC = () => {

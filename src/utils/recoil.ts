@@ -37,3 +37,24 @@ export const TimeLog = atom({
     key: 'TimeLog',
     default: '',
 });
+
+export const SlideOn = atom({
+    key: 'SlideOn',
+    default: false,
+});
+export const UserName = atom({
+    key: 'UserName',
+    default: '',
+});
+export const UserEmail = atom({
+    key: 'UserEmail',
+    default: '',
+});
+export const UserInfo = atom({
+    key: 'UserInfo',
+    default: '',
+});
+export const UserImg = atom({
+    key: 'UserImg',
+    default: '',
+});

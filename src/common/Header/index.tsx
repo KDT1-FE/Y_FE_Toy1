@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { HeaderComponent, TitleAnchor, AnchorContainer, ListAnchor, RightAnchorContainer, ModalButton } from './style';
+import { HeaderComponent, TitleAnchor, AnchorContainer, ListAnchor, RightAnchorContainer } from './style';
 import { useRecoilState } from 'recoil';
 import { UserId, TimeLog, TimerOn } from '../../utils/recoil';
 import { useNavigate, useLocation } from 'react-router-dom';
-import CommuteBtn from '../../components/modal/CommuteBtn';
+import CommuteBtn from '../../components/modal/Timer/CommuteBtn';
 import { createTimelog } from '../../utils/firebase';
 import { CreateDay, CreateTime } from '../../components/modal/Hooks/WhatTime';
+import MyPageBtn from '../../components/modal/MyPage/MyPageBtn';
 
 const Header: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
@@ -83,9 +84,8 @@ const Header: React.FC = () => {
                     ) : (
                         <ListAnchor href={'/LogIn'}>LogIn</ListAnchor>
                     )}
-                    <ModalButton>
-                        <CommuteBtn />
-                    </ModalButton>
+                    <CommuteBtn />
+                    <MyPageBtn />
                 </RightAnchorContainer>
             </AnchorContainer>
         </HeaderComponent>
