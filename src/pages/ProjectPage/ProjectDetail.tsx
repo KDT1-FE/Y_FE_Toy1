@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { DocumentData, doc, getDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../../firebaseSDK";
+import Progress from "../../assets/img/Progress.svg";
+import Complete from "../../assets/img/Complete.svg";
+
 import {
   Container,
   TeamName,
@@ -13,6 +16,9 @@ import {
   UpdateDiv,
   DeleteDiv,
   BtnDiv,
+  ProgressDiv,
+  Ing,
+  ProgressImg,
 } from "../../styled/ProjectPage/ProjectDetail.styles";
 
 const ProjectDetail: React.FC = () => {
@@ -47,6 +53,24 @@ const ProjectDetail: React.FC = () => {
 
   return (
     <Container>
+      <ProgressDiv
+        className={
+          project?.projectProgress === "진행중" ? "inProgress" : "completed"
+        }
+      >
+        <Ing
+          className={
+            project?.projectProgress === "진행중" ? "inProgress" : "completed"
+          }
+        >
+          {project?.projectProgress}
+        </Ing>
+        {project?.projectProgress === "진행중" ? (
+          <ProgressImg src={Progress} alt="진행 중 이미지" />
+        ) : (
+          <ProgressImg src={Complete} alt="완료 이미지" />
+        )}
+      </ProgressDiv>
       <DivContainer>
         <TeamName>{project?.projectTeamName} Project</TeamName>
         <BtnDiv>

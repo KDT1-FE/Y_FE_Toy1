@@ -9,15 +9,25 @@ import {
   WriteProject,
   WriteInput,
   WriteContentInput,
+  Ex,
+  WriteEx,
 } from "../../styled/ProjectPage/ProjectWrite.styles";
+import {
+  ProgressDiv,
+  Ing,
+  ProgressImg,
+} from "../../styled/ProjectPage/ProjectList.styles";
+import Progress from "../../assets/img/Progress.svg";
+import Complete from "../../assets/img/Complete.svg";
 
 const ProjectEdit: React.FC = () => {
   const navigate = useNavigate();
   const { projectId } = useParams<{ projectId: string }>();
   const [projectData, setProjectData] = useState({
+    projectProgress: "",
     projectTeamName: "",
     projectDeadline: "",
-    projectMember: 0,
+    projectMember: "",
     projectTitle: "",
     projectContent: "",
   });
@@ -66,8 +76,45 @@ const ProjectEdit: React.FC = () => {
     }
   };
 
+  const handleProgressToggle = () => {
+    const newProgress =
+      projectData.projectProgress === "진행중" ? "완료" : "진행중";
+
+    setProjectData({
+      ...projectData,
+      projectProgress: newProgress,
+    });
+  };
+
   return (
     <Container>
+      <WriteEx>
+        <ProgressDiv
+          className={
+            projectData.projectProgress === "진행중"
+              ? "inProgress"
+              : "completed"
+          }
+        >
+          <Ing
+            className={
+              projectData.projectProgress === "진행중"
+                ? "inProgress"
+                : "completed"
+            }
+            onClick={handleProgressToggle}
+          >
+            {projectData.projectProgress}
+          </Ing>
+          {projectData.projectProgress === "진행중" ? (
+            <ProgressImg src={Progress} alt="진행 중 이미지" />
+          ) : (
+            <ProgressImg src={Complete} alt="완료 이미지" />
+          )}{" "}
+        </ProgressDiv>
+        <Ex>프로젝트 진행상황을 클릭해서 변경해주세요</Ex>
+      </WriteEx>
+
       <WriteDiv>
         <WriteProject>Edit Project</WriteProject>
         <form onSubmit={handleSubmit}>
@@ -80,7 +127,7 @@ const ProjectEdit: React.FC = () => {
           type="text"
           id="projectTeamName"
           name="projectTeamName"
-          placeholder="Team Name"
+          placeholder="팀명을 입력해주세요"
           value={projectData.projectTeamName}
           onChange={handleChange}
           required
@@ -92,7 +139,7 @@ const ProjectEdit: React.FC = () => {
           type="text"
           id="projectTitle"
           name="projectTitle"
-          placeholder="Project Title"
+          placeholder="프로젝트 주제를 입력해주세요"
           value={projectData.projectTitle}
           onChange={handleChange}
           required
@@ -102,7 +149,7 @@ const ProjectEdit: React.FC = () => {
         <WriteContentInput
           id="projectContent"
           name="projectContent"
-          placeholder="Project Description"
+          placeholder="프로젝트를 설명해주세요"
           value={projectData.projectContent}
           onChange={handleChange}
           required
@@ -113,7 +160,7 @@ const ProjectEdit: React.FC = () => {
           type="text"
           id="projectDeadline"
           name="projectDeadline"
-          placeholder="Deadline (e.g., 2023-09-22)"
+          placeholder="프로젝트 마감일을 입력해주세요 (ex.2023-09-22)"
           value={projectData.projectDeadline}
           onChange={handleChange}
           required
@@ -121,10 +168,10 @@ const ProjectEdit: React.FC = () => {
       </div>
       <div>
         <WriteInput
-          type="number"
+          type="text"
           id="projectMember"
           name="projectMember"
-          placeholder="Number of Members"
+          placeholder="프로젝트 참여 인원을 입력해주세요"
           value={projectData.projectMember}
           onChange={handleChange}
           required

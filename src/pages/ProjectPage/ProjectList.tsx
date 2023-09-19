@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebaseSDK";
 import ProjectSVG from "./components/ProjectSVG";
+import Progress from "../../assets/img/Progress.svg";
+import Complete from "../../assets/img/Complete.svg";
 
 import {
   Container,
@@ -16,10 +18,14 @@ import {
   TeamName,
   List,
   SVG,
+  ProgressDiv,
+  Ing,
+  ProgressImg,
 } from "../../styled/ProjectPage/ProjectList.styles";
 
 interface Project {
   id: string; // Firestore 문서의 ID를 저장할 필드 추가
+  projectProgress: string; //
   projectTitle: string;
   projectContent: string;
   projectDeadline: string;
@@ -76,6 +82,28 @@ const ProjectList: React.FC = () => {
               <SVG>
                 <ProjectSVG />
                 {project.projectTeamName} Project
+                <ProgressDiv
+                  className={
+                    project.projectProgress === "진행중"
+                      ? "inProgress"
+                      : "completed"
+                  }
+                >
+                  <Ing
+                    className={
+                      project.projectProgress === "진행중"
+                        ? "inProgress"
+                        : "completed"
+                    }
+                  >
+                    {project.projectProgress}
+                  </Ing>
+                  {project.projectProgress === "진행중" ? (
+                    <ProgressImg src={Progress} alt="진행 중 이미지" />
+                  ) : (
+                    <ProgressImg src={Complete} alt="완료 이미지" />
+                  )}
+                </ProgressDiv>
               </SVG>
             </TeamName>
             <List>

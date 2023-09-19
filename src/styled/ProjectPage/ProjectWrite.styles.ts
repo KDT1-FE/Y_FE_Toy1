@@ -72,3 +72,46 @@ export const WriteContentInput = styled.textarea`
   }
   font-family: RobotoMono;
 `;
+export const ProgressDiv = styled.div`
+  display: flex;
+  align-items: center;
+  font-family: RobotoMono;
+  border: 1px solid;
+  border-radius: 20px;
+  margin-left: 20px;
+  padding: 6px;
+
+  &.inProgress {
+    width: 78px;
+    border-color: #53e56b;
+  }
+  /* "완료" 상태에 대한 스타일 */
+  &.completed {
+    width: 68px;
+    border-color: #ff0000;
+  }
+`;
+export const Ing = styled.p`
+  font-size: 14px;
+  width: 78px;
+  &.inProgress {
+    color: #53e56b;
+  }
+  &.completed {
+    color: #ff0000;
+  }
+  cursor: pointer;
+`;
+export const ProgressImg = styled.img`
+  padding-left: 5px;
+  cursor: pointer;
+`;
+export const WriteEx = styled.div`
+  display: flex;
+  align-items: center;
+`;
+export const Ex = styled.p`
+  font-size: 12px;
+  margin-left: 10px;
+  color: #9d9797;
+`;

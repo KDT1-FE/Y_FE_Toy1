@@ -17,15 +17,24 @@ import {
   WriteProject,
   WriteInput,
   WriteContentInput,
+  WriteEx,
+  Ex,
 } from "../../styled/ProjectPage/ProjectWrite.styles";
+import {
+  ProgressDiv,
+  Ing,
+  ProgressImg,
+} from "../../styled/ProjectPage/ProjectList.styles";
+import Progress from "../../assets/img/Progress.svg";
+import Complete from "../../assets/img/Complete.svg";
 
 const ProjectWrite: React.FC = () => {
   const navigate = useNavigate();
   const [projectData, setProjectData] = useState({
-    projectIndex: 0,
+    projectProgress: "진행중",
     projectTeamName: "",
     projectDeadline: "",
-    projectMember: 0,
+    projectMember: "",
     projectTitle: "",
     projectContent: "",
   });
@@ -92,9 +101,44 @@ const ProjectWrite: React.FC = () => {
       console.error("Error adding project: ", error);
     }
   };
+  const handleProgressToggle = () => {
+    // projectData.projectProgress 값이 "진행중"이면 "완료"로, 그 반대면 "진행중"으로 바꾸기
+    const newProgress =
+      projectData.projectProgress === "진행중" ? "완료" : "진행중";
 
+    setProjectData({
+      ...projectData,
+      projectProgress: newProgress,
+    });
+  };
   return (
     <Container>
+      <WriteEx>
+        <ProgressDiv
+          className={
+            projectData.projectProgress === "진행중"
+              ? "inProgress"
+              : "completed"
+          }
+        >
+          <Ing
+            className={
+              projectData.projectProgress === "진행중"
+                ? "inProgress"
+                : "completed"
+            }
+            onClick={handleProgressToggle}
+          >
+            {projectData.projectProgress}
+          </Ing>
+          {projectData.projectProgress === "진행중" ? (
+            <ProgressImg src={Progress} alt="진행 중 이미지" />
+          ) : (
+            <ProgressImg src={Complete} alt="완료 이미지" />
+          )}{" "}
+        </ProgressDiv>
+        <Ex>프로젝트 진행상황을 클릭해서 변경해주세요</Ex>
+      </WriteEx>
       <WriteDiv>
         <WriteProject>Team Project</WriteProject>
         <form onSubmit={handleSubmit}>
@@ -148,7 +192,7 @@ const ProjectWrite: React.FC = () => {
       </div>
       <div>
         <WriteInput
-          type="number"
+          type="text"
           id="projectMember"
           name="projectMember"
           placeholder="프로젝트 참여 인원을 입력해주세요"
