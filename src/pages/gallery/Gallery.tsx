@@ -5,6 +5,7 @@ import GallerySide from "@components/gallery/GallerySide";
 import GalleryMain from "@components/gallery/GalleryMain";
 import Addlist from "@components/gallery/AddList";
 import CurrentImg from "@/components/gallery/CurrentImg";
+import { AddImg } from "@/components/gallery/AddImg";
 import {
   getFirestore,
   collection,
@@ -12,7 +13,14 @@ import {
   Timestamp,
 } from "firebase/firestore";
 import { app } from "../../../firebase";
-import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
+import {
+  getStorage,
+  ref,
+  listAll,
+  getDownloadURL,
+  getMetadata,
+  FullMetadata,
+} from "firebase/storage";
 
 const firestore = getFirestore(app);
 const storage = getStorage(app);
@@ -22,6 +30,11 @@ interface Folders {
   id: string;
   sub: string[];
   title: string;
+}
+
+interface ImageInfo {
+  url: string;
+  metadata: FullMetadata;
 }
 
 export default function Gallery() {
@@ -34,63 +47,66 @@ export default function Gallery() {
   const [curImg, setCurImg] = useState<string>("");
   const [viewImg, setViewImg] = useState<boolean>(false);
   const [imgLoad, setImgLoad] = useState(true);
-
-  // console.log(albumId);
+  const [addImg, setAddImg] = useState(false);
 
   useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const imagesRef = ref(storage, `Gallery/${albumId}`);
-        const imageList = await listAll(imagesRef);
-
-        const paths = imageList.items.map(async (item) => {
-          const url = await getDownloadURL(item);
-          return url;
-        });
-        const urls = await Promise.all(paths);
-        setImagePaths(urls);
-        setImgLoad(false);
-      } catch (error) {
-        console.error("이미지 목록을 가져오는 중 오류 발생:", error);
-      }
-    };
-
     fetchImages();
   }, [albumId]);
 
-  // console.log(imagePaths);
-
   useEffect(() => {
-    const fetchData = async () => {
-      const galleryRef = collection(firestore, "Gallery");
-      const querySnapshot = await getDocs(galleryRef);
-
-      const galleryArray: Folders[] = [];
-
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-
-        galleryArray.push({
-          createdAt: (data.createdAt as Timestamp).toDate(),
-          id: data.id,
-          sub: data.sub,
-          title: data.title,
-        });
-      });
-
-      galleryArray.sort(
-        (a, b) => a.createdAt.getTime() - b.createdAt.getTime(),
-      );
-
-      setGalleryData(galleryArray);
-    };
-
     fetchData();
-
-    setImgLoad(false);
   }, []);
 
-  // console.log(galleryData);
+  const fetchImages = async () => {
+    try {
+      const imagesRef = ref(storage, `Gallery/${albumId}`);
+      const imageList = await listAll(imagesRef);
+
+      const paths = imageList.items.map(async (item) => {
+        const url = await getDownloadURL(item);
+        const metadata = await getMetadata(item);
+
+        return { url, metadata };
+      });
+
+      const imageInfoList: ImageInfo[] = await Promise.all(paths);
+      const sortedImages = imageInfoList.sort((a, b) => {
+        if (a.metadata.customMetadata) {
+        }
+        const timestampA = a.metadata.customMetadata!.timestamp;
+        const timestampB = b.metadata.customMetadata!.timestamp;
+        return new Date(timestampA).getTime() - new Date(timestampB).getTime();
+      });
+
+      const urls = sortedImages.map((item) => item.url);
+      setImagePaths(urls);
+      setImgLoad(false);
+    } catch (error) {
+      console.error("이미지 목록을 가져오는 중 오류 발생:", error);
+    }
+  };
+
+  const fetchData = async () => {
+    const galleryRef = collection(firestore, "Gallery");
+    const querySnapshot = await getDocs(galleryRef);
+
+    const galleryArray: Folders[] = [];
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+
+      galleryArray.push({
+        createdAt: (data.createdAt as Timestamp).toDate(),
+        id: data.id,
+        sub: data.sub,
+        title: data.title,
+      });
+    });
+
+    galleryArray.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+
+    setGalleryData(galleryArray);
+  };
 
   const openAddListModal = (): void => {
     setAddListModal(true);
@@ -99,8 +115,6 @@ export default function Gallery() {
   const closeAddListModal = (): void => {
     setAddListModal(false);
   };
-
-  // console.log(galleryData);
   return (
     <style.Gallery>
       <GalleryHeader />
@@ -121,9 +135,11 @@ export default function Gallery() {
           album={album}
           imagePaths={imagePaths}
           viewImg={viewImg}
+          imgLoad={imgLoad}
           setViewImg={setViewImg}
           setCurImg={setCurImg}
-          imgLoad={imgLoad}
+          setAddImg={setAddImg}
+          setImgLoad={setImgLoad}
         />
       </style.MainWrap>
       {addListModal ? (
@@ -135,11 +151,21 @@ export default function Gallery() {
       ) : null}
       {viewImg ? (
         <CurrentImg
-          setViewImg={setViewImg}
           curImg={curImg}
           imagePaths={imagePaths}
           setCurImg={setCurImg}
+          setViewImg={setViewImg}
+          setImagePaths={setImagePaths}
         ></CurrentImg>
+      ) : null}
+      {addImg ? (
+        <AddImg
+          setAddImg={setAddImg}
+          setImgLoad={setImgLoad}
+          setImagePaths={setImagePaths}
+          albumId={albumId}
+          imagePaths={imagePaths}
+        ></AddImg>
       ) : null}
     </style.Gallery>
   );

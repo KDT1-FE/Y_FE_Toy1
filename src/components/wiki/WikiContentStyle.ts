@@ -19,6 +19,8 @@ export const ContentsTitle = styled.div`
   border-bottom: 1px solid #e4e4e4;
 `;
 export const TitleText = styled.div`
+  display: flex;
+  align-items: center;
   font-size: 18px;
   font-weight: 700;
   color: var(--color-gray);

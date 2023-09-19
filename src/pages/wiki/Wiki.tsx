@@ -1,49 +1,77 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import * as S from "./WikiStyle";
 import wikiInitData from "@/db/wiki/wikiInitData.json";
 import WikiContent from "@/components/wiki/WikiContent";
 import WikiCategoryList from "@/components/wiki/WikiCategoryList";
 import WikiTop from "@/components/wiki/WikiTop";
-
-type WikiEntry = {
-  title: string;
-  content: string;
-  authorName: string;
-  updatedAt: string;
-};
-
-type WikiCategory = {
-  categoryName: string;
-  entries: WikiEntry[];
-};
+import { Wiki } from "./WikiType";
+import { Editor } from "@toast-ui/react-editor";
 
 export default function WikiPage() {
-  const [wikiData, setWikiData] = useState<WikiCategory[]>(wikiInitData);
+  const [wikiData, setWikiData] = useState<Wiki[]>(wikiInitData);
   const [isEditMode, setIsEditMode] = useState(false);
   const [showCategoryList, setShowCategoryList] = useState(true);
-  const [selectedEntry, setSelectedEntry] = useState<WikiEntry | null>(null);
-  const [form, setForm] = useState({
-    title: "",
-    content: "",
-    authorName: "",
-    updatedAt: new Date().toISOString(),
-  });
+  const firstParentWiki = wikiInitData.find((wiki) => !wiki.parentID) || null;
+  const parents = wikiData.filter((wiki) => !wiki.parentID);
+  const initialFormValue = firstParentWiki
+    ? firstParentWiki
+    : {
+        wikiID: "",
+        parentID: "",
+        title: "",
+        content: "",
+        authorID: "",
+        createdAt: "",
+        updatedAt: "",
+      };
+  const [form, setForm] = useState<Wiki>(initialFormValue);
+  const [displayedWikis, setDisplayedWikis] = useState<Wiki[]>(
+    wikiData.filter((wiki) => !wiki.parentID),
+  );
+  const [selectedEntry, setSelectedEntry] = useState<Wiki | null>(
+    firstParentWiki,
+  );
+  const editorRef = useRef<Editor | null>(null);
 
   useEffect(() => {
     setWikiData(wikiInitData);
-
-    // 첫 번째 카테고리의 첫 번째 위키 선택
-    if (wikiInitData.length && wikiInitData[0].entries.length) {
-      setSelectedEntry(wikiInitData[0].entries[0]);
-      setForm(wikiInitData[0].entries[0]);
-    }
   }, []);
 
-  function handleEntryClick(entry: WikiEntry) {
+  function toggleChildWikis(parentWiki: Wiki) {
+    const childWikis = wikiData.filter(
+      (wiki) => wiki.parentID === parentWiki.wikiID,
+    );
+
+    setDisplayedWikis((prev) => {
+      const newDisplayedWikis = [...prev];
+      const parentIndex = newDisplayedWikis.findIndex(
+        (wiki) => wiki.wikiID === parentWiki.wikiID,
+      );
+
+      if (
+        newDisplayedWikis[parentIndex + 1] &&
+        newDisplayedWikis[parentIndex + 1].parentID === parentWiki.wikiID
+      ) {
+        let childIndex = parentIndex + 1;
+        while (
+          newDisplayedWikis[childIndex] &&
+          newDisplayedWikis[childIndex].parentID === parentWiki.wikiID
+        ) {
+          childIndex++;
+        }
+        newDisplayedWikis.splice(parentIndex + 1, childIndex - parentIndex - 1);
+      } else {
+        newDisplayedWikis.splice(parentIndex + 1, 0, ...childWikis);
+      }
+      return newDisplayedWikis;
+    });
+  }
+
+  function handleEntryClick(entry: Wiki) {
     setSelectedEntry(entry);
     setForm(entry);
   }
-  function handleWikiButtonClick() {
+  function handleWikiEditButtonClick() {
     setShowCategoryList(!showCategoryList);
   }
 
@@ -52,22 +80,30 @@ export default function WikiPage() {
   }
 
   function handleRegisterClick() {
-    // 위키 작성 폼을 표시하는 로직
     setIsEditMode(true);
     setShowCategoryList(false);
     setForm({
+      wikiID: "",
+      parentID: "",
       title: "",
       content: "",
-      authorName: "",
-      updatedAt: new Date().toISOString(),
+      authorID: "",
+      createdAt: "",
+      updatedAt: "",
     });
   }
 
-  // 위키 저장
   function handleSaveClick() {
     setIsEditMode(false);
     setShowCategoryList(true);
     alert("위키를 저장했습니다.");
+    //markdown 내용
+    const markDownContent = editorRef.current?.getInstance().getMarkdown();
+    console.log(markDownContent);
+  }
+
+  function handleWikiDeleteClick() {
+    confirm("해당 위키를 삭제 하시겠습니까?");
   }
 
   function handleFormChange(key: keyof typeof form, value: string) {
@@ -76,6 +112,7 @@ export default function WikiPage() {
       [key]: value,
     }));
   }
+  console.log(form);
 
   return (
     <>
@@ -88,18 +125,24 @@ export default function WikiPage() {
         ></WikiTop>
         <S.Container>
           <WikiCategoryList
-            data={wikiData}
+            WiKiList={displayedWikis}
             onEntryClick={handleEntryClick}
+            onArrowClick={toggleChildWikis}
             style={{ display: showCategoryList ? "block" : "none" }}
           />
-          <WikiContent
-            entry={selectedEntry}
-            isEditMode={isEditMode}
-            onWikiButtonClick={handleWikiButtonClick}
-            toggleEditMode={toggleEditMode}
-            form={form}
-            onFormChange={handleFormChange}
-          />
+          {
+            <WikiContent
+              Wiki={selectedEntry}
+              isEditMode={isEditMode}
+              onWikiEditButtonClick={handleWikiEditButtonClick}
+              onWikiDeleteButtonClick={handleWikiDeleteClick}
+              toggleEditMode={toggleEditMode}
+              form={form}
+              onFormChange={handleFormChange}
+              editorRef={editorRef}
+              parents={parents}
+            />
+          }
         </S.Container>
       </S.WikiWrapper>
     </>
