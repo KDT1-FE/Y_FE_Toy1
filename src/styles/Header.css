@@ -137,7 +137,7 @@
   cursor: pointer;
 }
 
-#clock {
+.HeaderClock {
   width: 130px;
 
   color: #fff;
