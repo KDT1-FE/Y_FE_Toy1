@@ -26,7 +26,7 @@ interface postData {
 }
 
 const RecentPost: React.FC = () => {
-  const [posts, setPost] = useState<any[]>([]);
+  const [posts, setPost] = useState<postData[]>([]);
 
   const q = query(
     collection(db, "gallery"),
@@ -38,10 +38,19 @@ const RecentPost: React.FC = () => {
     const fetchPost = async () => {
       try {
         const postSnap = await getDocs(q);
-        const data = postSnap.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
+        const data = postSnap.docs.map((doc) => {
+          const docData = doc.data();
+          return {
+            id: doc.id,
+            category: docData.category,
+            title: docData.title,
+            date: docData.date,
+            timestamp: docData.timestamp,
+            writer: docData.writer,
+            desc: docData.desc,
+            thumbnail: docData.thumbnail,
+          } as postData;
+        });
         setPost(data);
       } catch (error) {
         console.error("데이터를 불러오는데 실패했습니다.", error);
