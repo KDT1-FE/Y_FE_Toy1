@@ -1,7 +1,5 @@
 import { db } from '../firebase';
-import { getDoc, doc } from "firebase/firestore"
-import { AuthContext } from "authentication/authContext";
-import { useContext } from "react"
+import { updateDoc ,getDoc, doc } from "firebase/firestore"
 import { User } from "@firebase/auth";
 
 /* 클래스를 결정, studyTime(단위 m)을 받아 class(1,2,3)를 리턴 */
@@ -39,19 +37,10 @@ export const chkClassChangeAndAlert = (userClass:number, databaseClass:number) =
   }
 }
 
-export class ClassError extends Error {
-  public code
-  constructor(code:string, message:string) {
-    super(message);
-    this.code = code;
-  }
-}
-
 // 로그인이 이루어진 상태에서만 호출할 것
 // ex)로그인 후 호출 or 공부시간 타이머 사용
 // firestore에 있는 studytime을 확인해, database에 저장된 class 값과 비교하고 달라졌다면 alert 창을 띄움
-export const SynchroClassAndAlert = async () => {
-  const user = useContext(AuthContext);
+export const SynchroClassAndAlert = async (user:User) => {
   const userSnapShot = await getDoc(doc(db, "user", user!.uid));
   const databaseUser = userSnapShot.data()
 
@@ -61,6 +50,11 @@ export const SynchroClassAndAlert = async () => {
       // 계급의 변화를 감지하여 로컬에 반영
       if(chkClassChangeAndAlert(userClass, databaseUser.class)){
         localStorage.setItem(user!.uid, JSON.stringify(userClass))
+        // 데이터베이스에 적용
+        const userDocRef = doc(db, "user", user.uid);
+          updateDoc(userDocRef, {
+            class: userClass
+          })
       }
     }   
   }
@@ -69,4 +63,12 @@ export const SynchroClassAndAlert = async () => {
 export const getClassName = (classCode:number) => {
   const userClassAry = ["브론즈","실버","골드"]
   return userClassAry[classCode]
+}
+
+class ClassError extends Error {
+  public code
+  constructor(code:string, message:string) {
+    super(message);
+    this.code = code;
+  }
 }

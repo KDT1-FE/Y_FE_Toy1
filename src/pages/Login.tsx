@@ -8,7 +8,6 @@ import './Authentication.css'
 import Swal from 'sweetalert2';
 import { specificErrorContent } from '../utils/authentication';
 import { SynchroClassAndAlert } from "../utils/class"
-import { collection, doc, getDoc } from 'firebase/firestore';
 import { FirebaseError } from 'firebase/app'
 
 const Login = () => {
@@ -30,8 +29,8 @@ const Login = () => {
     e.preventDefault();
     try{
       await signInWithEmailAndPassword(auth, email, pwd)
-      await SynchroClassAndAlert()
-      
+      await SynchroClassAndAlert(auth.currentUser!)
+
       Swal.fire({
         icon:"success",
         title: "로그인에 성공하였습니다."
