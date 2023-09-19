@@ -237,7 +237,6 @@ export const updateFieldKeyInDoc = async (
     }
 };
 
-
 export const uploadStorage = async (userId: string, file: File) => {
     const storageRef = ref(storage, 'user');
     const userRef = ref(storageRef, userId);
@@ -248,6 +247,7 @@ export const downloadStorage = async (userId: string) => {
     const userRef = ref(storageRef, userId);
     const imgURL = await getDownloadURL(userRef);
     return imgURL;
+};
 
 export const getRecruitmentDetail = async (channel: string, path: string) => {
     const docRef = doc(firestore, 'recruitmentContainer', 'recruitment', channel, path);
