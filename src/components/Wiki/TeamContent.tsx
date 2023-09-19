@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/WikiTeamCard.css";
+import "../../styles/wiki/wikiTeamCard.css";
 import SaveTeam from "./SaveTeam";
 import TeamCard from "./TeamCard";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/RankingList.css";
+import "../../styles/ranking/rankingList.css";
 
 interface Props {
   num: number;

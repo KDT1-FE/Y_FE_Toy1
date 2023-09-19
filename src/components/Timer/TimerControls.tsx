@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {ControlsProps} from "../../types/Modal";
-import "../../styles/TimerModal.css";
+import "../../styles/timer/timerModal.css";
 import calculateStudyTime from "../../utils/studyTimeCalculator";
 
 function Controls(props: ControlsProps) {

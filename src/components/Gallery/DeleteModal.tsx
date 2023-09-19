@@ -1,7 +1,7 @@
 import React from "react";
-import "../../styles/Modal.css";
-import "../../styles/TimerModal.css";
-import "../../styles/DeleteModal.css";
+import "../../styles/modal.css";
+import "../../styles/timer/timerModal.css";
+import "../../styles/gallery/deleteModal.css";
 import {DeleteModalProps} from "../../types/Modal";
 import DeletePhotos from "./DeletePhotos";
 

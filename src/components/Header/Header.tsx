@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import "../../styles/Header.css";
+import "../../styles/header.css";
 import Modal from "../Modal/Modal";
 import TimerModal from "../Timer/TimerModal";
 import useModal from "../../hooks/useModal";

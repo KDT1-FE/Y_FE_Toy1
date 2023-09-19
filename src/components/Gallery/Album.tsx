@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import "../../styles/Gallery.css";
+import "../../styles/gallery/gallery.css";
 import {useParams} from "react-router-dom";
 import Modal from "../Modal/Modal";
 import DeleteModal from "./DeleteModal";

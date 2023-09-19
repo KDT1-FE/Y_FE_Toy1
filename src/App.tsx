@@ -6,7 +6,7 @@ import Footer from "./components/Footer/Footer";
 import Wiki from "./pages/Wiki";
 import Gallery from "./pages/Gallery";
 import Ranking from "./pages/Ranking";
-import "./styles/Reset.css";
+import "./styles/reset.css";
 
 function App() {
   return (

@@ -82,7 +82,7 @@
   cursor: pointer;
 }
 
-.CategoryListWrapper a:hover, 
+.CategoryListWrapper a:hover,
 .CategoryListWrapper a:focus {
   font-weight: 600;
   color: #ff648f;

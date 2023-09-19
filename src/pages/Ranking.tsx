@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
-
-import "../styles/RankingList.css";
+import "../styles/ranking/rankingList.css";
 import List from "../components/Ranking/List";
 import {
   sortRanking,

@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/Modal.css";
+import "../../styles/modal.css";
 import {ModalType} from "../../types/Modal";
 
 export default function Modal({isOpen, onClose, children}: ModalType) {

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import "../../styles/Wiki.css";
+import "../../styles/wiki/wiki.css";
 import {Link, useParams} from "react-router-dom";
 
 function WikiSidebar() {
