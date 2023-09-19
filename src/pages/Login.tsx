@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import './Authentication.css'
+import Swal from 'sweetalert2';
+import { specificErrorContent } from '../utils/authentication';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -26,11 +28,19 @@ const Login = () => {
 
     signInWithEmailAndPassword(auth, email, pwd)
       .then(() => {
-        alert("로그인 성공");
+        Swal.fire({
+          icon:"success",
+          title: "로그인에 성공하였습니다."
+        })
         navigate(-1)
       })
       .catch(e => {
-        alert(e);
+        console.dir(e.code)
+        Swal.fire({
+          icon: "error",
+          title: e.code,
+          text : specificErrorContent(e.code.split('/')[1]),
+        })
       });
   };
 

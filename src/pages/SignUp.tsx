@@ -5,6 +5,9 @@ import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom';
 import './Authentication.css'
 import { collection, doc, getDocs, query, setDoc, where } from 'firebase/firestore';
+import Swal from 'sweetalert2';
+import { specificErrorContent, CustomError} from '../utils/authentication';
+import { FirebaseError } from 'firebase/app'
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -34,7 +37,7 @@ const SignUp = () => {
       const q = query(userRef, where("nickName", "==", nickname))
       const querySnapshot = await getDocs(q)
       if(!querySnapshot.empty){
-        throw new Error('닉네임이 중복됐습니다.')
+        throw new CustomError('auth/double-nickname', '닉네임이 중복됐습니다. 다른 닉네임을 사용해주세요')
       }
 
       const userCredential = await createUserWithEmailAndPassword(auth, email, pwd)
@@ -57,7 +60,15 @@ const SignUp = () => {
       navigate("/login",{replace:true})
 
     }catch(e){
-      alert(e)
+      if(e instanceof FirebaseError || e instanceof CustomError){
+        Swal.fire({
+          icon: "error",
+          title: e.code,
+          text : specificErrorContent(e.code.split('/')[1]),
+        })  
+      }else{
+        console.error(e)
+      }
     }
   }
 
