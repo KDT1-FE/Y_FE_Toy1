@@ -3,6 +3,7 @@ import batteryLottie from 'assets/lottieJSON/battery.json';
 import About from 'components/About';
 import Carousel from 'components/Carousel';
 import MainLottie from 'components/Common/MainLottie';
+import CommuteList from 'components/CommuteList';
 import styled from 'styled-components';
 
 function Main() {
@@ -25,8 +26,15 @@ function Main() {
         <About />
       </StyledAboutContainer>
       <StyledBottomWrapper>
-        <div>Clock Component</div>
-        <MainLottie lottieData={batteryLottie} width={200} height={200} />
+        <StyledTitleTextBox>
+          <StyledWorkTimeText>업무 기록</StyledWorkTimeText>
+          <StyledWorkTimeSmallText>업무 시간기록</StyledWorkTimeSmallText>
+        </StyledTitleTextBox>
+        <StyledHrLine />
+        <div>
+          <CommuteList />
+        </div>
+        <MainLottie lottieData={batteryLottie} width={500} height={500} />
       </StyledBottomWrapper>
     </>
   );
@@ -82,6 +90,26 @@ const StyledAboutContainer = styled.div`
 const StyledBottomWrapper = styled.div`
   width: 60rem;
   margin: 0 auto;
+`;
+
+const StyledWorkTimeText = styled.span`
+  font-size: 2rem;
+  font-weight: 500;
+  margin-left: 1rem;
+`;
+
+const StyledWorkTimeSmallText = styled.span`
+  font-size: 0.8rem;
+  font-weight: 400;
+  margin-left: 1rem;
+  margin-bottom: 0.5rem;
+`;
+
+const StyledHrLine = styled.hr`
+  width: 90%;
+  border: 1px solid #c4c4c4;
+  margin: 0 auto;
+  margin-top: 2rem;
 `;
 
 export default Main;
