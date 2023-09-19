@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import "../../styles/Modal.css";
-import "../../styles/TimerModal.css";
+import "../../styles/modal.css";
+import "../../styles/timer/timerModal.css";
 import {TimerModalProps} from "../../types/Modal";
 import Controls from "./TimerControls";
 import Clock from "../../utils/clock";

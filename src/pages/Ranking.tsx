@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from "react";
-
-import "../styles/RankingList.css";
+import "../styles/ranking/rankingList.css";
 import List from "../components/Ranking/List";
 import {
   sortRanking,
   getDayAndReset,
   getDocsToArr,
   secsToMins,
-} from "../utils/ranking";
+} from "../utils/timerAndRanking";
 
 function Ranking() {
   const [data, setData] = useState<any[]>();

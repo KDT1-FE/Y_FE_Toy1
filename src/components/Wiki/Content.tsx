@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import "../../styles/Wiki.css";
-import "../../styles/ReactMarkdown.css";
+import "../../styles/wiki/wiki.css";
+import "../../styles/wiki/reactMarkdown.css";
 import {useParams} from "react-router-dom";
 import ReadWiki from "./ReadWiki";
 import SaveTeam from "./SaveTeam";

@@ -1,6 +1,6 @@
 import React from "react";
-import "../../styles/Modal.css";
-import "../../styles/TimerModal.css";
+import "../../styles/modal.css";
+import "../../styles/timer/timerModal.css";
 import {TimeLabelsProps} from "../../types/Modal";
 
 function TimeLabels({playTime, stopTime}: TimeLabelsProps) {

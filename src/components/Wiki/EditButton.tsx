@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/Wiki.css";
+import "../../styles/wiki/wiki.css";
 import {EditButtonProps} from "../../types/Wiki";
 import {ReactComponent as EditIcon} from "../../assets/icons/EditBtn.svg";
 import {ReactComponent as CancelIcon} from "../../assets/icons/Cancel.svg";

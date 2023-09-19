@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {AddPhotosProps} from "../../types/Gallery";
-import "../../styles/Gallery.css";
+import "../../styles/gallery/gallery.css";
 
 function AddPhotos({file, name, deleteFiles, setDeleteFiles}: AddPhotosProps) {
   const [checked, setChecked] = useState(false);
