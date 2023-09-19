@@ -45,7 +45,11 @@ function Controls(props: ControlsProps) {
 
   // 타이머 시작, 재시작을 위한 핸들러
   const handlePlayButton = () => {
-    if (!isRunning && isFirstPlay) {
+    if (isRunning) {
+      return;
+    }
+
+    if (isFirstPlay) {
       setIsRunning(true);
       setOnBreak(false);
       if (!startTime) {
