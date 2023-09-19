@@ -2,6 +2,7 @@ import { INTERVAL } from 'constants/time';
 import useInterval from 'hooks/useInterval';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { media } from 'styles/media';
 import { liveClockFormat } from 'utils/format';
 
 function LiveClock() {
@@ -22,6 +23,10 @@ const StyledTime = styled.div`
   font-weight: 600;
 
   padding: 0 0.5rem;
+
+  ${media.mobile(`
+  font-size: 2.5rem;
+`)}
 `;
 
 export default LiveClock;

@@ -10,16 +10,19 @@ import Gallery from 'pages/Gallery';
 import Wiki from 'pages/Wiki';
 import Header from 'components/Header';
 import Login from 'pages/Login';
+import NotFound from 'pages/NotFound';
 import { auth } from 'apis/firebase';
 // import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import Loading from 'components/Common/Loading';
 
 function App() {
   const [user, loading, error] = useAuthState(auth);
 
   if (loading) {
-    return <div>loading 중</div>;
+    return <Loading />;
   }
+
   if (error) {
     return <div>알 수 없는 error 가 발생했습니다</div>;
   }
@@ -43,6 +46,7 @@ function App() {
           path={ROUTES.LOGIN}
           element={user ? <Navigate to="/" /> : <Login />}
         />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </Router>
   );
