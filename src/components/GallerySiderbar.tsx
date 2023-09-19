@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import "./Sidebar.css";
 import SidebarBottom from "./SidebarBottom";
 
 interface GalleryProps {
