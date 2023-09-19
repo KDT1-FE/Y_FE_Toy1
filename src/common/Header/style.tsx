@@ -15,10 +15,10 @@ export const HeaderComponent = styled.div`
 `;
 
 export const TitleAnchor = styled.a`
-    margin-left: 30px;
     font-size: 32px;
     font-weight: bold;
     color: var(--text);
+    margin-left: 30px;
 `;
 
 export const AnchorContainer = styled.div`
@@ -27,6 +27,9 @@ export const AnchorContainer = styled.div`
 
 export const RightAnchorContainer = styled.div`
     display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-right: 10px;
 `;
 
 export const ListAnchor = styled.a`
@@ -34,20 +37,4 @@ export const ListAnchor = styled.a`
     font-weight: 500;
     font-size: 24px;
     color: var(--text);
-`;
-
-export const ModalButton = styled.button`
-    background-color: var(--active-item);
-    border: none;
-    border-radius: 10px;
-    margin-right: 30px;
-    margin-left: 10px;
-    padding: 5px;
-    font-weight: 500;
-    font-size: 24px;
-    color: var(--text);
-
-    &:hover {
-        background-color: skyblue;
-    }
 `;

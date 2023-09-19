@@ -7,7 +7,7 @@ export const FooterComponent = styled.div`
 
     position: absolute;
     bottom: 0;
-    z-index: 11;
+    z-index: 1;
 
     height: 40px;
     width: 100%;

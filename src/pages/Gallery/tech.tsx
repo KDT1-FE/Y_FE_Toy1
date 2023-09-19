@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import Modal from './UploadModal/Modal';
+import ModalT from './UploadModal/ModalT';
 import { onSnapshot, updateDoc } from 'firebase/firestore';
 import { ref, deleteObject } from 'firebase/storage';
 import { storeRef, storage } from '../../utils/firebase';
@@ -15,9 +15,9 @@ import {
     UploadBtn,
 } from './style';
 
-const Recruit: React.FC = () => {
+const Tech: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [articleRs, setArticleRs] = useState<any[]>([]);
+    const [articleTs, setArticleTs] = useState<any[]>([]);
     const [isDraggingItem, setIsDraggingItem] = useState(false); // 추가: 아이템을 드래그할 때만 쓰레기통 보이기
 
     const openModal = () => {
@@ -37,45 +37,44 @@ const Recruit: React.FC = () => {
 
         if (result.destination) {
             if (result.destination.droppableId === 'trashCan') {
-                const itemToDelete = articleRs[result.source.index];
+                const itemToDelete = articleTs[result.source.index];
 
                 const shouldDelete = window.confirm('삭제하시겠습니까?');
 
                 if (shouldDelete) {
                     // Firestore에서 해당 요소 삭제
-                    const updatedArticleRs = [...articleRs];
-                    updatedArticleRs.splice(result.source.index, 1);
+                    const updatedArticleTs = [...articleTs];
+                    updatedArticleTs.splice(result.source.index, 1);
                     await updateDoc(storeRef, {
-                        '취업.articleR': updatedArticleRs,
+                        '테크.articleT': updatedArticleTs,
                     });
 
                     // Storage에서 이미지 파일 삭제
-                    const imageRef = ref(storage, `thumbnailR/${itemToDelete.index}`);
+                    const imageRef = ref(storage, `thumbnailT/${itemToDelete.index}`);
                     await deleteObject(imageRef);
 
                     // 상태 업데이트
-                    setArticleRs(updatedArticleRs);
+                    setArticleTs(updatedArticleTs);
                 }
             } else {
                 // 기존 드래그 앤 드롭 로직 (항목의 순서 변경)
-                const newArticleRs = [...articleRs];
-                const [reorderedItem] = newArticleRs.splice(result.source.index, 1);
-                newArticleRs.splice(result.destination.index, 0, reorderedItem);
+                const newArticleTs = [...articleTs];
+                const [reorderedItem] = newArticleTs.splice(result.source.index, 1);
+                newArticleTs.splice(result.destination.index, 0, reorderedItem);
 
                 await updateDoc(storeRef, {
-                    '취업.articleR': newArticleRs,
+                    '테크.articleT': newArticleTs,
                 });
             }
         }
     };
 
-    // 실시간 데이터 연동
     useEffect(() => {
         const unsubscribe = onSnapshot(storeRef, (docSnapshot) => {
             if (docSnapshot.exists()) {
                 const data = docSnapshot.data();
-                const articleRData = data?.취업?.articleR || [];
-                setArticleRs(articleRData);
+                const articleTData = data?.테크?.articleT || [];
+                setArticleTs(articleTData);
             } else {
                 console.log('Document does not exist.');
             }
@@ -91,13 +90,13 @@ const Recruit: React.FC = () => {
             {isModalOpen && (
                 <div>
                     <ModalBackground onClick={closeModal} />
-                    <Modal onClose={closeModal} />
+                    <ModalT onClose={closeModal} />
                 </div>
             )}
-            <ContentFirstLine style={{ font: '16px', fontWeight: 'bold' }}>레퍼런스 공유 {'>'} 취업</ContentFirstLine>
+            <ContentFirstLine style={{ font: '16px', fontWeight: 'bold' }}>레퍼런스 공유 {'>'} 테크</ContentFirstLine>
             <UploadBtn onClick={openModal}>업로드</UploadBtn>
             <ArticleContainer>
-                <DragDropContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+                <DragDropContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
                     <Droppable droppableId="trashCan">
                         {(provided) => (
                             <TrashCan
@@ -124,10 +123,10 @@ const Recruit: React.FC = () => {
                                 }}
                                 {...provided.droppableProps}
                             >
-                                {articleRs.map((articleR, index) => (
+                                {articleTs.map((articleT, index) => (
                                     <Draggable
-                                        key={articleR.index.toString()}
-                                        draggableId={articleR.index.toString()}
+                                        key={articleT.index.toString()}
+                                        draggableId={articleT.index.toString()}
                                         index={index}
                                     >
                                         {(provided, snapshot) => (
@@ -139,9 +138,9 @@ const Recruit: React.FC = () => {
                                             >
                                                 {/* 요소 내용 */}
                                                 <a
-                                                    href={articleR.recruitURL}
-                                                    key={articleR.index}
-                                                    id={articleR.index}
+                                                    href={articleT.recruitURL}
+                                                    key={articleT.index}
+                                                    id={articleT.index}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     style={{ position: 'relative' }}
@@ -156,16 +155,15 @@ const Recruit: React.FC = () => {
                                                             transform: snapshot.isDragging ? 'scale(0.3)' : 'scale(1)', //이미지 그랩 시 작아짐 효과
                                                             position: 'relative',
                                                         }}
-                                                        src={articleR.thumbnailURL}
-                                                        alt={`article ${articleR.index}`}
+                                                        src={articleT.thumbnailURL}
+                                                        alt={`article ${articleT.index}`}
                                                     />
-                                                    <Description>{articleR.description}</Description>
+                                                    <Description>{articleT.description}</Description>
                                                 </a>
                                             </ChildArticle>
                                         )}
                                     </Draggable>
                                 ))}
-
                                 {provided.placeholder}
                             </div>
                         )}
@@ -176,4 +174,4 @@ const Recruit: React.FC = () => {
     );
 };
 
-export default Recruit;
+export default Tech;
