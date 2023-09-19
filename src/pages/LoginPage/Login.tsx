@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { useSetRecoilState } from "recoil"
@@ -43,8 +43,13 @@ function Login() {
       });
   }
 
+  const formRef = useRef<HTMLDivElement>(null)
+  formRef.current?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') handleButtonClick()
+  }, { once: true })
+
   return (
-    <LoginLayout>
+    <LoginLayout ref={formRef}>
       <LoginTitle>
         WIKINITY
       </LoginTitle>
