@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import './Authentication.css'
 import Swal from 'sweetalert2';
 import { specificErrorContent } from '../utils/authentication';
-import { determineClass, getClassLocalStorage, chkClassChangeAndAlert } from "../utils/class"
+import { SynchroClassAndAlert } from "../utils/class"
 import { collection, doc, getDoc } from 'firebase/firestore';
 import { FirebaseError } from 'firebase/app'
 
@@ -30,20 +30,8 @@ const Login = () => {
     e.preventDefault();
     try{
       await signInWithEmailAndPassword(auth, email, pwd)
-
-      const userSnapShot = await getDoc(doc(db, "user", auth.currentUser!.uid));
-      const databaseUser = userSnapShot.data()
-
-      if(databaseUser){
-        const userClass = determineClass(databaseUser.studyTime)
-        if(userClass){
-          // 계급의 변화를 감지하여 로컬에 반영
-          if(chkClassChangeAndAlert(userClass, databaseUser.class)){
-            localStorage.setItem(auth.currentUser!.uid, JSON.stringify(userClass))
-          }
-        }   
-      }
-
+      await SynchroClassAndAlert()
+      
       Swal.fire({
         icon:"success",
         title: "로그인에 성공하였습니다."
