@@ -30,6 +30,15 @@ export const allCategories: CategoriesType[] = [
           },
         ],
       },
+      {
+        title: '규칙',
+        subCategories: [
+          {
+            link: 'rule',
+            text: '기본 규칙',
+          },
+        ],
+      },
     ],
   },
   {
