@@ -4,6 +4,7 @@ import ReactModal from 'react-modal';
 import closeButton from '../../assets/icons/closeButton.svg';
 import { addFirestore, addStorage } from 'apis/Gallery';
 import { useLocation, Link } from 'react-router-dom';
+import { media } from 'styles/media';
 
 function UploadGallery() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -60,7 +61,7 @@ function UploadGallery() {
           </StyledButton>
         )}
       </StyledGalleryContainer>
-      <ReactModal isOpen={modalOpen} style={StyledModal}>
+      <CustomModal isOpen={modalOpen} style={StyledModal} className="modal">
         <StyledCloseImg
           src={closeButton}
           alt="close button"
@@ -87,7 +88,7 @@ function UploadGallery() {
             </StyledImgAdd>
           </StyledButtonContainer>
         </StyledContainer>
-      </ReactModal>
+      </CustomModal>
     </>
   );
 }
@@ -107,6 +108,9 @@ const StyledButton = styled.button`
   cursor: pointer;
   position: absolute;
   right: 0;
+  ${media.mobile_430(`
+    font-size: 0.8rem;
+  `)}
 `;
 
 const StyledModal: ReactModal.Styles = {
@@ -119,27 +123,44 @@ const StyledModal: ReactModal.Styles = {
     top: '0',
     left: '0',
   },
-  content: {
-    width: '34.25rem',
-    height: '27.5rem',
-    zIndex: '150',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    borderRadius: '10px',
-    boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.25)',
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    overflow: 'auto',
-  },
 };
+
+const CustomModal = styled(ReactModal)`
+  &.modal {
+    width: 34.25rem;
+    height: 27.5rem;
+    z-index: 150;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    justify-content: center;
+    overflow: auto;
+
+    ${media.tablet_625(`
+      width: 25rem;
+      height: 18rem;
+  `)}
+
+    ${media.mobile(`
+      width: 20rem;
+      height: 13rem;
+  `)}
+  }
+`;
 
 const StyledCloseImg = styled.img`
   width: 1.25rem;
   height: 1.25rem;
-  margin-left: 95%;
+  margin-top: 1rem;
+  margin-left: 94%;
   cursor: pointer;
+  ${media.tablet_625(`
+    margin-left: 90%;
+`)}
 `;
 
 const StyledContainer = styled.div`
@@ -150,12 +171,25 @@ const StyledContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  ${media.tablet_625(`
+    height: 15rem;
+`)}
+
+  ${media.mobile(`
+    height: 10rem;
+  `)}
 `;
 
 const StyledImgText = styled.p`
   color: #3584f4;
   font-size: 2rem;
   font-weight: 700;
+  ${media.tablet_625(`
+    font-size: 1.7rem;
+`)}
+  ${media.mobile(`
+    font-size: 1.3rem;
+  `)}
 `;
 
 const StyledPreviewContainer = styled.div`
@@ -204,6 +238,11 @@ const StyledContainerInput = styled.div`
     padding: 0.625rem 2rem;
     border-radius: 5px;
     font-weight: 700;
+    ${media.tablet_625(`
+      width: 6rem;
+      font-size: 0.9rem;
+      padding: 0.625rem 0.9rem;
+  `)}
   }
   .imgUpload:hover {
     background-color: #1b64da;
@@ -227,6 +266,12 @@ const StyledImgAdd = styled.button`
     background-color: #f5f5f5;
     transition: all 0.2s ease-in-out;
   }
+
+  ${media.tablet_625(`
+    width: 6rem;
+    font-size: 0.9rem;
+    padding: 0.625rem 1rem;
+`)}
 `;
 
 export default UploadGallery;
