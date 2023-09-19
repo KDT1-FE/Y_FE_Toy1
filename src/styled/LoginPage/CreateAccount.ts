@@ -27,7 +27,7 @@ export const CreateAccountSelectBox = styled.div`
   display: flex;
   align-items: center;
   gap: 30px;
-  margin-top: 10px;
+  margin-top: 20px;
 `;
 
 export const CreateAccountSelect = styled.select`
@@ -37,8 +37,7 @@ export const CreateAccountSelect = styled.select`
 `;
 
 export const CreateAccountApproveBox = styled.div`
-  margin-top: 10px;
-  margin-bottom: 30px;
+  margin-top: 20px;
 `;
 
 export const CreateAccountApproveCheck = styled.input`
@@ -48,6 +47,9 @@ export const CreateAccountApproveCheck = styled.input`
 export const CreateAccountBtn = styled.button`
   width: 400px;
   height: 40px;
-  border-color: #96a0ff;
+  border: 2px solid #96a0ff;
+  border-radius: 20px;
   background-color: white;
+
+  margin-top: 20px;
 `;
