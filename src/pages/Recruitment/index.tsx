@@ -25,40 +25,42 @@ const Recruitment: React.FC = () => {
 
     const [recruitmentData, setRecruitmentData] = useState<any[]>([]);
     const [filteredData, setFilteredData] = useState<any[]>([]);
+
     const [searchTitle, setSearchTitle] = useState('');
     const [searching, setSearching] = useState(false);
+
+    const [lastIndex, setLastIndex] = useState(0);
 
     const handleEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             setSearching(true);
         } else {
             setSearching(false);
+            setLastIndex(recruitmentData.length - 1);
         }
     };
 
     useEffect(() => {
-        if (searching) {
-            const filtered = recruitmentData.filter((data) =>
-                data.title.toLowerCase().includes(searchTitle.toLowerCase()),
-            );
-            setFilteredData(filtered);
-        } else {
-            setFilteredData([]);
-        }
-    }, [searching]);
-
-    useEffect(() => {
         const fetchData = async () => {
             try {
-                const { docSnapshots } = await showRecruitmentFields('recruitmentContainer', 'recruitment', channel);
-                const filteredData =
-                    subChannel === 'all'
+                let updatedChannel = channel;
+                if (subChannel === '') {
+                    updatedChannel = 'study';
+                }
+                const { docSnapshots } = await showRecruitmentFields(
+                    'recruitmentContainer',
+                    'recruitment',
+                    updatedChannel,
+                );
+                const subChannelFields =
+                    subChannel === 'all' || subChannel === ''
                         ? docSnapshots.map((item) => ({ id: item.id, data: item.data }))
                         : docSnapshots
                               .filter((item) => item.data.category === subChannel)
                               .map((item) => ({ id: item.id, data: item.data }));
 
-                setRecruitmentData(filteredData);
+                setRecruitmentData(subChannelFields);
+                setLastIndex(subChannelFields.length - 1);
             } catch (error) {
                 console.error('데이터 가져오기 실패:', error);
             }
@@ -66,6 +68,18 @@ const Recruitment: React.FC = () => {
 
         fetchData();
     }, [channel, subChannel]);
+
+    useEffect(() => {
+        if (searching) {
+            const filtered = recruitmentData.filter(
+                (item) => item?.data?.title?.toLowerCase().includes(searchTitle.toLowerCase()),
+            );
+            setFilteredData(filtered);
+            setLastIndex(filtered.length - 1);
+        } else {
+            setFilteredData([]);
+        }
+    }, [searching, searchTitle]);
 
     return (
         <RecruitmentContainer>
@@ -86,10 +100,24 @@ const Recruitment: React.FC = () => {
                 <PostsWrapper>
                     {searching
                         ? filteredData.map((data, index) => (
-                              <Post key={index} data={data.data} id={data.id} index={index} channel={channel} />
+                              <Post
+                                  key={index}
+                                  data={data.data}
+                                  id={data.id}
+                                  index={index}
+                                  lastIndex={lastIndex}
+                                  channel={channel}
+                              />
                           ))
                         : recruitmentData.map((data, index) => (
-                              <Post key={index} data={data.data} id={data.id} index={index} channel={channel} />
+                              <Post
+                                  key={index}
+                                  data={data.data}
+                                  id={data.id}
+                                  index={index}
+                                  lastIndex={lastIndex}
+                                  channel={channel}
+                              />
                           ))}
                 </PostsWrapper>
             </PostsContainer>
@@ -97,10 +125,25 @@ const Recruitment: React.FC = () => {
     );
 };
 
-const Post: React.FC<{ data: any; id: string; index: number; channel: string }> = ({ data, id, index, channel }) => (
+const Post: React.FC<{ data: any; id: string; index: number; lastIndex: number; channel: string }> = ({
+    data,
+    id,
+    index,
+    lastIndex,
+    channel,
+}) => (
     <Link to={`/recruitment/${channel}/${id}`}>
         {/* ex) /recruitment/study/SD521S3SF3EB3H5 */}
-        <PostWrapper key={index} style={index >= 1 ? { borderTop: '1px solid #BEBEBE' } : {}}>
+        <PostWrapper
+            key={index}
+            style={{
+                borderTop: index >= 1 ? '1px solid #BEBEBE' : 'none',
+                borderTopLeftRadius: index === 0 ? '15px' : '0',
+                borderTopRightRadius: index === 0 ? '15px' : '0',
+                borderBottomLeftRadius: index === lastIndex ? '15px' : '0',
+                borderBottomRightRadius: index === lastIndex ? '15px' : '0',
+            }}
+        >
             <div style={{ display: 'flex' }}>
                 <RecruitValued isRecruitCompleted={!data.recruitValued}>
                     {data.recruitValued ? '모집중' : '모집완료'}

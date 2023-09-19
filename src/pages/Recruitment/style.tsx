@@ -57,12 +57,11 @@ export const PostsWrapper = styled.div`
 
 export const PostWrapper = styled.div`
     width: 50vw;
-    min-height: 60vh;
-    padding: 10px;
+    /* min-height: 60vh; */
+    padding: 20px 15px;
 
     &:hover {
         background-color: skyblue;
-        border-radius: 15px;
         cursor: pointer;
     }
 `;
