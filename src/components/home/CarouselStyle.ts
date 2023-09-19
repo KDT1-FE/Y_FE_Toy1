@@ -18,6 +18,7 @@ export const CarouselWrapper = styled.div`
   position: relative;
   overflow: hidden;
   border-radius: 10px;
+  border: 1px solid var(--color-main);
 `;
 
 export const CarouselContainer = styled.div<CarouselContainerProps>`
@@ -33,8 +34,8 @@ export const CarouselContainer = styled.div<CarouselContainerProps>`
 export const CarouselTitle = styled.a`
   position: absolute;
   display: inline-block;
-  top: 8rem;
-  left: 5rem;
+  top: 16rem;
+  left: 6rem;
   z-index: 2;
   font-size: 1.5rem;
   color: var(--color-white);
@@ -44,8 +45,8 @@ export const CarouselTitle = styled.a`
 export const CarouselText = styled.a`
   position: absolute;
   display: inline-block;
-  top: 12rem;
-  left: 3rem;
+  top: 20rem;
+  left: 5rem;
   z-index: 2;
   font-size: 1rem;
   color: var(--color-white);
@@ -78,10 +79,10 @@ export const CarouselLeftBackDrop = styled.div`
 export const CarouselRightButton = styled.span`
   position: absolute;
   z-index: 3;
-  right: 20px;
+  right: 10px;
   top: 50%;
   transform: translate(0, -50%);
-  font-size: 3rem;
+  font-size: 2.3rem;
   color: var(--color-white);
   cursor: pointer;
 `;
@@ -89,10 +90,10 @@ export const CarouselRightButton = styled.span`
 export const CarouselLeftButton = styled.span`
   position: absolute;
   z-index: 3;
-  left: 20px;
+  left: 10px;
   top: 50%;
   transform: translate(0, -50%);
-  font-size: 3rem;
+  font-size: 2.3rem;
   color: var(--color-white);
   cursor: pointer;
 `;
@@ -126,3 +127,19 @@ export const CarouselDot = styled.div`
   }
 `;
   
+export const CarouselPageButton = styled.a`
+  display: inline-block;
+  width: 8rem;
+  height: 1.5rem;
+  position: absolute;
+  top: 28rem;
+  left: 5rem;
+  z-index: 5;
+  text-align: center;
+  vertical-align: center;
+  padding: 0.5rem;
+  border-radius: 5px;
+  color: var(--color-white);
+  cursor: pointer;
+  background-color: var(--color-main);
+`;
