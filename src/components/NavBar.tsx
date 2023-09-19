@@ -12,10 +12,10 @@ import {
 import Calendar from "../assets/img/Calendar.svg";
 import Todo from "../assets/img/Todo.svg";
 import Profile from "../assets/img/Profile.svg";
-import ProfileModal from "../pages/MainPage/ProfileModal";
+import ProfileModal from "../pages/MainPage/modal/ProfileModal";
 import { ProfileBtn } from "../styled/MainPage/ProfileModal";
-import CommuteModal from "../pages/MainPage/CommuteModal";
-import TodoModal from "../pages/MainPage/TodoModal";
+import CommuteModal from "../pages/MainPage/modal/CommuteModal";
+import TodoModal from "../pages/MainPage/modal/TodoModal";
 
 export default function Navigation() {
   const [showProfile, setShowProfile] = useState(false);
