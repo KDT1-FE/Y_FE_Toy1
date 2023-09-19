@@ -18,3 +18,8 @@ export const subChannelState = atom({
     key: 'subChannelState',
     default: '',
 });
+
+export const RecruitmentData = atom({
+    key: 'recruitmentData',
+    default: {},
+});
