@@ -33,10 +33,13 @@ function Controls(props: ControlsProps) {
 
   // 타이머 초기화를 위한 핸들러
   const resetTimer = () => {
+    setIsRunning(false);
     setStartTime(null);
     setBreakStartTime(null);
     setTotalBreakTime(0);
     setTimeInSeconds(0);
+    setIsFirstPlay(true);
+    setPlayTime(null);
     setStatusText(null);
   };
 
