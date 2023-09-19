@@ -1,11 +1,12 @@
 .TeamContent {
   width: 100%;
-  height: 45vh;
+  height: 40vh;
 
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 
+  margin-top: 2vh;
   padding: 3vh 0;
   border-bottom: 1px solid #34576d37;
 }
@@ -16,7 +17,7 @@
 
 .TeamCard {
   width: 18vw;
-  height: 45vh;
+  height: 30vh;
 
   display: flex;
   flex-direction: column;
@@ -24,9 +25,20 @@
 
   position: relative;
 
-  margin: 0 2vw;
+  margin: 2vh 0;
   border: 1px solid #34576da2;
   border-radius: 10px;
+
+  border-bottom: 3px solid rgba(255, 255, 255, 0.44);
+  border-left: 2px rgba(255, 255, 255, 0.545) outset;
+  box-shadow: -15px 20px 30px rgba(0, 0, 0, 0.28);
+
+  transition: 0.4s;
+  animation: fadein 1s;
+}
+
+.TeamCard:hover {
+  width: 20vw;
 }
 
 .TeamImg {
@@ -41,6 +53,8 @@
 
   overflow: hidden;
   object-fit: cover;
+
+  animation: fadein 3s;
 }
 
 .TeamCardBg {
@@ -65,15 +79,15 @@
 
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 
   position: relative;
+
+  text-shadow: -10px 5px 10px rgba(0, 0, 0, 0.573);
 }
 
 .TeamName {
   margin: 9vh 2vw 1vh;
-
-  align-self: start;
 
   font-size: 28px;
   font-weight: 700;
@@ -83,10 +97,15 @@
 .Mentee {
   margin: 2vh 2vw 0vh;
 
-  align-self: start;
-
   font-size: 13px;
   font-weight: 700;
+}
+
+.TeamCardContent {
+  width: 45vw;
+  height: 35vh;
+
+  margin-left: 5vw;
 }
 
 .TeamCardBtns {
@@ -96,6 +115,8 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+
+  animation: fadein 1s;
 }
 
 .TeamCardEditBtn,
@@ -110,6 +131,8 @@
 
   text-align: center;
   font-weight: 700;
+
+  animation: fadein 1s;
 }
 
 .TeamCardSubmitBtn {
@@ -118,8 +141,8 @@
 
 .TeamCardTextarea,
 .markdown-body-team {
-  width: 50vw;
-  height: 39vh;
+  width: 100%;
+  height: 100%;
 
   border: none;
   padding: 30px;
@@ -127,8 +150,24 @@
   box-sizing: border-box;
   border-radius: 10px;
 
-  background-color: #34576d6f;
+  background-color: #6e93aa6f;
   color: black;
 
   font-size: 1.2rem;
+
+  animation: fadein 1s;
+}
+
+.TeamCardTextarea {
+  background-color: #eaf7ff6f;
+  box-shadow: inset 1px 3px 7px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

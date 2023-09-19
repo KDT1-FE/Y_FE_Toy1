@@ -82,13 +82,7 @@
   cursor: pointer;
 }
 
-.CategoryListWrapper a:hover {
-  font-weight: 600;
-  color: #ff648f;
-
-  transition: all 0.3s;
-}
-
+.CategoryListWrapper a:hover, 
 .CategoryListWrapper a:focus {
   font-weight: 600;
   color: #ff648f;
@@ -100,6 +94,8 @@
   height: 100%;
 
   margin: 1rem 0 5rem;
+
+  animation: fadein 1s;
 }
 
 /* src/component/Wiki/Content */
@@ -160,8 +156,24 @@ textarea {
   color: #3d4e62;
   font-size: 0.8rem;
   line-height: 1.8rem;
+
+  animation: fadein 1s;
 }
 
 .markdown-body-editor {
   width: 45%;
+}
+
+.Project:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

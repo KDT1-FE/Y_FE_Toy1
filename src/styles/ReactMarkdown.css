@@ -56,6 +56,7 @@
   line-height: 1.5;
   word-wrap: break-word;
   padding: 2rem 2rem;
+  overflow: hidden;
 }
 
 .markdown-body .octicon {
@@ -244,7 +245,7 @@
   display: block;
   width: max-content;
   max-width: 100%;
-  overflow: auto;
+  overflow: visible;
 }
 
 .markdown-body td,
@@ -645,6 +646,11 @@
 
 .markdown-body table img {
   background-color: transparent;
+  transition: 0.5s;
+}
+
+.markdown-body table img:hover {
+  transform: scale(1.6);
 }
 
 .markdown-body img[align="right"] {
