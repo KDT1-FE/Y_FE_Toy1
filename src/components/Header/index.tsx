@@ -4,6 +4,7 @@ import wikiLogo from '../../assets/icons/wiki.svg';
 import galleryLogo from '../../assets/icons/gallery.svg';
 import menu from '../../assets/icons/menu.svg';
 import closeMenuButton from '../../assets/icons/closeMenuButton.svg';
+import calendarLogo from '../../assets/icons/calendarLogo.svg';
 import { ROUTES } from 'constants/routes';
 import { Link, useNavigate } from 'react-router-dom';
 import CommuteModal from 'components/CommuteModal';
@@ -14,22 +15,26 @@ function Header() {
   const [menuToggle, setMenuToggle] = useState(false);
   const navigate = useNavigate();
 
+  const menus = [
+    { name: 'Wiki', route: ROUTES.WIKI, logo: wikiLogo },
+    { name: 'Gallery', route: ROUTES.GALLERY, logo: galleryLogo },
+    { name: 'Calendar', route: ROUTES.CALENDAR, logo: calendarLogo },
+  ];
+
   return (
     <StyledHeader>
       <Container>
-        <LogoContainer>
+        <LogoContainer to={ROUTES.MAIN}>
           <img src={logo}></img>
           WIKI
         </LogoContainer>
         <MenuContainer>
-          <Menu to={ROUTES.WIKI}>
-            Wiki
-            <img src={wikiLogo}></img>
-          </Menu>
-          <Menu to={ROUTES.GALLERY}>
-            Gallery
-            <img src={galleryLogo}></img>
-          </Menu>
+          {menus.map((menu, index) => (
+            <Menu to={menu.route} key={index}>
+              {menu.name}
+              <img src={menu.logo}></img>
+            </Menu>
+          ))}
         </MenuContainer>
         <div
           onClick={() => {
@@ -47,22 +52,17 @@ function Header() {
         </StyledHamburgerButton>
         {menuToggle && (
           <StyledSideBar>
-            <StyledSideText
-              onClick={() => {
-                setMenuToggle(false);
-                navigate(ROUTES.WIKI);
-              }}
-            >
-              Wiki
-            </StyledSideText>
-            <StyledSideText
-              onClick={() => {
-                setMenuToggle(false);
-                navigate(ROUTES.GALLERY);
-              }}
-            >
-              Gallery
-            </StyledSideText>
+            {menus.map((menu, index) => (
+              <StyledSideText
+                onClick={() => {
+                  setMenuToggle(false);
+                  navigate(menu.route);
+                }}
+                key={index}
+              >
+                {menu.name}
+              </StyledSideText>
+            ))}
           </StyledSideBar>
         )}
       </Container>
@@ -112,7 +112,7 @@ const Container = styled.div`
     max-width: 55rem;
   `)}
 `;
-const LogoContainer = styled.div`
+const LogoContainer = styled(Link)`
   width: 6.25rem;
 
   display: flex;
