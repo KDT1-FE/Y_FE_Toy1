@@ -1,47 +1,67 @@
-import React, { useState, useEffect } from 'react';
-import { ProfileContainer } from './style';
-import { ref, listAll, getDownloadURL } from 'firebase/storage';
-import { storage } from '../../utils/firebase';
+import React, { useEffect, useState } from 'react';
+import { collection, getDocs, Firestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { firestore } from '../../utils/firebase'; // Firebase firestore 객체 가져오기
+import { ContentFirstLine, ProfileContainer, ProfileIMG, ProfileName, ProfileWrapper, StyleProfile } from './style';
 
 const Profile: React.FC = () => {
-    const [userImgURLs, setUserImgURLs] = useState<string[]>([]);
-    const [error, setError] = useState<string | null>(null);
+    const [users, setUsers] = useState<any[]>([]);
 
     useEffect(() => {
-        const getUserImages = async () => {
-            try {
-                const userImgFolderRef = ref(storage, 'userImg');
-                const userImgRefs = await listAll(userImgFolderRef);
+        const fetchUserData = async () => {
+            const querySnapshot = await getDocs(collection(firestore, 'user'));
+            const documentIds: string[] = [];
 
-                const urls = await Promise.all(
-                    userImgRefs.items.map(async (item) => {
-                        return getDownloadURL(item);
-                    }),
-                );
+            querySnapshot.forEach((doc) => {
+                documentIds.push(doc.id);
+            });
 
-                setUserImgURLs(urls);
-            } catch (error) {
-                console.error(error);
-                setError('Sorry! failed to load user image');
-            }
+            // 각 문서에 대한 실시간 변경 사항을 추적
+            const unsubscribes = documentIds.map((documentId) => {
+                const userDoc = doc(firestore, 'user', documentId);
+                return onSnapshot(userDoc, (userSnapshot) => {
+                    if (userSnapshot.exists()) {
+                        const userData = userSnapshot.data();
+                        const user = {
+                            id: documentId,
+                            name: userData.name,
+                            imgURL: userData.imageURL,
+                        };
+                        // 기존 사용자 데이터를 업데이트하거나 추가
+                        setUsers((prevUsers) => {
+                            const updatedUsers = [...prevUsers];
+                            const userIndex = updatedUsers.findIndex((u) => u.id === documentId);
+                            if (userIndex !== -1) {
+                                updatedUsers[userIndex] = user;
+                            } else {
+                                updatedUsers.push(user);
+                            }
+                            return updatedUsers;
+                        });
+                    }
+                });
+            });
+
+            // 컴포넌트가 언마운트될 때 모든 구독을 정리
+            return () => {
+                unsubscribes.forEach((unsubscribe) => unsubscribe());
+            };
         };
-        getUserImages();
+
+        fetchUserData();
     }, []);
 
     return (
-        <div>
-            {error ? (
-                <p>{error}</p>
-            ) : userImgURLs.length > 0 ? (
-                <ProfileContainer>
-                    {userImgURLs.map((url, index) => (
-                        <img key={index} src={url} alt={`User Image ${index}`} />
-                    ))}
-                </ProfileContainer>
-            ) : (
-                <p>loading...</p>
-            )}
-        </div>
+        <ProfileContainer>
+            <ContentFirstLine style={{ font: '16px', fontWeight: 'bold' }}>레퍼런스 공유 {'>'} 취업</ContentFirstLine>
+            <StyleProfile>
+                {users.map((user: any) => (
+                    <ProfileWrapper key={user.id}>
+                        <ProfileIMG src={user.imgURL} alt={`Profile of ${user.name}`} />
+                        <ProfileName>{user.name}</ProfileName>
+                    </ProfileWrapper>
+                ))}
+            </StyleProfile>
+        </ProfileContainer>
     );
 };
 

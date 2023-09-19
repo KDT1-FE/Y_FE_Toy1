@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { AllChannelsWrapper, ChannelWrapper, ChannelFlexDiv, SubChannelFlexDiv, ChannelHr } from './style';
+import { useRecoilState } from 'recoil';
+import { channelState, subChannelState } from '../../utils/recoil';
+import {
+    AllChannelsWrapper,
+    ChannelWrapper,
+    ChannelFlexDiv,
+    SubChannelFlexDiv,
+    ChannelHr,
+    ChannelDiv,
+    SubChannelDiv,
+} from './style';
 
 import { handleGetDocs } from '../../utils/firebase';
 import { QuerySnapshot } from 'firebase/firestore';
@@ -16,6 +26,21 @@ const SidebarGallery: React.FC<SidebarGalleryProps> = ({ onKeyClick }) => {
     const [docsWithFields, setDocsWithFields] = useState<{ docId: string; docKeys: string[]; docData: DocumentData }[]>(
         [],
     );
+    const [channel, setChannel] = useRecoilState(channelState);
+    const [subChannel, setSubChannel] = useRecoilState(subChannelState);
+    const defaultChannel = '레퍼런스 공유';
+    const defaultSubChannel = '취업';
+
+    useEffect(() => {
+        if (!channel || !subChannel) {
+            setChannel(defaultChannel);
+            setSubChannel(defaultSubChannel);
+        }
+    }, [channel, subChannel, setChannel, setSubChannel]);
+
+    const isSubChannelActive = (channelName: string, subChannelName: string) => {
+        return channel === channelName && subChannel === subChannelName;
+    };
 
     useEffect(() => {
         const updatedQuerySnapshot = handleGetDocs('gallery', (querySnapshot: QuerySnapshot<DocumentData>) => {
@@ -45,18 +70,30 @@ const SidebarGallery: React.FC<SidebarGalleryProps> = ({ onKeyClick }) => {
             {docsWithFields.map((item, index) => (
                 <ChannelWrapper key={index}>
                     <ChannelFlexDiv>
-                        <div style={{ fontSize: '20px', fontWeight: 'bold' }}># {item.docId}</div>
+                        <ChannelDiv># {item.docId}</ChannelDiv>
                     </ChannelFlexDiv>
 
                     <div style={{ marginLeft: '20px' }}>
                         {item.docKeys.map((item2, index2) => (
-                            <SubChannelFlexDiv onClick={() => handleKeyClick(item.docData[item2])}>
-                                <div key={index2}>{item2}</div>
+                            <SubChannelFlexDiv
+                                onClick={() => {
+                                    handleKeyClick(item.docData[item2]);
+                                    setChannel(item.docId);
+                                    setSubChannel(item2);
+                                }}
+                                style={{
+                                    color: isSubChannelActive(item.docId, item2) ? '#ffffff' : '',
+                                    backgroundColor: isSubChannelActive(item.docId, item2) ? 'var(--active-item)' : '',
+                                    borderRadius: isSubChannelActive(item.docId, item2) ? '5px' : '',
+                                    marginRight: isSubChannelActive(item.docId, item2) ? '10px' : '',
+                                    fontWeight: isSubChannelActive(item.docId, item2) ? 'bold' : '',
+                                }}
+                            >
+                                <SubChannelDiv key={index2}>{item2}</SubChannelDiv>
                             </SubChannelFlexDiv>
                         ))}
                     </div>
-
-                    <ChannelHr />
+                    {index === 0 && <ChannelHr />}
                 </ChannelWrapper>
             ))}
         </AllChannelsWrapper>

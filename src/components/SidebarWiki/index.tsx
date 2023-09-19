@@ -1,5 +1,7 @@
 // SidebarWiki.tsx 파일 내에서
 import React, { useEffect, useState, useRef } from 'react';
+import { useRecoilState } from 'recoil';
+import { channelState, subChannelState } from '../../utils/recoil';
 import {
     AllChannelsWrapper,
     ChannelWrapper,
@@ -11,6 +13,8 @@ import {
     ChannelHr,
     CreateChannelDiv,
     OptionButton,
+    ChannelDiv,
+    SubChannelDiv,
 } from './style';
 
 import { handleGetDocs, deleteChannelDoc, deleteFieldFromDoc, DocumentData } from '../../utils/firebase';
@@ -31,6 +35,21 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
     const [docsWithFields, setDocsWithFields] = useState<{ docId: string; docKeys: string[]; docData: DocumentData }[]>(
         [],
     );
+    const [channel, setChannel] = useRecoilState(channelState);
+    const [subChannel, setSubChannel] = useRecoilState(subChannelState);
+    const defaultChannel = '가가가';
+    const defaultSubChannel = '랄랄랄랄';
+    useEffect(() => {
+        if (!channel || !subChannel) {
+            setChannel(defaultChannel);
+            setSubChannel(defaultSubChannel);
+        }
+    }, [channel, subChannel, setChannel, setSubChannel]);
+
+    const isSubChannelActive = (channelName: string, subChannelName: string) => {
+        return channel === channelName && subChannel === subChannelName;
+    };
+
     // 드롭다운 상태를 각 아이템마다 저장할 배열 추가
     const [dropdownStates, setDropdownStates] = useState<boolean[]>([]);
     const [dropdownSubStates, setDropdownSubStates] = useState<boolean[][]>([]);
@@ -109,8 +128,8 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
         };
     }, [dropdownStates, dropdownSubStates, docsWithFields]);
 
-    const handleKeyClick = (value: any) => {
-        onKeyClick(value); // 클릭된 값을 상위 컴포넌트로 전달
+    const handleKeyClick = (value: any, channel: string, subChannel: string) => {
+        onKeyClick({ value, channel, subChannel }); // 클릭된 값을 상위 컴포넌트로 전달
     };
     const openModal = () => {
         setIsModalOpen(true);
@@ -127,7 +146,7 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
                 {docsWithFields.map((item, index) => (
                     <ChannelWrapper key={index}>
                         <ChannelFlexDiv>
-                            <div style={{ fontSize: '20px', fontWeight: 'bold' }}># {item.docId}</div>
+                            <ChannelDiv># {item.docId}</ChannelDiv>
                             <MoreHorizIconWrapper>
                                 <MoreHorizIcon
                                     onClick={() => {
@@ -166,8 +185,22 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
 
                         <div style={{ marginLeft: '20px' }}>
                             {item.docKeys.map((item2, index2) => (
-                                <SubChannelFlexDiv onClick={() => handleKeyClick(item.docData[item2])}>
-                                    <div key={index2}>{item2}</div>
+                                <SubChannelFlexDiv
+                                    onClick={() => {
+                                        handleKeyClick(item.docData[item2], item.docId, item2);
+                                        setChannel(item.docId);
+                                        setSubChannel(item2);
+                                    }}
+                                    style={{
+                                        color: isSubChannelActive(item.docId, item2) ? '#ffffff' : '',
+                                        backgroundColor: isSubChannelActive(item.docId, item2)
+                                            ? 'var(--active-item)'
+                                            : '',
+                                        borderRadius: isSubChannelActive(item.docId, item2) ? '5px' : '',
+                                        fontWeight: isSubChannelActive(item.docId, item2) ? 'bold' : '',
+                                    }}
+                                >
+                                    <SubChannelDiv key={index2}>{item2}</SubChannelDiv>
                                     <MoreHorizIconWrapper>
                                         <MoreHorizIcon
                                             onClick={(e) => {

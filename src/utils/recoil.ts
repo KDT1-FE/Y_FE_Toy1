@@ -12,6 +12,20 @@ export const UserId = atom({
     effects_UNSTABLE: [persistAtom],
 });
 
+export const channelState = atom({
+    key: 'channelState',
+    default: '',
+});
+
+export const subChannelState = atom({
+    key: 'subChannelState',
+    default: '',
+});
+
+export const RecruitmentData = atom({
+    key: 'recruitmentData',
+    default: {},
+});
 // 타이머 ON/OFF
 export const TimerOn = atom({
     key: 'TimerOn',

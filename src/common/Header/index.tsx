@@ -54,6 +54,7 @@ const Header: React.FC = () => {
             <AnchorContainer>
                 <RightAnchorContainer>
                     <ListAnchor href="/wiki">wiki</ListAnchor>
+                    <ListAnchor href="/recruitment">recruitment</ListAnchor>
                     <ListAnchor href="/gallery">gallery</ListAnchor>
                     {userId.length > 0 ? (
                         <button
