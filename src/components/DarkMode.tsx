@@ -6,12 +6,14 @@ const lightTheme = {
   body: "#fff",
   text: "#1f2023",
   carouselDots: "#373a3c",
+  Userinfo: "#dddddd",
 };
 
 const darkTheme = {
   body: "#1f2023",
-  text: "#fff", 
+  text: "#fff",
   carouselDots: "#dddddd",
+  Userinfo: "#373a3c",
 };
 
 export const ThemeContext = createContext<() => void>(() => {});

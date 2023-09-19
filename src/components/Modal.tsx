@@ -11,7 +11,7 @@ const ModalContainer = styled.div<{ width: string; height: string }>`
   width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
   padding: 30px;
-  background-color: white;
+  background-color: ${(props) => props.theme.body};
   border: #ed234b 1px solid;
   border-radius: 8px;
   z-index: 200;
@@ -21,7 +21,8 @@ const ModalContainer = styled.div<{ width: string; height: string }>`
     top: 30px;
     right: 30px;
     padding: 12px;
-    background: #fff;
+    background-color: ${(props) => props.theme.body};
+    color: ${(props) => props.theme.text};
   }
 `;
 

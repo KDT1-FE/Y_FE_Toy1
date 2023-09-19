@@ -109,7 +109,7 @@ const Container = styled.aside`
   }
 
   .svg_icon {
-    margin: 5;
+    margin: 5px;
   }
 
   .sidebar__menu {

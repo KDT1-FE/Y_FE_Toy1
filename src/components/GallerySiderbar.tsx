@@ -60,6 +60,10 @@ const Container = styled.aside`
     text-align: center;
   }
 
+  .svg_icon {
+    margin: 5px;
+  }
+
   .sidebar__menu {
     font-weight: 400;
     font-size: 20px;
