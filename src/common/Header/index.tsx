@@ -61,15 +61,7 @@ const Header: React.FC = () => {
                             onClick={() => {
                                 if (timerOn && timeLog !== '') {
                                     setTimeLog(
-                                        timeLog +
-                                            ' ' +
-                                            '->' +
-                                            ' ' +
-                                            `[${CreateDay()}]` +
-                                            ' ' +
-                                            '퇴실' +
-                                            ' ' +
-                                            CreateTime(),
+                                        timeLog + ' ' + ' ' + '-' + ' ' + ' ' + '퇴실' + ' ' + ' ' + CreateTime(),
                                     );
                                     setTimerOn(false);
                                 }
@@ -84,7 +76,6 @@ const Header: React.FC = () => {
                     ) : (
                         <ListAnchor href={'/LogIn'}>LogIn</ListAnchor>
                     )}
-                    <CommuteBtn />
                     {userId.length > 0 && <MyPageBtn />}
                 </RightAnchorContainer>
             </AnchorContainer>

@@ -4,7 +4,6 @@ import { TimelogBox, TimelogBoxScroll, TimelogEl } from './style';
 import { useRecoilState } from 'recoil';
 import { UserId } from '../../../utils/recoil';
 import { readUser } from '../../../utils/firebase';
-import { display, height } from '@mui/system';
 
 interface OwnProps {
     handleTimelog(): void;
@@ -37,20 +36,26 @@ const TimelogModal: React.FC<OwnProps> = ({ handleTimelog }) => {
             <TimelogBox>
                 <TimelogBoxScroll>
                     {timelogData.length > 0 ? (
-                        timelogData.map((e: string, i) => (
-                            <TimelogEl key={i}>
-                                <div
-                                    style={{
-                                        height: '100px',
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                    }}
-                                >
-                                    {e}
-                                </div>
-                            </TimelogEl>
-                        ))
+                        timelogData.map((e: string, i) => {
+                            e = e.replaceAll('\n', '<br/>');
+                            console.log(e);
+
+                            return (
+                                <TimelogEl key={i}>
+                                    <textarea
+                                        style={{
+                                            height: '100px',
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            cursor: 'default',
+                                        }}
+                                    >
+                                        {e}
+                                    </textarea>
+                                </TimelogEl>
+                            );
+                        })
                     ) : (
                         <p>입/퇴실 기록이 존재하지 않습니다.</p>
                     )}
