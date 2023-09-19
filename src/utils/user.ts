@@ -12,3 +12,6 @@ export const getSessionUserData = (): IuserData | undefined => {
     }
   }
 };
+export const getName = () => {
+  return getSessionUserData()?.displayName;
+};

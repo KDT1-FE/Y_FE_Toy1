@@ -1,4 +1,5 @@
 import { db } from 'apis/firebase';
+import { CALENDAR_COLLECTION } from 'constants/collection';
 import {
   addDoc,
   collection,
@@ -20,10 +21,17 @@ interface IuserData {
   uid: string;
   displayName: string;
 }
+interface IresponseArray {
+  start: Date;
+  end: Date;
+  title: string;
+  id: string;
+}
+
 export const uploadCalendarData = async (calendarData: ICalendarData) => {
   try {
     const user = getSessionUserData();
-    await addDoc(collection(db, 'calendar'), {
+    await addDoc(collection(db, CALENDAR_COLLECTION), {
       ...calendarData,
       uid: user?.uid,
     });
@@ -32,21 +40,15 @@ export const uploadCalendarData = async (calendarData: ICalendarData) => {
     alert('알 수 없는 오류입니다');
   }
 };
+
 const searchUser = () => {
   const user: IuserData | undefined = getSessionUserData();
   const searchUserQuery = query(
-    collection(db, 'calendar'),
+    collection(db, CALENDAR_COLLECTION),
     where('uid', '==', user?.uid),
   );
   return searchUserQuery;
 };
-
-interface IresponseArray {
-  start: Date;
-  end: Date;
-  title: string;
-  id: string;
-}
 
 export const getCalendarData = async () => {
   try {
@@ -66,9 +68,10 @@ export const getCalendarData = async () => {
     alert('알 수 없는 오류입니다');
   }
 };
+
 export const deleteCalendarData = async (id: string) => {
   try {
-    await deleteDoc(doc(db, 'calendar', id));
+    await deleteDoc(doc(db, CALENDAR_COLLECTION, id));
   } catch (error) {
     alert('데이터를 삭제하는 과정에서 오류가 발생했습니다.');
   }

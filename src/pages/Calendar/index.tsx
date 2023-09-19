@@ -12,7 +12,8 @@ import {
 import { CloseImg } from 'components/CommuteModal';
 import { calendarDayFormat } from 'utils/format';
 import Swal from 'sweetalert2';
-import { getSessionUserData } from 'utils/user';
+import { getName } from 'utils/user';
+import { EventClickArg } from '@fullcalendar/core';
 
 interface IEvent {
   title: string;
@@ -25,13 +26,8 @@ function Calendar() {
   const [showModal, setShowModal] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
 
-  const getName = () => {
-    return getSessionUserData()?.displayName;
-  };
-
-  const getEvent = async () => {
+  const getEvents = async () => {
     const responseArray = await getCalendarData();
-    console.log(responseArray);
     setEvents(responseArray);
   };
 
@@ -41,6 +37,24 @@ function Calendar() {
       return false;
     }
     return true;
+  };
+
+  const handleEventAlert = async (info: EventClickArg) => {
+    const result = await Swal.fire({
+      title: `${info.event._def?.title}`,
+      text: `${calendarDayFormat(
+        info.event._instance?.range.end,
+      )}~${calendarDayFormat(info.event._instance?.range.start)}`,
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#001529',
+      confirmButtonText: '일정 삭제',
+      cancelButtonText: '취소',
+    });
+    if (result.isConfirmed) {
+      await deleteCalendarData(info.event._def?.publicId);
+      setIsDelete(!isDelete);
+    }
   };
 
   const handleSubmit = async (event: FormEvent) => {
@@ -63,7 +77,7 @@ function Calendar() {
   };
 
   useEffect(() => {
-    getEvent();
+    getEvents();
   }, [showModal, isDelete]);
 
   return (
@@ -87,23 +101,7 @@ function Calendar() {
               },
             }}
             eventClick={(info) => {
-              Swal.fire({
-                title: `${info.event._def?.title}`,
-                text: `${calendarDayFormat(
-                  info.event._instance?.range.end,
-                )}~${calendarDayFormat(info.event._instance?.range.start)}`,
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#001529',
-                confirmButtonText: '일정 삭제',
-                cancelButtonText: '취소',
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  deleteCalendarData(info.event._def?.publicId).then(() => {
-                    setIsDelete(!isDelete);
-                  });
-                }
-              });
+              handleEventAlert(info);
             }}
           />
         </StyledCalendarContainer>
