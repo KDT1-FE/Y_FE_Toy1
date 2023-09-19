@@ -8,7 +8,7 @@ const { persistAtom } = recoilPersist({
 
 export const UserId = atom({
     key: 'userId',
-    default: [],
+    default: '',
     effects_UNSTABLE: [persistAtom],
 });
 

@@ -37,7 +37,6 @@ import {
     updateRecruitment,
     getUserImageURL,
 } from '../../utils/firebase';
-import MDEditor from '@uiw/react-md-editor';
 import { useRecoilState } from 'recoil';
 import { UserId } from '../../utils/recoil';
 import { useNavigate } from 'react-router-dom';
