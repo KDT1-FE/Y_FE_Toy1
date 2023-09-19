@@ -124,6 +124,7 @@ export const ProfileWrapper = styled.div`
 export const ProfileIMG = styled.img`
     width: 200px;
     height: 200px;
+    border-radius: 10px;
 `;
 export const ProfileName = styled.div`
     text-align: center;
