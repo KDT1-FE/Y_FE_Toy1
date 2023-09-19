@@ -164,9 +164,22 @@ const StyledReadGalleryNone = styled.div`
   height: 3.625rem;
   font-size: 3rem;
   font-weight: 600;
-  margin: 0 auto;
+  text-align: center;
   position: absolute;
   top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
+  ${media.desktop_lg(`
+    font-size: 2rem;
+`)}
+  ${media.tablet_625(`
+  width: 25rem;
+  height: 10rem;
+  font-size: 1.5rem;
+  top: 40%;
+`)} 
+${media.mobile(`
+  font-size: 1.5rem;
+  top: 50%;
+`)}
 `;
