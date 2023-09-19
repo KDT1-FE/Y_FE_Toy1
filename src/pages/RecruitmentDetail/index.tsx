@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-    CommentItemWrapper,
     Btn,
     BtnWrapper,
     CommentName,
@@ -71,7 +70,6 @@ const RecruitmentDetail: React.FC = () => {
                 // 에러 핸들링
                 console.error('Error fetching data:', error);
             });
-
         getUserName(userId)
             .then((result) => {
                 setUserName(result);
@@ -80,8 +78,10 @@ const RecruitmentDetail: React.FC = () => {
                 // 에러 핸들링
                 console.error('Error fetching data:', error);
             });
+    }, [channel, path]);
 
-        getUserImageURL(userId)
+    useEffect(() => {
+        getUserImageURL(data.uid)
             .then((result) => {
                 setUserImageURL(result);
             })
@@ -89,7 +89,7 @@ const RecruitmentDetail: React.FC = () => {
                 // 에러 핸들링
                 console.error('Error fetching data:', error);
             });
-    }, [channel, path]);
+    }, [data]);
 
     const handleCreateCommentSubmit = async (e: any) => {
         e.preventDefault();
@@ -139,6 +139,13 @@ const RecruitmentDetail: React.FC = () => {
 
     const handleRecruitmentValued = () => {
         data.recruitValued = !data.recruitValued;
+        for (let i = 0; i < data.comment.length; i++) {
+            data.comment[i] = {
+                uid: data.comment[i].uid,
+                time: data.comment[i].time,
+                content: data.comment[i].content,
+            };
+        }
         updateRecruitment(channel, path, data);
 
         navigate('/recruitment');
