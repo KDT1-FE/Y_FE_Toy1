@@ -106,3 +106,12 @@ export const ProgressImg = styled.img`
   padding-left: 5px;
   cursor: pointer;
 `;
+export const WriteEx = styled.div`
+  display: flex;
+  align-items: center;
+`;
+export const Ex = styled.p`
+  font-size: 12px;
+  margin-left: 10px;
+  color: #9d9797;
+`;

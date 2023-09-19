@@ -9,6 +9,8 @@ import {
   WriteProject,
   WriteInput,
   WriteContentInput,
+  Ex,
+  WriteEx,
 } from "../../styled/ProjectPage/ProjectWrite.styles";
 import {
   ProgressDiv,
@@ -86,27 +88,33 @@ const ProjectEdit: React.FC = () => {
 
   return (
     <Container>
-      <ProgressDiv
-        className={
-          projectData.projectProgress === "진행중" ? "inProgress" : "completed"
-        }
-      >
-        <Ing
+      <WriteEx>
+        <ProgressDiv
           className={
             projectData.projectProgress === "진행중"
               ? "inProgress"
               : "completed"
           }
-          onClick={handleProgressToggle}
         >
-          {projectData.projectProgress}
-        </Ing>
-        {projectData.projectProgress === "진행중" ? (
-          <ProgressImg src={Progress} alt="진행 중 이미지" />
-        ) : (
-          <ProgressImg src={Complete} alt="완료 이미지" />
-        )}{" "}
-      </ProgressDiv>
+          <Ing
+            className={
+              projectData.projectProgress === "진행중"
+                ? "inProgress"
+                : "completed"
+            }
+            onClick={handleProgressToggle}
+          >
+            {projectData.projectProgress}
+          </Ing>
+          {projectData.projectProgress === "진행중" ? (
+            <ProgressImg src={Progress} alt="진행 중 이미지" />
+          ) : (
+            <ProgressImg src={Complete} alt="완료 이미지" />
+          )}{" "}
+        </ProgressDiv>
+        <Ex>프로젝트 진행상황을 클릭해서 변경해주세요</Ex>
+      </WriteEx>
+
       <WriteDiv>
         <WriteProject>Edit Project</WriteProject>
         <form onSubmit={handleSubmit}>
