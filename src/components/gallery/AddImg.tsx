@@ -1,12 +1,15 @@
 import * as style from "./AddImgStyle";
 import { useState } from "react";
 import Button from "../common/Button";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { app } from "../../../firebase";
 
 interface AddImgProps {
   albumId: string;
+  imagePaths: string[];
   setAddImg: React.Dispatch<React.SetStateAction<boolean>>;
+  setImgLoad: React.Dispatch<React.SetStateAction<boolean>>;
+  setImagePaths: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 interface FileInfoProps {
@@ -48,7 +51,13 @@ function Logo() {
   );
 }
 
-export function AddImg({ albumId, setAddImg }: AddImgProps) {
+export function AddImg({
+  albumId,
+  imagePaths,
+  setAddImg,
+  setImgLoad,
+  setImagePaths,
+}: AddImgProps) {
   const [isActive, setActive] = useState(false);
   const [uploadedInfo, setUploadedInfo] = useState<{
     name: string;
@@ -103,6 +112,7 @@ export function AddImg({ albumId, setAddImg }: AddImgProps) {
   };
 
   const clickSaveBtn = async () => {
+    setImgLoad(true);
     const storage = getStorage(app);
     const storageRef = ref(storage, `Gallery/${albumId}/${uploadedInfo?.name}`);
 
@@ -114,12 +124,19 @@ export function AddImg({ albumId, setAddImg }: AddImgProps) {
       };
 
       await uploadBytes(storageRef, uploadedFile as File, metadata);
+
+      const downloadURL = await getDownloadURL(storageRef);
+
+      const copy = [...imagePaths];
+      copy.push(downloadURL);
+      setImagePaths(copy);
+
+      setAddImg(false);
       console.log("이미지 업로드 성공!");
     } catch (error) {
       console.error("이미지 업로드 실패:", error);
     }
-    console.log(uploadedFile);
-    console.log(albumId);
+    setImgLoad(false);
   };
 
   return (

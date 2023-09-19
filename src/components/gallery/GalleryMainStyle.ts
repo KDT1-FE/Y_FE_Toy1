@@ -66,7 +66,7 @@ export const Img = styled.div<{ img?: string; background?: string }>`
   overflow: hidden;
 
   &:hover {
-    background-size: 105%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
 `;
 
