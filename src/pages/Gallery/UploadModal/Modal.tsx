@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
     BtnAlign,
     CancelBtn,
+    Description,
     Formalign,
     InputAndPreview,
     InputContainer,
@@ -9,8 +10,11 @@ import {
     LinkInputContainer,
     ModalContainer,
     ModalFirstLine,
+    ModalLabel,
+    ModalTextarea,
     PlaceHolder,
     PreviewBox,
+    PreviewImg,
     SubmitBtn,
 } from '../style';
 import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
@@ -25,6 +29,11 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
     const [link, setLink] = useState(''); // 링크 입력 상태
     const [imageFile, setImageFile] = useState<Blob | null>(null); // 이미지 파일 상태
     const [thumbnailURL, setThumbnailURL] = useState<string | null>(null);
+    const [textValue, setTextValue] = useState('');
+
+    const handleTextChange = (e: any) => {
+        setTextValue(e.target.value);
+    };
 
     // 링크 입력 핸들러
     const handleLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,6 +70,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
             thumbnailURL: url,
             recruitURL: link,
             index: uniqueName,
+            description: textValue,
         };
         // firestore 데이터를 취업/articleR 필드에 추가
         await updateDoc(storeRef, {
@@ -75,7 +85,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
         <ModalContainer>
             <ModalFirstLine>
                 <h2>취업 정보 공유</h2>
-                <span className="close" onClick={onClose} style={{ cursor: 'pointer' }}>
+                <span className="close" onClick={onClose} style={{ cursor: 'pointer', fontSize: '30px' }}>
                     &times;
                 </span>
             </ModalFirstLine>
@@ -83,12 +93,12 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
                 <InputAndPreview>
                     <InputContainer>
                         <div>
-                            <label htmlFor="image">회사 로고</label>
+                            <ModalLabel htmlFor="image">회사 로고</ModalLabel>
                             <br />
                             <input type="file" id="image" accept="image/*" onChange={handleImageChange} required />
                         </div>
                         <LinkInputContainer>
-                            <label htmlFor="link">링크</label>
+                            <ModalLabel htmlFor="link">링크</ModalLabel>
                             <br />
                             <LinkInput
                                 type="text"
@@ -100,30 +110,32 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
                             />
                         </LinkInputContainer>
                         <div>
-                            <label htmlFor="description">본 채용 설명</label>
+                            <ModalLabel htmlFor="description">본 채용 설명</ModalLabel>
                             <br />
-                            <input type="textarea" placeholder="ex)회사이름, 채용일정 등..." />
+                            <ModalTextarea
+                                placeholder="공유할 채용의 설명을 적어주세요!"
+                                maxLength={50}
+                                value={textValue}
+                                onChange={handleTextChange}
+                                required
+                            />
                         </div>
                     </InputContainer>
                     <PreviewBox>
-                        <p>미리보기</p>
                         {imageFile ? (
-                            <a href={link} target="_blank">
-                                <img
-                                    src={URL.createObjectURL(imageFile)}
-                                    alt="미리보기"
-                                    style={{ width: '100px', height: '100px' }}
-                                />
+                            <a href={link} target="_blank" style={{ position: 'relative' }}>
+                                <PreviewImg src={URL.createObjectURL(imageFile)} alt="미리보기" />
+                                <Description>{textValue}</Description>
                             </a>
                         ) : (
                             <PlaceHolder />
                         )}
+                        <BtnAlign>
+                            <CancelBtn onClick={onClose}>취소</CancelBtn>
+                            <SubmitBtn type="submit">제출</SubmitBtn>
+                        </BtnAlign>
                     </PreviewBox>
                 </InputAndPreview>
-                <BtnAlign>
-                    <CancelBtn onClick={onClose}>취소</CancelBtn>
-                    <SubmitBtn type="submit">제출</SubmitBtn>
-                </BtnAlign>
             </Formalign>
         </ModalContainer>
     );

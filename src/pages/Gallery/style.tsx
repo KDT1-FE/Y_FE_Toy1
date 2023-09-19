@@ -1,5 +1,5 @@
+import { style } from '@mui/system';
 import styled, { keyframes } from 'styled-components';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 //갤러리 전체
 export const GalleryContainer = styled.div`
@@ -21,11 +21,6 @@ export const RecruitConstainer = styled.div`
     flex-direction: column;
 `;
 
-export const InputContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-`;
-
 export const ContentContainer = styled.div`
     width: 100%;
     display: flex;
@@ -39,6 +34,7 @@ export const ArticleContainer = styled.div`
     padding-left: 8%;
     padding-top: var(--paddingTop);
     padding-right: 8%;
+    padding-bottom: 8%;
     box-sizing: border-box;
 `;
 
@@ -99,10 +95,6 @@ export const ImgContainer = styled.div`
     flex-wrap: wrap;
     justify-content: flex-start;
     padding: 10px;
-    &:-moz-window-dragging {
-        transform: scale(0.85);
-        transition: transform 1s ease;
-    }
 `;
 
 export const StyleProfile = styled.div`
@@ -139,8 +131,8 @@ export const ProfileName = styled.div`
 `;
 // 모달
 export const ModalContainer = styled.div`
-    width: 33%;
-    height: 43%;
+    width: 45%;
+    height: 55%;
     z-index: 999;
     position: fixed;
     top: 50%;
@@ -160,13 +152,33 @@ export const ModalBackground = styled.div`
     width: 100vw;
     height: 100vh;
     z-index: 100;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.6);
 `;
 
 export const ModalFirstLine = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+`;
+
+export const ModalLabel = styled.label`
+    font-size: 20;
+    font-weight: bold;
+    margin-bottom: 5px;
+`;
+
+export const ModalTextarea = styled.textarea`
+    width: 100%;
+    height: 190%;
+    font-size: 16px;
+    resize: none;
+    border: 2px solid rgb(118, 118, 118);
+    border-radius: 5px;
+    &:focus {
+        outline: none;
+        border: 1px solid var(--mention-badge);
+        box-shadow: 0px 1px 6px var(--active-item);
+    }
 `;
 
 export const Formalign = styled.form`
@@ -177,58 +189,124 @@ export const Formalign = styled.form`
 export const InputAndPreview = styled.div`
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+`;
+
+export const InputContainer = styled.div`
+    display: flex;
+    margin: 10px;
+    flex-direction: column;
+    z-index: 2;
 `;
 
 export const LinkInput = styled.input`
-    width: 80%;
+    width: 100%;
+    height: 90%;
     box-sizing: border-box;
     border-radius: 5px;
+    font-size: 16px;
     &:focus {
         outline: none;
-        border: 2px solid var(--mention-badge);
-        box-shadow: 0px 0px 4px 2px var(--active-item);
+        border: 1px solid var(--mention-badge);
+        box-shadow: 0px 1px 6px var(--active-item);
     }
 `;
 
 export const LinkInputContainer = styled.div`
-    margin-bottom: 20px;
+    margin-top: 12px;
+    margin-bottom: 35px;
 `;
+
+export const Description = styled.div`
+    position: absolute;
+    display: flex;
+    align-items: flex-end;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 200px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    padding: 8px;
+    font-size: 20px;
+    opacity: 0; /* 설명을 숨깁니다. */
+    transition: opacity 0.3s ease-in-out;
+`;
+
+export const ChildArticle = styled.div`
+    display: flex;
+    align-items: flex-start;
+    &:hover ${Description} {
+        opacity: 1;
+    }
+`;
+
 export const PreviewBox = styled.div`
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 10px;
+    &:hover ${Description} {
+        opacity: 1;
+    }
+`;
+export const PreviewImg = styled.img`
+    width: 300px;
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
+    position: relative;
 `;
 
 export const PlaceHolder = styled.div`
-    width: 100px;
-    height: 100px;
+    width: 300px;
+    height: 200px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
     background-color: var(--mention-badge);
 `;
 
 export const SubmitBtn = styled.button`
-    width: 70px;
+    width: 100px;
+    height: 50px;
     border-radius: 5px;
     padding: 10px;
     box-sizing: border-box;
     vertical-align: middle;
+    margin: 25px;
     border: none;
     background-color: var(--active-current-status);
     color: white;
     cursor: pointer;
+    font-size: 20px;
+    &:hover {
+        font-weight: bold;
+        filter: brightness(110%);
+    }
 `;
 export const CancelBtn = styled.button`
-    width: 70px;
+    width: 100px;
+    height: 50px;
     border-radius: 5px;
     padding: 10px;
     box-sizing: border-box;
     vertical-align: middle;
-    border: none;
+    border: 0.5px solid black;
     background-color: #fff;
     color: #000;
+    font-size: 20px;
+    margin: 25px;
     cursor: pointer;
+    &:hover {
+        font-weight: bold;
+        filter: brightness(90%);
+    }
 `;
 
 export const BtnAlign = styled.div`
     display: flex;
     justify-content: center;
+    margin-top: 15px;
 `;

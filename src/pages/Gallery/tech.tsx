@@ -4,7 +4,16 @@ import ModalT from './UploadModal/ModalT';
 import { onSnapshot, updateDoc } from 'firebase/firestore';
 import { ref, deleteObject } from 'firebase/storage';
 import { storeRef, storage } from '../../utils/firebase';
-import { ArticleContainer, ContentContainer, ContentFirstLine, ModalBackground, TrashCan, UploadBtn } from './style';
+import {
+    ArticleContainer,
+    ChildArticle,
+    ContentContainer,
+    ContentFirstLine,
+    Description,
+    ModalBackground,
+    TrashCan,
+    UploadBtn,
+} from './style';
 
 const Tech: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,7 +46,7 @@ const Tech: React.FC = () => {
                     const updatedArticleTs = [...articleTs];
                     updatedArticleTs.splice(result.source.index, 1);
                     await updateDoc(storeRef, {
-                        '       테크.articleT': updatedArticleTs,
+                        '테크.articleT': updatedArticleTs,
                     });
 
                     // Storage에서 이미지 파일 삭제
@@ -54,7 +63,7 @@ const Tech: React.FC = () => {
                 newArticleTs.splice(result.destination.index, 0, reorderedItem);
 
                 await updateDoc(storeRef, {
-                    '취업.articleT': newArticleTs,
+                    '테크.articleT': newArticleTs,
                 });
             }
         }
@@ -121,7 +130,7 @@ const Tech: React.FC = () => {
                                         index={index}
                                     >
                                         {(provided, snapshot) => (
-                                            <div
+                                            <ChildArticle
                                                 ref={provided.innerRef}
                                                 {...provided.draggableProps}
                                                 {...provided.dragHandleProps}
@@ -134,6 +143,7 @@ const Tech: React.FC = () => {
                                                     id={articleT.index}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
+                                                    style={{ position: 'relative' }}
                                                 >
                                                     <img
                                                         style={{
@@ -143,12 +153,14 @@ const Tech: React.FC = () => {
                                                             borderRadius: '10px',
                                                             transition: 'transform 0.2s ease-in-out',
                                                             transform: snapshot.isDragging ? 'scale(0.3)' : 'scale(1)', //이미지 그랩 시 작아짐 효과
+                                                            position: 'relative',
                                                         }}
                                                         src={articleT.thumbnailURL}
                                                         alt={`article ${articleT.index}`}
                                                     />
+                                                    <Description>{articleT.description}</Description>
                                                 </a>
-                                            </div>
+                                            </ChildArticle>
                                         )}
                                     </Draggable>
                                 ))}

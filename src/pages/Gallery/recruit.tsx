@@ -4,7 +4,16 @@ import Modal from './UploadModal/Modal';
 import { onSnapshot, updateDoc } from 'firebase/firestore';
 import { ref, deleteObject } from 'firebase/storage';
 import { storeRef, storage } from '../../utils/firebase';
-import { ArticleContainer, ContentContainer, ContentFirstLine, ModalBackground, TrashCan, UploadBtn } from './style';
+import {
+    ArticleContainer,
+    ChildArticle,
+    ContentContainer,
+    ContentFirstLine,
+    Description,
+    ModalBackground,
+    TrashCan,
+    UploadBtn,
+} from './style';
 
 const Recruit: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -122,7 +131,7 @@ const Recruit: React.FC = () => {
                                         index={index}
                                     >
                                         {(provided, snapshot) => (
-                                            <div
+                                            <ChildArticle
                                                 ref={provided.innerRef}
                                                 {...provided.draggableProps}
                                                 {...provided.dragHandleProps}
@@ -135,6 +144,7 @@ const Recruit: React.FC = () => {
                                                     id={articleR.index}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
+                                                    style={{ position: 'relative' }}
                                                 >
                                                     <img
                                                         style={{
@@ -144,12 +154,14 @@ const Recruit: React.FC = () => {
                                                             borderRadius: '10px',
                                                             transition: 'transform 0.2s ease-in-out',
                                                             transform: snapshot.isDragging ? 'scale(0.3)' : 'scale(1)', //이미지 그랩 시 작아짐 효과
+                                                            position: 'relative',
                                                         }}
                                                         src={articleR.thumbnailURL}
                                                         alt={`article ${articleR.index}`}
                                                     />
+                                                    <Description>{articleR.description}</Description>
                                                 </a>
-                                            </div>
+                                            </ChildArticle>
                                         )}
                                     </Draggable>
                                 ))}
