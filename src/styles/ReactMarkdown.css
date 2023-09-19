@@ -56,6 +56,7 @@
   line-height: 1.5;
   word-wrap: break-word;
   padding: 2rem 2rem;
+  overflow: hidden;
 }
 
 .markdown-body .octicon {
@@ -244,7 +245,7 @@
   display: block;
   width: max-content;
   max-width: 100%;
-  overflow: auto;
+  overflow: visible;
 }
 
 .markdown-body td,
@@ -645,6 +646,11 @@
 
 .markdown-body table img {
   background-color: transparent;
+  transition: 0.5s;
+}
+
+.markdown-body table img:hover {
+  transform: scale(1.6);
 }
 
 .markdown-body img[align="right"] {
@@ -1077,7 +1083,7 @@
 }
 
 .markdown-body blockquote {
-  line-height: 1rem;
+  line-height: 1.6rem;
   padding: 1rem 2rem;
   border-left: none;
   border-radius: 1rem;
@@ -1100,8 +1106,8 @@
 
 .markdown-body pre {
   padding: 2rem;
-  background-color: #1e1e1e;
-  color: green;
+  background-color: #5b89a5;
+  color: #f7f73d;
 }
 
 .markdown-body table,
