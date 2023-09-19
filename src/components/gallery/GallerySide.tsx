@@ -12,6 +12,7 @@ import { app } from "../../../firebase";
 import * as style from "./GallerySideStyle";
 import Button from "../common/Button";
 import Input from "../common/Input";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/Io";
 
 const firestore = getFirestore(app);
 
@@ -81,11 +82,6 @@ export default function GallerySide({
   };
 
   const closeConfigListHandle = () => {
-    // const copy = [...drop];
-    // drop.forEach((_, i) => {
-    //   copy[i] = false;
-    // });
-    // setDrop(copy);
     setConfigList(false);
   };
 
@@ -100,7 +96,7 @@ export default function GallerySide({
       });
       setAlbumName(copy2);
       addAlbum(id, value);
-      // console.log(galleryData);
+
       if (inputRef.current) {
         inputRef.current.value = "";
       }
@@ -114,7 +110,7 @@ export default function GallerySide({
         }
         return item;
       });
-      // console.log(find);
+
       setGalleryData(find as Folders[]);
     }
   };
@@ -172,11 +168,11 @@ export default function GallerySide({
   const albumClickHandle = async (title: string) => {
     try {
       setPrevAlbum(title);
+
       if (title === prevAlbum) {
         setImgLoad(false);
       }
-      // console.log(title);
-      // console.log(prevAlbum);
+
       await fetchData(title);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -198,7 +194,17 @@ export default function GallerySide({
                 >
                   {data.title}
                   <style.Arrow style={{ fontSize: ".5rem" }}>
-                    {configList ? "🔧" : drop[index] ? "▼" : "▲"}
+                    {configList ? (
+                      <style.ArrowIcon>🔧</style.ArrowIcon>
+                    ) : drop[index] ? (
+                      <style.ArrowIcon>
+                        <IoIosArrowUp />
+                      </style.ArrowIcon>
+                    ) : (
+                      <style.ArrowIcon>
+                        <IoIosArrowDown />
+                      </style.ArrowIcon>
+                    )}
                   </style.Arrow>
                 </style.List>
 
@@ -220,7 +226,7 @@ export default function GallerySide({
 
                 {configList ? (
                   <style.List>
-                    ⌞
+                    <style.icon></style.icon>
                     <Input
                       type="text"
                       id="add-sub"
@@ -235,6 +241,7 @@ export default function GallerySide({
                       }}
                       // forwardedRef={inputRef}
                       value={albumName[index]}
+                      width="10rem"
                     />
                   </style.List>
                 ) : null}
