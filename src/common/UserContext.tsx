@@ -45,7 +45,6 @@ export function UserProvider({ children }: PropsWithChildren) {
           phone: authUser.phoneNumber || '',
           emailVerified: authUser.emailVerified,
         };
-        console.log(user);
         setUser(user);
       } else {
         setUser(null);

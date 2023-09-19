@@ -1,21 +1,30 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { commuteState } from '../data/atoms';
-import { MdOutlineKeyboardDoubleArrowDown } from 'react-icons/md';
-import { formatMsToTime, timeToLocaleTimeString } from '../utils/formatTime';
+import { MouseEventHandler, useEffect, useState } from 'react';
 import CommuteButton from '../common/CommuteButton';
-import { uploadCommuteInfo } from '../utils/firebaseUtils';
-import { useUser } from '../common/UserContext';
+import { commuteType } from '../data/atoms';
+import ModalMessage from './ModalMessage';
+import { formatDate } from '../utils/formatTime';
 
 interface Props {
   isModalOpen: boolean;
+  toggleModal: () => void;
+  confirmWorkingTime: MouseEventHandler<HTMLButtonElement>;
+  handleCommute: MouseEventHandler<HTMLButtonElement>;
+  commuteInfo: commuteType;
+  uid: string | undefined;
 }
 
-const CommuteModal = ({ isModalOpen }: Props) => {
+const CommuteModal = ({
+  isModalOpen,
+  toggleModal,
+  confirmWorkingTime,
+  handleCommute,
+  commuteInfo,
+  uid,
+}: Props) => {
+  // useRecoilState로 commuteInfo를 가져오기 vs commuteInfo를 props로 받기
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [commuteInfo, setCommuteInfo] = useRecoilState(commuteState);
-  const { user } = useUser();
+  const { isWorking, workingTime } = commuteInfo;
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -25,182 +34,108 @@ const CommuteModal = ({ isModalOpen }: Props) => {
     return () => clearInterval(intervalId);
   }, []);
 
-  const handleCommuteToggle = () => {
-    let updatedCommuteInfo;
-
-    if (commuteInfo.commute) {
-      updatedCommuteInfo = {
-        ...commuteInfo,
-        date: currentTime.toLocaleDateString('ko-KR'),
-        commute: false,
-        endTime: Date.now(),
-        workingTime: Date.now() - commuteInfo.startTime,
-      };
-
-      setCommuteInfo(updatedCommuteInfo);
-      // 일한 시간 업로드
-      console.log(updatedCommuteInfo);
-
-      if (user) {
-        uploadCommuteInfo(user.uid, updatedCommuteInfo);
-      }
-    } else {
-      setCommuteInfo({
-        ...commuteInfo,
-        commute: true,
-        startTime: Date.now(),
-      });
-
-      // firebase에 출근 시간 기록
-    }
+  // 수정 기능은 보류
+  const editWorkingTime: MouseEventHandler = (): void => {
+    toggleModal();
   };
 
-  const [hour, minute, second] = currentTime.toLocaleTimeString('it-IT').split(':');
-  const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    weekday: 'long',
-    timeZone: 'UTC',
-  };
+  const mainButtonLabel = workingTime ? '확인' : isWorking ? '퇴근' : '출근';
+  const mainButtonHandler = workingTime ? confirmWorkingTime : handleCommute;
+  const secondaryButtonLabel = workingTime ? '수정' : '취소';
+  const secondaryButtonHandler = workingTime ? editWorkingTime : toggleModal;
 
   return (
-    <ModalContainer className={isModalOpen ? 'open' : ''} id="commute-modal">
-      <div className="wrapper">
-        <span className="date">{currentTime.toLocaleDateString('ko-KR', options)}</span>
-        <div className="timer">
-          <span>{hour}</span> : <span>{minute}</span> : <span>{second}</span>
-        </div>
-        <div className="content-wrapper">
-          {!user ? (
-            '로그인이 필요합니다.'
-          ) : (
+    <>
+      <Overlay onClick={toggleModal} className={isModalOpen ? 'open' : ''} />
+      <ModalContainer className={isModalOpen ? 'open' : ''} id="commute-modal">
+        <TimerWrapper>
+          <span className="date">{formatDate()}</span>
+          <span className="time">{currentTime.toLocaleTimeString('it-IT')}</span>
+        </TimerWrapper>
+
+        <ContentWrapper>
+          <ModalMessage commuteInfo={commuteInfo} uid={uid} />
+        </ContentWrapper>
+
+        <ButtonWrapper>
+          {uid && (
             <>
-              <div className="commute-time">
-                <span>
-                  {commuteInfo.startTime
-                    ? timeToLocaleTimeString(commuteInfo.startTime)
-                    : '출근 전'}
-                </span>
-                <MdOutlineKeyboardDoubleArrowDown size="24" opacity="0.3" />
-                <span>
-                  {commuteInfo.endTime ? timeToLocaleTimeString(commuteInfo.endTime) : '퇴근 전'}
-                </span>
-              </div>
-              <div className="btn-wrapper">
-                {commuteInfo.commute ? (
-                  <CommuteButton handleCommute={handleCommuteToggle}>
-                    <span>퇴근</span>
-                  </CommuteButton>
-                ) : (
-                  <CommuteButton handleCommute={handleCommuteToggle}>
-                    <span>출근</span>
-                  </CommuteButton>
-                )}
-              </div>
+              <CommuteButton onClick={mainButtonHandler}>{mainButtonLabel}</CommuteButton>
+              <CommuteButton onClick={secondaryButtonHandler}>{secondaryButtonLabel}</CommuteButton>
             </>
           )}
-        </div>
-      </div>
-    </ModalContainer>
+        </ButtonWrapper>
+      </ModalContainer>
+    </>
   );
 };
 
+const Overlay = styled.div`
+  position: fixed;
+  display: none;
+  top: 0;
+  left: 0;
+  inset: 0;
+  background-color: hsla(0, 0%, 0%, 0.2);
+
+  &.open {
+    display: block;
+  }
+`;
+
 const ModalContainer = styled.div`
-  position: absolute;
-  top: 3rem;
-  right: 0.6rem;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
   z-index: 100;
 
-  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+
+  min-width: 250px;
+  max-width: 300px;
+  min-height: 400px;
+
+  border: ${(props) => props.theme.colors.card.border};
+  border-radius: 0.6rem;
+  box-shadow: ${(props) => props.theme.colors.card.shadow};
+
+  background-color: #ffffff;
 
   visibility: hidden;
   opacity: 0;
   transition:
-    opacity 0.2s ease-in-out,
-    visibility 0.2s ease-in-out;
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    visibility 0.2s ease;
 
   &.open {
-    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
     opacity: 1;
+    visibility: visible;
   }
+`;
 
-  .wrapper {
-    position: relative;
+const TimerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  width: 100%;
+`;
 
-    padding: 0.6rem 1rem;
+const ContentWrapper = styled.div``;
 
-    border-radius: 0.6rem;
-    border: 1px solid #eeeeee;
-    background-color: #ffffff;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    .timer {
-      display: flex;
-      align-items: center;
-      column-gap: 0.4rem;
-
-      margin-bottom: 1rem;
-
-      span {
-        font-size: 1.5rem;
-        font-weight: 600;
-      }
-    }
-
-    .date {
-      font-size: 0.8rem;
-
-      opacity: 0.5;
-    }
-
-    .content-wrapper {
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-
-      width: 100%;
-
-      .commute-time {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        row-gap: 1rem;
-
-        margin-bottom: 1rem;
-      }
-
-      .btn-wrapper {
-        width: 100%;
-
-        button {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          width: 100%;
-
-          padding: 0.6rem 1rem;
-
-          border-radius: 2rem;
-          border: 1px solid #222222;
-          background-color: #ffffff;
-
-          &:hover {
-            background-color: #f2f2f2;
-          }
-
-          &.worked {
-            opacity: 0.5;
-          }
-        }
-      }
-    }
-  }
+  width: 100%;
+  border-top: 1px solid #eeeeee;
 `;
 
 export default CommuteModal;

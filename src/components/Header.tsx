@@ -4,15 +4,19 @@ import { CiSearch } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import CommuteModal from './CommuteModal';
-import { UserProvider } from '../common/UserContext';
 import UserResult from './UserProfile';
+import useCommute from '../hooks/useCommute';
+import { useUser } from '../common/UserContext';
 
 const Header = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const { user } = useUser();
+  const uid = user?.uid;
+  const { commuteInfo, confirmWorkingTime, handleCommute } = useCommute(uid, toggleModal);
 
-  const toggleModal = () => {
+  function toggleModal() {
     setModalOpen(!isModalOpen);
-  };
+  }
 
   return (
     <Container>
@@ -23,7 +27,7 @@ const Header = () => {
           </div>
           <InputWrapper>
             <div className="icon">
-              <button>
+              <button className="btn">
                 <CiSearch size="20" />
               </button>
             </div>
@@ -33,8 +37,16 @@ const Header = () => {
 
         <div className="nav-wrapper">
           <div className="icon">
-            <CommuteModal isModalOpen={isModalOpen} />
+            <CommuteModal
+              uid={uid}
+              isModalOpen={isModalOpen}
+              toggleModal={toggleModal}
+              confirmWorkingTime={confirmWorkingTime}
+              handleCommute={handleCommute}
+              commuteInfo={commuteInfo}
+            />
             <button
+              className="btn"
               onClick={toggleModal}
               aria-haspopup="dialog"
               aria-labelledby="commute-modal"
@@ -45,9 +57,7 @@ const Header = () => {
           </div>
 
           <div className="icon">
-            <UserProvider>
-              <UserResult />
-            </UserProvider>
+            <UserResult />
           </div>
         </div>
       </Navbar>
@@ -66,6 +76,8 @@ const Container = styled.header`
   padding: 0 2rem;
   background-color: ${({ theme }) => theme.colors.white};
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+
+  z-index: 20;
 `;
 
 const Navbar = styled.nav`
@@ -94,7 +106,7 @@ const Navbar = styled.nav`
     align-items: center;
     justify-content: center;
 
-    button {
+    button.btn {
       display: flex;
       justify-content: center;
       align-items: center;

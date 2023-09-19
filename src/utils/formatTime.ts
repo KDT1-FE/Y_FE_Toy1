@@ -1,14 +1,21 @@
-export const timeToLocaleTimeString = (timestamp: number) => {
-  const time = new Date(timestamp);
-  return time.toLocaleTimeString('it-IT');
+export const formatDate = (timestamp: number = Date.now(), language: string = 'ko-KR') => {
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    weekday: 'long',
+    timeZone: 'Asia/Seoul',
+  };
+
+  return new Date(timestamp).toLocaleDateString(language, options);
 };
 
-export const formatMsToTime = (Ms: number) => {
-  let totalSeconds = Math.floor(Ms / 1000);
-  const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
-  totalSeconds %= 3600;
-  const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
-  const seconds = String(totalSeconds % 60).padStart(2, '0');
+export const formatMsToTime = (time: number) => {
+  const newTime = new Date(time).toISOString();
+  const startIndex = newTime.indexOf('T');
+  const lastIndex = newTime.indexOf('.');
+  const formattedTime = newTime.slice(startIndex + 1, lastIndex);
 
-  return `${hours}:${minutes}:${seconds}`;
+  console.log(formattedTime);
+  return formattedTime;
 };

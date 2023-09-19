@@ -1,8 +1,9 @@
 import { atom } from 'recoil';
 
 export interface commuteType {
-  date: string;
-  commute: boolean;
+  date: number;
+  hasWorked: boolean;
+  isWorking: boolean;
   startTime: number;
   endTime: number;
   workingTime: number;
@@ -11,8 +12,9 @@ export interface commuteType {
 export const commuteState = atom<commuteType>({
   key: 'commuteState',
   default: {
-    date: '',
-    commute: false,
+    date: 0,
+    hasWorked: false,
+    isWorking: false,
     startTime: 0,
     endTime: 0,
     workingTime: 0,
