@@ -95,7 +95,7 @@
 
   margin: 1rem 0 5rem;
 
-  animation: fadein 1s;
+  animation: fadein 1.5s;
 }
 
 /* src/component/Wiki/Content */
@@ -107,6 +107,8 @@
   width: 80%;
 
   padding: 0.5rem;
+
+  position: relative;
 }
 
 .ContentHeader {
@@ -157,7 +159,7 @@
   font-size: 0.8rem;
   line-height: 1.8rem;
 
-  animation: fadein 1s;
+  animation: fadein 1.5s;
 }
 
 .markdownBodyEditor {
