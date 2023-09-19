@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Container } from 'components/NavigationContainer';
+import { media } from 'styles/media';
 
 function NavigationGallery() {
   const categories = [
@@ -29,11 +30,14 @@ function NavigationGallery() {
 }
 
 const LogoText = styled.span`
-  margin: 15px 0 30px 0;
+  margin: 1.875rem 0 1.875rem 0;
   font-size: 1.5rem;
   font-weight: 700;
   color: #fff;
   cursor: default;
+  ${media.tablet_680(`
+  font-size: 1.3rem;
+`)}
 `;
 
 const GalleryCategories = styled.ul`
