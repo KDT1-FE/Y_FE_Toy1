@@ -20,11 +20,15 @@ export async function getDocsToArr() {
 }
 
 // 이름 & 공부시간 firestore에 포스트
-export async function postData(n: string, t: number) {
-  await setDoc(doc(db, "ranking", n), {
-    name: n,
-    time: t,
-  });
+export async function postData(id: string, secs: number) {
+  try {
+    await setDoc(doc(db, "ranking", id), {
+      name: id,
+      time: secs,
+    });
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 // 공부량순으로 정렬하기
@@ -58,9 +62,21 @@ export async function getDayAndReset() {
   const dayFromDb: any = await getDayFromDb();
 
   if (dayFromDb.day !== today) {
-    resetCollection();
+    await resetCollection();
     setDayToDb(today);
   }
 }
 
-// 스트링 분(min)으로 변환 함수
+// 시간(초단위) 시간, 분, 초로 변환 후 반환
+export function secsToMins(secs: number) {
+  const hours = Math.floor(secs / 360);
+  const newSecs = secs - hours * 360;
+  const minutes = Math.floor(newSecs / 60);
+  const seconds = newSecs % 60;
+
+  return {
+    hrs: hours,
+    mins: minutes,
+    secs: seconds,
+  };
+}
