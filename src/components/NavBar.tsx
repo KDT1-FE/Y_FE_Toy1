@@ -1,12 +1,19 @@
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
+import { useContext } from 'react';
+import { MenuContext } from '../common/useMenu';
+import { FcMenu } from 'react-icons/fc';
 
 const NavBar = () => {
+  const { isMenuOpen, setMenuOpen } = useContext(MenuContext);
   const selectedCategory = useLocation().pathname.split('/')[1];
 
   return (
     <Container>
       <Categories>
+        <button className="menu-btn">
+          <FcMenu onClick={() => setMenuOpen(!isMenuOpen)} />
+        </button>
         <div className={`category ${selectedCategory === 'wiki' ? 'selected' : ''}`}>
           <Link to={'wiki'}>Wiki</Link>
         </div>
@@ -44,6 +51,14 @@ const Categories = styled.div`
   width: 100%;
 
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+
+  button {
+    display: flex;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
   div.category {
     position: relative;
