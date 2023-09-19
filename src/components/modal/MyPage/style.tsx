@@ -218,7 +218,7 @@ export const InputLabel = styled.div`
 `;
 export const EditInput = styled.input`
     height: 35px;
-    border-radius: 10px;
+    border-radius: 5px;
     font-size: 18px;
     border: 1px solid #7e7e7e;
     &:focus {
@@ -236,7 +236,6 @@ export const InputImg = styled.img`
 export const SubmitBtn = styled(BtnClassic)`
     color: var(--text);
     background-color: var(--active-current-status);
-    box-shadow: '0 3px 3px 1px #ced0d3';
 `;
 export const FlexBox = styled.div`
     display: flex;

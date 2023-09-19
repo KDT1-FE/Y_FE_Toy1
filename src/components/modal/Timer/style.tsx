@@ -134,6 +134,7 @@ export const BtnClassic = styled.button`
     border-radius: 20px;
     font-size: 24px;
     font-weight: 700;
+    box-shadow: 0 3px 3px 1px #ced0d3;
     cursor: pointer;
 `;
 
@@ -147,6 +148,6 @@ export const OffBtn = styled(BtnClassic)<{ value: boolean }>`
     margin-top: 2%;
 
     color: ${(value) => (value.value ? '#fff' : '#000')};
-    background-color: ${(value) => (value.value ? 'var(--active-current-status)' : '#948D94')};
-    box-shadow: ${(value) => (value.value ? '0 3px 3px 1px #ced0d3' : 'none')};
+    background-color: ${(value) => (value.value ? 'var(--active-current-status)' : '#ece7ec')};
+    box-shadow: ${(value) => (value.value ? '0 3px 3px 1px #ced0d3' : '0 3px 3px 1px #ced0d3 inset')};
 `;

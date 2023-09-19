@@ -36,20 +36,24 @@ const TimelogModal: React.FC<OwnProps> = ({ handleTimelog }) => {
             </ModalHeader>
             <TimelogBox>
                 <TimelogBoxScroll>
-                    {timelogData.map((e: string, i) => (
-                        <TimelogEl key={i}>
-                            <div
-                                style={{
-                                    height: '100px',
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                }}
-                            >
-                                {e}
-                            </div>
-                        </TimelogEl>
-                    ))}
+                    {timelogData.length > 0 ? (
+                        timelogData.map((e: string, i) => (
+                            <TimelogEl key={i}>
+                                <div
+                                    style={{
+                                        height: '100px',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    {e}
+                                </div>
+                            </TimelogEl>
+                        ))
+                    ) : (
+                        <p>입/퇴실 기록이 존재하지 않습니다.</p>
+                    )}
                 </TimelogBoxScroll>
             </TimelogBox>
         </Modal>

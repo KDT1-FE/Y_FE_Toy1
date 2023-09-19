@@ -248,11 +248,7 @@ export const addUser = async (uid: string, value: any) => {
 export const uploadStorage = async (userId: string, file: File) => {
     const storageRef = ref(storage, 'user');
     const userRef = ref(storageRef, userId);
-    uploadBytes(userRef, file);
-};
-export const downloadStorage = async (userId: string) => {
-    const storageRef = ref(storage, 'user');
-    const userRef = ref(storageRef, userId);
+    await uploadBytes(userRef, file);
     const imgURL = await getDownloadURL(userRef);
     return imgURL;
 };
