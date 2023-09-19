@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
+import { Button, ButtonWhite } from "./Button";
 
 const ModalContainer = styled.div<{ width: string; height: string }>`
   position: fixed;
@@ -9,12 +10,18 @@ const ModalContainer = styled.div<{ width: string; height: string }>`
   top: calc(50vh - ${(props) => props.height}px / 2);
   width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
-  padding: 8px;
+  padding: 30px;
   background-color: white;
+  border: #ed234b 1px solid;
   border-radius: 8px;
   z-index: 200;
   text-align: center;
   .modal__close-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    padding: 12px;
+    background: #fff;
   }
 `;
 
@@ -47,13 +54,9 @@ export const Modal = ({ width, height, element, setModal }: Props) => {
     <>
       <ModalContainer width={width} height={height}>
         <ModalWrapper>{element}</ModalWrapper>
-        <button className="btn modal__close-btn" onClick={disableModal}>
-          닫기
-        </button>
+        <button className="btn modal__close-btn">X</button>
       </ModalContainer>
       <ModalBackground onClick={disableModal} />
     </>
   );
 };
-
-// export default Modal;

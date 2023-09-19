@@ -3,17 +3,20 @@ import styled from "styled-components"
 import Editor from "../components/Editor"
 import { storage, db } from "../firebase"
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
-import { collection, doc, addDoc, updateDoc, getDoc } from "firebase/firestore"
+import { collection, doc, addDoc, updateDoc, getDoc, Timestamp } from "firebase/firestore"
 import { useNavigate, useParams } from "react-router-dom"
 import { AuthContext } from "authentication/authContext";
+import userData from './UserData'
+import { timeStamp } from "console"
 
 // 함수 인자 타입 선언
 interface GalleryDetailProps {
   onEdit: boolean;
   setOnEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  setGalleryData: React.Dispatch<React.SetStateAction<userData[]>>;
 }
 
-const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
+const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit, setGalleryData }) => {
 
   // 에디터 컴포넌트에 사용될 ref
   const quillRef = useRef();
@@ -44,11 +47,10 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0'); 
     const day = String(today.getDate()).padStart(2, '0');
-    const formattedDate = `${today}`; // 타임스탬프 = new Date()
     const printedData = `${year}-${month}-${day}`;
 
     // 등록할 썸네일 변수선언
-    let thumbnailUrl = null;
+    let thumbnailUrl: any = null;
 
     // 썸네일 이미지 업로드
     if (imageUpload) {
@@ -58,6 +60,21 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
         const snapshot = await uploadBytes(imageRef, imageUpload);
         const url = await getDownloadURL(snapshot.ref);
         thumbnailUrl = url;
+
+        setGalleryData((prevData) => [
+          ...prevData,
+          {
+            category: originData.category,
+            title: originData.title,
+            desc: originData.desc,
+            timestamp: Timestamp.now(),
+            date: printedData,
+            writer: String(user?.displayName),
+            uid: user?.uid,
+            thumbnail: thumbnailUrl
+          }
+        ]);
+
         alert('등록 성공했습니다')
       } catch (error) {
         // 이미지 업로드 실패 처리
@@ -81,13 +98,12 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
        category: originData.category, 
        title: originData.title, 
        desc: originData.desc, 
-       timestamp: formattedDate,
+       timestamp: today,
        date: printedData, 
        writer: user?.displayName,
        uid : user?.uid,
        thumbnail: thumbnailUrl
       });
-
       // 리스트 경로로 이동
       navigate("/Gallery"); 
   }
@@ -116,7 +132,6 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0'); 
     const day = String(today.getDate()).padStart(2, '0');
-    const formattedDate = `${today}`; // new Date()
     const printedData = `${year}-${month}-${day}`;
 
     // 해당 문서의 참조 얻기
@@ -124,7 +139,7 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
     const userRef = doc(usersCollectionRef, id);
   
     // 썸네일 url
-    let editUrl= null;
+    let editUrl: any = null;
 
     // 이미지 업로드 후 url 받아오기
     if (imageEdit) {
@@ -145,12 +160,33 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
       // fire DB에 데이터 업데이트
       await updateDoc(userRef, {
         date: printedData,
-        timestamp: formattedDate,
+        timestamp: today,
         category: formData.category,
         title: formData.title,
         desc: formData.desc,
         thumbnail: editUrl,
       });
+
+      setGalleryData(prevData => {
+        return prevData.map(item => {
+          if (item.id === id) {
+            return {
+              id: id,
+              category: formData.category,
+              title: formData.title,
+              desc: formData.desc,
+              timestamp: Timestamp.now(),
+              date: printedData,
+              writer: String(user?.displayName),
+              uid: user?.uid,
+              thumbnail: editUrl,
+            };
+          } else {
+            return item;
+          }
+        });
+      });
+
       alert('수정 완료했습니다')
       setOnEdit(false);
       navigate(-1)
