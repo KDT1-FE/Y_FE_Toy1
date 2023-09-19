@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import "../../styles/header.css";
-import Modal from "../Modal/Modal";
-import TimerModal from "../Timer/TimerModal";
-import useModal from "../../hooks/useModal";
-import useTimer from "../../hooks/useTimer";
+import "../styles/header.css";
+import Modal from "./Modal";
+import TimerModal from "./Timer/TimerModal";
+import useModal from "../hooks/useModal";
+import useTimer from "../hooks/useTimer";
 
 function Header() {
   const {isOpen, toggle} = useModal();

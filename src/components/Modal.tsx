@@ -1,6 +1,6 @@
 import React from "react";
-import "../../styles/modal.css";
-import {ModalType} from "../../types/Modal";
+import "../styles/modal.css";
+import {ModalType} from "../types/Modal";
 
 export default function Modal({isOpen, onClose, children}: ModalType) {
   const handleKeyDown = (event: React.KeyboardEvent) => {
