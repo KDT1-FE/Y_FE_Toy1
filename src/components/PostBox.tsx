@@ -1,19 +1,57 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { db } from '../common/config';
+import { doc, getDoc } from 'firebase/firestore';
+
+type NoticeData = {
+  title?: string, 
+  date?: string, 
+  imageUrl?: string, 
+  contents?: string 
+}
 
 export default function PostBox() {
+  const [data, setData] = useState<NoticeData>({});
   const [title, setTitle] = useState<string>('');
   const [date, setDate] = useState<string>('');
   const [imageUrl, setImageUrl] = useState<string>('');
   const [contents, setContents] = useState<string>('');
 
-  // 임시
   useEffect(() => {
-    setTitle('제목');
-    setDate('날짜');
-    setImageUrl('');
-    setContents('내용');
+    const fetchData = async (noticeId: string) => {
+      if (!noticeId) {
+        return; 
+      }
+      
+      try {
+        const docRef = doc(db, 'notice', noticeId);
+        const docSnapshot = await getDoc(docRef);
+  
+        if (docSnapshot.exists()) {
+          const firebaseData = docSnapshot.data();
+          setData(firebaseData);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } 
+    }
+
+    fetchData('1');
   }, []);
+
+  useEffect(() => {
+    if(!data)
+      return;
+
+    // console.log(data);
+
+    if(data.title) {
+      setTitle(data.title!);
+      setDate(data.date!);
+      setImageUrl(data.imageUrl!);
+      setContents(data.contents!.split('\\n').join('\n'));
+    }
+  }, [data])
 
   return (
     <PostBoxWrap>
@@ -51,7 +89,7 @@ const Post = styled.div`
   width: 85%;
   height: auto;
   padding: 24px 32px;
-  margin-top: 1.5rem;
+  margin: 1.5rem 0;
   border-radius: 12px;
   border: 1px solid #E8E8E8;
 `;
@@ -100,13 +138,13 @@ const ContentsWrap = styled.div`
 const ImageWrap = styled.div`
   display: flex;
   justify-content: center;
-  margin: 2rem 0;
+  margin: 1.5rem 0;
 `;
 
 const Image = styled.img`
-  width: 80%;
-  height: 20rem;
-  border: 1px solid black;
+  width: 60%;
+  height: 25rem;
+  object-fit: contain;
 `;
 
 const Contents = styled.p`
