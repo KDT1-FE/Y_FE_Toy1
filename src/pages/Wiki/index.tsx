@@ -1,25 +1,101 @@
-import React, { useState, useEffect } from 'react';
-import { WikiContainer } from './style';
+import React, { useEffect, useState } from 'react';
+import { WikiContainer, EditCompletedButton, WikiContent, ChannelNames, BeforeEdit, MDEditBtn } from './style';
 import SidebarWiki from '../../components/SidebarWiki';
+import MDEditor, { bold } from '@uiw/react-md-editor';
+import rehypeSanitize from 'rehype-sanitize';
+import { updateChannelContent } from '../../utils/firebase';
+import editImg from '../../common/wikiImg/icons8-edit-50.png';
+import doneImg from '../../common/wikiImg/icons8-done-50.png';
 const Wiki: React.FC = () => {
-    const [clickedValue, setClickedValue] = useState<any>(null); // 클릭된 값의 상태를 유지합니다.
-    // 클릭된 값을 처리하는 함수
+    const v = {
+        value: {
+            content: '',
+        },
+    };
+    const [clickedValue, setClickedValue] = useState<any>(v);
+    const [md, setMd] = useState<string>('# 제목');
+    const [isToggled, setIsToggled] = useState(true);
+    const toggleButton = () => {
+        setIsToggled(!isToggled);
+    };
+    useEffect(() => {
+        // This code will run whenever clickedValue changes
+        if (clickedValue !== null) {
+            setMd(clickedValue.value.content);
+        }
+    }, [clickedValue]);
     const handleKeyClick = (value: any) => {
         setClickedValue(value);
+        if (!isToggled) {
+            setIsToggled(true);
+        }
     };
-
+    // Define an onChange handler for the MDEditor
+    const handleEditorChange = (value: string | undefined) => {
+        if (value !== undefined) {
+            setMd(value);
+        }
+    };
+    // Function to handle the update when the button is clicked
+    const handleUpdateButtonClick = async () => {
+        // First, update the state by calling setMd
+        setMd((currentMd) => {
+            // Now, you can call the updateChannelContent function with the updated md content
+            updateChannelContent('wiki', clickedValue.channel, clickedValue.subChannel, currentMd)
+                .then(() => {
+                    console.log('Content updated successfully'); // Handle success
+                })
+                .catch((error) => {
+                    console.error('Content update failed', error); // Handle error
+                });
+            return currentMd; // Return the current value to update the state
+        });
+    };
+    // Function to handle both toggle and update button click
+    const handleToggleAndUpdateClick = async () => {
+        handleUpdateButtonClick(); // Handle the update
+        if (!isToggled) {
+            setIsToggled(true);
+        }
+        //await toggleButton(); // Toggle the button state
+    };
     return (
         <WikiContainer>
-            <SidebarWiki onKeyClick={handleKeyClick} /> {/* 클릭된 값의 핸들러 함수를 props로 전달합니다. */}
-            {clickedValue && (
-                <div>
-                    <p>{JSON.stringify(clickedValue.value)}</p>
-                    <p>채널: {clickedValue.channel}</p>
-                    <p>서브채널: {clickedValue.subChannel}</p>
-                </div>
+            <SidebarWiki onKeyClick={handleKeyClick} />
+            {isToggled ? (
+                <WikiContent>
+                    <BeforeEdit>
+                        <MDEditBtn onClick={toggleButton}>
+                            <img style={{ width: '30px' }} src={editImg}></img>
+                        </MDEditBtn>
+                        <MDEditor.Markdown source={md} />
+                    </BeforeEdit>
+                </WikiContent>
+            ) : (
+                <WikiContent>
+                    <ChannelNames>
+                        <p style={{ fontSize: '16px', fontWeight: 'bold' }}>
+                            {clickedValue.channel}
+                            {' > '}
+                            {clickedValue.subChannel}
+                        </p>
+                        <p style={{ marginBottom: '16px' }}>몇시 몇분</p>
+                        <MDEditor
+                            value={md}
+                            onChange={handleEditorChange}
+                            previewOptions={{
+                                rehypePlugins: [[rehypeSanitize]],
+                            }}
+                            height={'100vh'}
+                            style={{ width: '80vw' }}
+                        />
+                    </ChannelNames>
+                    <MDEditBtn onClick={handleToggleAndUpdateClick}>
+                        <img style={{ width: '30px' }} src={doneImg}></img>
+                    </MDEditBtn>
+                </WikiContent>
             )}
         </WikiContainer>
     );
 };
-
 export default Wiki;

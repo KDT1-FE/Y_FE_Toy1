@@ -237,7 +237,6 @@ export const updateFieldKeyInDoc = async (
     }
 };
 
-
 export const uploadStorage = async (userId: string, file: File) => {
     const storageRef = ref(storage, 'user');
     const userRef = ref(storageRef, userId);
@@ -248,6 +247,7 @@ export const downloadStorage = async (userId: string) => {
     const userRef = ref(storageRef, userId);
     const imgURL = await getDownloadURL(userRef);
     return imgURL;
+};
 
 export const getRecruitmentDetail = async (channel: string, path: string) => {
     const docRef = doc(firestore, 'recruitmentContainer', 'recruitment', channel, path);
@@ -382,6 +382,33 @@ export const deleteRecruitment = async (channel: string, path: string) => {
         console.log('게시글 삭제에 성공했습니다');
     } catch (error) {
         console.error('게시글 삭제에 실패했습니다.', error);
+        throw error;
+    }
+};
+
+export const updateChannelContent = async (
+    collectionName: string,
+    Channel: string,
+    subChannel: string,
+    docContent: string,
+) => {
+    const docRef = doc(firestore, collectionName, Channel);
+    try {
+        // Update the specific field (subChannel) with the new content (docContent)
+        const docSnapshot = await getDoc(docRef);
+        if (docSnapshot.exists()) {
+            const currentData = docSnapshot.data();
+            // Update the nested field
+            currentData[subChannel].content = docContent;
+            // Update the document with the modified data
+            await updateDoc(docRef, currentData);
+            console.log(currentData[subChannel].content);
+            console.log('Nested field updated successfully.');
+        } else {
+            console.error('Document does not exist.');
+        }
+    } catch (error) {
+        console.error('채널 내용 수정 실패!', error);
         throw error;
     }
 };
