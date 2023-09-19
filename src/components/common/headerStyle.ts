@@ -38,6 +38,9 @@ export const UserName = styled.span`
 `;
 
 export const LogoutBtn = styled.button`
+  display: flex;
+  align-items: center;
+
   background-color: var(--color-white);
   color: var(--color-dark-gray);
 
@@ -62,7 +65,6 @@ export const LogoutBtn = styled.button`
     display: block;
 
     position: relative;
-    top: 0.5rem;
     left: -1.25rem;
   }
 `;
