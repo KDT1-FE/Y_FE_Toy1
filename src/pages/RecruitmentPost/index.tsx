@@ -24,10 +24,18 @@ const RecruitmentPost: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
     const [categoryToggle, setCategoryToggle] = useState(true);
     const [userName, setUserName] = useState('');
+    const [peopleValue, setPeopleValue] = useState(1);
+
+    const min = 1;
+    const max = 50;
 
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (!userId) {
+            navigate('/recruitment');
+        }
+
         getUserName(userId)
             .then((result) => {
                 setUserName(result);
@@ -121,14 +129,24 @@ const RecruitmentPost: React.FC = () => {
                         )}
                     </PostBox>
                     <PostBox>
-                        <PostH>모집 인원</PostH>
+                        <PostH>모집 인원(최대 50명)</PostH>
                         <TextField
                             id="standard-basic"
                             label="모집 인원"
                             variant="standard"
                             type="number"
                             name="people"
-                            placeholder="00명"
+                            placeholder="1"
+                            inputProps={{ min, max }}
+                            value={peopleValue}
+                            onChange={(e) => {
+                                let peopleValue = parseInt(e.target.value, 10);
+
+                                if (peopleValue > max) peopleValue = max;
+                                if (peopleValue < min) peopleValue = min;
+
+                                setPeopleValue(peopleValue);
+                            }}
                             style={{ width: '150px' }}
                         />
                     </PostBox>

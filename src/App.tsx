@@ -10,7 +10,7 @@ import LogIn from './pages/LogIn';
 import Recruitment from './pages/Recruitment';
 import RecruitmentDetail from './pages/RecruitmentDetail';
 import RecruitmentPost from './pages/RecruitmentPost';
-import RecruitmentEdit from './pages/RecruitmentEdit.tsx';
+import RecruitmentEdit from './pages/RecruitmentEdit';
 
 import { useRecoilState } from 'recoil';
 import { UserId } from './utils/recoil';

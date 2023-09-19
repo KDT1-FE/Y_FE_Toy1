@@ -25,8 +25,12 @@ const RecruitmentEdit: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
     const [recruitmentData, setRecruitmentData] = useRecoilState<any>(RecruitmentData);
 
-    const [categoryToggle, setCategoryToggle] = useState('toyProject');
+    const [categoryToggle, setCategoryToggle] = useState(true);
     const [userName, setUserName] = useState('');
+    const [peopleValue, setPeopleValue] = useState(recruitmentData.people);
+
+    const min = 1;
+    const max = 50;
 
     const navigate = useNavigate();
 
@@ -34,9 +38,15 @@ const RecruitmentEdit: React.FC = () => {
     const path = location.pathname.split('/')[4];
 
     useEffect(() => {
-        if (!recruitmentData.title) {
+        if (recruitmentData.uid != userId) {
             navigate('/recruitment');
         }
+
+        if (channel == 'project') {
+            setCategoryToggle(false);
+        }
+        console.log(1);
+
         getUserName(userId)
             .then((result) => {
                 setUserName(result);
@@ -46,8 +56,6 @@ const RecruitmentEdit: React.FC = () => {
                 console.error('Error fetching data:', error);
             });
     }, [channel, path]);
-
-    console.log(recruitmentData, 22);
 
     const handleUpdateRecruitment = (e: any) => {
         e.preventDefault();
@@ -87,10 +95,10 @@ const RecruitmentEdit: React.FC = () => {
 
     const handleCategory = (e: any) => {
         e.preventDefault();
-        if (categoryToggle != 'toyProject') {
-            setCategoryToggle('toyProject');
+        if (e.target.value == 'study') {
+            setCategoryToggle(true);
         } else {
-            setCategoryToggle('study');
+            setCategoryToggle(false);
         }
     };
 
@@ -117,7 +125,7 @@ const RecruitmentEdit: React.FC = () => {
                             </MenuItem>
                         </Select>
 
-                        {categoryToggle == 'toyProject' ? (
+                        {categoryToggle ? (
                             <Select
                                 labelId="category"
                                 name="category"
@@ -133,7 +141,12 @@ const RecruitmentEdit: React.FC = () => {
                                 <MenuItem value="algorithm">알고리즘</MenuItem>
                             </Select>
                         ) : (
-                            <Select labelId="category" name="category" style={{ marginLeft: '10px', width: '150px' }}>
+                            <Select
+                                labelId="category"
+                                name="category"
+                                defaultValue={recruitmentData.category}
+                                style={{ marginLeft: '10px', width: '150px' }}
+                            >
                                 <InputLabel id="category">분류</InputLabel>
                                 <MenuItem value="toyProject">토이프로젝트</MenuItem>
                                 <MenuItem value="corporateProject">연계프로젝트</MenuItem>
@@ -145,9 +158,20 @@ const RecruitmentEdit: React.FC = () => {
                         <TextField
                             defaultValue={recruitmentData.people}
                             id="standard-basic"
+                            label="모집 인원"
                             variant="standard"
                             type="number"
                             name="people"
+                            inputProps={{ min, max }}
+                            value={peopleValue}
+                            onChange={(e) => {
+                                let peopleValue = parseInt(e.target.value, 10);
+
+                                if (peopleValue > max) peopleValue = max;
+                                if (peopleValue < min) peopleValue = min;
+
+                                setPeopleValue(peopleValue);
+                            }}
                             style={{ width: '150px' }}
                         />
                     </PostBox>
