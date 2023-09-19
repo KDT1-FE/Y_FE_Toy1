@@ -1,8 +1,24 @@
 import { useInput, useButtonActivate } from '../hooks/auth';
 
+import { getUserName, requestLogin } from '../firebase/login';
+
 import { FormTitle, InputEmail, InputPassword, SubmitButton, ChangeAuthPage } from '../components/Auth';
 
+import { useDispatch } from 'react-redux';
+import { login } from '../store/loginSlice';
+
+import { useNavigate } from 'react-router-dom';
+
 import '../scss/authPage.scss';
+
+interface FormElements extends HTMLFormElement {
+  email: HTMLInputElement;
+  password: HTMLInputElement;
+}
+
+interface FormTarget extends React.FormEvent<HTMLFormElement> {
+  target: FormElements;
+}
 
 const LoginPage = (): JSX.Element => {
   const [email, handleEmail] = useInput('email', { value: '', validationPass: false });
@@ -11,10 +27,27 @@ const LoginPage = (): JSX.Element => {
 
   const buttonActivate = useButtonActivate(email, password);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e: FormTarget) => {
     e.preventDefault();
 
-    /* -------------------------------- firebase Authentication -------------------------------- */
+    const userEmail = e.target.email.value;
+    const userPassword = e.target.password.value;
+
+    requestLogin(userEmail, userPassword);
+
+    getUserName(userEmail).then(userName => {
+      localStorage.setItem('isLogin', 'true');
+      localStorage.setItem('userEmail', userEmail);
+      localStorage.setItem('userName', userName);
+
+      dispatch(login({ userName, userEmail }));
+    });
+
+    navigate('/');
   };
 
   return (
