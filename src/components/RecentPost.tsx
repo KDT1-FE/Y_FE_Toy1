@@ -41,15 +41,16 @@ const RecentPost: React.FC = () => {
         const data = postSnap.docs.map((doc) => {
           const docData = doc.data();
           return {
+            // 다양한 falsy값으로 누락되면 ||로 바꿔야함
             id: doc.id,
-            category: docData.category,
-            title: docData.title,
-            date: docData.date,
-            timestamp: docData.timestamp,
-            writer: docData.writer,
-            desc: docData.desc,
-            thumbnail: docData.thumbnail,
-          } as postData;
+            category: docData.category ?? "",
+            title: docData.title ?? "",
+            date: docData.date ?? "",
+            timestamp: docData.timestamp ?? null,
+            writer: docData.writer ?? "",
+            desc: docData.desc ?? "",
+            thumbnail: docData.thumbnail ?? "",
+          };
         });
         setPost(data);
       } catch (error) {
