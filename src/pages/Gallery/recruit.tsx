@@ -13,6 +13,7 @@ import {
     ModalBackground,
     TrashCan,
     UploadBtn,
+    UploadBtnWrapper,
 } from './style';
 
 const Recruit: React.FC = () => {
@@ -94,8 +95,10 @@ const Recruit: React.FC = () => {
                     <Modal onClose={closeModal} />
                 </div>
             )}
-            <ContentFirstLine style={{ font: '16px', fontWeight: 'bold' }}>레퍼런스 공유 {'>'} 취업</ContentFirstLine>
-            <UploadBtn onClick={openModal}>업로드</UploadBtn>
+            {/* <ContentFirstLine style={{ font: '16px', fontWeight: 'bold' }}>레퍼런스 공유 {'>'} 취업</ContentFirstLine> */}
+            <UploadBtnWrapper>
+                <UploadBtn onClick={openModal}>업로드</UploadBtn>
+            </UploadBtnWrapper>
             <ArticleContainer>
                 <DragDropContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
                     <Droppable droppableId="trashCan">
@@ -120,7 +123,7 @@ const Recruit: React.FC = () => {
                                     display: 'flex',
                                     flexWrap: 'wrap',
                                     gap: '20px',
-                                    justifyContent: 'space-evenly',
+                                    justifyContent: 'space-between',
                                 }}
                                 {...provided.droppableProps}
                             >
