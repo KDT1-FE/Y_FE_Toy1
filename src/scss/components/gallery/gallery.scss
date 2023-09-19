@@ -5,7 +5,7 @@
   width: 100%;
   height: 100vh;
   background: $lightGray;
-  padding: 4rem;
+  padding: 1rem 4rem;
 
   &__top {
     display: flex;
@@ -27,6 +27,66 @@
 
       &:hover {
         scale: 1.1;
+      }
+    }
+  }
+
+  &__list {
+    max-width: 800px;
+    margin: 1rem auto;
+    flex-wrap: wrap;
+    @include flex-center-row;
+    box-sizing: border-box;
+    width: 100%;
+    gap: 4%;
+    height: 75vh;
+    & figure {
+      width: 30%;
+      height: 45%;
+      margin: 0;
+      border: 4px solid rgb(78 115 223 / 80%);
+      border-radius: 10px;
+      overflow: hidden;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      box-sizing: border-box;
+      position: relative;
+      & figcaption {
+        position: absolute;
+        bottom: 0;
+        text-align: center;
+        background: rgb(78 115 223 / 90%);
+        color: #fff;
+        width: 100%;
+        text-align: left;
+        padding: 0.5rem 1rem;
+        box-sizing: border-box;
+        & h3 {
+          font-size: $font-base;
+        }
+      }
+      & .icon-wrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        & .like-icon {
+          width: 80%;
+          display: flex;
+          align-items: center;
+          & span {
+            font-size: 1.2rem;
+            margin-left: 1rem;
+          }
+        }
+        & .icon {
+          font-size: 1.8rem;
+          color: #eee;
+          display: inline-block;
+          &:hover {
+            color: #ff9c9c;
+          }
+        }
       }
     }
   }
