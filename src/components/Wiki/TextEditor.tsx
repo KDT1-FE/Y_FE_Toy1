@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "../../styles/Wiki.css";
+import "../../styles/wiki/wiki.css";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";

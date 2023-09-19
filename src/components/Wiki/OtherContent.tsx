@@ -1,6 +1,6 @@
 import React from "react";
-import "../../styles/Wiki.css";
-import "../../styles/ReactMarkdown.css";
+import "../../styles/wiki/wiki.css";
+import "../../styles/wiki/reactMarkdown.css";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";

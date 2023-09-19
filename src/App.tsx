@@ -1,11 +1,12 @@
 import React from "react";
 import {Routes, Route} from "react-router-dom";
 import Home from "./pages/Home";
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import Wiki from "./pages/Wiki";
 import Gallery from "./pages/Gallery";
-import "./styles/Reset.css";
+import Ranking from "./pages/Ranking";
+import "./styles/reset.css";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/gallery" element={<Gallery />}>
           <Route path=":id" element={<Gallery />} />
         </Route>
+        <Route path="/ranking" element={<Ranking />} />
       </Routes>
       <Footer />
     </div>

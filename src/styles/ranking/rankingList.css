@@ -1,0 +1,40 @@
+.RankingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100vw;
+  height: 100vh;
+}
+
+.RankingInnerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 2rem;
+  min-width: 80%;
+  min-height: 100%;
+}
+
+.RankingTitle {
+  margin: 2rem;
+}
+
+.ListContainer {
+  display: flex;
+  justify-content: space-between;
+  background-color: #f1f4f6;
+  width: 800px;
+  height: 50px;
+  border-radius: 1rem;
+  margin: 1rem;
+}
+
+.ListContainer div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  font-weight: 600;
+}

@@ -1,10 +1,10 @@
 import React, {useState} from "react";
-import "../../styles/Modal.css";
-import "../../styles/TimerModal.css";
-import "../../styles/UploadModal.css";
+import "../../styles/modal.css";
+import "../../styles/timer/timerModal.css";
+import "../../styles/gallery/uploadModal.css";
 import {UploadModalProps} from "../../types/Modal";
 import PostPhotos from "./PostPhotos";
-import UploadImg from "../../assets/uploadImg.jpeg";
+import UploadImg from "../../assets/images/uploadImg.jpeg";
 
 function UploadModal({onClose, albumKey}: UploadModalProps) {
   const [currentFile, setCurrentFile] = useState<File | undefined>(undefined);

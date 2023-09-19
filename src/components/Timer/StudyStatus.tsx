@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
-import "../../styles/Modal.css";
-import "../../styles/TimerModal.css";
+import "../../styles/modal.css";
+import "../../styles/timer/timerModal.css";
 import {StudyStatusProps} from "../../types/Modal";
 
 function StudyStatus({

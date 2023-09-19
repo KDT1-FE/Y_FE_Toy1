@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {Link, useParams} from "react-router-dom";
-import "../styles/Gallery.css";
+import "../styles/gallery/gallery.css";
 import Album from "../components/Gallery/Album";
 
 function Gallery() {
