@@ -58,6 +58,7 @@ export interface ControlsProps {
   setStartTime: React.Dispatch<React.SetStateAction<number | null>>;
   setStatusText: React.Dispatch<React.SetStateAction<string | null>>;
   statusText: string | null;
+  timeInSeconds: number | null;
 }
 
 export interface TimeLabelsProps {
