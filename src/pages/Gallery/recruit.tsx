@@ -94,10 +94,10 @@ const Recruit: React.FC = () => {
                     <Modal onClose={closeModal} />
                 </div>
             )}
-            {/* <ContentFirstLine style={{ font: '16px', fontWeight: 'bold' }}>레퍼런스 공유 {'>'} 취업</ContentFirstLine> */}
-            <UploadBtnWrapper>
-                <UploadBtn onClick={openModal}>업로드</UploadBtn>
-            </UploadBtnWrapper>
+            <UploadBtn
+                onClick={openModal}
+                style={{ opacity: isDraggingItem ? '0' : '1', zIndex: isDraggingItem ? '1' : '3' }}
+            ></UploadBtn>
             <ArticleContainer>
                 <DragDropContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
                     <Droppable droppableId="trashCan">
@@ -120,8 +120,13 @@ const Recruit: React.FC = () => {
                                 style={{
                                     display: 'flex',
                                     flexWrap: 'wrap',
-                                    gap: '20px',
-                                    justifyContent: 'space-between',
+                                    gap: ' 0 98px',
+                                    justifyContent: 'flex-start',
+                                    alignContent: 'flex-start',
+                                    marginBlock: '0px',
+                                    paddingInlineStart: '0px',
+                                    width: '1100px',
+                                    paddingTop: '3%',
                                 }}
                                 {...provided.droppableProps}
                             >
