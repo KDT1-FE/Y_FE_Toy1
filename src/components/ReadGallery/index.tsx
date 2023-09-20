@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import DeleteGallery from 'components/DeleteGallery';
 import styled from 'styled-components';
 import deleteIcon from '../../assets/icons/deleteIcon.png';
+import { media } from 'styles/media';
 
 function ReadGallery() {
   const [galleryRead, setGalleryRead] = useState<GalleryData[]>([]);
@@ -62,6 +63,32 @@ const StyledImgContainer = styled.div`
   gap: 1.875rem;
   position: relative;
   overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+  }
+  ${media.desktop_lg(`
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+`)}
+  ${media.tablet_680(`
+    height: 35rem;
+  `)}
+  ${media.tablet_625(`
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr ;
+    margin-left: 0;  
+    place-items: center;
+`)}
+  ${media.mobile_430(`
+    height: 25rem;
+  `)}
 `;
 
 const StyledPhotoContainer = styled.div`
@@ -72,6 +99,35 @@ const StyledPhotoContainer = styled.div`
   &: hover {
     transform: translateY(-10px);
   }
+  ${media.desktop_2xl(`
+    width: 20rem;
+    height: 10rem;
+  `)}
+  ${media.desktop_xl(`
+    width: 18rem;
+    height: 9rem;
+`)}
+  ${media.desktop_xl(`
+    width: 16rem;
+    height: 8rem;
+`)}
+  ${media.tablet(`
+    width: 15rem;
+    height: 7.5rem;
+  `)}
+  ${media.tablet_680(`
+    width: 13rem;
+    height: 6.5rem;
+`)}
+
+  ${media.tablet_625(`
+    width: 15rem;
+    height: 7.5rem;
+  `)}
+  ${media.mobile_430(`
+    width: 10rem;
+    height: 5rem;
+`)}
 `;
 
 const StyledReadGallery = styled.img`
@@ -79,7 +135,7 @@ const StyledReadGallery = styled.img`
   height: 100%;
   border-radius: 5px;
   cursor: default;
-  over-fit: contain;
+  object-fit: contain;
   box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.25);
 `;
 
@@ -91,6 +147,25 @@ const StyledDeleteIcon = styled.img`
   &: hover {
     transform: scale(1.1);
   }
+  ${media.desktop_xl(`
+    width: 2rem;
+`)}
+
+  ${media.desktop_xl(`
+    width: 1.7rem;
+  `)}
+
+  ${media.tablet(`
+    width: 1.5rem;
+  `)}
+
+  ${media.tablet_680(`
+    width: 1.2rem;
+`)}
+
+${media.mobile_430(`
+    width: 1rem;
+`)}
 `;
 
 const StyledReadGalleryNone = styled.div`
@@ -98,9 +173,22 @@ const StyledReadGalleryNone = styled.div`
   height: 3.625rem;
   font-size: 3rem;
   font-weight: 600;
-  margin: 0 auto;
+  text-align: center;
   position: absolute;
   top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
+  ${media.desktop_lg(`
+    font-size: 2rem;
+`)}
+  ${media.tablet_625(`
+  width: 25rem;
+  height: 10rem;
+  font-size: 1.5rem;
+  top: 40%;
+`)}
+${media.mobile(`
+  font-size: 1.5rem;
+  top: 50%;
+`)}
 `;

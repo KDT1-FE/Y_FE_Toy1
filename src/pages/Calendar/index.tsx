@@ -14,6 +14,7 @@ import { calendarDayFormat } from 'utils/format';
 import Swal from 'sweetalert2';
 import { getName } from 'utils/user';
 import { EventClickArg } from '@fullcalendar/core';
+import { media } from 'styles/media';
 
 interface IEvent {
   title: string;
@@ -85,6 +86,10 @@ function Calendar() {
       <StyledContainer>
         <StyledCalendarContainer>
           <StyledCalendarText>{`${getName()}님의 캘린더`}</StyledCalendarText>
+          <StyledMobileText>
+            pc에서 캘린더의 더 다양한 기능을 <br />
+            만날 수 있습니다
+          </StyledMobileText>
           <FullCalendar
             plugins={[dayGridPlugin]}
             initialView="dayGridMonth"
@@ -106,6 +111,7 @@ function Calendar() {
           />
         </StyledCalendarContainer>
       </StyledContainer>
+
       {/* 일정 등록 모달 */}
       <ReactModal isOpen={showModal} ariaHideApp={false} style={StyledModal}>
         <StyledTopContainer>
@@ -223,6 +229,17 @@ const StyledContainer = styled.div`
 const StyledCalendarContainer = styled.section`
   height: 20rem;
   width: 50rem;
+
+  ${media.desktop_lg(`
+  height: 20rem;
+  width: 40rem;
+`)}
+
+  ${media.mobile(`
+  width: 30rem;
+  height: 27rem;
+  padding:0 3rem;
+`)}
 `;
 
 const StyledCalendarText = styled.div`
@@ -230,5 +247,22 @@ const StyledCalendarText = styled.div`
   font-weight: 700;
 
   margin-bottom: 2rem;
+
+  ${media.desktop_lg(`
+  font-size: 1.9rem;
+`)}
+
+  ${media.mobile(`
+ font-size: 1.7rem;
+`)}
+`;
+const StyledMobileText = styled.div`
+  display: none;
+  ${media.mobile(`
+  display:block;
+  font-size: 1.1rem;
+  margin-bottom:1rem;
+  color:#dcdcdc
+ `)}
 `;
 export default Calendar;

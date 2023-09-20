@@ -11,6 +11,11 @@ export const media = {
       ${styles}
     }
   `,
+  desktop_1120: (styles: string) => css`
+    @media screen and (max-width: 1120px) {
+      ${styles}
+    }
+  `,
   desktop_lg: (styles: string) => css`
     @media screen and (max-width: 1024px) {
       ${styles}
@@ -21,8 +26,24 @@ export const media = {
       ${styles}
     }
   `,
+  tablet_680: (styles: string) => css`
+    @media screen and (max-width: 680px) {
+      ${styles}
+    }
+  `,
+
+  tablet_625: (styles: string) => css`
+    @media screen and (max-width: 625px) {
+      ${styles}
+    }
+  `,
   mobile: (styles: string) => css`
     @media screen and (max-width: 576px) {
+      ${styles}
+    }
+  `,
+  mobile_430: (styles: string) => css`
+    @media screen and (max-width: 430px) {
       ${styles}
     }
   `,
