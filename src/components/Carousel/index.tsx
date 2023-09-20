@@ -56,6 +56,14 @@ const StyledWrapper = styled.div`
   position: relative;
   width: 100%;
   height: auto;
+
+  ${media.desktop_lg(`
+  margin: 0rem 2rem;
+  max-width: 100%;
+    .slick-slide div{
+      max-width: 100%;
+    }
+`)}
 `;
 
 const StyledCarousel = styled(Slider)`
@@ -73,11 +81,11 @@ const StyledCarousel = styled(Slider)`
   .slick-dots li button:before {
     color: blue;
   }
-  ${media.tablet(`
+  ${media.desktop_lg(`
     .slick-slide div{
-      max-width: 100%
+      max-width: 100%;
     }
-  `)}
+`)}
 `;
 
 const StyledItem = styled.div`

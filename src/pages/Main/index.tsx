@@ -41,7 +41,7 @@ const StyledNoticeContainer = styled.div`
   margin: 0 auto;
   margin-top: 6rem;
 
-  ${media.tablet(`
+  ${media.desktop_lg(`
   max-width: 100%;
   padding: 0 1rem;
   margin-top: 3rem;

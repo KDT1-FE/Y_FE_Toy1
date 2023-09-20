@@ -27,6 +27,10 @@ const StyledTitleText = styled.span`
   ${media.tablet(`
   display: none;
 `)}
+
+  ${media.desktop_lg(`
+  margin-left: 1rem;
+`)}
 `;
 
 const StyledTitleSeeText = styled.span`
@@ -36,7 +40,8 @@ const StyledTitleSeeText = styled.span`
   margin-bottom: 0.5rem;
 
   ${media.tablet(`
-  font-size: .8rem
+  font-size: 1rem;
+  font-weight: 600;
 `)}
 `;
 
