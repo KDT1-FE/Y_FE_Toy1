@@ -14,7 +14,7 @@ export const ProfileModalLayout = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index : 2;
+  z-index: 2;
 
   padding: 16px 16px;
 `;
@@ -22,6 +22,9 @@ export const ProfileModalLayout = styled.div`
 export const ProfileBtn = styled.button`
   background-color: transparent;
   border: none;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const CloseImg = styled.img`
