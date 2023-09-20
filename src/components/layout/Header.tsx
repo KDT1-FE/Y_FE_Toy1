@@ -75,6 +75,7 @@ const Header = () => {
                   <div className="header__user-info">
                     {displayUserInfo ? <UserInfo handlerLogout={handlerLogout} user={user} /> : <></>}
                   </div>
+                  {displayUserInfo ? <div onClick={()=>{setDisplayUserInfo(false)}} className="header__user-info-block"> </div>: <></>}
                 </div>
               </>
             ) : (
@@ -142,7 +143,7 @@ const Container = styled.nav`
   height: 60px;
   border-bottom: 2px solid #ddd;
   font-size: 1rem;
-  z-index: 10;
+  z-index: 20;
   background-color: #fff;
   h1 {
     font-size: 1.4rem;
@@ -175,6 +176,16 @@ const Container = styled.nav`
     position: absolute;
     top: 60px;
     right: 0;
+    z-index:20;
+  }
+  .header__user-info-block{
+    position:fixed;
+    z-index:19;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.4);
   }
 `;
 

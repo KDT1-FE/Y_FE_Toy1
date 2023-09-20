@@ -74,7 +74,7 @@ const UserInfo: React.FC<Props> = ({ handlerLogout, user }) => {
         <div className="userInfo__img-edit" onClick={handleEditImage}>
           <img src="svg/icon-edit.svg" alt="수정버튼" />
         </div>
-        <div>{userClassName}</div>
+        {/* <div>{userClassName}</div> */}
         <FileInput type="file" accept="image/*" ref={fileInputRef} onInput={handleFileChange} />
       </div>
 
@@ -123,6 +123,8 @@ const Container = styled.section`
     position: absolute;
     border-radius: 50%;
     background-color: white;
+    width: 25px;
+    height: 25px;
     padding: 5px;
     bottom: 0;
     right: 0;
