@@ -14,6 +14,7 @@ export const WikiContent = styled.div`
     margin-left: 0px;
     position: relative;
     width: 100%;
+    border: 10px 20px 20px 40px;
     height: calc(100vh - 72px);
     overflow: auto;
     padding: 10px 20px 20px 40px;
@@ -38,7 +39,6 @@ export const BeforeEdit = styled.div`
     position: left;
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
     font-weight: 500;
     font-size: 24px;
     color: var(--text);
@@ -53,16 +53,15 @@ export const MDEditBtn = styled.button`
     text-decoration: none;
     cursor: pointer;
     box-shadow: none;
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    width: 50px;
-    height: 30px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 20px;
 `;
 export const ReadChannel = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: left;
-    width: 60vw;
-    margin-right: 0px;
+    justify-content: center;
+    width: 100vw;
 `;

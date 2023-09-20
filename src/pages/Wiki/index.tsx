@@ -14,37 +14,54 @@ import rehypeSanitize from 'rehype-sanitize';
 import { updateChannelContent } from '../../utils/firebase';
 import editImg from '../../common/WikiImg/icons8-edit-50.png';
 import doneImg from '../../common/WikiImg/icons8-done-50.png';
+
 const Wiki: React.FC = () => {
     const v = {
         value: {
             content: '',
         },
     };
-    const [clickedValue, setClickedValue] = useState<any>(v);
+
+    // Initialize default values here
+    const defaultChannel = '기본 정보';
+    const defaultSubChannel = '과정 참여 규칙';
+
+    const [clickedValue, setClickedValue] = useState<any>({
+        channel: defaultChannel,
+        subChannel: defaultSubChannel,
+        value: {
+            content: '',
+        },
+    });
     const [md, setMd] = useState<string>('# 제목');
     const [time, setTime] = useState<string>('');
     const [isToggled, setIsToggled] = useState(true);
+
     const toggleButton = () => {
         setIsToggled(!isToggled);
     };
+
     useEffect(() => {
         // This code will run whenever clickedValue changes
         if (clickedValue !== null) {
             setMd(clickedValue.value.content);
         }
     }, [clickedValue]);
+
     const handleKeyClick = (value: any) => {
         setClickedValue(value);
         if (!isToggled) {
             setIsToggled(true);
         }
     };
+
     // Define an onChange handler for the MDEditor
     const handleEditorChange = (value: string | undefined) => {
         if (value !== undefined) {
             setMd(value);
         }
     };
+
     // Function to handle the update when the button is clicked
     const handleUpdateButtonClick = async () => {
         // First, update the state by calling setMd
@@ -60,6 +77,7 @@ const Wiki: React.FC = () => {
             return currentMd; // Return the current value to update the state
         });
     };
+
     // Function to handle both toggle and update button click
     const handleToggleAndUpdateClick = async () => {
         await handleUpdateButtonClick();
@@ -67,6 +85,7 @@ const Wiki: React.FC = () => {
             setIsToggled(true);
         }
     };
+
     return (
         <WikiContainer>
             <SidebarWiki onKeyClick={handleKeyClick} />
@@ -74,25 +93,40 @@ const Wiki: React.FC = () => {
                 <WikiContent>
                     <BeforeEdit>
                         <ReadChannel>
-                            <p style={{ fontSize: '24px', fontWeight: 'bold', color: 'black' }}>
-                                {clickedValue.channel}
-                                {' > '}
+                            <p
+                                style={{
+                                    fontSize: '35px',
+                                    fontWeight: 'bold',
+                                    color: 'black',
+                                    lineHeight: '1.5',
+                                    marginLeft: '5vw',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    height: '100%',
+                                }}
+                            >
                                 {clickedValue.subChannel}
+                                <MDEditBtn onClick={toggleButton}>
+                                    <img style={{ width: '20vw', lineHeight: '1' }} src={editImg}></img>
+                                </MDEditBtn>
                             </p>
-                            <p style={{ marginBottom: '16px', color: 'black' }}>{time}</p>
                         </ReadChannel>
-                        <MDEditBtn onClick={toggleButton}>
-                            <img style={{ width: '30px' }} src={editImg}></img>
-                        </MDEditBtn>
+                        <div
+                            style={{
+                                marginTop: '10px',
+                                marginBottom: '10px',
+                                border: '1px solid black',
+                                width: '100vw',
+                            }}
+                        ></div>
+                        <p style={{ width: '100vw', marginBottom: '16px', color: 'red' }}>{time}</p>
                         <MDEditor.Markdown source={md} />
                     </BeforeEdit>
                 </WikiContent>
             ) : (
                 <WikiContent>
                     <ChannelNames>
-                        <p style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                            {clickedValue.channel}
-                            {' > '}
+                        <p style={{ fontSize: '35px', fontWeight: 'bold', lineHeight: '1.5' }}>
                             {clickedValue.subChannel}
                         </p>
                         <p style={{ marginBottom: '16px' }}>{time}</p>
@@ -103,15 +137,16 @@ const Wiki: React.FC = () => {
                                 rehypePlugins: [[rehypeSanitize]],
                             }}
                             height={'95vh'}
-                            style={{ width: '68vw' }}
+                            style={{ width: '100vw' }}
                         />
                     </ChannelNames>
                     <MDEditBtn onClick={handleToggleAndUpdateClick}>
-                        <img style={{ width: '30px' }} src={doneImg}></img>
+                        <img style={{ width: '30px', lineHeight: '1.5' }} src={doneImg}></img>
                     </MDEditBtn>
                 </WikiContent>
             )}
         </WikiContainer>
     );
 };
+
 export default Wiki;
