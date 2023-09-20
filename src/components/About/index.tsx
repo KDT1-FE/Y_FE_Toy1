@@ -1,3 +1,4 @@
+import { media } from 'styles/media';
 import styled from 'styled-components';
 
 function About() {
@@ -24,9 +25,9 @@ const StyledAboutBox = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
-  background-color: #f0f3f7;
+  background-color: #eeeeee;
 
-  border: 1px solid #f7faff;
+  border: 1px solid #dbe3f1;
   border-radius: 0 40px 40px 40px;
 `;
 
@@ -34,6 +35,11 @@ const StyledAboutTexts = styled.div`
   font-size: 1rem;
   font-weight: 500;
   margin: 1.5rem 0 1.5rem 3rem;
+
+  ${media.tablet(`
+  font-size: .7rem;
+  margin: 1rem;
+`)}
 `;
 
 export default About;

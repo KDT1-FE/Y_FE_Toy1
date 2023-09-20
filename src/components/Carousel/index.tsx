@@ -1,5 +1,6 @@
 import React from 'react';
 import Slider from 'react-slick';
+import { media } from 'styles/media';
 import styled from 'styled-components';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -73,6 +74,7 @@ const StyledCarousel = styled(Slider)`
   .slick-list {
     width: 100%;
     margin: 0 auto;
+    max-width: 100%;
   }
   .slick-slide div {
     cursor: pointer;
@@ -83,13 +85,18 @@ const StyledCarousel = styled(Slider)`
   .slick-dots li button:before {
     color: blue;
   }
+  ${media.tablet(`
+    .slick-slide div{
+      max-width: 100%
+    }
+  `)}
 `;
 
 const StyledItem = styled.div`
   position: relative;
   border-radius: 24px;
   background: none;
-  box-shadow: 0px 5px 3px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 3px 7px 5px rgba(0, 0, 0, 0.1);
 `;
 
 const StyledImg = styled.div`
@@ -100,6 +107,11 @@ const StyledImg = styled.div`
 
   border-radius: 26px;
   overflow: hidden;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 `;
 
 const StyledTitle1 = styled.span`
@@ -110,6 +122,10 @@ const StyledTitle1 = styled.span`
   font-size: 2.25rem;
   font-weight: 600;
   color: white;
+
+  ${media.tablet(`
+  font-size: 1rem
+`)}
 `;
 
 const StyledTitle2 = styled.span`
@@ -120,6 +136,11 @@ const StyledTitle2 = styled.span`
   font-size: 2.25rem;
   font-weight: 600;
   color: white;
+
+  ${media.tablet(`
+  padding: 4.8rem 3.4rem;
+  font-size: .4rem
+`)}
 `;
 
 export default Carousel;
