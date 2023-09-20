@@ -86,7 +86,8 @@ export const ColumnHeaderBasic = styled.div`
 
 export const ColumnHeaderSubject = styled.div`
   width: 70%;
-  text-align: center;
+  margin-left: 50px;
+  text-align: start;
 `;
 
 export const Footer = styled.div`
