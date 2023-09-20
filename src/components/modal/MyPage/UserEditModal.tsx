@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CloseBtn, Modal, ModalHeader } from '../Timer/style';
 import { EditBox, EditInput, EditInputBox, FlexBox, InputImg, InputLabel, SubmitBtn } from './style';
-import {
-    downloadStorage,
-    updateUserEmail,
-    updateUserImg,
-    updateUserInfo,
-    updateUserName,
-    uploadStorage,
-} from '../../../utils/firebase';
+import { updateUserEmail, updateUserImg, updateUserInfo, updateUserName, uploadStorage } from '../../../utils/firebase';
 import { useRecoilState } from 'recoil';
 import { UserEmail, UserId, UserImg, UserInfo, UserName } from '../../../utils/recoil';
 
@@ -29,12 +22,8 @@ const UserEditModal: React.FC<ownProps> = ({ handleEdit }) => {
     }, []);
     async function updateImg(image: React.ChangeEvent<HTMLInputElement>) {
         if (image.target.files) {
-            console.log(image.target.files[0]);
             const img = await image.target.files[0];
-            await uploadStorage(userId, img);
-            const imgURL = await downloadStorage(userId);
-            console.log(imgURL);
-
+            const imgURL = await uploadStorage(userId, img);
             setUserImgPre(imgURL);
             await window.URL.revokeObjectURL(imgURL);
         }

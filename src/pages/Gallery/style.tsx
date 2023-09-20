@@ -48,10 +48,6 @@ export const ContentFirstLine = styled.div`
 `;
 
 export const UploadBtn = styled.button`
-    /* position: fixed; */
-    /* right: 8.5%; */
-    /* top: 92px; */
-    /* z-index: 2; */
     width: 100px;
     height: 50px;
     border-radius: 10px;
