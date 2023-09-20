@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Container } from 'components/NavigationContainer';
 import { media } from 'styles/media';
 
@@ -12,6 +12,10 @@ function NavigationGallery() {
     { id: 5, name: '사진첩5' },
   ];
 
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const selectedCategory = searchParams.get('category');
+
   return (
     <Container>
       <LogoText>사진첩</LogoText>
@@ -20,7 +24,13 @@ function NavigationGallery() {
           const url = `/gallery?category=${category.name}`;
           return (
             <StyledLink key={category.id} to={url}>
-              {category.name}
+              <span
+                className={
+                  category.name === selectedCategory ? 'selected_category' : ''
+                }
+              >
+                {category.name}
+              </span>
             </StyledLink>
           );
         })}
@@ -38,9 +48,6 @@ const LogoText = styled.span`
   ${media.tablet_680(`
   font-size: 1.3rem;
 `)}
-  ${media.mobile(`
-  font-size: 1.1rem;
-`)}
 `;
 
 const GalleryCategories = styled.ul`
@@ -57,9 +64,10 @@ const StyledLink = styled(Link)`
     border-bottom: 2px solid #e2e8f0;
     cursor: pointer;
   }
-  ${media.mobile(`
-  font-size: 0.9rem;
-`)}
+  .selected_category {
+    font-weight: 700;
+    border-bottom: 2px solid #e2e8f0;
+  }
 `;
 
 export default NavigationGallery;
