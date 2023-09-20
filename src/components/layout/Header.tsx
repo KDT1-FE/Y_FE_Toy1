@@ -20,6 +20,11 @@ const Header = () => {
   const [studyStartTime, setStudyStartTime] = useState<number | null>(null);
   const [isStudying, setIsStudying] = useState(false);
 
+  const handlerLogout = () => {
+    setDisplayUserInfo(false)
+    signOut(auth);
+  };
+
   const openModal = () => {
     setIsModalActive(true);
   };
@@ -103,10 +108,6 @@ const Header = () => {
 
 const sliceStr = (str: string, n: number) => {
   return str.length >= n ? str.slice(0, n) + "..." : str;
-};
-
-const handlerLogout = () => {
-  signOut(auth);
 };
 
 const StyledButton = styled.button`
