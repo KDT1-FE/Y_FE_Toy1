@@ -55,6 +55,10 @@ export default function CommuteModal({
     setEndTitme(time);
   };
 
+  window.addEventListener("keydown", (e) => {
+    e.key === "Escape" && setShowModal(false);
+  });
+
   return (
     <style.Container>
       <style.ModalWrapper ref={node}>
