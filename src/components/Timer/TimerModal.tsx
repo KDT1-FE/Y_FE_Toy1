@@ -3,7 +3,7 @@ import "../../styles/modal.css";
 import "../../styles/timer/timerModal.css";
 import {TimerModalProps} from "../../types/Modal";
 import Controls from "./TimerControls";
-import Clock from "../../utils/clock";
+import Clock from "./Clock";
 import TimeLabels from "./TimeLabels";
 import StudyStatus from "./StudyStatus";
 import {
@@ -58,7 +58,7 @@ function TimerModal(props: TimerModalProps) {
         </button>
         <main>
           <section className="CurrentTimeContainer">
-            <Clock isModal />
+            <Clock />
             <StudyStatus
               statusText={statusText}
               setStatusText={setStatusText}
