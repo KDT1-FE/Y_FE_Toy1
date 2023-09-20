@@ -82,6 +82,7 @@ export const Dday = styled.span`
     align-items: center;
     justify-content: center;
     color: #000;
+    font-weight: 600;
 `;
 
 export const ShowOn = styled.div<{ value: boolean }>`

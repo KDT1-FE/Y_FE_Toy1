@@ -20,6 +20,7 @@ export const MyPage = styled.div<{ value: boolean }>`
     display: flex;
     flex-direction: column;
     width: 25vw;
+    /* height: calc(100vh - 72px); */
     max-width: 400px;
     min-width: 350px;
     background-color: #fafafa;
@@ -30,6 +31,9 @@ export const MyPage = styled.div<{ value: boolean }>`
     transition: 1s;
     border-radius: 0 20px;
     overflow: hidden;
+    /* &::-webkit-scrollbar {
+        display: none;
+    } */
 `;
 
 export const MyPageExitBtn = styled.button`
