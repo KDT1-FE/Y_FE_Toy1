@@ -6,6 +6,7 @@ import { create, read } from 'apis/Wiki';
 import { useLocation } from 'react-router-dom';
 // import { Timestamp } from 'firebase/firestore';
 import { media } from 'styles/media';
+import Loading from 'components/Common/Loading';
 import WikiContent from 'components/Wiki/'
 
 
@@ -103,12 +104,14 @@ function Wiki() {
   // const [isDocumentExist, setDocumentExist] = useState(false);
   const [data, setData] = useState(Object);
   // const [documentTime, setDocumentTime] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   let selectedCategory = searchParams.get('category');
   if (selectedCategory === null) selectedCategory = 'companyRule';
 
   const getDocumentList = async () => {
+    setIsLoading(true)
     const document = await read(selectedCategory as string);
     // document === undefined ? setDocumentExist(false) : setDocumentExist(true);
     setData(document);
@@ -116,6 +119,7 @@ function Wiki() {
     // if (time) {
     //   setDocumentTime(time.toDate().toString());
     // }
+    setIsLoading(false)
   };
 
   useEffect(() => {
@@ -134,7 +138,11 @@ function Wiki() {
         <WikiCreate setIsEdit={setIsEdit}></WikiCreate>
       ) : (
         <StyledTextareaContainer>
-          <WikiContent data={data} setIsEdit={setIsEdit} />
+          {isLoading ? (
+            <Loading></Loading>
+          ) : (
+            <WikiContent data={data} setIsEdit={setIsEdit} />
+          )}
           {
             <></> /* {isDocumentExist === false ? (
             <StyledWikiNotExist>
