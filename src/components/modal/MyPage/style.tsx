@@ -1,6 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 import { BtnClassic } from '../Timer/style';
 import { CommuteModalBox } from './commuteStyle';
+import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 
 export const ModalBtnImg = styled.img`
     width: 50px;
@@ -21,10 +22,11 @@ export const MyPage = styled.div<{ value: boolean }>`
     display: flex;
     flex-direction: column;
     height: calc(100vh - 72px);
-    width: 17vw;
+    /* width: 17vw;
     max-width: 400px;
-    min-width: 320px;
-    max-height: 1440px;
+    min-width: 320px; */
+    width: 320px;
+    max-height: 1080px;
     background-color: #fafafa;
     top: 72px;
     border-left: 1px solid #ece7ec;
@@ -70,20 +72,23 @@ export const MyPageHeader = styled(MyPageCase)`
 
 export const MyPageProfile = styled.div`
     height: 50%;
-    min-height: 350px;
-    padding: 0 5%;
+    max-height: 540px;
+    min-height: 400px;
+    padding: 20px 5%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
 `;
 export const ProfileImg = styled.img`
-    width: 80%;
+    width: 220px;
+    min-height: 220px;
+    /* width: 80%;
     height: 45%;
     min-width: 180px;
     max-height: 300px;
-    min-height: 180px;
+    min-height: 180px; */
     background-color: rgba(15, 15, 15, 0.1);
     border-radius: 20px;
 `;
@@ -189,7 +194,8 @@ export const TimelogBoxScroll = styled.div`
     align-items: center;
     gap: 40px;
     width: 100%;
-    padding: 10% 0;
+    height: 100%;
+    padding: 14% 0;
     background-color: #fafafa;
     border-left: 1px solid #ece7ec;
     overflow: auto;
@@ -217,10 +223,10 @@ export const TimelogEl = styled.div`
     }
 `;
 export const TimelogText = styled.p`
-    height: 110px;
+    height: 90px;
     white-space: pre;
     display: flex;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 600;
     color: #555555;
     justify-content: center;
@@ -271,6 +277,13 @@ export const SubmitBtn = styled(BtnClassic)`
 export const FlexBox = styled.div`
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 5px;
+`;
+export const FlexAroundBox = styled.div`
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     gap: 5px;
 `;
 export const FlexBoxColumn = styled.div`
@@ -278,4 +291,15 @@ export const FlexBoxColumn = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+`;
+export const UploadBtn = styled(CloudUploadOutlinedIcon)`
+    display: block;
+    width: 70px;
+    height: 60px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: var(--active-item);
+    color: #fafafa;
+    box-shadow: 0 3px 3px 1px #ced0d3;
+    cursor: pointer;
 `;

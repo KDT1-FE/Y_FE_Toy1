@@ -20,7 +20,7 @@ const MyPageModal: React.FC<OwnProps> = ({ handleMyPage }) => {
     const [slideOn, setSlideOn] = useRecoilState(SlideOn);
     const [showTimerModal, setShowTimerModal] = useState(false);
     const [showReadModal, setShowReadModal] = useState(false);
-    const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(true);
     const [timeRenewal, setTimeRenewal] = useState<string | void>();
     const [readTimelog, setReadTimelog] = useRecoilState(ReadTimelog);
     const [timelog, setTimelog] = useRecoilState(TimeLog);
