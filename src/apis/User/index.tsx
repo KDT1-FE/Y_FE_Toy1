@@ -4,11 +4,8 @@ import {
   setPersistence,
   signInWithPopup,
 } from '@firebase/auth';
-import { collection, orderBy, where, query } from '@firebase/firestore';
-import { auth, db } from 'apis/firebase';
+import { auth } from 'apis/firebase';
 import { ERROR_ALERT } from 'constants/alert';
-import { IuserData } from 'types/user';
-import { getSessionUserData } from 'utils/user';
 
 export const login = async () => {
   try {
@@ -18,14 +15,4 @@ export const login = async () => {
   } catch (error) {
     alert(ERROR_ALERT);
   }
-};
-
-export const searchUser = (collectionName: string) => {
-  const user: IuserData | undefined = getSessionUserData();
-  const searchUserQuery = query(
-    collection(db, collectionName),
-    where('uid', '==', user?.uid),
-    orderBy('timeStamp', 'desc'),
-  );
-  return searchUserQuery;
 };

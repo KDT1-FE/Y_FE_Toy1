@@ -1,6 +1,6 @@
 import { IworkTimeResponse, getWorkTimeData } from 'apis/WorkTime';
 import { useEffect, useState } from 'react';
-import { usedateFormat, useSecondsFormat } from 'utils/format';
+import { dateFormat, secondFormat } from 'utils/format';
 import { COMMUTE_LIST_STATE } from 'constants/time';
 import { media } from 'styles/media';
 import styled from 'styled-components';
@@ -12,9 +12,7 @@ function CommuteList() {
     const fetchData = async () => {
       try {
         const responseArray = await getWorkTimeData();
-        if (responseArray) {
-          setWorkTimeData(responseArray);
-        }
+        if (responseArray) setWorkTimeData(responseArray);
       } catch (error) {
         console.log('데이터를 불러오지 못했습니다.', error);
       }
@@ -35,10 +33,10 @@ function CommuteList() {
             <StyledListContainer key={index}>
               <StyledListTextContainer>{data.name}님</StyledListTextContainer>
               <StyledListTextContainer>
-                {useSecondsFormat(data.workTime)}동안 근무하셨어요!
+                {secondFormat(data.workTime)}동안 근무하셨어요!
               </StyledListTextContainer>
               <StyledListTextContainer>
-                {usedateFormat(new Date(data.timeStamp))}
+                {dateFormat(new Date(data.timeStamp))}
               </StyledListTextContainer>
             </StyledListContainer>
           ))

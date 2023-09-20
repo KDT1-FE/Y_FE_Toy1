@@ -88,7 +88,7 @@ function CommuteModal() {
       >
         <TopContainer>
           <Title>
-            출퇴근<StyledDate>{dayFormat()}</StyledDate>
+            출퇴근<StyledDate>{dayFormat(new Date())}</StyledDate>
           </Title>
           <CloseImg
             src={closeButton}
