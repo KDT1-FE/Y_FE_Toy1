@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { db } from '../common/config';
 import { doc, getDoc } from 'firebase/firestore';
 import { useParams } from 'react-router-dom';
+import LoadingSpinner from './LoadingSpinner';
 
 type NoticeData = {
   title?: string, 
@@ -18,6 +19,7 @@ export default function PostBox() {
   const [imageUrl, setImageUrl] = useState<string>('');
   const [contents, setContents] = useState<string>('');
   const { index } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async (noticeId: string) => {
@@ -32,9 +34,11 @@ export default function PostBox() {
         if (docSnapshot.exists()) {
           const firebaseData = docSnapshot.data();
           setData(firebaseData);
+          setIsLoading(false);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
+        setIsLoading(false);
       } 
     }
 
@@ -56,27 +60,31 @@ export default function PostBox() {
   }, [data])
 
   return (
-    <PostBoxWrap>
-      <Post>
-        <PostHeader>
-          <TitleWrap>
-            <Title>{title}</Title>
-          </TitleWrap>
-          <DateWrap>
-            <Date>{date}</Date>
-          </DateWrap>
-        </PostHeader>
-        <SeparationWrap>
-          <Separation></Separation>
-        </SeparationWrap>
-        <ContentsWrap>
-          <ImageWrap>
-            <Image src={imageUrl}></Image>
-          </ImageWrap>
-          <Contents>{contents}</Contents>
-        </ContentsWrap>
-      </Post>
-    </PostBoxWrap>
+    isLoading ? (
+      <LoadingSpinner />
+    ) : (
+      <PostBoxWrap>
+        <Post>
+          <PostHeader>
+            <TitleWrap>
+              <Title>{title}</Title>
+            </TitleWrap>
+            <DateWrap>
+              <Date>{date}</Date>
+            </DateWrap>
+          </PostHeader>
+          <SeparationWrap>
+            <Separation></Separation>
+          </SeparationWrap>
+          <ContentsWrap>
+            <ImageWrap>
+              <Image src={imageUrl}></Image>
+            </ImageWrap>
+            <Contents>{contents}</Contents>
+          </ContentsWrap>
+        </Post>
+      </PostBoxWrap>
+    )  
   );
 };
 
