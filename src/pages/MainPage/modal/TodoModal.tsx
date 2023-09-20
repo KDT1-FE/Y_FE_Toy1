@@ -83,7 +83,7 @@ function TodoModal({ setActiveModalIdx }: TodoProps) {
 
   return (
     <TodoModalLayout>
-      <ExitBtn type="button" onClick={() => setActiveModalIdx(2)}>
+      <ExitBtn type="button" onClick={() => setActiveModalIdx(-1)}>
         X
       </ExitBtn>
       <TitleText>TO DO</TitleText>

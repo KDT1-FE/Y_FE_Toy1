@@ -71,7 +71,7 @@ export default function CommuteModal({ setActiveModalIdx }: CommuteProps) {
     }
     return (
         <CommuteModalContainer>
-            <ExitBtn type='button' onClick={() => setActiveModalIdx(1)}>X</ExitBtn>
+            <ExitBtn type='button' onClick={() => setActiveModalIdx(-1)}>X</ExitBtn>
             <CommuteHeader>
                 <CommuteTitle>COMMUTE</CommuteTitle>
                 <DateText>{date}</DateText>
