@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import CreatePostModal from '../components/PostModal';
+import CreatePostModal from '../components/MainPost/PostModal';
 import 'firebase/auth'; // 'compat' 제거
 import { useAuth } from '../data/firebaseAuth';
 import { FirestorePostData } from '../redux/types';
@@ -66,7 +66,7 @@ export default function Root() {
 
   useEffect(() => {
     fetchPosts();
-    console.log("auth.currentUser:", auth.currentUser);
+    console.log('auth.currentUser:', auth.currentUser);
   }, [auth.currentUser]);
 
   return (
@@ -78,40 +78,49 @@ export default function Root() {
           <Outlet />
         </div>
       </section>
-      {location.pathname === '/' &&  <div className='post-container'>
-      <div className="post-list">
-      <div className='posted-text'>포스트 목록</div>
-      <div className="newPostBtn">
-        {user && user.uid ? (
-          <button onClick={() => setIsModalOpen(true)}>새 포스트 작성</button>
-        ) : (
-          <button onClick={() => alert('로그인 후에 포스트를 작성할 수 있습니다.')}>새 포스트 작성</button>
-        )}
-      </div>
-      {isModalOpen && (
-        <CreatePostModal
-          onSave={handleSavePost}
-          
-          title={title}
-          setTitle={setTitle}
-          content={content}
-          setContent={setContent}
-        />
-      )}
-      <Outlet />
-      <ul className="post-grid">
-        {posts.map((post) => (
-          <li className="post-item" key={post.id}>
-            <div className="post-content">
-              <h3>{post.title}</h3>
-              <p>{post.content}</p>
-              <p>작성자: {user.nickname}</p>
+      {location.pathname === '/' && (
+        <div className="post-container">
+          <div className="post-list">
+            <div className="posted-text">포스트 목록</div>
+            <div className="newPostBtn">
+              {user && user.uid ? (
+                <button onClick={() => setIsModalOpen(true)}>
+                  새 포스트 작성
+                </button>
+              ) : (
+                <button
+                  onClick={() =>
+                    alert('로그인 후에 포스트를 작성할 수 있습니다.')
+                  }
+                >
+                  새 포스트 작성
+                </button>
+              )}
             </div>
-          </li>
-        ))}
-      </ul>
-      </div>
-    </div>}
+            {isModalOpen && (
+              <CreatePostModal
+                onSave={handleSavePost}
+                title={title}
+                setTitle={setTitle}
+                content={content}
+                setContent={setContent}
+              />
+            )}
+            <Outlet />
+            <ul className="post-grid">
+              {posts.map((post) => (
+                <li className="post-item" key={post.id}>
+                  <div className="post-content">
+                    <h3>{post.title}</h3>
+                    <p>{post.content}</p>
+                    <p>작성자: {user.nickname}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

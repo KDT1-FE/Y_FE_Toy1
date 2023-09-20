@@ -10,25 +10,24 @@ import logo from '../../images/logo.png';
 export default function Header() {
   // useSelector를 통해 스토어의 유저 정보 읽어오기
   const user = useSelector((state: RootState) => state);
-  console.log(user)
+  console.log(user);
 
   // useDispatch를 통해 로그아웃 액션 디스패치 함수 가져오기
   const dispatch = useDispatch();
 
   /// Redux 스토어에 로그아웃 액션을 디스패치한 후 세션 스토리지 업데이트
   const handleLogout = () => {
-  // 로그아웃 액션 디스패치
-  dispatch(logoutAction());
-  
+    // 로그아웃 액션 디스패치
+    dispatch(logoutAction());
 
-  // 세션 스토리지 업데이트
-  sessionStorage.clear();
-};  
+    // 세션 스토리지 업데이트
+    sessionStorage.clear();
+  };
 
   return (
     <header>
       <nav className="Header">
-      <div className="header-container">
+        <div className="header-container">
           <div className="pageList">
             <div className="logo">
               <Link to="/">
@@ -66,26 +65,28 @@ export default function Header() {
             >
               스터디
             </Link>
-        <div className="auth-buttons">
-          {user.uid ? ( // 사용자가 로그인한 경우
-            <div className='userInfo-container'>
-              <div className='userNickname-container'>
-                <span className='userNickname'>{user.nickname}님</span>
-                <span className='userWelcome'>환영해요!</span>
-              </div>
-              <button className='logoutBtn' onClick={handleLogout}>로그아웃</button>
-            </div>
-          ) : (
-            // 사용자가 로그인하지 않은 경우
-            <>
-              <Link to="SignIn" className="signInBtn">
-                로그인
-              </Link>
-              <Link to="/SignUp" className="signUpBtn">
-                회원가입
-              </Link>
-            </>
-          )}
+            <div className="auth-buttons">
+              {user.uid ? ( // 사용자가 로그인한 경우
+                <div className="userInfo-container">
+                  <div className="userNickname-container">
+                    <span className="userNickname">{user.nickname}님</span>
+                    <span className="userWelcome">환영해요!</span>
+                  </div>
+                  <button className="logoutBtn" onClick={handleLogout}>
+                    로그아웃
+                  </button>
+                </div>
+              ) : (
+                // 사용자가 로그인하지 않은 경우
+                <>
+                  <Link to="SignIn" className="signInBtn">
+                    로그인
+                  </Link>
+                  <Link to="/SignUp" className="signUpBtn">
+                    회원가입
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
