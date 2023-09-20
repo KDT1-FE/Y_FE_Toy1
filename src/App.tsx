@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LandingPage from './views/LandingPage';
 import LoginPage from './views/LoginPage';
@@ -9,7 +8,23 @@ import ProjectList from './views/ProjectList';
 import GalleryPage from './views/galleryPage';
 import NoticeWritePage from './views/NoticeWritePage';
 
+import { useDispatch, Provider } from 'react-redux';
+import { login } from './store/loginSlice';
+import store from './store/store';
+
 const App = () => {
+  const isLogin = localStorage.getItem('isLogin');
+  const userName = localStorage.getItem('userName');
+  const userEmail = localStorage.getItem('userEmail');
+
+  const dispatch = useDispatch();
+
+  if (isLogin) {
+    if (JSON.parse(isLogin)) {
+      dispatch(login({ userName, userEmail }));
+    }
+  }
+
   return (
     <BrowserRouter>
       <Routes>

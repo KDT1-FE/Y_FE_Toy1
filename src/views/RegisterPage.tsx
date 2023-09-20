@@ -10,7 +10,21 @@ import {
   ChangeAuthPage,
 } from '../components/Auth';
 
+import createUser from '../firebase/createUser';
+
+import { useNavigate } from 'react-router-dom';
+
 import '../scss/authPage.scss';
+
+interface FormElements extends HTMLFormElement {
+  email: HTMLInputElement;
+  password: HTMLInputElement;
+  user: HTMLInputElement;
+}
+
+interface FormTarget extends React.FormEvent<HTMLFormElement> {
+  target: FormElements;
+}
 
 const RegisterPage = (): JSX.Element => {
   const [email, handleEmail] = useInput('email', { value: '', validationPass: false });
@@ -27,12 +41,18 @@ const RegisterPage = (): JSX.Element => {
 
   const buttonActivate = useButtonActivate(email, name, password, passwordConfirm);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e: FormTarget) => {
     e.preventDefault();
 
-    /* ------------------------------ set firestore ----------------------------- */
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const name = e.target.user.value;
 
-    /* -------------------------------- firebase Authentication -------------------------------- */
+    createUser(email, password, name).then(result => {
+      if (result === 'success') navigate('/login');
+    });
   };
 
   return (
