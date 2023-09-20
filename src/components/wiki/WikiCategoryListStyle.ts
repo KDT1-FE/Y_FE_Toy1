@@ -4,14 +4,15 @@ interface isSelectedWiki {
   selected: boolean;
 }
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ $isVisible: boolean }>`
+  display: ${(props) => (props.$isVisible ? "block" : "none")};
   padding-top: 1.88rem;
   margin-right: 1.88rem;
   background-color: var(--color-white);
   width: 15rem;
   height: 44.75rem;
   border: 1px solid var(--color-light-gray);
-  border-radius: 0.25rem;
+  border-radius: 0.94rem;
   overflow-x: hidden;
 `;
 

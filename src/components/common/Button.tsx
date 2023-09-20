@@ -17,9 +17,9 @@ export default function Button({
 }: Props) {
   return (
     <style.Container
-      margin={margin}
-      padding={padding}
-      normal={normal}
+      $margin={margin}
+      $padding={padding}
+      $normal={normal}
       onClick={onClick}
     >
       {text}

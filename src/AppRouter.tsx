@@ -11,7 +11,7 @@ export default function AppRouter({ email }: Props) {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/wiki" element={<Wiki />} />
+        <Route path="/wiki" element={<Wiki email={email} />} />
         <Route path="/gallery" element={<Gallery />} />
       </Routes>
       <RootPage />

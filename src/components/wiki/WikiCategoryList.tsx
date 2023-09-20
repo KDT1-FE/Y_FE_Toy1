@@ -1,21 +1,14 @@
 import * as Styled from "./WikiCategoryListStyle";
 import { useState } from "react";
-import { Wiki } from "@/pages/wiki/WikiType";
+import { Wiki, WikiCategoryProps } from "@/components/wiki/WikiCommonType";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/Io";
-
-type Props = {
-  WiKiList: Wiki[];
-  onEntryClick: (entry: Wiki) => void;
-  onArrowClick: (entry: Wiki) => void;
-  style?: React.CSSProperties;
-};
 
 const WikiCategoryList = ({
   WiKiList,
   onEntryClick,
   onArrowClick,
-  style,
-}: Props) => {
+  isVisible,
+}: WikiCategoryProps) => {
   const firstParentWikiId =
     WiKiList.find((wiki) => !wiki.parentID)?.wikiID || null;
   const [selectedWikiId, setSelectedWikiId] = useState<string | null>(
@@ -38,7 +31,7 @@ const WikiCategoryList = ({
   };
 
   return (
-    <Styled.Wrapper style={style}>
+    <Styled.Wrapper $isVisible={isVisible}>
       <Styled.WikiList>
         {WiKiList.map((wiki) => (
           <Styled.WikiItem

@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export const WikiButton = styled.button<{ padding: string; margin?: string }>`
+export const WikiButton = styled.button<{ $padding: string; $margin?: string }>`
   border: 0.0625rem solid var(--color-medium-gray);
   border-radius: 0.25rem;
   background: var(--color-white);
 
-  margin: ${({ margin }) => margin};
-  padding: ${({ padding }) => padding};
+  margin: ${({ $margin }) => $margin};
+  padding: ${({ $padding }) => $padding};
 
   cursor: pointer;
 
