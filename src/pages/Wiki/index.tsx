@@ -2,7 +2,7 @@ import NavigationWiki from 'components/NavigationWiki';
 import styled from 'styled-components';
 import MDEditor from '@uiw/react-md-editor';
 import { useState, useEffect } from 'react'
-import { create, read, update } from 'apis/Wiki';
+import { create, read, update, wikiDelete } from 'apis/Wiki';
 import { useLocation } from 'react-router-dom'
 import { Timestamp } from 'firebase/firestore'
 
@@ -152,7 +152,9 @@ function Wiki() {
                         >
                           수정하기
                         </button>
-                        <button>삭제하기</button>
+                        <button onClick={() => {
+                          wikiDelete(selectedCategory as string)
+                        }}>삭제하기</button>
                       </div>
                     </ButtonContainer>
                     <p>최종 수정 시간: {documentTime}</p>
