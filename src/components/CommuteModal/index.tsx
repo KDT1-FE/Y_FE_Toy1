@@ -12,7 +12,7 @@ import {
 } from 'constants/time';
 import useInterval from 'hooks/useInterval';
 import { dayFormat, timeFormat } from 'utils/format';
-import { addWorkTimeData } from 'apis';
+import { addWorkTimeData } from 'apis/WorkTime';
 import { media } from 'styles/media';
 
 function CommuteModal() {
@@ -88,7 +88,7 @@ function CommuteModal() {
       >
         <TopContainer>
           <Title>
-            출퇴근<StyledDate>{dayFormat()}</StyledDate>
+            출퇴근<StyledDate>{dayFormat(new Date())}</StyledDate>
           </Title>
           <CloseImg
             src={closeButton}

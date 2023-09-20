@@ -9,6 +9,7 @@ import {
   query,
   where,
 } from 'firebase/firestore';
+import { IuserData } from 'types/user';
 import { getSessionUserData } from 'utils/user';
 
 interface ICalendarData {
@@ -16,12 +17,8 @@ interface ICalendarData {
   startDate: string;
   endDate: string;
 }
-interface IuserData {
-  [key: string]: unknown;
-  uid: string;
-  displayName: string;
-}
-interface IresponseArray {
+
+interface ICalendarResponse {
   start: Date;
   end: Date;
   title: string;
@@ -40,7 +37,6 @@ export const uploadCalendarData = async (calendarData: ICalendarData) => {
     alert('알 수 없는 오류입니다');
   }
 };
-
 const searchUser = () => {
   const user: IuserData | undefined = getSessionUserData();
   const searchUserQuery = query(
@@ -49,11 +45,10 @@ const searchUser = () => {
   );
   return searchUserQuery;
 };
-
 export const getCalendarData = async () => {
   try {
     const response = await getDocs(searchUser());
-    const responseArray: IresponseArray[] = [];
+    const responseArray: ICalendarResponse[] = [];
     response.forEach((doc) => {
       const calendarData = doc.data();
       responseArray.push({
