@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { media } from './media';
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -30,8 +31,19 @@ const GlobalStyle = createGlobalStyle`
   input{
     outline:none;
   }
+  .fc-addButton-button{
+    ${media.mobile(`
+    display:none !important;
+  `)}}
+  
   .swal2-container{
     z-index:90000;
+  }
+  .swal2-popup{
+    ${media.mobile(`
+    width:80vw;
+  `)}
+  }
   }
 `;
 
