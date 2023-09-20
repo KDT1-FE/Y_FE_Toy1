@@ -1,8 +1,17 @@
 import ListBox from '../../components/ListBox';
+import { useSelector } from 'react-redux';
+
 import '../../scss/projectList.scss';
+
 const NoticeList = (): JSX.Element => {
+  const userEmail = useSelector(state => state.loginUpdate.email);
   const handleWriteBtn = (): void => {
-    location.href = '/notice/write';
+    if (userEmail === '') {
+      alert('로그인이 필요합니다!');
+      return;
+    } else {
+      location.href = '/notice/write';
+    }
   };
 
   return (

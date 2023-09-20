@@ -1,27 +1,49 @@
-import React, { EventHandler, useState } from 'react';
+import React, { useState } from 'react';
+import { storage, db } from '../firebase';
+import { addDoc, collection } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { useSelector } from 'react-redux';
 
 import '../scss/components/writePage/writePage.scss';
 
 const NoticeWritePage = () => {
-  const [notice, setNotice] = useState({});
-  const [file, setFile] = useState<File | null>();
+  const [title, setTitle] = useState<string>('');
+  const [file, setFile] = useState<File | null>(null);
   const [content, setContent] = useState<string>();
+  const [url, setUrl] = useState<string | null>(null);
+  const userEmail = useSelector(state => state.loginUpdate.email);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    try {
+      if (file !== null) {
+        const noticeRef = ref(storage, `images/notice/${new Date().getTime() + file.name}`);
+        const snapshot = await uploadBytes(noticeRef, file);
+        const imgUrl = await getDownloadURL(snapshot.ref);
+        const data = { title, content, time_ago: new Date(), id: userEmail, url };
+
+        setUrl(imgUrl);
+        await addDoc(collection(db, 'notice'), data);
+      } else {
+        const data = { title, content, time_ago: new Date(), id: userEmail, url: null };
+        await addDoc(collection(db, 'notice'), data);
+      }
+    } catch {
+      console.error();
+    }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, files } = e.target;
-    if (name === 'file') {
-      setFile(files && files[0]);
-      return;
-    }
-    setNotice(item => ({ ...item, [name]: value }));
+  const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
   };
 
   const handleContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
+  };
+
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFile(e.target.files && e.target.files[0]);
   };
 
   return (
@@ -32,7 +54,7 @@ const NoticeWritePage = () => {
           name="title"
           className="write-form__title__item"
           placeholder="제목을 입력하세요"
-          onChange={handleChange}
+          onChange={handleTitle}
           required></input>
         ;
       </div>
@@ -40,14 +62,7 @@ const NoticeWritePage = () => {
         <textarea name="content" className="write-form__content__item" onChange={handleContent}></textarea>
       </div>
       <div className="write-util">
-        <input
-          type="file"
-          accept="image/*"
-          name="file"
-          required
-          className="write-util__image"
-          onChange={handleChange}
-        />
+        <input type="file" accept="image/*" name="file" className="write-util__image" onChange={handleFile} />
         <button type="submit" className="write-form__button btn">
           완료
         </button>
