@@ -3,7 +3,6 @@ import { HeaderComponent, TitleAnchor, AnchorContainer, ListAnchor, RightAnchorC
 import { useRecoilState } from 'recoil';
 import { UserId, TimeLog, TimerOn } from '../../utils/recoil';
 import { useNavigate, useLocation } from 'react-router-dom';
-import CommuteBtn from '../../components/Modal/Timer/CommuteBtn';
 import { createTimelog } from '../../utils/firebase';
 import { CreateDay, CreateTime } from '../../components/Modal/Hooks/WhatTime';
 import MyPageBtn from '../../components/Modal/MyPage/MyPageBtn';

@@ -55,6 +55,7 @@ const RecruitmentDetail: React.FC = () => {
     const [comments, setComments] = useState([]);
     const [render, setRender] = useRecoilState(Render);
     const [userData, setUserData] = useState<any>({});
+    const [commentLength, setCommentLength] = useState<number>(0);
 
     const [data, setData] = useState<any>({});
 
@@ -71,6 +72,7 @@ const RecruitmentDetail: React.FC = () => {
                 (doc) => {
                     setData(doc.data());
                     setComments(doc.data()?.comment);
+                    setCommentLength(doc.data()?.comment.length);
                     // 수정
                 },
             );
@@ -218,17 +220,8 @@ const RecruitmentDetail: React.FC = () => {
                     <ContentSub>
                         <p>분야 : {data.category}</p>
                         <p>인원 : {data.people} 명</p>
-                        <p>댓글 : {data.comment.length} 개</p>
+                        <p>댓글 : {commentLength} 개</p>
                     </ContentSub>
-                    {/* <MDEditor.Markdown
-                        source={data.content}
-                        style={{
-                            padding: '20px',
-                            width: '100%',
-                            backgroundColor: '#fff',
-                            color: 'black',
-                        }}
-                    /> */}
                     <Content>
                         {data.content?.split('\n').map((line: string) => {
                             //this.props.data.content: 내용
