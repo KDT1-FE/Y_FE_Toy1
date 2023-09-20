@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 export const CreateAccountLayout = styled.div`
   display: flex;
@@ -16,11 +16,44 @@ export const CreateAccountInputTitle = styled.p`
   margin-top: 20px;
 `;
 
-export const CreateAccountInput = styled.input`
+const inputError = keyframes`
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(5px);
+  }
+  50% {
+    transform: translateX(0px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+`;
+
+export const CreateAccountInput = styled.input<{ $isFalse: boolean }>`
   border: none;
   border-bottom: 1px solid #96a0ff;
   width: 400px;
   height: 30px;
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  transition: ${(props) =>
+    !props.$isFalse &&
+    css`
+      all 1s;
+    `};
+  outline: none;
+  ${(props) =>
+    props.$isFalse &&
+    css`
+      border-color: red;
+      animation: ${inputError} 0.13s 3 linear backwards;
+    `}
 `;
 
 export const CreateAccountSelectBox = styled.div`
@@ -44,12 +77,25 @@ export const CreateAccountApproveCheck = styled.input`
   margin-right: 25px;
 `;
 
-export const CreateAccountBtn = styled.button`
+export const CreateAccountBtn = styled.button<{ $isFormCorrect: boolean }>`
   width: 400px;
   height: 40px;
   border: 2px solid #96a0ff;
   border-radius: 20px;
   background-color: white;
-
   margin-top: 20px;
+  color: black;
+  font-size: 16px;
+  font-weight: 600;
+  &:hover {
+    cursor: pointer;
+  }
+
+  transition: all 0.5s;
+  ${(props) =>
+    props.$isFormCorrect &&
+    css`
+      background-color: #96a0ff;
+      color: white;
+    `}
 `;
