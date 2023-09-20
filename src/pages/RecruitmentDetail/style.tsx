@@ -28,6 +28,9 @@ export const ContentWrapper = styled.div`
     min-height: 500px;
     height: auto;
 
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+
     position: relative;
 `;
 
@@ -53,6 +56,7 @@ export const ContentHeaderName = styled.div`
 export const Content = styled.div`
     padding: 20px;
     width: 100%;
+    word-break: break-all;
 `;
 
 export const ContentUserImage = styled.img`
@@ -123,6 +127,9 @@ export const CommentWrapper = styled.div`
     height: auto;
 
     background-color: white;
+
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
 
     margin: 20px auto;
     padding: 20px 0;
