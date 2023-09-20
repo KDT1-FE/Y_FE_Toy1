@@ -1,22 +1,14 @@
 import React, {useEffect, useState} from "react";
 import "../styles/ranking/rankingList.css";
 import List from "../components/Ranking/List";
-import {
-  sortRanking,
-  getDayAndReset,
-  getDocsToArr,
-  secsToMins,
-} from "../utils/timerAndRanking";
+import {secsToMins} from "../utils/timerAndRanking";
 
 function Ranking() {
   const [data, setData] = useState<any[]>();
 
   useEffect(() => {
-    getDocsToArr().then(doc => {
-      const sortedData = sortRanking(doc);
-      setData(sortedData);
-    });
-    getDayAndReset();
+    const rankingData = JSON.parse(sessionStorage.getItem("ranking") as string);
+    setData(rankingData);
   }, []);
 
   return (
@@ -24,8 +16,12 @@ function Ranking() {
       <div className="RankingInnerContainer">
         <h1 className="RankingTitle"> ✍ 오늘의 스터디 랭킹 ✍ </h1>
         {data?.length !== 0 ? (
-          data?.map((x, index) => (
-            <List num={index + 1} name={x.name} time={secsToMins(x.time)} />
+          data?.map((list, index) => (
+            <List
+              num={index + 1}
+              name={list.name}
+              time={secsToMins(list.time)}
+            />
           ))
         ) : (
           <>아직 기록하신 분이 없어요 ㅜ</>
