@@ -45,7 +45,7 @@ function UploadGallery() {
 
   const imgRegister = () => {
     if (preview === '') {
-      alert('사진 업로드 후 등록해주세요');
+      alert('사진 업로드 후 등록해주세요.');
       return;
     }
     closeModal();
@@ -55,15 +55,13 @@ function UploadGallery() {
   return (
     <>
       <StyledGalleryContainer>
-        {searchParams.size > 0 && (
-          <StyledButton
-            onClick={() => {
-              setModalOpen(true);
-            }}
-          >
-            + 사진 등록하기
-          </StyledButton>
-        )}
+        <StyledButton
+          onClick={() => {
+            setModalOpen(true);
+          }}
+        >
+          + 사진 등록하기
+        </StyledButton>
       </StyledGalleryContainer>
       <CustomModal isOpen={modalOpen} style={StyledModal} className="modal">
         <StyledCloseImg
