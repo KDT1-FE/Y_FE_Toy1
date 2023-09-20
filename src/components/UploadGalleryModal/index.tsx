@@ -26,6 +26,10 @@ function UploadGallery() {
   ) => {
     event.preventDefault();
 
+    const files = event.target.files;
+    if (!files) return null;
+    if (files.length === 0) return;
+
     if (event.target.files !== null) {
       const file = event.target.files[0];
       const reader = new FileReader();
