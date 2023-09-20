@@ -5,7 +5,7 @@ interface userData {
   category?: string,
   title?: string,
   date?: string,
-  timestamp?: Timestamp,
+  timestamp?: Timestamp | undefined,
   writer?: string,
   desc?: string,
   thumbnail?: string,

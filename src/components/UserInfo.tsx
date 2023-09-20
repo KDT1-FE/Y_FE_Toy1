@@ -43,6 +43,7 @@ const UserInfo: React.FC<Props> = ({ handlerLogout, user }) => {
 
   // 수정 버튼 클릭
   const handleEditImage = () => {
+    
     if (fileInputRef?.current) {
       fileInputRef.current.click();
     }
@@ -50,9 +51,11 @@ const UserInfo: React.FC<Props> = ({ handlerLogout, user }) => {
 
   // 파일을 바뀔 경우
   const handleFileChange = () => {
+    
     setIsLogout(false);
     let file = null;
     if (fileInputRef?.current) {
+
       // 미리보기로 img src를 변경해줌
       file = fileInputRef.current.files![0];
       reader.onload = (e) => {

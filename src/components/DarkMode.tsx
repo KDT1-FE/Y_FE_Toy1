@@ -39,14 +39,13 @@ const DarkMode = ({ children }: PropsType) => {
 
 const GlobalStyle = createGlobalStyle`
 
-
-
   nav {
     background-color: ${(props) => props.theme.body} !important
   }
 
-  .wiki__title, .header__link-wrapper a, .sidebar__menu, .sidebar__menu a, .sidebar__item a { color: ${(props) =>
-    props.theme.text} !important} 
+  .wiki__title, .header__link-wrapper a, .sidebar__menu, .sidebar__menu a, .sidebar__item a { color: ${(
+    props
+  ) => props.theme.text} !important} 
 
   body {
     background-color: ${(props) => props.theme.body};

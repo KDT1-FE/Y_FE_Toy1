@@ -5,6 +5,8 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import Curriculum from "../components/Curriculum";
 import WikiDetail from "./WikiDetail";
 import WikiEdit from "./WikiEdit";
+import WikiTime from "pages/WikiTime";
+import WikiTimeRank from "pages/WikiTimeRank";
 
 const Wiki = () => {
   return (
@@ -20,6 +22,10 @@ const Wiki = () => {
           <Route path="/:page/edit" element={<WikiEdit />}></Route>
           {/* 금주의 학습 일정 */}
           <Route path="학습 일정" element={<Curriculum />}></Route>
+          {/* 학습시간 등급 */}
+          {/* <Route path="학습시간 등급" element={<WikiTime />}></Route> */}
+          {/* 학습 시간왕 */}
+          <Route path="학습 시간왕" element={<WikiTimeRank />}></Route>
         </Routes>
       </Container>
     </>
