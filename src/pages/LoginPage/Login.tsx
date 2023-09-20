@@ -8,6 +8,7 @@ import { auth, db } from "../../firebaseSDK"
 import { ButtonBox, LoginBtn, LoginInput, LoginInputBox, LoginLayout, LoginTitle, P, SignUpBtn, SignUpText, StyledLink } from "../../styled/LoginPage/Login"
 import userState from "../../recoil/atoms/userState"
 import loginState from "../../recoil/atoms/loginState"
+import sleep from "../../utils/sleep"
 
 function Login() {
 
@@ -15,6 +16,7 @@ function Login() {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [isFalse, setIsFalse] = useState(false)
 
   const setUserState = useSetRecoilState(userState)
   const setLoginState = useSetRecoilState(loginState)
@@ -40,6 +42,8 @@ function Login() {
         const errorMessage = error.message;
         // eslint-disable-next-line no-console
         console.log(errorCode, errorMessage)
+        setIsFalse(true)
+        sleep(700).then(() => setIsFalse(false))
       });
   }
 
@@ -54,11 +58,11 @@ function Login() {
       </LoginTitle>
       <LoginInputBox>
         <P>이메일</P>
-        <LoginInput type="text" value={email} placeholder="이메일을 입력하세요" onChange={(e) => setEmail(e.target.value)} />
+        <LoginInput $isFalse={isFalse} type="text" value={email} placeholder="이메일을 입력하세요" onChange={(e) => setEmail(e.target.value)} />
       </LoginInputBox>
       <LoginInputBox>
         <P>비밀번호</P>
-        <LoginInput type="password" value={password} placeholder="비밀번호를 입력하세요" onChange={(e) => setPassword(e.target.value)} />
+        <LoginInput $isFalse={isFalse} type="password" value={password} placeholder="비밀번호를 입력하세요" onChange={(e) => setPassword(e.target.value)} />
       </LoginInputBox>
       <ButtonBox>
         <SignUpBtn type="button">

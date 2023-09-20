@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const StyledLink = styled(Link)`
@@ -9,10 +9,10 @@ export const StyledLink = styled(Link)`
   display: block;
   background-color: #96a0ff;
   border: none;
-  width: 192px;
-  height: 73px;
+  width: 176px;
+  height: 64px;
   border-radius: 50px;
-  line-height: 3;
+  line-height: 2.6;
 `;
 
 export const P = styled.p`
@@ -46,7 +46,7 @@ export const SignUpText = styled.span`
   font-size: 15px;
   text-align: center;
   bottom: 80px;
-  left: 40px;
+  left: 33px;
   color: gray;
 `;
 
@@ -54,12 +54,44 @@ export const LoginInputBox = styled.div`
   margin-top: 30px;
 `;
 
-export const LoginInput = styled.input`
+const inputError = keyframes`
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(5px);
+  }
+  50% {
+    transform: translateX(0px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+`;
+
+export const LoginInput = styled.input<{ $isFalse: boolean }>`
   width: 500px;
   height: 40px;
   border: none;
   border-bottom: 1px solid #96a0ff;
-  font-size: 16px;
+  transition: ${(props) =>
+    !props.$isFalse &&
+    css`
+      all 1s;
+    `};
+  ${(props) =>
+    props.$isFalse &&
+    css`
+      animation: ${inputError} 0.13s 3 linear backwards;
+      border-color: red;
+      color: red;
+      &::placeholder {
+        color: red;
+      }
+    `};
 `;
 
 export const SignUpBtn = styled.button`
@@ -67,8 +99,8 @@ export const SignUpBtn = styled.button`
 
   background-color: #96a0ff;
   border: none;
-  width: 192px;
-  height: 73px;
+  width: 176px;
+  height: 64px;
   border-radius: 50px;
   font-size: 24px;
 `;
@@ -76,8 +108,8 @@ export const SignUpBtn = styled.button`
 export const LoginBtn = styled.button`
   background-color: #484aad;
   border: none;
-  width: 192px;
-  height: 73px;
+  width: 176px;
+  height: 64px;
   border-radius: 50px;
   font-size: 24px;
   font-weight: 600;
