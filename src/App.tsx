@@ -8,9 +8,8 @@ import ProjectList from './views/ProjectList';
 import GalleryPage from './views/galleryPage';
 import NoticeWritePage from './views/NoticeWritePage';
 
-import { useDispatch, Provider } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { login } from './store/loginSlice';
-import store from './store/store';
 
 const App = () => {
   const isLogin = localStorage.getItem('isLogin');
