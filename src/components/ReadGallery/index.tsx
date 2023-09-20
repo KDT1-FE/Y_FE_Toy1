@@ -26,28 +26,32 @@ function ReadGallery() {
 
   return (
     <StyledImgContainer>
-      {galleryRead.length > 0 ? (
-        galleryRead.map((item, index) => {
-          if (item.category === selectedCategory || selectedCategory === null) {
-            return (
-              <StyledPhotoContainer key={index} id={item.category}>
-                <StyledReadGallery src={item.src}></StyledReadGallery>
-                <StyledDeleteIcon
-                  id={item.id}
-                  src={deleteIcon}
-                  onClick={() => {
-                    DeleteGallery(item.id);
-                  }}
-                ></StyledDeleteIcon>
-              </StyledPhotoContainer>
-            );
-          }
-        })
-      ) : (
-        <StyledReadGalleryNone>
-          아직 등록된 사진이 없습니다.
-        </StyledReadGalleryNone>
-      )}
+      {galleryRead.map((item, index) => {
+        if (selectedCategory !== item.category) {
+          console.log('category1: ', item.category);
+          return (
+            <StyledReadGalleryNone key={index}>
+              아직 등록된 사진이 없습니다.
+            </StyledReadGalleryNone>
+          );
+        } else {
+          return (
+            <StyledPhotoContainer key={index} id={item.category}>
+              <StyledReadGallery src={item.src}></StyledReadGallery>
+              <StyledDeleteIcon
+                id={item.id}
+                src={deleteIcon}
+                onClick={() => {
+                  DeleteGallery(item.id);
+                }}
+              ></StyledDeleteIcon>
+            </StyledPhotoContainer>
+          );
+        }
+      })}
+      <StyledReadGalleryNone>
+        아직 등록된 사진이 없습니다.
+      </StyledReadGalleryNone>
     </StyledImgContainer>
   );
 }
