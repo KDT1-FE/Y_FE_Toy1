@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const HeaderDropDown = ({ setModal }): JSX.Element => {
+interface ModalProps {
+  setModal: (isOpen: boolean) => void;
+}
+
+const HeaderDropDown = ({ setModal }: ModalProps): JSX.Element => {
   return (
     <nav className="header__drop-down shadow">
       <ul>
