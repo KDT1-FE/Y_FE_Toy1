@@ -29,8 +29,8 @@ const ChannelModal: React.FC<ChannelModalProps> = ({
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
             borderRadius: '3%',
-            width: '33%',
-            height: '43%',
+            width: '635px',
+            height: '370px',
         },
         overlay: {
             backgroundColor: 'rgba(0, 0, 0, 0.6)',
