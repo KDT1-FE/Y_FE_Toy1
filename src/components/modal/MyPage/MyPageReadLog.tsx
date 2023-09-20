@@ -1,5 +1,5 @@
 import React from 'react';
-import { TimelogBoxScroll, TimelogEl, TimelogText } from './style';
+import { TimelogBox, TimelogBoxScroll, TimelogEl, TimelogText } from './style';
 import { ReadTimelog } from '../../../utils/recoil';
 import { useRecoilState } from 'recoil';
 import { CommuteModalBox } from './commuteStyle';
@@ -8,7 +8,7 @@ export default function MyPageReadLog() {
     const [readTimelog, setReadTimelog] = useRecoilState(ReadTimelog);
 
     return (
-        <CommuteModalBox>
+        <TimelogBox>
             <TimelogBoxScroll>
                 {readTimelog.length > 0 ? (
                     readTimelog.map((e: string, i) => {
@@ -25,6 +25,6 @@ export default function MyPageReadLog() {
                     </TimelogEl>
                 )}
             </TimelogBoxScroll>
-        </CommuteModalBox>
+        </TimelogBox>
     );
 }
