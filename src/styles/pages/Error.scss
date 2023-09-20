@@ -1,0 +1,41 @@
+/* styles.scss */
+@import '~bootstrap/scss/bootstrap';
+@import '../_common.scss';
+
+.status-container {
+  font-family: $fontMain;
+  margin: 20px;
+  padding: 5% 10%;
+  background-color: $whiteColor;
+  border: 1px solid $grayColor;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .status {
+    font-weight: 900;
+    font-size: 80px;
+    color: $highlightColor;
+    margin-bottom: 10px;
+
+    .status-text {
+      font-weight: 700;
+      font-size: 32px;
+      color: $secondary;
+    }
+  }
+
+  .message {
+    font-weight: 500;
+    margin: 20px 0;
+    color: $grayColor;
+    font-size: 24px;
+  }
+
+  .btn {
+    background-color: $highlightColor;
+    color: $whiteColor;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 20px 0;
+  }
+}

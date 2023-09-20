@@ -1,7 +1,7 @@
 
 
 import { db,app } from './firebase';
-import {collection,getDocs,doc,getDoc, setDoc, updateDoc} from 'firebase/firestore'
+import {collection,getDocs,doc,getDoc, setDoc, updateDoc, deleteDoc} from 'firebase/firestore'
 
 
 
@@ -123,14 +123,25 @@ async function updateLastPostId (boardState,newPostId){
 
 
 async function updatePostData (boardState,postId,updateData){
-    // console.log(updateData)
     const postRef = doc(db,boardState,postId);
+    
     try {
         await updateDoc(postRef,updateData)
     }
     catch (error){
-        console.log('error')
+        console.log(error)
     }
 }
 
-export {readBoardData,readPostData,addNewPostDB,readLastPostId,updatePostData}
+async function deletePostData (boardState,postId){
+    const docPath = `${boardState}/${postId}`
+    try {
+        const docRef = doc(db, docPath);
+        await deleteDoc(docRef)
+    }
+    catch (error){
+        console.error(error)
+    }
+}
+
+export {readBoardData,readPostData,addNewPostDB,readLastPostId,updatePostData,deletePostData}

@@ -2,6 +2,7 @@
 
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -13,10 +14,13 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
-// Firebase 초기화
 const app = initializeApp(firebaseConfig);
-
-// Firestore 인스턴스 생성
 const db = getFirestore(app);
+const storage = getStorage();
 
-export { app, db }; // firebaseApp을 여기에서는 내보내지 않도록 수정
+export { app, db, storage };
+
+
+
+
+
