@@ -6,7 +6,6 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 0 100px;
 `;
 
 export const Header = styled.div`
@@ -65,8 +64,6 @@ export const Underline = styled.div`
 
 export const Body = styled.div`
   width: 100%;
-  min-height: 500px;
-
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -74,7 +71,6 @@ export const Body = styled.div`
 
 export const ImageWrapper = styled.div`
   width: 100%;
-  height: 400px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -83,7 +79,7 @@ export const ImageWrapper = styled.div`
 export const Image = styled.img`
   display: inline-block;
   max-width: 100%;
-  height: 100%;
+  max-height: 300px;
 `;
 
 export const Contents = styled.div`

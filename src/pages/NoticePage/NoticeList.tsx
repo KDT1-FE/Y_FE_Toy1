@@ -66,7 +66,7 @@ function NoticeList() {
       <S.TableTop> </S.TableTop>
       <S.HeaderRow>
         <S.ColumnHeaderBasic>번호</S.ColumnHeaderBasic>
-        <S.ColumnHeaderSubject>제목</S.ColumnHeaderSubject>
+        <S.ColumnHeaderSubject text-align='center'>제목</S.ColumnHeaderSubject>
         <S.ColumnHeaderBasic>날짜</S.ColumnHeaderBasic>
       </S.HeaderRow>
       {noticeList?.length === 0 && keyword && (

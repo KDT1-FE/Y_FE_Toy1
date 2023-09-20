@@ -66,7 +66,15 @@ function NoticeDetail() {
         <S.ImageWrapper>
           <S.Image src={noticeData?.imageUrl} alt={noticeData?.imageUrl} />
         </S.ImageWrapper>
-        <S.Contents>{noticeData?.contents}</S.Contents>
+        <S.Contents>
+          {noticeData?.contents &&
+            noticeData?.contents.split('\n').map((el: string, index: number) => (
+              <div key={index}>
+                <span>{el}</span>
+                <br />
+              </div>
+            ))}
+        </S.Contents>
       </S.Body>
       <S.MoveToListBtn>
         <Link to='/notice'>목록으로</Link>

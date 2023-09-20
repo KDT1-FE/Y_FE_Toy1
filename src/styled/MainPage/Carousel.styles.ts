@@ -30,7 +30,7 @@ export const Slide = styled.div`
 
 export const SlideImage = styled.img`
   display: inline-block;
-  width: 100%;
+
   height: 100%;
 `;
 
