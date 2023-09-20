@@ -76,7 +76,15 @@ export const LoginInput = styled.input<{ $isFalse: boolean }>`
   width: 500px;
   height: 40px;
   border: none;
+  outline: none;
   border-bottom: 1px solid #96a0ff;
+  ${(props) =>
+    !props.$isFalse &&
+    css`
+      &::placeholder {
+        transition: all 1s;
+      }
+    `};
   transition: ${(props) =>
     !props.$isFalse &&
     css`
