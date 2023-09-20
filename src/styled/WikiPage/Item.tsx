@@ -2,10 +2,9 @@ import styled from 'styled-components';
 
 const CategoryItemContainer = styled.div`
     width: 180px;
-    background-color : #e9ecef;
+    background-color : white;
     padding : 10px 10px 10px 20px;
     border-radius : 10px;
-    margin-top : 10px;
     box-sizing : border-box;
     text-align : start;
     justify-content : start;
