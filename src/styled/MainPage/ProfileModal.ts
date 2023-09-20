@@ -38,10 +38,6 @@ export const ProfileModalHeader = styled.div`
   align-items: center;
 `;
 
-export const ProfileModalHeaderText = styled.span`
-  font-size: 24px;
-`;
-
 export const ProfileModalCloseBtn = styled.button`
   background-color: transparent;
   border: none;
@@ -108,22 +104,8 @@ export const ProfileInfoEmail = styled.div`
   font-size: 16px;
 `;
 
-export const CorrectBtn = styled.button`
-  background-color: #484aad;
-  border: none;
-  width: 144px;
-  height: 40px;
-  border-radius: 50px;
-  font-size: 14px;
-  font-weight: 600;
-  color: white;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-export const CancelBtn = styled.button`
-  background-color: #ef6363;
+export const Btn = styled.button<{ color: string }>`
+  background-color: ${(props) => props.color};
   border: none;
   width: 144px;
   height: 40px;
