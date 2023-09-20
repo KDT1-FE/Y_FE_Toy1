@@ -35,6 +35,7 @@ const NoticeWritePage = () => {
             id: item.id,
           });
           alert('사진 등록이 완료 되었습니다.');
+          window.location.href = '/company/notice';
         });
       } else {
         const data = {
@@ -51,6 +52,7 @@ const NoticeWritePage = () => {
             id: item.id,
           });
           alert('완료 되었습니다.');
+          window.location.href = '/company/notice';
         });
       }
     } catch {

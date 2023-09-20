@@ -21,29 +21,32 @@ const NoticeUpdatePage = () => {
         const snapshot = await uploadBytes(noticeRef, file);
         const imgUrl = await getDownloadURL(snapshot.ref);
         const docRef = doc(db, 'notice', itemId);
-        updateDoc(docRef, {
+        await updateDoc(docRef, {
           title,
           content,
           time_ago: new Date().toLocaleString(),
           url: imgUrl,
         });
-        alert('수정완료 되었습니다.');
-      } else {
-        const docRef = doc(db, 'notice', itemId);
-        updateDoc(docRef, {
-          title,
-          content,
-          time_ago: new Date().toLocaleString(),
-        });
         alert('완료 되었습니다.');
       }
+
+      const docRef = doc(db, 'notice', itemId);
+      await updateDoc(docRef, {
+        title,
+        content,
+        time_ago: new Date().toLocaleString(),
+      });
+      alert('완료 되었습니다.');
     } catch {
       console.error();
+    } finally {
+      window.location.href = '/company/notice';
     }
   };
 
   const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
+    console.log(title);
   };
 
   const handleContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
