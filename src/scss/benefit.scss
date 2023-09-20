@@ -48,6 +48,7 @@
     padding: 2rem;
     gap: 3rem;
     max-width: 1200px;
+    @include shadow();
     & .icon {
       font-size: 5rem;
       color: $darkBlue;
