@@ -57,6 +57,8 @@ const RecruitmentEdit: React.FC = () => {
             });
     }, [channel, path]);
 
+    console.log(recruitmentData);
+
     const handleUpdateRecruitment = (e: any) => {
         e.preventDefault();
 
@@ -86,6 +88,8 @@ const RecruitmentEdit: React.FC = () => {
                 recruitValued: true,
                 comment: recruitmentData.comment,
                 time: updated_at_timestamp,
+                name: recruitmentData.name,
+                imageURL: recruitmentData.imageURL,
             };
 
             updateRecruitment(channel, path, value);

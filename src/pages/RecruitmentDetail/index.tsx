@@ -152,29 +152,15 @@ const RecruitmentDetail: React.FC = () => {
     const handleRecruitmentValued = () => {
         const updated_at_timestamp = serverTimestamp();
 
-        const value = {
-            category: data.category,
-            comment: data.comment,
-            content: data.content,
-            people: data.people,
-            recruitValued: !data.recruitValued,
-            time: updated_at_timestamp,
-            title: data.title,
-            uid: data.uid,
-            name: data.name,
-        };
-        for (let i = 0; i < value.comment.length; i++) {
-            value.comment[i] = {
-                uid: data.comment[i].uid,
-                time: data.comment[i].time,
-                content: data.comment[i].content,
-            };
-        }
-        updateRecruitment(channel, path, value);
+        console.log(data);
+        const value = data;
+        value.recruitValued = !value.recruitValued;
+        value.time = updated_at_timestamp;
+        console.log(value);
 
-        navigate('/recruitment');
+        updateRecruitment(channel, path, value);
     };
-    console.log(data.comment);
+
     return (
         <RecruitmentDetailContainer>
             {deleteModalValued ? (
