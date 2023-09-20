@@ -132,8 +132,8 @@ const RecruitmentEdit: React.FC = () => {
                                 style={{ marginLeft: '10px', width: '150px', height: '40px' }}
                             >
                                 <InputLabel id="category">분류</InputLabel>
-                                <MenuItem value="토이프로젝트">토이프로젝트</MenuItem>
-                                <MenuItem value="연계프로젝트">연계프로젝트</MenuItem>
+                                <MenuItem value="토이 프로젝트">토이프로젝트</MenuItem>
+                                <MenuItem value="연계 프로젝트">연계프로젝트</MenuItem>
                             </Select>
                         )}
                     </PostBox>
