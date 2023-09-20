@@ -117,7 +117,7 @@ const Recruit: React.FC = () => {
                     </Droppable>
                     <Droppable droppableId="yourDroppableId">
                         {(provided) => (
-                            <div
+                            <ul
                                 ref={provided.innerRef}
                                 style={{
                                     display: 'flex',
@@ -170,7 +170,7 @@ const Recruit: React.FC = () => {
                                 ))}
 
                                 {provided.placeholder}
-                            </div>
+                            </ul>
                         )}
                     </Droppable>
                 </DragDropContext>

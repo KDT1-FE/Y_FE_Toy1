@@ -115,11 +115,12 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
                             <br />
                             <ModalTextarea
                                 placeholder="공유할 채용의 설명을 적어주세요!"
-                                maxLength={50}
+                                maxLength={100}
                                 value={textValue}
                                 onChange={handleTextChange}
                                 required
                             />
+                            <div>{textValue.length}/100</div>
                         </div>
                     </InputContainer>
                     <PreviewBox>

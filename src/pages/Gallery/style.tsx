@@ -55,11 +55,10 @@ export const UploadBtn = styled.button`
     padding: 10px;
     box-sizing: border-box;
     border: none;
-    background-color: var(--active-current-status);
+    background-color: var(--active-item);
     color: white;
     cursor: pointer;
     &:hover {
-        font-weight: bold;
         filter: brightness(110%);
     }
 `;
@@ -67,8 +66,8 @@ export const UploadBtn = styled.button`
 export const UploadBtnWrapper = styled.div`
     display: flex;
     justify-content: flex-end;
-    padding-top: 1.8%;
-    padding-bottom: 1.8%;
+    padding-top: 1%;
+    padding-bottom: 1%;
     padding-right: 8%;
     background-color: transparent;
 `;
@@ -136,8 +135,8 @@ export const ProfileName = styled.div`
 `;
 // 모달
 export const ModalContainer = styled.div`
-    width: 45%;
-    height: 55%;
+    width: 650px;
+    height: 420px;
     z-index: 999;
     position: fixed;
     top: 50%;
@@ -175,7 +174,7 @@ export const ModalLabel = styled.label`
 
 export const ModalTextarea = styled.textarea`
     width: 100%;
-    height: 190%;
+    height: 100%;
     font-size: 16px;
     resize: none;
     border: 2px solid rgb(118, 118, 118);
@@ -241,7 +240,7 @@ export const Description = styled.div`
     transition: opacity 0.3s ease-in-out;
 `;
 
-export const ChildArticle = styled.div`
+export const ChildArticle = styled.li`
     display: flex;
     align-items: flex-start;
     &:hover ${Description} {
@@ -290,7 +289,6 @@ export const SubmitBtn = styled.button`
     cursor: pointer;
     font-size: 20px;
     &:hover {
-        font-weight: bold;
         filter: brightness(110%);
     }
 `;
@@ -308,7 +306,6 @@ export const CancelBtn = styled.button`
     margin: 25px;
     cursor: pointer;
     &:hover {
-        font-weight: bold;
         filter: brightness(90%);
     }
 `;
@@ -316,5 +313,5 @@ export const CancelBtn = styled.button`
 export const BtnAlign = styled.div`
     display: flex;
     justify-content: center;
-    margin-top: 40px;
+    margin-top: 6px;
 `;

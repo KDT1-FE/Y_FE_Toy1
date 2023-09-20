@@ -120,6 +120,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
                                 onChange={handleTextChange}
                                 required
                             />
+                            <div>{textValue.length}/100</div>
                         </div>
                     </InputContainer>
                     <PreviewBox>
