@@ -10,7 +10,9 @@
   border-radius: 1rem;
   margin: 1rem auto;
   padding: 0 1rem;
+  background-color: $white;
   cursor: pointer;
+  @include shadow;
 
   &__delete-checkbox {
     flex: 0.5;
