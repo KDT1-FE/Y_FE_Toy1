@@ -62,6 +62,7 @@ export function Timer({ id }: TimerProps): JSX.Element {
 
   //시작 버튼 동작
   const handleStart: (event: any) => void = useCallback(async (event) => {
+    event.stopPropagation();
     if (intervalRef.current !== null) {
       return;
     }
@@ -94,7 +95,8 @@ export function Timer({ id }: TimerProps): JSX.Element {
   }, []);
 
   //정지 버튼 동작
-  const handleStop: () => void = useCallback(() => {
+  const handleStop: (event: any) => void = useCallback((event) => {
+    event.stopPropagation();
     if (timer !== null) {
       clearInterval(timer);
       timer = null; // 타이머 중지
