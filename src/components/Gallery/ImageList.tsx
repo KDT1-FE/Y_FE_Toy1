@@ -1,21 +1,26 @@
 import React from 'react';
 import { UploadedImage } from './types';
 import { BsFillTrashFill, BsFillHeartFill } from 'react-icons/bs';
-
-// view modal
-interface Props {
+interface ImgListProps {
   docList: UploadedImage[];
   onImageClick: (index: number) => void;
   likeImage: (id: string, like: number) => void;
   deleteData: (id: string) => void;
 }
 
-const ImageList = ({ docList, likeImage, deleteData }) => {
+const ImageList = ({ docList, likeImage, deleteData, onImageClick }: ImgListProps) => {
   return (
-    <>
+    <div className="inner">
       {docList.map((item: UploadedImage, index: number) => {
         return (
-          <figure className="shadow" key={item.id} style={{ backgroundImage: `url(${item.url})` }}>
+          <figure
+            className="shadow"
+            key={item.id}
+            style={{ backgroundImage: `url(${item.url})` }}
+            onClick={() => {
+              // console.log('클릭클릭');
+              onImageClick(index);
+            }}>
             <figcaption>
               <h3>{item.title}</h3>
               <div className="icon-wrap">
@@ -42,7 +47,7 @@ const ImageList = ({ docList, likeImage, deleteData }) => {
           </figure>
         );
       })}
-    </>
+    </div>
   );
 };
 
