@@ -4,7 +4,11 @@ import { useLocation } from "react-router-dom";
 import CommuteModal from "./CommuteModal";
 import { useEffect, useState } from "react";
 
-export default function Header() {
+interface Props {
+  email: string;
+}
+
+export default function Header({ email }: Props) {
   const [showModal, setShowModal] = useState(false);
   const onCommuteClick = () => {
     setShowModal(!showModal);
@@ -35,7 +39,7 @@ export default function Header() {
             <style.Logo>9굴 WIKI</style.Logo>
           </style.Wrapper>
           <style.Wrapper>
-            <style.UserName>아무개님</style.UserName>
+            <style.UserName>{email}</style.UserName>
             {startTime && (
               <style.WorkingTime>
                 {String(workingHours).padStart(2, "0")}:
