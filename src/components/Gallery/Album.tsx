@@ -89,19 +89,16 @@ function Album() {
         </div>
       </div>
       <div id="AlbumContainer">
-        {isLoading ? (
-          <Loading />
-        ) : (
-          files.map(file => (
-            <AddPhotos
-              key={file.imageUrl}
-              file={file.imageUrl}
-              name={file.name}
-              deleteFiles={deleteFiles}
-              setDeleteFiles={setDeleteFiles}
-            />
-          ))
-        )}
+        {isLoading ? <Loading /> : <div> </div>}
+        {files.map(file => (
+          <AddPhotos
+            key={file.imageUrl}
+            file={file.imageUrl}
+            name={file.name}
+            deleteFiles={deleteFiles}
+            setDeleteFiles={setDeleteFiles}
+          />
+        ))}
       </div>
       <Modal isOpen={isOpen} onClose={toggle}>
         {isModal ? (
