@@ -43,10 +43,22 @@ export default function LogIn() {
                 navigate('/', { state: pathname });
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-
-                console.log(errorCode, errorMessage);
+                switch (error.code) {
+                    case 'auth/user-not-found' || 'auth/wrong-password':
+                        return alert('이메일 혹은 비밀번호가 일치하지 않습니다.');
+                    case 'auth/email-already-in-use':
+                        return alert('이미 사용 중인 이메일입니다.');
+                    case 'auth/weak-password':
+                        return alert('비밀번호는 6글자 이상이어야 합니다.');
+                    case 'auth/network-request-failed':
+                        return alert('네트워크 연결에 실패 하였습니다.');
+                    case 'auth/invalid-email':
+                        return alert('잘못된 이메일 형식입니다.');
+                    case 'auth/internal-error':
+                        return alert('잘못된 요청입니다.');
+                    default:
+                        return alert('로그인에 실패 하였습니다.');
+                }
             });
     };
 
@@ -66,7 +78,7 @@ export default function LogIn() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Log in
+                        로그인
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
@@ -74,7 +86,7 @@ export default function LogIn() {
                             required
                             fullWidth
                             id="email"
-                            label="Email Address"
+                            label="이메일"
                             name="email"
                             autoComplete="email"
                             autoFocus
@@ -84,17 +96,17 @@ export default function LogIn() {
                             required
                             fullWidth
                             name="password"
-                            label="Password"
+                            label="비밀번호"
                             type="password"
                             id="password"
                             autoComplete="current-password"
                         />
                         <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-                            Log in
+                            로그인
                         </Button>
 
                         <Link href="/signin" variant="body2">
-                            sign in
+                            회원가입
                         </Link>
                     </Box>
                 </Box>
