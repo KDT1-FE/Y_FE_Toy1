@@ -4,7 +4,8 @@ export const AllChannelsWrapper = styled.div`
     min-width: 16.25%;
     max-width: 16.25%;
     padding-top: 1%;
-    height: 100vh;
+    height: calc(100vh - 72px);
+
     background-color: #3f0e40;
     color: #ffffffb3;
     overflow: auto;
@@ -28,8 +29,8 @@ export const DropDownOptions = styled.div`
     background: #ffffff;
     border-radius: 8px;
     position: absolute;
-    top: 35%;
-    left: 45%;
+    top: 90%;
+    left: 55%;
     min-width: 5rem;
     min-width: 40%;
 
@@ -43,8 +44,8 @@ export const SubDropDownOptions = styled.div`
     background: #ffffff;
     border-radius: 8px;
     position: absolute;
-    top: 35%;
-    left: 45%;
+    top: 90%;
+    left: 55%;
     min-width: 40%;
     display: block;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
@@ -119,10 +120,16 @@ export const OptionButton = styled.button`
 export const ChannelDiv = styled.div`
     font-size: 1.4rem;
     font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 `;
 
 export const SubChannelDiv = styled.div`
     font-size: 1.15rem;
     font-weight: bold;
     padding: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 `;

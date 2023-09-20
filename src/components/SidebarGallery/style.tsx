@@ -1,7 +1,7 @@
 import styled from '@emotion/styled/macro';
 
 export const AllChannelsWrapper = styled.div`
-    height: 100vh;
+    height: calc(100vh - 72px);
     min-width: 16.25%;
     max-width: 16.25%;
     padding-top: 1%;
