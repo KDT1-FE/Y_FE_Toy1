@@ -77,6 +77,7 @@ export default function Root() {
     }
   };
 
+  // Root 컴포넌트에서 사용자 닉네임을 가져오기
   const fetchUserNickname = async (userId: string) => {
     const userRef = doc(db, 'User', userId); 
     try {
@@ -158,7 +159,7 @@ const fetchPosts = async () => {
             <p className='post-user'>작성자: {post.username}</p>
               <p className='post-title'>{post.title}</p>
               <p className='post-content'>{post.content}</p>
-              <p className='post-due-date'>모집기간: {(post.timestamp as any).toDate().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+              <p className='post-due-date'>작성 날짜: {post.date}</p>
             </div>
           </li>
         ))}
