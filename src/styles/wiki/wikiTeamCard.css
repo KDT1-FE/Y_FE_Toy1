@@ -1,13 +1,14 @@
 .TeamContent {
-  width: 100%;
-  height: 40vh;
-
   display: flex;
   justify-content: center;
   align-items: flex-start;
 
-  margin-top: 2vh;
+  width: 100%;
+  height: 40vh;
+
   padding: 3vh 0;
+  margin-top: 2vh;
+
   border-bottom: 1px solid #34576d37;
 }
 
@@ -16,21 +17,22 @@
 }
 
 .TeamCard {
-  width: 18vw;
-  height: 30vh;
-
   display: flex;
   flex-direction: column;
   align-items: center;
 
   position: relative;
 
+  width: 18vw;
+  height: 30vh;
+
   margin: 2vh 0;
+
   border: 1px solid #34576da2;
   border-radius: 10px;
-
   border-bottom: 3px solid rgba(255, 255, 255, 0.44);
   border-left: 2px rgba(255, 255, 255, 0.545) outset;
+
   box-shadow: -15px 20px 30px rgba(0, 0, 0, 0.28);
 
   transition: 0.4s;
@@ -41,14 +43,14 @@
 }
 
 .TeamImg {
+  position: absolute;
+  top: 0;
+  left: 0;
+
   width: 100%;
   height: 100%;
 
   border-radius: 8px;
-
-  position: absolute;
-  top: 0;
-  left: 0;
 
   overflow: hidden;
   object-fit: cover;
@@ -65,20 +67,22 @@
 }
 
 .TeamCardBg:hover {
-  color: white;
   background-color: #34576d;
+
+  color: white;
+
   opacity: 0.85;
 }
 
 .TeamText {
-  width: 100%;
-  height: 100%;
-
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 
   position: relative;
+
+  width: 100%;
+  height: 100%;
 
   text-shadow: -10px 5px 10px rgba(0, 0, 0, 0.573);
 }
@@ -106,12 +110,12 @@
 }
 
 .TeamCardBtns {
-  width: 100%;
-  height: 6vh;
-
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+
+  width: 100%;
+  height: 6vh;
 
   animation: fadein 1s;
 }
@@ -124,11 +128,10 @@
   border: none;
   border-radius: 10px;
 
-  outline: none;
-
   text-align: center;
   font-weight: 700;
 
+  outline: none;
   animation: fadein 1s;
 }
 
@@ -141,17 +144,17 @@
   width: 100%;
   height: 100%;
 
-  border: none;
   padding: 30px;
 
-  box-sizing: border-box;
+  border: none;
   border-radius: 10px;
-
   background-color: #6e93aa6f;
+
   color: black;
 
   font-size: 1.2rem;
 
+  box-sizing: border-box;
   animation: fadein 1.5s;
 }
 
