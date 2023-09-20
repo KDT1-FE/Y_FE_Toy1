@@ -9,7 +9,14 @@ interface Props {
   closeFormModal: () => void;
 }
 
-const ImageUploadModal = ({ setFormModalOpen, closeFormModal }: Props) => {
+const ImageUploadModal = ({
+  setFormModalOpen,
+  closeFormModal,
+  setImageFileToUpload,
+  imageUploadPayload,
+  setImageUploadPayload,
+  handleImageUploadClick,
+}: Props) => {
   const ref = useRef();
   console.log('uploadRef', ref.current);
   useOnClickOutside(ref, () => {
@@ -24,14 +31,48 @@ const ImageUploadModal = ({ setFormModalOpen, closeFormModal }: Props) => {
             X
           </span>
           <div className="modal__content">
-            <input type="text" placeholder="제목을 입력해 주세요" />
-            <input type="text" placeholder="작성자" />
-            <textarea placeholder="내용을 입력해주세요" />
+            <input
+              type="text"
+              placeholder="제목을 입력해 주세요"
+              onChange={event => {
+                setImageUploadPayload({
+                  ...imageUploadPayload,
+                  title: event.target.value,
+                });
+              }}
+            />
+            <input
+              type="text"
+              placeholder="작성자"
+              onChange={event => {
+                setImageUploadPayload({
+                  ...imageUploadPayload,
+                  username: event.target.value,
+                });
+              }}
+            />
+            <textarea
+              placeholder="내용을 입력해주세요"
+              onChange={event => {
+                setImageUploadPayload({
+                  ...imageUploadPayload,
+                  content: event.target.value,
+                });
+              }}
+            />
             <div className="modal__file-box">
               <label htmlFor="file">파일찾기</label>
-              <input type="file" id="file" />
+              <input
+                type="file"
+                id="file"
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setImageFileToUpload(event.target.files?.[0] ?? ({} as File));
+                }}
+              />
             </div>
-            <button className="modal__button">upload image</button>
+            <button className="modal__button" onClick={handleImageUploadClick}>
+              upload image
+            </button>
           </div>
         </div>
       </div>

@@ -1,12 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const UserInfo = (): JSX.Element => {
+interface ModalProps {
+  setModal: (isOpen: boolean) => void;
+}
+
+const HeaderDropDown = ({ setModal }: ModalProps): JSX.Element => {
   return (
     <nav className="header__drop-down shadow">
       <ul>
-        <li>
-          <Link to="/">근태관리</Link>
+        <li
+          onClick={() => {
+            setModal(true);
+          }}>
+          근태관리
         </li>
         <li>
           <Link to="/">마이페이지</Link>
@@ -17,4 +24,4 @@ const UserInfo = (): JSX.Element => {
   );
 };
 
-export default UserInfo;
+export default HeaderDropDown;
