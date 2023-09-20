@@ -51,7 +51,7 @@ export const addWorkTimeData = (workTime: number) => {
   }
 };
 
-interface IresponseArray {
+export interface IworkTimeResponse {
   uid: string;
   timeStamp: string;
   workTime: number;
@@ -72,7 +72,7 @@ export const getWorkTimeData = async () => {
   try {
     const response = await getDocs(searchUser());
 
-    const responseArray: IresponseArray[] = [];
+    const responseArray: IworkTimeResponse[] = [];
     response.forEach((doc) => {
       const workTimeData = doc.data();
       responseArray.push({

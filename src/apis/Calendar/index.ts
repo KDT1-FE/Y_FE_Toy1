@@ -18,7 +18,7 @@ interface ICalendarData {
   endDate: string;
 }
 
-interface IresponseArray {
+interface ICalendarResponse {
   start: Date;
   end: Date;
   title: string;
@@ -50,7 +50,7 @@ const searchUser = () => {
 export const getCalendarData = async () => {
   try {
     const response = await getDocs(searchUser());
-    const responseArray: IresponseArray[] = [];
+    const responseArray: ICalendarResponse[] = [];
     response.forEach((doc) => {
       const calendarData = doc.data();
       responseArray.push({
