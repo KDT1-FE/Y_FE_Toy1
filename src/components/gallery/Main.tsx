@@ -1,20 +1,29 @@
 import React from 'react';
-import { Slide } from './Slide';
+import { CarouselSlide } from './Slide';
 
 export function MainSlides(): JSX.Element {
   return (
     <div>
       <div className="inner">
         <div id="studyTips" className="studyTips-title">
-          <Slide categoryId="StudyTipsGallery" />
+          <CarouselSlide
+            categoryId="StudyTipsGallery"
+            slideClassName="leftSlideItem"
+          />
         </div>
 
         <div id="events" className="events-title">
-          <Slide categoryId="EventsGallery" />
+          <CarouselSlide
+            categoryId="EventsGallery"
+            slideClassName="rightSlideItem"
+          />
         </div>
 
         <div id="humors" className="humors-title">
-          <Slide categoryId="HumorsGallery" />
+          <CarouselSlide
+            categoryId="HumorsGallery"
+            slideClassName="leftSlideItem"
+          />
         </div>
       </div>
     </div>
