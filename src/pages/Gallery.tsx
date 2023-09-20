@@ -1,15 +1,17 @@
-import * as React from 'react';
-import { SideBarLink } from 'components/Gallery/SideBar';
-import { MainSlides } from 'components/Gallery/Main';
+import React from 'react';
+import { SideBarLink } from 'components/Gallery/NavBar';
+import { MainSlides } from 'components/Gallery/SlideContainer';
+import '../styles/pages/Gallery.scss';
 
 const userNickname = sessionStorage.getItem('nickname');
 const userId = sessionStorage.getItem('uid');
+const userImage = sessionStorage.getItem('image');
 
-export { userNickname, userId };
+export { userId, userNickname, userImage };
 
 export function Gallery() {
   return (
-    <div>
+    <div className="gallery-container">
       <SideBarLink />
       <MainSlides />
     </div>
