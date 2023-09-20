@@ -14,6 +14,7 @@ import rehypeSanitize from 'rehype-sanitize';
 import { updateChannelContent } from '../../utils/firebase';
 import editImg from '../../common/wikiImg/icons8-edit-50.png';
 import doneImg from '../../common/wikiImg/icons8-done-50.png';
+
 const Wiki: React.FC = () => {
     const v = {
         value: {
@@ -22,6 +23,7 @@ const Wiki: React.FC = () => {
     };
     const [clickedValue, setClickedValue] = useState<any>(v);
     const [md, setMd] = useState<string>('# 제목');
+    const [time, setTime] = useState<string>('');
     const [isToggled, setIsToggled] = useState(true);
     const toggleButton = () => {
         setIsToggled(!isToggled);
@@ -61,11 +63,10 @@ const Wiki: React.FC = () => {
     };
     // Function to handle both toggle and update button click
     const handleToggleAndUpdateClick = async () => {
-        handleUpdateButtonClick(); // Handle the update
+        await handleUpdateButtonClick();
         if (!isToggled) {
             setIsToggled(true);
         }
-        //await toggleButton(); // Toggle the button state
     };
     return (
         <WikiContainer>
@@ -79,7 +80,7 @@ const Wiki: React.FC = () => {
                                 {' > '}
                                 {clickedValue.subChannel}
                             </p>
-                            <p style={{ marginBottom: '16px', color: 'black' }}>몇시 몇분</p>
+                            <p style={{ marginBottom: '16px', color: 'black' }}>{time}</p>
                         </ReadChannel>
                         <MDEditBtn onClick={toggleButton}>
                             <img style={{ width: '30px' }} src={editImg}></img>
@@ -95,7 +96,7 @@ const Wiki: React.FC = () => {
                             {' > '}
                             {clickedValue.subChannel}
                         </p>
-                        <p style={{ marginBottom: '16px' }}>몇시 몇분</p>
+                        <p style={{ marginBottom: '16px' }}>{time}</p>
                         <MDEditor
                             value={md}
                             onChange={handleEditorChange}

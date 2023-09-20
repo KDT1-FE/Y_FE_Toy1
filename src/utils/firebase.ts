@@ -17,6 +17,8 @@ import {
     updateDoc,
     query,
     orderBy,
+    serverTimestamp,
+    FieldValue,
 } from 'firebase/firestore';
 
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
@@ -405,12 +407,14 @@ export const updateChannelContent = async (
         // Update the specific field (subChannel) with the new content (docContent)
         const docSnapshot = await getDoc(docRef);
         if (docSnapshot.exists()) {
+            const updated_at_timestamp = serverTimestamp();
             const currentData = docSnapshot.data();
             // Update the nested field
             currentData[subChannel].content = docContent;
+            currentData[subChannel].time = updated_at_timestamp;
             // Update the document with the modified data
             await updateDoc(docRef, currentData);
-            console.log(currentData[subChannel].content);
+            console.log(currentData[subChannel].time);
             console.log('Nested field updated successfully.');
         } else {
             console.error('Document does not exist.');
