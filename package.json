@@ -40,6 +40,7 @@
         "react-modal": "^3.16.1",
         "react-router-dom": "^6.15.0",
         "react-scripts": "5.0.1",
+        "react-scrollbars-custom": "^4.1.1",
         "react-simply-carousel": "^9.0.4",
         "recoil": "^0.7.7",
         "recoil-persist": "^5.1.0",
