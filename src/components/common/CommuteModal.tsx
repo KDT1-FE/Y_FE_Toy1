@@ -28,11 +28,15 @@ export default function CommuteModal({
     return () => clearInterval(id);
   }, []);
 
-  const node = useRef();
+  const node = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
-    const clickOutside = (e: React.MouseEvent<HTMLElement>) => {
+    const clickOutside = (e: MouseEvent) => {
       // 모달이 열려 있고 모달의 바깥쪽을 눌렀을 때 창 닫기
-      if (showModal && node.current && !node.current.contains(e.target)) {
+      if (
+        showModal &&
+        node.current &&
+        !node.current.contains(e.target as Node)
+      ) {
         setShowModal(false);
       }
     };
