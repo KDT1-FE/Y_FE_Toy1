@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
     margin : 0;
-    height : 800px;
-    background-color : rgba(150, 160, 255, 0.2);
+    height : 100vh;
+    
 `;
 
 
@@ -13,27 +13,40 @@ export const RowContainer = styled.div`
     flex-direction : row;
     gap : 30px;
     max-width : 1200px;
-    margin : 0 auto;
-    padding : 20px 30px;
+    margin : 50px auto;
+    padding : 0 30px;
     height : 750px;
+    
 `;
-
+export const HeaderContainer = styled.div`
+    display : flex;
+    justify-content : space-between;
+    width : 100%;
+    align-items : center;
+    padding : 0 40px;
+`;
 
 export const ColumnContainer = styled.div`
     display : flex;
     flex-direction : column;
-    background-color : white;
-    margin : 20px 0;
+    background-color : rgba(150, 160, 255, 0.2);
+    margin : 0 0;
 `;
 
-export const SearchContainer = styled(ColumnContainer)`
+export const SearchContainer = styled.div`
+    display : flex;
+    flex-direction : column;
     padding : 10px 20px;
     min-width : 180px;
+    margin : 20px 0;
+    
 `;
 
-export const ContentContainer = styled(ColumnContainer)`
+export const ContentContainer = styled.div`
+    display : flex;
+    flex-direction : column;
     flex-grow : 1;
-    align-items : end;
+    align-items : center;
     display : relative;
     
 `;
@@ -43,17 +56,19 @@ export const CategoryHeaderContainer = styled.div`
     justify-content : space-between;
     padding : 10px 20px;
     min-width : 180px;
-    background-color : white;
-    margin-top : 10px;
+    margin : 10px 0;
+    background-color : rgba(150, 160, 255, 0.01);
 
 
 `;
 
-export const CategoryListContainer = styled(ColumnContainer)`
-    padding : 0px 20px;
-    background-color : white;
-    margin-top : 0;
+export const CategoryListContainer = styled.div`
+display : flex;
+    flex-direction : column;
+    padding : 10px 20px;
+    margin : 0;
     align-items : start;
+    gap : 5px;
 
 `;
 
@@ -74,10 +89,9 @@ export const ContentListItemContainer = styled.div`
     border-radius : 15px;
     max-width : 800px;
     width : 100%;
-    margin : 30px;
+    margin : 20px 0 ;
     gap : 10px;
     flex-direction :column;
-    height : 500px;
     overflow-y :auto;
     
 

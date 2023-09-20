@@ -10,11 +10,13 @@ import {
   Container,
   RowContainer,
   ColumnContainer,
-  ContentContainer
+  ContentContainer,
+  HeaderContainer
 } from "../../styled/WikiPage/Container";
 import { AddBtn } from "../../styled/WikiPage/Button";
 import GlobalStyle from "../../styled/WikiPage/GlobalStyle";
 import {db} from '../../firebaseSDK';
+import { WikiText } from "../../styled/WikiPage/Text";
 
 
 export default function Wiki() {
@@ -58,9 +60,14 @@ export default function Wiki() {
           <Category />
         </ColumnContainer>
         <ContentContainer>
+          <HeaderContainer>
+          <WikiText>WIKI</WikiText>
           <AddBtn type="button" onClick={handleButtonClick}>
             추가하기
           </AddBtn>
+
+
+          </HeaderContainer>
           <ContentList />
         </ContentContainer>
       </RowContainer>

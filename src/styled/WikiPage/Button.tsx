@@ -57,13 +57,11 @@ export const EditBackToListBtn = styled(Btn)`
 export const AddBtn = styled(Btn)`
     background-color : #484AAD;
     color : white;
-    padding : 10px 30px;
+    padding : 0 30px;
     position : relative;
-    right : 0;
     font-weight : 500;
     border : 0;
-    margin : 20px 20px 0 0;
-    
+    height : 40px;
 
 `;
 export const BackToListBtn = styled(Btn)`
