@@ -4,6 +4,7 @@ import { db } from '../common/config';
 import { collection, getDocs } from 'firebase/firestore';
 import { Time, formatMsToTime } from '../utils/formatTime';
 import { useUser } from '../common/UserContext';
+import LoadingSpinner from './LoadingSpinner';
 
 type CommuteData = {
   date: string;
@@ -16,6 +17,7 @@ export default function Carousel() {
   const { user } = useUser();
   const [name, setName] = useState<string>('');
   const [data, setData] = useState<CommuteData[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async (uid: string) => {
@@ -53,8 +55,10 @@ export default function Carousel() {
         });
 
         setData(formattedData);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
+        setIsLoading(false);
       }
     };
 
@@ -71,33 +75,37 @@ export default function Carousel() {
   return (
     <>
       {user && (
-        <>
-          <H1>{name}님의 출퇴근 기록</H1>
-          {data.length > 0 ? (
-            <Table>
-              <THead>
-                <tr>
-                  <th>날짜</th>
-                  <th>출근 시간</th>
-                  <th>퇴근 시간</th>
-                  <th>근무 시간</th>
-                </tr>
-              </THead>
-              <TBody>
-                {data.map((item, index) => (
-                  <tr key={index}>
-                    <TH>{item.date}</TH>
-                    <TH>{item.startTime}</TH>
-                    <TH>{item.endTime}</TH>
-                    <TH>{item.workingTime}</TH>
+        isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          <>
+            <H1>{name}님의 출퇴근 기록</H1>
+            {data.length > 0 ? (
+              <Table>
+                <THead>
+                  <tr>
+                    <th>날짜</th>
+                    <th>출근 시간</th>
+                    <th>퇴근 시간</th>
+                    <th>근무 시간</th>
                   </tr>
-                ))}
-              </TBody>
-            </Table>
-          ) : (
-            <Message>출퇴근 기록이 없습니다.</Message>
-          )}
-        </>
+                </THead>
+                <TBody>
+                  {data.map((item, index) => (
+                    <tr key={index}>
+                      <TH>{item.date}</TH>
+                      <TH>{item.startTime}</TH>
+                      <TH>{item.endTime}</TH>
+                      <TH>{item.workingTime}</TH>
+                    </tr>
+                  ))}
+                </TBody>
+              </Table>
+            ) : (
+              <Message>출퇴근 기록이 없습니다.</Message>
+            )}
+          </>
+        )
       )}
     </>
   );

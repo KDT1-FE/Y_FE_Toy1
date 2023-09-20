@@ -6,10 +6,12 @@ import { GoDot } from 'react-icons/go';
 import { GoDotFill } from 'react-icons/go';
 import { storage } from '../common/config';
 import { ref, listAll, getDownloadURL } from 'firebase/storage';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 export default function Carousel() {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   const showImage = (index: number) => {
     setCurrentImageIndex(index);
@@ -38,8 +40,10 @@ export default function Carousel() {
         }
     
         setImageUrls(imageUrls);
+        setIsLoading(false);
       } catch (error) {
         console.error('이미지 URL을 가져오는 동안 오류 발생:', error);
+        setIsLoading(false);
       }
     };
 
@@ -58,43 +62,49 @@ export default function Carousel() {
 
   return (
     <>
-      <CarouselWrap>
-        <ImageWrap>
-          <ArrowButtonLeft onClick={showPreviousImage} >
-            <GrFormPrevious size='40px'/>
-          </ArrowButtonLeft>
-          {
-            imageUrls &&
-            imageUrls.map((image, index) => (
-              <Image
-                key={index}
-                src={image}
-                style={{display: index === currentImageIndex ? 'block' : 'none'}}
-              />
-            ))
-          }
-          <ArrowButtonRight onClick={showNextImage} > 
-            <GrFormNext size='40px'/>
-          </ArrowButtonRight>
-        </ImageWrap>
-        <ImageButtonWrap>
-          {
-            imageUrls &&
-            imageUrls.map((_, index) => (
-              <ImageButton 
-                key={index} 
-                onClick={() => showImage(index)}
-              >
-                {
-                  currentImageIndex === index ? 
-                    <GoDotFill size='16px'/>
-                    :
-                    <GoDot size='16px'/>
-                }
-              </ImageButton>
-          ))}
-        </ImageButtonWrap>
-      </CarouselWrap>
+      {
+        isLoading ? (
+          <LoadingSpinner />
+          ) :(
+          <CarouselWrap>
+            <ImageWrap>
+              <ArrowButtonLeft onClick={showPreviousImage} >
+                <GrFormPrevious size='40px'/>
+              </ArrowButtonLeft>
+              {
+                imageUrls &&
+                imageUrls.map((image, index) => (
+                  <Image
+                    key={index}
+                    src={image}
+                    style={{display: index === currentImageIndex ? 'block' : 'none'}}
+                  />
+                ))
+              }
+              <ArrowButtonRight onClick={showNextImage} > 
+                <GrFormNext size='40px'/>
+              </ArrowButtonRight>
+            </ImageWrap>
+            <ImageButtonWrap>
+              {
+                imageUrls &&
+                imageUrls.map((_, index) => (
+                  <ImageButton 
+                    key={index} 
+                    onClick={() => showImage(index)}
+                  >
+                    {
+                      currentImageIndex === index ? 
+                        <GoDotFill size='16px'/>
+                        :
+                        <GoDot size='16px'/>
+                    }
+                  </ImageButton>
+              ))}
+            </ImageButtonWrap>
+          </CarouselWrap>
+        )
+      }
     </>
   );
 };
