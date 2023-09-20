@@ -38,6 +38,8 @@ export const ExitBtn = styled.button`
     color : white;
     width : 15px;
     height : 15px;
+    cursor: pointer;
+
 
 `;
 export const CommuteTitle = styled.div`
@@ -84,6 +86,8 @@ export const TimerBtn = styled.div`
     padding : 7px 0;
     width : 196px;
     text-align : center;
+    cursor: pointer;
+
     
 `;
 

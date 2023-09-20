@@ -28,6 +28,7 @@ export const ExitBtn = styled.button`
   color: white;
   width: 15px;
   height: 15px;
+  cursor: pointer;
 `;
 export const TitleText = styled.div`
   font-size: 25px;
@@ -47,6 +48,8 @@ export const AddBtn = styled.button`
     background-color : #484AAD;
     color : white;
     padding : 5px;
+    cursor: pointer;
+
 
 `;
 export const TodoInput = styled.input`
