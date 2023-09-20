@@ -31,7 +31,6 @@ export function AddImageDragDrop() {
       <div>
         <img
           src={file.preview}
-          // Revoke data uri after image is loaded
           onLoad={() => {
             URL.revokeObjectURL(file.preview);
           }}
