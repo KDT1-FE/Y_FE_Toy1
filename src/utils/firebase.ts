@@ -95,7 +95,7 @@ export const readUser = async (collectionName: string, userName: string) => {
             }
         }
     } catch (error) {
-        console.error('타임로그 생성 실패!', error);
+        console.error(error);
         throw error;
     }
 };
@@ -134,6 +134,24 @@ export const updateUserImg = async (collectionName: string, userName: string, up
     const userRef = doc(firestore, collectionName, userName);
     try {
         const pushTimeLog = await updateDoc(userRef, { imageURL: value });
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+interface themeType {
+    navBar: string;
+    sideMenu: string;
+    text: string;
+    activeColor1: string;
+    activeColor2: string;
+    badge: string;
+}
+export const updateUserTheme = async (collectionName: string, userName: string, updateData: themeType) => {
+    const value = updateData;
+    const userRef = doc(firestore, collectionName, userName);
+    try {
+        const pushTimeLog = await updateDoc(userRef, { Theme: value });
     } catch (error) {
         console.error(error);
         throw error;

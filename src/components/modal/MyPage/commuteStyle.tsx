@@ -2,22 +2,12 @@ import styled from 'styled-components';
 
 export const CommuteModalBox = styled.div`
     width: 100%;
-    height: 30%;
+    height: 40%;
     min-height: 240px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
 `;
-
-// export const ModalWall = styled.div`
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     width: 100vw;
-//     height: 100vh;
-//     z-index: 100;
-//     background-color: rgba(0, 0, 0, 0.6);
-// `;
 
 export const CloseBtn = styled.button`
     width: 35px;
@@ -49,13 +39,6 @@ export const ModalHeader = styled.div`
     color: #fff;
 `;
 
-export const Dday = styled.span`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #000;
-`;
-
 export const ShowTimerOn = styled.div<{ value: boolean }>`
     visibility: ${(value) => (value.value ? 'visible' : 'hidden')};
     position: absolute;
@@ -74,7 +57,7 @@ export const ShowTimerOn = styled.div<{ value: boolean }>`
 
 export const TimeNowbox = styled.div`
     width: 100%;
-    height: 80%;
+    padding: 10% 0;
     color: #000;
     display: flex;
     flex-direction: column;

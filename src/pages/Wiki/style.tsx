@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 
 export const WikiContainer = styled.div`
     display: flex;
@@ -30,7 +30,7 @@ export const EditCompletedButton = styled.div`
     margin-left: 10px;
     font-weight: 500;
     font-size: 24px;
-    color: var(--text);
+    color: ${(props) => props.theme.text};
 `;
 export const BeforeEdit = styled.div`
     display: absolute;
@@ -41,7 +41,7 @@ export const BeforeEdit = styled.div`
     margin-top: 20px;
     font-weight: 500;
     font-size: 24px;
-    color: var(--text);
+    color: ${(props) => props.theme.text};
 `;
 export const MDEditBtn = styled.button`
     margin: 0;

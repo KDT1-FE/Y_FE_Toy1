@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
 import { HeaderComponent, TitleAnchor, AnchorContainer, ListAnchor, RightAnchorContainer } from './style';
 import { useRecoilState } from 'recoil';
-import { UserId, TimeLog, TimerOn } from '../../utils/recoil';
+import { UserId, TimeLog, TimerOn, ThemeChange, CurrentTheme } from '../../utils/recoil';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { createTimelog } from '../../utils/firebase';
+import { createTimelog, readUser } from '../../utils/firebase';
 import { CreateDay, CreateTime } from '../../components/modal/Hooks/WhatTime';
 import MyPageBtn from '../../components/modal/MyPage/MyPageBtn';
 
 const Header: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
-
     const navigate = useNavigate();
     const { pathname } = useLocation();
 
@@ -20,6 +19,8 @@ const Header: React.FC = () => {
 
     const [timerOn, setTimerOn] = useRecoilState<boolean>(TimerOn);
     const [timeLog, setTimeLog] = useRecoilState(TimeLog);
+    const [currentTheme, setCurrentTheme] = useRecoilState(CurrentTheme);
+
     // 페이지 전환 시 세션 스토리지에서 타임로그 현재 상태 받아오기
 
     useEffect(() => {
@@ -29,6 +30,13 @@ const Header: React.FC = () => {
             const sessionTimelog = sessionStorage.getItem('timelog');
             setTimeLog(sessionTimelog ? sessionTimelog : '');
             console.log(userId);
+        }
+        if (localStorage.getItem('theme')) {
+            const userTheme = localStorage.getItem('theme');
+            if (userTheme) {
+                const currentTheme = JSON.parse(userTheme);
+                setCurrentTheme(currentTheme.navBar);
+            }
         }
     }, [pathname]);
     // 퇴실버튼을 누르거나 로그아웃 시 firestore에 데이터 전송

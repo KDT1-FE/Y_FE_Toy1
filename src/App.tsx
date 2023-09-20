@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import GlobalStyle from './GlobalStyle';
 import Header from './common/Header';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
@@ -13,10 +13,30 @@ import RecruitmentPost from './pages/RecruitmentPost';
 import RecruitmentEdit from './pages/RecruitmentEdit';
 import { ThemeProvider } from 'styled-components';
 import { useRecoilState } from 'recoil';
-import { ThemeChange } from './utils/recoil';
+import { ThemeChange, UserId } from './utils/recoil';
+import { readUser } from './utils/firebase';
 
 const App: React.FC = () => {
     const [theme, setTheme] = useRecoilState(ThemeChange);
+    const [userId, setUserId] = useRecoilState(UserId);
+
+    useEffect(() => {
+        const localtheme = localStorage.getItem('theme');
+        if (localtheme) {
+            setTheme(JSON.parse(localtheme));
+        } else {
+            const user = async () => {
+                const userData = await readUser('user', userId);
+                if (userData) {
+                    const userTheme = userData['Theme'];
+                    setTheme(userTheme);
+                    localStorage.setItem('theme', JSON.stringify(userTheme));
+                }
+            };
+            user();
+        }
+    }, []);
+
     return (
         <ThemeProvider theme={theme}>
             <GlobalStyle />

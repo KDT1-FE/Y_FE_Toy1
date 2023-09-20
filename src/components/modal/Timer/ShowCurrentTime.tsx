@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Now, Timebox } from './style';
 import { CreateTime } from '../Hooks/WhatTime';
 import { TimeNow, TimeNowbox } from '../MyPage/commuteStyle';
 

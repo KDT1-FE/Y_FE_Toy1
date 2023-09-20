@@ -84,8 +84,12 @@ const SidebarGallery: React.FC<SidebarGalleryProps> = ({ onKeyClick }) => {
                                     setSubChannel(item2);
                                 }}
                                 style={{
-                                    color: isSubChannelActive(item.docId, item2) ? '#ffffff' : '',
-                                    backgroundColor: isSubChannelActive(item.docId, item2) ? 'var(--active-item)' : '',
+                                    color: isSubChannelActive(item.docId, item2)
+                                        ? '${(props) => props.theme.text}'
+                                        : '',
+                                    backgroundColor: isSubChannelActive(item.docId, item2)
+                                        ? '${(props) => props.theme.activeColor1}'
+                                        : '',
                                     borderRadius: isSubChannelActive(item.docId, item2) ? '5px' : '',
                                     marginRight: isSubChannelActive(item.docId, item2) ? '10px' : '',
                                     fontWeight: isSubChannelActive(item.docId, item2) ? 'bold' : '',

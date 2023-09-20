@@ -55,7 +55,7 @@ export default function MyPageBtn() {
                 }
             }}
         >
-            <ModalBtnImg src={userImg}></ModalBtnImg>;
+            <ModalBtnImg src={userImg}></ModalBtnImg>
             {showMyPage && userId.length > 0 && <MyPageModal handleMyPage={handleMyPage} />}
         </ModalBtn>
     );

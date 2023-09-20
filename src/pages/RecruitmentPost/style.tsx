@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 
 export const RecruitmentPostContainer = styled.div`
     padding-top: 72px;

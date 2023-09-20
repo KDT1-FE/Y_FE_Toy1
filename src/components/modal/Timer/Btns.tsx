@@ -1,5 +1,4 @@
 import React from 'react';
-import { OnBtn, OffBtn, BtnBox } from './style';
 import { useRecoilState } from 'recoil';
 import { TimeLog, TimerOn, UserId } from '../../../utils/recoil';
 import { CreateTime, CreateDay } from '../Hooks/WhatTime';
