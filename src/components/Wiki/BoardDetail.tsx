@@ -6,6 +6,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
 import MdEditor from '@uiw/react-md-editor';
 import { selectUserData } from 'data/getUser';
+import Test from './Test';
 type Board = {
   name: string;
   content: string;
@@ -175,69 +176,89 @@ export function BoardDetail(props: any) {
   }, [isChange]);
 
   return (
-    <div className="board">
-      <div className="board__header">
-        <div className="board__profile">
-          <p className="profile__name">{boardInfo.name}</p>
-          <p className="profile__time">{boardInfo.time}</p>
-        </div>
-        {boardInfo.uid === sessionStorage.uid && (
-          <div>
-            <Link to="./edit">
-              <p>글 수정</p>
-            </Link>
-            <button onClick={handleDelete}>글 삭제</button>
-          </div>
-        )}
-      </div>
-      <div>
-        <h1 className="board__title">{boardInfo.title}</h1>
-        <MdEditor.Markdown
-          className="board__content"
-          source={boardInfo.content}
-          data-color-mode="light"
-        />
-      </div>
-      <form onSubmit={handleSubmit}>
-        <input
-          required
-          type="text"
-          placeholder="여러분의 생각을 자유롭게 달아주세요."
-          value={commentContent}
-          onChange={(e) => {
-            setCommentContent(e.target.value);
-          }}
-        />
-        <button type="submit">댓글 쓰기</button>
-      </form>
-      {boardInfo.comment.map((commentData: any, index: number) => (
-        <div key={index} className="comment">
-          <div className="comment__header">
-            <div className="profile">
-              <div className="user__data">
-                <p>{commentData.nickname}</p>
-                <p>{commentData.time}</p>
-              </div>
-            </div>
-            <div className="comment__content__box">
-              <p className="comment__content">{commentData.content}</p>
-              {commentData.uid === sessionStorage.uid && (
-                <div className="comment__state__box">
-                  <button onClick={handleClickModify}>수정</button>
-                  <button onClick={handleDeleteComment}>삭제</button>
-                </div>
-              )}
-            </div>
+    <main className="container">
+      <header className="py-5 text-center">
+        <h1>{boardInfo.title}</h1>
+      </header>
 
-            <div className="input__edit__box hide">
-              <input type="text" className="input--mod" />
-              <button onClick={handleEditConfirm}>수정</button>
-              <button onClick={handleCancelEdit}>취소</button>
+      <div className="row g-5">
+        <section className="col-2 order-md-last">
+          {boardInfo.uid === sessionStorage.uid && (
+            <div>
+              
+              <button className="btn btn-primary" onClick={()=>{navigate('./edit')}}>글 수정</button>
+              
+              <button className="btn btn-primary" onClick={handleDelete}>
+                글 삭제
+              </button>
             </div>
-            <p className="info__hide">{commentData.id}</p>
-          </div>
-        </div>
-      ))}
-    </div>
+          )}
+          <aside>
+            <p>{boardInfo.name}</p>
+            <p>
+              <time dateTime="2022-01-01T00:00:00">{boardInfo.time}</time>
+            </p>
+          </aside>
+        </section>
+
+        <article id="article-content" className="col-10">
+          <MdEditor.Markdown
+            className="board__content"
+            source={boardInfo.content}
+            data-color-mode="light"
+          />
+        </article>
+      </div>
+      <div className="row 9-5">
+        <section className="comment">
+          <form className="row g-12" onSubmit={handleSubmit}>
+            <div className="col-11">
+              <label htmlFor="articleComment" hidden>
+                댓글
+              </label>
+              <textarea
+                value={commentContent}
+                onChange={(e) => {
+                  setCommentContent(e.target.value);
+                }}
+                className="form-control"
+                id="articleComment"
+                placeholder="댓글 쓰기.."
+                rows={3}
+                required
+              ></textarea>
+            </div>
+            <div className="col-1">
+              <label htmlFor="comment-submit" hidden>
+                댓글 쓰기
+              </label>
+              <button
+                className="btn btn-primary"
+                id="comment-submit"
+                type="submit"
+              >
+                쓰기
+              </button>
+            </div>
+          </form>
+
+          <ul id="article-comments" className="row col-md-10 col-lg-8 pt-3">
+            {boardInfo.comment.map((commentData: any, index: number) => (
+              <li key="index">
+                <div className="row">
+                  <div className="row col-md-10 col-lg-9">
+                    <strong>{commentData.nickname}</strong>
+                    <small>
+                      <time>{commentData.time}</time>
+                    </small>
+                    <p>{commentData.content}</p>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    </main>
   );
 }

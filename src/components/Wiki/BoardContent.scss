@@ -1,29 +1,4 @@
-.post__title {
-    font-weight: 600;
-    font-size: 18px;
-}
-
-.post__content {
-    color: gray;
-    font-size: 14px;
-}
-
-.post__time, .post__name {
-    font-size: 14px;
-}
-
-.post__name {
-    margin-right: 5px;
-}
-
-.post {
-    border-top : 1px solid grey;
-    border-bottom: 1px solid grey;
-    max-width: 840px;
-    max-height: 173px;
+.board__content {
+    width: 70%;
     margin: auto;
-}
-
-.post__info {
-    margin-bottom: 5px;
 }
