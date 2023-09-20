@@ -45,9 +45,9 @@ const LoginPage = (): JSX.Element => {
       localStorage.setItem('userName', userName);
 
       dispatch(login({ userName, userEmail }));
-    });
 
-    navigate('/');
+      navigate('/');
+    });
   };
 
   return (
