@@ -13,6 +13,7 @@ import Login from '../pages/Login';
 import Join from '../pages/Join';
 import Detail from '../pages/detail/Detail';
 import Contact from '../pages/contact/Contact';
+import Notice from '../pages/Notice';
 
 export const router = createBrowserRouter([
   {
@@ -100,6 +101,10 @@ export const router = createBrowserRouter([
       {
         path: 'contact',
         element: <Contact />,
+      },
+      {
+        path: 'notice/:index',
+        element: <Notice />,
       },
     ],
   },

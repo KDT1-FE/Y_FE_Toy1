@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { db } from '../common/config';
 import { doc, getDoc } from 'firebase/firestore';
+import { useParams } from 'react-router-dom';
 
 type NoticeData = {
   title?: string, 
@@ -16,6 +17,7 @@ export default function PostBox() {
   const [date, setDate] = useState<string>('');
   const [imageUrl, setImageUrl] = useState<string>('');
   const [contents, setContents] = useState<string>('');
+  const { index } = useParams();
 
   useEffect(() => {
     const fetchData = async (noticeId: string) => {
@@ -36,7 +38,7 @@ export default function PostBox() {
       } 
     }
 
-    fetchData('1');
+    fetchData(index!);
   }, []);
 
   useEffect(() => {
@@ -89,7 +91,7 @@ const Post = styled.div`
   width: 85%;
   height: auto;
   padding: 24px 32px;
-  margin: 1.5rem 0;
+  margin: 2rem 0;
   border-radius: 12px;
   border: 1px solid #E8E8E8;
 `;
