@@ -31,12 +31,19 @@ function NoticeList() {
   };
 
   // 검색 함수
-  const onClickSearch = (): void => {
+  const formSearch = (): void => {
     const searchList = dataFetch?.filter((el: any) => el.subject.includes(keyword));
     if (searchList !== undefined) setNoticeList(searchList);
     else setNoticeList(noticeList);
 
     setPage(1);
+  };
+
+  // Enter키로 검색하기 함수
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (event.key === 'Enter') {
+      formSearch();
+    }
   };
 
   useEffect(() => {
@@ -46,8 +53,13 @@ function NoticeList() {
   return (
     <S.Wrapper>
       <S.SearchDiv>
-        <S.SearchInput onChange={onChangeKeywords} type='text' placeholder='공지사항 제목을 입력해주세요.' />
-        <S.SearchButton onClick={onClickSearch} type='button'>
+        <S.SearchInput
+          onChange={onChangeKeywords}
+          onKeyDown={handleKeyDown}
+          type='text'
+          placeholder='공지사항 제목을 입력해주세요.'
+        />
+        <S.SearchButton onClick={formSearch} type='button'>
           검색하기
         </S.SearchButton>
       </S.SearchDiv>
