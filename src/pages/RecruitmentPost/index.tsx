@@ -16,6 +16,7 @@ const RecruitmentPost: React.FC = () => {
     const [categoryToggle, setCategoryToggle] = useState(true);
     const [userData, setUserData] = useState<any>({});
     const [peopleValue, setPeopleValue] = useState(1);
+    const [categoryViewToggle, setCategoryViewToggle] = useState(false);
 
     const min = 1;
     const max = 50;
@@ -24,6 +25,7 @@ const RecruitmentPost: React.FC = () => {
 
     useEffect(() => {
         if (!userId) {
+            alert('로그인 후 사용해주세요');
             navigate('/recruitment');
         }
         getUserData(userId)
@@ -67,6 +69,8 @@ const RecruitmentPost: React.FC = () => {
                 recruitValued: true,
                 comment: [],
                 time: updated_at_timestamp,
+                editValued: false,
+                editTime: updated_at_timestamp,
             };
             console.log(value);
 
@@ -78,6 +82,9 @@ const RecruitmentPost: React.FC = () => {
 
     const handleCategory = (e: any) => {
         e.preventDefault();
+        if (!categoryViewToggle) {
+            setCategoryViewToggle(true);
+        }
         if (e.target.value == 'study') {
             setCategoryToggle(true);
         } else {
@@ -103,28 +110,32 @@ const RecruitmentPost: React.FC = () => {
                             <MenuItem value="project">프로젝트</MenuItem>
                             <MenuItem value="study">스터디</MenuItem>
                         </Select>
-                        {categoryToggle ? (
-                            <Select
-                                labelId="category"
-                                name="category"
-                                style={{ marginLeft: '10px', width: '150px', height: '40px' }}
-                            >
-                                <InputLabel id="category">분류</InputLabel>
-                                <MenuItem value="코딩테스트">코딩테스트</MenuItem>
-                                <MenuItem value="CS">CS</MenuItem>
-                                <MenuItem value="면접">면접</MenuItem>
-                                <MenuItem value="알고리즘">알고리즘</MenuItem>
-                            </Select>
+                        {categoryViewToggle ? (
+                            categoryToggle ? (
+                                <Select
+                                    labelId="category"
+                                    name="category"
+                                    style={{ marginLeft: '10px', width: '150px', height: '40px' }}
+                                >
+                                    <InputLabel id="category">분류</InputLabel>
+                                    <MenuItem value="코딩테스트">코딩테스트</MenuItem>
+                                    <MenuItem value="CS">CS</MenuItem>
+                                    <MenuItem value="면접">면접</MenuItem>
+                                    <MenuItem value="알고리즘">알고리즘</MenuItem>
+                                </Select>
+                            ) : (
+                                <Select
+                                    labelId="category"
+                                    name="category"
+                                    style={{ marginLeft: '10px', width: '150px', height: '40px' }}
+                                >
+                                    <InputLabel id="category">분류</InputLabel>
+                                    <MenuItem value="토이프로젝트">토이프로젝트</MenuItem>
+                                    <MenuItem value="연계프로젝트">연계프로젝트</MenuItem>
+                                </Select>
+                            )
                         ) : (
-                            <Select
-                                labelId="category"
-                                name="category"
-                                style={{ marginLeft: '10px', width: '150px', height: '40px' }}
-                            >
-                                <InputLabel id="category">분류</InputLabel>
-                                <MenuItem value="토이프로젝트">토이프로젝트</MenuItem>
-                                <MenuItem value="연계프로젝트">연계프로젝트</MenuItem>
-                            </Select>
+                            ''
                         )}
                     </PostBox>
                     <PostBox>

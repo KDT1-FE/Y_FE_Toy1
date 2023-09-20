@@ -1,20 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { UserId } from '../../utils/recoil';
-import {
-    PostContainer,
-    RecruitmentPostContainer,
-    PostForm,
-    PostBox,
-    PostName,
-    PostBtn,
-    PostH,
-    PostTextarea,
-} from './style';
+import { PostContainer, RecruitmentPostContainer, PostForm, PostBox, PostBtn, PostH, PostTextarea } from './style';
 import { updateRecruitment } from '../../utils/firebase';
 import { useNavigate } from 'react-router-dom';
 import { serverTimestamp } from 'firebase/firestore';
-import { getUserName } from '../../utils/firebase';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
@@ -26,9 +16,7 @@ const RecruitmentEdit: React.FC = () => {
     const [recruitmentData, setRecruitmentData] = useRecoilState<any>(RecruitmentData);
 
     const [categoryToggle, setCategoryToggle] = useState(true);
-    const [userName, setUserName] = useState('');
     const [peopleValue, setPeopleValue] = useState(recruitmentData.people);
-
     const min = 1;
     const max = 50;
 
@@ -45,16 +33,6 @@ const RecruitmentEdit: React.FC = () => {
         if (channel == 'project') {
             setCategoryToggle(false);
         }
-        console.log(1);
-
-        getUserName(userId)
-            .then((result) => {
-                setUserName(result);
-            })
-            .catch((error) => {
-                // 에러 핸들링
-                console.error('Error fetching data:', error);
-            });
     }, [channel, path]);
 
     console.log(recruitmentData);
@@ -87,9 +65,11 @@ const RecruitmentEdit: React.FC = () => {
                 people: Number(e.target.people.value),
                 recruitValued: true,
                 comment: recruitmentData.comment,
-                time: updated_at_timestamp,
+                time: recruitmentData.time,
                 name: recruitmentData.name,
                 imageURL: recruitmentData.imageURL,
+                editValued: true,
+                editTime: updated_at_timestamp,
             };
 
             updateRecruitment(channel, path, value);
@@ -99,6 +79,7 @@ const RecruitmentEdit: React.FC = () => {
 
     const handleCategory = (e: any) => {
         e.preventDefault();
+
         if (e.target.value == 'study') {
             setCategoryToggle(true);
         } else {
@@ -115,10 +96,9 @@ const RecruitmentEdit: React.FC = () => {
                         <Select
                             defaultValue={recruitmentData.channel}
                             labelId="bigCategory"
-                            label="Age"
                             name="recruitmentType"
                             onChange={handleCategory}
-                            style={{ width: '150px' }}
+                            style={{ width: '150px', height: '40px' }}
                             disabled
                         >
                             <InputLabel id="bigCategory">대분류</InputLabel>
@@ -134,7 +114,7 @@ const RecruitmentEdit: React.FC = () => {
                                 labelId="category"
                                 name="category"
                                 defaultValue={recruitmentData.category}
-                                style={{ marginLeft: '10px', width: '150px' }}
+                                style={{ marginLeft: '10px', width: '150px', height: '40px' }}
                             >
                                 <InputLabel id="category">분류</InputLabel>
                                 <MenuItem value="코딩테스트" selected>
@@ -149,7 +129,7 @@ const RecruitmentEdit: React.FC = () => {
                                 labelId="category"
                                 name="category"
                                 defaultValue={recruitmentData.category}
-                                style={{ marginLeft: '10px', width: '150px' }}
+                                style={{ marginLeft: '10px', width: '150px', height: '40px' }}
                             >
                                 <InputLabel id="category">분류</InputLabel>
                                 <MenuItem value="토이프로젝트">토이프로젝트</MenuItem>
@@ -162,7 +142,6 @@ const RecruitmentEdit: React.FC = () => {
                         <TextField
                             defaultValue={recruitmentData.people}
                             id="standard-basic"
-                            label="모집 인원"
                             variant="standard"
                             type="number"
                             name="people"
@@ -179,7 +158,6 @@ const RecruitmentEdit: React.FC = () => {
                             style={{ width: '150px' }}
                         />
                     </PostBox>
-                    <PostName>{userName}</PostName>
                     <PostBox>
                         <PostH>제목</PostH>
                         <TextField
@@ -195,7 +173,7 @@ const RecruitmentEdit: React.FC = () => {
                         <PostTextarea
                             name="content"
                             placeholder="내용을 입력해주세요."
-                            style={{ width: '100%', minHeight: '500px' }}
+                            style={{ width: '100%' }}
                             defaultValue={recruitmentData.content}
                         />
                     </PostBox>

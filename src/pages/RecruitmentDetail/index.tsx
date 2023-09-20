@@ -27,6 +27,7 @@ import {
     CommentCreateWrapper,
     CommentInputWrapper,
     CommentBtn,
+    DeleteBtnWrapper,
 } from './style';
 import CommentItem from './CommentItem';
 import {
@@ -42,6 +43,7 @@ import { useNavigate } from 'react-router-dom';
 import { RecruitmentData } from '../../utils/recoil';
 import { collection, serverTimestamp, getDocs, Firestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { firestore } from '../../utils/firebase';
+import MDEditor from '@uiw/react-md-editor';
 
 const RecruitmentDetail: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
@@ -97,6 +99,10 @@ const RecruitmentDetail: React.FC = () => {
     const handleCreateCommentSubmit = async (e: any) => {
         e.preventDefault();
 
+        if (!userId) {
+            alert('로그인 후 사용해주세요');
+            return;
+        }
         // e.target 및 속성의 존재 여부 확인
         if (e.target && e.target.uid && e.target.content && e.target.uid.value && e.target.content.value) {
             const fullDate = new Date();
@@ -155,7 +161,7 @@ const RecruitmentDetail: React.FC = () => {
         console.log(data);
         const value = data;
         value.recruitValued = !value.recruitValued;
-        value.time = updated_at_timestamp;
+
         console.log(value);
 
         updateRecruitment(channel, path, value);
@@ -170,8 +176,10 @@ const RecruitmentDetail: React.FC = () => {
                             <DeleteModalTitle>게시글 삭제</DeleteModalTitle>
                             <DeleteCloseButton onClick={handleDeleteModal}>x</DeleteCloseButton>
                             <DeleteText>정말 삭제하시겠습니까?</DeleteText>
-                            <DeleteCreateButton onClick={handleDeleteRcruitment}>삭제</DeleteCreateButton>
-                            <DeleteFallbackButton onClick={handleDeleteModal}>나가기</DeleteFallbackButton>
+                            <DeleteBtnWrapper>
+                                <DeleteCreateButton onClick={handleDeleteRcruitment}>삭제</DeleteCreateButton>
+                                <DeleteFallbackButton onClick={handleDeleteModal}>나가기</DeleteFallbackButton>
+                            </DeleteBtnWrapper>
                         </DeleteModal>
                     </DeleteModalWrapper>
                 </DeleteModalContainer>
@@ -192,7 +200,11 @@ const RecruitmentDetail: React.FC = () => {
                     </ContentHeader>
                     <ContentTitleWrapper>
                         <h2>{data.title}</h2>
-                        <p>{new Date(data.time?.toMillis()).toLocaleString()}</p>
+                        <p>
+                            {data.editValued
+                                ? new Date(data.editTime?.toMillis()).toLocaleString() + ' (수정됨)'
+                                : new Date(data.time?.toMillis()).toLocaleString()}
+                        </p>
                         {userId == data.uid ? (
                             <BtnWrapper>
                                 {data.recruitValued ? <Btn onClick={handleEdit}>수정</Btn> : ''}
@@ -205,9 +217,29 @@ const RecruitmentDetail: React.FC = () => {
                     </ContentTitleWrapper>
                     <ContentSub>
                         <p>분야 : {data.category}</p>
-                        <p>인원 : {data.people}</p>
+                        <p>인원 : {data.people} 명</p>
+                        <p>댓글 : {data.comment.length} 개</p>
                     </ContentSub>
-                    <Content>{data.content}</Content>
+                    {/* <MDEditor.Markdown
+                        source={data.content}
+                        style={{
+                            padding: '20px',
+                            width: '100%',
+                            backgroundColor: '#fff',
+                            color: 'black',
+                        }}
+                    /> */}
+                    <Content>
+                        {data.content?.split('\n').map((line: string) => {
+                            //this.props.data.content: 내용
+                            return (
+                                <span>
+                                    {line}
+                                    <br />
+                                </span>
+                            );
+                        })}
+                    </Content>
 
                     {userId == data.uid ? (
                         data.recruitValued ? (

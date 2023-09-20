@@ -68,6 +68,6 @@ export const PostBtn = styled.button`
     background-color: var(--active-item);
 
     &:hover {
-        background-color: skyblue;
+        cursor: pointer;
     }
 `;

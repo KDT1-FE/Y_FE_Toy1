@@ -81,7 +81,7 @@ const CommentItem: React.FC<CommentProps> = (props) => {
             <CommentName>
                 {props.comment.uid == data.uid ? <span style={{ color: 'blue' }}>글쓴이</span> : props.comment.name}
             </CommentName>
-            <CommentForm id={'commentForm' + props.i} onSubmit={handleDeleteCommentSubmit}>
+            <CommentForm id={'commentForm' + props.i} onSubmit={handleDeleteCommentSubmit} style={{ margin: '0' }}>
                 <input defaultValue={props.comment.uid} name="uid" style={{ display: 'none' }} disabled />
                 <CommentContent defaultValue={props.comment.content} name="content" disabled />
                 <CommentTime defaultValue={props.comment.time} name="time" disabled />

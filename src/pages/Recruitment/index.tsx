@@ -153,7 +153,11 @@ const Post: React.FC<{ data: any; id: string; index: number; lastIndex: number; 
             </div>
             <Title>{data.title}</Title>
             <div style={{ display: 'flex' }}>
-                <Time>{new Date(data.time?.toMillis()).toLocaleString()}</Time>
+                <Time>
+                    {data.editValued
+                        ? new Date(data.editTime?.toMillis()).toLocaleString() + ' (수정됨)'
+                        : new Date(data.time?.toMillis()).toLocaleString()}
+                </Time>
             </div>
         </PostWrapper>
     </Link>
