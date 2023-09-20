@@ -102,7 +102,7 @@ function TimerModal(props: TimerModalProps) {
                 <label htmlFor="username">
                   <input
                     type="text"
-                    id="username"
+                    id="UserName"
                     value={username}
                     onChange={e => setUsername(e.target.value)}
                     placeholder="이름을 입력하세요"
