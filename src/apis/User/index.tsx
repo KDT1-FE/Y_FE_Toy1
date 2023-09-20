@@ -13,6 +13,7 @@ export const login = async () => {
     await setPersistence(auth, browserSessionPersistence);
     await signInWithPopup(auth, provider);
   } catch (error) {
+    console.log(error);
     alert(ERROR_ALERT);
   }
 };
