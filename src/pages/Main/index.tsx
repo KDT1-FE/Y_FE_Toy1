@@ -1,9 +1,11 @@
-// import Lottie from 'lottie-react';
 import batteryLottie from 'assets/lottieJSON/battery.json';
-import About from 'components/About';
 import Carousel from 'components/Carousel';
 import MainLottie from 'components/Common/MainLottie';
 import CommuteList from 'components/CommuteList';
+import AboutText from 'components/Section/aboutText';
+import MainNotice from 'components/Section/mainNotice';
+import MainAbout from 'components/Section/mainAbout';
+import MainWorkTime from 'components/Section/mainWorkTime';
 import { media } from 'styles/media';
 import styled from 'styled-components';
 
@@ -11,26 +13,15 @@ function Main() {
   return (
     <>
       <StyledNoticeContainer>
-        <StyledTitleTextBox>
-          <StyledTitleText>Notice</StyledTitleText>
-          <StyledTitleSeeText>Wiki 공지사항 한눈에 보기</StyledTitleSeeText>
-        </StyledTitleTextBox>
-        <StyledCarouselBox>
-          <Carousel />
-        </StyledCarouselBox>
+        <MainNotice />
+        <Carousel />
       </StyledNoticeContainer>
       <StyledAboutContainer>
-        <StyledTitleTextBox>
-          <StyledTitleText>About</StyledTitleText>
-          <StyledTitleSeeText>Wiki 소개</StyledTitleSeeText>
-        </StyledTitleTextBox>
-        <About />
+        <MainAbout />
+        <AboutText />
       </StyledAboutContainer>
       <StyledBottomWrapper>
-        <StyledTitleTextBox>
-          <StyledWorkTimeText>업무 기록</StyledWorkTimeText>
-          <StyledWorkTimeSmallText>업무 시간기록</StyledWorkTimeSmallText>
-        </StyledTitleTextBox>
+        <MainWorkTime />
         <StyledHrLine />
         <div>
           <CommuteList />
@@ -56,41 +47,6 @@ const StyledNoticeContainer = styled.div`
   margin-top: 3rem;
   height: 100%
 `)}
-`;
-
-const StyledTitleTextBox = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-`;
-
-const StyledTitleText = styled.span`
-  font-size: 3rem;
-  font-weight: 500;
-
-  ${media.tablet(`
-  display: none;
-`)}
-`;
-
-const StyledTitleSeeText = styled.span`
-  font-size: 1rem;
-  font-weight: 400;
-  margin-left: 1rem;
-  margin-bottom: 0.5rem;
-
-  ${media.tablet(`
-  font-size: .8rem
-`)}
-`;
-
-const StyledCarouselBox = styled.div`
-  display: flex;
-  justify-content: center;
-  width: auto;
-  background: none;
-  margin-top: 2rem;
 `;
 
 const StyledAboutContainer = styled.div`
@@ -120,27 +76,6 @@ const StyledBottomWrapper = styled.div`
     margin-top: 3rem;
     height: 100%;
   `)}
-`;
-
-const StyledWorkTimeText = styled.span`
-  font-size: 2rem;
-  font-weight: 500;
-  margin-left: 1rem;
-
-  ${media.tablet(`
-  display: none;
-`)}
-`;
-
-const StyledWorkTimeSmallText = styled.span`
-  font-size: 0.8rem;
-  font-weight: 400;
-  margin-left: 1rem;
-  margin-bottom: 0.5rem;
-
-  ${media.tablet(`
-  font-size: .8rem
-`)}
 `;
 
 const StyledHrLine = styled.hr`
