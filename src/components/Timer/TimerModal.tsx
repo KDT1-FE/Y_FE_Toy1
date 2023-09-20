@@ -12,6 +12,8 @@ import {
   getRankingDocsToArr,
   saveRankingInBrowser,
   RANKING_URL,
+  getTimeFromBrowser,
+  calculateTimer,
 } from "../../utils/timerAndRanking";
 
 function TimerModal(props: TimerModalProps) {
@@ -37,10 +39,15 @@ function TimerModal(props: TimerModalProps) {
   const [studyDuration, setStudyDuration] = useState<string>("");
   const [breakStartTime, setBreakStartTime] = useState<number | null>(null);
   const [username, setUsername] = useState<string>("");
+  const studyDurationFromSession = getTimeFromBrowser();
 
   const handleCloseModal = () => {
     onClose();
   };
+
+  const timeArray = studyDurationFromSession
+    ? calculateTimer(studyDurationFromSession)
+    : null;
 
   if (hidden) {
     return null;
@@ -95,7 +102,12 @@ function TimerModal(props: TimerModalProps) {
             timeInSeconds={timeInSeconds}
           />
 
-          <div className="StudyDurationContainer">{studyDuration}</div>
+          <div className="StudyDurationContainer">
+            총 공부 시간 :
+            {timeArray
+              ? `${timeArray[0]}시 ${timeArray[1]}분 ${timeArray[2]}초`
+              : "시간을 불러올 수 없습니다."}
+          </div>
           {!isRunning && studyDuration && (
             <div className="SubmitSection">
               <div className="input">

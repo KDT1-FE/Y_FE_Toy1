@@ -37,7 +37,7 @@ function Controls(props: ControlsProps) {
     )}:${addZero(currentDate.getSeconds())}`;
   };
 
-  // 타이머 초기화를 위한 핸들러
+  // 타이머 초기화
   const resetTimer = () => {
     setIsRunning(false);
     setStartTime(null);
@@ -47,9 +47,10 @@ function Controls(props: ControlsProps) {
     setIsFirstPlay(true);
     setPlayTime(null);
     setStatusText(null);
+    setStudyDuration("00:00:00");
   };
 
-  // 타이머 시작, 재시작을 위한 핸들러
+  // 타이머 시작, 재시작
   const handlePlayButton = () => {
     if (isRunning || onBreak) {
       return;
@@ -68,7 +69,7 @@ function Controls(props: ControlsProps) {
     setStatusText("공부 중");
   };
 
-  // 타이머 중지, 학습 시간 저장을 위한 핸들러
+  // 타이머 중지, 학습 시간 저장
   const handleStopButton = () => {
     if ((isRunning || onBreak) && startTime !== null) {
       setIsRunning(false);
@@ -93,7 +94,7 @@ function Controls(props: ControlsProps) {
     setStatusText(null);
   };
 
-  // 휴식 모드 전환, 휴식 중 타이머 재시작을 위한 핸들러
+  // 휴식 모드 전환, 휴식 중 타이머 재시작
   const handleBreakButton = () => {
     if (isRunning) {
       setIsRunning(false);
@@ -128,9 +129,7 @@ function Controls(props: ControlsProps) {
           />
         </div>
       </div>
-      {/* </div> */}
 
-      {/* <div className="BreakResumeContainer"> */}
       <button
         type="button"
         className={onBreak ? "ResumeButton" : "BreakButton"}
@@ -142,7 +141,6 @@ function Controls(props: ControlsProps) {
         Reset
       </button>
     </div>
-    // </div>
   );
 }
 

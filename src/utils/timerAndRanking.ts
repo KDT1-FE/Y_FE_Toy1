@@ -115,3 +115,11 @@ export const saveRankingInBrowser = (data: object[]) => {
 
 // 랭킹 URL 상수
 export const RANKING_URL = "https://techschool-wiki.web.app/ranking";
+
+export const getTimeFromBrowser = (): number | null => {
+  const storedTime = sessionStorage.getItem("time");
+  if (storedTime !== null) {
+    return parseInt(storedTime, 10);
+  }
+  return null;
+};
