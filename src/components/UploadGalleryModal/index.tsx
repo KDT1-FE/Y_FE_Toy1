@@ -28,7 +28,9 @@ function UploadGallery({ setIsLoading }: IUploadGalleryProps) {
     event: React.ChangeEvent<HTMLInputElement & EventTarget>,
   ) => {
     event.preventDefault();
-
+    const files = event.target.files;
+    if (!files) return null;
+    if (files.length === 0) return;
     if (event.currentTarget.files !== null) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -67,15 +69,13 @@ function UploadGallery({ setIsLoading }: IUploadGalleryProps) {
   return (
     <>
       <StyledGalleryContainer>
-        {searchParams.size > 0 && (
-          <StyledButton
-            onClick={() => {
-              setModalOpen(true);
-            }}
-          >
-            + 사진 등록하기
-          </StyledButton>
-        )}
+        <StyledButton
+          onClick={() => {
+            setModalOpen(true);
+          }}
+        >
+          + 사진 등록하기
+        </StyledButton>
       </StyledGalleryContainer>
       <CustomModal
         isOpen={modalOpen}
