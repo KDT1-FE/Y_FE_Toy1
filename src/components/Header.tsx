@@ -64,21 +64,14 @@ const Header = () => {
           <li>
             {user?.displayName ? (
               <>
-                <div className="header__user-name">
-                  <p
-                    onClick={() => {
-                      setDisplayUserInfo((prev) => !prev);
-                    }}
-                  >
-                    {sliceStr(user.displayName, 7)}님
-                  </p>
-                  <div className="header__user-info">
-                    {displayUserInfo ? (
-                      <UserInfo handlerLogout={handlerLogout} user={user} />
-                    ) : (
-                      <></>
-                    )}
-                  </div>
+                <div className='header__user-name' >
+                    <p onClick={()=>{setDisplayUserInfo(prev=>!prev)}}>{sliceStr(user.displayName, 7)}님</p>
+                    <div className='header__user-info'>
+                      {displayUserInfo? <UserInfo 
+                        handlerLogout= {handlerLogout}
+                        user={user}
+                        /> : <></>}
+                    </div>
                 </div>
               </>
             ) : (
@@ -179,10 +172,11 @@ const Container = styled.nav`
     cursor: pointer;
     text-decoration: underline solid 1px;
   }
-  .header__user-info {
-    position: absolute;
-    top: 60px;
-    right: 0;
+  .header__user-info{
+    position:absolute;
+    top:60px;
+    right:0;
+
   }
 `;
 
