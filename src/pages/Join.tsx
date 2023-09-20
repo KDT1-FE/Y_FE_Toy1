@@ -1,24 +1,17 @@
+import styled from 'styled-components';
 import { useState, ChangeEvent, useEffect } from 'react';
 import { auth, db, storage } from '../common/config';
-import {
-  createUserWithEmailAndPassword,
-  updateProfile,
-  updatePhoneNumber,
-  RecaptchaVerifier,
-  PhoneAuthProvider,
-  User,
-} from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile, User } from 'firebase/auth';
 import { uploadBytesResumable, ref, getDownloadURL } from 'firebase/storage';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, updateDoc } from 'firebase/firestore';
 import useBlobUrl from '../hooks/useBlobUrl';
-import { uploadImage } from '../utils/firebaseUtils';
+import JoinPhoneNumber from '../components/JoinPhoneNumber';
 
 interface UserType {
   name?: string;
   password?: string;
   passwordConfirm?: string;
   email?: string;
-  phone?: string;
 }
 
 const Join = () => {
@@ -28,10 +21,9 @@ const Join = () => {
     password: '',
     passwordConfirm: '',
     email: '',
-    phone: '',
   });
 
-  const [photoURL, setPhotoUrl] = useState<File | null>(null);
+  const [localPhotoUrl, setLocalPhotoUrl] = useState<File | null>(null);
   const { url, setFile } = useBlobUrl();
 
   const handlePhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,9 +31,7 @@ const Join = () => {
     const blobFile = files && files[0];
     if (blobFile) {
       setFile(blobFile);
-      setPhotoUrl(blobFile);
-
-      uploadImage(blobFile);
+      setLocalPhotoUrl(blobFile);
     }
   };
 
@@ -52,7 +42,6 @@ const Join = () => {
         ...prev,
         [name]: value || '',
       }));
-      console.log(joinUser);
     }
   };
 
@@ -66,89 +55,72 @@ const Join = () => {
   };
 
   const handleJoin = async () => {
-    try {
-      if (joinUser.password && joinUser.passwordConfirm && joinUser.email) {
-        const result = await passwordCheck(joinUser.password, joinUser.passwordConfirm);
-        if (result) {
-          const userCredential = await createUserWithEmailAndPassword(
-            auth,
-            joinUser.email,
-            joinUser.password,
-          );
-          const newUser = userCredential.user;
+    // 패스워드 & 패스워드 확인 입력 시
+    if (joinUser.password && joinUser.passwordConfirm) {
+      // 패스워드 값 체크
+      const result = await passwordCheck(joinUser.password, joinUser.passwordConfirm);
 
-          // 이름 업데이트
-          await updateProfile(newUser, { displayName: joinUser.name });
+      // 패스워드값이 동일하고 이메일 입력 시
+      if (result) {
+        if (joinUser.email) {
+          if (joinUser.name) {
+            // 유저 아이디 생성
+            await createUserWithEmailAndPassword(auth, joinUser.email, joinUser.password)
+              .then((data) => {
+                const newUser = data.user;
 
-          if (photoURL) {
-            const photoRoute = ref(storage, 'user/' + newUser.uid);
-            await uploadBytesResumable(photoRoute, photoURL);
-            const photoUrl = await getDownloadURL(photoRoute);
-            // 사진 url 업데이트
-            await updateProfile(newUser, { photoURL: photoUrl });
+                // 이름 업데이트
+                updateProfile(newUser, { displayName: joinUser.name }).then(() => {
+                  // 유저 정보 db 저장
+                  const docRef = doc(db, 'user', newUser.uid);
+                  setDoc(docRef, {
+                    email: newUser.email,
+                    name: newUser.displayName,
+                  });
+
+                  if (localPhotoUrl) {
+                    const photoRoute = ref(storage, 'user/' + newUser.uid);
+                    uploadBytesResumable(photoRoute, localPhotoUrl)
+                      .then(async () => {
+                        const photoUrl = await getDownloadURL(photoRoute);
+                        // 사진 url 업데이트
+                        updateProfile(newUser, { photoURL: photoUrl });
+                        updateDoc(docRef, {
+                          photoUrl: photoUrl,
+                        });
+                      })
+                      .catch((error) => {
+                        console.error(error);
+                      });
+                  }
+
+                  setUser(newUser); // 사용자 정보
+                });
+              })
+              .catch((error) => {
+                if (error.code === 'auth/email-already-in-use') {
+                  alert('이미 사용 중인 이메일 입니다.');
+                } else if (error.code === 'auth/weak-password') {
+                  alert('비밀번호는 6자 이상으로 기입해 주세요.');
+                } else if (error.code === 'auth/missing-email') {
+                  alert('이메일을 입력해 주세요.');
+                } else if (error.code === 'auth/missing-password') {
+                  alert('비밀번호를 입력해 주세요.');
+                } else {
+                  alert('정의되지 않은 오류입니다. 관리자에 문의해 주세요.');
+                }
+              });
+          } else {
+            alert('이름을 입력해 주세요.');
           }
-
-          setUser(newUser); // 사용자 정보 상태 변수 업데이트
+        } else {
+          alert('이메일을 입력해 주세요.');
         }
       }
-    } catch (error) {
-      console.error('회원가입 실패:', error);
+    } else {
+      alert('비밀번호와 비밀번호 확인을 입력해 주세요.');
     }
   };
-
-  useEffect(() => {
-    // 사용자 정보가 있을 때만 실행
-    if (user && joinUser.phone) {
-      const appVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-        size: 'normal',
-        callback: (recaptchaToken: string) => {
-          // Callback 로직
-          const phoneNumber = `+82${joinUser.phone}`;
-          const provider = new PhoneAuthProvider(auth);
-          provider
-            .verifyPhoneNumber(phoneNumber, appVerifier)
-            .then((verificationId) => {
-              const code = window.prompt('인증 코드를 입력하세요:');
-              if (code) {
-                const credential = PhoneAuthProvider.credential(verificationId, code);
-                console.log(credential);
-
-                return updatePhoneNumber(user, credential)
-                  .then(() => {
-                    appVerifier.clear();
-                    const docRef = doc(db, 'user', user.uid);
-                    setDoc(docRef, {
-                      name: user.displayName,
-                      phone: user.phoneNumber,
-                      photoUrl: user.photoURL,
-                    });
-                  })
-                  .catch((error) => {
-                    if (error.code === 'auth/invalid-verification-code') {
-                      alert('인증 코드를 다시 확인해 주세요.');
-                    }
-                  });
-              }
-            })
-            .catch((error) => {
-              if (error.code === 'auth/account-exists-with-different-credential') {
-                alert('이미 등록된 번호입니다.');
-              } else alert('정의되지 않은 오류입니다. 관리자에 문의해 주세요.');
-            });
-        },
-        'expired-callback': () => {
-          alert('reCAPTCHA가 만료되었습니다. 다시 풀어주세요.');
-          // reCAPTCHA 다시 렌더링
-          appVerifier.render();
-        },
-      });
-
-      console.log(user);
-
-      // reCAPTCHA 인증을 요청합니다.
-      appVerifier.render();
-    }
-  }, [joinUser.phone, user]);
 
   return (
     <div>
@@ -174,18 +146,28 @@ const Join = () => {
         <label>이름:</label>
         <input type="text" name="name" value={joinUser.name} onChange={handleChange} />
       </div>
-      <div>
-        <label>휴대폰번호:</label>
-        <input type="number" name="phone" value={joinUser.phone} onChange={handleChange} />
-        <div id="recaptcha-container"></div>
-      </div>
+
+      <PreviewImage
+        style={url ? { backgroundImage: `url(${url})` } : { backgroundColor: `rgba(0,0,0,0.2)` }}
+      ></PreviewImage>
+
       <div>
         <label>사진:</label>
         <input type="file" onChange={handlePhotoChange} />
       </div>
       <button onClick={handleJoin}>회원가입</button>
+      {user && <JoinPhoneNumber user={user} />}
     </div>
   );
 };
+
+const PreviewImage = styled.div`
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 0.2);
+  background-position: center center;
+`;
 
 export default Join;
