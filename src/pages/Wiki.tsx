@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { BoardNav } from './BoardNav';
-import { BoardContent } from './BoardContent';
+import { BoardNav } from '../components/Wiki/BoardNav';
+import { BoardContent } from '../components/Wiki/BoardContent';
 import { useSelector } from 'react-redux';
 
 export function Wiki(props: any) {

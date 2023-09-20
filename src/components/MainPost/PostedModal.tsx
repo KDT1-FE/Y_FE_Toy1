@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { FirestorePostData } from '../redux/types';
+import { FirestorePostData } from '../../redux/types';
 import { collection, doc, getDoc } from 'firebase/firestore';
-import { db } from '../data/firebase';
+import { db } from '../../data/firebase';
 
 interface PostedModalProps {
   postId: string;

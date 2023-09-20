@@ -2,11 +2,10 @@ import * as React from 'react';
 import { useState } from 'react';
 import './BoardDetail.scss';
 import { deletePostData, readPostData, updatePostData } from 'data/wikiboard';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
 import MdEditor from '@uiw/react-md-editor';
 import { selectUserData } from 'data/getUser';
-import Test from './Test';
 type Board = {
   name: string;
   content: string;
@@ -185,9 +184,15 @@ export function BoardDetail(props: any) {
         <section className="col-2 order-md-last">
           {boardInfo.uid === sessionStorage.uid && (
             <div>
-              
-              <button className="btn btn-primary" onClick={()=>{navigate('./edit')}}>글 수정</button>
-              
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  navigate('./edit');
+                }}
+              >
+                글 수정
+              </button>
+
               <button className="btn btn-primary" onClick={handleDelete}>
                 글 삭제
               </button>
