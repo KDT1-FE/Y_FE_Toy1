@@ -30,6 +30,15 @@ export const allCategories: CategoriesType[] = [
           },
         ],
       },
+      {
+        title: '규칙',
+        subCategories: [
+          {
+            link: 'rule',
+            text: '기본 규칙',
+          },
+        ],
+      },
     ],
   },
   {
@@ -90,6 +99,20 @@ export const allCategories: CategoriesType[] = [
           {
             link: '',
             text: '회원가입',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: '/contact',
+    categories: [
+      {
+        title: 'contact',
+        subCategories: [
+          {
+            link: '',
+            text: 'contact',
           },
         ],
       },

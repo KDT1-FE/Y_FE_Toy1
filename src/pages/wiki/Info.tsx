@@ -4,12 +4,13 @@ import { db } from '../../common/config';
 import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import styled from 'styled-components';
+import { useUser } from '../../common/UserContext';
 
-const Container = styled.div`
+export const StyledContainer = styled.div`
   padding: 20px;
 `;
 
-const TitleInput = styled.input`
+export const StyledTitle = styled.input`
   display: block;
   margin-bottom: 10px;
   width: 100%;
@@ -17,30 +18,45 @@ const TitleInput = styled.input`
   font-size: 16px;
 `;
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   margin-top: 10px;
   padding: 5px 15px;
   font-size: 14px;
   cursor: pointer;
+  border: none;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: gray;
+  }
+`;
+
+export const StyledTime = styled.div`
+  margin-top: 5px;
+  font-size: 14px;
+  color: gray;
 `;
 
 const Info = () => {
   const [title, setTitle] = useState<string>('');
   const [markdown, setMarkdown] = useState<string>('');
+  const [editor, setEditor] = useState<string>(''); //작성자 추가
   const editorRef = useRef<Editor | null>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [lastEdited, setLastEdited] = useState<null | Date>(null);
+  const { user } = useUser();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const docRef = doc(db, 'infoData', 'markdownContent');
+        const docRef = doc(db, 'wiki', 'info');
         const docSnapshot = await getDoc(docRef);
 
         if (docSnapshot.exists()) {
           const data = docSnapshot.data();
           setMarkdown(data.content);
           setTitle(data.title || '');
+          setEditor(data.editor || '');
           if (data.lastEdited) {
             setLastEdited(data.lastEdited.toDate());
           }
@@ -56,30 +72,35 @@ const Info = () => {
   }, []);
 
   const handleEditClick = async () => {
-    if (isEditing && editorRef.current) {
-      const editedMarkdown = editorRef.current.getInstance().getMarkdown();
-      setMarkdown(editedMarkdown);
-      const currentTime = Timestamp.now();
-      try {
-        const docRef = doc(db, 'infoData', 'markdownContent');
-        await setDoc(docRef, {
-          title,
-          content: editedMarkdown,
-          lastEdited: currentTime,
-        });
-        setLastEdited(currentTime.toDate());
-      } catch (error) {
-        console.error(error);
+    if (user) {
+      if (isEditing && editorRef.current) {
+        const editedMarkdown = editorRef.current.getInstance().getMarkdown();
+        setMarkdown(editedMarkdown);
+        const currentTime = Timestamp.now();
+        try {
+          const docRef = doc(db, 'wiki', 'info');
+          await setDoc(docRef, {
+            title,
+            content: editedMarkdown,
+            lastEdited: currentTime,
+            editor: user.name,
+          });
+          setLastEdited(currentTime.toDate());
+        } catch (error) {
+          console.error(error);
+        }
       }
+      setIsEditing(!isEditing);
+    } else {
+      alert('로그인을 해주세요');
     }
-    setIsEditing(!isEditing);
   };
 
   return (
-    <Container>
+    <StyledContainer>
       {isEditing ? (
         <>
-          <TitleInput
+          <StyledTitle
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -96,18 +117,20 @@ const Info = () => {
           />
         </>
       ) : (
-        <div>
+        <>
           <h1>{title}</h1>
-          {lastEdited && <p>마지막 수정: {lastEdited.toLocaleString()}</p>}
-          <hr />
+          {lastEdited && (
+            <StyledTime>
+              마지막 수정: {lastEdited.toLocaleString()} / 최근 편집자: {editor}
+            </StyledTime>
+          )}
+
           <Viewer key={markdown} initialValue={markdown} />
-        </div>
+        </>
       )}
       <hr />
-      <div>
-        <StyledButton onClick={handleEditClick}>{isEditing ? '저장' : '편집'}</StyledButton>
-      </div>
-    </Container>
+      <StyledButton onClick={handleEditClick}>{isEditing ? '저장' : '편집'}</StyledButton>
+    </StyledContainer>
   );
 };
 

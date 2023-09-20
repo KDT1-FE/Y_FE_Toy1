@@ -6,7 +6,7 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import { StyledContainer, StyledTitle, StyledButton, StyledTime } from './Info';
 import { useUser } from '../../common/UserContext';
 
-const Team = () => {
+const Rule = () => {
   const [title, setTitle] = useState<string>('');
   const [markdown, setMarkdown] = useState<string>('');
   const [editor, setEditor] = useState<string>('');
@@ -18,7 +18,7 @@ const Team = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const docRef = doc(db, 'wiki', 'team');
+        const docRef = doc(db, 'wiki', 'rule');
         const docSnapshot = await getDoc(docRef);
 
         if (docSnapshot.exists()) {
@@ -47,7 +47,7 @@ const Team = () => {
         setMarkdown(editedMarkdown);
         const currentTime = Timestamp.now();
         try {
-          const docRef = doc(db, 'wiki', 'team');
+          const docRef = doc(db, 'wiki', 'rule');
           await setDoc(docRef, {
             title,
             content: editedMarkdown,
@@ -103,4 +103,4 @@ const Team = () => {
   );
 };
 
-export default Team;
+export default Rule;

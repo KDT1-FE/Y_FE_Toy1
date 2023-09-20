@@ -1,12 +1,19 @@
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
+import { useContext } from 'react';
+import { MenuContext } from '../common/useMenu';
+import { FcMenu } from 'react-icons/fc';
 
 const NavBar = () => {
+  const { setMenuOpen } = useContext(MenuContext);
   const selectedCategory = useLocation().pathname.split('/')[1];
 
   return (
     <Container>
       <Categories>
+        <button className="menu-btn" onClick={() => setMenuOpen(true)}>
+          <FcMenu size={21} />
+        </button>
         <div className={`category ${selectedCategory === 'wiki' ? 'selected' : ''}`}>
           <Link to={'wiki'}>Wiki</Link>
         </div>
@@ -14,7 +21,7 @@ const NavBar = () => {
           <Link to={'gallery'}>Gallery</Link>
         </div>
         <div className={`category ${selectedCategory === '' ? 'selected' : ''}`}>
-          <Link to={'/'}>Contact</Link>
+          <Link to={'/contact'}>Contact</Link>
         </div>
       </Categories>
     </Container>
@@ -44,6 +51,24 @@ const Categories = styled.div`
   width: 100%;
 
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+
+  button.menu-btn {
+    display: flex;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+
+    background-color: transparent;
+    outline: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+
+    @media screen and (min-width: 1024px) {
+      display: none;
+    }
+  }
 
   div.category {
     position: relative;

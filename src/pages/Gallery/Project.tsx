@@ -1,12 +1,43 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import galleryDummyImage from '../../assets/galleryDummyImage.webp';
 import ImageWrapper from './ImageWrapper';
+import { db } from '../../common/config';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import LoadingSpinner from './LoadingSpinner';
 
-export interface ProjectStateProps {
+interface ProjectProps {
   state: string;
 }
 
-const Project = ({ state }: ProjectStateProps) => {
+export interface ProjectStateProps extends ProjectProps {
+  projectId: any;
+  imageUrl: any;
+}
+
+const Project = ({ state }: ProjectProps) => {
+  const [projectData, setProjectData] = useState<Array<ProjectStateProps>>();
+  const [isLoading, setIsLoading] = useState(true);
+  const fetchProjectData = async () => {
+    try {
+      const filterStateQuery = query(collection(db, 'projectData'), where('state', '==', state));
+      const querySnapshot = await getDocs(filterStateQuery);
+      const filteredData: Array<ProjectStateProps> = [];
+
+      querySnapshot.forEach((doc) => {
+        const projectId = doc.id;
+        const data = doc.data();
+        filteredData.push({ ...data, projectId } as ProjectStateProps);
+      });
+      setProjectData(filteredData);
+    } catch (error) {
+      console.error('프로젝트 Data Fetch 에러 :', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProjectData().then(() => setIsLoading(false));
+  }, [state]);
+
   let projectState: string =
     state === 'ongoing'
       ? '진행중인'
@@ -23,13 +54,21 @@ const Project = ({ state }: ProjectStateProps) => {
         <BreadCrumb>갤러리 &gt; 프로젝트 &gt; {projectState} 프로젝트</BreadCrumb>
       </CategoryTitleSection>
       <ImageSection>
-        <ImageWrapper imageUrl={galleryDummyImage} projectId={1} state={state} />
-        <ImageWrapper imageUrl={galleryDummyImage} projectId={2} state={state} />
-        <ImageWrapper imageUrl={galleryDummyImage} projectId={3} state={state} />
-        <ImageWrapper imageUrl={galleryDummyImage} projectId={4} state={state} />
-        <ImageWrapper imageUrl={galleryDummyImage} projectId={5} state={state} />
-        <ImageWrapper imageUrl={galleryDummyImage} projectId={6} state={state} />
-        <ImageWrapper imageUrl={galleryDummyImage} projectId={7} state={state} />
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          projectData?.map((item, index) => {
+            return (
+              <ImageWrapper
+                key={index}
+                imageUrl={item.imageUrl}
+                projectId={item.projectId}
+                state={item.state}
+              />
+            );
+          })
+        )}
+        {projectData?.length === 0 && <div>{projectState} 프로젝트가 없습니다.</div>}
       </ImageSection>
     </GalleryMainContainer>
   );

@@ -1,8 +1,12 @@
-import { db } from '../common/config';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { db, storage } from '../common/config';
 import { commuteType } from '../data/atoms';
 import { arrayUnion, doc, getDoc, setDoc } from 'firebase/firestore';
 
-export const uploadCommuteInfo = async (uid: string | undefined, commuteData: commuteType) => {
+export const uploadCommuteInfo = async (
+  uid: string | null | undefined,
+  commuteData: commuteType,
+) => {
   if (!uid) return;
 
   const dateStr = new Date(commuteData.date).toISOString().split('T')[0];
@@ -20,4 +24,18 @@ export const uploadCommuteInfo = async (uid: string | undefined, commuteData: co
   // Fetch and log the document after uploading
   const updatedCommuteDateDoc = await getDoc(commuteDateRef);
   console.log('Data after upload:', updatedCommuteDateDoc.data());
+};
+
+export const uploadImage = (blob: Blob, url: string) => {
+  const storageRef = ref(storage, url);
+
+  if (blob) {
+    uploadBytes(storageRef, blob).then((snapshot) => {
+      console.log('Uploaded a blob or file!', snapshot);
+      return storageRef;
+    });
+  } else {
+    console.log('blob is null');
+    return null;
+  }
 };

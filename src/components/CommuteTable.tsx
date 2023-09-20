@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { db } from '../common/config';
-import { doc, getDoc } from 'firebase/firestore';
-import { timeToLocaleTimeString, formatMsToTime } from '../utils/formatTime';
+import { collection, getDocs } from 'firebase/firestore';
+import { Time, formatMsToTime } from '../utils/formatTime';
 import { useUser } from '../common/UserContext';
+import LoadingSpinner from './LoadingSpinner';
 
 type CommuteData = {
   date: string;
@@ -16,37 +17,56 @@ export default function Carousel() {
   const { user } = useUser();
   const [name, setName] = useState<string>('');
   const [data, setData] = useState<CommuteData[]>([]);
-  
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const fetchData = async (uid: string) => {
       if (!uid) {
-        return; 
+        return;
       }
-      
+
       try {
-        const docRef = doc(db, 'commute', uid);
-        const docSnapshot = await getDoc(docRef);
-  
-        if (docSnapshot.exists()) {
-          const data = docSnapshot.data();
-          const formattedData = Object.keys(data).map((date) => ({
+        const docRef = collection(db, `commute/${uid}/commuteDays`);
+        const querySnapshot = await getDocs(docRef);
+
+        const formattedData:CommuteData[] = [];
+
+        querySnapshot.forEach((doc) => {
+          const date = doc.id;
+          const sessions = doc.data().session;
+
+          // sessions 마지막 데이터
+          const lastSession = sessions[sessions.length - 1];
+
+          const start = new Time(lastSession.startTime)
+          const end = new Time(lastSession.endTime)
+
+          formattedData.push({
             date: date,
-            startTime: timeToLocaleTimeString(data[date].startTime),
-            endTime: timeToLocaleTimeString(data[date].endTime),
-            workingTime: formatMsToTime(data[date].workingTime),
-          }));
-          setData(formattedData);
-        }
+            startTime: start.time,
+            endTime: end.time,
+            workingTime: formatMsToTime(lastSession.workingTime),
+          });
+        });
+
+        // 날짜 내림차순 정렬
+        formattedData.sort((a, b) => {
+          return b.date.localeCompare(a.date);
+        });
+
+        setData(formattedData);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
-      } 
-    }
+        setIsLoading(false);
+      }
+    };
 
-    if(!user) 
-      return;
+    if (!user) return;
 
     // 유저 정보
-    if(user) {
+    if (user) {
+      // console.log(user);
       setName(user.name);
       fetchData(user.uid);
     }
@@ -54,11 +74,12 @@ export default function Carousel() {
 
   return (
     <>
-      {
-        user &&
-        (
-        <>
-          <H1>{name}님의 출퇴근 기록</H1>
+      {user && (
+        isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          <>
+            <H1>{name}님의 출퇴근 기록</H1>
             {data.length > 0 ? (
               <Table>
                 <THead>
@@ -82,13 +103,13 @@ export default function Carousel() {
               </Table>
             ) : (
               <Message>출퇴근 기록이 없습니다.</Message>
-            )}  
-        </>
+            )}
+          </>
         )
-      }
+      )}
     </>
   );
-};
+}
 
 const H1 = styled.h1`
   margin-top: 1.5rem;
@@ -97,7 +118,7 @@ const H1 = styled.h1`
 `;
 
 const Table = styled.table`
-  border: 1px solid #E2E2E2;
+  border: 1px solid #e2e2e2;
   border-radius: 10px;
   width: 100%;
   margin-top: 0.5rem;
@@ -106,8 +127,8 @@ const Table = styled.table`
 `;
 
 const THead = styled.thead`
-  background-color: #E2E2E2;
-  padding: 8px; 
+  background-color: #e2e2e2;
+  padding: 8px;
 
   th {
     padding: 8px;
@@ -115,7 +136,7 @@ const THead = styled.thead`
 `;
 
 const TH = styled.th`
-  border-bottom: 1px solid #E2E2E2;
+  border-bottom: 1px solid #e2e2e2;
   padding: 6px;
 `;
 

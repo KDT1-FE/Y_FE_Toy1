@@ -1,11 +1,17 @@
 import { DefaultTheme } from 'styled-components';
 
 const colors = {
-  // primary:
-  // secondary:
+  primary: '#ffcb09',
   border: '#f2f2f2',
+  shadow: '#021856',
   white: '#ffffff',
   black: '#1D1B26',
+
+  card: {
+    accent: '#FFCB09',
+    border: '1px solid #f2f2f2',
+    shadow: '0 0 15px 0 rgba(0, 0, 0, 0.1)',
+  },
 };
 
 const fontSize = {

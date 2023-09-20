@@ -1,22 +1,30 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
-import { formatMsToTime } from '../utils/formatTime';
+import { MouseEventHandler, useEffect, useState } from 'react';
 import CommuteButton from '../common/CommuteButton';
-import { uploadCommuteInfo } from '../utils/firebaseUtils';
-import { useUser } from '../common/UserContext';
-import useCommute from '../hooks/useCommute';
+import { commuteType } from '../data/atoms';
+import ModalMessage from './ModalMessage';
+import { Time } from '../utils/formatTime';
 
 interface Props {
   isModalOpen: boolean;
   toggleModal: () => void;
+  confirmWorkingTime: MouseEventHandler<HTMLButtonElement>;
+  handleCommute: MouseEventHandler<HTMLButtonElement>;
+  commuteInfo: commuteType;
+  uid: string | undefined;
 }
 
-const CommuteModal = ({ isModalOpen, toggleModal }: Props) => {
+const CommuteModal = ({
+  isModalOpen,
+  toggleModal,
+  confirmWorkingTime,
+  handleCommute,
+  commuteInfo,
+  uid,
+}: Props) => {
+  // useRecoilState로 commuteInfo를 가져오기 vs commuteInfo를 props로 받기
   const [currentTime, setCurrentTime] = useState(new Date());
-  const { user } = useUser();
-  const uid = user?.uid;
-  const { commuteInfo, setCommuteInfo } = useCommute(uid);
-  const { isWorking, hasWorked, workingTime, startTime } = commuteInfo;
+  const { isWorking, workingTime } = commuteInfo;
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -26,93 +34,37 @@ const CommuteModal = ({ isModalOpen, toggleModal }: Props) => {
     return () => clearInterval(intervalId);
   }, []);
 
-  const handleCommute = () => {
-    let updatedCommuteInfo;
-
-    // 퇴근 눌렀을 때
-    if (isWorking) {
-      updatedCommuteInfo = {
-        ...commuteInfo,
-        date: Date.now(),
-        isWorking: false,
-        endTime: Date.now(),
-        workingTime: Date.now() - startTime,
-      };
-
-      setCommuteInfo(updatedCommuteInfo);
-    } else {
-      // 출근 눌렀을 때
-      setCommuteInfo({
-        ...commuteInfo,
-        isWorking: true,
-        startTime: Date.now(),
-      });
-      toggleModal();
-    }
-  };
-
-  // 확인 눌렀을 때
-  const confirmWorkingTime = () => {
-    uploadCommuteInfo(uid, commuteInfo);
-    setCommuteInfo({
-      ...commuteInfo,
-      hasWorked: true,
-      workingTime: 0,
-    });
-    toggleModal();
-  };
-
   // 수정 기능은 보류
-  const editWorkingTime = () => {
+  const editWorkingTime: MouseEventHandler = (): void => {
     toggleModal();
-  };
-
-  const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    weekday: 'long',
-    timeZone: 'UTC',
-  };
-  
-  const renderContentMessage = () => {
-    if (hasWorked && !isWorking && !workingTime) {
-      return <span>이미 출근 기록이 있습니다. 다시 출근 하시겠습니까?</span>;
-    }
-    if (!hasWorked && !isWorking) {
-      return <span>출근 하시겠습니까?</span>;
-    }
-    if (isWorking) {
-      return <span>퇴근 하시겠습니까?</span>;
-    }
-    if (!isWorking && workingTime) {
-      return (
-        <span>
-          총 근무 시간이 맞으면 확인을 눌러주세요. <strong>{formatMsToTime(workingTime)}</strong>
-        </span>
-      );
-    }
   };
 
   const mainButtonLabel = workingTime ? '확인' : isWorking ? '퇴근' : '출근';
   const mainButtonHandler = workingTime ? confirmWorkingTime : handleCommute;
   const secondaryButtonLabel = workingTime ? '수정' : '취소';
   const secondaryButtonHandler = workingTime ? editWorkingTime : toggleModal;
-  
+  const timer = new Time();
+
   return (
     <>
       <Overlay onClick={toggleModal} className={isModalOpen ? 'open' : ''} />
       <ModalContainer className={isModalOpen ? 'open' : ''} id="commute-modal">
         <TimerWrapper>
-          <span className="date">{currentTime.toLocaleDateString('ko-KR', options)}</span>
+          <span className="date">{timer.date}</span>
           <span className="time">{currentTime.toLocaleTimeString('it-IT')}</span>
         </TimerWrapper>
 
-        <ContentWrapper>{renderContentMessage()}</ContentWrapper>
+        <ContentWrapper>
+          <ModalMessage commuteInfo={commuteInfo} uid={uid} />
+        </ContentWrapper>
 
         <ButtonWrapper>
-          <CommuteButton onClick={mainButtonHandler}>{mainButtonLabel}</CommuteButton>
-          <CommuteButton onClick={secondaryButtonHandler}>{secondaryButtonLabel}</CommuteButton>
+          {uid && (
+            <>
+              <CommuteButton onClick={mainButtonHandler}>{mainButtonLabel}</CommuteButton>
+              <CommuteButton onClick={secondaryButtonHandler}>{secondaryButtonLabel}</CommuteButton>
+            </>
+          )}
         </ButtonWrapper>
       </ModalContainer>
     </>
@@ -145,23 +97,27 @@ const ModalContainer = styled.div`
   justify-content: space-between;
   padding: 1rem 2rem;
 
+  min-width: 250px;
   max-width: 300px;
   min-height: 400px;
 
+  border: ${(props) => props.theme.colors.card.border};
   border-radius: 0.6rem;
-  border: 1px solid #eeeeee;
-  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: ${(props) => props.theme.colors.card.shadow};
 
   background-color: #ffffff;
 
+  visibility: hidden;
   opacity: 0;
   transition:
     transform 0.2s ease,
-    opacity 0.2s ease;
+    opacity 0.2s ease,
+    visibility 0.2s ease;
 
   &.open {
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
+    visibility: visible;
   }
 `;
 

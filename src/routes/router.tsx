@@ -7,10 +7,12 @@ import Project from '../pages/Gallery/Project';
 import RegisterProject from '../pages/Gallery/RegisterProject';
 import Wiki from '../pages/wiki/Wiki';
 import Info from '../pages/wiki/Info';
+import Rule from '../pages/wiki/Rule';
 import Team from '../pages/wiki/Team';
 import Login from '../pages/Login';
 import Join from '../pages/Join';
 import Detail from '../pages/detail/Detail';
+import Contact from '../pages/contact/Contact';
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +43,10 @@ export const router = createBrowserRouter([
           {
             path: 'team',
             element: <Team />,
+          },
+          {
+            path: 'rule',
+            element: <Rule />,
           },
         ],
       },
@@ -90,6 +96,10 @@ export const router = createBrowserRouter([
       {
         path: 'join',
         element: <Join />,
+      },
+      {
+        path: 'contact',
+        element: <Contact />,
       },
     ],
   },

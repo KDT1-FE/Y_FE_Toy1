@@ -1,36 +1,44 @@
 import styled from 'styled-components';
-import { auth } from '../common/config';
-import { signOut } from 'firebase/auth';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useUser } from '../common/UserContext';
+import ProfileModal from './ProfileModal';
 
 const UserResult = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
   const { user } = useUser();
+  const uid = user?.uid;
 
-  const handleLogout = async () => {
-    try {
-      // 로그아웃
-      await signOut(auth);
-    } catch (error) {
-      console.error('로그아웃 실패:', error);
-    }
-  };
+  function toggleModal() {
+    setModalOpen(!isModalOpen);
+  }
+
+  const location = window.location.pathname;
 
   if (user) {
     return (
       <HeaderProfile>
-        <div
-          className="profileImg"
-          style={
-            user.photoUrl
-              ? { backgroundImage: `url(${user.photoUrl})` }
-              : { backgroundImage: `url(/src/assets/react.svg)` }
-          }
-        ></div>
-        <div className="profileText">
-          <p>{user.email}</p>
-          <button onClick={handleLogout}>로그아웃</button>
-        </div>
+        <ProfileModal
+          uid={uid}
+          isModalOpen={location === '/login' || location === '/join' ? false : isModalOpen}
+          toggleModal={toggleModal}
+        />
+        <button
+          className="btn"
+          onClick={toggleModal}
+          aria-haspopup="dialog"
+          aria-labelledby="profile-modal"
+          aria-expanded={isModalOpen}
+        >
+          <div
+            className="profileImg"
+            style={
+              user.photoUrl
+                ? { backgroundImage: `url(${user.photoUrl})` }
+                : { backgroundImage: `url(/src/assets/react.svg)` }
+            }
+          ></div>
+        </button>
       </HeaderProfile>
     );
   } else {
