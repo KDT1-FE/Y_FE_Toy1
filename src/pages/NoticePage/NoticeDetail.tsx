@@ -14,17 +14,22 @@ function NoticeDetail() {
   const getNoticeData = async (): Promise<void> => {
     try {
       const docRef = doc(db, 'notice', String(noticeId));
-
       const docSnap = (await getDoc(docRef)).data();
       setNoticeData(docSnap);
     } catch (error) {
       console.log('Error: ', error);
     }
   };
-
   // 공지사항 삭제 함수
   const onClickDeleteData = async (): Promise<void> => {
     try {
+      const password = prompt('비밀번호를 입력해주세요');
+
+      if (password !== noticeData?.password) {
+        alert('비밀번호가 잘못되었습니다.');
+        return;
+      }
+
       if (noticeData?.imageId) {
         const desertRef = ref(storage, `notice/${noticeData?.imageId}`);
         await deleteObject(desertRef);

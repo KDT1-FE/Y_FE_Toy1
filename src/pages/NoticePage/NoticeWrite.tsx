@@ -52,26 +52,33 @@ function NoticeWrite({ isEdit, noticeData }: any) {
   };
 
   // 공지사항 등록 유효성 검사
-  const isValid = (): void => {
+  const isFormValid = (): boolean => {
+    let isValid = true;
+
     if (password === '') {
       setPasswordError('비밀번호를 입력해주세요.');
+      isValid = false;
     } else {
       setPasswordError('');
     }
 
-    if (isEdit === false) {
+    if (!isEdit) {
       if (subject === '') {
         setSubjectError('제목을 입력해주세요.');
+        isValid = false;
       } else {
         setSubjectError('');
       }
 
       if (contents === '') {
         setContentsError('공지내용을 입력해주세요.');
+        isValid = false;
       } else {
         setContentsError('');
       }
     }
+
+    return isValid;
   };
 
   // 공지 등록 함수
@@ -81,8 +88,7 @@ function NoticeWrite({ isEdit, noticeData }: any) {
       let imageUrl = '';
       let imageId = '';
 
-      isValid();
-      if (password === '' || subject === '' || contents === '') return;
+      if (!isFormValid()) return;
 
       if (uploadFile !== null) {
         // 이미지 업로드
@@ -119,8 +125,13 @@ function NoticeWrite({ isEdit, noticeData }: any) {
       let imageUrl = '';
       let imageId = '';
 
-      isValid();
-      if (password === '') return;
+      if (!isFormValid()) return;
+
+      if (password !== noticeData.password) {
+        alert('비밀번호가 잘못되었습니다.');
+        setPassword('');
+        return;
+      }
 
       // 이미지 업로드
       if (uploadFile !== null) {
@@ -197,7 +208,12 @@ function NoticeWrite({ isEdit, noticeData }: any) {
       <S.Title>공지사항 {isEdit ? '수정' : '등록'}하기</S.Title>
       <S.InputWrapper>
         <S.Label>공지 비밀번호</S.Label>
-        <S.Password type='password' placeholder='비밀번호를 입력해주세요.' onChange={onChangePassword} />
+        <S.Password
+          type='password'
+          placeholder='비밀번호를 입력해주세요.'
+          value={password}
+          onChange={onChangePassword}
+        />
         <S.ErrorDiv>{passwordError}</S.ErrorDiv>
       </S.InputWrapper>
       <S.InputWrapper>
