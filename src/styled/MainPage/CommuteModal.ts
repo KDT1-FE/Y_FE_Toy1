@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ModalCloseBtn } from "../Common/Modal";
 
 export const CommuteModalContainer = styled.div`
   display: flex;
@@ -29,23 +30,11 @@ export const CommuteHeader = styled.div`
 
 `;
 
-export const ExitBtn = styled.button`
+export const ExitBtn = styled(ModalCloseBtn)`
     position: absolute;
     right : 20px;
-    border : 0;
-    border-radius : 50%;
-    background-color : red;
-    color : white;
-    width : 15px;
-    height : 15px;
     cursor: pointer;
 
-
-`;
-export const CommuteTitle = styled.div`
-    font-size : 25px;
-    font-weight : 600;
-    letter-spacing : -2px;
 
 `;
 export const DateText = styled.div`

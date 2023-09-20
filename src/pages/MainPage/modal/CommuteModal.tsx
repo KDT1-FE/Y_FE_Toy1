@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil';
 import {
-    CommuteModalContainer, CommuteHeader, ExitBtn, CommuteTitle,
+    CommuteModalContainer, CommuteHeader,
     TimerContainer,
     TimerText
     , DateText
     , BtnContainer
     , TimerBtn
     , CommuteBtn
+    , ExitBtn
 } from '../../../styled/MainPage/CommuteModal';
 import { isCommuteState, startTimeState } from '../../../recoil/atoms/main/CommuteAtom';
-
+import { CloseImg, TitleText } from '../../../styled/Common/Modal';
+import ClostButton from "../../../assets/img/CloseButton.svg"
 
 interface CommuteProps {
     setActiveModalIdx: React.Dispatch<React.SetStateAction<number>>;
@@ -71,9 +73,11 @@ export default function CommuteModal({ setActiveModalIdx }: CommuteProps) {
     }
     return (
         <CommuteModalContainer>
-            <ExitBtn type='button' onClick={() => setActiveModalIdx(-1)}>X</ExitBtn>
+            <ExitBtn onClick={() => setActiveModalIdx(-1)}>
+                <CloseImg src={ClostButton} alt="" />
+            </ExitBtn>
             <CommuteHeader>
-                <CommuteTitle>COMMUTE</CommuteTitle>
+                <TitleText>COMMUTE</TitleText>
                 <DateText>{date}</DateText>
             </CommuteHeader>
             <TimerContainer>

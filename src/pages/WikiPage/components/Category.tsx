@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
 import { categoryNameState, categoryState ,selectedCategoryState} from "../../../recoil/atoms/wiki/CategoryAtom";
 import {db} from '../../../firebaseSDK';
@@ -15,7 +15,7 @@ export default function Category() {
   const [categoryNames, setCategoryNames] = useRecoilState(categoryNameState);
   const [category, setCategory] = useRecoilState(categoryState);
   const [newCategoryName, setNewCategoryName] = useState(""); // 새 카테고리를 입력할 상태
-  const [,setSelectedCategory] = useRecoilState(selectedCategoryState);
+  const setSelectedCategory = useSetRecoilState(selectedCategoryState);
 
 
   const handleEditClick = () => {

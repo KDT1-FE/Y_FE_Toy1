@@ -3,14 +3,16 @@ import { useRecoilState } from "recoil";
 import {
   TodoModalLayout
   , ExitBtn
-  , TitleText
   , TodoContainer
   , TodoItemContainer
   , TodoInput
   , AddBtn
-  , DeleteBtn
+  , DeleteBtn,
+  TodoTitle
 } from "../../../styled/MainPage/TodoModal";
 import { todoListState } from "../../../recoil/atoms/main/TodoAtom";
+import { CloseImg } from "../../../styled/Common/Modal";
+import ClostButton from "../../../assets/img/CloseButton.svg"
 
 interface TodoProps {
   setActiveModalIdx: React.Dispatch<React.SetStateAction<number>>;
@@ -83,10 +85,11 @@ function TodoModal({ setActiveModalIdx }: TodoProps) {
 
   return (
     <TodoModalLayout>
-      <ExitBtn type="button" onClick={() => setActiveModalIdx(-1)}>
-        X
+      <ExitBtn onClick={() => setActiveModalIdx(-1)}>
+        <CloseImg src={ClostButton} alt="" />
       </ExitBtn>
-      <TitleText>TO DO</TitleText>
+
+      <TodoTitle>TO DO</TodoTitle>
       <TodoItemContainer>
         <TodoInput type="text" value={inputValue} onChange={handleChange} onKeyDown={handleInputKeyDown} />
         <AddBtn type="submit" onClick={addItem}>Add</AddBtn>
