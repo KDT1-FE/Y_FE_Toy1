@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { FixedSizeList } from 'react-window';
 import Modal from './UploadModal/Modal';
 import { onSnapshot, updateDoc } from 'firebase/firestore';
 import { ref, deleteObject } from 'firebase/storage';
