@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MarginLeft, MyPage, MyPageHeader, MyPageFooter, MyPageExitBtn } from './style';
+import { MarginLeft, MyPage, MyPageHeader, MyPageFooter, MyPageExitBtn, MyPageContents } from './style';
 import CloseIcon from '@mui/icons-material/Close';
 import MyPageUser from './MyPageUser';
 import MyPageTimelog from './MyPageTimelog';
@@ -9,6 +9,7 @@ import MyPageCommute from './MyPageCommute';
 import FastcampusDday from '../Timer/FastcampusDday';
 import MyPageReadLog from './MyPageReadLog';
 import { readUser } from '../../../utils/firebase';
+import MyPageTheme from './MyPageTheme';
 
 interface OwnProps {
     handleMyPage(): void;
@@ -19,6 +20,7 @@ const MyPageModal: React.FC<OwnProps> = ({ handleMyPage }) => {
     const [slideOn, setSlideOn] = useRecoilState(SlideOn);
     const [showTimerModal, setShowTimerModal] = useState(false);
     const [showReadModal, setShowReadModal] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const [timeRenewal, setTimeRenewal] = useState<string | void>();
     const [readTimelog, setReadTimelog] = useRecoilState(ReadTimelog);
     const [timelog, setTimelog] = useRecoilState(TimeLog);
@@ -38,20 +40,11 @@ const MyPageModal: React.FC<OwnProps> = ({ handleMyPage }) => {
         getTimelog();
     }, [timelog]);
 
-    const handleTimerModal = () => {
-        if (showTimerModal) {
-            setShowTimerModal(false);
+    const handleModal = (number: number) => {
+        if (number) {
+            setShowModal(true);
         } else {
-            setShowTimerModal(true);
-            setShowReadModal(false);
-        }
-    };
-    const handleReadModal = () => {
-        if (showReadModal) {
-            setShowReadModal(false);
-        } else {
-            setShowReadModal(true);
-            setShowTimerModal(false);
+            setShowModal(false);
         }
     };
 
@@ -69,9 +62,10 @@ const MyPageModal: React.FC<OwnProps> = ({ handleMyPage }) => {
                 </MyPageExitBtn>
             </MyPageHeader>
             <MyPageUser />
-            <MyPageTimelog handleTimerModal={handleTimerModal} handleReadModal={handleReadModal} />
-            {showTimerModal && <MyPageCommute setTimeRenewal={setTimeRenewal} />}
-            {showReadModal && <MyPageReadLog />}
+            <MyPageTheme />
+            <MyPageTimelog handleTimerModal={handleModal} handleReadModal={handleModal} showModal={showModal} />
+            {showModal && <MyPageCommute setTimeRenewal={setTimeRenewal} />}
+            {!showModal && <MyPageReadLog />}
             <MyPageFooter>
                 <FastcampusDday timeRenewal={timeRenewal} />
             </MyPageFooter>

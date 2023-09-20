@@ -1,11 +1,23 @@
 import styled from '@emotion/styled/macro';
 
 export const AllChannelsWrapper = styled.div`
-    height: 100%;
     min-width: 16.25%;
+    max-width: 16.25%;
     padding-top: 1%;
+    height: 100vh;
     background-color: #3f0e40;
     color: #ffffffb3;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #ffffffb3;
+        border-radius: 6px;
+        border: 3px solid transparent;
+    }
 `;
 
 export const ChannelWrapper = styled.div`
@@ -16,8 +28,8 @@ export const DropDownOptions = styled.div`
     background: #ffffff;
     border-radius: 8px;
     position: absolute;
-    top: 10px;
-    left: 95%;
+    top: 35%;
+    left: 45%;
     min-width: 5rem;
     min-width: 40%;
 
@@ -31,8 +43,8 @@ export const SubDropDownOptions = styled.div`
     background: #ffffff;
     border-radius: 8px;
     position: absolute;
-    top: 10px;
-    left: 95%;
+    top: 35%;
+    left: 45%;
     min-width: 40%;
     display: block;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);

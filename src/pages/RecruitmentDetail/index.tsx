@@ -222,15 +222,6 @@ const RecruitmentDetail: React.FC = () => {
                         <p>인원 : {data.people} 명</p>
                         <p>댓글 : {commentLength} 개</p>
                     </ContentSub>
-                    {/* <MDEditor.Markdown
-                        source={data.content}
-                        style={{
-                            padding: '20px',
-                            width: '100%',
-                            backgroundColor: '#fff',
-                            color: 'black',
-                        }}
-                    /> */}
                     <Content>
                         {data.content?.split('\n').map((line: string) => {
                             //this.props.data.content: 내용

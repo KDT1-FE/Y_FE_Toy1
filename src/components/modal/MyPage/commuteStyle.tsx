@@ -2,20 +2,21 @@ import styled from 'styled-components';
 
 export const CommuteModalBox = styled.div`
     width: 100%;
-    height: 300px;
+    height: 30%;
+    min-height: 210px;
     display: flex;
     flex-direction: column;
 `;
 
-export const ModalWall = styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 100;
-    background-color: rgba(0, 0, 0, 0.6);
-`;
+// export const ModalWall = styled.div`
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     width: 100vw;
+//     height: 100vh;
+//     z-index: 100;
+//     background-color: rgba(0, 0, 0, 0.6);
+// `;
 
 export const CloseBtn = styled.button`
     width: 35px;
@@ -72,11 +73,11 @@ export const ShowTimerOn = styled.div<{ value: boolean }>`
 
 export const TimeNowbox = styled.div`
     width: 100%;
+    height: 80%;
     color: #000;
     display: flex;
-    padding: 10% 17%;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     & > p {
         font-size: 20px;
@@ -122,4 +123,20 @@ export const TimerOffBtn = styled(TimerBtnClassic)<{ value: boolean }>`
     color: ${(value) => (value.value ? '#fff' : '#000')};
     background-color: ${(value) => (value.value ? 'var(--active-current-status)' : '#ece7ec')};
     box-shadow: ${(value) => (value.value ? '0 3px 3px 1px #ced0d3' : '0 3px 3px 1px #ced0d3 inset')};
+`;
+export const ChangeTimer = styled.div<{ value: boolean }>`
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    box-shadow: ${(value) => (value.value ? '1px 2px 2px 1px #a0a0a0 inset' : 'none')};
+`;
+export const ChangeTimelog = styled.div<{ value: boolean }>`
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    box-shadow: ${(value) => (value.value ? 'none' : '1px 2px 2px 1px #a0a0a0 inset')};
 `;

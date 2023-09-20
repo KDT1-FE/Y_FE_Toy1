@@ -37,12 +37,12 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
     );
     const [channel, setChannel] = useRecoilState(channelState);
     const [subChannel, setSubChannel] = useRecoilState(subChannelState);
-    const defaultChannel = '가가가';
-    const defaultSubChannel = '랄랄랄랄';
+    const defaultChannels = ['기본 정보'];
+    const defaultSubChannels = ['과정 참여 규칙', '링크 모음'];
     useEffect(() => {
         if (!channel || !subChannel) {
-            setChannel(defaultChannel);
-            setSubChannel(defaultSubChannel);
+            setChannel(defaultChannels[0]);
+            setSubChannel(defaultSubChannels[0]);
         }
     }, [channel, subChannel, setChannel, setSubChannel]);
 
@@ -111,7 +111,6 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
             }
         };
 
-        // 클릭 이벤트 리스너를 추가할 때 현재의 인덱스 값을 캡처하여 전달
         document.addEventListener('mousedown', (event) => {
             docsWithFields.forEach((_, index) => {
                 handleClickOutside(event, index);
@@ -119,7 +118,6 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
         });
 
         return () => {
-            // 클릭 이벤트 리스너를 정리
             document.removeEventListener('mousedown', (event) => {
                 docsWithFields.forEach((_, index) => {
                     handleClickOutside(event, index);
@@ -143,95 +141,151 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
     return (
         <>
             <AllChannelsWrapper>
-                {docsWithFields.map((item, index) => (
-                    <ChannelWrapper key={index}>
-                        <ChannelFlexDiv>
-                            <ChannelDiv># {item.docId}</ChannelDiv>
-                            <MoreHorizIconWrapper>
-                                <MoreHorizIcon
-                                    onClick={() => {
-                                        toggleDropDown(index);
-                                        console.log(dropdownStates);
-                                    }}
-                                ></MoreHorizIcon>
-                            </MoreHorizIconWrapper>
-                            {dropdownStates[index] && (
-                                <DropDownOptions ref={dropdownRef}>
-                                    <OptionButton
-                                        onClick={() => {
-                                            setModalType('CreateSub');
-                                            setSelectedChannelId(item.docId);
-                                            openModal();
-                                        }}
-                                    >
-                                        추가
-                                    </OptionButton>
-                                    <OptionButton
-                                        onClick={() => {
-                                            setModalType('Update');
-                                            // setSelectedSubChannelId(item.docData);
-                                            setSelectedChannelId(item.docId);
-                                            openModal();
-                                        }}
-                                    >
-                                        수정
-                                    </OptionButton>
-                                    <OptionButton onClick={() => deleteChannelDoc('wiki', item.docId)}>
-                                        삭제
-                                    </OptionButton>
-                                </DropDownOptions>
-                            )}
-                        </ChannelFlexDiv>
+                {docsWithFields.map((item, index) => {
+                    if (item.docId === defaultChannels[0]) {
+                        return (
+                            <ChannelWrapper key={index}>
+                                <ChannelFlexDiv>
+                                    <ChannelDiv># {item.docId}</ChannelDiv>
+                                </ChannelFlexDiv>
 
-                        <div style={{ marginLeft: '20px' }}>
-                            {item.docKeys.map((item2, index2) => (
-                                <SubChannelFlexDiv
-                                    onClick={() => {
-                                        handleKeyClick(item.docData[item2], item.docId, item2);
-                                        setChannel(item.docId);
-                                        setSubChannel(item2);
-                                    }}
-                                    style={{
-                                        color: isSubChannelActive(item.docId, item2) ? '#ffffff' : '',
-                                        backgroundColor: isSubChannelActive(item.docId, item2)
-                                            ? 'var(--active-item)'
-                                            : '',
-                                        borderRadius: isSubChannelActive(item.docId, item2) ? '5px' : '',
-                                        fontWeight: isSubChannelActive(item.docId, item2) ? 'bold' : '',
-                                    }}
-                                >
-                                    <SubChannelDiv key={index2}>{item2}</SubChannelDiv>
+                                <div style={{ marginLeft: '20px' }}>
+                                    {item.docKeys.map((item2, index2) => (
+                                        <SubChannelFlexDiv
+                                            onClick={() => {
+                                                handleKeyClick(item.docData[item2], item.docId, item2);
+                                                setChannel(item.docId);
+                                                setSubChannel(item2);
+                                            }}
+                                            style={{
+                                                color: isSubChannelActive(item.docId, item2) ? '#ffffff' : '',
+                                                backgroundColor: isSubChannelActive(item.docId, item2)
+                                                    ? 'var(--active-item)'
+                                                    : '',
+                                                borderRadius: isSubChannelActive(item.docId, item2) ? '5px' : '',
+                                                fontWeight: isSubChannelActive(item.docId, item2) ? 'bold' : '',
+                                            }}
+                                        >
+                                            <SubChannelDiv key={index2}>{item2}</SubChannelDiv>
+                                        </SubChannelFlexDiv>
+                                    ))}
+                                </div>
+                                <ChannelHr />
+                            </ChannelWrapper>
+                        );
+                    }
+                    return null;
+                })}
+
+                {docsWithFields.map((item, index) => {
+                    if (item.docId !== defaultChannels[0]) {
+                        return (
+                            <ChannelWrapper key={index}>
+                                <ChannelFlexDiv>
+                                    <ChannelDiv># {item.docId}</ChannelDiv>
                                     <MoreHorizIconWrapper>
                                         <MoreHorizIcon
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                toggleDropDownSub(index, index2);
+                                            onClick={() => {
+                                                toggleDropDown(index);
+                                                console.log(dropdownStates);
                                             }}
                                         ></MoreHorizIcon>
                                     </MoreHorizIconWrapper>
-                                    {dropdownSubStates[index][index2] && (
-                                        <SubDropDownOptions ref={dropdownSubRef}>
+                                    {dropdownStates[index] && (
+                                        <DropDownOptions ref={dropdownRef}>
                                             <OptionButton
                                                 onClick={() => {
-                                                    setModalType('UpdateSub');
-                                                    setSelectedSubChannelId(item2);
+                                                    setModalType('CreateSub');
+                                                    setSelectedChannelId(item.docId);
+                                                    openModal();
+                                                }}
+                                            >
+                                                추가
+                                            </OptionButton>
+                                            <OptionButton
+                                                onClick={() => {
+                                                    setModalType('Update');
+                                                    // setSelectedSubChannelId(item.docData);
                                                     setSelectedChannelId(item.docId);
                                                     openModal();
                                                 }}
                                             >
                                                 수정
                                             </OptionButton>
-                                            <OptionButton onClick={() => deleteFieldFromDoc('wiki', item.docId, item2)}>
+                                            <OptionButton
+                                                onClick={() => {
+                                                    const shouldDelete = window.confirm('정말로 삭제하시겠습니까?');
+                                                    if (shouldDelete) {
+                                                        deleteChannelDoc('wiki', item.docId);
+                                                    }
+                                                }}
+                                            >
                                                 삭제
                                             </OptionButton>
-                                        </SubDropDownOptions>
+                                        </DropDownOptions>
                                     )}
-                                </SubChannelFlexDiv>
-                            ))}
-                        </div>
-                        <ChannelHr />
-                    </ChannelWrapper>
-                ))}
+                                </ChannelFlexDiv>
+
+                                <div style={{ marginLeft: '20px' }}>
+                                    {item.docKeys.map((item2, index2) => (
+                                        <SubChannelFlexDiv
+                                            onClick={() => {
+                                                handleKeyClick(item.docData[item2], item.docId, item2);
+                                                setChannel(item.docId);
+                                                setSubChannel(item2);
+                                            }}
+                                            style={{
+                                                color: isSubChannelActive(item.docId, item2) ? '#ffffff' : '',
+                                                backgroundColor: isSubChannelActive(item.docId, item2)
+                                                    ? 'var(--active-item)'
+                                                    : '',
+                                                borderRadius: isSubChannelActive(item.docId, item2) ? '5px' : '',
+                                                fontWeight: isSubChannelActive(item.docId, item2) ? 'bold' : '',
+                                            }}
+                                        >
+                                            <SubChannelDiv key={index2}>{item2}</SubChannelDiv>
+                                            <MoreHorizIconWrapper>
+                                                <MoreHorizIcon
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        toggleDropDownSub(index, index2);
+                                                    }}
+                                                ></MoreHorizIcon>
+                                            </MoreHorizIconWrapper>
+                                            {dropdownSubStates[index][index2] && (
+                                                <SubDropDownOptions ref={dropdownSubRef}>
+                                                    <OptionButton
+                                                        onClick={() => {
+                                                            setModalType('UpdateSub');
+                                                            setSelectedSubChannelId(item2);
+                                                            setSelectedChannelId(item.docId);
+                                                            openModal();
+                                                        }}
+                                                    >
+                                                        수정
+                                                    </OptionButton>
+                                                    <OptionButton
+                                                        onClick={() => {
+                                                            const shouldDelete =
+                                                                window.confirm('정말로 삭제하시겠습니까?');
+                                                            if (shouldDelete) {
+                                                                deleteFieldFromDoc('wiki', item.docId, item2);
+                                                            }
+                                                        }}
+                                                    >
+                                                        삭제
+                                                    </OptionButton>
+                                                </SubDropDownOptions>
+                                            )}
+                                        </SubChannelFlexDiv>
+                                    ))}
+                                </div>
+                                <ChannelHr />
+                            </ChannelWrapper>
+                        );
+                    }
+                    return null;
+                })}
                 <CreateChannelDiv
                     onClick={() => {
                         setModalType('Create');

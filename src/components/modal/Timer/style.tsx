@@ -18,9 +18,9 @@ export const Modal = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 720px;
-    height: 520px;
-    background-color: #fff;
+    width: 620px;
+    height: 400px;
+    background-color: #fafafa;
     border-radius: 20px;
     box-shadow: 0 5px 5px 2px #7e7e7e;
     overflow: hidden;
@@ -31,7 +31,7 @@ export const TimerModal = styled(Modal)`
 `;
 
 export const ModalWall = styled.div`
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
@@ -41,10 +41,10 @@ export const ModalWall = styled.div`
 `;
 
 export const CloseBtn = styled.button`
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     position: absolute;
-    font-size: 20px;
+    font-size: 18px;
     top: 10px;
     right: 10px;
     -webkit-appearance: none;
@@ -114,7 +114,7 @@ export const Timebox = styled.div`
     }
 `;
 export const Now = styled.span`
-    font-size: 80px;
+    font-size: 60px;
     font-weight: 700;
 `;
 

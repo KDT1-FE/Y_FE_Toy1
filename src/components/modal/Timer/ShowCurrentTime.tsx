@@ -28,8 +28,10 @@ const ShowCurrentTime: React.FC<OwnProps> = ({ setTimeRenewal }) => {
 
     return (
         <TimeNowbox>
-            <p>현재 시간</p>
-            <TimeNow>{currentTime}</TimeNow>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
+                <p>현재 시간</p>
+                <TimeNow>{currentTime}</TimeNow>
+            </div>
         </TimeNowbox>
     );
 };

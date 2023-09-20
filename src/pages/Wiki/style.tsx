@@ -3,24 +3,24 @@ import styled from '@emotion/styled';
 export const WikiContainer = styled.div`
     display: flex;
     padding-top: 72px;
-    height: 100vh;
+    height: auto;
     width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
 `;
 export const WikiContent = styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: left;
     margin-left: 0px;
     position: relative;
-    height: 100%;
     width: 100%;
-    overflow: hidden;
+    padding: 10px 20px 20px 40px;
 `;
 export const ChannelNames = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: left;
-    margin-left: 90px;
-    margin-top: 20px;
 `;
 export const EditCompletedButton = styled.div`
     display: absolute;
@@ -34,7 +34,7 @@ export const EditCompletedButton = styled.div`
 export const BeforeEdit = styled.div`
     display: absolute;
     border: none;
-    position: center;
+    position: left;
     display: flex;
     flex-direction: column;
     margin-top: 20px;
@@ -57,4 +57,11 @@ export const MDEditBtn = styled.button`
     right: 30px;
     width: 50px;
     height: 30px;
+`;
+export const ReadChannel = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    width: 60vw;
+    margin-right: 0px;
 `;

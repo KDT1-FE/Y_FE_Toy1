@@ -53,7 +53,7 @@ const Recruitment: React.FC = () => {
                     updatedChannel,
                 );
                 const subChannelFields =
-                    subChannel === 'all' || subChannel === ''
+                    subChannel === '전체' || subChannel === ''
                         ? docSnapshots.map((item) => ({ id: item.id, data: item.data }))
                         : docSnapshots
                               .filter((item) => item.data.category === subChannel)
