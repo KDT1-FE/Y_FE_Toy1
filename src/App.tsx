@@ -3,20 +3,22 @@ import styled from 'styled-components';
 import NavBar from './components/NavBar';
 import Header from './components/Header';
 import { UserProvider } from './common/UserContext';
+import { MenuProvider } from './common/useMenu';
 
 function App() {
   return (
-
     <UserProvider>
-      <Container>
-        <Wrapper>
-          <Header />
-          <MainWrapper>
-            <NavBar />
-            <Outlet />
-          </MainWrapper>
-        </Wrapper>
-      </Container>
+      <MenuProvider>
+        <Container>
+          <Wrapper>
+            <Header />
+            <MainWrapper>
+              <NavBar />
+              <Outlet />
+            </MainWrapper>
+          </Wrapper>
+        </Container>
+      </MenuProvider>
     </UserProvider>
   );
 }

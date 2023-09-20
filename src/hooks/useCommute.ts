@@ -1,6 +1,6 @@
 import { MouseEventHandler, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { commuteState, defaultCommuteInfo } from '../data/atoms';
+import { commuteState } from '../data/atoms';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../common/config';
 import { uploadCommuteInfo } from '../utils/firebaseUtils';
