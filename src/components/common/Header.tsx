@@ -3,12 +3,20 @@ import * as style from "./headerStyle";
 import { useLocation } from "react-router-dom";
 import CommuteModal from "./CommuteModal";
 import { useEffect, useState } from "react";
+import { signOut } from "firebase/auth";
+import { auth } from "../../../firebase";
 
-export default function Header() {
+interface Props {
+  email: string;
+}
+
+export default function Header({ email }: Props) {
   const [showModal, setShowModal] = useState(false);
   const onCommuteClick = () => {
     setShowModal(!showModal);
   };
+  const [startTime, setStartTitme] = useState<Date | null>(null);
+  const [endTime, setEndTitme] = useState<Date | null>(null);
 
   const [workingHours, setWorkingHours] = useState<number>();
   const [workingMinutes, setWorkingMinutes] = useState<number>();
@@ -20,11 +28,12 @@ export default function Header() {
       }, 1000);
       return () => clearInterval(id);
     }
-  }, []);
+  }, [startTime]);
 
-  const [startTime, setStartTitme] = useState<Date | null>(null);
-  const [endTime, setEndTitme] = useState<Date | null>(null);
-
+  const logout = async () => {
+    await signOut(auth);
+    window.location.replace("/login");
+  };
   const location = useLocation();
   if (location.pathname === "/login") return null;
   return (
@@ -35,7 +44,7 @@ export default function Header() {
             <style.Logo>9굴 WIKI</style.Logo>
           </style.Wrapper>
           <style.Wrapper>
-            <style.UserName>아무개님</style.UserName>
+            <style.UserName>{email}</style.UserName>
             {startTime && (
               <style.WorkingTime>
                 {String(workingHours).padStart(2, "0")}:
@@ -48,7 +57,7 @@ export default function Header() {
               padding={"0.3125rem 0.75rem"}
               onClick={onCommuteClick}
             />
-            <style.LogoutBtn>Logout</style.LogoutBtn>
+            <style.LogoutBtn onClick={logout}>Logout</style.LogoutBtn>
           </style.Wrapper>
         </style.Top>
         <style.Bottom>
