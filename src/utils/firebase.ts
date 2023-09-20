@@ -373,9 +373,9 @@ export const updateRecruitment = async (channel: string, path: string, value: an
             doc(firestore, 'recruitmentContainer', 'recruitment', channel, path),
             value,
         );
-        console.log('게시글 생성에 성공했습니다');
+        console.log('게시글 수정에 성공했습니다');
     } catch (error) {
-        console.error('게시글 작성에 실패했습니다.', error);
+        console.error('게시글 수정에 실패했습니다.', error);
         throw error;
     }
 };

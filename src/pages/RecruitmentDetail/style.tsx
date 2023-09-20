@@ -50,6 +50,11 @@ export const ContentHeaderName = styled.div`
     font-weight: 500;
 `;
 
+export const Content = styled.div`
+    padding: 20px;
+    width: 100%;
+`;
+
 export const ContentUserImage = styled.img`
     width: 30px;
     height: 30px;

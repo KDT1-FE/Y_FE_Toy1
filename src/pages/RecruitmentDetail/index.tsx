@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-    CommentItemWrapper,
     Btn,
     BtnWrapper,
     CommentName,
@@ -13,6 +12,7 @@ import {
     ContentSub,
     ContentTitleWrapper,
     ContentWrapper,
+    Content,
     RecruitmentDetailContainer,
     DeleteModalContainer,
     DeleteModalWrapper,
@@ -37,11 +37,12 @@ import {
     updateRecruitment,
     getUserImageURL,
 } from '../../utils/firebase';
-import MDEditor from '@uiw/react-md-editor';
 import { useRecoilState } from 'recoil';
-import { UserId } from '../../utils/recoil';
+import { UserId, Render } from '../../utils/recoil';
 import { useNavigate } from 'react-router-dom';
 import { RecruitmentData } from '../../utils/recoil';
+import { collection, serverTimestamp, getDocs, Firestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { firestore } from '../../utils/firebase';
 
 const RecruitmentDetail: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
@@ -49,46 +50,49 @@ const RecruitmentDetail: React.FC = () => {
     const [userImageURL, setUserImageURL] = useState('');
     const [recruitmentData, setRecruitmentData] = useRecoilState(RecruitmentData);
     const [deleteModalValued, setDeleteModalValued] = useState(false);
+    const [commentValue, setCommentValue] = useState('');
+    const [comments, setComments] = useState([]);
+    const [render, setRender] = useRecoilState(Render);
 
     const [data, setData] = useState<any>({});
 
     const navigate = useNavigate();
 
-    console.log(data);
-
     const channel = location.pathname.split('/')[2];
     const path = location.pathname.split('/')[3];
 
     useEffect(() => {
-        // 데이터를 비동기로 가져오기 위해 useEffect를 사용합니다.
-        getRecruitmentDetail(channel, path)
-            .then((result) => {
-                // 데이터를 성공적으로 가져온 후에 setData를 사용하여 값을 설정합니다.
-                setData(result);
-            })
-            .catch((error) => {
-                // 에러 핸들링
-                console.error('Error fetching data:', error);
-            });
+        const fetchUserData = async () => {
+            const docRef = doc(firestore, 'recruitmentContainer', 'recruitment', channel, path);
+            const unsub = await onSnapshot(
+                doc(firestore, 'recruitmentContainer', 'recruitment', channel, path),
+                (doc) => {
+                    setData(doc.data());
+                    setComments(doc.data()?.comment);
+                    // 수정
+                    getUserImageURL(doc.data()?.uid)
+                        .then((result) => {
+                            setUserImageURL(result);
+                        })
+                        .catch((error) => {
+                            // 에러 핸들링
+                            console.error('Error fetching data:', error);
+                        });
+                },
+            );
+            return () => {
+                unsub();
+            };
+        };
 
-        getUserName(userId)
-            .then((result) => {
-                setUserName(result);
-            })
-            .catch((error) => {
-                // 에러 핸들링
-                console.error('Error fetching data:', error);
-            });
+        fetchUserData();
+    }, []);
 
-        getUserImageURL(userId)
-            .then((result) => {
-                setUserImageURL(result);
-            })
-            .catch((error) => {
-                // 에러 핸들링
-                console.error('Error fetching data:', error);
-            });
-    }, [channel, path]);
+    useEffect(() => {
+        if (!render) {
+            setRender(!render);
+        }
+    }, [render]);
 
     const handleCreateCommentSubmit = async (e: any) => {
         e.preventDefault();
@@ -108,8 +112,9 @@ const RecruitmentDetail: React.FC = () => {
                 fullDate.getMinutes();
             const value = { uid: e.target.uid.value, content: e.target.content.value, time: date };
             await createComment(channel, path, value);
-            console.log('댓글 작성');
-            location.reload();
+
+            setCommentValue('');
+            // location.reload();
         } else {
             console.error('uid 또는 content가 정의되지 않았습니다.');
         }
@@ -137,12 +142,31 @@ const RecruitmentDetail: React.FC = () => {
     };
 
     const handleRecruitmentValued = () => {
-        data.recruitValued = !data.recruitValued;
-        updateRecruitment(channel, path, data);
+        const updated_at_timestamp = serverTimestamp();
+
+        const value = {
+            category: data.category,
+            comment: data.comment,
+            content: data.content,
+            people: data.people,
+            recruitValued: !data.recruitValued,
+            time: updated_at_timestamp,
+            title: data.title,
+            uid: data.uid,
+            name: data.name,
+        };
+        for (let i = 0; i < value.comment.length; i++) {
+            value.comment[i] = {
+                uid: data.comment[i].uid,
+                time: data.comment[i].time,
+                content: data.comment[i].content,
+            };
+        }
+        updateRecruitment(channel, path, value);
 
         navigate('/recruitment');
     };
-
+    console.log(data.comment);
     return (
         <RecruitmentDetailContainer>
             {deleteModalValued ? (
@@ -189,10 +213,8 @@ const RecruitmentDetail: React.FC = () => {
                         <p>분야 : {data.category}</p>
                         <p>인원 : {data.people}</p>
                     </ContentSub>
-                    <MDEditor.Markdown
-                        source={data.content}
-                        style={{ width: '100%', padding: '20px', backgroundColor: 'white' }}
-                    />
+                    <Content>{data.content}</Content>
+
                     {userId == data.uid ? (
                         data.recruitValued ? (
                             <RecruitmentEndBtn onClick={handleRecruitmentValued}>모집 마감</RecruitmentEndBtn>
@@ -203,10 +225,9 @@ const RecruitmentDetail: React.FC = () => {
                         ''
                     )}
                 </ContentWrapper>
-
-                {data.comment ? (
+                {render ? (
                     <CommentWrapper>
-                        {data.comment ? data.comment.map((v: any, i: number) => <CommentItem comment={v} i={i} />) : ''}
+                        {comments ? comments.map((v: any, i: number) => <CommentItem comment={v} i={i} />) : ''}
                         <CommentCreateWrapper>
                             <CommentName>댓글 쓰기</CommentName>
                             <CommentInputWrapper>
@@ -220,7 +241,11 @@ const RecruitmentDetail: React.FC = () => {
                                     />
                                     <textarea
                                         name="content"
+                                        value={commentValue}
                                         style={{ width: '880px', height: '60px', border: '1px solid gray' }}
+                                        onChange={(e) => {
+                                            setCommentValue(e.target.value);
+                                        }}
                                         required
                                     />
                                 </form>
@@ -231,7 +256,7 @@ const RecruitmentDetail: React.FC = () => {
                         </CommentCreateWrapper>
                     </CommentWrapper>
                 ) : (
-                    ''
+                    <>로딩중..</>
                 )}
             </ContentContainer>
         </RecruitmentDetailContainer>
