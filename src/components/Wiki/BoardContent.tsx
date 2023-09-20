@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './BoardContent.scss';
 
+
 type Post = {
   name: string;
   title: string;
@@ -49,36 +50,34 @@ export function BoardContent({ boardState }: any) {
   }, [boardState]);
 
   return (
-    <div>
+    <div className='board__content'>
       {sessionStorage.uid && (
-        <button onClick={handledleClickButton}>작성하기</button>
+        <button onClick={handledleClickButton} className="btn btn-secondary">작성하기</button>
       )}
-      {boardData.map((item, index) => (
-        <article key={index} className="post" onClick={handleClickBoard}>
-          <div className="post__info">
-            <span className="post__name">{item.name}</span>
-            <span className="post__time">{item.time}</span>
-          </div>
-          <h1 className="post__title">{item.title}</h1>
-          <p className="post__content">
-            {textLengthOverCut(item.content, 50, '...')}
-          </p>
-          <div className="post__id" style={{ display: 'none' }}>
+      <table className="table table-hover" id="article-table">
+            <thead>
+            <tr>
+                <th className="title col-8"><a>제목</a></th>
+                <th className="user-id"><a>작성자</a></th>
+                <th className="created-at"><a>작성일</a></th>
+            </tr>
+            </thead>
+            <tbody>
+            {boardData.map((item,index)=>(
+              <tr key={index} onClick={handleClickBoard}>
+              <td className="title"><a>{item.title}</a></td>
+              <td className="user-id">{item.name}</td>
+              <td className="created-at">
+                  <time>{item.time}</time>
+              </td>
+              <td><div className="post__id" style={{ display: 'none' }}>
             {item.id}
-          </div>
-        </article>
-      ))}
+          </div></td>
+          </tr>
+            ))}
+            </tbody>
+        </table>
     </div>
   );
 }
 
-function textLengthOverCut(
-  txt = 'lorem is',
-  len = 50,
-  lastTxt = '...',
-): string {
-  if (txt.length > len) {
-    txt = txt.substr(0, len) + lastTxt;
-  }
-  return txt;
-}
