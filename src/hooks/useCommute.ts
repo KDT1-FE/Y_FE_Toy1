@@ -4,7 +4,7 @@ import { commuteState } from '../data/atoms';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../common/config';
 import { uploadCommuteInfo } from '../utils/firebaseUtils';
-import { formatDate } from '../utils/formatTime';
+import { Time } from '../utils/formatTime';
 
 const useCommute = (uid: string | null | undefined, toggleModal: () => void) => {
   const [commuteInfo, setCommuteInfo] = useRecoilState(commuteState);
@@ -23,7 +23,7 @@ const useCommute = (uid: string | null | undefined, toggleModal: () => void) => 
 
   useEffect(() => {
     const getDateInSeoul = () => {
-      const formattedDate = formatDate();
+      const formattedDate = new Time().date;
       const dateArr = formattedDate.split('. ');
       const [year, month, day] = dateArr;
 
