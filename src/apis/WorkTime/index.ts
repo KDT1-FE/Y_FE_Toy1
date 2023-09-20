@@ -17,6 +17,7 @@ import {
 import { WORK_TIME_COLLECTION } from 'constants/collection';
 import { ERROR_ALERT } from 'constants/alert';
 import { IuserData } from 'types/user';
+import { getSessionUserData } from 'utils/user';
 
 export const login = async () => {
   try {
@@ -28,23 +29,14 @@ export const login = async () => {
   }
 };
 
-const getSessionUserData = () => {
-  for (const key of Object.keys(sessionStorage)) {
-    if (key.includes('firebase:authUser:') && key) {
-      const user = sessionStorage.getItem(key);
-      if (user) return JSON.parse(user);
-    }
-  }
-};
-
 export const addWorkTimeData = (workTime: number) => {
-  const user: IuserData = getSessionUserData();
+  const user: IuserData | undefined = getSessionUserData();
   try {
     addDoc(collection(db, WORK_TIME_COLLECTION), {
       workTime: workTime,
-      uid: user.uid,
+      uid: user?.uid,
       timeStamp: serverTimestamp(),
-      name: user.displayName,
+      name: user?.displayName,
     });
   } catch (error) {
     alert(ERROR_ALERT);
@@ -59,10 +51,10 @@ export interface IworkTimeResponse {
 }
 
 const searchUser = () => {
-  const user: IuserData = getSessionUserData();
+  const user: IuserData | undefined = getSessionUserData();
   const searchUserQuery = query(
     collection(db, WORK_TIME_COLLECTION),
-    where('uid', '==', user.uid),
+    where('uid', '==', user?.uid),
     orderBy('timeStamp', 'desc'),
   );
   return searchUserQuery;
