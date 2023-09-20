@@ -1,0 +1,29 @@
+@use './abstracts' as *;
+@use './base' as *;
+
+.chart {
+  width: 100%;
+  height: calc(100vh - 60px);
+  padding: 1rem 4rem;
+  box-sizing: border-box;
+
+  &__top {
+    display: flex;
+    border-bottom: 1px solid $darkBlue;
+    padding: 0rem 4rem;
+
+    & h1 {
+      font-size: $font-lg;
+      color: $darkBlue;
+    }
+  }
+  &__img {
+    width: 100%;
+    height: 80vh;
+    margin-top: 2rem;
+    padding: -2rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+}
