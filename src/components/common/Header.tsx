@@ -1,14 +1,29 @@
 import Button from "./Button";
 import * as style from "./headerStyle";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import CommuteModal from "./CommuteModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Header() {
   const [showModal, setShowModal] = useState(false);
   const onCommuteClick = () => {
     setShowModal(!showModal);
   };
+
+  const [workingHours, setWorkingHours] = useState<number>();
+  const [workingMinutes, setWorkingMinutes] = useState<number>();
+  useEffect(() => {
+    if (startTime) {
+      const id = setInterval(() => {
+        setWorkingHours(new Date().getHours() - startTime.getHours());
+        setWorkingMinutes(new Date().getMinutes() - startTime.getMinutes());
+      }, 1000);
+      return () => clearInterval(id);
+    }
+  }, []);
+
+  const [startTime, setStartTitme] = useState<Date | null>(null);
+  const [endTime, setEndTitme] = useState<Date | null>(null);
 
   const location = useLocation();
   if (location.pathname === "/login") return null;
@@ -18,12 +33,17 @@ export default function Header() {
         <style.Top>
           <style.Wrapper>
             <style.Logo>9굴 WIKI</style.Logo>
-            <Link to={"/login"}>임시 로그인</Link>
           </style.Wrapper>
           <style.Wrapper>
             <style.UserName>아무개님</style.UserName>
+            {startTime && (
+              <style.WorkingTime>
+                {String(workingHours).padStart(2, "0")}:
+                {String(workingMinutes).padStart(2, "0")} 근무 중
+              </style.WorkingTime>
+            )}
             <Button
-              text={"출근하기"}
+              text={"통근 관리"}
               margin={"0rem 1.25rem 0rem 0rem"}
               padding={"0.3125rem 0.75rem"}
               onClick={onCommuteClick}
@@ -43,7 +63,16 @@ export default function Header() {
           </style.Wrapper>
         </style.Bottom>
       </style.Container>
-      {showModal && <CommuteModal onCommuteClick={onCommuteClick} />}
+      {showModal && (
+        <CommuteModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          startTime={startTime}
+          setStartTitme={setStartTitme}
+          endTime={endTime}
+          setEndTitme={setEndTitme}
+        />
+      )}
     </>
   );
 }

@@ -40,6 +40,21 @@ export const UserName = styled.span`
   margin-right: 1.25rem;
 `;
 
+export const WorkingTime = styled.div`
+  border-radius: 4px;
+  border: 1px solid var(--color-medium-gray);
+
+  background: var(--color-white);
+
+  padding: 0.3125rem 0.6875rem;
+  margin-right: 0.4375rem;
+
+  color: var(--color-dark-gray);
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: normal;
+`;
+
 export const LogoutBtn = styled.button`
   display: flex;
   align-items: center;

@@ -20,12 +20,19 @@ export const Container = styled.button<{
 
   color: ${({ normal }) =>
     normal === "reverse" ? "#000" : "var(--color-main)"};
-  font-size: 0.88rem;
+  font-size: 0.875rem;
   line-height: normal;
   text-align: center;
 
   &:hover {
     background-color: var(--color-main);
     color: var(--color-white);
+  }
+
+  &:disabled {
+    background: #f9f9f9;
+    border: 1px solid var(--color-light-gray);
+    color: var(--color-disabled);
+    cursor: not-allowed;
   }
 `;
