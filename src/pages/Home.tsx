@@ -9,7 +9,6 @@ const Home = () => {
     <Container>
       <Carousel />
       <StudyTimeRanking />
-      <HomeBox />
       <RecentPost />
     </Container>
   );
@@ -17,13 +16,6 @@ const Home = () => {
 
 const Container = styled.section`
   position: relative;
-`;
-
-const HomeBox = styled.div`
-  background-color: gray;
-  width: 1202px;
-  height: 500px;
-  margin-bottom: 50px;
 `;
 
 export default Home;

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { db } from "../firebase";
 
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
-
+import Sidebar from "components/Sidebar";
 interface UsersData {
   id: string;
   class: number;
@@ -13,10 +13,10 @@ interface UsersData {
   studyTime: number;
 }
 
-const StudyTimeRanking = () => {
+const Rank = () => {
   const [users, setUsers] = useState<UsersData[]>([]);
 
-  const q = query(collection(db, "user"), orderBy("studyTime", "desc"), limit(5));
+  const q = query(collection(db, "user"), orderBy("studyTime", "desc"), limit(100));
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -44,35 +44,48 @@ const StudyTimeRanking = () => {
   }, []);
 
   return (
-    <RankWrapper>
-      <table>
-        <thead>
-          <tr>
-            <th>순위</th>
-            <th>닉네임</th>
-            <th>클래스</th>
-            <th>공부 시간</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((usersData: UsersData, index: number) => (
-            <tr key={usersData.id}>
-              <td>
-                <img src={process.env.PUBLIC_URL + `/svg/number/${index + 1}_icon.svg`} alt="오류" />
-              </td>
-              <td>{usersData.nickName}</td>
-              <td>{usersData.class}</td>
-              <td>{usersData.studyTime}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </RankWrapper>
+    <>
+      <Sidebar />
+      <Container>
+        <RankWrapper>
+          <table>
+            <thead>
+              <tr>
+                <th>순위</th>
+                <th>닉네임</th>
+                <th>클래스</th>
+                <th>공부 시간</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((usersData: UsersData, index: number) => (
+                <tr key={usersData.id}>
+                  <td>
+                    <img src={process.env.PUBLIC_URL + `/svg/number/${index + 1}_icon.svg`} alt="오류" />
+                  </td>
+                  <td>{usersData.nickName}</td>
+                  <td>{usersData.class}</td>
+                  <td>{usersData.studyTime}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </RankWrapper>
+      </Container>
+    </>
   );
 };
 
+const Container = styled.section`
+  position: relative;
+  left: 200px;
+  height: calc(100% - 60px);
+  width: calc(100% - 200px);
+  padding: 5px;
+  box-sizing: border-box;
+`;
+
 const RankWrapper = styled.div`
-  background-color: gray;
   width: auto;
   height: auto;
   margin-bottom: 5px;
@@ -85,15 +98,19 @@ const RankWrapper = styled.div`
     table-layout: fixed; /* 테이블 레이아웃을 고정된 너비로 설정 */
   }
 
-  thead {
+  /* thead {
     background-color: red;
+  } */
 
+  td {
+    border-top: 2px solid black;
   }
-  
+
   /* th,
   td {
     width: 25%; // 각 셀의 너비를 테이블 너비의 25%로 지정
   } */
 `;
 
-export default StudyTimeRanking;
+
+export default Rank;
