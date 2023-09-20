@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import loginIcon from '../../assets/icons/loginIcon.svg';
 import googleIcon from '../../assets/icons/googleIcons.svg';
 import { useNavigate } from 'react-router-dom';
-import { login } from 'apis/WorkTime';
 import { media } from 'styles/media';
 import { ROUTES } from 'constants/routes';
+import { login } from 'apis/User';
 
 function Login() {
   const navigate = useNavigate();

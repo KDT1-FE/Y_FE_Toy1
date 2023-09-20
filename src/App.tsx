@@ -15,6 +15,7 @@ import { auth } from 'apis/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Loading from 'components/Common/Loading';
 import Calendar from 'pages/Calendar';
+import { ERROR_ALERT } from 'constants/alert';
 
 function App() {
   const [user, loading, error] = useAuthState(auth);
@@ -24,7 +25,7 @@ function App() {
   }
 
   if (error) {
-    return <div>알 수 없는 error 가 발생했습니다</div>;
+    return <div>{ERROR_ALERT}</div>;
   }
   return (
     <Router>

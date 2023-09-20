@@ -1,3 +1,4 @@
+import { searchUser } from 'apis/User';
 import { db } from 'apis/firebase';
 import { CALENDAR_COLLECTION } from 'constants/collection';
 import {
@@ -6,10 +7,7 @@ import {
   deleteDoc,
   doc,
   getDocs,
-  query,
-  where,
 } from 'firebase/firestore';
-import { IuserData } from 'types/user';
 import { getSessionUserData } from 'utils/user';
 
 interface ICalendarData {
@@ -38,18 +36,9 @@ export const uploadCalendarData = async (calendarData: ICalendarData) => {
   }
 };
 
-const searchUser = () => {
-  const user: IuserData | undefined = getSessionUserData();
-  const searchUserQuery = query(
-    collection(db, CALENDAR_COLLECTION),
-    where('uid', '==', user?.uid),
-  );
-  return searchUserQuery;
-};
-
 export const getCalendarData = async () => {
   try {
-    const response = await getDocs(searchUser());
+    const response = await getDocs(searchUser(CALENDAR_COLLECTION));
     const responseArray: ICalendarResponse[] = [];
     response.forEach((doc) => {
       const calendarData = doc.data();
