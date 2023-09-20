@@ -7,6 +7,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import StudyTime from "./StudyTime";
 import UserInfo from "./UserInfo";
+import DarkModeBtn from "./DarkModeBtn";
 
 const Header = () => {
   const pageLink = ["Wiki", "Gallery"];
@@ -79,6 +80,7 @@ const Header = () => {
               </Link>
             )}{" "}
           </li>
+          <DarkModeBtn />
         </ul>
       </InnerContainer>
       {isModalActive && (
@@ -113,7 +115,7 @@ const StyledButton = styled.button`
   border-radius: 5px;
   width: 100px;
   height: 35px;
-  background-color: #ffff;
+  background-color: #fff;
   cursor: pointer;
   p {
     margin: 0 auto;
