@@ -14,7 +14,7 @@ const NavBar = () => {
           <Link to={'gallery'}>Gallery</Link>
         </div>
         <div className={`category ${selectedCategory === '' ? 'selected' : ''}`}>
-          <Link to={'/'}>Contact</Link>
+          <Link to={'/contact'}>Contact</Link>
         </div>
       </Categories>
     </Container>

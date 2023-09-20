@@ -104,4 +104,18 @@ export const allCategories: CategoriesType[] = [
       },
     ],
   },
+  {
+    path: '/contact',
+    categories: [
+      {
+        title: 'contact',
+        subCategories: [
+          {
+            link: '',
+            text: 'contact',
+          },
+        ],
+      },
+    ],
+  },
 ];

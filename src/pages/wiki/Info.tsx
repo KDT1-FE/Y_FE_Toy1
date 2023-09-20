@@ -52,8 +52,6 @@ const Info = () => {
         const docRef = doc(db, 'wiki', 'info');
         const docSnapshot = await getDoc(docRef);
 
-        // console.log(user?.name);
-
         if (docSnapshot.exists()) {
           const data = docSnapshot.data();
           setMarkdown(data.content);
