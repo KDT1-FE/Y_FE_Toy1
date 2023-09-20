@@ -6,7 +6,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
 import MdEditor from '@uiw/react-md-editor';
 import { selectUserData } from 'data/getUser';
-import Test from './Test';
+
 type Board = {
   name: string;
   content: string;
@@ -18,11 +18,11 @@ type Board = {
 };
 
 const initialData: Board = {
-  name: '작성자',
-  content: '본문내용',
-  time: '15:23',
-  title: '글제목',
-  uid: 'string',
+  name: '...Loading',
+  content: '...Loading',
+  time: '...Loading',
+  title: '...Loading',
+  uid: '...Loading',
   id: 0,
   comment: [{}],
 };
@@ -233,7 +233,7 @@ export function BoardDetail(props: any) {
                 댓글 쓰기
               </label>
               <button
-                className="btn btn-primary"
+                className={`btn btn-primary ${sessionStorage.uid ? '' : 'disabled'}`}
                 id="comment-submit"
                 type="submit"
               >

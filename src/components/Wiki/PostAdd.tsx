@@ -62,6 +62,15 @@ export function PostAdd(props: any) {
     setMarkdown(value);
   };
 
+  React.useEffect(()=>{
+    if (sessionStorage.uid){
+        return
+    }
+    else {
+        navigate('error')
+    }
+  })
+
   return (
     <div className="post__page--add">
       <BoardNav />
