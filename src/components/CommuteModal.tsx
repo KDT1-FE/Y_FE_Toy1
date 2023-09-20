@@ -50,7 +50,7 @@ const CommuteModal = ({
       <Overlay onClick={toggleModal} className={isModalOpen ? 'open' : ''} />
       <ModalContainer className={isModalOpen ? 'open' : ''} id="commute-modal">
         <TimerWrapper>
-          <span className="date">{timer.time}</span>
+          <span className="date">{timer.date}</span>
           <span className="time">{currentTime.toLocaleTimeString('it-IT')}</span>
         </TimerWrapper>
 
