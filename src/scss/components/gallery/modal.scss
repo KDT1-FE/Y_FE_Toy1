@@ -23,7 +23,6 @@
   }
 
   & .modal {
-    width: 100%;
     position: relative;
     height: fit-content;
     @include shadow;
@@ -32,6 +31,10 @@
     border-radius: 5px;
     transition: all 400ms ease-in-out 0.5s;
     animation: fadeIn 400ms;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     & .modal__title {
       font-size: $font-lg;
@@ -46,10 +49,7 @@
     & .modal__content {
       padding: 4rem;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      align-items: flex-start;
-      gap: 1.4rem;
+      box-sizing: border-box;
     }
   }
 }
@@ -69,7 +69,13 @@
 //  upload modal
 .upload-modal.modal {
   max-width: 500px;
-
+  width: 100%;
+  & .modal__content {
+    flex-direction: column;
+    align-items: center;
+    align-items: flex-start;
+    gap: 1.4rem;
+  }
   & input[type='text'],
   & textarea {
     width: 100%;
@@ -81,7 +87,6 @@
     box-sizing: border-box;
     font-size: $font-base;
   }
-
   & textarea {
     height: 8rem;
   }
@@ -91,7 +96,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     & label {
       display: inline-block;
       vertical-align: middle;
@@ -124,6 +128,32 @@
       overflow: hidden;
       background: $white;
       color: #757575;
+    }
+  }
+}
+
+// view modal
+.view-modal {
+  max-width: 1000px;
+  width: 90%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  & .modal__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    &__img-box {
+      width: 60%;
+    }
+    &__text-box {
+      width: 35%;
+      & .modal__img-title {
+        font-size: $font-lg;
+      }
+      & p {
+        font-size: $font-base;
+        margin-bottom: 1.4rem;
+      }
     }
   }
 }

@@ -10,15 +10,17 @@ import useDocList from '../hooks/gallery/query/useDocList';
 import useImgList from '../hooks/gallery/query/useImgList';
 
 import { GalleryTitle, ImageList, ImageUploadModal, ImageViewModal } from '../components/Gallery';
+import { ImageUploadPayload, UploadedImage } from '../components/Gallery/types';
 
 import '../scss/components/gallery/gallery.scss';
 
 const GalleryPage = () => {
   const [formModalOpen, setFormModalOpen] = useState<boolean>(false);
   const [imgModalOpen, setImgModalOpen] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<string>('');
+  const [imageDetail, setImageDetail] = useState<UploadedImage>({} as UploadedImage);
   const [imageFileToUpload, setImageFileToUpload] = useState<File | null>(null);
   const [imageUploadPayload, setImageUploadPayload] = useState<ImageUploadPayload>({} as ImageUploadPayload);
-  const [like, setLike] = useState<number>(0);
 
   // use query
   const queryClient = useQueryClient();
@@ -26,7 +28,6 @@ const GalleryPage = () => {
   const { data: imageList } = useImgList();
 
   //upload image
-  //image upload
   const uploadImg = async () => {
     if (imageFileToUpload === null) {
       return;
@@ -38,7 +39,8 @@ const GalleryPage = () => {
     const payload: ImageUploadPayload = {
       ...imageUploadPayload,
       url,
-      timestamp: new Date(),
+      // timestamp: new Date(),
+      timestamp: new Date().toLocaleString(),
       like: 0,
     };
     await addDoc(galleryCollection, payload);
@@ -64,7 +66,11 @@ const GalleryPage = () => {
     queryClient.invalidateQueries([GalleryQueryKeyEnum.DocList]);
   };
 
-  // todo  :: props, onClick, view modal,
+  const handleClick = (url: string) => {
+    setImgModalOpen(true);
+    setSelectedImage(url);
+    console.log(url);
+  };
 
   return (
     <section id="gallery" className="gallery container">
@@ -79,13 +85,23 @@ const GalleryPage = () => {
           handleImageUploadClick={handleImageUploadClick}
         />
       )}
-      {imgModalOpen && <ImageViewModal />}
+      {imgModalOpen && (
+        <ImageViewModal
+          setImgModalOpen={setImgModalOpen}
+          selectedImage={selectedImage}
+          imageDetail={imageDetail}
+          likeImage={likeImage}
+        />
+      )}
       <article className="gallery__list">
         <ImageList
           docList={docList}
           likeImage={likeImage}
           deleteData={deleteData}
-          onImageClick={(index: number) => {}}
+          onImageClick={(index: number) => {
+            handleClick(imageList[index]);
+            setImageDetail(docList[index]);
+          }}
         />
       </article>
     </section>
