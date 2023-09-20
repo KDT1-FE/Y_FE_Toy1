@@ -77,10 +77,6 @@
 <summary>이승연</summary>
 <div markdown="1">
 
-```
-console.log(1)
-```
-
 </div>
 </details>
 
