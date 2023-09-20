@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import { TodoModalLayout
+import {
+  TodoModalLayout
   , ExitBtn
   , TitleText
-  ,TodoContainer
-  ,TodoItemContainer 
-  ,TodoInput
-  ,AddBtn
-,DeleteBtn} from "../../../styled/MainPage/TodoModal";
+  , TodoContainer
+  , TodoItemContainer
+  , TodoInput
+  , AddBtn
+  , DeleteBtn
+} from "../../../styled/MainPage/TodoModal";
 import { todoListState } from "../../../recoil/atoms/main/TodoAtom";
 
 interface TodoProps {
-  setShowTodo: React.Dispatch<React.SetStateAction<boolean>>;
+  setActiveModalIdx: React.Dispatch<React.SetStateAction<number>>;
 }
 
 interface TodoItem {
@@ -30,16 +32,16 @@ function removeItemAtIndex(arr: TodoItem[], index: number): TodoItem[] {
   return [...arr.slice(0, index), ...arr.slice(index + 1)];
 }
 
-function TodoModal({ setShowTodo }: TodoProps) {
+function TodoModal({ setActiveModalIdx }: TodoProps) {
   const [inputValue, setInputValue] = useState("");
   const [todoList, setTodoList] = useRecoilState(todoListState);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
-  
+
   const addItem = () => {
-    if(inputValue === null || inputValue === '') {
+    if (inputValue === null || inputValue === '') {
       alert("값을 입력해주세요");
       return;
 
@@ -54,7 +56,7 @@ function TodoModal({ setShowTodo }: TodoProps) {
     setInputValue("");
   };
   const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if(event.key === 'Enter') {
+    if (event.key === 'Enter') {
       addItem();
     }
   }
@@ -81,7 +83,7 @@ function TodoModal({ setShowTodo }: TodoProps) {
 
   return (
     <TodoModalLayout>
-      <ExitBtn type="button" onClick={() => setShowTodo(false)}>
+      <ExitBtn type="button" onClick={() => setActiveModalIdx(2)}>
         X
       </ExitBtn>
       <TitleText>TO DO</TitleText>
@@ -91,7 +93,7 @@ function TodoModal({ setShowTodo }: TodoProps) {
       </TodoItemContainer>
       <TodoContainer>
         {todoList.map((todoItem, index) => (
-          
+
           <TodoItemContainer key={index}>
             <input
               type="checkbox"
@@ -107,7 +109,7 @@ function TodoModal({ setShowTodo }: TodoProps) {
                 background: todoItem.isComplete ? "#E9ECEF" : "white"
               }}
             />
-            
+
             <DeleteBtn onClick={() => deleteItem(index)}>X</DeleteBtn>
           </TodoItemContainer>
         ))}
