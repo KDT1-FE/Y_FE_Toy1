@@ -46,7 +46,7 @@ export function BoardContent({ boardState }: any) {
     data.then((item: any) => {
       setboardData(item);
     });
-  }, [boardState]);
+  }, [boardState,sessionStorage.uid]);
 
   return (
     <div className="board__content">
