@@ -12,7 +12,10 @@ import Team from '../pages/wiki/Team';
 import Login from '../pages/Login';
 import Join from '../pages/Join';
 import Detail from '../pages/detail/Detail';
-import Contact from '../pages/contact/Contact';
+import About from '../pages/about/About';
+import Figma from '../pages/about/Figma';
+import Notion from '../pages/about/Notion';
+import Github from '../pages/about/Github';
 
 export const router = createBrowserRouter([
   {
@@ -90,16 +93,34 @@ export const router = createBrowserRouter([
         ],
       },
       {
+        path: '/about',
+        element: <About />,
+        children: [
+          {
+            index: true,
+            element: <Figma />,
+          },
+          {
+            path: 'figma',
+            element: <Figma />,
+          },
+          {
+            path: 'notion',
+            element: <Notion />,
+          },
+          {
+            path: 'github',
+            element: <Github />,
+          },
+        ],
+      },
+      {
         path: 'login',
         element: <Login />,
       },
       {
         path: 'join',
         element: <Join />,
-      },
-      {
-        path: 'contact',
-        element: <Contact />,
       },
     ],
   },
