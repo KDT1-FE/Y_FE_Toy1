@@ -4,7 +4,7 @@
   @include flex-center-col;
   width: 100%;
   box-sizing: border-box;
-  padding: 0 20px;
+  padding: 0 20px 20px;
   .attendancePage__title-box {
     display: flex;
     justify-content: space-between;
@@ -27,7 +27,7 @@
   .attendance__list {
     display: flex;
     width: 100%;
-    padding: 1rem;
+    padding: 1rem 0;
     > div {
       width: 100%;
       text-align: center;
@@ -75,13 +75,46 @@
       }
     }
     &-box {
+      // @include flex-center-col;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
       width: 100%;
       height: 100%;
     }
     &__pagination {
+      @include flex-center-row;
       width: 100%;
       height: 50px;
-      background: orange;
+      column-gap: 5px;
+      .number {
+        @include flex-center-row;
+        font-size: $font-base;
+        width: 26px;
+        height: 26px;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 50%;
+        &.active {
+          font-weight: $font-bold700;
+          background: $blue;
+          color: #fff;
+        }
+      }
+      button {
+        width: 22px;
+        height: 22px;
+        margin: 1rem;
+        border: none;
+        background: $blue;
+        color: #fff;
+        border-radius: 50%;
+        cursor: pointer;
+        &:disabled {
+          cursor: default;
+          opacity: 0.8;
+        }
+      }
     }
   }
 }
