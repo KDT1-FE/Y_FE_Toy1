@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import bin from '../../common/Gallery/bin.png';
 
 //갤러리 전체
 export const GalleryContainer = styled.div`
@@ -29,7 +30,7 @@ export const ContentContainer = styled.div`
 `;
 
 export const ArticleContainer = styled.div`
-    --paddingTop: 10%;
+    --paddingTop: 1%;
     overflow-y: auto;
     height: calc(100vh - var(--paddingTop));
     padding-left: 8%;
@@ -48,27 +49,29 @@ export const ContentFirstLine = styled.div`
 `;
 
 export const UploadBtn = styled.button`
-    position: fixed;
-    right: 8.5%;
-    top: 92px;
-    z-index: 2;
-    width: 170px;
-    height: 70px;
+    width: 100px;
+    height: 50px;
     border-radius: 10px;
-    font-size: 30px;
+    font-size: 26px;
     padding: 10px;
     box-sizing: border-box;
-    vertical-align: middle;
     border: none;
-    background-color: var(--active-current-status);
+    background-color: var(--active-item);
     color: white;
     cursor: pointer;
     &:hover {
-        font-weight: bold;
         filter: brightness(110%);
     }
 `;
 
+export const UploadBtnWrapper = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-right: 8%;
+    background-color: transparent;
+`;
 // 아티클 영역
 const jumpShaking = keyframes`
   0% { transform: translateX(0) }
@@ -87,6 +90,8 @@ export const TrashCan = styled.div`
     right: 20px;
     bottom: 20px;
     font-size: 60px;
+    background-image: url(${bin});
+    background-size: cover;
     animation: ${jumpShaking} 2s ease-in-out infinite;
     z-index: 2;
 `;
@@ -99,9 +104,9 @@ export const ImgContainer = styled.div`
 `;
 
 export const StyleProfile = styled.div`
-    --paddingTop: 10%;
+    --paddingTop: 8%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     flex-wrap: wrap;
     height: calc(100vh - 72px);
     gap: 40px;
@@ -133,8 +138,8 @@ export const ProfileName = styled.div`
 `;
 // 모달
 export const ModalContainer = styled.div`
-    width: 45%;
-    height: 55%;
+    width: 650px;
+    height: 420px;
     z-index: 999;
     position: fixed;
     top: 50%;
@@ -144,7 +149,7 @@ export const ModalContainer = styled.div`
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 15px 25px;
 `;
 
 export const ModalBackground = styled.div`
@@ -161,6 +166,7 @@ export const ModalFirstLine = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: baseline;
 `;
 
 export const ModalLabel = styled.label`
@@ -171,7 +177,6 @@ export const ModalLabel = styled.label`
 
 export const ModalTextarea = styled.textarea`
     width: 100%;
-    height: 190%;
     font-size: 16px;
     resize: none;
     border: 2px solid rgb(118, 118, 118);
@@ -192,11 +197,12 @@ export const InputAndPreview = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-top: 10px;
 `;
 
 export const InputContainer = styled.div`
     display: flex;
-    margin: 10px;
+    margin: 10px 10px 10px 0;
     flex-direction: column;
     z-index: 2;
 `;
@@ -234,9 +240,10 @@ export const Description = styled.div`
     font-size: 20px;
     opacity: 0; /* 설명을 숨깁니다. */
     transition: opacity 0.3s ease-in-out;
+    overflow: hidden;
 `;
 
-export const ChildArticle = styled.div`
+export const ChildArticle = styled.li`
     display: flex;
     align-items: flex-start;
     &:hover ${Description} {
@@ -249,7 +256,8 @@ export const PreviewBox = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 10px;
+    margin: 10px 0px 10px 10;
+
     &:hover ${Description} {
         opacity: 1;
     }
@@ -284,7 +292,6 @@ export const SubmitBtn = styled.button`
     cursor: pointer;
     font-size: 20px;
     &:hover {
-        font-weight: bold;
         filter: brightness(110%);
     }
 `;
@@ -302,7 +309,6 @@ export const CancelBtn = styled.button`
     margin: 25px;
     cursor: pointer;
     &:hover {
-        font-weight: bold;
         filter: brightness(90%);
     }
 `;
@@ -310,5 +316,5 @@ export const CancelBtn = styled.button`
 export const BtnAlign = styled.div`
     display: flex;
     justify-content: center;
-    margin-top: 15px;
+    margin-top: 6px;
 `;

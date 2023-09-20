@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { FixedSizeList } from 'react-window';
 import Modal from './UploadModal/Modal';
 import { onSnapshot, updateDoc } from 'firebase/firestore';
 import { ref, deleteObject } from 'firebase/storage';
@@ -8,11 +9,11 @@ import {
     ArticleContainer,
     ChildArticle,
     ContentContainer,
-    ContentFirstLine,
     Description,
     ModalBackground,
     TrashCan,
     UploadBtn,
+    UploadBtnWrapper,
 } from './style';
 
 const Recruit: React.FC = () => {
@@ -94,8 +95,10 @@ const Recruit: React.FC = () => {
                     <Modal onClose={closeModal} />
                 </div>
             )}
-            <ContentFirstLine style={{ font: '16px', fontWeight: 'bold' }}>레퍼런스 공유 {'>'} 취업</ContentFirstLine>
-            <UploadBtn onClick={openModal}>업로드</UploadBtn>
+            {/* <ContentFirstLine style={{ font: '16px', fontWeight: 'bold' }}>레퍼런스 공유 {'>'} 취업</ContentFirstLine> */}
+            <UploadBtnWrapper>
+                <UploadBtn onClick={openModal}>업로드</UploadBtn>
+            </UploadBtnWrapper>
             <ArticleContainer>
                 <DragDropContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
                     <Droppable droppableId="trashCan">
@@ -107,20 +110,19 @@ const Recruit: React.FC = () => {
                                 }}
                                 {...provided.droppableProps}
                             >
-                                🗑️
                                 {provided.placeholder}
                             </TrashCan>
                         )}
                     </Droppable>
                     <Droppable droppableId="yourDroppableId">
                         {(provided) => (
-                            <div
+                            <ul
                                 ref={provided.innerRef}
                                 style={{
                                     display: 'flex',
                                     flexWrap: 'wrap',
                                     gap: '20px',
-                                    justifyContent: 'space-evenly',
+                                    justifyContent: 'space-between',
                                 }}
                                 {...provided.droppableProps}
                             >
@@ -159,7 +161,16 @@ const Recruit: React.FC = () => {
                                                         src={articleR.thumbnailURL}
                                                         alt={`article ${articleR.index}`}
                                                     />
-                                                    <Description>{articleR.description}</Description>
+                                                    <Description>
+                                                        {articleR.description
+                                                            .split('\n')
+                                                            .map((line: any, index: any) => (
+                                                                <React.Fragment key={index}>
+                                                                    {line}
+                                                                    <br />
+                                                                </React.Fragment>
+                                                            ))}
+                                                    </Description>
                                                 </a>
                                             </ChildArticle>
                                         )}
@@ -167,7 +178,7 @@ const Recruit: React.FC = () => {
                                 ))}
 
                                 {provided.placeholder}
-                            </div>
+                            </ul>
                         )}
                     </Droppable>
                 </DragDropContext>

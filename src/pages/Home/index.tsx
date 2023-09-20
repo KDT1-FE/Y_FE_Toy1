@@ -9,9 +9,9 @@ import {
     AboutContent,
     AboutContainer,
 } from './style';
-import fastcampusImg from '../../common/mainImg/fastcampus.png';
-import wikiImg from '../../common/mainImg/wiki.png';
-import galleryImg from '../../common/mainImg/gallery.png';
+import fastcampusImg from '../../common/MainImg/fastcampus.png';
+import wikiImg from '../../common/MainImg/wiki.png';
+import galleryImg from '../../common/MainImg/gallery.png';
 
 import Carousel from 'react-material-ui-carousel';
 import { Paper } from '@mui/material';

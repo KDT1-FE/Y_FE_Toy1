@@ -8,7 +8,7 @@ const { persistAtom } = recoilPersist({
 
 export const UserId = atom({
     key: 'userId',
-    default: [],
+    default: '',
     effects_UNSTABLE: [persistAtom],
 });
 
@@ -38,6 +38,12 @@ export const TimeLog = atom({
     default: '',
 });
 
+// 불러온 입퇴실 기록
+export const ReadTimelog = atom({
+    key: 'ReadTimeLog',
+    default: [],
+});
+
 export const SlideOn = atom({
     key: 'SlideOn',
     default: false,
@@ -57,4 +63,8 @@ export const UserInfo = atom({
 export const UserImg = atom({
     key: 'UserImg',
     default: '',
+});
+export const Render = atom({
+    key: 'Render',
+    default: true,
 });

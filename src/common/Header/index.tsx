@@ -3,10 +3,10 @@ import { HeaderComponent, TitleAnchor, AnchorContainer, ListAnchor, RightAnchorC
 import { useRecoilState } from 'recoil';
 import { UserId, TimeLog, TimerOn } from '../../utils/recoil';
 import { useNavigate, useLocation } from 'react-router-dom';
-import CommuteBtn from '../../components/modal/Timer/CommuteBtn';
+import CommuteBtn from '../../components/Modal/Timer/CommuteBtn';
 import { createTimelog } from '../../utils/firebase';
-import { CreateDay, CreateTime } from '../../components/modal/Hooks/WhatTime';
-import MyPageBtn from '../../components/modal/MyPage/MyPageBtn';
+import { CreateDay, CreateTime } from '../../components/Modal/Hooks/WhatTime';
+import MyPageBtn from '../../components/Modal/MyPage/MyPageBtn';
 
 const Header: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
@@ -47,6 +47,16 @@ const Header: React.FC = () => {
             sessionStorage.setItem('timelog', timeLog);
         }
     }, [timeLog]);
+    const logOutTimeCheck = () => {
+        if (timerOn && timeLog !== '') {
+            setTimeLog(timeLog + ' ' + ' ' + '-' + ' ' + ' ' + '퇴실' + ' ' + ' ' + CreateTime());
+            setTimerOn(false);
+        }
+        // 타임로그 기록 전 아이디 정보가 사라지는 것을 막기위해 setTimeout처리
+        setTimeout(() => {
+            logOutHandler();
+        }, 100);
+    };
 
     return (
         <HeaderComponent>
@@ -57,35 +67,11 @@ const Header: React.FC = () => {
                     <ListAnchor href="/recruitment">recruitment</ListAnchor>
                     <ListAnchor href="/gallery">gallery</ListAnchor>
                     {userId.length > 0 ? (
-                        <button
-                            onClick={() => {
-                                if (timerOn && timeLog !== '') {
-                                    setTimeLog(
-                                        timeLog +
-                                            ' ' +
-                                            '->' +
-                                            ' ' +
-                                            `[${CreateDay()}]` +
-                                            ' ' +
-                                            '퇴실' +
-                                            ' ' +
-                                            CreateTime(),
-                                    );
-                                    setTimerOn(false);
-                                }
-                                // 타임로그 기록 전 아이디 정보가 사라지는 것을 막기위해 setTimeout처리
-                                setTimeout(() => {
-                                    logOutHandler();
-                                }, 100);
-                            }}
-                        >
-                            LogOut
-                        </button>
+                        <button onClick={logOutTimeCheck}>LogOut</button>
                     ) : (
                         <ListAnchor href={'/LogIn'}>LogIn</ListAnchor>
                     )}
-                    <CommuteBtn />
-                    <MyPageBtn />
+                    {userId.length > 0 && <MyPageBtn />}
                 </RightAnchorContainer>
             </AnchorContainer>
         </HeaderComponent>

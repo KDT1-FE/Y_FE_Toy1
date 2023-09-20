@@ -42,7 +42,8 @@ export const PostButton = styled.button`
 `;
 
 export const SearchInput = styled.input`
-    padding: 5px 0px;
+    width: 30%;
+    padding: 5px 0px 5px 12.5px;
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     font-size: 1.3rem;
@@ -61,6 +62,7 @@ export const PostWrapper = styled.div`
     padding: 20px 15px;
 
     &:hover {
+        background-color: #bfefff;
         cursor: pointer;
     }
 `;

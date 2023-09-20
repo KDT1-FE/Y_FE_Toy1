@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { CommentContent, CommentItemWrapper, Btn, BtnWrapper, CommentName, CommentTime, CommentForm } from './style';
-import { getRecruitmentDetail, getUserName, deleteComment } from '../../utils/firebase';
+import { getRecruitmentDetail, getUserData, deleteComment } from '../../utils/firebase';
 import { useRecoilState } from 'recoil';
-import { UserId } from '../../utils/recoil';
+import { UserId, Render } from '../../utils/recoil';
 import { useParams, useNavigate } from 'react-router-dom';
 
 interface CommentProps {
@@ -16,6 +16,8 @@ interface CommentProps {
 }
 const CommentItem: React.FC<CommentProps> = (props) => {
     const [userId, setUserId] = useRecoilState(UserId);
+    const [render, setRender] = useRecoilState(Render);
+    const [userData, setUserData] = useState<any>({});
 
     const [data, setData] = useState<any>({});
     const { channel, path } = useParams<{ channel: string; path: string }>();
@@ -30,6 +32,14 @@ const CommentItem: React.FC<CommentProps> = (props) => {
                     setData(result);
                 })
                 .catch((error) => {
+                    console.error('Error fetching data:', error);
+                });
+            getUserData(userId)
+                .then((result) => {
+                    setUserData(result);
+                })
+                .catch((error) => {
+                    // 에러 핸들링
                     console.error('Error fetching data:', error);
                 });
         }
@@ -49,10 +59,15 @@ const CommentItem: React.FC<CommentProps> = (props) => {
                 e.target.content.value &&
                 e.target.time.value
             ) {
-                const value = { uid: e.target.uid.value, content: e.target.content.value, time: e.target.time.value };
+                const value = {
+                    uid: e.target.uid.value,
+                    name: userData.name,
+                    imageURL: userData.imageURL,
+                    content: e.target.content.value,
+                    time: e.target.time.value,
+                };
                 await deleteComment(channel, path, value);
-
-                location.reload();
+                setRender(!render);
             } else {
                 console.error('uid 또는 content가 정의되지 않았습니다.');
             }
@@ -66,7 +81,7 @@ const CommentItem: React.FC<CommentProps> = (props) => {
             <CommentName>
                 {props.comment.uid == data.uid ? <span style={{ color: 'blue' }}>글쓴이</span> : props.comment.name}
             </CommentName>
-            <CommentForm id={'commentForm' + props.i} onSubmit={handleDeleteCommentSubmit}>
+            <CommentForm id={'commentForm' + props.i} onSubmit={handleDeleteCommentSubmit} style={{ margin: '0' }}>
                 <input defaultValue={props.comment.uid} name="uid" style={{ display: 'none' }} disabled />
                 <CommentContent defaultValue={props.comment.content} name="content" disabled />
                 <CommentTime defaultValue={props.comment.time} name="time" disabled />

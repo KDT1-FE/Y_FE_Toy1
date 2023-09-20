@@ -1,50 +1,28 @@
 import styled from 'styled-components';
 
-export const ModalBtnBox = styled.div`
+export const CommuteModalBox = styled.div`
+    width: 100%;
+    height: 30%;
+    min-height: 210px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
 `;
 
-export const HeaderModalBtn = styled.div`
-    font-weight: 500;
-    font-size: 24px;
-    color: var(--text);
-    cursor: pointer;
-`;
-
-export const Modal = styled.div`
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 620px;
-    height: 400px;
-    background-color: #fafafa;
-    border-radius: 20px;
-    box-shadow: 0 5px 5px 2px #7e7e7e;
-    overflow: hidden;
-`;
-export const TimerModal = styled(Modal)`
-    width: 680px;
-    height: 480px;
-`;
-
-export const ModalWall = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 100;
-    background-color: rgba(0, 0, 0, 0.6);
-`;
+// export const ModalWall = styled.div`
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     width: 100vw;
+//     height: 100vh;
+//     z-index: 100;
+//     background-color: rgba(0, 0, 0, 0.6);
+// `;
 
 export const CloseBtn = styled.button`
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     position: absolute;
-    font-size: 18px;
+    font-size: 20px;
     top: 10px;
     right: 10px;
     -webkit-appearance: none;
@@ -70,23 +48,18 @@ export const ModalHeader = styled.div`
     color: #fff;
 `;
 
-export const Utils = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 8px;
-`;
-
 export const Dday = styled.span`
     display: flex;
     align-items: center;
     justify-content: center;
     color: #000;
-    font-weight: 600;
 `;
 
-export const ShowOn = styled.div<{ value: boolean }>`
+export const ShowTimerOn = styled.div<{ value: boolean }>`
     visibility: ${(value) => (value.value ? 'visible' : 'hidden')};
+    position: absolute;
+    top: 2%;
+    right: 2%;
     width: 60px;
     height: 40px;
     color: #fff;
@@ -98,39 +71,38 @@ export const ShowOn = styled.div<{ value: boolean }>`
     font-size: 18px;
 `;
 
-export const Timebox = styled.div`
+export const TimeNowbox = styled.div`
     width: 100%;
-    height: 45%;
+    height: 80%;
     color: #000;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
-    padding: 0 130px;
     & > p {
-        display: block;
         font-size: 20px;
         margin-left: 2px;
     }
 `;
-export const Now = styled.span`
-    font-size: 60px;
+export const TimeNow = styled.span`
+    font-size: 50px;
     font-weight: 700;
 `;
 
-export const BtnBox = styled.div`
+export const TimerBtnBox = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    padding-bottom: 10%;
 `;
 
-export const BtnClassic = styled.button`
+export const TimerBtnClassic = styled.button`
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    width: 120px;
-    height: 72px;
+    width: 100px;
+    height: 62px;
     border: none;
     border-radius: 20px;
     font-size: 24px;
@@ -139,16 +111,32 @@ export const BtnClassic = styled.button`
     cursor: pointer;
 `;
 
-export const OnBtn = styled(BtnClassic)<{ value: boolean }>`
+export const TimerOnBtn = styled(TimerBtnClassic)<{ value: boolean }>`
     margin-top: 2%;
     color: ${(value) => (value.value ? '#000' : '#fff')};
     background-color: ${(value) => (value.value ? '#ece7ec' : 'var(--active-current-status)')};
     box-shadow: ${(value) => (value.value ? '0 3px 3px 1px #ced0d3 inset' : '0 3px 3px 1px #ced0d3')};
 `;
-export const OffBtn = styled(BtnClassic)<{ value: boolean }>`
+export const TimerOffBtn = styled(TimerBtnClassic)<{ value: boolean }>`
     margin-top: 2%;
 
     color: ${(value) => (value.value ? '#fff' : '#000')};
     background-color: ${(value) => (value.value ? 'var(--active-current-status)' : '#ece7ec')};
     box-shadow: ${(value) => (value.value ? '0 3px 3px 1px #ced0d3' : '0 3px 3px 1px #ced0d3 inset')};
+`;
+export const ChangeTimer = styled.div<{ value: boolean }>`
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    box-shadow: ${(value) => (value.value ? '1px 2px 2px 1px #a0a0a0 inset' : 'none')};
+`;
+export const ChangeTimelog = styled.div<{ value: boolean }>`
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    box-shadow: ${(value) => (value.value ? 'none' : '1px 2px 2px 1px #a0a0a0 inset')};
 `;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Now, Timebox } from './style';
 import { CreateTime } from '../Hooks/WhatTime';
+import { TimeNow, TimeNowbox } from '../MyPage/commuteStyle';
 
 interface OwnProps {
     setTimeRenewal: React.Dispatch<React.SetStateAction<string | void>>;
@@ -26,10 +27,12 @@ const ShowCurrentTime: React.FC<OwnProps> = ({ setTimeRenewal }) => {
     }, [currentTime]);
 
     return (
-        <Timebox>
-            <p>현재 시간</p>
-            <Now>{currentTime}</Now>
-        </Timebox>
+        <TimeNowbox>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
+                <p>현재 시간</p>
+                <TimeNow>{currentTime}</TimeNow>
+            </div>
+        </TimeNowbox>
     );
 };
 

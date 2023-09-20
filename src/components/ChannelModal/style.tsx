@@ -56,6 +56,7 @@ export const TextInput = styled.input`
     height: 3rem;
     width: 100%;
     font-size: 1.1rem;
+    border-left: 1px solid black;
     &:hover {
         box-shadow: 0px 0px 7px 2px #1164a3;
     }

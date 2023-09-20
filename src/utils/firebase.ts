@@ -250,11 +250,7 @@ export const addUser = async (uid: string, value: any) => {
 export const uploadStorage = async (userId: string, file: File) => {
     const storageRef = ref(storage, 'user');
     const userRef = ref(storageRef, userId);
-    uploadBytes(userRef, file);
-};
-export const downloadStorage = async (userId: string) => {
-    const storageRef = ref(storage, 'user');
-    const userRef = ref(storageRef, userId);
+    await uploadBytes(userRef, file);
     const imgURL = await getDownloadURL(userRef);
     return imgURL;
 };
@@ -291,12 +287,12 @@ export const getUserName = async (uid: string) => {
     }
 };
 
-export const getUserImageURL = async (uid: string) => {
+export const getUserData = async (uid: string) => {
     const docRef = doc(firestore, 'user', uid);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-        return docSnap.data().imageURL;
+        return docSnap.data();
     } else {
         console.log('No such document!');
     }
@@ -379,9 +375,9 @@ export const updateRecruitment = async (channel: string, path: string, value: an
             doc(firestore, 'recruitmentContainer', 'recruitment', channel, path),
             value,
         );
-        console.log('게시글 생성에 성공했습니다');
+        console.log('게시글 수정에 성공했습니다');
     } catch (error) {
-        console.error('게시글 작성에 실패했습니다.', error);
+        console.error('게시글 수정에 실패했습니다.', error);
         throw error;
     }
 };

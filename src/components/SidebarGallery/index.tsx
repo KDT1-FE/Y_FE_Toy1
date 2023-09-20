@@ -50,9 +50,11 @@ const SidebarGallery: React.FC<SidebarGalleryProps> = ({ onKeyClick }) => {
                 const docData = doc.data();
                 const docId = doc.id;
                 const docKeys = Object.keys(docData);
+                docKeys.sort(); // 서브채널을 알파벳순으로 정렬
                 data.push({ docId, docKeys, docData });
             });
-
+            // 채널 목록을 알파벳순으로 정렬
+            data.sort((a, b) => a.docId.localeCompare(b.docId));
             setDocsWithFields(data);
         });
 

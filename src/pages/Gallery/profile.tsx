@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs, Firestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { collection, getDocs, doc, onSnapshot } from 'firebase/firestore';
 import { firestore } from '../../utils/firebase'; // Firebase firestore 객체 가져오기
 import { ContentFirstLine, ProfileContainer, ProfileIMG, ProfileName, ProfileWrapper, StyleProfile } from './style';
 
@@ -52,7 +52,7 @@ const Profile: React.FC = () => {
 
     return (
         <ProfileContainer>
-            <ContentFirstLine style={{ font: '16px', fontWeight: 'bold' }}>레퍼런스 공유 {'>'} 취업</ContentFirstLine>
+            {/* <ContentFirstLine style={{ font: '16px', fontWeight: 'bold' }}>레퍼런스 공유 {'>'} 취업</ContentFirstLine> */}
             <StyleProfile>
                 {users.map((user: any) => (
                     <ProfileWrapper key={user.id}>

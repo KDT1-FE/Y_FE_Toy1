@@ -50,6 +50,11 @@ export const ContentHeaderName = styled.div`
     font-weight: 500;
 `;
 
+export const Content = styled.div`
+    padding: 20px;
+    width: 100%;
+`;
+
 export const ContentUserImage = styled.img`
     width: 30px;
     height: 30px;
@@ -61,7 +66,7 @@ export const ContentUserImage = styled.img`
 `;
 
 export const ContentHeaderValuedTrue = styled.div`
-    margin-right: 20px;
+    margin-right: 25px;
     padding: 4px 10px;
 
     font-size: 1rem;
@@ -101,7 +106,7 @@ export const ContentTitleWrapper = styled.div`
 
 export const ContentSub = styled.div`
     width: 100%;
-    height: 70px;
+    height: 100px;
 
     padding-left: 20px;
 
@@ -142,7 +147,6 @@ export const CommentItemWrapper = styled.div`
 export const CommentName = styled.div`
     font-size: 1rem;
     font-weight: 500;
-    margin-bottom: 10px;
 `;
 
 export const CommentForm = styled.form`
@@ -154,12 +158,15 @@ export const CommentForm = styled.form`
 
 export const CommentContent = styled.input`
     font-size: 1.2rem;
+    margin-top: 5px;
+
     background-color: white;
     border: none;
 `;
 
 export const CommentTime = styled.input`
     font-size: 0.8rem;
+    margin-left: 2px;
 
     background-color: white;
     border: none;
@@ -180,43 +187,34 @@ export const BtnWrapper = styled.div`
 
 export const Btn = styled.button`
     margin-right: 10px;
-    padding: 3px 6px;
+    padding: 5px 16px;
 
-    background-color: #ffffff;
-    color: black;
-
-    height: 30px;
-    width: 70px;
+    background-color: #fff;
+    border: 1px solid #efefef;
+    box-shadow: 1px 1px rgba(0, 0, 0, 0.4);
 
     font-size: 0.8rem;
-    font-weight: bold;
 
-    border: 1px solid gray;
-    border-radius: 8px;
-    border: 0.5px solid black;
+    border-radius: 5px;
 
     &:hover {
+        background-color: #f0f0f0;
         cursor: pointer;
-        background-color: #efefef;
     }
 `;
 
 export const RecruitmentEndBtn = styled.button`
-    margin-right: 10px;
-    padding: 3px 6px;
+    margin-left: 10px;
+    padding: 8px 24px;
 
-    background-color: #ffffff;
-    color: black;
+    background-color: #fff;
+    border: 1px solid #efefef;
+    box-shadow: 1px 1px rgba(0, 0, 0, 0.4);
 
-    height: 35px;
-    width: 80px;
-
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: bold;
 
-    border: 1px solid gray;
-    border-radius: 8px;
-    border: 0.5px solid black;
+    border-radius: 5px;
 
     position: absolute;
     bottom: 20px;
@@ -224,8 +222,8 @@ export const RecruitmentEndBtn = styled.button`
     transform: translate(-50%, 0);
 
     &:hover {
+        background-color: #f0f0f0;
         cursor: pointer;
-        background-color: #efefef;
     }
 `;
 
@@ -254,7 +252,18 @@ export const CommentInputWrapper = styled.div`
 
 export const CommentBtn = styled.button`
     margin-left: 20px;
+    width: 100px;
     height: 60px;
+
+    background-color: #fff;
+    border: 1px solid #efefef;
+    border-radius: 5px;
+    box-shadow: 1px 1px rgba(0, 0, 0, 0.4);
+
+    &:hover {
+        background-color: #f0f0f0;
+        cursor: pointer;
+    }
 `;
 // DeleteModal
 
@@ -270,8 +279,8 @@ export const DeleteModalContainer = styled.div`
 `;
 
 export const DeleteModalWrapper = styled.div`
-    width: 500px;
-    height: 350px;
+    width: 400px;
+    height: 250px;
 
     padding: 20px;
 
@@ -319,13 +328,22 @@ export const DeleteCloseButton = styled.button`
 
 export const DeleteText = styled.div`
     width: 100%;
-    height: 150px;
+    height: 100px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
     font-size: 1.3rem;
+`;
+
+export const DeleteBtnWrapper = styled.div`
+    width: 100%;
+    height: 50px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 export const DeleteFallbackButton = styled.button`
@@ -342,7 +360,6 @@ export const DeleteFallbackButton = styled.button`
     border-radius: 5px;
     border: 0.5px solid black;
 
-    margin-top: 1rem;
     margin-left: 1rem;
 
     &:hover {
@@ -363,9 +380,6 @@ export const DeleteCreateButton = styled.button`
     border: 1px solid gray;
     border-radius: 5px;
     border: none;
-
-    margin-top: 1rem;
-    margin-left: 30%;
 
     &:hover {
         cursor: pointer;

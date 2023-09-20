@@ -8,11 +8,11 @@ import {
     ArticleContainer,
     ChildArticle,
     ContentContainer,
-    ContentFirstLine,
     Description,
     ModalBackground,
     TrashCan,
     UploadBtn,
+    UploadBtnWrapper,
 } from './style';
 
 const Tech: React.FC = () => {
@@ -93,8 +93,10 @@ const Tech: React.FC = () => {
                     <ModalT onClose={closeModal} />
                 </div>
             )}
-            <ContentFirstLine style={{ font: '16px', fontWeight: 'bold' }}>레퍼런스 공유 {'>'} 테크</ContentFirstLine>
-            <UploadBtn onClick={openModal}>업로드</UploadBtn>
+            {/* <ContentFirstLine style={{ font: '16px', fontWeight: 'bold' }}>레퍼런스 공유 {'>'} 테크</ContentFirstLine> */}
+            <UploadBtnWrapper>
+                <UploadBtn onClick={openModal}>업로드</UploadBtn>
+            </UploadBtnWrapper>
             <ArticleContainer>
                 <DragDropContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
                     <Droppable droppableId="trashCan">
@@ -106,7 +108,6 @@ const Tech: React.FC = () => {
                                 }}
                                 {...provided.droppableProps}
                             >
-                                🗑️
                                 {provided.placeholder}
                             </TrashCan>
                         )}
@@ -119,7 +120,7 @@ const Tech: React.FC = () => {
                                     display: 'flex',
                                     flexWrap: 'wrap',
                                     gap: '20px',
-                                    justifyContent: 'space-evenly',
+                                    justifyContent: 'space-between',
                                 }}
                                 {...provided.droppableProps}
                             >
@@ -158,7 +159,16 @@ const Tech: React.FC = () => {
                                                         src={articleT.thumbnailURL}
                                                         alt={`article ${articleT.index}`}
                                                     />
-                                                    <Description>{articleT.description}</Description>
+                                                    <Description>
+                                                        {articleT.description
+                                                            .split('\n')
+                                                            .map((line: any, index: any) => (
+                                                                <React.Fragment key={index}>
+                                                                    {line}
+                                                                    <br />
+                                                                </React.Fragment>
+                                                            ))}
+                                                    </Description>
                                                 </a>
                                             </ChildArticle>
                                         )}

@@ -31,14 +31,7 @@ export const PostBox = styled.div`
     border-bottom: 1px solid #eee;
 
     padding: 10px;
-`;
-
-export const PostName = styled.div`
-    border-bottom: 1px solid #eee;
-
-    padding: 10px;
-    font-size: 1.2rem;
-    font-weight: 700;
+    margin-bottom: 10px;
 `;
 
 export const PostH = styled.p`
@@ -51,7 +44,7 @@ export const PostH = styled.p`
 
 export const PostTextarea = styled.textarea`
     width: 100%;
-    height: 400px;
+    height: 300px;
     padding: 10px;
     box-sizing: border-box;
     border: solid 2px #1e90ff;
@@ -75,6 +68,6 @@ export const PostBtn = styled.button`
     background-color: var(--active-item);
 
     &:hover {
-        background-color: skyblue;
+        cursor: pointer;
     }
 `;
