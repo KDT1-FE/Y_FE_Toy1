@@ -1,16 +1,23 @@
 import styled from 'styled-components';
 import { Container } from 'components/NavigationContainer';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-function NavigationWiki() {
-  const navigate = useNavigate()
+interface props {
+  setIsChanged: React.Dispatch<React.SetStateAction<boolean>>;
+  isChange: boolean;
+}
+
+function NavigationWiki({ setIsChanged, isChange }: props) {
+  const navigate = useNavigate();
+  const searchParams = new URLSearchParams(useLocation().search);
+  const selectedCategory = searchParams.get('category');
 
   const initialCompanyInfo = [
     { id: 1, text: '회사 내규', pathName: 'companyRule' },
     { id: 2, text: '팀 소개', pathName: 'companyTeam' },
     { id: 3, text: '조직도', pathName: 'companyOrganization' },
   ];
-  
+
   const initialProjectInfo = [
     { id: 1, text: '진행중인 프로젝트', pathName: 'projects' },
     { id: 2, text: '예정된 프로젝트', pathName: 'projectsExpected' },
@@ -23,27 +30,53 @@ function NavigationWiki() {
   ];
 
   const companyList = initialCompanyInfo.map((company) => (
-    <li key={company.id} onClick={() => {
-      navigate(`/wiki?category=${company.pathName}`)
-    }}>{company.text}</li>
-  ))
+    <li
+      key={company.id}
+      className={
+        company.pathName === selectedCategory ? 'selected_category' : ''
+      }
+      onClick={() => {
+        navigate(`/wiki?category=${company.pathName}`);
+        setIsChanged(!isChange);
+      }}
+    >
+      {company.text}
+    </li>
+  ));
 
   const projectList = initialProjectInfo.map((project) => (
-    <li key={project.id} onClick={() => {
-      navigate(`/wiki?category=${project.pathName}`)
-    }}>{project.text}</li>
-  ))
+    <li
+      key={project.id}
+      className={
+        project.pathName === selectedCategory ? 'selected_category' : ''
+      }
+      onClick={() => {
+        navigate(`/wiki?category=${project.pathName}`);
+        setIsChanged(!isChange);
+      }}
+    >
+      {project.text}
+    </li>
+  ));
 
   const onBoardingList = initialOnBoardingInfo.map((onBoarding) => (
-    <li key={onBoarding.id} onClick={() => {
-      navigate(`/wiki?category=${onBoarding.pathName}`)
-    }}>{onBoarding.text}</li>
-  ))
-
+    <li
+      key={onBoarding.id}
+      className={
+        onBoarding.pathName === selectedCategory ? 'selected_category' : ''
+      }
+      onClick={() => {
+        navigate(`/wiki?category=${onBoarding.pathName}`);
+        setIsChanged(!isChange);
+      }}
+    >
+      {onBoarding.text}
+    </li>
+  ));
 
   return (
     <Container>
-      <CategoryContainer>        
+      <CategoryContainer>
         <CategoryUl>
           <h1>회사생활</h1>
           {companyList}
@@ -58,12 +91,17 @@ function NavigationWiki() {
         </CategoryUl>
       </CategoryContainer>
     </Container>
-  )
+  );
 }
 
 const CategoryContainer = styled.div`
   display: flex;
   flex-direction: column;
+
+  li:hover {
+    font-weight: 700;
+    border-bottom: 2px solid #e2e8f0;
+  }
 `;
 
 const CategoryUl = styled.ul`
