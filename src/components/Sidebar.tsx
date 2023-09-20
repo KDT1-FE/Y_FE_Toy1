@@ -29,12 +29,7 @@ const Sidebar = () => {
           </li>
           {sideLinkAttendance.map((page, idx) => {
             return (
-              <li
-                className={`sidebar__item ${
-                  activeItem === page ? "active" : ""
-                }`}
-                key={sideLinkAttendance[idx]}
-              >
+              <li className={`sidebar__item ${activeItem === page ? "active" : ""}`} key={sideLinkAttendance[idx]}>
                 <Link to={`${page}`} onClick={() => handleItemClick(page)}>
                   {page}
                 </Link>
@@ -46,12 +41,7 @@ const Sidebar = () => {
           </li>
           {sideLinkAdmin.map((page, idx) => {
             return (
-              <li
-                className={`sidebar__item ${
-                  activeItem === page ? "active" : ""
-                }`}
-                key={sideLinkAdmin[idx]}
-              >
+              <li className={`sidebar__item ${activeItem === page ? "active" : ""}`} key={sideLinkAdmin[idx]}>
                 <Link to={`${page}`} onClick={() => handleItemClick(page)}>
                   {page}
                 </Link>
@@ -75,10 +65,7 @@ const Sidebar = () => {
             </Link>
           </li>
           <li key={"학습 일정"} className="sidebar__menu">
-            <Link
-              to="학습 일정"
-              onClick={() => handleItemClick("금주의 학습 일정")}
-            >
+            <Link to="학습 일정" onClick={() => handleItemClick("금주의 학습 일정")}>
               금주의 학습 일정
             </Link>
           </li>
@@ -95,6 +82,15 @@ const Sidebar = () => {
           <li>갤러리글 1</li>
           <li>갤러리글 2</li>
           <li>갤러리글 3</li>
+        </SidebarList>
+        <SidebarBottom />
+      </Container>
+    );
+  } else if (hashSplit[1] === "Rank") {
+    return (
+      <Container>
+        <SidebarList>
+          <li>리더보드</li>
         </SidebarList>
         <SidebarBottom />
       </Container>

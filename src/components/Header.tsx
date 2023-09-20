@@ -10,7 +10,7 @@ import UserInfo from "./UserInfo";
 import DarkModeBtn from "./DarkModeBtn";
 
 const Header = () => {
-  const pageLink = ["Wiki", "Gallery"];
+  const pageLink = ["Wiki", "Gallery", "Rank"];
   const user = useContext(AuthContext);
   const [pathLink, setPathLink] = useState("");
   const location = useLocation();
