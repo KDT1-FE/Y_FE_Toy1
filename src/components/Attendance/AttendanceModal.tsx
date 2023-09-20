@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, addDoc, doc, updateDoc, Timestamp } from 'firebase/firestore';
-import db from '../../firebase/fireStore';
+import { onAuthStateChanged, User } from 'firebase/auth';
+import { db, auth } from '../../firebase';
 import Modal from '../Modal';
 
 import '../../scss/components/_attendanceModal.scss';
@@ -17,13 +18,15 @@ const Attendance = ({ isOpen, onClose }: AttendanceProps) => {
   const [counter, setCounter] = useState<'출근 전' | string>('출근 전');
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [docId, setDocId] = useState<string | null>(null);
+  const [user, setUser] = useState<null | User>(null);
 
   const toggleAttendance = async () => {
-    const currentTime = Timestamp.fromDate(new Date());
+    if (!user) return;
 
+    const currentTime = Timestamp.fromDate(new Date());
     if (attendStatus === '출근') {
       try {
-        const docRef = await addDoc(collection(db, 'attendance'), {
+        const docRef = await addDoc(collection(db, 'attendance', user.uid, 'records'), {
           date: currentTime.toDate().toISOString().split('T')[0],
           checkIn: currentTime,
           checkOut: null,
@@ -44,7 +47,7 @@ const Attendance = ({ isOpen, onClose }: AttendanceProps) => {
     } else {
       try {
         if (docId) {
-          await updateDoc(doc(db, 'attendance', docId), {
+          await updateDoc(doc(db, 'attendance', user.uid, 'records', docId), {
             checkOut: currentTime,
           });
 
@@ -101,6 +104,14 @@ const Attendance = ({ isOpen, onClose }: AttendanceProps) => {
     }
   }, []);
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, currentUser => {
+      setUser(currentUser);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   if (!isOpen) return null;
 
   return (
@@ -111,7 +122,8 @@ const Attendance = ({ isOpen, onClose }: AttendanceProps) => {
           <div className={`attendance__btn__counter ${attendActive === true ? 'active' : ''}`}>{counter}</div>
           <div
             className={`attendance__btn__attend ${attendActive === true ? 'active' : ''}`}
-            onClick={toggleAttendance}>
+            onClick={user ? toggleAttendance : undefined}
+            style={{ cursor: user ? 'pointer' : 'not-allowed' }}>
             {attendStatus}
           </div>
         </div>

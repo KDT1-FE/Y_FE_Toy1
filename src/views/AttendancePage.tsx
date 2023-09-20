@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { collection, getDocs, Timestamp, query, orderBy } from 'firebase/firestore';
-import db from '../firebase/fireStore';
+import { db, auth } from '../firebase';
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 
 import Placeholder from '../components/Placeholder';
@@ -14,12 +15,21 @@ interface AttendanceRecord {
   checkOut: Timestamp | null;
   id?: string;
 }
+interface StateValue {
+  isLogin: boolean;
+  name: string;
+  email: string;
+}
+interface State {
+  loginUpdate: StateValue;
+}
 
 const Attendance = (): JSX.Element => {
   const [modal, setModal] = useState<boolean>(false);
   const [attendanceData, setAttendanceData] = useState<AttendanceRecord[]>([]);
   const [startPage, setStartPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+
   const itemsPerPage = 18;
   const maxPageNumbersToShow = 10;
   const totalPages = Math.ceil(attendanceData.length / itemsPerPage);
@@ -27,6 +37,13 @@ const Attendance = (): JSX.Element => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = attendanceData.slice(indexOfFirstItem, indexOfLastItem);
+
+  const loginState = useSelector((state: State) => {
+    const isLogin = state.loginUpdate.isLogin;
+    const name = state.loginUpdate.name;
+
+    return { isLogin, name };
+  });
 
   const formatTimestamp = (timestamp: Timestamp | null): string => {
     if (!timestamp) return '-';
@@ -58,8 +75,32 @@ const Attendance = (): JSX.Element => {
   };
 
   useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async user => {
+      if (user) {
+        const querySnapshot = await getDocs(
+          query(collection(db, 'attendance', user.uid, 'records'), orderBy('checkIn', 'desc')),
+        );
+        const data: AttendanceRecord[] = [];
+        querySnapshot.forEach(doc => {
+          data.push({ ...(doc.data() as AttendanceRecord), id: doc.id });
+        });
+        setAttendanceData(data);
+        console.log(data);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
-      const querySnapshot = await getDocs(query(collection(db, 'attendance'), orderBy('checkIn', 'desc')));
+      const user = auth.currentUser;
+
+      if (!user) return;
+
+      const querySnapshot = await getDocs(
+        query(collection(db, 'attendance', user.uid, 'records'), orderBy('checkIn', 'desc')),
+      );
       const data: AttendanceRecord[] = [];
       querySnapshot.forEach(doc => {
         data.push({ ...(doc.data() as AttendanceRecord), id: doc.id });
@@ -74,9 +115,13 @@ const Attendance = (): JSX.Element => {
     <>
       <div id="attendancePage">
         <div className="attendancePage__title-box">
-          <h2>이번 주 근무 내역</h2>
+          <h2>근무 내역</h2>
           <div
             onClick={() => {
+              if (!loginState.isLogin) {
+                alert('로그인이 필요합니다');
+                return;
+              }
               setModal(true);
             }}>
             출퇴근
@@ -89,27 +134,33 @@ const Attendance = (): JSX.Element => {
             <div>퇴근 시간</div>
           </div>
           <div className="attendance__list-box">
-            {currentItems.map(record => (
-              <div className="attendance__list" key={record.id}>
-                <div>{record.date}</div>
-                <div>{formatTimestamp(record.checkIn)}</div>
-                <div>{formatTimestamp(record.checkOut)}</div>
-              </div>
-            ))}
-            {Array(18 - currentItems.length)
-              .fill(0)
-              .map((_, idx) => (
-                <Placeholder key={idx} />
-              ))}
-          </div>
-          <div className="attendance__list__pagination">
-            <button onClick={handlePrevPageNumbers} disabled={startPage === 1}>
-              <AiOutlineArrowLeft />
-            </button>
-            {renderPageNumbers}
-            <button onClick={handleNextPageNumbers} disabled={lastPageToShow === totalPages}>
-              <AiOutlineArrowRight />
-            </button>
+            {loginState.isLogin ? (
+              <>
+                {currentItems.map(record => (
+                  <div className="attendance__list" key={record.id}>
+                    <div>{record.date}</div>
+                    <div>{formatTimestamp(record.checkIn)}</div>
+                    <div>{formatTimestamp(record.checkOut)}</div>
+                  </div>
+                ))}
+                {Array(18 - currentItems.length)
+                  .fill(0)
+                  .map((_, idx) => (
+                    <Placeholder key={idx} type="attendance" />
+                  ))}
+                <div className="attendance__list__pagination">
+                  <button onClick={handlePrevPageNumbers} disabled={startPage === 1}>
+                    <AiOutlineArrowLeft />
+                  </button>
+                  {renderPageNumbers}
+                  <button onClick={handleNextPageNumbers} disabled={lastPageToShow === totalPages}>
+                    <AiOutlineArrowRight />
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="attendance__list--logout">로그인이 필요합니다.</div>
+            )}
           </div>
         </div>
       </div>
