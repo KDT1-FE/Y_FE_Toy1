@@ -5,15 +5,16 @@ export const WikiContainer = styled.div`
     padding-top: 72px;
     height: auto;
     width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
 `;
 export const WikiContent = styled.div`
     display: flex;
     justify-content: left;
     margin-left: 0px;
     position: relative;
-    height: 100%;
     width: 100%;
-    overflow: hidden;
     padding: 10px 20px 20px 40px;
 `;
 export const ChannelNames = styled.div`

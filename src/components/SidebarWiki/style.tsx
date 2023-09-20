@@ -4,6 +4,7 @@ export const AllChannelsWrapper = styled.div`
     min-width: 16.25%;
     max-width: 16.25%;
     padding-top: 1%;
+    height: 100vh;
     background-color: #3f0e40;
     color: #ffffffb3;
     overflow: auto;
