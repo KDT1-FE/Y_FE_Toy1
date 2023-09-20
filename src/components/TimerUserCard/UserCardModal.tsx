@@ -1,4 +1,6 @@
 import React from 'react';
+import './UserCardModal.scss';
+import { Timer } from 'components/TimerUserCard/Timer';
 
 interface UserCardModalProps {
   showModal: boolean;
@@ -13,7 +15,9 @@ export function UserCardModal({
 }: UserCardModalProps): JSX.Element {
   return (
     <div
-      className={`modal fade ${showModal ? 'show d-block' : ''}`}
+      className={`modal fade ${
+        showModal ? 'user-card-modal__container show d-block' : ''
+      }`}
       role="dialog"
     >
       <div className="modal-dialog modal-dialog-centered" role="document">
@@ -34,6 +38,7 @@ export function UserCardModal({
                   <h4>{selectedUser.nickname}</h4>
                   <p>{'Name : ' + selectedUser.username}</p>
                   <p>{'Email : ' + selectedUser.email}</p>
+                  <Timer id={selectedUser.id} />
                 </div>
               </>
             )}
