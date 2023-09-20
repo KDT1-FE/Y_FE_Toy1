@@ -63,6 +63,16 @@ const StyledImgContainer = styled.div`
   gap: 1.875rem;
   position: relative;
   overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+  }
   ${media.desktop_lg(`
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
