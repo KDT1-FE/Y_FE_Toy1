@@ -20,10 +20,10 @@ import Camera from '../../../assets/img/Camera.svg'
 import loginState from '../../../recoil/atoms/loginState';
 
 interface ProfileProp {
-  setShowProfile: React.Dispatch<React.SetStateAction<boolean>>;
+  setActiveModalIdx: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function ProfileModal({ setShowProfile }: ProfileProp) {
+export default function ProfileModal({ setActiveModalIdx }: ProfileProp) {
 
   const navigate = useNavigate()
 
@@ -99,7 +99,7 @@ export default function ProfileModal({ setShowProfile }: ProfileProp) {
     <ProfileModalLayout>
       <ProfileModalHeader>
         <ProfileModalHeaderText>My Profile</ProfileModalHeaderText>
-        <ProfileModalCloseBtn onClick={() => setShowProfile(false)}>
+        <ProfileModalCloseBtn onClick={() => setActiveModalIdx(-1)}>
           <CloseImg src={ClostButton} alt="" />
         </ProfileModalCloseBtn>
       </ProfileModalHeader>
