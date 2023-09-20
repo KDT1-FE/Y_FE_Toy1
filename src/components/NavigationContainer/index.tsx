@@ -17,6 +17,9 @@ export const Container = styled.nav`
   ${media.tablet_680(`
     height: 38rem;
 `)}
+  ${media.mobile(`
+    width: 10rem;
+  `)}
   ${media.mobile_430(`
     height: 30rem;
   `)}
