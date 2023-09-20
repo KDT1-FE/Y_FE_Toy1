@@ -8,18 +8,14 @@ export function MapImages({
   categoryId,
   commentsListData,
   like,
-}: any) {
+  slideClassName,
+}: any): JSX.Element {
   const modalRef: any = useRef();
 
   return (
-    <div className="slide-card-image">
-      <div
-        key={image.id}
-        id={categoryId}
-        className="slide__images"
-        onClick={() => modalRef.current?.showModal()}
-      >
-        <img src={image.image} />
+    <div className="slide__card">
+      <div key={image.id} id={categoryId} className="slide__images">
+        <img src={image.image} onClick={() => modalRef.current?.showModal()} />
 
         <dialog ref={modalRef}>
           <h1>Comment Page</h1>
@@ -34,16 +30,7 @@ export function MapImages({
             likeData={like}
           />
 
-          <button
-            type="button"
-            onClick={() => {
-              try {
-                modalRef.current?.close();
-              } catch {
-                console.error();
-              }
-            }} // 📍 모달 닫기
-          >
+          <button type="button" onClick={() => modalRef.current?.close()}>
             Close
           </button>
         </dialog>
