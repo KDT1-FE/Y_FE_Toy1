@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { gsap } from 'gsap';
-import './SlideRow.scss';
 import { getImageData } from '../../data/galleryImage';
-import { MapImages } from './SlideMapImages';
-//images 받아오기
+import { MapImages } from './SlideOpenModal';
+import './SlideRow.scss';
 
-interface Props {
+interface ISlide {
   categoryId: string;
-  image?: string;
   slideClassName: string;
+  cateEmoji: string;
+  slideContent: string;
 }
 
 export function CarouselSlide({
   categoryId,
   slideClassName,
-}: Props): JSX.Element {
+  cateEmoji,
+  slideContent,
+}: ISlide): JSX.Element {
   const imageData = getImageData(categoryId);
   const [imageDataInfo, setImageDataInfo]: any = useState();
 
@@ -44,7 +46,10 @@ export function CarouselSlide({
 
   return (
     <div className="slide-row">
-      <h2>{categoryId}</h2>
+      <h2>
+        {cateEmoji} {categoryId}
+      </h2>
+      <span className="slide-cate-content"> {slideContent}</span>
 
       <div className={slideClassName}>
         {imageDataInfo?.map((image: any) => (

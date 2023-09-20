@@ -1,0 +1,86 @@
+@import '../../styles/_common.scss';
+
+.comment {
+  &-container {
+    height: 100%;
+    width: 100%;
+    margin: 0 10%;
+    &-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin: 0 20px;
+    }
+  }
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    &-imageUploaderName {
+      font-size: 12px;
+      color: #363636;
+    }
+  }
+}
+
+.imageView {
+  &-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  &-image {
+    width: 90%;
+  }
+  span {
+    font-size: 16px;
+  }
+  &-commentForm {
+    height: 60%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    input {
+      width: 80%;
+      border: none;
+    }
+  }
+}
+
+.commentList {
+  &-header {
+    font-size: 20px;
+    font-weight: 700;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+  }
+  &-container {
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+  }
+  &-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    color: $blackColor;
+    &-delBtn {
+      font-size: 25px;
+    }
+  }
+}
+
+.comment-box {
+  display: flex;
+  flex-direction: column;
+  &-name {
+    font-size: 12px;
+    font-weight: 700;
+  }
+  &-text {
+    font-size: 18px;
+    padding-left: 5px;
+  }
+}

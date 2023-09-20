@@ -1,14 +1,11 @@
-@import '../../styles/reset.css';
+@import '~bootstrap/scss/bootstrap';
+@import '../../styles/_common.scss';
 
-nav {
-  width: 70%;
-  height: 100%;
-  margin: auto;
-}
+//부트스트랩 예정
 
 .category {
   width: 70vh;
-  background-color: aqua;
+  background-color: $whiteColor;
   display: flex;
   justify-content: space-evenly;
   font-size: 30px;

@@ -1,7 +1,6 @@
 import { db } from 'data/firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 import React, { useState, useEffect } from 'react';
-import './ModalComment.scss';
 import {
   updateLike,
   uploadCommentList,
@@ -9,6 +8,8 @@ import {
 } from 'data/galleryComment';
 import { deleteImage } from 'data/galleryImage';
 import { userId, userNickname } from 'pages/Gallery';
+import './_modal.scss';
+import './ModalCommentList.scss';
 
 interface Props {
   image: string;
@@ -100,8 +101,8 @@ export function ModalComment({
 
   // 댓글 삭제
   const handleDeleteComment = async (e: any) => {
-    const getDelText: string = e.target.previousElementSibling.innerHTML;
-    const getDelUid: string = e.target.closest('.commentItem').id;
+    const getDelText: string = e.target.previousElementSibling.id;
+    const getDelUid: string = e.target.closest('.commentList-item').id;
 
     try {
       const updatedData = commentList.filter((comment: any) => {
@@ -127,10 +128,9 @@ export function ModalComment({
   }, []);
 
   return (
-    <div>
-      <div className="header">
-        <h2>!</h2>
-        <h3>작성자 : {writerName}</h3>
+    <div className="comment-container">
+      <div className="comment-header">
+        <span className="comment-imageUploaderName">작성자 : {writerName}</span>
 
         {userNickname === writerName ? (
           <button className="btn--delImage" onClick={handleDeleteImage}>
@@ -139,48 +139,62 @@ export function ModalComment({
         ) : null}
       </div>
 
-      <div className="imageView">
-        <img src={image} alt={image} />
-        <h3>
-          <span onClick={handleLike}>💖</span>
-          {like}
-        </h3>
-      </div>
-
-      <div className="commentContainer">
-        {userNickname ? (
-          <form onSubmit={handleSubmit} className="commentForm">
-            <label htmlFor="comment"></label>
-            <input
-              type="text"
-              id="comment"
-              placeholder="작성 후 수정이 안되니 잘 생각하고 남기도록✏"
-              value={comment}
-              onChange={handleComments}
-            />
-            <button type="submit">제출</button>
-          </form>
-        ) : (
-          <h2>댓글 작성을 위해 로그인이 필요합니다.</h2>
-        )}
-
-        <ul>
-          {commentList?.map((comment: any) => (
-            <li
-              key={comment.commentsTime}
-              id={comment.commentUid}
-              className="commentItem"
+      <div className="comment-container-inner">
+        <div className="imageView-container">
+          <img className="imageView-image" src={image} alt={image} />
+          <span className="imageView-like" onClick={handleLike}>
+            💖{like} likes
+          </span>
+          <span className="imageView-commentForm-writer">{userNickname}</span>
+          {userNickname ? (
+            <form
+              onSubmit={handleSubmit}
+              className="imageView-commentForm commentForm"
             >
-              <h3>{comment.commentUser}</h3>
-              <span className="commentText">{comment.text} </span>
-              {userNickname === comment.commentUser ? (
-                <span className="btn--delComment" onClick={handleDeleteComment}>
-                  🗑
-                </span>
-              ) : null}
-            </li>
-          ))}
-        </ul>
+              <label htmlFor="comment"></label>
+              <input
+                type="text"
+                id="comment"
+                placeholder="댓글 추가..."
+                value={comment}
+                onChange={handleComments}
+              />
+              <button type="submit">제출</button>
+            </form>
+          ) : (
+            <h2>댓글 작성을 위해 로그인이 필요합니다.</h2>
+          )}
+        </div>
+
+        <div className="commentList-container">
+          <div className="commentList-header">😄 comments</div>
+          <ul>
+            {commentList?.map((comment: any) => (
+              <li
+                key={comment.commentsTime}
+                id={comment.commentUid}
+                className="commentList-item"
+              >
+                <div className="comment-box" id={comment.text}>
+                  <div className="comment-box-name">
+                    <span>{comment.commentUser}</span>
+                  </div>
+                  <div className="comment-box-text">
+                    <span>{comment.text}</span>
+                  </div>
+                </div>
+                {userNickname === comment.commentUser ? (
+                  <span
+                    className="btn-delComment commentList-item-delBtn"
+                    onClick={handleDeleteComment}
+                  >
+                    🗑
+                  </span>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

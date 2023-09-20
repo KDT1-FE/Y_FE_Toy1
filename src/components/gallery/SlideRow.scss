@@ -1,23 +1,29 @@
-@import '../../styles/reset.css';
+@import '../../styles/_common.scss';
 
-img {
-  width: 200px;
-  height: 200px;
-  // width: auto;
-  // height: 60vh;
-}
-
-.slide-row {
-  h2 {
-    font-size: 32px;
-    font-weight: 700;
-    color: #ff6523;
+.slide {
+  &-row {
+    margin-top: 5%;
+  }
+  &-cate-content {
+    display: block;
+    margin-left: 55px;
+    color: $grayColor;
+  }
+  &-images {
+    width: auto;
+    height: 60vh;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.2);
+    &:hover {
+      cursor: pointer;
+      scale: 1.1;
+      transition: all 0.3s ease-in-out;
+    }
   }
 }
-
-.leftSlideItem,
-.rightSlideItem {
+.rightSlideItem,
+.leftSlideItem {
   display: flex;
-  gap: 20px;
-  margin: 30px 40px;
+  gap: 10%;
+  margin: 15px 40px;
 }
