@@ -25,7 +25,7 @@ function Carousel() {
   }, [images.length]);
 
   return (
-    <div className="slideshow">
+    <div className="SlideShow">
       <img src={images[currentSlide]} alt={`Slide ${currentSlide + 1}`} />
     </div>
   );
