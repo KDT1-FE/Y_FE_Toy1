@@ -4,7 +4,7 @@ export const GalleryMain = styled.div`
   // border: 1px solid gold;
   padding: 2rem;
   border: 0.06rem solid var(--color-light-gray);
-  border-radius: 0.25rem;
+  border-radius: 0.94rem;
   background-color: var(--color-white);
   width: 100%;
   height: 44.75rem;

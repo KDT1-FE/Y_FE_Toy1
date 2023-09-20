@@ -5,7 +5,7 @@ export const GallerySide = styled.div`
   padding-top: 1.88rem;
   margin-right: 1.88rem;
   border: 0.06rem solid var(--color-light-gray);
-  border-radius: 0.25rem;
+  border-radius: 0.94rem;
   background-color: var(--color-white);
   min-width: 15rem;
   height: 44.75rem;
