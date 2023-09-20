@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
-  :root {
+  * {
     font-family: "Noto Sans KR";
     line-height: 1.5;
     font-size: 16px;
