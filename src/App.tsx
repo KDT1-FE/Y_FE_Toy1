@@ -7,6 +7,8 @@ import Attendance from './views/AttendancePage';
 import ProjectList from './views/ProjectList';
 import GalleryPage from './views/galleryPage';
 import NoticeWritePage from './views/NoticeWritePage';
+import Contents from './views/Contents';
+import NoticeUpdatePage from './views/NoticeUpdatePage';
 
 import { useDispatch } from 'react-redux';
 import { login } from './store/loginSlice';
@@ -34,6 +36,8 @@ const App = () => {
           <Route path="project" element={<ProjectList />} />
           <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/notice/write" element={<NoticeWritePage />} />
+          <Route path="/notice/content/:itemId" element={<Contents />} />
+          <Route path="/notice/content/update/:itemId" element={<NoticeUpdatePage />} />
           <Route path="attendance" element={<Attendance />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />

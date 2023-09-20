@@ -1,7 +1,7 @@
 import NoticeListBox from './NoticeListBox';
 import { useSelector } from 'react-redux';
 import { db } from '../../firebase';
-import { getDocs, collection } from 'firebase/firestore';
+import { getDocs, collection, orderBy, query } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 
 import '../../scss/projectList.scss';
@@ -12,7 +12,7 @@ const NoticeList = () => {
 
   const getData = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, 'notice'));
+      const querySnapshot = await getDocs(query(collection(db, 'notice'), orderBy('number', 'desc')));
       const data: string[] = [];
       const itemId: string[] = [];
       querySnapshot.forEach(doc => {

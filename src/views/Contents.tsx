@@ -1,16 +1,54 @@
-import React from 'react';
-import ContentTitle from '../components/contents/ContentTitle';
-import ContentUtil from '../components/contents/ContentUtil';
-import ContentItem from '../components/contents/ContentItem';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
-import '../scss/components/contents/contentsPage.scss';
+import '../scss/contentsPage.scss';
 
 const Contents = () => {
+  const location = useLocation();
+  const itemId = location.state;
+  const [title, setTitle] = useState('');
+  const [timeAgo, setTimeAgo] = useState('');
+  const [content, setContent] = useState('');
+  const [imgUrl, setImgUrl] = useState('');
+  const navigate = useNavigate();
+
+  const getData = async () => {
+    const docRef = doc(db, 'notice', location.state);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const title = docSnap.data().title;
+      const timeAgo = docSnap.data().time_ago;
+      const content = docSnap.data().content;
+      const imgUrl = docSnap.data().url;
+      setTitle(title);
+      setTimeAgo(timeAgo);
+      setContent(content);
+      setImgUrl(imgUrl);
+    } else {
+      console.error('파일이 없습니다!');
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <div className="contents">
-      <ContentUtil />
-      <ContentTitle />
-      <ContentItem />
+      <div className="content-util">
+        <p className="content-util__time">{timeAgo}</p>
+        <button
+          className="btn content-util__modify"
+          onClick={() => navigate(`/notice/content/update/${location.state}`, { state: itemId })}>
+          수정
+        </button>
+      </div>
+      <div className="content-title">{title}</div>
+      <div className="content-item">{content}</div>
+      {imgUrl ? <img src={imgUrl} alt={title} className="content-img" /> : ''}
     </div>
   );
 };
