@@ -38,22 +38,7 @@
 
 ## 📐 아키텍쳐 디자인
 
-## 🗂 디렉터리 구조
-
-
-
-## 💻 Script
-
-### Development Mode
-```
-$ git clone https://github.com/turkey-kim/techschool_wiki.git
-$ nvm install v18.16.1
-$ nvm use 18.16.1
-$ npm ci
-$ npm run start
-```
-
-## 🙌🏻 팀 소개
+## 🗂 파일 구조
 
 ```
 # CRA 사용
@@ -94,6 +79,19 @@ my-wiki-app/
 ├── README.md
 └── ...
 ```
+
+## 💻 Script
+
+### Development Mode
+```
+$ git clone https://github.com/turkey-kim/techschool_wiki.git
+$ nvm install v18.16.1
+$ nvm use 18.16.1
+$ npm ci
+$ npm run start
+```
+
+## 🙌🏻 팀 소개
 
 <div align="center">
   <table align="center"  style="border-radius: 10px;">
