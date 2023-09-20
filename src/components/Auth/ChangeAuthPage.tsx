@@ -11,7 +11,11 @@ const ChangeAuthPage = ({ target }: ChangeAuthPageProps): JSX.Element => {
     return <Link to={target}>{target === '/register' ? 'Sign Up' : 'Sign In'}</Link>;
   };
 
-  return <div className="link">Not a member? {checkTarget(target)}</div>;
+  return (
+    <div className="link">
+      Not a member? {checkTarget(target)} or <Link to={'/'}>Visitor</Link>
+    </div>
+  );
 };
 
 export default ChangeAuthPage;
