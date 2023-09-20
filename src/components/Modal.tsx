@@ -4,7 +4,7 @@ import {ModalType} from "../types/Modal";
 
 export default function Modal({isOpen, onClose, children}: ModalType) {
   const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter" || event.key === " ") {
+    if (event.key === "Escape") {
       onClose();
     }
   };
