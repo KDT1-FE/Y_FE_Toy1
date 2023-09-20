@@ -1,6 +1,6 @@
 import { db } from './firebase';
 import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
-import { userId, userNickname } from 'pages/Gallery';
+import { userId, userNickname, userImage } from 'pages/Gallery';
 
 //리스트 통째로 바꾸기
 const uploadCommentWholeList = (data, imgId, categoryId) => {
@@ -19,6 +19,7 @@ const uploadCommentList = (imgId, categoryId, comment) => {
       commentUid: userId,
       commentUser: userNickname,
       text: comment,
+      userImage: userImage,
       commentsTime: new Date(),
     }),
   });

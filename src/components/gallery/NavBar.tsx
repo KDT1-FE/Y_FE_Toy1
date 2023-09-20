@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './SideBar.scss';
-import { AddImageModal } from './ModalImage';
+import './NavBar.scss';
+import { AddImageModal } from './ModalAddImage';
 import { userId, userNickname } from 'pages/Gallery';
 
 export function SideBarLink() {

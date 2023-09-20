@@ -1,0 +1,12 @@
+@import '~bootstrap/scss/bootstrap';
+@import '../../styles/_common.scss';
+
+//부트스트랩 예정
+
+.category {
+  width: 70vh;
+  background-color: $whiteColor;
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 30px;
+}
