@@ -9,6 +9,8 @@ export default function Header() {
   const onCommuteClick = () => {
     setShowModal(!showModal);
   };
+  const [startTime, setStartTitme] = useState<Date | null>(null);
+  const [endTime, setEndTitme] = useState<Date | null>(null);
 
   const [workingHours, setWorkingHours] = useState<number>();
   const [workingMinutes, setWorkingMinutes] = useState<number>();
@@ -20,10 +22,7 @@ export default function Header() {
       }, 1000);
       return () => clearInterval(id);
     }
-  }, []);
-
-  const [startTime, setStartTitme] = useState<Date | null>(null);
-  const [endTime, setEndTitme] = useState<Date | null>(null);
+  }, [startTime]);
 
   const location = useLocation();
   if (location.pathname === "/login") return null;
