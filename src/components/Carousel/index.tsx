@@ -4,31 +4,9 @@ import { media } from 'styles/media';
 import styled from 'styled-components';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { carouseltext } from 'constants/carouseltext';
 
 function Carousel() {
-  const carouselImages = [
-    {
-      title1: '삼성 강남과 함께하는',
-      title2: '패캠 원데이 클래스',
-      src: '../images/2.png',
-    },
-    {
-      title1: '하반기 공채 지원?',
-      title2: '합격 비결은 공채 패키지',
-      src: '../images/3.png',
-    },
-    {
-      title1: '이번 주엔 누구나 1+1',
-      title2: '쿠폰 100% 당첨',
-      src: '../images/1.png',
-    },
-    {
-      title1: '백엔드 개발자라면?',
-      title2: '핀테크 개발은 못참지',
-      src: '../images/4.png',
-    },
-  ];
-
   const settings = {
     dots: true,
     infinite: true,
@@ -43,26 +21,36 @@ function Carousel() {
   };
 
   return (
-    <StyledWrapper>
-      <StyledCarousel {...settings}>
-        {carouselImages.map((item, index) => (
-          <StyledItem key={index}>
-            <StyledImg>
-              <StyledTitle1>{item.title1}</StyledTitle1>
-              <StyledTitle2>{item.title2}</StyledTitle2>
-              <img
-                src={item.src}
-                alt="carousel Image"
-                width={1600}
-                height={420}
-              />
-            </StyledImg>
-          </StyledItem>
-        ))}
-      </StyledCarousel>
-    </StyledWrapper>
+    <StyledCarouselBox>
+      <StyledWrapper>
+        <StyledCarousel {...settings}>
+          {carouseltext.map((item) => (
+            <StyledItem key={item.id}>
+              <StyledImg>
+                <StyledTitle1>{item.title1}</StyledTitle1>
+                <StyledTitle2>{item.title2}</StyledTitle2>
+                <img
+                  src={item.src}
+                  alt="carousel Image"
+                  width={1600}
+                  height={420}
+                />
+              </StyledImg>
+            </StyledItem>
+          ))}
+        </StyledCarousel>
+      </StyledWrapper>
+    </StyledCarouselBox>
   );
 }
+
+const StyledCarouselBox = styled.div`
+  display: flex;
+  justify-content: center;
+  width: auto;
+  background: none;
+  margin-top: 2rem;
+`;
 
 const StyledWrapper = styled.div`
   position: relative;
