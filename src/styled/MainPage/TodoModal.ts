@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ModalCloseBtn, TitleText } from "../Common/Modal";
 
 export const TodoModalLayout = styled.div`
   display: flex;
@@ -19,21 +20,12 @@ export const TodoModalLayout = styled.div`
   padding: 16px 16px;
   overflow : auto;
 `;
-export const ExitBtn = styled.button`
+export const ExitBtn = styled(ModalCloseBtn)`
   position: absolute;
   right: 20px;
-  border: 0;
-  border-radius: 50%;
-  background-color: red;
-  color: white;
-  width: 15px;
-  height: 15px;
   cursor: pointer;
 `;
-export const TitleText = styled.div`
-  font-size: 25px;
-  font-weight: 600;
-  letter-spacing: .5px;
+export const TodoTitle = styled(TitleText)`
   margin-bottom : 10px;
 `;
 

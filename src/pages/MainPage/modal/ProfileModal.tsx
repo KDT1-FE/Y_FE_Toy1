@@ -18,6 +18,7 @@ import { auth, db, storage } from '../../../firebaseSDK';
 import DefaultProfile from '../../../assets/img/DefaultProfile.png'
 import Camera from '../../../assets/img/Camera.svg'
 import loginState from '../../../recoil/atoms/loginState';
+import { TitleText } from '../../../styled/Common/Modal';
 
 interface ProfileProp {
   setActiveModalIdx: React.Dispatch<React.SetStateAction<number>>;
@@ -98,7 +99,7 @@ export default function ProfileModal({ setActiveModalIdx }: ProfileProp) {
   return (
     <ProfileModalLayout>
       <ProfileModalHeader>
-        <ProfileModalHeaderText>My Profile</ProfileModalHeaderText>
+        <TitleText>My Profile</TitleText>
         <ProfileModalCloseBtn onClick={() => setActiveModalIdx(-1)}>
           <CloseImg src={ClostButton} alt="" />
         </ProfileModalCloseBtn>

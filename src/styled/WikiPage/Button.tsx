@@ -4,6 +4,7 @@ const Btn = styled.button`
     font-size : 12px;
     padding : 10px 5px;
     border-radius : 5px;
+    cursor : pointer;
 `;
 
 const CateEditBtn = styled(Btn)`
