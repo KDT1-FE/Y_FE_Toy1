@@ -34,10 +34,10 @@ const App = () => {
           <Route path="project" element={<ProjectList />} />
           <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/notice/write" element={<NoticeWritePage />} />
+          <Route path="attendance" element={<Attendance />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="attendance" element={<Attendance />} />
       </Routes>
     </BrowserRouter>
   );
