@@ -7,21 +7,20 @@
   background: $lightGray;
   padding: 1rem 4rem;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   & .inner {
     margin: 2rem auto;
     max-width: 1200px;
     width: 100%;
     margin: 2rem auto;
-    height: 75vh;
+    // height: 75vh;
     @include flex-center-row();
     align-items: center;
     gap: 2em;
     flex-wrap: wrap;
-    overflow: scroll;
-    &::-webkit-scrollbar {
-      display: none;
-    }
   }
 
   &__top {

@@ -149,6 +149,10 @@
       width: 35%;
       & .modal__img-title {
         font-size: $font-lg;
+        background: $darkBlue;
+        color: $white;
+        padding: 0.5rem;
+        text-align: center;
       }
       & p {
         font-size: $font-base;
