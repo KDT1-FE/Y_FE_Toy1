@@ -85,13 +85,13 @@
 }
 
 .PlayButton {
-  margin-right: 12px;
+  margin-right: 20px;
 
   cursor: pointer;
 }
 
 .StopButton {
-  margin-left: 46px;
+  margin-left: 100px;
 
   cursor: pointer;
 }

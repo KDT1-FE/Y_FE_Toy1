@@ -94,7 +94,7 @@ function TimerModal(props: TimerModalProps) {
             setStatusText={setStatusText}
             timeInSeconds={timeInSeconds}
           />
-          {/* <TimeLabels playTime={playTime} stopTime={stopTime} />  */}
+
           <div className="StudyDurationContainer">{studyDuration}</div>
           {!isRunning && studyDuration && (
             <div className="SubmitSection">
@@ -127,13 +127,6 @@ function TimerModal(props: TimerModalProps) {
             </div>
           )}
         </main>
-        {/* <button
-          type="button"
-          className="CancelButton"
-          onClick={handleCloseModal}
-        >
-          Cancel
-        </button> */}
         <button type="button" className="OKButton" onClick={handleCloseModal}>
           OK
         </button>
