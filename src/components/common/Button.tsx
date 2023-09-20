@@ -20,9 +20,9 @@ export default function Button({
   return (
     <style.Container
       disabled={disabled}
-      margin={margin}
-      padding={padding}
-      normal={normal}
+      $margin={margin}
+      $padding={padding}
+      $normal={normal}
       onClick={onClick}
     >
       {text}

@@ -1,27 +1,33 @@
-import WikiSaveButton from "./WikiButton";
+import WikiTopButton from "./WikiButton";
+import { WikiTopProps } from "./WikiCommonType";
 import * as Styled from "./WikiTopStyle";
-
-type Props = {
-  title: string;
-  isEditMode: boolean;
-  onRegister: () => void;
-  onSave: () => void;
-};
 
 export default function WikiTop({
   title,
   isEditMode,
+  isBackButtonVisible,
   onSave,
   onRegister,
-}: Props) {
+  onBack,
+}: WikiTopProps) {
   return (
     <Styled.WikiTop>
       <Styled.WikiTitle>{title}</Styled.WikiTitle>
-      <WikiSaveButton
-        text={isEditMode ? "저장" : "등록"}
-        padding={"0.38rem 0.69rem"}
-        onClick={isEditMode ? onSave : onRegister}
-      ></WikiSaveButton>
+      <div>
+        {isBackButtonVisible && (
+          <WikiTopButton
+            text={"돌아가기"}
+            padding={"0.38rem 0.69rem"}
+            margin={"0 0.31rem 0 0"}
+            onClick={onBack}
+          ></WikiTopButton>
+        )}
+        <WikiTopButton
+          text={isEditMode ? "저장" : "등록"}
+          padding={"0.38rem 0.69rem"}
+          onClick={isEditMode ? onSave : onRegister}
+        ></WikiTopButton>
+      </div>
     </Styled.WikiTop>
   );
 }

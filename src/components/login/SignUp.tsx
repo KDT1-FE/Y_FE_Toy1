@@ -34,11 +34,10 @@ function Modal({
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, pwd)
       .then(() => {
-        alert("회원가입 성공");
+        alert("회원가입에 성공하였습니다. 로그인 페이지로 이동합니다.");
         if (onClickToggleModal) {
           onClickToggleModal();
         }
-
       })
       .catch((e) => {
         if (e.code == "auth/email-already-in-use") {
@@ -51,9 +50,7 @@ function Modal({
           alert("네트워크 연결에 실패 하였습니다. 잠시 후 다시 시도해주세요.");
         }
         if (e.code == "auth/invalid-email") {
-          alert(
-            "잘못된 이메일 형식입니다.",
-          );
+          alert("잘못된 이메일 형식입니다.");
         }
       });
   };

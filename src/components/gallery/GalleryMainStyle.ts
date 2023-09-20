@@ -6,25 +6,9 @@ export const GalleryMain = styled.div`
   border: 0.06rem solid var(--color-light-gray);
   border-radius: 0.94rem;
   background-color: var(--color-white);
-  width: calc(100% - 15rem - 3rem);
+  width: 100%;
   height: 44.75rem;
   overflow: auto;
-  &::-webkit-scrollbar {
-    width: 12px;
-  }
-
-  &::-webkit-scrollbar-track {
-    border-radius: 8px;
-    background-color: transparent;
-    border: none;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 6.25rem;
-    border: 3px solid transparent;
-    background-clip: content-box;
-    background-color: var(--color-medium-gray);
-  }
 `;
 
 export const Container = styled.div`
@@ -48,25 +32,60 @@ export const Title = styled.div`
 export const ImgContainer = styled.div`
   // border: 1px solid red;
   display: grid;
+  // place-items: center;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
+  @media screen and (max-width: 1230px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 912px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 export const ImgWrap = styled.div`
-  // border: 1px solid red;
+  // border: 1px solid green;
+  height: 22rem;
+  // width: 18rem;
   display: flex;
   justify-content: center;
   algin-items: center;
 `;
 
-export const Img = styled.div<{ img: string; background: string }>`
+export const Img = styled.div<{ img?: string; background?: string }>`
+  cursor: pointer;
   border: 0.06rem solid var(--color-light-gray);
   border-radius: 0.94rem;
+  height: 100%;
+  width: 100%;
   background-color: ${({ img }) => img};
-  width: 18rem;
-  height: 18rem;
   background-image: url(${({ background }) => background});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  overflow: hidden;
+
+  &:hover {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+`;
+
+export const Loading = styled.div`
+  width: 30px;
+  height: 30px;
+  margin: 100px auto;
+  border: 4px solid var(--color-main);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: loader 1s infinite linear;
+
+  @keyframes loader {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 `;
