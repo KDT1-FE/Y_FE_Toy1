@@ -9,10 +9,10 @@ export function AddImageModal() {
     <div>
       <button // 이미지 추가하는 버튼 (Modal open)
         type="button"
-        className="btn-addImage"
+        className="btn-addImage btn btn-outline-warning"
         onClick={() => modalRef.current?.showModal()}
       >
-        이미지 추가
+        Image +
       </button>
 
       <dialog ref={modalRef} className="modal-container modal-container-image">

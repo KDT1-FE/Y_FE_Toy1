@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import './NavBar.scss';
 import { AddImageModal } from './ModalAddImage';
-import { userId, userNickname } from 'pages/Gallery';
+import { RootState } from 'redux/types'; // RootState 타입 추가
+import { useSelector } from 'react-redux';
 
 export function SideBarLink() {
+  const user = useSelector((state: RootState) => state);
+
   return (
     <div className="sideBar-container">
-      {userNickname ? (
+      {user.uid ? (
         <AddImageModal />
       ) : (
         <a href="/SignIn">이미지를 공유하고 싶다면 로그인을 해주세요!</a>

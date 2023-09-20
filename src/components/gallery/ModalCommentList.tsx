@@ -7,7 +7,8 @@ import {
   uploadCommentWholeList,
 } from 'data/galleryComment';
 import { deleteImage } from 'data/galleryImage';
-import { userId, userNickname, userImage } from 'pages/Gallery';
+import { RootState } from 'redux/types'; // RootState 타입 추가
+import { useSelector } from 'react-redux';
 import './_modal.scss';
 import './ModalCommentList.scss';
 
@@ -42,6 +43,9 @@ export function ModalComment({
   const [commentList, setCommentList] = useState<object[]>([]);
   const [isChange, setChange] = useState<boolean>(true);
 
+  //스토어 유저 정보
+  const user = useSelector((state: RootState) => state);
+
   //like
   async function handleLike(e: React.MouseEvent) {
     e.preventDefault();
@@ -56,7 +60,7 @@ export function ModalComment({
   // 이미지 게시글 삭제
   async function handleDeleteImage(e: React.MouseEvent) {
     e.preventDefault();
-    if (writerId == userId) {
+    if (writerId == user.uid) {
       await deleteImage(categoryId, imgId);
       alert('삭제에 성공했습니다.');
       location.reload();
@@ -76,7 +80,14 @@ export function ModalComment({
     if (comment !== '') {
       const newCommentList: any = [...commentList, comment];
       await setCommentList(newCommentList); //새 배열에 comment저장 후 set
-      await uploadCommentList(imgId, categoryId, comment); //댓글 업로드
+      await uploadCommentList(
+        imgId,
+        categoryId,
+        comment,
+        user.uid,
+        user.nickname,
+        user.image,
+      ); //댓글 업로드
       alert('Success! 저장에 성공했습니다.');
       await setChange((prev: boolean) => !prev);
     } else if (comment == '') {
@@ -103,7 +114,6 @@ export function ModalComment({
       getRealTimeCommentList(); //실시간 가져오기
     }
     setComment('');
-    console.log('Changed!', isChange);
   }, [isChange, doc, onSnapshot]);
 
   // 댓글 삭제
@@ -139,7 +149,7 @@ export function ModalComment({
       <div className="comment-header">
         <span className="comment-imageUploaderName">작성자 : {writerName}</span>
 
-        {userNickname === writerName ? (
+        {user.nickname === writerName ? (
           <button className="btn--delImage" onClick={handleDeleteImage}>
             이미지 게시글 삭제
           </button>
@@ -152,8 +162,8 @@ export function ModalComment({
           <span className="imageView-like" onClick={handleLike}>
             💖{like} likes
           </span>
-          <span className="imageView-commentForm-writer">{userNickname}</span>
-          {userNickname ? (
+          <span className="imageView-commentForm-writer">{user.nickname}</span>
+          {user.uid ? (
             <form
               onSubmit={handleSubmit}
               className="imageView-commentForm commentForm"
@@ -199,7 +209,7 @@ export function ModalComment({
                     </div>
                   </div>
                 </div>
-                {userNickname === comment.commentUser ? (
+                {user.nickname === comment.commentUser ? (
                   <span
                     className="btn-delComment commentList-item-delBtn"
                     onClick={handleDeleteComment}

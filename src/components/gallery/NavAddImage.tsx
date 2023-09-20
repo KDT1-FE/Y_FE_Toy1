@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { UploadImage } from '../../data/galleryImage';
+import { RootState } from 'redux/types'; // RootState 타입 추가
+import { useSelector } from 'react-redux';
 import './ModalAddImage.scss';
 
 export function AddImageDragDrop() {
   const [files, setFiles] = useState([]);
   const selectList = ['StudyTipsGallery', 'EventsGallery', 'HumorsGallery'];
   const [selected, setSelected] = useState('StudyTipsGallery');
+
+  const user = useSelector((state: RootState) => state);
 
   const handleSelect = (e: any) => {
     setSelected(e.target.value);
@@ -39,11 +43,11 @@ export function AddImageDragDrop() {
         />
         <button
           onClick={async () => {
-            await UploadImage(selected, file);
+            await UploadImage(selected, file, user.uid, user.nickname);
             alert('저장에 성공했습니다.');
           }}
         >
-          저장
+          upload !
         </button>
       </div>
     </div>
