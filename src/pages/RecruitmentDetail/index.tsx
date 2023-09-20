@@ -30,25 +30,15 @@ import {
     DeleteBtnWrapper,
 } from './style';
 import CommentItem from './CommentItem';
-import {
-    getRecruitmentDetail,
-    getUserData,
-    createComment,
-    deleteRecruitment,
-    updateRecruitment,
-} from '../../utils/firebase';
+import { getUserData, createComment, deleteRecruitment, updateRecruitment } from '../../utils/firebase';
 import { useRecoilState } from 'recoil';
-import { UserId, Render } from '../../utils/recoil';
+import { UserId, Render, RecruitmentData } from '../../utils/recoil';
 import { useNavigate } from 'react-router-dom';
-import { RecruitmentData } from '../../utils/recoil';
-import { collection, serverTimestamp, getDocs, Firestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { serverTimestamp, doc, onSnapshot } from 'firebase/firestore';
 import { firestore } from '../../utils/firebase';
-import MDEditor from '@uiw/react-md-editor';
 
 const RecruitmentDetail: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
-    const [userName, setUserName] = useState('');
-    const [userImageURL, setUserImageURL] = useState('');
     const [recruitmentData, setRecruitmentData] = useRecoilState(RecruitmentData);
     const [deleteModalValued, setDeleteModalValued] = useState(false);
     const [commentValue, setCommentValue] = useState('');
@@ -127,6 +117,7 @@ const RecruitmentDetail: React.FC = () => {
             };
             await createComment(channel, path, value);
 
+            alert('댓글이 등록되었습니다.');
             setCommentValue('');
             // location.reload();
         } else {
@@ -160,7 +151,6 @@ const RecruitmentDetail: React.FC = () => {
     const handleRecruitmentValued = () => {
         const updated_at_timestamp = serverTimestamp();
 
-        console.log(data);
         const value = data;
         value.recruitValued = !value.recruitValued;
 

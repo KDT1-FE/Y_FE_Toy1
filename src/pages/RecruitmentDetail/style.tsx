@@ -140,7 +140,6 @@ export const CommentItemWrapper = styled.div`
     height: 100px;
 
     padding: 20px;
-    margin-bottom: 20px;
 
     display: flex;
     flex-direction: column;
@@ -243,6 +242,7 @@ export const CommentCreateWrapper = styled.div`
     width: 98%;
 
     margin: 0 auto;
+    margin-top: 20px;
     padding: 20px;
 
     border-radius: 20px;
