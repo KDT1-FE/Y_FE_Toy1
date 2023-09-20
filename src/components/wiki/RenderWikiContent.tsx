@@ -6,6 +6,7 @@ import formatDateToCustomFormat from "@/utils/formatDateToCustomFormat";
 import convertTimestampToDate from "@/utils/convertTimestampToDate";
 
 export default function RenderWikiContent({
+  currentUser,
   Wiki,
   onWikiEditButtonClick,
   onWikiDeleteButtonClick,
@@ -29,6 +30,24 @@ export default function RenderWikiContent({
     ? formatDateToCustomFormat(updatedAtDate, "yyyy.dd.MM HH:mm:ss")
     : "";
 
+  const isAdmin = (currentUser: string | undefined) =>
+    currentUser === "admin@9oogle.com";
+
+  const isAuthor = (
+    currentUser: string | undefined,
+    wikiAuthorID: string | undefined,
+  ) => currentUser && wikiAuthorID === currentUser;
+
+  const isDisabled = (
+    currentUser: string | undefined,
+    wikiAuthorID: string | undefined,
+  ): boolean => {
+    if (isAdmin(currentUser)) return false;
+    if (isAuthor(currentUser, wikiAuthorID)) return false;
+    return true;
+  };
+  const disabledStatus = isDisabled(currentUser, Wiki?.authorID);
+
   return (
     <>
       <Styled.ContentsTitle>
@@ -46,22 +65,22 @@ export default function RenderWikiContent({
             text={"수정"}
             padding={"0.38rem 0.69rem"}
             margin={"0 0.31rem 0 0"}
+            isDisabled={disabledStatus}
             onClick={onEditButtonClick}
           ></WikiEditButton>
           <WikiEditButton
             text={"삭제"}
             padding={"0.38rem 0.69rem"}
+            isDisabled={disabledStatus}
             onClick={onWikiDeleteButtonClick}
           ></WikiEditButton>
         </div>
       </Styled.ContentsTitle>
 
-      <div>
-        <MarkdownViewer
-          key={Wiki?.wikiID}
-          content={Wiki?.content}
-        ></MarkdownViewer>
-      </div>
+      <MarkdownViewer
+        key={Wiki?.wikiID}
+        content={Wiki?.content}
+      ></MarkdownViewer>
     </>
   );
 }

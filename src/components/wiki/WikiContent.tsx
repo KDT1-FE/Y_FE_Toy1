@@ -5,6 +5,8 @@ import * as Styled from "./WikiContentStyle";
 import { WikiContentProps } from "@/components/wiki/WikiCommonType";
 
 export default function WikiContent({
+  currentUser,
+  WiKiList,
   Wiki,
   form,
   parents,
@@ -17,6 +19,7 @@ export default function WikiContent({
   onWikiDeleteButtonClick,
 }: WikiContentProps) {
   const wikiFormProps = {
+    WiKiList,
     form,
     editorRef,
     parents,
@@ -40,7 +43,10 @@ export default function WikiContent({
       ) : Wiki === null ? (
         <RenderNoWiki />
       ) : (
-        <RenderWikiContent {...wikiContentProps}></RenderWikiContent>
+        <RenderWikiContent
+          {...wikiContentProps}
+          currentUser={currentUser}
+        ></RenderWikiContent>
       )}
     </Styled.ContentsWrapper>
   );
