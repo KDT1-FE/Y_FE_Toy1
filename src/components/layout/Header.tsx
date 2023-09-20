@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Modal } from "./Modal";
+import { Modal } from "../template/Modal";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
-import { AuthContext } from "authentication/authContext";
+import { AuthContext } from "provider/userContext";
 import { signOut } from "firebase/auth";
-import { auth } from "../firebase";
-import StudyTime from "./StudyTime";
-import UserInfo from "./UserInfo";
-import DarkModeBtn from "./DarkModeBtn";
+import { auth } from "../../firebase";
+import StudyTime from "components/template/StudyTime";
+import UserInfo from "components/template/UserInfo";
+import DarkModeBtn from "provider/darkModeContext";
 
 const Header = () => {
   const pageLink = ["Wiki", "Gallery", "Rank"];
@@ -64,14 +64,17 @@ const Header = () => {
           <li>
             {user?.displayName ? (
               <>
-                <div className='header__user-name' >
-                    <p onClick={()=>{setDisplayUserInfo(prev=>!prev)}}>{sliceStr(user.displayName, 7)}님</p>
-                    <div className='header__user-info'>
-                      {displayUserInfo? <UserInfo 
-                        handlerLogout= {handlerLogout}
-                        user={user}
-                        /> : <></>}
-                    </div>
+                <div className="header__user-name">
+                  <p
+                    onClick={() => {
+                      setDisplayUserInfo((prev) => !prev);
+                    }}
+                  >
+                    {sliceStr(user.displayName, 7)}님
+                  </p>
+                  <div className="header__user-info">
+                    {displayUserInfo ? <UserInfo handlerLogout={handlerLogout} user={user} /> : <></>}
+                  </div>
                 </div>
               </>
             ) : (
@@ -89,11 +92,7 @@ const Header = () => {
           width="500"
           height="300"
           element={
-            <StudyTime
-              isStudying={isStudying}
-              studyStartTime={studyStartTime}
-              toggleStudyStatus={toggleStudyStatus}
-            />
+            <StudyTime isStudying={isStudying} studyStartTime={studyStartTime} toggleStudyStatus={toggleStudyStatus} />
           }
         />
       )}
@@ -172,11 +171,10 @@ const Container = styled.nav`
     cursor: pointer;
     text-decoration: underline solid 1px;
   }
-  .header__user-info{
-    position:absolute;
-    top:60px;
-    right:0;
-
+  .header__user-info {
+    position: absolute;
+    top: 60px;
+    right: 0;
   }
 `;
 

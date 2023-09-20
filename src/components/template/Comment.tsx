@@ -2,17 +2,9 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import dayjs from "dayjs";
 import { useContext } from "react";
-import { AuthContext } from "authentication/authContext";
-import {
-  collection,
-  doc,
-  deleteDoc,
-  query,
-  onSnapshot,
-  orderBy,
-  updateDoc,
-} from "firebase/firestore";
-import { db } from "../firebase";
+import { AuthContext } from "provider/userContext";
+import { collection, doc, deleteDoc, query, onSnapshot, orderBy, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 import Swal from "sweetalert2";
 import CommentAdd from "./CommentAdd";
 import { AiOutlineCheckCircle } from "react-icons/ai";
@@ -108,11 +100,7 @@ const Comment = () => {
           <div>{comment.updatedAt}</div>
         </Comment_user>
         <div>
-          {editComment === comment.id && open ? (
-            <input onChange={handleChange}></input>
-          ) : (
-            <div>{comment.comment}</div>
-          )}
+          {editComment === comment.id && open ? <input onChange={handleChange}></input> : <div>{comment.comment}</div>}
         </div>
       </CommentEntry>
       {user?.uid == comment.uid && (

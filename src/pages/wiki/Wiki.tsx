@@ -1,12 +1,12 @@
-import Sidebar from "components/Sidebar";
+import Sidebar from "components/layout/Sidebar";
 import React from "react";
 import styled from "styled-components";
 import { Route, Routes, Navigate } from "react-router-dom";
-import Curriculum from "../components/Curriculum";
+import Curriculum from "pages/wiki/Curriculum";
 import WikiDetail from "./WikiDetail";
 import WikiEdit from "./WikiEdit";
-import WikiTime from "pages/WikiTime";
-import WikiTimeRank from "pages/WikiTimeRank";
+//import WikiTime from "pages/wiki/WikiTime";
+import WikiTimeRank from "pages/wiki/WikiTimeRank";
 
 const Wiki = () => {
   return (

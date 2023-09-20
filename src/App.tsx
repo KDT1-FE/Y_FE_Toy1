@@ -1,9 +1,9 @@
-import Header from "components/Header";
+import Header from "components/layout/Header";
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import Router from "Router";
-import AuthProvider from "./authentication/authProvider";
-import DarkMode from "./components/DarkMode";
+import AuthProvider from "provider/userProvider";
+import DarkMode from "provider/darkModeProvider";
 
 const App = () => {
   return (

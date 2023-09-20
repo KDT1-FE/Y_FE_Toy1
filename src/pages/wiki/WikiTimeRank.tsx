@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Comment from "../components/Comment";
+import Comment from "components/template/Comment"
 
 const WikiTimeRank = () => {
   return (

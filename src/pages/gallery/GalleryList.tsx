@@ -1,39 +1,38 @@
-import React, { useContext } from "react"
-import styled from "styled-components"
+import React, { useContext } from "react";
+import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import "../components/Wiki.css";
-import { AuthContext } from "authentication/authContext";
-import userData from './UserData'
+import "../../style/Wiki.css";
+import { AuthContext } from "provider/userContext";
+import userData from "./UserData";
 
-const GalleryList: React.FC<{ galleryData: userData[], activeCategory: string }> = ({ galleryData, activeCategory }) => {
-
+const GalleryList: React.FC<{ galleryData: userData[]; activeCategory: string }> = ({
+  galleryData,
+  activeCategory,
+}) => {
   const user = useContext(AuthContext);
   const navigate = useNavigate();
- 
+
   return (
     <>
       <section className="wiki__wrapper">
         <div className="wiki__header">
           <div className="wiki__title">
-            {activeCategory === 'notice' && '공지사항'}
-            {activeCategory === 'news' && '모집공고'}
-            {activeCategory === 'random' && '랜덤토크'}
+            {activeCategory === "notice" && "공지사항"}
+            {activeCategory === "news" && "모집공고"}
+            {activeCategory === "random" && "랜덤토크"}
           </div>
-          {
-            user?.displayName ? (
-              <Link to="/Gallery/edit">
+          {user?.displayName ? (
+            <Link to="/Gallery/edit">
               <button type="button" className="wiki__btn-edit">
                 새 글 작성
               </button>
-            </Link> )
-           : (
+            </Link>
+          ) : (
             <button
               type="button"
               className="wiki__btn-edit"
               onClick={() => {
-                const confirmed = window.confirm(
-                  "로그인해야 이용할 수 있습니다. 로그인 하시겠습니까?"
-                );
+                const confirmed = window.confirm("로그인해야 이용할 수 있습니다. 로그인 하시겠습니까?");
                 if (confirmed) {
                   navigate("/login");
                 } else {
@@ -49,18 +48,18 @@ const GalleryList: React.FC<{ galleryData: userData[], activeCategory: string }>
           {galleryData.map((user) => {
             return (
               <div key={user.id}>
-              <Link to={`/Gallery/detail/${user.id}`} >
-                <div className="Gallery__link">
-                  <p className="img-bx">
-                    <img src={user.thumbnail} alt="썸네일" />
-                  </p>
-                  <p className="Gallery__title">{user.title}</p>
-                  <p className="Gallery__desc">
-                    <span>{user.date}</span>
-                    <span>{user.writer}</span>
-                  </p>
-                </div>
-              </Link>
+                <Link to={`/Gallery/detail/${user.id}`}>
+                  <div className="Gallery__link">
+                    <p className="img-bx">
+                      <img src={user.thumbnail} alt="썸네일" />
+                    </p>
+                    <p className="Gallery__title">{user.title}</p>
+                    <p className="Gallery__desc">
+                      <span>{user.date}</span>
+                      <span>{user.writer}</span>
+                    </p>
+                  </div>
+                </Link>
               </div>
             );
           })}
@@ -76,7 +75,7 @@ const ListWrapper = styled.div`
   flex-wrap: wrap;
   margin-left: -10px;
   margin-right: -10px;
-   >div {
+  > div {
     /* 수치 추후에 조정 */
     display: block;
     flex: 1 0 31%;
@@ -85,9 +84,9 @@ const ListWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    a{
-      width:100%; 
-      display:block;
+    a {
+      width: 100%;
+      display: block;
     }
   }
   .Gallery__link {

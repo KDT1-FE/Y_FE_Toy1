@@ -1,11 +1,11 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Wiki from "./pages/Wiki";
-import Gallery from "./pages/Gallery";
-import Rank from "./pages/Rank";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
+import Home from "pages/home/Home";
+import Wiki from "pages/wiki/Wiki";
+import Gallery from "./pages/gallery/Gallery";
+import Rank from "pages/rank/Rank";
+import Login from "pages/auth/Login";
+import SignUp from "pages/auth/SignUp";
 import styled from "styled-components";
 
 const Router = () => {

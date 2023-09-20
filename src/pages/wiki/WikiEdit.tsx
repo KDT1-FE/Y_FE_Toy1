@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase";
-import EditorBox from "components/EditorBox";
-import { AuthContext } from "authentication/authContext";
+import { db } from "../../firebase";
+import EditorBox from "../../components/template/EditorBox";
+import { AuthContext } from "provider/userContext";
 import dayjs from "dayjs";
 
 //한국 날짜 설정
@@ -82,12 +82,7 @@ const WikiEdit = () => {
       <div className="wiki__wrapper">
         <form onSubmit={handleSubmitBtn}>
           <div className="wiki__header">
-            <input
-              className="wikiEdit__title "
-              name="title"
-              onChange={handleTitleChange}
-              value={value.title}
-            />
+            <input className="wikiEdit__title " name="title" onChange={handleTitleChange} value={value.title} />
             <div className="wikiEdit__btn">
               <button className="wikiEdit__btn-edit" type="submit">
                 완료

@@ -1,10 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { db } from "../firebase";
+import { db } from "../../firebase";
 
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
-import Sidebar from "components/Sidebar";
+import Sidebar from "components/layout/Sidebar";
 interface UsersData {
   id: string;
   class: number;
@@ -111,6 +111,5 @@ const RankWrapper = styled.div`
     width: 25%; // 각 셀의 너비를 테이블 너비의 25%로 지정
   } */
 `;
-
 
 export default Rank;

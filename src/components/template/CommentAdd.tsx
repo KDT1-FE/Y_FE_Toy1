@@ -3,9 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import dayjs from "dayjs";
 import { useContext } from "react";
-import { AuthContext } from "authentication/authContext";
+import { AuthContext } from "provider/userContext";
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../../firebase";
 import Swal from "sweetalert2";
 
 //한국 날짜 설정

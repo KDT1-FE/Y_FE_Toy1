@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import SidebarBottom from "./SidebarBottom";
+import SidebarBottom from "components/layout/SidebarBottom";
 
 interface GalleryProps {
   handleClick: (category: string) => void;

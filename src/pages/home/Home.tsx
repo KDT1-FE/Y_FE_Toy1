@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import Carousel from "components/Carousel";
-import RecentPost from "components/RecentPost";
-import StudyTimeRanking from "components/StudyTimeRanking";
+import Carousel from "components/template/Carousel";
+import RecentPost from "components/template/RecentPost";
+import StudyTimeRanking from "components/template/StudyTimeRanking";
 
 const Home = () => {
   return (

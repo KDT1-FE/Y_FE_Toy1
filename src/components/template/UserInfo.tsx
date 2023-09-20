@@ -1,10 +1,10 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { User } from "@firebase/auth";
-import { storage } from "../firebase";
+import { storage } from "../../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
-import { getClassName } from "../utils/class";
+import { getClassName } from "utils/class";
 
 const UserInfo: React.FC<Props> = ({ handlerLogout, user }) => {
   const [isLogout, setIsLogout] = useState(true); // Logout 모드(true) 또는 사진 추가 모드(false)가 가능합니다.
@@ -43,7 +43,6 @@ const UserInfo: React.FC<Props> = ({ handlerLogout, user }) => {
 
   // 수정 버튼 클릭
   const handleEditImage = () => {
-    
     if (fileInputRef?.current) {
       fileInputRef.current.click();
     }
@@ -51,11 +50,9 @@ const UserInfo: React.FC<Props> = ({ handlerLogout, user }) => {
 
   // 파일을 바뀔 경우
   const handleFileChange = () => {
-    
     setIsLogout(false);
     let file = null;
     if (fileInputRef?.current) {
-
       // 미리보기로 img src를 변경해줌
       file = fileInputRef.current.files![0];
       reader.onload = (e) => {
@@ -73,21 +70,12 @@ const UserInfo: React.FC<Props> = ({ handlerLogout, user }) => {
   return (
     <Container>
       <div className="userInfo__img-container">
-        <img
-          className="userInfo__user-img"
-          src={userPhotoURL!}
-          alt="유저 이미지"
-        />
+        <img className="userInfo__user-img" src={userPhotoURL!} alt="유저 이미지" />
         <div className="userInfo__img-edit" onClick={handleEditImage}>
           <img src="svg/icon-edit.svg" alt="수정버튼" />
         </div>
         <div>{userClassName}</div>
-        <FileInput
-          type="file"
-          accept="image/*"
-          ref={fileInputRef}
-          onInput={handleFileChange}
-        />
+        <FileInput type="file" accept="image/*" ref={fileInputRef} onInput={handleFileChange} />
       </div>
 
       <h1>{user.displayName + "님"}</h1>

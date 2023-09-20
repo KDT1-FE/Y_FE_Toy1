@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button, ButtonWhite } from "./Button";
-import "../index.css";
 import { useContext } from "react";
-import { AuthContext } from "authentication/authContext";
+import { AuthContext } from "provider/userContext";
 import { increment, doc, updateDoc } from "firebase/firestore";
-import { SynchroClassAndAlert } from "../utils/class"
-import { db } from "../firebase";
+import { SynchroClassAndAlert } from "utils/class";
+import { db } from "../../firebase";
 
 const StyledClock = styled.p`
   font-variant-numeric: tabular-nums;
@@ -40,11 +39,7 @@ interface StudyTimeProps {
   toggleStudyStatus: () => void;
 }
 
-const StudyTime: React.FC<StudyTimeProps> = ({
-  isStudying,
-  studyStartTime,
-  toggleStudyStatus,
-}) => {
+const StudyTime: React.FC<StudyTimeProps> = ({ isStudying, studyStartTime, toggleStudyStatus }) => {
   const user = useContext(AuthContext);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
 
@@ -66,10 +61,10 @@ const StudyTime: React.FC<StudyTimeProps> = ({
           const userDocRef = doc(db, "user", user.uid);
           updateDoc(userDocRef, {
             studyTime: increment(elapsedMinutes),
-          }).then(()=>{
+          }).then(() => {
             // 현재 firestore에 변경된 studytime을 확인해, database에 저장된 class 값과 비교하고 달라졌다면 alert 창을 띄움
-            SynchroClassAndAlert(user)
-          });         
+            SynchroClassAndAlert(user);
+          });
         }
       }
     }
@@ -94,14 +89,10 @@ const StudyTime: React.FC<StudyTimeProps> = ({
         <CounterLabel>학습시간</CounterLabel>
         <CounterData>
           {formatTime(elapsedTime)}
-          <CounterBadge show={isStudying}>
-            {isStudying ? "기록 중" : null}
-          </CounterBadge>
+          <CounterBadge show={isStudying}>{isStudying ? "기록 중" : null}</CounterBadge>
         </CounterData>
       </CounterWrap>
-      <Button onClick={toggleStudyStatus}>
-        {isStudying ? "공부 종료" : "공부 시작"}
-      </Button>
+      <Button onClick={toggleStudyStatus}>{isStudying ? "공부 종료" : "공부 시작"}</Button>
     </div>
   );
 };
@@ -111,10 +102,10 @@ const formatTime = (milliseconds: number) => {
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
 
-  return `${String(hours).padStart(2, "0")}:${String(minutes % 60).padStart(
+  return `${String(hours).padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}:${String(seconds % 60).padStart(
     2,
     "0"
-  )}:${String(seconds % 60).padStart(2, "0")}`;
+  )}`;
 };
 
 const SectionTitle = styled.div`

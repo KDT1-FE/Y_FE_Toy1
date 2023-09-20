@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { AuthContext } from "authentication/authContext";
+import { AuthContext } from "provider/userContext";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../firebase";
-import ContentsViewer from "components/ContentViewer";
+import { db } from "../../firebase";
+import ContentsViewer from "components/template/ContentViewer";
 import Swal from "sweetalert2";
-import "../components/Wiki.css";
+import "style/Wiki.css";
 
 const WikiDetail = () => {
   const navigate = useNavigate();

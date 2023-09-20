@@ -1,6 +1,6 @@
 import { User } from "@firebase/auth";
 import { useEffect, useState } from "react";
-import { AuthContext } from "./authContext";
+import { AuthContext } from "./userContext";
 import { auth } from "../firebase";
 
 interface IChildren {
