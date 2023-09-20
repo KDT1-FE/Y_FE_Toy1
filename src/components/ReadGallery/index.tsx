@@ -5,15 +5,19 @@ import DeleteGallery from 'components/DeleteGallery';
 import styled from 'styled-components';
 import deleteIcon from '../../assets/icons/deleteIcon.png';
 import { media } from 'styles/media';
+import Loading from 'components/Common/Loading';
 
 function ReadGallery() {
   const [galleryRead, setGalleryRead] = useState<GalleryData[]>([]);
+  const [isReading, setIsReading] = useState(false);
 
   const getGalleryList = async () => {
+    setIsReading(true);
     const result = await getStorage();
     if (result !== undefined) {
       setGalleryRead(result);
     }
+    setIsReading(false);
   };
 
   useEffect(() => {
@@ -25,30 +29,39 @@ function ReadGallery() {
   const selectedCategory = searchParams.get('category');
 
   return (
-    <StyledImgContainer>
-      {galleryRead.length > 0 ? (
-        galleryRead.map((item, index) => {
-          if (item.category === selectedCategory || selectedCategory === null) {
-            return (
-              <StyledPhotoContainer key={index} id={item.category}>
-                <StyledReadGallery src={item.src}></StyledReadGallery>
-                <StyledDeleteIcon
-                  id={item.id}
-                  src={deleteIcon}
-                  onClick={() => {
-                    DeleteGallery(item.id);
-                  }}
-                ></StyledDeleteIcon>
-              </StyledPhotoContainer>
-            );
-          }
-        })
+    <>
+      {isReading ? (
+        <Loading></Loading>
       ) : (
-        <StyledReadGalleryNone>
-          아직 등록된 사진이 없습니다.
-        </StyledReadGalleryNone>
+        <StyledImgContainer>
+          {galleryRead.length > 0 ? (
+            galleryRead.map((item, index) => {
+              if (
+                item.category === selectedCategory ||
+                selectedCategory === null
+              ) {
+                return (
+                  <StyledPhotoContainer key={index} id={item.category}>
+                    <StyledReadGallery src={item.src}></StyledReadGallery>
+                    <StyledDeleteIcon
+                      id={item.id}
+                      src={deleteIcon}
+                      onClick={() => {
+                        DeleteGallery(item.id);
+                      }}
+                    ></StyledDeleteIcon>
+                  </StyledPhotoContainer>
+                );
+              }
+            })
+          ) : (
+            <StyledReadGalleryNone>
+              아직 등록된 사진이 없습니다.
+            </StyledReadGalleryNone>
+          )}
+        </StyledImgContainer>
       )}
-    </StyledImgContainer>
+    </>
   );
 }
 export default ReadGallery;
