@@ -1,57 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { storage, db } from '../firebase';
-import { doc, addDoc, collection, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc, getDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import '../scss/components/writePage/writePage.scss';
 
-const NoticeWritePage = () => {
+const NoticeUpdatePage = () => {
+  const location = useLocation();
+  const itemId = location.state;
   const [title, setTitle] = useState<string>('');
   const [file, setFile] = useState<File | null>(null);
   const [content, setContent] = useState<string>();
-  const userEmail = useSelector(state => state.loginUpdate.email);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     try {
       if (file !== null) {
         const noticeRef = ref(storage, `images/notice/${new Date().getTime() + file.name}`);
         const snapshot = await uploadBytes(noticeRef, file);
         const imgUrl = await getDownloadURL(snapshot.ref);
-        const data = {
+        const docRef = doc(db, 'notice', itemId);
+        updateDoc(docRef, {
           title,
           content,
           time_ago: new Date().toLocaleString(),
-          userEmail,
           url: imgUrl,
-          number: new Date().getTime(),
-        };
-
-        await addDoc(collection(db, 'notice'), data).then(item => {
-          const docRef = doc(db, 'notice', item.id);
-          updateDoc(docRef, {
-            id: item.id,
-          });
-          alert('사진 등록이 완료 되었습니다.');
         });
+        alert('수정완료 되었습니다.');
       } else {
-        const data = {
+        const docRef = doc(db, 'notice', itemId);
+        updateDoc(docRef, {
           title,
           content,
           time_ago: new Date().toLocaleString(),
-          userEmail,
-          url: null,
-          number: new Date().getTime(),
-        };
-        await addDoc(collection(db, 'notice'), data).then(item => {
-          const docRef = doc(db, 'notice', item.id);
-          updateDoc(docRef, {
-            id: item.id,
-          });
-          alert('완료 되었습니다.');
         });
+        alert('완료 되었습니다.');
       }
     } catch {
       console.error();
@@ -70,6 +54,23 @@ const NoticeWritePage = () => {
     setFile(e.target.files && e.target.files[0]);
   };
 
+  const getData = async () => {
+    const docRef = doc(db, 'notice', itemId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const title = docSnap.data().title;
+      const content = docSnap.data().content;
+      setTitle(title);
+      setContent(content);
+    } else {
+      console.error('파일이 없습니다!');
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <form className="write-form" onSubmit={handleSubmit}>
       <div className="write-form__title">
@@ -79,11 +80,16 @@ const NoticeWritePage = () => {
           className="write-form__title__item"
           placeholder="제목을 입력하세요"
           onChange={handleTitle}
+          value={title}
           required></input>
         ;
       </div>
       <div className="write-form__content">
-        <textarea name="content" className="write-form__content__item" onChange={handleContent}></textarea>
+        <textarea
+          name="content"
+          className="write-form__content__item"
+          onChange={handleContent}
+          value={content}></textarea>
       </div>
       <div className="write-util">
         <input type="file" accept="image/*" name="file" className="write-util__image" onChange={handleFile} />
@@ -95,4 +101,4 @@ const NoticeWritePage = () => {
   );
 };
 
-export default NoticeWritePage;
+export default NoticeUpdatePage;

@@ -9,6 +9,8 @@
 }
 
 .authForm {
+  @include shadow();
+
   width: 100%;
   max-width: $formWidth;
   position: absolute;
