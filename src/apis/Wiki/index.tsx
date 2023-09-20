@@ -48,8 +48,10 @@ export const update = async function(category: string, updatedContents: string) 
 export const wikiDelete = async function (category: string) {
   try {
     await deleteDoc(doc(db, `wiki/${category}`))
-    alert('글이 삭제되었습니다.')
-    window.location.reload()
+    if (confirm('글을 삭제하시겠습니까?') == true) {
+      alert('글이 삭제되었습니다.')
+      window.location.reload()
+    } 
   } catch(e) {
     alert('삭제에 실패했습니다.')
     console.error(e)
