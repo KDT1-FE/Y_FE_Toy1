@@ -3,6 +3,7 @@ import { collection, getDocs, Timestamp, query, orderBy } from 'firebase/firesto
 import db from '../firebase/fireStore';
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 
+import Placeholder from '../components/Placeholder';
 import AttendanceModal from '../components/Attendance/AttendanceModal';
 
 import '../scss/attendancePage.scss';
@@ -23,6 +24,9 @@ const Attendance = (): JSX.Element => {
   const maxPageNumbersToShow = 10;
   const totalPages = Math.ceil(attendanceData.length / itemsPerPage);
   const lastPageToShow = Math.min(startPage + maxPageNumbersToShow - 1, totalPages);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = attendanceData.slice(indexOfFirstItem, indexOfLastItem);
 
   const formatTimestamp = (timestamp: Timestamp | null): string => {
     if (!timestamp) return '-';
@@ -32,10 +36,6 @@ const Attendance = (): JSX.Element => {
       .toString()
       .padStart(2, '0')}`;
   };
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = attendanceData.slice(indexOfFirstItem, indexOfLastItem);
 
   const renderPageNumbers = [];
   for (let i = startPage; i <= lastPageToShow; i++) {
@@ -96,6 +96,11 @@ const Attendance = (): JSX.Element => {
                 <div>{formatTimestamp(record.checkOut)}</div>
               </div>
             ))}
+            {Array(18 - currentItems.length)
+              .fill(0)
+              .map((_, idx) => (
+                <Placeholder key={idx} />
+              ))}
           </div>
           <div className="attendance__list__pagination">
             <button onClick={handlePrevPageNumbers} disabled={startPage === 1}>

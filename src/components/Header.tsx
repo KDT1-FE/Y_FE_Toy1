@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import HeaderDropDown from './HeaderDropDown';
-import AttendanceModal from './AttendanceModal';
+import AttendanceModal from './Attendance/AttendanceModal';
 
 import '../scss/components/_userInfo.scss';
 import '../scss/components/_header.scss';
