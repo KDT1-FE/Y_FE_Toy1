@@ -1,12 +1,8 @@
-import {
-  updateLike,
-  uploadCommentList,
-  uploadCommentList2,
-} from 'data/galleryComment';
+import { updateLike, uploadCommentList } from 'data/galleryComment';
 import React, { useState, useRef, useEffect } from 'react';
 import './ModalComment.scss';
 import { useNavigate } from 'react-router-dom';
-import { AddCommentList } from './AddCommentList';
+import { AddCommentList } from '../Gallery/AddCommentList';
 import { deleteImage, getImageData } from 'data/galleryImage';
 import { userId, userNickname } from 'pages/Gallery';
 
@@ -50,7 +46,7 @@ export function ModalComment({
   async function handleDeleteImage(e: any) {
     e.preventDefault();
     if (writerId == userId) {
-      await deleteImage(categoryId, imgId, image);
+      await deleteImage(categoryId, imgId);
       alert('삭제에 성공했습니다.');
       location.reload();
     } else {

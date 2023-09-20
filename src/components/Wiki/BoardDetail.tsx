@@ -6,7 +6,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
 import MdEditor from '@uiw/react-md-editor';
 import { selectUserData } from 'data/getUser';
-import Test from './Test';
+
 type Board = {
   name: string;
   content: string;

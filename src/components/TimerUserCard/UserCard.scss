@@ -1,0 +1,33 @@
+@import '/src/styles/common';
+
+.user-card__container {
+  background-color: white;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(25%, auto));
+  row-gap: 2em;
+}
+.user-card {
+  color: $whiteColor;
+  text-align: center;
+  font-size: 18px;
+  margin: 10px 20px;
+  padding: 20px 0px;
+  border-radius: 20px;
+  background-color: $blackColor;
+}
+// .user-card :hover {
+//   background-color: $highlightColor;
+//   transition: background-color 0.3s;
+// }
+.user-card img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: $highlightColor;
+  margin: 10px 10px 20px 10px;
+}
+.user-card .name {
+  font-size: 20px;
+  font-weight: 900;
+}

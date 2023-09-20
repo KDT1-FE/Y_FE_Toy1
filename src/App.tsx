@@ -56,6 +56,38 @@ function App() {
             </Provider>
           ),
         },
+        {
+          path: '/wiki/:boardState/:id',
+          element: (
+            <Provider store={wikiStore}>
+              <WikiDetail />,
+            </Provider>
+          ),
+        },
+        {
+          path: '/wiki/:boardState/new',
+          element: (
+            <Provider store={wikiStore}>
+              <PostAdd />,
+            </Provider>
+          ),
+        },
+        {
+          path: '/wiki/:boardState/:id/edit',
+          element: (
+            <Provider store={wikiStore}>
+              <PostEdit />,
+            </Provider>
+          ),
+        },
+        {
+          path: '/wiki',
+          element: (
+            <Provider store={wikiStore}>
+              <Wiki />,
+            </Provider>
+          ),
+        },
       ],
     },
     {

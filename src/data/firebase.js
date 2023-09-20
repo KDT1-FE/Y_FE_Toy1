@@ -1,4 +1,5 @@
-// Import the functions you need from the SDKs you need
+// firebase.js
+
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
@@ -13,9 +14,13 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
-// 파이어베이스 초기 설정
-export const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const storage = getStorage();
 
-// 스토리지
-export const storage = getStorage();
-export const db = getFirestore(app);
+export { app, db, storage };
+
+
+
+
+

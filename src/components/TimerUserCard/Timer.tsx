@@ -5,8 +5,14 @@ import {
   onSnapshot,
   Unsubscribe,
   getDoc,
+  serverTimestamp,
+  query,
+  collection,
 } from 'firebase/firestore';
 import { db } from 'data/firebase';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/types'; // RootState 타입 추가
+import { formatTime } from 'data/formatTime';
 
 //unix timestamp
 const timeStamp = Math.floor(new Date().getTime() / 1000);
@@ -22,15 +28,13 @@ interface TimerProps {
 
 //Timer 컴포넌트
 export function Timer({ id }: TimerProps): JSX.Element {
-  const [currentHours, setCurrentHours] = useState(0);
-  const [currentMinutes, setCurrentMinutes] = useState(0);
-  const [currentSeconds, setCurrentSeconds] = useState(0);
-
   const [count, setCount] = useState(0);
   const intervalRef: React.MutableRefObject<unknown | null> = useRef(null);
 
   let unsubscribe: Unsubscribe | undefined;
   let timer: any;
+  //스토어 유저 정보
+  const user = useSelector((state: RootState) => state);
 
   //페이지 로드 시 count 데이터 불러오기
   useEffect(() => {
@@ -44,9 +48,21 @@ export function Timer({ id }: TimerProps): JSX.Element {
     };
     fetchData();
   }, [id]);
+  //firestore에서 데이터 업데이트 발생 시 데이터 받아오기
+  useEffect(() => {
+    const docRefs = query(collection(db, 'User'));
+    onSnapshot(docRefs, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        if (doc.id === id) {
+          setCount(doc.data().accumulateCount);
+        }
+      });
+    });
+  }, [count]);
 
   //시작 버튼 동작
   const handleStart: (event: any) => void = useCallback(async (event) => {
+    event.stopPropagation();
     if (intervalRef.current !== null) {
       return;
     }
@@ -79,7 +95,8 @@ export function Timer({ id }: TimerProps): JSX.Element {
   }, []);
 
   //정지 버튼 동작
-  const handleStop: () => void = useCallback(() => {
+  const handleStop: (event: any) => void = useCallback((event) => {
+    event.stopPropagation();
     if (timer !== null) {
       clearInterval(timer);
       timer = null; // 타이머 중지
@@ -96,14 +113,7 @@ export function Timer({ id }: TimerProps): JSX.Element {
     setCount(0);
   }, []);
 
-  useEffect(() => {
-    const hours = Math.floor(count / 3600);
-    const minutes = Math.floor((count % 3600) / 60);
-    const seconds = count % 60;
-    setCurrentHours(hours);
-    setCurrentSeconds(seconds);
-    setCurrentMinutes(minutes);
-  }, [count]);
+  const formattedTime = formatTime(count);
 
   const currentDate = getCurrentDateFromStamp(timeStamp);
 
@@ -113,15 +123,13 @@ export function Timer({ id }: TimerProps): JSX.Element {
 
   return (
     <div>
-      <p>
-        {currentHours < 10 ? `0${currentHours}` : currentHours}:
-        {currentMinutes < 10 ? `0${currentMinutes}` : currentMinutes}:
-        {currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds}
-      </p>
-      <button id={id} onClick={handleStart}>
-        시작
-      </button>
-      <button onClick={handleStop}>정지</button>
+      <p>{formattedTime}</p>
+      {user.uid === id && (
+        <button id={id} onClick={handleStart}>
+          시작
+        </button>
+      )}
+      {user.uid === id && <button onClick={handleStop}>정지</button>}
     </div>
   );
 }

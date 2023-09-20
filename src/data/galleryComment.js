@@ -1,9 +1,9 @@
 import { db } from './firebase';
-import { doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { userId, userNickname } from 'pages/Gallery';
 
 //리스트 통째로 바꾸기
-const uploadCommentList2 = (data, imgId, categoryId) => {
+const uploadCommentWholeList = (data, imgId, categoryId) => {
   const commentRef = doc(db, categoryId, imgId);
   updateDoc(commentRef, {
     comments: data,
@@ -31,4 +31,4 @@ const updateLike = (imgId, categoryId, like) => {
     like: like,
   });
 };
-export { uploadCommentList2, uploadCommentList, updateLike };
+export { uploadCommentWholeList, uploadCommentList, updateLike };
