@@ -12,9 +12,10 @@ const loginSlice = createSlice({
     logout: state => {
       state.isLogin = false;
       state.name = '';
+      state.email = '';
     },
   },
 });
 
 export default loginSlice;
-export const { login } = loginSlice.actions;
+export const { login, logout } = loginSlice.actions;
