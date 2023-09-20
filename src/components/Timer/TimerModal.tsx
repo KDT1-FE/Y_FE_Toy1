@@ -6,7 +6,13 @@ import Controls from "./TimerControls";
 import Clock from "../../utils/clock";
 import TimeLabels from "./TimeLabels";
 import StudyStatus from "./StudyStatus";
-import {postData} from "../../utils/timerAndRanking";
+import {
+  postData,
+  sortRanking,
+  getRankingDocsToArr,
+  saveRankingInBrowser,
+  RANKING_URL,
+} from "../../utils/timerAndRanking";
 
 function TimerModal(props: TimerModalProps) {
   const {
@@ -106,8 +112,13 @@ function TimerModal(props: TimerModalProps) {
               <button
                 type="button"
                 className="SubmitButton"
-                onClick={() => {
-                  postData(username);
+                onClick={async () => {
+                  await postData(username);
+                  await getRankingDocsToArr().then(doc => {
+                    const sortedData = sortRanking(doc);
+                    saveRankingInBrowser(sortedData);
+                  });
+                  window.location.replace(RANKING_URL);
                 }}
               >
                 Submit
