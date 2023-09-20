@@ -44,13 +44,15 @@ function Content() {
   }, [id]);
 
   // ReadWiki 함수로 content 가져오기
-  if (dataKey) {
-    ReadWiki(dataKey).then(doc => {
-      setContent(doc.content);
-      setTitle(doc.title);
-      setText(doc.content);
-    });
-  }
+  useEffect(() => {
+    if (dataKey) {
+      ReadWiki(dataKey).then(doc => {
+        setContent(doc.content);
+        setTitle(doc.title);
+        setText(doc.content);
+      });
+    }
+  }, [dataKey]);
 
   SaveTeam();
 
