@@ -139,6 +139,16 @@ const CustomModal = styled(ReactModal)`
     background-color: white;
     justify-content: center;
     overflow: auto;
+    &::-webkit-scrollbar {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.4);
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 6px;
+    }
 
     ${media.tablet_625(`
       width: 25rem;
@@ -199,6 +209,17 @@ const StyledPreviewContainer = styled.div`
   align-items: center;
   height: 100%;
   margin-bottom: 1rem;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+  }
 `;
 
 const StyledUploadImg = styled.img`
