@@ -61,9 +61,6 @@
     margin-top: 100px;
   }
 
-  .newPostBtn {
-    margin-top: 100px;
-  }
 
 /* 모달 스타일 */
 .modal {
@@ -80,9 +77,6 @@
     align-items: center;
 }
 
-
-
-  
   .modal.open {
     display: flex; /* 열린 모달은 표시됨 */
   }
@@ -100,5 +94,36 @@
     top: 10px;
     right: 10px;
     cursor: pointer;
+  }
+  
+  .post-container {
+    width: 90%;
+    margin: auto;
+    padding-top: 100px;
+  }
+
+  /* Root.css (또는 원하는 CSS 파일에 추가) */
+.post-list {
+    /* 다음 스타일은 컨테이너에 적용됩니다. */
+  }
+  
+  .post-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* 각 포스트 사이의 간격 조정 */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .post-item {
+    flex: 1;
+    border: 1px solid #ccc; /* 원하는 border 스타일 및 색상 지정 */
+    padding: 10px;
+    /* 다른 스타일 (글의 높이, 너비, 글꼴 등)도 추가할 수 있습니다. */
+  }
+  
+  .post-content {
+    /* 글 내용의 스타일을 추가합니다. */
   }
   

@@ -78,6 +78,9 @@ export default function Root() {
           <Outlet />
         </div>
       </section>
+      {location.pathname === '/' &&  <div className='post-container'>
+      <div className="post-list">
+      <div className='posted-text'>포스트 목록</div>
       <div className="newPostBtn">
         {user && user.uid ? (
           <button onClick={() => setIsModalOpen(true)}>새 포스트 작성</button>
@@ -88,6 +91,7 @@ export default function Root() {
       {isModalOpen && (
         <CreatePostModal
           onSave={handleSavePost}
+          
           title={title}
           setTitle={setTitle}
           content={content}
@@ -95,18 +99,19 @@ export default function Root() {
         />
       )}
       <Outlet />
-      <div className="post-list">
-        <h2>포스트 목록</h2>
-        <ul>
-          {posts.map((post) => (
-            <li key={post.id}>
+      <ul className="post-grid">
+        {posts.map((post) => (
+          <li className="post-item" key={post.id}>
+            <div className="post-content">
               <h3>{post.title}</h3>
               <p>{post.content}</p>
-              <p>작성자: {post.username}</p>
-            </li>
-          ))}
-        </ul>
+              <p>작성자: {user.nickname}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
       </div>
+    </div>}
     </div>
   );
 }
