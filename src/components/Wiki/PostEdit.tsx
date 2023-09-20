@@ -80,11 +80,19 @@ export function PostEdit(props: any) {
   return (
     <div>
       <BoardNav />
-      <h1>게시글 수정하기</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="">제목 : </label>
-          <input type="text" onChange={handleChangeTitle} value={title} />
+      <form onSubmit={handleSubmit} id="form">
+      <div className="mb-3" >
+          <label htmlFor="exampleFormControlInput1" className="form-label">
+            제목
+          </label>
+          <input
+            type="text"
+            onChange={handleChangeTitle}
+            value={title}
+            className="form-control"
+            id="exampleFormControlInput1"
+            placeholder="제목을 입력하세요"
+          />
         </div>
         <MdEditor
           data-color-mode="light"
@@ -92,7 +100,7 @@ export function PostEdit(props: any) {
           onChange={handleChange}
           height={500}
         />
-        <button type="submit">작성하기</button>
+        <button type="submit"className='btn btn-primary'>작성하기</button>
       </form>
     </div>
   );
