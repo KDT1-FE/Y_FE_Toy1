@@ -6,7 +6,6 @@ export const WikiContainer = styled.div`
     height: auto;
     width: 100vw;
     height: 100vh;
-
     overflow: hidden;
 `;
 export const WikiContent = styled.div`
@@ -16,6 +15,9 @@ export const WikiContent = styled.div`
     position: relative;
     width: 100%;
     border: 10px 20px 20px 40px;
+    height: calc(100vh - 72px);
+    overflow: auto;
+    padding: 10px 20px 20px 40px;
 `;
 export const ChannelNames = styled.div`
     display: flex;

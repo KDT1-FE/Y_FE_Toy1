@@ -42,11 +42,11 @@ export const PostButton = styled.button`
 `;
 
 export const SearchInput = styled.input`
-    width: 30%;
-    padding: 5px 0px 5px 12.5px;
+    min-width: 250px;
+    padding: 7.5px 0px 5px 12.5px;
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     font-weight: bold;
 `;
 
@@ -95,6 +95,9 @@ export const Title = styled.div`
     color: black;
     font-weight: bold;
     font-size: 1.5rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 `;
 
 export const Time = styled.div`
