@@ -3,17 +3,20 @@ import styled from "styled-components"
 import Editor from "../components/Editor"
 import { storage, db } from "../firebase"
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
-import { collection, doc, addDoc, updateDoc, getDoc } from "firebase/firestore"
+import { collection, doc, addDoc, updateDoc, getDoc, Timestamp } from "firebase/firestore"
 import { useNavigate, useParams } from "react-router-dom"
 import { AuthContext } from "authentication/authContext";
+import userData from './UserData'
+import { timeStamp } from "console"
 
 // 함수 인자 타입 선언
 interface GalleryDetailProps {
   onEdit: boolean;
   setOnEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  setGalleryData: React.Dispatch<React.SetStateAction<userData[]>>;
 }
 
-const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
+const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit, setGalleryData }) => {
 
   // 에디터 컴포넌트에 사용될 ref
   const quillRef = useRef();
@@ -44,12 +47,11 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0'); 
     const day = String(today.getDate()).padStart(2, '0');
-    const formattedDate = `${today}`; // 타임스탬프 = new Date()
     const printedData = `${year}-${month}-${day}`;
-
+    console.log('a')
     // 등록할 썸네일 변수선언
-    let thumbnailUrl = null;
-
+    let thumbnailUrl: string | undefined;
+    console.log('b')
     // 썸네일 이미지 업로드
     if (imageUpload) {
       const imageRef = ref(storage, `image/${imageUpload.name}`);
@@ -58,6 +60,7 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
         const snapshot = await uploadBytes(imageRef, imageUpload);
         const url = await getDownloadURL(snapshot.ref);
         thumbnailUrl = url;
+
         alert('등록 성공했습니다')
       } catch (error) {
         // 이미지 업로드 실패 처리
@@ -66,14 +69,9 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
     } 
     // 이미지 미지정시, 디폴트 이미지 삽입
     else {
-        const imageRef = ref(storage, 'image/default-image.jpg'); 
-      try{
-        const defaultUrl = await getDownloadURL(imageRef);
-        thumbnailUrl = defaultUrl;
-      }
-      catch(error) {
-        console.error("이미지 URL을 가져오는 데 실패했습니다.", error);
-      }
+      thumbnailUrl = '/assets/default-image.jpg'
+
+      alert('등록 성공했습니다')
     }
 
     // fire DB에 데이터 올리기
@@ -81,12 +79,26 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
        category: originData.category, 
        title: originData.title, 
        desc: originData.desc, 
-       timestamp: formattedDate,
+       timestamp: today,
        date: printedData, 
        writer: user?.displayName,
        uid : user?.uid,
        thumbnail: thumbnailUrl
       });
+
+      setGalleryData((prevData) => [
+        ...prevData,
+        {
+          category: originData.category,
+          title: originData.title,
+          desc: originData.desc,
+          timestamp: Timestamp.now(),
+          date: printedData,
+          writer: String(user?.displayName),
+          uid: user?.uid,
+          thumbnail: thumbnailUrl
+        }
+      ]);
 
       // 리스트 경로로 이동
       navigate("/Gallery"); 
@@ -116,7 +128,6 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0'); 
     const day = String(today.getDate()).padStart(2, '0');
-    const formattedDate = `${today}`; // new Date()
     const printedData = `${year}-${month}-${day}`;
 
     // 해당 문서의 참조 얻기
@@ -124,7 +135,7 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
     const userRef = doc(usersCollectionRef, id);
   
     // 썸네일 url
-    let editUrl= null;
+    let editUrl: string | undefined;
 
     // 이미지 업로드 후 url 받아오기
     if (imageEdit) {
@@ -145,12 +156,33 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
       // fire DB에 데이터 업데이트
       await updateDoc(userRef, {
         date: printedData,
-        timestamp: formattedDate,
+        timestamp: today,
         category: formData.category,
         title: formData.title,
         desc: formData.desc,
         thumbnail: editUrl,
       });
+
+      setGalleryData(prevData => {
+        return prevData.map(item => {
+          if (item.id === id) {
+            return {
+              id: id,
+              category: formData.category,
+              title: formData.title,
+              desc: formData.desc,
+              timestamp: Timestamp.now(),
+              date: printedData,
+              writer: String(user?.displayName),
+              uid: user?.uid,
+              thumbnail: editUrl,
+            };
+          } else {
+            return item;
+          }
+        });
+      });
+
       alert('수정 완료했습니다')
       setOnEdit(false);
       navigate(-1)
@@ -161,23 +193,43 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
   
   // 이미지 미리보기
   const [previewUrl, setPreviewUrl] = useState("");
+  const [createUrl, setCreateUrl] = useState("");
 
   const updateUrl = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const uploadedFile = event.target.files?.[0];
-    if (uploadedFile) {
-      setImageEdit(uploadedFile)
-      console.log('이미지 업로드')
-  
-      const imageRef = ref(storage, `image/${uploadedFile.name}`);
-      try {
-        const snapshot = await uploadBytes(imageRef, uploadedFile);
-        const editUrl = await getDownloadURL(snapshot.ref);
-        setPreviewUrl(editUrl);
-      } catch (error) {
-        console.error("Error uploading image:", error);
-        // 이미지 업로드 실패 처리
+
+    if (onEdit) {
+      if (uploadedFile) {
+        setImageEdit(uploadedFile)
+        console.log('이미지 업로드')
+    
+        const imageRef = ref(storage, `image/${uploadedFile.name}`);
+        try {
+          const snapshot = await uploadBytes(imageRef, uploadedFile);
+          const editUrl = await getDownloadURL(snapshot.ref);
+          setPreviewUrl(editUrl);
+        } catch (error) {
+          console.error("Error uploading image:", error);
+          // 이미지 업로드 실패 처리
+        }
+      }
+    } else {
+      if (uploadedFile) {
+        setImageUpload(uploadedFile)
+        console.log('이미지 업로드')
+    
+        const imageRef = ref(storage, `image/${uploadedFile.name}`);
+        try {
+          const snapshot = await uploadBytes(imageRef, uploadedFile);
+          const editUrl = await getDownloadURL(snapshot.ref);
+          setCreateUrl(editUrl);
+        } catch (error) {
+          console.error("Error uploading image:", error);
+          // 이미지 업로드 실패 처리
+        }
       }
     }
+
   }
 
   // 수정된 데이터 상태관리
@@ -196,6 +248,7 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
       const usersCollectionRef = collection(db, "gallery");
       const userRef = doc(usersCollectionRef, id);
       const userSnap = await getDoc(userRef);
+      console.log('edit 페이지')
       if (userSnap.exists()){
         const {category, title, desc, thumbnail, date} = userSnap.data()
         setFormData({
@@ -209,13 +262,41 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
   }
   }, [onEdit, id]);
 
+  const setCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      category: e.target.value
+    });
+  }
+
+  const setTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      title: e.target.value
+    });
+  }
+
+  const setOriginCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setOriginData({
+      ...originData,
+      category: e.target.value
+    });
+  }
+
+  const setOriginTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setOriginData({
+      ...originData,
+      title: e.target.value
+    });
+  }
+
   return (
     <FormSection>
     {onEdit ? (
       // onEdit 이 true일 경우
       <form onSubmit={updateUser}>
         <FormList>
-          <select name="category" id="category" value={formData.category} onChange={(event) => setFormData({...formData, category: event.target.value})}>
+          <select name="category" id="category" value={formData.category} onChange={setCategory}>
             <option value="">카테고리 선택</option>
             <option value="notice">모집공고</option>
             <option value="news">패캠소식</option>
@@ -223,13 +304,12 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
           </select>
         </FormList>
         <FormList>
-          <input id="title" type="text" placeholder="제목을 입력해주세요" value={formData.title} onChange={(event) => setFormData({ ...formData, title: event.target.value})} />
+          <input id="title" type="text" placeholder="제목을 입력해주세요" value={formData.title} onChange={setTitle} />
         </FormList>
         <FormList>
         <Editor value={formData.desc} onChange={onEditorEdit} quillRef={quillRef} />
         </FormList>
         <FormList>
-        {/* <label htmlFor="thumbnail">썸네일 : </label> */}
         <div className="preview">
           {previewUrl ? <img src={previewUrl} alt="썸네일"/> : <img src={formData.thumbnail} alt="썸네일"/>}
           <input type="file" id="thumbnail" onChange={updateUrl}
@@ -244,7 +324,7 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
       // onEdit 이 false일 경우
       <form action="" onSubmit={createUser}>
       <FormList>
-        <select name="category" id="category" onChange={(event) => setOriginData({...originData, category: event.target.value})}>
+        <select name="category" id="category" onChange={setOriginCategory}>
           <option value="">카테고리 선택</option>
           <option value="notice">모집공고</option>
           <option value="news">패캠소식</option>
@@ -252,19 +332,17 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit }) => {
         </select>
       </FormList>
       <FormList>
-        <input id="title" type="text" placeholder="제목을 입력해주세요" onChange={(event) => setOriginData({...originData, title: event.target.value})} />
+        <input id="title" type="text" placeholder="제목을 입력해주세요" onChange={setOriginTitle} />
       </FormList>
       <FormList>
       <Editor value={originData.desc} onChange={onEditorChange} quillRef={quillRef} />
       </FormList>
       <FormList>
-      <label htmlFor="thumbnail">썸네일 : </label>
-      <input type="file" id="thumbnail" onChange={(event) => {
-          const uploadedFile = event.target.files?.[0];
-          if (uploadedFile) {
-            setImageUpload(uploadedFile);
-          }
-      }} />
+      <div className="preview">
+          {createUrl ? <img src={createUrl} alt="썸네일"/> : <img src="/assets/default-image.jpg" alt="썸네일"/>}
+          <input type="file" id="thumbnail" onChange={updateUrl}
+          />
+       </div>
       </FormList>
         <GalleryBtn>
           <button type="submit">제출</button>
