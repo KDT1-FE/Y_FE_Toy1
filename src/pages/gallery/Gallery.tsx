@@ -6,7 +6,7 @@ import GalleryList from "./GalleryList";
 import { Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 import { db } from "../../firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
 import userData from "./UserData";
 
 const Gallery = () => {
@@ -16,14 +16,13 @@ const Gallery = () => {
   // 초기값
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getDocs(collection(db, "gallery"));
+      const q = query(
+        collection(db, "gallery"),
+        orderBy("timestamp", "desc")
+      );
+      const data = await getDocs(q);
       const galleryData: userData[] = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      galleryData.sort((a, b) => {
-        if (a.timestamp && b.timestamp) {
-          return b.timestamp.toMillis() - a.timestamp.toMillis();
-        }
-        return 0;
-      });
+
       setGalleryData(galleryData);
     };
 
@@ -35,12 +34,6 @@ const Gallery = () => {
     const q = query(collection(db, "gallery"), where("category", "==", category));
     const data = await getDocs(q);
     const galleryData: userData[] = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-    galleryData.sort((a, b) => {
-      if (a.timestamp && b.timestamp) {
-        return b.timestamp.toMillis() - a.timestamp.toMillis();
-      }
-      return 0;
-    });
     setGalleryData(galleryData);
     setActiveCategory(category);
   };
