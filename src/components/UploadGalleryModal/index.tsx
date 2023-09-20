@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import styled from 'styled-components';
 import ReactModal from 'react-modal';
 import closeButton from '../../assets/icons/closeButton.svg';
-import { addFirestore, addStorage } from 'apis/Gallery';
 import { useLocation, Link } from 'react-router-dom';
 import { media } from 'styles/media';
+import { addFirestore, addStorage } from 'apis/Gallery';
 
 function UploadGallery() {
   const [modalOpen, setModalOpen] = useState(false);
   const [preview, setPreview] = useState<string | ArrayBuffer | null>('');
-  const [imageURL, setImageURL] = useState<string>('');
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -26,26 +25,37 @@ function UploadGallery() {
   ) => {
     event.preventDefault();
 
-    if (event.target.files !== null) {
-      const file = event.target.files[0];
+    if (event.currentTarget.files !== null) {
       const reader = new FileReader();
-      reader.onloadend = () => {
+      reader.onload = () => {
         setPreview(reader.result);
       };
-      reader.readAsDataURL(file);
-      addStorage(event.target.files, setImageURL);
-    } else {
-      setPreview(null);
+      reader.readAsDataURL(event.currentTarget.files[0]);
     }
+  }; // 그냥 보여주기만 하기
+
+  const checkImage = (file: File) => {
+    if (file.name === '') {
+      alert('파일 업로드해주세요');
+      return false;
+    }
+    return true;
   };
 
-  const imgRegister = () => {
-    if (preview === '') {
-      alert('사진 업로드 후 등록해주세요');
-      return;
+  const imgRegister = async (event: FormEvent) => {
+    event.preventDefault();
+    if (event.currentTarget instanceof HTMLFormElement) {
+      const formData = new FormData(event.currentTarget);
+      const image = formData.get('ex_file');
+      if (image instanceof File) {
+        if (!checkImage(image)) return;
+        const downLoadUrl = await addStorage(image);
+        if (downLoadUrl && selectedCategory) {
+          await addFirestore(downLoadUrl, selectedCategory);
+        }
+        closeModal();
+      }
     }
-    closeModal();
-    addFirestore(imageURL, selectedCategory as string);
   };
 
   return (
@@ -75,14 +85,19 @@ function UploadGallery() {
               <StyledImgText>⚠️ 파일을 업로드 해주세요</StyledImgText>
             )}
           </StyledPreviewContainer>
-          <StyledButtonContainer>
+          <StyledButtonContainer onSubmit={imgRegister}>
             <StyledContainerInput>
               <label htmlFor="ex_file">
                 <div className="imgUpload">파일 업로드</div>
               </label>
-              <input type="file" id="ex_file" onChange={handleChangeImg} />
+              <input
+                type="file"
+                id="ex_file"
+                name="ex_file"
+                onChange={handleChangeImg}
+              />
             </StyledContainerInput>
-            <StyledImgAdd onClick={imgRegister}>
+            <StyledImgAdd type="submit">
               사진 등록
               <Link to={url}></Link>
             </StyledImgAdd>
@@ -226,7 +241,7 @@ const StyledUploadImg = styled.img`
   width: 50%;
 `;
 
-const StyledButtonContainer = styled.div`
+const StyledButtonContainer = styled.form`
   width: 70%;
   display: flex;
   justify-content: space-between;
