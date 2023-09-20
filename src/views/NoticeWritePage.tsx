@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { storage, db } from '../firebase';
-import { addDoc, collection } from 'firebase/firestore';
+import { doc, addDoc, collection, updateDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useSelector } from 'react-redux';
 
@@ -21,13 +21,25 @@ const NoticeWritePage = () => {
         const noticeRef = ref(storage, `images/notice/${new Date().getTime() + file.name}`);
         const snapshot = await uploadBytes(noticeRef, file);
         const imgUrl = await getDownloadURL(snapshot.ref);
-        const data = { title, content, time_ago: new Date(), id: userEmail, url };
+        const data = { title, content, time_ago: new Date(), userEmail, url };
 
         setUrl(imgUrl);
-        await addDoc(collection(db, 'notice'), data);
+        await addDoc(collection(db, 'notice'), data).then(item => {
+          const docRef = doc(db, 'notice', item.id);
+          updateDoc(docRef, {
+            id: item.id,
+          });
+          alert('완료 되었습니다.');
+        });
       } else {
-        const data = { title, content, time_ago: new Date(), id: userEmail, url: null };
-        await addDoc(collection(db, 'notice'), data);
+        const data = { title, content, time_ago: new Date(), userEmail, url: null };
+        await addDoc(collection(db, 'notice'), data).then(item => {
+          const docRef = doc(db, 'notice', item.id);
+          updateDoc(docRef, {
+            id: item.id,
+          });
+          alert('완료 되었습니다.');
+        });
       }
     } catch {
       console.error();
