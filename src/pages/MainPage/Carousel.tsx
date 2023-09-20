@@ -1,16 +1,16 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect, useState } from 'react';
-import { DocumentData } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
-import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import getNoticeData from '../../utils/NoticePage/getNoticesData';
-import * as S from '../../styled/MainPage/Carousel.styles';
+import React, { useEffect, useState } from "react";
+import { DocumentData } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import getNoticeData from "../../utils/NoticePage/getNoticesData";
+import * as S from "../../styled/MainPage/Carousel.styles";
 
 // 화살표 함수
 const Arrow = ({ onClick, direction }: any) => (
-  <S.ArrowButton type='button' direction={direction} onClick={onClick}>
+  <S.ArrowButton type="button" direction={direction} onClick={onClick}>
     <ExpandCircleDownIcon />
   </S.ArrowButton>
 );
@@ -25,7 +25,7 @@ function Carousel() {
       const dataList = await getNoticeData();
       setNoticeList(dataList?.slice(0, 5));
     } catch (error) {
-      console.log('Error: ', error);
+      console.log("Error: ", error);
     }
   };
 
@@ -38,8 +38,8 @@ function Carousel() {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
-    nextArrow: <Arrow direction='next' />,
-    prevArrow: <Arrow direction='prev' />
+    nextArrow: <Arrow direction="next" />,
+    prevArrow: <Arrow direction="prev" />,
   };
 
   useEffect(() => {
@@ -50,7 +50,10 @@ function Carousel() {
     <S.SliderWrapper>
       <S.StyledSlider {...settings}>
         {noticeList?.map((notice, index) => (
-          <S.Slide key={index} onClick={() => navigate(`/notice/${notice.noticeNumber}`)}>
+          <S.Slide
+            key={index}
+            onClick={() => navigate(`/notice/${notice.noticeNumber}`)}
+          >
             <S.SlideImage src={notice.imageUrl} alt={notice.imageUrl} />
           </S.Slide>
         ))}
