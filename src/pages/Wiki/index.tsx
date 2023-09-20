@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { WikiContainer, EditCompletedButton, WikiContent, ChannelNames, BeforeEdit, MDEditBtn } from './style';
+import {
+    WikiContainer,
+    EditCompletedButton,
+    WikiContent,
+    ChannelNames,
+    BeforeEdit,
+    MDEditBtn,
+    ReadChannel,
+} from './style';
 import SidebarWiki from '../../components/SidebarWiki';
 import MDEditor, { bold } from '@uiw/react-md-editor';
 import rehypeSanitize from 'rehype-sanitize';
@@ -14,6 +22,7 @@ const Wiki: React.FC = () => {
     };
     const [clickedValue, setClickedValue] = useState<any>(v);
     const [md, setMd] = useState<string>('# 제목');
+    const [time, setTime] = useState<string>('');
     const [isToggled, setIsToggled] = useState(true);
     const toggleButton = () => {
         setIsToggled(!isToggled);
@@ -53,11 +62,10 @@ const Wiki: React.FC = () => {
     };
     // Function to handle both toggle and update button click
     const handleToggleAndUpdateClick = async () => {
-        handleUpdateButtonClick(); // Handle the update
+        await handleUpdateButtonClick();
         if (!isToggled) {
             setIsToggled(true);
         }
-        //await toggleButton(); // Toggle the button state
     };
     return (
         <WikiContainer>
@@ -65,6 +73,14 @@ const Wiki: React.FC = () => {
             {isToggled ? (
                 <WikiContent>
                     <BeforeEdit>
+                        <ReadChannel>
+                            <p style={{ fontSize: '24px', fontWeight: 'bold', color: 'black' }}>
+                                {clickedValue.channel}
+                                {' > '}
+                                {clickedValue.subChannel}
+                            </p>
+                            <p style={{ marginBottom: '16px', color: 'black' }}>{time}</p>
+                        </ReadChannel>
                         <MDEditBtn onClick={toggleButton}>
                             <img style={{ width: '30px' }} src={editImg}></img>
                         </MDEditBtn>
@@ -74,20 +90,20 @@ const Wiki: React.FC = () => {
             ) : (
                 <WikiContent>
                     <ChannelNames>
-                        <p style={{ fontSize: '16px', fontWeight: 'bold' }}>
+                        <p style={{ fontSize: '24px', fontWeight: 'bold' }}>
                             {clickedValue.channel}
                             {' > '}
                             {clickedValue.subChannel}
                         </p>
-                        <p style={{ marginBottom: '16px' }}>몇시 몇분</p>
+                        <p style={{ marginBottom: '16px' }}>{time}</p>
                         <MDEditor
                             value={md}
                             onChange={handleEditorChange}
                             previewOptions={{
                                 rehypePlugins: [[rehypeSanitize]],
                             }}
-                            height={'100vh'}
-                            style={{ width: '80vw' }}
+                            height={'95vh'}
+                            style={{ width: '68vw' }}
                         />
                     </ChannelNames>
                     <MDEditBtn onClick={handleToggleAndUpdateClick}>
