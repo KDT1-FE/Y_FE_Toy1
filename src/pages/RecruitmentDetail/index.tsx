@@ -67,9 +67,17 @@ const RecruitmentDetail: React.FC = () => {
             const unsub = await onSnapshot(
                 doc(firestore, 'recruitmentContainer', 'recruitment', channel, path),
                 (doc) => {
-                    console.log('Current data: ', doc.data());
                     setData(doc.data());
                     setComments(doc.data()?.comment);
+                    // 수정
+                    getUserImageURL(doc.data()?.uid)
+                        .then((result) => {
+                            setUserImageURL(result);
+                        })
+                        .catch((error) => {
+                            // 에러 핸들링
+                            console.error('Error fetching data:', error);
+                        });
                 },
             );
             return () => {
@@ -85,38 +93,6 @@ const RecruitmentDetail: React.FC = () => {
             setRender(!render);
         }
     }, [render]);
-
-    useEffect(() => {
-        // // 데이터를 비동기로 가져오기 위해 useEffect를 사용합니다.
-        // getRecruitmentDetail(channel, path)
-        //     .then((result) => {
-        //         // 데이터를 성공적으로 가져온 후에 setData를 사용하여 값을 설정합니다.
-        //         setData(result);
-        //     })
-        //     .catch((error) => {
-        //         // 에러 핸들링
-        //         console.error('Error fetching data:', error);
-        //     });
-        getUserName(userId)
-            .then((result) => {
-                setUserName(result);
-            })
-            .catch((error) => {
-                // 에러 핸들링
-                console.error('Error fetching data:', error);
-            });
-    }, [channel, path]);
-
-    useEffect(() => {
-        getUserImageURL(data.uid)
-            .then((result) => {
-                setUserImageURL(result);
-            })
-            .catch((error) => {
-                // 에러 핸들링
-                console.error('Error fetching data:', error);
-            });
-    }, []);
 
     const handleCreateCommentSubmit = async (e: any) => {
         e.preventDefault();
@@ -280,7 +256,7 @@ const RecruitmentDetail: React.FC = () => {
                         </CommentCreateWrapper>
                     </CommentWrapper>
                 ) : (
-                    <>1</>
+                    <>로딩중..</>
                 )}
             </ContentContainer>
         </RecruitmentDetailContainer>
