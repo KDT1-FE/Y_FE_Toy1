@@ -51,7 +51,6 @@ export const UploadBtn = styled.button`
     position: fixed;
     right: 8.5%;
     top: 92px;
-    z-index: 2;
     width: 170px;
     height: 70px;
     border-radius: 10px;

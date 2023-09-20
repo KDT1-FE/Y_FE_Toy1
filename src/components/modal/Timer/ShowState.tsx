@@ -2,13 +2,14 @@ import React from 'react';
 import { ShowOn } from './style';
 import { TimerOn } from '../../../utils/recoil';
 import { useRecoilState } from 'recoil';
+import { ShowTimerOn } from '../MyPage/commuteStyle';
 
 const ShowState: React.FC = () => {
     const [timerOn, setTimerOn] = useRecoilState(TimerOn);
     return (
-        <ShowOn value={timerOn}>
+        <ShowTimerOn value={timerOn}>
             <span>ON</span>
-        </ShowOn>
+        </ShowTimerOn>
     );
 };
 

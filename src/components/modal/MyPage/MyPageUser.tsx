@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { MyPageProfile, ProfileContent, ProfileEdit, ProfileImg, ProfileIntroduce } from './style';
-import { readUser } from '../../../utils/firebase';
+import { MyPageProfile, ProfileContent, ProfileImg } from './style';
 import { useRecoilState } from 'recoil';
 import { UserId, UserName, UserEmail, UserInfo, UserImg } from '../../../utils/recoil';
 import UserEditBtn from './UserEditBtn';
+import Textarea from '@mui/joy/Textarea';
+import { updateUserInfo } from '../../../utils/firebase';
 
 export default function MyPageUser() {
     const [userId, setUserId] = useRecoilState(UserId);
@@ -19,10 +19,18 @@ export default function MyPageUser() {
                 <span>{userName}</span>
                 <UserEditBtn />
             </ProfileContent>
-            <ProfileContent>{userEmail}</ProfileContent>
-            <ProfileIntroduce>
-                <p>{userInfo}</p>
-            </ProfileIntroduce>
+            <ProfileContent style={{ marginTop: '-10px' }}>{userEmail}</ProfileContent>
+            <Textarea
+                minRows={3}
+                maxRows={3}
+                defaultValue={userInfo}
+                sx={{ width: '100%', '--Textarea-focusedHighlight': 'rgba(13,110,253,.25)' }}
+                onBlur={async (info) => {
+                    await updateUserInfo('user', userId, info.target.value);
+                    setUserInfo(info.target.value);
+                }}
+                spellCheck={false}
+            />
         </MyPageProfile>
     );
 }
