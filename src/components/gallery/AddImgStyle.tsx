@@ -46,6 +46,12 @@ export const ImgLabel = styled.label`
     border: 3px dashed var(--color-main);
     background-color: var(--color-area);
   }
+
+  & > .preview_msg {
+    margin-top: 1rem;
+    font-weight: 500;
+    color: var(--color-main);
+  }
 `;
 
 export const ImgFile = styled.input`

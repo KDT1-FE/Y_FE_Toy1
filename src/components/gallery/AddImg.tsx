@@ -157,9 +157,8 @@ export function AddImg({
               <>
                 <Logo />
                 <p className="preview_msg">
-                  클릭 혹은 파일을 이곳에 드롭하세요.
+                  클릭 혹은 드래그를 통하여 파일을 올리세요!
                 </p>
-                <p className="preview_desc">파일당 최대 3MB</p>
               </>
             )}
           </style.ImgLabel>
