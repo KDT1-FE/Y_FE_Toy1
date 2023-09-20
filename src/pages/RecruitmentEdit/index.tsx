@@ -133,12 +133,12 @@ const RecruitmentEdit: React.FC = () => {
                                 style={{ marginLeft: '10px', width: '150px' }}
                             >
                                 <InputLabel id="category">분류</InputLabel>
-                                <MenuItem value="codingTest" selected>
+                                <MenuItem value="코딩테스트" selected>
                                     코딩테스트
                                 </MenuItem>
                                 <MenuItem value="CS">CS</MenuItem>
-                                <MenuItem value="interview">면접</MenuItem>
-                                <MenuItem value="algorithm">알고리즘</MenuItem>
+                                <MenuItem value="면접">면접</MenuItem>
+                                <MenuItem value="알고리즘">알고리즘</MenuItem>
                             </Select>
                         ) : (
                             <Select
@@ -148,8 +148,8 @@ const RecruitmentEdit: React.FC = () => {
                                 style={{ marginLeft: '10px', width: '150px' }}
                             >
                                 <InputLabel id="category">분류</InputLabel>
-                                <MenuItem value="toyProject">토이프로젝트</MenuItem>
-                                <MenuItem value="corporateProject">연계프로젝트</MenuItem>
+                                <MenuItem value="토이프로젝트">토이프로젝트</MenuItem>
+                                <MenuItem value="연계프로젝트">연계프로젝트</MenuItem>
                             </Select>
                         )}
                     </PostBox>
