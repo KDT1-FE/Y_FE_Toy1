@@ -5,6 +5,8 @@ import {
   calculateStudyTime,
   saveTimeInBrowser,
 } from "../../utils/timerAndRanking";
+import {ReactComponent as PlayIcon} from "../../assets/icons/PlayBtn.svg";
+import {ReactComponent as StopIcon} from "../../assets/icons/StopBtn.svg";
 
 function Controls(props: ControlsProps) {
   const {
@@ -110,25 +112,20 @@ function Controls(props: ControlsProps) {
 
   return (
     <div className="MainContainer">
-      {/* <div className="ControlsContainer"> */}
       <div className="PlayStopContainer">
         <div className="PlayButtonContainer">
-          <button
+          <PlayIcon
             type="button"
-            className="material-symbols-outlined"
+            className="PlayButton"
             onClick={handlePlayButton}
-          >
-            play_circle
-          </button>
+          />
         </div>
         <div className="StopButtonContainer">
-          <button
+          <StopIcon
             type="button"
-            className="material-symbols-outlined"
+            className="StopButton"
             onClick={handleStopButton}
-          >
-            stop_circle
-          </button>
+          />
         </div>
       </div>
       {/* </div> */}
