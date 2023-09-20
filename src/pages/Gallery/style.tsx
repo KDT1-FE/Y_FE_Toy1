@@ -29,7 +29,7 @@ export const ContentContainer = styled.div`
 `;
 
 export const ArticleContainer = styled.div`
-    --paddingTop: 10%;
+    --paddingTop: 1%;
     overflow-y: auto;
     height: calc(100vh - var(--paddingTop));
     padding-left: 8%;
@@ -48,16 +48,12 @@ export const ContentFirstLine = styled.div`
 `;
 
 export const UploadBtn = styled.button`
-    position: fixed;
-    right: 8.5%;
-    top: 92px;
-    width: 170px;
-    height: 70px;
+    width: 100px;
+    height: 50px;
     border-radius: 10px;
-    font-size: 30px;
+    font-size: 26px;
     padding: 10px;
     box-sizing: border-box;
-    vertical-align: middle;
     border: none;
     background-color: var(--active-current-status);
     color: white;
@@ -68,6 +64,14 @@ export const UploadBtn = styled.button`
     }
 `;
 
+export const UploadBtnWrapper = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 1.8%;
+    padding-bottom: 1.8%;
+    padding-right: 8%;
+    background-color: transparent;
+`;
 // 아티클 영역
 const jumpShaking = keyframes`
   0% { transform: translateX(0) }
@@ -98,9 +102,9 @@ export const ImgContainer = styled.div`
 `;
 
 export const StyleProfile = styled.div`
-    --paddingTop: 10%;
+    --paddingTop: 8%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     flex-wrap: wrap;
     height: calc(100vh - 72px);
     gap: 40px;
@@ -143,7 +147,7 @@ export const ModalContainer = styled.div`
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 15px 25px;
 `;
 
 export const ModalBackground = styled.div`
@@ -160,6 +164,7 @@ export const ModalFirstLine = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: baseline;
 `;
 
 export const ModalLabel = styled.label`
@@ -191,11 +196,12 @@ export const InputAndPreview = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-top: 10px;
 `;
 
 export const InputContainer = styled.div`
     display: flex;
-    margin: 10px;
+    margin: 10px 10px 10px 0;
     flex-direction: column;
     z-index: 2;
 `;
@@ -248,7 +254,8 @@ export const PreviewBox = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 10px;
+    margin: 10px 0px 10px 10;
+
     &:hover ${Description} {
         opacity: 1;
     }
@@ -309,5 +316,5 @@ export const CancelBtn = styled.button`
 export const BtnAlign = styled.div`
     display: flex;
     justify-content: center;
-    margin-top: 15px;
+    margin-top: 40px;
 `;
