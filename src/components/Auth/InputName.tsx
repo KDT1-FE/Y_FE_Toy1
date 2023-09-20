@@ -15,9 +15,9 @@ interface NameProps {
 const InputName = ({ name, handleName }: NameProps): JSX.Element => {
   return (
     <div className="input-container">
-      <input type="text" name="name" id="name" value={name.value} onChange={handleName} required autoComplete="off" />
+      <input type="text" name="user" id="user" value={name.value} onChange={handleName} required autoComplete="off" />
 
-      <label htmlFor="name">Name</label>
+      <label htmlFor="user">Name</label>
 
       <span className="input-container__bar"></span>
 
