@@ -60,7 +60,7 @@ export const CloseBtn = styled.button`
 `;
 
 export const ModalHeader = styled.div`
-    background-color: var(--navigation-background);
+    background-color: ${(props) => props.theme.navBar};
     width: 100%;
     height: 80px;
     font-size: 28px;

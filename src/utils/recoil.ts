@@ -68,3 +68,14 @@ export const Render = atom({
     key: 'Render',
     default: true,
 });
+export const ThemeChange = atom({
+    key: 'ThemeChange',
+    default: {
+        navBar: '#350d36',
+        sideMenu: '#3F0E40',
+        text: '#fff',
+        activeColor1: '#1164A3',
+        activeColor2: '#2BAC76',
+        badge: '#ECE7EC',
+    },
+});

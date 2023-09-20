@@ -1,9 +1,9 @@
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 export const HeaderComponent = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: var(--navigation-background);
+    background-color: ${(props) => props.theme.navBar};
 
     position: fixed;
     z-index: 2;
