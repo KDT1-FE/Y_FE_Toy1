@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Input = styled.input<{ width: string }>`
+export const Input = styled.input<{ width?: string }>`
   font-family: inherit;
   padding: 0.2rem;
   border: 1px solid var(--color-medium-gray);

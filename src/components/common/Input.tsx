@@ -8,7 +8,7 @@ interface Props {
   placeholder?: string;
   forwardedRef?: React.Ref<HTMLInputElement>;
   value?: string;
-  width: string;
+  width?: string;
 }
 
 export default function Input({
