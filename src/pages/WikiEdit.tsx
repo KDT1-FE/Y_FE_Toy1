@@ -6,7 +6,7 @@ import EditorBox from "components/EditorBox";
 import { AuthContext } from "authentication/authContext";
 import dayjs from "dayjs";
 
-//한국 날짜 설청
+//한국 날짜 설정
 dayjs.locale("ko");
 
 interface ValueState {
