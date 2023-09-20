@@ -28,7 +28,6 @@ const Carousel = () => {
   }, [currentIndex]);
 
   useEffect(() => {
-    console.log('A useEffect called');
     if (docRef.current !== null) {
         clearTimeout(docRef.current);
     }
@@ -51,7 +50,6 @@ const Carousel = () => {
     <>
       <div style={{width: '67vw', height: '46rem'}}> {/*  추후 스타일드 컴포넌트로 수정 예정 => height: "100%"  */}
         <style.CarouselWrapper>
-          <style.CarouselLeftBackDrop />
 
           <style.CarouselLeftButton>
             <BsArrowLeftCircle />
@@ -75,6 +73,7 @@ const Carousel = () => {
                   pageIndex={pageIndex}
                   ref={carouselRef}
                   carouselWidth={carouselWidth}>
+                  <style.CarouselPageButton>자세히 보기</style.CarouselPageButton>
                 </style.CarouselContent>
               </>
             ))}
