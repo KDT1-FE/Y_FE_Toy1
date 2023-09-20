@@ -123,3 +123,13 @@ export const getTimeFromBrowser = (): number | null => {
   }
   return null;
 };
+
+// export const getTimeFromBrowser = (reset = false) => {
+//   if (reset) {
+//     sessionStorage.setItem('studyTime', '0');
+//     return 0;
+//   }
+
+//   const time = sessionStorage.getItem('studyTime');
+//   return time ? parseInt(time, 10) : null;
+// };

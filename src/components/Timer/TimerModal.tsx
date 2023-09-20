@@ -106,7 +106,7 @@ function TimerModal(props: TimerModalProps) {
             총 공부 시간 :
             {timeArray
               ? `${timeArray[0]}시 ${timeArray[1]}분 ${timeArray[2]}초`
-              : "시간을 불러올 수 없습니다."}
+              : " 0시간 0분 0초 "}
           </div>
           {!isRunning && studyDuration && (
             <div className="SubmitSection">

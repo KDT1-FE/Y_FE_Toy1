@@ -46,8 +46,7 @@ function Controls(props: ControlsProps) {
     setTimeInSeconds(0);
     setIsFirstPlay(true);
     setPlayTime(null);
-    setStatusText(null);
-    setStudyDuration("00:00:00");
+    // sessionStorage.setItem("time", "0");
   };
 
   // 타이머 시작, 재시작
