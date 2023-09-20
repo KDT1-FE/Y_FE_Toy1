@@ -4,7 +4,7 @@ import {
   setPersistence,
   signInWithPopup,
 } from 'firebase/auth';
-import { auth, db } from './firebase';
+import { auth, db } from '../firebase';
 import {
   addDoc,
   collection,
@@ -15,6 +15,8 @@ import {
   where,
 } from '@firebase/firestore';
 import { WORK_TIME_COLLECTION } from 'constants/collection';
+import { ERROR_ALERT } from 'constants/alert';
+import { IuserData } from 'types/user';
 
 export const login = async () => {
   try {
@@ -22,7 +24,7 @@ export const login = async () => {
     await setPersistence(auth, browserSessionPersistence);
     await signInWithPopup(auth, provider);
   } catch (error) {
-    alert('알 수 없는 오류입니다');
+    alert(ERROR_ALERT);
   }
 };
 
@@ -35,11 +37,6 @@ const getSessionUserData = () => {
   }
 };
 
-interface IuserData {
-  [key: string]: unknown;
-  uid: string;
-  displayName: string;
-}
 export const addWorkTimeData = (workTime: number) => {
   const user: IuserData = getSessionUserData();
   try {
@@ -50,7 +47,7 @@ export const addWorkTimeData = (workTime: number) => {
       name: user.displayName,
     });
   } catch (error) {
-    alert('알 수 없는 오류입니다');
+    alert(ERROR_ALERT);
   }
 };
 
@@ -87,6 +84,6 @@ export const getWorkTimeData = async () => {
     });
     return responseArray;
   } catch (error) {
-    alert('알 수 없는 오류입니다');
+    alert(ERROR_ALERT);
   }
 };

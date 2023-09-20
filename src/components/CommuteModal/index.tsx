@@ -12,7 +12,7 @@ import {
 } from 'constants/time';
 import useInterval from 'hooks/useInterval';
 import { dayFormat, timeFormat } from 'utils/format';
-import { addWorkTimeData } from 'apis';
+import { addWorkTimeData } from 'apis/WorkTime';
 import { media } from 'styles/media';
 
 function CommuteModal() {

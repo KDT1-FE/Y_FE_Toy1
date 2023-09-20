@@ -1,4 +1,4 @@
-import { getWorkTimeData } from 'apis';
+import { getWorkTimeData } from 'apis/WorkTime';
 import { useEffect, useState } from 'react';
 import { usedateFormat, useSecondsFormat } from 'utils/format';
 import { COMMUTE_LIST_STATE } from 'constants/time';

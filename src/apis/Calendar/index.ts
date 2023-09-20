@@ -9,6 +9,7 @@ import {
   query,
   where,
 } from 'firebase/firestore';
+import { IuserData } from 'types/user';
 import { getSessionUserData } from 'utils/user';
 
 interface ICalendarData {
@@ -16,11 +17,7 @@ interface ICalendarData {
   startDate: string;
   endDate: string;
 }
-interface IuserData {
-  [key: string]: unknown;
-  uid: string;
-  displayName: string;
-}
+
 interface IresponseArray {
   start: Date;
   end: Date;
