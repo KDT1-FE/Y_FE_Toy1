@@ -22,7 +22,7 @@ export const addFirestore = (imageURL: string, selectedCategory: string) => {
       window.location.reload();
     });
   } catch (error) {
-    alert(error);
+    alert('알 수 없는 오류가 발생했습니다.');
   }
 };
 
@@ -32,12 +32,15 @@ export const addStorage = (
 ) => {
   const storageRef = ref(storage, `images/${file[0].name}`);
   const uploadTask = uploadBytes(storageRef, file[0]);
-
-  uploadTask.then((snapshot) => {
-    getDownloadURL(snapshot.ref).then((downloadURL) => {
-      setImageURL(downloadURL);
+  try {
+    uploadTask.then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((downloadURL) => {
+        setImageURL(downloadURL);
+      });
     });
-  });
+  } catch (error) {
+    alert('알 수 없는 오류가 발생했습니다.');
+  }
 };
 
 export interface GalleryData {

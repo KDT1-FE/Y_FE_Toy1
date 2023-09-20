@@ -4,6 +4,7 @@ import About from 'components/About';
 import Carousel from 'components/Carousel';
 import MainLottie from 'components/Common/MainLottie';
 import CommuteList from 'components/CommuteList';
+import { media } from 'styles/media';
 import styled from 'styled-components';
 
 function Main() {
@@ -34,8 +35,8 @@ function Main() {
         <div>
           <CommuteList />
         </div>
-        <MainLottie lottieData={batteryLottie} width={500} height={500} />
       </StyledBottomWrapper>
+      <MainLottie lottieData={batteryLottie} width={200} height={200} />
     </>
   );
 }
@@ -48,6 +49,13 @@ const StyledNoticeContainer = styled.div`
   flex-direction: column;
   margin: 0 auto;
   margin-top: 6rem;
+
+  ${media.tablet(`
+  max-width: 100%;
+  padding: 0 1rem;
+  margin-top: 3rem;
+  height: 100%
+`)}
 `;
 
 const StyledTitleTextBox = styled.div`
@@ -60,6 +68,10 @@ const StyledTitleTextBox = styled.div`
 const StyledTitleText = styled.span`
   font-size: 3rem;
   font-weight: 500;
+
+  ${media.tablet(`
+  display: none;
+`)}
 `;
 
 const StyledTitleSeeText = styled.span`
@@ -67,6 +79,10 @@ const StyledTitleSeeText = styled.span`
   font-weight: 400;
   margin-left: 1rem;
   margin-bottom: 0.5rem;
+
+  ${media.tablet(`
+  font-size: .8rem
+`)}
 `;
 
 const StyledCarouselBox = styled.div`
@@ -84,18 +100,36 @@ const StyledAboutContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  margin-top: 6rem;
+  margin-top: 14rem;
+
+  ${media.tablet(`
+    max-width: 100%;
+    padding: 0 1rem;
+    margin-top: 3rem;
+    height: 100%;
+  `)}
 `;
 
 const StyledBottomWrapper = styled.div`
   width: 60rem;
   margin: 0 auto;
+
+  ${media.tablet(`
+    max-width: 100%;
+    padding: 0 1rem;
+    margin-top: 3rem;
+    height: 100%;
+  `)}
 `;
 
 const StyledWorkTimeText = styled.span`
   font-size: 2rem;
   font-weight: 500;
   margin-left: 1rem;
+
+  ${media.tablet(`
+  display: none;
+`)}
 `;
 
 const StyledWorkTimeSmallText = styled.span`
@@ -103,6 +137,10 @@ const StyledWorkTimeSmallText = styled.span`
   font-weight: 400;
   margin-left: 1rem;
   margin-bottom: 0.5rem;
+
+  ${media.tablet(`
+  font-size: .8rem
+`)}
 `;
 
 const StyledHrLine = styled.hr`
@@ -110,6 +148,11 @@ const StyledHrLine = styled.hr`
   border: 1px solid #c4c4c4;
   margin: 0 auto;
   margin-top: 2rem;
+  margin-bottom: 1rem;
+
+  ${media.tablet(`
+  margin-top: 1rem;
+`)}
 `;
 
 export default Main;

@@ -10,6 +10,13 @@ interface IMainLottieProps {
 }
 
 function MainLottie({ lottieData, width, height }: IMainLottieProps) {
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   const defaultOption: Options = {
     animationData: lottieData,
     loop: true,
@@ -19,7 +26,7 @@ function MainLottie({ lottieData, width, height }: IMainLottieProps) {
     },
   };
   return (
-    <StyledLottieContainer>
+    <StyledLottieContainer onClick={handleScrollToTop}>
       <Lottie
         options={defaultOption}
         width={width}
@@ -34,18 +41,9 @@ const StyledLottieContainer = styled.div`
   position: relative;
   width: 100%;
   margin: 0 auto;
-  ${media.desktop_lg(`
-    min-width: 1024px;
-    display: none;
-  `)}
 
   ${media.tablet(`
     min-width: 768px;
-    display: none;
-  `)}
-
-  ${media.mobile(`
-    min-width: 576px;
     display: none;
   `)}
 `;

@@ -2,6 +2,7 @@ import { getWorkTimeData } from 'apis';
 import { useEffect, useState } from 'react';
 import { usedateFormat, useSecondsFormat } from 'utils/format';
 import { COMMUTE_LIST_STATE } from 'constants/time';
+import { media } from 'styles/media';
 import styled from 'styled-components';
 
 interface IresponseArray {
@@ -39,9 +40,13 @@ function CommuteList() {
           .slice(COMMUTE_LIST_STATE.START_INDEX, COMMUTE_LIST_STATE.LAST_INDEX)
           .map((data, index) => (
             <StyledListContainer key={index}>
-              <div>{data.name}님</div>
-              <div>{useSecondsFormat(data.workTime)}동안 근무하셨어요!</div>
-              <div>{usedateFormat(new Date(data.timeStamp))}</div>
+              <StyledListTextContainer>{data.name}님</StyledListTextContainer>
+              <StyledListTextContainer>
+                {useSecondsFormat(data.workTime)}동안 근무하셨어요!
+              </StyledListTextContainer>
+              <StyledListTextContainer>
+                {usedateFormat(new Date(data.timeStamp))}
+              </StyledListTextContainer>
             </StyledListContainer>
           ))
       )}
@@ -54,15 +59,33 @@ const StyledEmptyListContainer = styled.div`
   justify-content: center;
   height: 3rem;
   margin-top: 2rem;
+
+  ${media.tablet(`
+  font-size: 1rem
+`)}
 `;
 
 const StyledListContainer = styled.div`
   display: flex;
+  justify-content: space-between;
+  width: 80%;
+  height: 3rem;
+  border-bottom: 1px solid #eeeeee;
+  margin: 0 auto;
+  margin-top: 2rem;
+
+  ${media.tablet(`
   justify-content: space-around;
   width: 100%;
-  height: 3rem;
-  border-bottom: 1px solid #f0f0f0;
-  margin-top: 2rem;
+  height: 2rem;
+  margin: .5rem;
+`)}
+`;
+
+const StyledListTextContainer = styled.div`
+  ${media.tablet(`
+  font-size: .8rem;
+`)}
 `;
 
 export default CommuteList;
