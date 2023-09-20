@@ -27,10 +27,12 @@ export default function Category() {
 
   const handleSaveClick = async () => {
     try {
-      if (newCategoryName === '전체') {
-        console.error('You cannot use "전체" as a category name.');
+      if (newCategoryName === '전체' || newCategoryName === '') {
+        alert('카테고리 내용을 정확히 입력해주세요');
+        setNewCategoryName("");
         return;
       }
+
       // 새 카테고리를 Recoil 상태에 추가
       setCategoryNames([...categoryNames, newCategoryName]);
 
@@ -46,6 +48,7 @@ export default function Category() {
       
       // 입력 필드 초기화
       setNewCategoryName("");
+
     } catch (error) {
       console.error("Error updating category data: ", error);
     }
