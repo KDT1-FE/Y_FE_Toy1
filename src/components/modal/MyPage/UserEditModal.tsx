@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { CloseBtn, Modal, ModalHeader, ModalWall } from '../Timer/style';
-import { EditBox, EditInput, EditInputBox, FlexBox, InputImg, InputLabel, SubmitBtn } from './style';
+import { EditBox, EditInput, EditInputBox, FlexAroundBox, InputImg, InputLabel, SubmitBtn, UploadBtn } from './style';
 import { updateUserEmail, updateUserImg, updateUserInfo, updateUserName, uploadStorage } from '../../../utils/firebase';
 import { useRecoilState } from 'recoil';
 import { UserEmail, UserId, UserImg, UserInfo, UserName } from '../../../utils/recoil';
@@ -61,6 +61,7 @@ const UserEditModal: React.FC<ownProps> = ({ handleEdit }) => {
                             type="file"
                             id="img"
                             accept="image/*"
+                            style={{ display: 'none' }}
                             onChange={(e) => {
                                 updateImg(e);
                             }}
@@ -89,9 +90,12 @@ const UserEditModal: React.FC<ownProps> = ({ handleEdit }) => {
                                 }}
                             ></EditInput>
                         </InputLabel>
-                        <FlexBox>
+                        <FlexAroundBox>
+                            <label htmlFor="img" style={{ display: 'flex', alignItems: 'center' }}>
+                                <UploadBtn style={{ width: '70px', height: '60px' }}></UploadBtn>
+                            </label>
                             <SubmitBtn onClick={updateProfile}>수정하기</SubmitBtn>
-                        </FlexBox>
+                        </FlexAroundBox>
                     </EditInputBox>
                 </EditBox>
             </Modal>

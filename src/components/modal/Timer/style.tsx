@@ -52,6 +52,7 @@ export const CloseBtn = styled.button`
     appearance: none;
     font-weight: 700;
     border-radius: 25px;
+    cursor: pointer;
     transition: 0.5s all;
     &:hover {
         background-color: #c9c9c9;
@@ -130,7 +131,7 @@ export const BtnClassic = styled.button`
     -moz-appearance: none;
     appearance: none;
     width: 120px;
-    height: 72px;
+    height: 62px;
     border: none;
     border-radius: 20px;
     font-size: 24px;
