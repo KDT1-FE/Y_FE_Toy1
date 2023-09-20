@@ -3,6 +3,9 @@ import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
 import app from './config';
 
+import swal from 'sweetalert';
+import '../scss/components/auth/swal.scss';
+
 const db = getFirestore(app);
 const auth = getAuth(app);
 
@@ -27,6 +30,15 @@ const requestLogin = (email: string, password: string) => {
       const errorMessage = error.message;
 
       console.error(errorCode, errorMessage);
+
+      if (errorCode === 'auth/user-not-found') {
+        swal({
+          className: 'error',
+          title: '로그인에 실패했습니다.',
+          text: '이메일과 비밀번호를 다시 한번 확인해주세요',
+          icon: 'warning',
+        });
+      }
     });
 };
 
