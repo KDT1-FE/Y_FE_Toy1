@@ -5,13 +5,13 @@ import {  read } from 'apis/Wiki';
 import { useLocation } from 'react-router-dom';
 import { media } from 'styles/media';
 import Loading from 'components/Common/Loading';
-import WikiContent from 'components/Wiki/'
-import WikiCreate from 'components/Wiki'
+import WikiContent from 'components/Wiki/index'
+import WikiCreate from 'components/Wiki/WikiCreate'
 
 function Wiki() {
   const [isEdit, setIsEdit] = useState(false);
   const [data, setData] = useState(Object);
-  // const [isChange, setIsChanged] = useState(false);
+  const [isChange, setIsChanged] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const location = useLocation();
@@ -31,23 +31,23 @@ function Wiki() {
     getDocumentList();
   }, [isEdit]);
 
-  // useEffect(() => {
-  //   if (isEdit) setIsEdit(false);
-  //   getDocumentList();
-  // }, [isChange])
+  useEffect(() => {
+    if (isEdit) setIsEdit(false);
+    getDocumentList();
+  }, [isChange])
 
   return (
     <StyledWikiContainer>
       <NavigationWiki
-        // setIsChanged={setIsChanged}
-        // isChange={isChange}
+        setIsChanged={setIsChanged}
+        isChange={isChange}
       ></NavigationWiki>
       <div>
         {isEdit ? (
           <WikiCreate
             setIsEdit={setIsEdit}
             data={data}
-            // selectedCategory={selectedCategory}
+            selectedCategory={selectedCategory}
           ></WikiCreate>
         ) : (
           <StyledTextareaContainer>

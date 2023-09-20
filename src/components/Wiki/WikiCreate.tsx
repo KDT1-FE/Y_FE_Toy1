@@ -52,9 +52,7 @@ function WikiCreate({ setIsEdit, selectedCategory, data }: createProps) {
   );
 }
 
-
 export default WikiCreate;
-
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -67,6 +65,7 @@ const ButtonContainer = styled.div`
 const StyledTextareaContainer = styled.div`
   margin: 2rem;
   position: relative;
+  height: 50vw;
 
   #markdownEditor {
     height: 100% !important;
@@ -84,7 +83,7 @@ const StyledTextareaContainer = styled.div`
   .document .markdownViewer::-webkit-scrollbar {
     display: none;
   }
-
+  
   ${media.desktop_lg(`
     width: 35rem;
     height: 40rem; 
