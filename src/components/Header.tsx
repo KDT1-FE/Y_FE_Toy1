@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import HeaderDropDown from './HeaderDropDown';
-import AttendanceModal from './AttendanceModal';
+import AttendanceModal from './Attendance/AttendanceModal';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 
 import '../scss/components/_userInfo.scss';
