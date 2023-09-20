@@ -158,7 +158,7 @@ const fetchPosts = async () => {
             <p className='post-user'>작성자: {post.username}</p>
               <p className='post-title'>{post.title}</p>
               <p className='post-content'>{post.content}</p>
-              <p className='post-due-date'>모집 마감일: {(post.timestamp as any).toDate().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+              <p className='post-due-date'>모집기간: {(post.timestamp as any).toDate().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
             </div>
           </li>
         ))}
