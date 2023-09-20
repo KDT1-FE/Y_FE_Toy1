@@ -1,3 +1,7 @@
+@use 'abstracts' as *;
+@use 'base' as *;
+
 .landingContent {
   display: flex;
+  background-color: $lightGray;
 }

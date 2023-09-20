@@ -9,7 +9,7 @@ import '../scss/landingPage.scss';
 
 const LandingPage = (): JSX.Element => {
   return (
-    <div>
+    <div className="landingpage">
       <Header />
       <div className="landingContent">
         <SideBar />
