@@ -6,7 +6,11 @@ import { useLocation, Link } from 'react-router-dom';
 import { media } from 'styles/media';
 import { addFirestore, addStorage } from 'apis/Gallery';
 
-function UploadGallery() {
+interface IUploadGalleryProps {
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function UploadGallery({ setIsLoading }: IUploadGalleryProps) {
   const [modalOpen, setModalOpen] = useState(false);
   const [preview, setPreview] = useState<string | ArrayBuffer | null>('');
 
@@ -49,11 +53,13 @@ function UploadGallery() {
       const image = formData.get('ex_file');
       if (image instanceof File) {
         if (!checkImage(image)) return;
+        setIsLoading(true);
         const downLoadUrl = await addStorage(image);
         if (downLoadUrl && selectedCategory) {
           await addFirestore(downLoadUrl, selectedCategory);
+          closeModal();
+          setIsLoading(false);
         }
-        closeModal();
       }
     }
   };
@@ -71,7 +77,12 @@ function UploadGallery() {
           </StyledButton>
         )}
       </StyledGalleryContainer>
-      <CustomModal isOpen={modalOpen} style={StyledModal} className="modal">
+      <CustomModal
+        isOpen={modalOpen}
+        style={StyledModal}
+        className="modal"
+        ariaHideApp={false}
+      >
         <StyledCloseImg
           src={closeButton}
           alt="close button"
