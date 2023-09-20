@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { ChangeEvent, useRef, useState } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { signOut } from 'firebase/auth';
@@ -8,9 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { doc, updateDoc } from 'firebase/firestore';
 import {
-  ButtonBox, CloseImg, ProfileInfoBox, ProfileModalCloseBtn, ProfileModalHeader, ProfileModalHeaderText,
+  ButtonBox, CloseImg, ProfileInfoBox, ProfileModalCloseBtn, ProfileModalHeader,
   ProfileModalLayout, ProfileImg, ProfileInput, ProfileInputBtn, ProfileCameraImg, ProfileInfoText,
-  ProfileInfoEmail, CorrectBtn, CancelBtn, PositionSelect, InputText
+  ProfileInfoEmail, PositionSelect, InputText, Btn
 } from '../../../styled/MainPage/ProfileModal'
 import ClostButton from "../../../assets/img/CloseButton.svg"
 import userState from '../../../recoil/atoms/userState';
@@ -158,26 +157,26 @@ export default function ProfileModal({ setActiveModalIdx }: ProfileProp) {
       {
         showEdit ?
           <ButtonBox>
-            <CorrectBtn onClick={handleProfileEdit}>
+            <Btn color='#96a0ff' onClick={handleProfileEdit}>
               수정
-            </CorrectBtn>
-            <CancelBtn onClick={() => {
+            </Btn>
+            <Btn color='#ef6363' onClick={() => {
               setImgState("")
               setShowEdit(false)
             }}>
               취소
-            </CancelBtn>
+            </Btn>
           </ButtonBox>
           :
           <ButtonBox>
-            <CorrectBtn onClick={() => {
+            <Btn color="#96a0ff" onClick={() => {
               if (user.userData.profile !== "") { setImgState(user.userData.profile) }
               setInitialValue({ ...user.userData })
               setShowEdit(true)
             }}>
               편집
-            </CorrectBtn>
-            <CancelBtn type="button" onClick={handleLogout}>로그아웃</CancelBtn>
+            </Btn>
+            <Btn color='#ef6363' type="button" onClick={handleLogout}>로그아웃</Btn>
           </ButtonBox>
       }
     </ProfileModalLayout>
