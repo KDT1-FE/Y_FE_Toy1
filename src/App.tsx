@@ -1,5 +1,8 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Routes, Route} from "react-router-dom";
+import SaveContents from "./components/Wiki/SaveContents";
+import SaveTeam from "./components/Wiki/SaveTeam";
+
 import Home from "./pages/Home";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -9,6 +12,11 @@ import Ranking from "./pages/Ranking";
 import "./styles/reset.css";
 
 function App() {
+  useEffect(() => {
+    SaveContents();
+    SaveTeam();
+  }, []);
+
   return (
     <div className="App">
       <Header />
