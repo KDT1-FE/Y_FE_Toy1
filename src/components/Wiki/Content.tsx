@@ -2,9 +2,7 @@ import React, {useEffect, useState} from "react";
 import "../../styles/wiki/wiki.css";
 import "../../styles/wiki/reactMarkdown.css";
 import {useParams} from "react-router-dom";
-import ReadWiki from "./ReadWiki";
 import Loading from "../Loading";
-import SaveTeam from "./SaveTeam";
 import EditButton from "./EditButton";
 import TeamContent from "./TeamContent";
 import OtherContent from "./OtherContent";
@@ -14,8 +12,6 @@ function Content() {
   // isLoading : 로딩 상태
   const [isLoading, setisLoading] = useState(true);
   // dataKey : db 검색용 url 파라미터
-  const [dataKey, setDataKey] = useState("커리큘럼");
-  // text : texrarera 에서 불러온 글
   const [text, setText] = useState("");
   // content : db에서 불러온 글
   const [content, setContent] = useState("");
@@ -26,16 +22,34 @@ function Content() {
   // isTeamContent : 페이지 상태
   const [isTeamContent, setisTeamContent] = useState(false);
 
-  // id가 변경될 경우, dataKey 변경
   useEffect(() => {
     setisLoading(true);
-    setDataKey(id);
-    setIsEditorOpen(false);
 
-    if (id === "팀구성") {
-      setisTeamContent(true);
+    if (!id) {
+      setTitle("커리큘럼");
+
+      const contentString = sessionStorage.getItem("커리큘럼");
+
+      if (contentString) {
+        setContent(JSON.parse(contentString).content);
+      }
     } else {
-      setisTeamContent(false);
+      setTitle(id);
+
+      setIsEditorOpen(false);
+
+      if (id === "팀 구성") {
+        setisTeamContent(true);
+      } else {
+        setisTeamContent(false);
+      }
+
+      const contentString = sessionStorage.getItem(id);
+
+      if (contentString) {
+        setContent(JSON.parse(contentString).content);
+        setText(content);
+      }
     }
 
     setTimeout(() => {
@@ -43,18 +57,9 @@ function Content() {
     }, 1000);
   }, [id]);
 
-  // ReadWiki 함수로 content 가져오기
   useEffect(() => {
-    if (dataKey) {
-      ReadWiki(dataKey).then(doc => {
-        setContent(doc.content);
-        setTitle(doc.title);
-        setText(doc.content);
-      });
-    }
-  }, [dataKey]);
-
-  SaveTeam();
+    setText(content);
+  }, [content]);
 
   return (
     <div className="WikiContentWrap">
@@ -76,9 +81,10 @@ function Content() {
       ) : (
         <OtherContent
           isEditorOpen={isEditorOpen}
-          dataKey={dataKey}
+          dataKey={title}
           text={text}
           content={content}
+          setContent={setContent}
           setIsEditorOpen={setIsEditorOpen}
         />
       )}

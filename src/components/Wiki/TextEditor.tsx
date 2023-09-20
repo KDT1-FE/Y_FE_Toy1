@@ -6,7 +6,12 @@ import rehypeRaw from "rehype-raw";
 import {TextEditorProps} from "../../types/Wiki";
 import PostWiki from "./PostWiki";
 
-function TextEditor({dataKey, content, setIsEditorOpen}: TextEditorProps) {
+function TextEditor({
+  dataKey,
+  content,
+  setContent,
+  setIsEditorOpen,
+}: TextEditorProps) {
   const [text, setText] = useState(content);
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
@@ -17,6 +22,7 @@ function TextEditor({dataKey, content, setIsEditorOpen}: TextEditorProps) {
     e.preventDefault();
     PostWiki(dataKey, text).then(() => {
       setIsEditorOpen(false);
+      setContent(text);
     });
   };
 

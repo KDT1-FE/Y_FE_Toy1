@@ -3,12 +3,14 @@ export interface OtherContentProps {
   dataKey: string;
   text: string;
   content: string;
+  setContent: Function;
   setIsEditorOpen: Function;
 }
 
 export interface TextEditorProps {
   dataKey: string;
   content: string;
+  setContent: Function;
   setIsEditorOpen: Function;
 }
 

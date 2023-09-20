@@ -12,12 +12,14 @@ function OtherContent({
   dataKey,
   text,
   content,
+  setContent,
   setIsEditorOpen,
 }: OtherContentProps) {
   return isEditorOpen ? (
     <TextEditor
       dataKey={dataKey}
       content={text}
+      setContent={setContent}
       setIsEditorOpen={setIsEditorOpen}
     />
   ) : (

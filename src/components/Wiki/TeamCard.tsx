@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import ReadTeam from "./ReadTeam";
+
 import PostTeam from "./PostTeam";
 
 function TeamCard({teamName}: {teamName: string}) {
@@ -16,13 +16,10 @@ function TeamCard({teamName}: {teamName: string}) {
     ? (team = JSON.parse(teamString))
     : "팀 컨텐츠를 찾을 수 없습니다.";
 
-  ReadTeam(teamName).then(teamData => {
-    setTeamContent(teamData.content);
-
-    if (!text) {
-      setText(teamContent);
-    }
-  });
+  useEffect(() => {
+    setText(team.content);
+    setTeamContent(team.content);
+  }, []);
 
   const clickEdit = () => {
     setIsEditorOpen(!isEditorOpen);
@@ -35,9 +32,10 @@ function TeamCard({teamName}: {teamName: string}) {
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    setText(text);
-    PostTeam(teamName, text).then(() => {
+    PostTeam(teamName, text, team.멘티, team.멘토, team.img).then(() => {
       setIsEditorOpen(false);
+      setTeamContent(text);
+      setText(text);
     });
   };
 
@@ -58,7 +56,7 @@ function TeamCard({teamName}: {teamName: string}) {
           <textarea
             className="TeamCardTextarea"
             onChange={onChange}
-            defaultValue={text}
+            defaultValue={teamContent}
           />
         ) : (
           <ReactMarkdown
