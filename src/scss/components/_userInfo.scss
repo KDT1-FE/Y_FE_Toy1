@@ -3,6 +3,7 @@
 
 .header__drop-down {
   @include flex-center-col;
+  @include shadow();
   width: 120px;
   background: $white;
   position: absolute;
