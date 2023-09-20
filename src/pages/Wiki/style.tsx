@@ -11,18 +11,23 @@ export const WikiContainer = styled.div`
 export const WikiContent = styled.div`
     display: flex;
     justify-content: left;
-    margin-left: 0px;
+
     position: relative;
     width: 100%;
-    height: calc(100vh - 72px);
+    height: calc(100vh - 112px);
+    margin: 20px 40px 20px 40px;
     overflow: auto;
-    padding: 10px 20px 20px 40px;
+    &::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--point-item);
+        border-radius: 6px;
+        border: 3px solid transparent;
+    }
 `;
-export const ChannelNames = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-`;
+
 export const EditCompletedButton = styled.div`
     display: absolute;
     border: none;
@@ -32,37 +37,20 @@ export const EditCompletedButton = styled.div`
     font-size: 24px;
     color: var(--text);
 `;
-export const BeforeEdit = styled.div`
-    display: absolute;
-    border: none;
-    position: left;
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-    font-weight: 500;
-    font-size: 24px;
-    color: var(--text);
+
+export const ChannelNames = styled.div`
+    width: 100%;
 `;
 export const MDEditBtn = styled.button`
-    margin: 0;
-    padding: 0;
     border: none;
     background-color: transparent;
-    font-family: inherit;
-    font-size: inherit;
-    text-decoration: none;
     cursor: pointer;
-    box-shadow: none;
-    position: absolute;
-    top: 20px;
-    right: 30px;
     width: 50px;
-    height: 30px;
+    height: 50px;
 `;
 export const ReadChannel = styled.div`
     display: flex;
-    flex-direction: column;
-    justify-content: left;
-    width: 60vw;
-    margin-right: 0px;
+    justify-content: space-between;
+    border-bottom: 3px solid black;
+    margin-bottom: 20px;
 `;
