@@ -2,20 +2,23 @@ import React, {useEffect, useState} from "react";
 import "../../styles/gallery/gallery.css";
 import {useParams} from "react-router-dom";
 import Modal from "../Modal";
+import Loading from "../Loading";
 import DeleteModal from "./DeleteModal";
 import useModal from "../../hooks/useModal";
 import ReadPhotos from "./ReadPhotos";
 import AddPhotos from "./AddPhotos";
 import UploadModal from "./UploadModal";
+import {ReactComponent as DeleteBtn} from "../../assets/icons/DeleteBtn.svg";
+import {ReactComponent as Upload} from "../../assets/icons/Upload.svg";
 
 function Album() {
   const {id} = useParams<{id: string}>();
   const {isOpen, toggle} = useModal();
-  const [albumKey, setAlbumKey] = useState<string>("");
+  const [albumKey, setAlbumKey] = useState("");
   const [allFiles, setAllFiles] = useState<string[]>([]);
   const [files, setFiles] = useState<{name: string; imageUrl: string}[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isModal, setIsModal] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isModal, setIsModal] = useState(false);
   const [deleteFiles, setDeleteFiles] = useState<string[]>([]);
 
   //   앨범 선택 함수 : URL파라미터 값에 따라 앨범 선택, URL파라미터 없을 경우 1번 앨범 선택
@@ -29,6 +32,10 @@ function Album() {
 
   useEffect(() => {
     SelectAlbum();
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
   }, [id]);
 
   useEffect(() => {
@@ -39,10 +46,11 @@ function Album() {
           const imageUrlArray = photoFiles.map(photo => photo.imageUrl);
           setAllFiles(imageUrlArray);
           setFiles(photoFiles);
-          setIsLoading(false);
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 1000);
         })
         .catch(err => {
-          setIsLoading(false);
           throw new Error(err);
         });
   }, [albumKey]);
@@ -60,44 +68,37 @@ function Album() {
       <div id="AlbumHeader">
         <h1 id="AlbumTitle">앨범: {albumKey}</h1>
         <div id="AlbumIcons">
-          <button
+          <DeleteBtn
             type="button"
-            className="material-symbols-outlined"
             id="AlbumDelete"
+            className="Button"
             onClick={() => {
               toggle();
               ChangeModalFalse();
             }}
-          >
-            delete
-          </button>
-          <button
+          />
+          <Upload
             type="button"
-            className="material-symbols-outlined"
             id="AlbumUpload"
+            className="Button"
             onClick={() => {
               toggle();
               ChangeModalTrue();
             }}
-          >
-            ios_share
-          </button>
+          />
         </div>
       </div>
       <div id="AlbumContainer">
-        {isLoading ? (
-          <p>로딩 중...</p>
-        ) : (
-          files.map(file => (
-            <AddPhotos
-              key={file.imageUrl}
-              file={file.imageUrl}
-              name={file.name}
-              deleteFiles={deleteFiles}
-              setDeleteFiles={setDeleteFiles}
-            />
-          ))
-        )}
+        {isLoading ? <Loading /> : <div> </div>}
+        {files.map(file => (
+          <AddPhotos
+            key={file.imageUrl}
+            file={file.imageUrl}
+            name={file.name}
+            deleteFiles={deleteFiles}
+            setDeleteFiles={setDeleteFiles}
+          />
+        ))}
       </div>
       <Modal isOpen={isOpen} onClose={toggle}>
         {isModal ? (
