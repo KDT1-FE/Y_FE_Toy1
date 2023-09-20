@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import CloseButton from 'react-bootstrap/CloseButton';
 import { AddImageDragDrop } from './NavAddImage';
 import './_modal.scss';
 import './ModalAddImage.scss';
@@ -21,14 +22,12 @@ export function AddImageModal() {
 
           <AddImageDragDrop />
 
-          <button
+          <CloseButton
             onClick={async () => {
               await modalRef.current?.close();
               location.reload();
-            }} // 📍 모달 닫기 버튼
-          >
-            Close
-          </button>
+            }}
+          />
         </div>
       </dialog>
     </div>

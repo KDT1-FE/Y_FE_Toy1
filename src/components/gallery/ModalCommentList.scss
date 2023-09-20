@@ -66,21 +66,31 @@
     justify-content: space-between;
     margin: 10px;
     color: $blackColor;
+
     &-delBtn {
       font-size: 25px;
     }
   }
 }
 
-.comment-box {
+.commentBox {
   display: flex;
-  flex-direction: column;
-  &-name {
-    font-size: 12px;
-    font-weight: 700;
+  &-image {
+    border: none;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
   }
   &-text {
-    font-size: 18px;
-    padding-left: 5px;
+    display: flex;
+    flex-direction: column;
+    .comment-name {
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .comment-text {
+      font-size: 18px;
+      padding-left: 5px;
+    }
   }
 }

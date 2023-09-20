@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import CloseButton from 'react-bootstrap/CloseButton';
 import { ModalComment } from './ModalCommentList';
 import './_modal.scss';
 import './SlideRow.scss';
@@ -42,9 +43,11 @@ export function MapImages({
               likeData={like}
             />
 
-            <button type="button" onClick={() => modalRef.current?.close()}>
-              Close
-            </button>
+            <CloseButton
+              onClick={async () => {
+                await modalRef.current?.close();
+              }}
+            />
           </div>
         </dialog>
       </div>

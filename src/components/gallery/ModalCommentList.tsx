@@ -1,24 +1,31 @@
 import { db } from 'data/firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, HTMLProps } from 'react';
 import {
   updateLike,
   uploadCommentList,
   uploadCommentWholeList,
 } from 'data/galleryComment';
 import { deleteImage } from 'data/galleryImage';
-import { userId, userNickname } from 'pages/Gallery';
+import { userId, userNickname, userImage } from 'pages/Gallery';
 import './_modal.scss';
 import './ModalCommentList.scss';
 
-interface Props {
+interface IModalComment {
   image: string;
   imgId: string;
   categoryId: string;
-  commentsListData?: string[];
+  commentsListData: object[];
   writerId: string;
   writerName: string;
   likeData: string;
+}
+
+interface IComment {
+  commentsTime: string;
+  commentUid: string;
+  text: string;
+  commentUser: string;
 }
 
 export function ModalComment({
@@ -29,14 +36,14 @@ export function ModalComment({
   categoryId,
   commentsListData,
   likeData,
-}: Props) {
-  const [like, setLike] = useState(0);
+}: IModalComment) {
+  const [like, setLike] = useState<number>(0);
   const [comment, setComment]: any = useState('');
-  const [commentList, setCommentList]: any = useState([]);
-  const [isChange, setChange]: any = useState(true);
+  const [commentList, setCommentList] = useState<object[]>([]);
+  const [isChange, setChange] = useState<boolean>(true);
 
   //like
-  async function handleLike(e: any) {
+  async function handleLike(e: React.MouseEvent) {
     e.preventDefault();
     setLike(like + 1);
   }
@@ -47,7 +54,7 @@ export function ModalComment({
   }, [like]);
 
   // 이미지 게시글 삭제
-  async function handleDeleteImage(e: any) {
+  async function handleDeleteImage(e: React.MouseEvent) {
     e.preventDefault();
     if (writerId == userId) {
       await deleteImage(categoryId, imgId);
@@ -59,7 +66,7 @@ export function ModalComment({
   }
 
   //댓글 저장
-  const handleComments = (e: any) => {
+  const handleComments = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
   };
 
@@ -71,7 +78,7 @@ export function ModalComment({
       await setCommentList(newCommentList); //새 배열에 comment저장 후 set
       await uploadCommentList(imgId, categoryId, comment); //댓글 업로드
       alert('Success! 저장에 성공했습니다.');
-      await setChange((prev: any) => !prev);
+      await setChange((prev: boolean) => !prev);
     } else if (comment == '') {
       alert(' Fail! 입력칸에 내용을  입력해주세요.');
     }
@@ -79,7 +86,7 @@ export function ModalComment({
 
   //실시간 댓글리스트 업데이트 함수
   function getRealTimeCommentList() {
-    const fetchList = async (categoryId: any, imgId: any) => {
+    const fetchList = async (categoryId: string, imgId: string) => {
       // ... try, catch 생략
       const commentsRef = doc(db, categoryId, imgId);
       const unsub = onSnapshot(commentsRef, (doc: any) => {
@@ -91,7 +98,7 @@ export function ModalComment({
   }
 
   //실시간 댓글리스트 업데이트
-  useEffect((): any => {
+  useEffect(() => {
     if (comment !== '') {
       getRealTimeCommentList(); //실시간 가져오기
     }
@@ -114,7 +121,7 @@ export function ModalComment({
       await setCommentList(updatedData);
       //배열 형태로 db업로드
       await uploadCommentWholeList(updatedData, imgId, categoryId);
-      await setChange((prev: any) => !prev);
+      await setChange((prev: boolean) => !prev);
       console.log('Deleted Comment Text:', updatedData);
     } catch (error) {
       console.error('Error deleting comment:', error);
@@ -175,12 +182,21 @@ export function ModalComment({
                 id={comment.commentUid}
                 className="commentList-item"
               >
-                <div className="comment-box" id={comment.text}>
-                  <div className="comment-box-name">
-                    <span>{comment.commentUser}</span>
-                  </div>
-                  <div className="comment-box-text">
-                    <span>{comment.text}</span>
+                <div className="commentBox">
+                  <img
+                    className="commentBox-image"
+                    src={comment.userImage}
+                    alt=""
+                  />
+                  <div className="commentBox-text" id={comment.text}>
+                    <div>
+                      <span className="comment-name">
+                        {comment.commentUser}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="comment-text">{comment.text}</span>
+                    </div>
                   </div>
                 </div>
                 {userNickname === comment.commentUser ? (
