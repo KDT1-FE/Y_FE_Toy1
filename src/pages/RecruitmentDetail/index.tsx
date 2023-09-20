@@ -31,11 +31,10 @@ import {
 import CommentItem from './CommentItem';
 import {
     getRecruitmentDetail,
-    getUserName,
+    getUserData,
     createComment,
     deleteRecruitment,
     updateRecruitment,
-    getUserImageURL,
 } from '../../utils/firebase';
 import { useRecoilState } from 'recoil';
 import { UserId, Render } from '../../utils/recoil';
@@ -53,6 +52,7 @@ const RecruitmentDetail: React.FC = () => {
     const [commentValue, setCommentValue] = useState('');
     const [comments, setComments] = useState([]);
     const [render, setRender] = useRecoilState(Render);
+    const [userData, setUserData] = useState<any>({});
 
     const [data, setData] = useState<any>({});
 
@@ -70,14 +70,6 @@ const RecruitmentDetail: React.FC = () => {
                     setData(doc.data());
                     setComments(doc.data()?.comment);
                     // 수정
-                    getUserImageURL(doc.data()?.uid)
-                        .then((result) => {
-                            setUserImageURL(result);
-                        })
-                        .catch((error) => {
-                            // 에러 핸들링
-                            console.error('Error fetching data:', error);
-                        });
                 },
             );
             return () => {
@@ -92,6 +84,14 @@ const RecruitmentDetail: React.FC = () => {
         if (!render) {
             setRender(!render);
         }
+        getUserData(userId)
+            .then((result) => {
+                setUserData(result);
+            })
+            .catch((error) => {
+                // 에러 핸들링
+                console.error('Error fetching data:', error);
+            });
     }, [render]);
 
     const handleCreateCommentSubmit = async (e: any) => {
@@ -110,7 +110,13 @@ const RecruitmentDetail: React.FC = () => {
                 fullDate.getHours() +
                 ':' +
                 fullDate.getMinutes();
-            const value = { uid: e.target.uid.value, content: e.target.content.value, time: date };
+            const value = {
+                uid: e.target.uid.value,
+                content: e.target.content.value,
+                time: date,
+                name: userData.name,
+                imageURL: userData.imageURL,
+            };
             await createComment(channel, path, value);
 
             setCommentValue('');
@@ -126,6 +132,8 @@ const RecruitmentDetail: React.FC = () => {
                 uid: data.comment[i].uid,
                 time: data.comment[i].time,
                 content: data.comment[i].content,
+                name: data.comment[i].name,
+                imageURL: data.comment[i].imageURL,
             };
         }
         setRecruitmentData({ ...data, channel: channel });
@@ -188,7 +196,7 @@ const RecruitmentDetail: React.FC = () => {
             <ContentContainer>
                 <ContentWrapper>
                     <ContentHeader>
-                        <ContentUserImage src={userImageURL} />
+                        <ContentUserImage src={data.imageURL} />
                         <ContentHeaderName>{data.name}</ContentHeaderName>
                         {data.recruitValued ? (
                             <ContentHeaderValuedTrue>모집중</ContentHeaderValuedTrue>
@@ -201,9 +209,9 @@ const RecruitmentDetail: React.FC = () => {
                         <p>{new Date(data.time?.toMillis()).toLocaleString()}</p>
                         {userId == data.uid ? (
                             <BtnWrapper>
-                                {data.recruitValued ? <Btn onClick={handleEdit}>수정하기</Btn> : ''}
+                                {data.recruitValued ? <Btn onClick={handleEdit}>수정</Btn> : ''}
 
-                                <Btn onClick={handleDeleteModal}>삭제하기</Btn>
+                                <Btn onClick={handleDeleteModal}>삭제</Btn>
                             </BtnWrapper>
                         ) : (
                             ''
@@ -250,7 +258,7 @@ const RecruitmentDetail: React.FC = () => {
                                     />
                                 </form>
                                 <CommentBtn type="submit" form="comment">
-                                    작성하기
+                                    작성
                                 </CommentBtn>
                             </CommentInputWrapper>
                         </CommentCreateWrapper>

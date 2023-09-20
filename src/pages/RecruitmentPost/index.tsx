@@ -5,7 +5,7 @@ import { PostContainer, RecruitmentPostContainer, PostForm, PostBox, PostBtn, Po
 import { createRecruitment } from '../../utils/firebase';
 import { useNavigate } from 'react-router-dom';
 import { serverTimestamp } from 'firebase/firestore';
-import { getUserName } from '../../utils/firebase';
+import { getUserData } from '../../utils/firebase';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
@@ -14,7 +14,7 @@ import TextField from '@mui/material/TextField';
 const RecruitmentPost: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
     const [categoryToggle, setCategoryToggle] = useState(true);
-    const [userName, setUserName] = useState('');
+    const [userData, setUserData] = useState<any>({});
     const [peopleValue, setPeopleValue] = useState(1);
 
     const min = 1;
@@ -26,6 +26,14 @@ const RecruitmentPost: React.FC = () => {
         if (!userId) {
             navigate('/recruitment');
         }
+        getUserData(userId)
+            .then((result) => {
+                setUserData(result);
+            })
+            .catch((error) => {
+                // 에러 핸들링
+                console.error('Error fetching data:', error);
+            });
     }, []);
 
     const handleCreateRecruitment = (e: any) => {
@@ -50,7 +58,8 @@ const RecruitmentPost: React.FC = () => {
 
             const value = {
                 uid: userId,
-                name: userName,
+                name: userData.name,
+                imageURL: userData.imageURL,
                 category: e.target.category.value,
                 title: e.target.title.value,
                 content: e.target.content.value,

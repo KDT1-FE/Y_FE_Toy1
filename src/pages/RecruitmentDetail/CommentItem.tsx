@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CommentContent, CommentItemWrapper, Btn, BtnWrapper, CommentName, CommentTime, CommentForm } from './style';
-import { getRecruitmentDetail, getUserName, deleteComment } from '../../utils/firebase';
+import { getRecruitmentDetail, getUserData, deleteComment } from '../../utils/firebase';
 import { useRecoilState } from 'recoil';
 import { UserId, Render } from '../../utils/recoil';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -17,6 +17,7 @@ interface CommentProps {
 const CommentItem: React.FC<CommentProps> = (props) => {
     const [userId, setUserId] = useRecoilState(UserId);
     const [render, setRender] = useRecoilState(Render);
+    const [userData, setUserData] = useState<any>({});
 
     const [data, setData] = useState<any>({});
     const { channel, path } = useParams<{ channel: string; path: string }>();
@@ -31,6 +32,14 @@ const CommentItem: React.FC<CommentProps> = (props) => {
                     setData(result);
                 })
                 .catch((error) => {
+                    console.error('Error fetching data:', error);
+                });
+            getUserData(userId)
+                .then((result) => {
+                    setUserData(result);
+                })
+                .catch((error) => {
+                    // 에러 핸들링
                     console.error('Error fetching data:', error);
                 });
         }
@@ -50,7 +59,13 @@ const CommentItem: React.FC<CommentProps> = (props) => {
                 e.target.content.value &&
                 e.target.time.value
             ) {
-                const value = { uid: e.target.uid.value, content: e.target.content.value, time: e.target.time.value };
+                const value = {
+                    uid: e.target.uid.value,
+                    name: userData.name,
+                    imageURL: userData.imageURL,
+                    content: e.target.content.value,
+                    time: e.target.time.value,
+                };
                 await deleteComment(channel, path, value);
                 setRender(!render);
             } else {

@@ -214,7 +214,7 @@ export const RecruitmentEndBtn = styled.button`
     color: black;
 
     height: 35px;
-    width: 80px;
+    width: 10%;
 
     font-size: 1rem;
     font-weight: bold;
