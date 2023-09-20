@@ -11,19 +11,20 @@ import {
   ButtonBox, CloseImg, ProfileInfoBox, ProfileModalCloseBtn, ProfileModalHeader, ProfileModalHeaderText,
   ProfileModalLayout, ProfileImg, ProfileInput, ProfileInputBtn, ProfileCameraImg, ProfileInfoText,
   ProfileInfoEmail, CorrectBtn, CancelBtn, PositionSelect, InputText
-} from '../../styled/MainPage/ProfileModal'
-import ClostButton from "../../assets/img/CloseButton.svg"
-import userState from '../../recoil/atoms/userState';
-import { auth, db, storage } from '../../firebaseSDK';
-import DefaultProfile from '../../assets/img/DefaultProfile.png'
-import Camera from '../../assets/img/Camera.svg'
-import loginState from '../../recoil/atoms/loginState';
+} from '../../../styled/MainPage/ProfileModal'
+import ClostButton from "../../../assets/img/CloseButton.svg"
+import userState from '../../../recoil/atoms/userState';
+import { auth, db, storage } from '../../../firebaseSDK';
+import DefaultProfile from '../../../assets/img/DefaultProfile.png'
+import Camera from '../../../assets/img/Camera.svg'
+import loginState from '../../../recoil/atoms/loginState';
+import { TitleText } from '../../../styled/Common/Modal';
 
 interface ProfileProp {
-  setShowProfile: React.Dispatch<React.SetStateAction<boolean>>;
+  setActiveModalIdx: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function ProfileModal({ setShowProfile }: ProfileProp) {
+export default function ProfileModal({ setActiveModalIdx }: ProfileProp) {
 
   const navigate = useNavigate()
 
@@ -98,8 +99,8 @@ export default function ProfileModal({ setShowProfile }: ProfileProp) {
   return (
     <ProfileModalLayout>
       <ProfileModalHeader>
-        <ProfileModalHeaderText>My Profile</ProfileModalHeaderText>
-        <ProfileModalCloseBtn onClick={() => setShowProfile(false)}>
+        <TitleText>My Profile</TitleText>
+        <ProfileModalCloseBtn onClick={() => setActiveModalIdx(-1)}>
           <CloseImg src={ClostButton} alt="" />
         </ProfileModalCloseBtn>
       </ProfileModalHeader>

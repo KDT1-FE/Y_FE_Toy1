@@ -5,17 +5,18 @@ import {useRecoilState } from "recoil";
 import { categoryNameState } from "../../recoil/atoms/wiki/CategoryAtom";
 import Search from "./components/Search";
 import Category from "./components/Category";
-import ContentHeader from "./components/ContentHeader";
 import ContentList from "./components/ContentList";
 import {
   Container,
   RowContainer,
   ColumnContainer,
-  ContentContainer
+  ContentContainer,
+  HeaderContainer
 } from "../../styled/WikiPage/Container";
 import { AddBtn } from "../../styled/WikiPage/Button";
 import GlobalStyle from "../../styled/WikiPage/GlobalStyle";
 import {db} from '../../firebaseSDK';
+import { WikiText } from "../../styled/WikiPage/Text";
 
 
 export default function Wiki() {
@@ -59,10 +60,14 @@ export default function Wiki() {
           <Category />
         </ColumnContainer>
         <ContentContainer>
+          <HeaderContainer>
+          <WikiText>WIKI</WikiText>
           <AddBtn type="button" onClick={handleButtonClick}>
             추가하기
           </AddBtn>
-          <ContentHeader />
+
+
+          </HeaderContainer>
           <ContentList />
         </ContentContainer>
       </RowContainer>

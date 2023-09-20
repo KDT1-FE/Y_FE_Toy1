@@ -1,12 +1,14 @@
 import React from "react";
-// import Calendar from "@fullcalendar/react";
-// import dayGridPlugin from "@fullcalendar/daygrid"; // dayGrid 플러그인 추가
-import Calendars from "./Calendar";
+import Carousel from "./Carousel";
+import Calendars from "./Calendar"; // Calendars 컴포넌트를 가져옵니다.
 
-export default function Main() {
+function Main() {
   return (
     <div>
-      <Calendars />
+      <Carousel />
+      <Calendars /> {/* Calendars 컴포넌트를 사용합니다. */}
     </div>
   );
 }
+
+export default Main;

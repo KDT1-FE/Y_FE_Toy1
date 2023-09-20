@@ -6,8 +6,8 @@ import styled from "styled-components";
 
 const CustomCalendarContainer = styled.div`
   /* 원하는 스타일을 여기에 추가하세요 */
-  max-width: 1200px; /* 예시: 컬럼의 너비를 늘릴 때 */
-  margin: 300px auto;
+  max-width: 1400px; /* 예시: 컬럼의 너비를 늘릴 때 */
+  margin: 50px auto;
   display: flex;
   flex-direction: column;
   padding: 0 100px;

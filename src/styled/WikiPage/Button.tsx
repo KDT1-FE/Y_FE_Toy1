@@ -4,6 +4,7 @@ const Btn = styled.button`
     font-size : 12px;
     padding : 10px 5px;
     border-radius : 5px;
+    cursor : pointer;
 `;
 
 const CateEditBtn = styled(Btn)`
@@ -45,16 +46,23 @@ export const SubmitButton = styled(Btn)`
 
 `;
 
+export const EditBackToListBtn = styled(Btn)`
+    background-color : #96A0FF;
+    padding : 10px 40px;
+    border : 0;
+    color : white;
+    margin: 30px 0;
+
+`;
+
 export const AddBtn = styled(Btn)`
     background-color : #484AAD;
     color : white;
-    padding : 10px 15px;
-    margin : 20px 0 0 800px;
+    padding : 0 30px;
     position : relative;
-    left : 0;
     font-weight : 500;
     border : 0;
-    
+    height : 40px;
 
 `;
 export const BackToListBtn = styled(Btn)`

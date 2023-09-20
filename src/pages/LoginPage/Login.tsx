@@ -43,8 +43,12 @@ function Login() {
       });
   }
 
+  const handleLoginKeyUp = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') handleButtonClick()
+  }
+
   return (
-    <LoginLayout>
+    <LoginLayout onKeyUp={handleLoginKeyUp}>
       <LoginTitle>
         WIKINITY
       </LoginTitle>

@@ -14,6 +14,7 @@ export const ProfileModalLayout = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 2;
 
   padding: 16px 16px;
 `;
@@ -21,10 +22,13 @@ export const ProfileModalLayout = styled.div`
 export const ProfileBtn = styled.button`
   background-color: transparent;
   border: none;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const CloseImg = styled.img`
-  width: 32px;
+  width: 20px;
 `;
 
 export const ProfileModalHeader = styled.div`
@@ -108,9 +112,9 @@ export const CorrectBtn = styled.button`
   background-color: #484aad;
   border: none;
   width: 144px;
-  height: 48px;
+  height: 40px;
   border-radius: 50px;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 600;
   color: white;
   &:hover {
@@ -122,9 +126,9 @@ export const CancelBtn = styled.button`
   background-color: #ef6363;
   border: none;
   width: 144px;
-  height: 48px;
+  height: 40px;
   border-radius: 50px;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 600;
   color: white;
   &:hover {

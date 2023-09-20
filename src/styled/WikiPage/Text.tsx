@@ -1,7 +1,19 @@
 import styled from 'styled-components';
 
+export const WikiText = styled.div`
+    font-size: 40px;
+    font-family: RobotoMono;
+    font-weight: 600;
+
+`;
+
 const TitleText = styled.div`
-    font-size : 14px;
+    font-size : 15px;
+    font-weight : bold;
+    color : black;
+`;
+export const DateText = styled.div`
+    font-size : 13px;
     font-weight : bold;
     color : #666a73;
 `;

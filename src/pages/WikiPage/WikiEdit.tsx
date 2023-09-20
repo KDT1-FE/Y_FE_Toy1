@@ -11,7 +11,7 @@ import {
   WikiWriteContentContainer,
   WikiWriteBtnContainer,
 } from "../../styled/WikiPage/Container";
-import { SubmitButton, BackToListBtn } from "../../styled/WikiPage/Button";
+import { SubmitButton, EditBackToListBtn } from "../../styled/WikiPage/Button";
 import { TitleInput } from "../../styled/WikiPage/Input";
 import CategorySelect from "../../styled/WikiPage/Select";
 import {db} from '../../firebaseSDK';
@@ -98,7 +98,7 @@ export default function WikiEdit() {
         />
       </WikiWriteContentContainer>
       <WikiWriteBtnContainer>
-        <BackToListBtn type="button" onClick={handleButtonClick}>목록으로</BackToListBtn>
+        <EditBackToListBtn type="button" onClick={handleButtonClick}>목록으로</EditBackToListBtn>
         <SubmitButton type="button" onClick={handleSubmitBtnClick}>Submit</SubmitButton>
       </WikiWriteBtnContainer>
     </WikiWriteContainer>

@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
 import { CategoryItemContainer } from '../../../styled/WikiPage/Item';
 import { CategoryInput } from '../../../styled/WikiPage/Input';
@@ -13,8 +13,8 @@ export default function CategoryItem({ item }: CategoryProps) {
   const [editedItem, setEditedItem] = useState(item);
   const [category, setCategory] = useRecoilState(categoryState);
   const [categoryNames, setCategoryNames] = useRecoilState(categoryNameState);
-  const [,setSelectedCategory] = useRecoilState(selectedCategoryState);
-
+  const setSelectedCategory = useSetRecoilState(selectedCategoryState);
+  
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;

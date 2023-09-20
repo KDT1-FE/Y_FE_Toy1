@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
 import { categoryNameState, categoryState ,selectedCategoryState} from "../../../recoil/atoms/wiki/CategoryAtom";
 import {db} from '../../../firebaseSDK';
@@ -15,7 +15,7 @@ export default function Category() {
   const [categoryNames, setCategoryNames] = useRecoilState(categoryNameState);
   const [category, setCategory] = useRecoilState(categoryState);
   const [newCategoryName, setNewCategoryName] = useState(""); // 새 카테고리를 입력할 상태
-  const [,setSelectedCategory] = useRecoilState(selectedCategoryState);
+  const setSelectedCategory = useSetRecoilState(selectedCategoryState);
 
 
   const handleEditClick = () => {
@@ -27,10 +27,12 @@ export default function Category() {
 
   const handleSaveClick = async () => {
     try {
-      if (newCategoryName === '전체') {
-        console.error('You cannot use "전체" as a category name.');
+      if (newCategoryName === '전체' || newCategoryName === '') {
+        alert('카테고리 내용을 정확히 입력해주세요');
+        setNewCategoryName("");
         return;
       }
+
       // 새 카테고리를 Recoil 상태에 추가
       setCategoryNames([...categoryNames, newCategoryName]);
 
@@ -46,6 +48,7 @@ export default function Category() {
       
       // 입력 필드 초기화
       setNewCategoryName("");
+
     } catch (error) {
       console.error("Error updating category data: ", error);
     }
