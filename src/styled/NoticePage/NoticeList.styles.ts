@@ -2,7 +2,48 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   max-width: 1200px;
-  margin: 100px auto;
+  margin: 50px auto;
+  padding: 0 30px;
+`;
+
+// Header
+export const Header = styled.header`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 50px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid black;
+`;
+
+export const HeaderTitle = styled.span`
+  font-size: 2.5rem;
+  font-family: RobotoMono;
+  font-weight: 600;
+`;
+
+export const WriteBtn = styled.button`
+  width: 120px;
+  height: 54px;
+  background-color: #484aad;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+
+  a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 18px;
+  }
+`;
+
+// Main
+export const Main = styled.main`
+  display: flex;
+  flex-direction: column;
 `;
 
 export const SearchDiv = styled.div`
@@ -10,11 +51,6 @@ export const SearchDiv = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-`;
-
-export const SearchWrapper = styled.div`
-  border: 1px solid black;
-  position: relative;
 `;
 
 export const SearchInput = styled.input`
@@ -32,8 +68,9 @@ export const SearchInput = styled.input`
 `;
 
 export const SearchButton = styled.button`
-  width: 94px;
-  height: 52px;
+  width: 120px;
+  height: 54px;
+  padding: 18px;
   color: white;
   border: none;
   background-color: #484aad;
@@ -90,32 +127,12 @@ export const ColumnHeaderSubject = styled.div`
   text-align: start;
 `;
 
-export const Footer = styled.div`
+// Footer
+export const Footer = styled.footer`
   width: 100%;
   height: 52px;
   display: flex;
+  justify-content: center;
   align-items: center;
-  position: relative;
   margin-top: 50px;
-`;
-
-export const PaginationDiv = styled.div`
-  margin: 0 auto;
-`;
-
-export const WriteBtn = styled.button`
-  position: absolute;
-  right: 0;
-  background-color: #484aad;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-
-  a {
-    display: block;
-    color: white;
-    text-decoration: none;
-    padding: 18px;
-  }
 `;

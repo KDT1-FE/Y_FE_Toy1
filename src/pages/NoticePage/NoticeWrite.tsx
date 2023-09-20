@@ -205,55 +205,63 @@ function NoticeWrite({ isEdit, noticeData }: any) {
 
   return (
     <S.Wrapper>
-      <S.Title>공지사항 {isEdit ? '수정' : '등록'}하기</S.Title>
-      <S.InputWrapper>
-        <S.Label>공지 비밀번호</S.Label>
-        <S.Password
-          type='password'
-          placeholder='비밀번호를 입력해주세요.'
-          value={password}
-          onChange={onChangePassword}
-        />
-        <S.ErrorDiv>{passwordError}</S.ErrorDiv>
-      </S.InputWrapper>
-      <S.InputWrapper>
-        <S.Label>제목</S.Label>
-        <S.Subject
-          type='text'
-          placeholder='제목을 입력해주세요.'
-          onChange={onChangeSubject}
-          defaultValue={noticeData?.subject}
-        />
-        <S.ErrorDiv>{subjectError}</S.ErrorDiv>
-      </S.InputWrapper>
-      <S.InputWrapper>
-        <S.Label>공지내용</S.Label>
-        <S.Contents
-          onChange={onChangeContents}
-          placeholder='공지내용을 입력해주세요.'
-          defaultValue={noticeData?.contents}
-        />
-        <S.ErrorDiv>{contentsError}</S.ErrorDiv>
-      </S.InputWrapper>
-      <S.InputWrapper>
-        <S.Label>사진첨부</S.Label>
+      <S.Header>
+        <S.Title>공지사항 {isEdit ? '수정' : '등록'}하기</S.Title>
+      </S.Header>
 
-        <S.ImageWrapper>
-          <S.ImageName type='text' value={imageName || noticeData?.imageName || ''} readOnly />
-          <S.ImageLabel htmlFor='input-file'>
-            업로드
-            <S.ImageUpload id='input-file' type='file' onChange={onChangeImage} />
-          </S.ImageLabel>
-        </S.ImageWrapper>
-      </S.InputWrapper>
-      <S.BtnWrapper>
-        <S.SubmitBtn type='button' onClick={isEdit === true ? onClickUpdate : onClickSubmit}>
-          {isEdit ? '수정' : '등록'}
-        </S.SubmitBtn>
-        <S.CancelBtn type='button' onClick={() => navigate(-1)}>
-          취소
-        </S.CancelBtn>
-      </S.BtnWrapper>
+      <S.Main>
+        <S.InputWrapper>
+          <S.Label>공지 비밀번호</S.Label>
+          <S.Password
+            type='password'
+            placeholder='비밀번호를 입력해주세요.'
+            value={password}
+            onChange={onChangePassword}
+          />
+          <S.ErrorDiv>{passwordError}</S.ErrorDiv>
+        </S.InputWrapper>
+        <S.InputWrapper>
+          <S.Label>제목</S.Label>
+          <S.Subject
+            type='text'
+            placeholder='제목을 입력해주세요.'
+            onChange={onChangeSubject}
+            defaultValue={noticeData?.subject}
+          />
+          <S.ErrorDiv>{subjectError}</S.ErrorDiv>
+        </S.InputWrapper>
+        <S.InputWrapper>
+          <S.Label>공지내용</S.Label>
+          <S.Contents
+            onChange={onChangeContents}
+            placeholder='공지내용을 입력해주세요.'
+            defaultValue={noticeData?.contents}
+          />
+          <S.ErrorDiv>{contentsError}</S.ErrorDiv>
+        </S.InputWrapper>
+        <S.InputWrapper>
+          <S.Label>사진첨부</S.Label>
+
+          <S.ImageWrapper>
+            <S.ImageName type='text' value={imageName || noticeData?.imageName || ''} readOnly />
+            <S.ImageLabel htmlFor='input-file'>
+              업로드
+              <S.ImageUpload id='input-file' type='file' onChange={onChangeImage} />
+            </S.ImageLabel>
+          </S.ImageWrapper>
+        </S.InputWrapper>
+      </S.Main>
+
+      <S.Footer>
+        <S.BtnWrapper>
+          <S.SubmitBtn type='button' onClick={isEdit === true ? onClickUpdate : onClickSubmit}>
+            {isEdit ? '수정' : '등록'}
+          </S.SubmitBtn>
+          <S.CancelBtn type='button' onClick={() => navigate(-1)}>
+            취소
+          </S.CancelBtn>
+        </S.BtnWrapper>
+      </S.Footer>
     </S.Wrapper>
   );
 }

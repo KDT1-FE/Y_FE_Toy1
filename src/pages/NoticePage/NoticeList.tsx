@@ -52,42 +52,47 @@ function NoticeList() {
 
   return (
     <S.Wrapper>
-      <S.SearchDiv>
-        <S.SearchInput
-          onChange={onChangeKeywords}
-          onKeyDown={handleKeyDown}
-          type='text'
-          placeholder='공지사항 제목을 입력해주세요.'
-        />
-        <S.SearchButton onClick={formSearch} type='button'>
-          검색하기
-        </S.SearchButton>
-      </S.SearchDiv>
-      <S.TableTop> </S.TableTop>
-      <S.HeaderRow>
-        <S.ColumnHeaderBasic>번호</S.ColumnHeaderBasic>
-        <S.ColumnHeaderSubject text-align='center'>제목</S.ColumnHeaderSubject>
-        <S.ColumnHeaderBasic>날짜</S.ColumnHeaderBasic>
-      </S.HeaderRow>
-      {noticeList?.length === 0 && keyword && (
-        <S.SearchNoResultMessage>일치하는 공지사항이 없습니다.</S.SearchNoResultMessage>
-      )}
-      {noticeList?.length !== 0 &&
-        currentNoticeList?.map((notice) => (
-          <S.Row key={notice.noticeNumber} onClick={() => navigate(`/notice/${notice.noticeNumber}`)}>
-            <S.ColumnHeaderBasic>{notice.noticeNumber}</S.ColumnHeaderBasic>
-            <S.ColumnHeaderSubject>{notice.subject}</S.ColumnHeaderSubject>
-            <S.ColumnHeaderBasic>{notice.createAt}</S.ColumnHeaderBasic>
-          </S.Row>
-        ))}
-      <S.TableBottom />
-      <S.Footer>
-        <S.PaginationDiv>
-          <Pagination totalPages={totalPages} setPage={setPage} />
-        </S.PaginationDiv>
+      <S.Header>
+        <S.HeaderTitle>NOTICE</S.HeaderTitle>
         <S.WriteBtn type='button'>
           <Link to='/notice/write'>공지 등록하기</Link>
         </S.WriteBtn>
+      </S.Header>
+
+      <S.Main>
+        <S.SearchDiv>
+          <S.SearchInput
+            onChange={onChangeKeywords}
+            onKeyDown={handleKeyDown}
+            type='text'
+            placeholder='공지사항 제목을 입력해주세요.'
+          />
+          <S.SearchButton onClick={formSearch} type='button'>
+            검색하기
+          </S.SearchButton>
+        </S.SearchDiv>
+        <S.TableTop> </S.TableTop>
+        <S.HeaderRow>
+          <S.ColumnHeaderBasic>번호</S.ColumnHeaderBasic>
+          <S.ColumnHeaderSubject text-align='center'>제목</S.ColumnHeaderSubject>
+          <S.ColumnHeaderBasic>날짜</S.ColumnHeaderBasic>
+        </S.HeaderRow>
+        {noticeList?.length === 0 && keyword && (
+          <S.SearchNoResultMessage>일치하는 공지사항이 없습니다.</S.SearchNoResultMessage>
+        )}
+        {noticeList?.length !== 0 &&
+          currentNoticeList?.map((notice) => (
+            <S.Row key={notice.noticeNumber} onClick={() => navigate(`/notice/${notice.noticeNumber}`)}>
+              <S.ColumnHeaderBasic>{notice.noticeNumber}</S.ColumnHeaderBasic>
+              <S.ColumnHeaderSubject>{notice.subject}</S.ColumnHeaderSubject>
+              <S.ColumnHeaderBasic>{notice.createAt}</S.ColumnHeaderBasic>
+            </S.Row>
+          ))}
+        <S.TableBottom />
+      </S.Main>
+
+      <S.Footer>
+        <Pagination totalPages={totalPages} setPage={setPage} />
       </S.Footer>
     </S.Wrapper>
   );

@@ -3,26 +3,26 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   max-width: 1200px;
   margin: 50px auto;
+  padding: 0 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `;
 
-export const Header = styled.div`
+// Header
+export const Header = styled.header`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `;
 
 export const Subject = styled.div`
-  font-family: 'Inter';
   font-weight: 700;
   font-size: 2.2rem;
   margin-bottom: 30px;
 `;
 
 export const DateAndActionsWrapper = styled.div`
-  font-family: 'Inter';
   font-size: 0.875rem;
   display: flex;
   flex-direction: row;
@@ -62,7 +62,8 @@ export const Underline = styled.div`
   margin: 10px 0 26px;
 `;
 
-export const Body = styled.div`
+// Main
+export const Main = styled.main`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -88,12 +89,16 @@ export const Contents = styled.div`
   overflow: hidden;
 `;
 
+export const Footer = styled.footer`
+  width: 100%;
+`;
+
 export const MoveToListBtn = styled.button`
+  display: block;
   margin: 0 auto;
   background-color: #484aad;
   border: none;
   border-radius: 50px;
-  font-family: 'Inter';
   font-weight: 700;
   font-size: 1.5rem;
   color: #ffffff;

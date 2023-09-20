@@ -61,8 +61,10 @@ function NoticeDetail() {
           </S.ActionsWrapper>
         </S.DateAndActionsWrapper>
       </S.Header>
+
       <S.Underline />
-      <S.Body>
+
+      <S.Main>
         <S.ImageWrapper>
           <S.Image src={noticeData?.imageUrl} alt={noticeData?.imageUrl} />
         </S.ImageWrapper>
@@ -75,10 +77,13 @@ function NoticeDetail() {
               </div>
             ))}
         </S.Contents>
-      </S.Body>
-      <S.MoveToListBtn>
-        <Link to='/notice'>목록으로</Link>
-      </S.MoveToListBtn>
+      </S.Main>
+
+      <S.Footer>
+        <S.MoveToListBtn>
+          <Link to='/notice'>목록으로</Link>
+        </S.MoveToListBtn>
+      </S.Footer>
     </S.Wrapper>
   );
 }
