@@ -40,7 +40,10 @@ export default function Home() {
           <Carousel />
         </style.Item2>
         <style.Item3>
-          <h3>최근 업데이트 된 WIKI</h3>
+          <style.MainTitleWrapper>
+            <h3>최근 업데이트 된 WIKI</h3>
+            <style.MoreBtn to={"/wiki"}>더보기 &gt;</style.MoreBtn>
+          </style.MainTitleWrapper>
         </style.Item3>
         <>
           {lastestWikis?.map((lastestWiki) => {
@@ -52,7 +55,10 @@ export default function Home() {
           })}
         </>
         <style.Item6>
-          <h3>최근 업데이트 된 GALLERY</h3>
+          <style.MainTitleWrapper>
+            <h3>최근 업데이트 된 GALLERY</h3>
+            <style.MoreBtn to={"/gallery"}>더보기 &gt;</style.MoreBtn>
+          </style.MainTitleWrapper>
         </style.Item6>
         <style.Item7>
           <GalleryPreview />
