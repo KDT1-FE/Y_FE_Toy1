@@ -1,4 +1,5 @@
-import { db } from '../common/config';
+import { ref, uploadBytes } from 'firebase/storage';
+import { db, storage } from '../common/config';
 import { commuteType } from '../data/atoms';
 import { arrayUnion, doc, getDoc, setDoc } from 'firebase/firestore';
 
@@ -23,4 +24,16 @@ export const uploadCommuteInfo = async (
   // Fetch and log the document after uploading
   const updatedCommuteDateDoc = await getDoc(commuteDateRef);
   console.log('Data after upload:', updatedCommuteDateDoc.data());
+};
+
+export const uploadImage = (blob: Blob) => {
+  const storageRef = ref(storage, 'test/' + Date.now());
+
+  if (blob) {
+    uploadBytes(storageRef, blob).then((snapshot) => {
+      console.log('Uploaded a blob or file!', snapshot);
+    });
+  } else {
+    console.log('blob is null');
+  }
 };

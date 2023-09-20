@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import EditModal from './EditModal';
 import { ProjectStateProps } from './Project';
 
-export interface ProjectProps extends ProjectStateProps {
-  imageUrl: string;
-  projectId: number;
-}
 
-const ImageWrapper = ({ imageUrl, projectId, state }: ProjectProps) => {
+const ImageWrapper = ({ imageUrl, projectId, state }: ProjectStateProps) => {
   const [showEditStateBtn, setShowEditStateBtn] = useState<boolean>(false);
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
 
@@ -26,8 +22,12 @@ const ImageWrapper = ({ imageUrl, projectId, state }: ProjectProps) => {
       <ImageWrapperDiv
         onMouseEnter={() => setShowEditStateBtn(true)}
         onMouseLeave={() => setShowEditStateBtn(false)}
-        style={{ backgroundImage: `url(${imageUrl})` }}
+        style={{
+          backgroundImage: `url(${imageUrl})`,
+          backgroundColor: imageUrl ? 'none' : 'lightgray',
+        }}
       >
+        {!imageUrl && <div>이미지가 없습니다</div>}
         {showEditStateBtn && (
           <EditStateBtn onClick={() => showEditModalHandler()}>수정</EditStateBtn>
         )}
@@ -55,6 +55,9 @@ const ImageWrapperDiv = styled.div`
   border-radius: 4px;
   margin-bottom: 5%;
   border: 0.1px solid #9d9c9c30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const EditStateBtn = styled.div`

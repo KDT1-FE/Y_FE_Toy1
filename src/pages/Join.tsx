@@ -8,11 +8,12 @@ import {
   PhoneAuthProvider,
   User,
 } from 'firebase/auth';
-import { useUser } from '../common/UserContext';
 import { uploadBytesResumable, ref, getDownloadURL } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';
+import useBlobUrl from '../hooks/useBlobUrl';
+import { uploadImage } from '../utils/firebaseUtils';
 
-interface Usertype {
+interface UserType {
   name?: string;
   password?: string;
   passwordConfirm?: string;
@@ -22,7 +23,7 @@ interface Usertype {
 
 const Join = () => {
   const [user, setUser] = useState<User | null>(null);
-  const [joinUser, setJoinUser] = useState<Usertype>({
+  const [joinUser, setJoinUser] = useState<UserType>({
     name: '',
     password: '',
     passwordConfirm: '',
@@ -30,15 +31,17 @@ const Join = () => {
     phone: '',
   });
 
-  const [photoURL, setphotoURL] = useState<File>();
+  const [photoURL, setPhotoUrl] = useState<File | null>(null);
+  const { url, setFile } = useBlobUrl();
 
-  const handlephotoChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const target = e.currentTarget;
-    const files = (target.files as FileList)[0];
-    console.log(files);
+  const handlePhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.target;
+    const blobFile = files && files[0];
+    if (blobFile) {
+      setFile(blobFile);
+      setPhotoUrl(blobFile);
 
-    if (files) {
-      setphotoURL(files);
+      uploadImage(blobFile);
     }
   };
 
@@ -178,7 +181,7 @@ const Join = () => {
       </div>
       <div>
         <label>사진:</label>
-        <input type="file" onChange={handlephotoChange} />
+        <input type="file" onChange={handlePhotoChange} />
       </div>
       <button onClick={handleJoin}>회원가입</button>
     </div>

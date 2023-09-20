@@ -1,28 +1,31 @@
-import React, { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai';
-import { ProjectProps } from './ImageWrapper';
+import { ProjectStateProps } from './Project';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
+import { db, storage } from '../../common/config';
 
-interface ModalProps extends ProjectProps {
+interface ModalProps extends ProjectStateProps {
   closeOnClick: () => void;
 }
 
 const EditModal = ({ state, projectId, imageUrl, closeOnClick }: ModalProps) => {
-  const [projectInfo, setProjectInfo] = useState<ProjectProps>({
+  const [projectInfo, setProjectInfo] = useState<ProjectStateProps>({
     imageUrl: imageUrl,
     projectId: projectId,
     state: state,
   });
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
         const newImageUrl = e.target?.result;
         setProjectInfo((prevInfo) => ({
           ...prevInfo,
-          imageUrl: newImageUrl as string,
+          imageUrl: newImageUrl,
         }));
       };
       reader.readAsDataURL(file);
@@ -37,9 +40,40 @@ const EditModal = ({ state, projectId, imageUrl, closeOnClick }: ModalProps) => 
     }));
   };
 
-  const updateProjectInfo = () => {
-    // update project info to firebase
-    closeOnClick();
+  const editProject = async () => {
+    try {
+      const docRef = doc(db, 'projectData', projectInfo.projectId);
+
+      if (projectInfo.imageUrl && projectInfo.imageUrl.startsWith('data:')) {
+        const projectDocSnap = await getDoc(docRef);
+        const prevImageUrl = projectDocSnap.data()?.imageUrl;
+
+        if (prevImageUrl) {
+          const prevImageRef = ref(storage, prevImageUrl);
+          await deleteObject(prevImageRef);
+        }
+        const imageBlob = await fetch(projectInfo.imageUrl).then((res) => res.blob());
+        const storageRef = ref(storage, `projectImage/${new Date().getTime()}`);
+
+        await uploadBytes(storageRef, imageBlob);
+        const imageUrl = await getDownloadURL(storageRef);
+
+        await setDoc(docRef, {
+          state: projectInfo.state,
+          imageUrl: imageUrl,
+        });
+      } else {
+        await setDoc(docRef, {
+          state: projectInfo.state,
+          imageUrl: projectInfo.imageUrl ? projectInfo.imageUrl : '',
+        });
+      }
+
+      alert('프로젝트 수정 완료');
+      window.location.href = `${projectInfo.state}`;
+    } catch (error) {
+      console.error('Error: ', error);
+    }
   };
 
   return (
@@ -47,7 +81,7 @@ const EditModal = ({ state, projectId, imageUrl, closeOnClick }: ModalProps) => 
       <EditModalContainer onClick={(e) => e.stopPropagation()}>
         <FlexDiv>
           <div style={{ flex: '1' }}></div>
-          <b style={{ flex: '2', textAlign: 'center', fontSize: "20px" }}>프로젝트 수정</b>
+          <b style={{ flex: '2', textAlign: 'center', fontSize: '20px' }}>프로젝트 수정</b>
           <div style={{ flex: '1', display: 'flex', justifyContent: 'flex-end' }}>
             <CloseBtn onClick={closeOnClick} />
           </div>
@@ -76,10 +110,7 @@ const EditModal = ({ state, projectId, imageUrl, closeOnClick }: ModalProps) => 
         </SelectState>
         <FlexCenterDiv style={{ flexDirection: 'row', marginTop: '20px', gap: '30px' }}>
           <Button onClick={closeOnClick}>취소</Button>
-          <Button
-            onClick={updateProjectInfo}
-            style={{ backgroundColor: '#1F94FF', color: '#FCFCFC' }}
-          >
+          <Button onClick={editProject} style={{ backgroundColor: '#1F94FF', color: '#FCFCFC' }}>
             확인
           </Button>
         </FlexCenterDiv>

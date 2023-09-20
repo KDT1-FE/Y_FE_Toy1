@@ -4,14 +4,26 @@ import { commuteState } from '../data/atoms';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../common/config';
 import { uploadCommuteInfo } from '../utils/firebaseUtils';
-import { formatDate } from '../utils/formatTime';
+import { Time } from '../utils/formatTime';
 
 const useCommute = (uid: string | null | undefined, toggleModal: () => void) => {
   const [commuteInfo, setCommuteInfo] = useRecoilState(commuteState);
 
   useEffect(() => {
+    const storedStartTime = localStorage.getItem('startTime');
+    const storedIsWorking = localStorage.getItem('isWorking');
+    if (storedStartTime && storedIsWorking) {
+      setCommuteInfo((prev) => ({
+        ...prev,
+        startTime: JSON.parse(localStorage.getItem('startTime') || ''),
+        isWorking: JSON.parse(localStorage.getItem('isWorking') || ''),
+      }));
+    }
+  }, [commuteInfo.startTime]);
+
+  useEffect(() => {
     const getDateInSeoul = () => {
-      const formattedDate = formatDate();
+      const formattedDate = new Time().date;
       const dateArr = formattedDate.split('. ');
       const [year, month, day] = dateArr;
 
@@ -43,7 +55,9 @@ const useCommute = (uid: string | null | undefined, toggleModal: () => void) => 
   const handleCommute: MouseEventHandler = (): void => {
     // 출근 눌렀을 때
     if (!commuteInfo.isWorking) {
-      // 모달이 사라지는 동안 퇴근 버튼이 바로 보이는 것 방지
+      localStorage.setItem('startTime', JSON.stringify(Date.now()));
+      localStorage.setItem('isWorking', JSON.stringify(true));
+
       setTimeout(() => {
         setCommuteInfo((prev) => ({
           ...prev,
@@ -77,6 +91,8 @@ const useCommute = (uid: string | null | undefined, toggleModal: () => void) => 
       }));
     }, 200);
 
+    localStorage.removeItem('startTime');
+    localStorage.removeItem('isWorking');
     toggleModal();
   };
 

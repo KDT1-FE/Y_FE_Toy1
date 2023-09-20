@@ -3,7 +3,7 @@ import { MouseEventHandler, useEffect, useState } from 'react';
 import CommuteButton from '../common/CommuteButton';
 import { commuteType } from '../data/atoms';
 import ModalMessage from './ModalMessage';
-import { formatDate } from '../utils/formatTime';
+import { Time } from '../utils/formatTime';
 
 interface Props {
   isModalOpen: boolean;
@@ -43,13 +43,14 @@ const CommuteModal = ({
   const mainButtonHandler = workingTime ? confirmWorkingTime : handleCommute;
   const secondaryButtonLabel = workingTime ? '수정' : '취소';
   const secondaryButtonHandler = workingTime ? editWorkingTime : toggleModal;
+  const timer = new Time();
 
   return (
     <>
       <Overlay onClick={toggleModal} className={isModalOpen ? 'open' : ''} />
       <ModalContainer className={isModalOpen ? 'open' : ''} id="commute-modal">
         <TimerWrapper>
-          <span className="date">{formatDate()}</span>
+          <span className="date">{timer.date}</span>
           <span className="time">{currentTime.toLocaleTimeString('it-IT')}</span>
         </TimerWrapper>
 
