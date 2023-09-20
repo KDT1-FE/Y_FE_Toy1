@@ -47,6 +47,16 @@ const Header: React.FC = () => {
             sessionStorage.setItem('timelog', timeLog);
         }
     }, [timeLog]);
+    const logOutTimeCheck = () => {
+        if (timerOn && timeLog !== '') {
+            setTimeLog(timeLog + ' ' + ' ' + '-' + ' ' + ' ' + '퇴실' + ' ' + ' ' + CreateTime());
+            setTimerOn(false);
+        }
+        // 타임로그 기록 전 아이디 정보가 사라지는 것을 막기위해 setTimeout처리
+        setTimeout(() => {
+            logOutHandler();
+        }, 100);
+    };
 
     return (
         <HeaderComponent>
@@ -57,22 +67,7 @@ const Header: React.FC = () => {
                     <ListAnchor href="/recruitment">recruitment</ListAnchor>
                     <ListAnchor href="/gallery">gallery</ListAnchor>
                     {userId.length > 0 ? (
-                        <button
-                            onClick={() => {
-                                if (timerOn && timeLog !== '') {
-                                    setTimeLog(
-                                        timeLog + ' ' + ' ' + '-' + ' ' + ' ' + '퇴실' + ' ' + ' ' + CreateTime(),
-                                    );
-                                    setTimerOn(false);
-                                }
-                                // 타임로그 기록 전 아이디 정보가 사라지는 것을 막기위해 setTimeout처리
-                                setTimeout(() => {
-                                    logOutHandler();
-                                }, 100);
-                            }}
-                        >
-                            LogOut
-                        </button>
+                        <button onClick={logOutTimeCheck}>LogOut</button>
                     ) : (
                         <ListAnchor href={'/LogIn'}>LogIn</ListAnchor>
                     )}
