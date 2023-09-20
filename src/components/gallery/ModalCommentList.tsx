@@ -182,13 +182,13 @@ export function ModalComment({
                 id={comment.commentUid}
                 className="commentList-item"
               >
-                <div className="commentBox">
+                <div className="commentBox" id={comment.text}>
                   <img
                     className="commentBox-image"
                     src={comment.userImage}
                     alt=""
                   />
-                  <div className="commentBox-text" id={comment.text}>
+                  <div className="commentBox-text">
                     <div>
                       <span className="comment-name">
                         {comment.commentUser}

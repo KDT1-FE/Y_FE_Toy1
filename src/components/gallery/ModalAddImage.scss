@@ -25,11 +25,23 @@
     padding: 10px 20px;
     margin-bottom: 20px;
   }
-  .dropzone {
-    height: 250px;
-    background-color: $whiteColor;
-    input {
-      height: 100%;
-    }
+  .dropZone {
+    //   position: relative;
+    //   height: 250px;
+    //   background-color: $whiteColor;
+    //   input {
+    //     height: 100%;
+    //   }
+  }
+}
+
+.preview {
+  // &-zone {
+  //   position: absolute;
+  //   backface-visibility: hidden;
+  // }
+  &-image {
+    width: 300px;
+    height: auto;
   }
 }

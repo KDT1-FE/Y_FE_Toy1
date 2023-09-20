@@ -31,6 +31,7 @@ export function AddImageDragDrop() {
     <div key={file.name}>
       <div>
         <img
+          className="preview-image"
           src={file.preview}
           onLoad={() => {
             URL.revokeObjectURL(file.preview);
@@ -71,11 +72,11 @@ export function AddImageDragDrop() {
           </option>
         ))}
       </select>
-      <div {...getRootProps({ className: 'addImage-dropzone dropzone' })}>
+      <div {...getRootProps({ className: 'addImage-dropZone dropzone' })}>
         <input {...getInputProps()} />
         <p>Drag n drop some files here, or click to select files</p>
       </div>
-      <aside>{handleUploadImage}</aside>
+      <aside className="preview-zone">{handleUploadImage}</aside>
     </section>
   );
 }
