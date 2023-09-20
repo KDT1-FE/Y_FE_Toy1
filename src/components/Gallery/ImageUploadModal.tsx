@@ -1,5 +1,6 @@
-import { useRef } from 'react';
+import { Dispatch, SetStateAction, useRef } from 'react';
 import useOnClickOutside from '../../hooks/gallery/useOnClickOutside';
+import { ImageUploadPayload } from './types';
 
 import '../../scss/components/gallery/modal.scss';
 import '../../scss/components/gallery/modalButton.scss';
@@ -7,6 +8,10 @@ import '../../scss/components/gallery/modalButton.scss';
 interface Props {
   setFormModalOpen: (isOpen: boolean) => void;
   closeFormModal: () => void;
+  setImageFileToUpload: Dispatch<SetStateAction<File | null>>;
+  imageUploadPayload: ImageUploadPayload;
+  setImageUploadPayload: Dispatch<SetStateAction<ImageUploadPayload>>;
+  handleImageUploadClick: () => void;
 }
 
 const ImageUploadModal = ({

@@ -1,6 +1,6 @@
 export interface ImageUploadPayload {
   readonly url: string;
-  readonly timestamp: Date;
+  readonly timestamp: string;
   readonly title: string;
   readonly content: string;
   readonly username: string;
