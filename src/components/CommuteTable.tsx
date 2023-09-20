@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { db } from '../common/config';
-import { doc, getDoc } from 'firebase/firestore';
-import { formatDate, formatMsToTime } from '../utils/formatTime';
+import { collection, getDocs } from 'firebase/firestore';
+import { Time, formatMsToTime } from '../utils/formatTime';
 import { useUser } from '../common/UserContext';
+import LoadingSpinner from './LoadingSpinner';
 
 type CommuteData = {
   date: string;
@@ -16,6 +17,7 @@ export default function Carousel() {
   const { user } = useUser();
   const [name, setName] = useState<string>('');
   const [data, setData] = useState<CommuteData[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async (uid: string) => {
@@ -24,21 +26,39 @@ export default function Carousel() {
       }
 
       try {
-        const docRef = doc(db, 'commute', uid);
-        const docSnapshot = await getDoc(docRef);
+        const docRef = collection(db, `commute/${uid}/commuteDays`);
+        const querySnapshot = await getDocs(docRef);
 
-        if (docSnapshot.exists()) {
-          const data = docSnapshot.data();
-          const formattedData = Object.keys(data).map((date) => ({
+        const formattedData:CommuteData[] = [];
+
+        querySnapshot.forEach((doc) => {
+          const date = doc.id;
+          const sessions = doc.data().session;
+
+          // sessions 마지막 데이터
+          const lastSession = sessions[sessions.length - 1];
+
+          const start = new Time(lastSession.startTime)
+          const end = new Time(lastSession.endTime)
+
+          formattedData.push({
             date: date,
-            startTime: formatDate(data[date].startTime),
-            endTime: formatDate(data[date].endTime),
-            workingTime: formatMsToTime(data[date].workingTime),
-          }));
-          setData(formattedData);
-        }
+            startTime: start.time,
+            endTime: end.time,
+            workingTime: formatMsToTime(lastSession.workingTime),
+          });
+        });
+
+        // 날짜 내림차순 정렬
+        formattedData.sort((a, b) => {
+          return b.date.localeCompare(a.date);
+        });
+
+        setData(formattedData);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
+        setIsLoading(false);
       }
     };
 
@@ -46,6 +66,7 @@ export default function Carousel() {
 
     // 유저 정보
     if (user) {
+      // console.log(user);
       setName(user.name);
       fetchData(user.uid);
     }
@@ -54,33 +75,37 @@ export default function Carousel() {
   return (
     <>
       {user && (
-        <>
-          <H1>{name}님의 출퇴근 기록</H1>
-          {data.length > 0 ? (
-            <Table>
-              <THead>
-                <tr>
-                  <th>날짜</th>
-                  <th>출근 시간</th>
-                  <th>퇴근 시간</th>
-                  <th>근무 시간</th>
-                </tr>
-              </THead>
-              <TBody>
-                {data.map((item, index) => (
-                  <tr key={index}>
-                    <TH>{item.date}</TH>
-                    <TH>{item.startTime}</TH>
-                    <TH>{item.endTime}</TH>
-                    <TH>{item.workingTime}</TH>
+        isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          <>
+            <H1>{name}님의 출퇴근 기록</H1>
+            {data.length > 0 ? (
+              <Table>
+                <THead>
+                  <tr>
+                    <th>날짜</th>
+                    <th>출근 시간</th>
+                    <th>퇴근 시간</th>
+                    <th>근무 시간</th>
                   </tr>
-                ))}
-              </TBody>
-            </Table>
-          ) : (
-            <Message>출퇴근 기록이 없습니다.</Message>
-          )}
-        </>
+                </THead>
+                <TBody>
+                  {data.map((item, index) => (
+                    <tr key={index}>
+                      <TH>{item.date}</TH>
+                      <TH>{item.startTime}</TH>
+                      <TH>{item.endTime}</TH>
+                      <TH>{item.workingTime}</TH>
+                    </tr>
+                  ))}
+                </TBody>
+              </Table>
+            ) : (
+              <Message>출퇴근 기록이 없습니다.</Message>
+            )}
+          </>
+        )
       )}
     </>
   );
