@@ -169,3 +169,4 @@ const fetchPosts = async () => {
     </div>
   );
 }
+
