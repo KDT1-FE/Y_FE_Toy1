@@ -1,7 +1,7 @@
 import NavigationWiki from 'components/NavigationWiki';
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
-import {  read } from 'apis/Wiki';
+import { read } from 'apis/Wiki';
 import { useLocation } from 'react-router-dom';
 import { media } from 'styles/media';
 import Loading from 'components/Common/Loading';
