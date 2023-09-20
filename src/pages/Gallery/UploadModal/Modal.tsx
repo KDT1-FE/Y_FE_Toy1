@@ -31,6 +31,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
     const [thumbnailURL, setThumbnailURL] = useState<string | null>(null);
     const [textValue, setTextValue] = useState('');
     const [isUploading, setIsUploading] = useState(false);
+
     const handleTextChange = (e: any) => {
         setTextValue(e.target.value);
     };
@@ -115,6 +116,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
                             <br />
                             <ModalTextarea
                                 placeholder="공유할 채용의 설명을 적어주세요!"
+                                rows={6}
                                 maxLength={100}
                                 value={textValue}
                                 onChange={handleTextChange}
@@ -127,7 +129,14 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
                         {imageFile ? (
                             <a href={link} target="_blank" style={{ position: 'relative' }}>
                                 <PreviewImg src={URL.createObjectURL(imageFile)} alt="미리보기" />
-                                <Description>{textValue}</Description>
+                                <Description>
+                                    {textValue.split('\n').map((line, index) => (
+                                        <React.Fragment key={index}>
+                                            {line}
+                                            <br />
+                                        </React.Fragment>
+                                    ))}
+                                </Description>
                             </a>
                         ) : (
                             <PlaceHolder />

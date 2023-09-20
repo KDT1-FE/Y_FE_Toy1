@@ -115,7 +115,8 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
                             <br />
                             <ModalTextarea
                                 placeholder="공유할 레퍼런스를 설명해주세요!"
-                                maxLength={50}
+                                rows={6}
+                                maxLength={100}
                                 value={textValue}
                                 onChange={handleTextChange}
                                 required
@@ -127,7 +128,14 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
                         {imageFile ? (
                             <a href={link} target="_blank" style={{ position: 'relative' }}>
                                 <PreviewImg src={URL.createObjectURL(imageFile)} alt="미리보기" />
-                                <Description>{textValue}</Description>
+                                <Description>
+                                    {textValue.split('\n').map((line, index) => (
+                                        <React.Fragment key={index}>
+                                            {line}
+                                            <br />
+                                        </React.Fragment>
+                                    ))}
+                                </Description>
                             </a>
                         ) : (
                             <PlaceHolder />

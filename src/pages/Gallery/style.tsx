@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import bin from '../../common/Gallery/bin.png';
 
 //갤러리 전체
 export const GalleryContainer = styled.div`
@@ -89,6 +90,8 @@ export const TrashCan = styled.div`
     right: 20px;
     bottom: 20px;
     font-size: 60px;
+    background-image: url(${bin});
+    background-size: cover;
     animation: ${jumpShaking} 2s ease-in-out infinite;
     z-index: 2;
 `;
@@ -174,7 +177,6 @@ export const ModalLabel = styled.label`
 
 export const ModalTextarea = styled.textarea`
     width: 100%;
-    height: 100%;
     font-size: 16px;
     resize: none;
     border: 2px solid rgb(118, 118, 118);
@@ -238,6 +240,7 @@ export const Description = styled.div`
     font-size: 20px;
     opacity: 0; /* 설명을 숨깁니다. */
     transition: opacity 0.3s ease-in-out;
+    overflow: hidden;
 `;
 
 export const ChildArticle = styled.li`
