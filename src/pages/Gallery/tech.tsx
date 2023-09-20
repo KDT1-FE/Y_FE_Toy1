@@ -8,7 +8,6 @@ import {
     ArticleContainer,
     ChildArticle,
     ContentContainer,
-    ContentFirstLine,
     Description,
     ModalBackground,
     TrashCan,
@@ -109,7 +108,6 @@ const Tech: React.FC = () => {
                                 }}
                                 {...provided.droppableProps}
                             >
-                                🗑️
                                 {provided.placeholder}
                             </TrashCan>
                         )}
@@ -161,7 +159,16 @@ const Tech: React.FC = () => {
                                                         src={articleT.thumbnailURL}
                                                         alt={`article ${articleT.index}`}
                                                     />
-                                                    <Description>{articleT.description}</Description>
+                                                    <Description>
+                                                        {articleT.description
+                                                            .split('\n')
+                                                            .map((line: any, index: any) => (
+                                                                <React.Fragment key={index}>
+                                                                    {line}
+                                                                    <br />
+                                                                </React.Fragment>
+                                                            ))}
+                                                    </Description>
                                                 </a>
                                             </ChildArticle>
                                         )}

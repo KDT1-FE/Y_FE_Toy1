@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { FixedSizeList } from 'react-window';
 import Modal from './UploadModal/Modal';
 import { onSnapshot, updateDoc } from 'firebase/firestore';
 import { ref, deleteObject } from 'firebase/storage';
@@ -8,7 +9,6 @@ import {
     ArticleContainer,
     ChildArticle,
     ContentContainer,
-    ContentFirstLine,
     Description,
     ModalBackground,
     TrashCan,
@@ -110,14 +110,13 @@ const Recruit: React.FC = () => {
                                 }}
                                 {...provided.droppableProps}
                             >
-                                🗑️
                                 {provided.placeholder}
                             </TrashCan>
                         )}
                     </Droppable>
                     <Droppable droppableId="yourDroppableId">
                         {(provided) => (
-                            <div
+                            <ul
                                 ref={provided.innerRef}
                                 style={{
                                     display: 'flex',
@@ -162,7 +161,16 @@ const Recruit: React.FC = () => {
                                                         src={articleR.thumbnailURL}
                                                         alt={`article ${articleR.index}`}
                                                     />
-                                                    <Description>{articleR.description}</Description>
+                                                    <Description>
+                                                        {articleR.description
+                                                            .split('\n')
+                                                            .map((line: any, index: any) => (
+                                                                <React.Fragment key={index}>
+                                                                    {line}
+                                                                    <br />
+                                                                </React.Fragment>
+                                                            ))}
+                                                    </Description>
                                                 </a>
                                             </ChildArticle>
                                         )}
@@ -170,7 +178,7 @@ const Recruit: React.FC = () => {
                                 ))}
 
                                 {provided.placeholder}
-                            </div>
+                            </ul>
                         )}
                     </Droppable>
                 </DragDropContext>
