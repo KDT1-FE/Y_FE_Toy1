@@ -38,6 +38,9 @@ const LogoText = styled.span`
   ${media.tablet_680(`
   font-size: 1.3rem;
 `)}
+  ${media.mobile(`
+  font-size: 1.1rem;
+`)}
 `;
 
 const GalleryCategories = styled.ul`
@@ -54,6 +57,9 @@ const StyledLink = styled(Link)`
     border-bottom: 2px solid #e2e8f0;
     cursor: pointer;
   }
+  ${media.mobile(`
+  font-size: 0.9rem;
+`)}
 `;
 
 export default NavigationGallery;
