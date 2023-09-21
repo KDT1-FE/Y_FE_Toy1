@@ -103,9 +103,7 @@ const Header: React.FC = () => {
                     )}
                     {userId.length > 0 && <MyPageBtn />}
                     {timerOn && (
-                        <RedCircle value={timerOn} style={{ position: 'fixed', top: '-20px', right: '5px' }}>
-                            ·
-                        </RedCircle>
+                        <RedCircle value={timerOn} style={{ position: 'fixed', top: '8px', right: '8px' }}></RedCircle>
                     )}
                 </RightAnchorContainer>
             </AnchorContainer>

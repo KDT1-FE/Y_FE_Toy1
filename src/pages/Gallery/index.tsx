@@ -5,13 +5,21 @@ import Profile from './profile';
 import Recruit from './recruit';
 import Tech from './tech';
 
-const Gallery: React.FC = () => {
-    const [clickedValue, setClickedValue] = useState<any>(null);
+// clickedValue의 타입 정의
+type ClickedValue = {
+    userInfo?: string;
+    articleR?: string;
+    articleT?: string;
+};
 
-    const handleKeyClick = (value: any) => {
+const Gallery: React.FC = () => {
+    const [clickedValue, setClickedValue] = useState<ClickedValue | null>(null);
+
+    const handleKeyClick = (value: ClickedValue) => {
         setClickedValue(value);
         console.log(value);
     };
+
     return (
         <GalleryContainer id={'키값'}>
             <SidebarGallery onKeyClick={handleKeyClick} />

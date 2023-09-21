@@ -61,13 +61,13 @@ const RecruitmentPost: React.FC = () => {
             e.target.recruitmentType.value
         ) {
             swal({
-                title: '모집을 완료하시겠습니까? ',
-                text: '모집중으로 되돌리실 수 없습니다!',
+                title: '글을 작성하시겠습니까?',
+                text: '작성 후 수정 삭제를 자유롭게 하실 수 있습니다.',
                 icon: 'info',
-                buttons: ['취소', '모집 완료'],
+                buttons: ['취소', '작성'],
             }).then((willDelete) => {
                 if (willDelete) {
-                    swal('모집이 성공적으로 마감되었습니다.', {
+                    swal('글을 성공적으로 작성하였습니다.', {
                         icon: 'success',
                     });
 
@@ -96,7 +96,7 @@ const RecruitmentPost: React.FC = () => {
 
                     navigate('/recruitment');
                 } else {
-                    swal('모집 마감이 취소되었습니다.!');
+                    swal('글 작성이 취소되었습니다.');
                 }
             });
         } else {

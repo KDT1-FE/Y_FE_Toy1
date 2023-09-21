@@ -58,6 +58,10 @@ const GlobalStyle = createGlobalStyle`
     font-size:16px;
     line-height: 1.5;
     width: 100vw;
+<<<<<<< HEAD
+=======
+    height:100vh;
+>>>>>>> 8a67b3f5996e32c18ce3aca95edf7216512485ac
   }
 
   a{

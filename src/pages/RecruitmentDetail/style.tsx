@@ -150,9 +150,31 @@ export const CommentItemWrapper = styled.div`
     position: relative;
 `;
 
-export const CommentName = styled.div`
+export const CommentHeader = styled.div`
+    position: relative;
+`;
+
+export const CommentUserImage = styled.img`
+    width: 25px;
+    height: 25px;
+    border-radius: 20px;
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+`;
+
+export const CommentName = styled.p`
     font-size: 1rem;
     font-weight: 500;
+    margin-left: 35px;
+    margin-top: 2px;
+`;
+
+export const CommentInputName = styled.p`
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 4px;
 `;
 
 export const CommentForm = styled.form`
@@ -233,11 +255,6 @@ export const RecruitmentEndBtn = styled.button`
     }
 `;
 
-export const CommentNameInput = styled.input`
-    font-size: 1rem;
-    font-weight: 500;
-`;
-
 export const CommentCreateWrapper = styled.div`
     width: 98%;
 
@@ -245,7 +262,7 @@ export const CommentCreateWrapper = styled.div`
     margin-top: 20px;
     padding: 20px;
 
-    border-radius: 20px;
+    border-radius: 10px;
     border: 1px solid gray;
 
     display: flex;

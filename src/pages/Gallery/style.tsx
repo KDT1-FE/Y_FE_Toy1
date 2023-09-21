@@ -56,7 +56,6 @@ export const UploadBtn = styled.button`
     right: 20px;
     bottom: 40px;
     font-size: 60px;
-    z-index: 3;
     width: 150px;
     height: 150px;
     border-radius: 10px;
@@ -81,9 +80,9 @@ export const UploadBtnWrapper = styled.div`
     display: flex;
     justify-content: flex-end;
     padding-top: 1%;
-    padding-bottom: 1%;
     padding-right: 8%;
     background-color: transparent;
+    z-index: 1;
 `;
 // 아티클 영역
 const jumpShaking = keyframes`
@@ -97,16 +96,16 @@ const jumpShaking = keyframes`
 `;
 
 export const TrashCan = styled.div`
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     position: fixed;
     right: 20px;
-    bottom: 20px;
+    bottom: 40px;
     font-size: 60px;
     background-image: url(${bin});
     background-size: cover;
     animation: ${jumpShaking} 2s ease-in-out infinite;
-    z-index: 2;
+    z-index: -1;
 `;
 
 export const ImgContainer = styled.div`
@@ -329,5 +328,5 @@ export const CancelBtn = styled.button`
 export const BtnAlign = styled.div`
     display: flex;
     justify-content: center;
-    margin-top: 6px;
+    margin-top: 20px;
 `;

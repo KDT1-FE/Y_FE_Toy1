@@ -21,7 +21,7 @@ const MyPageTimelog: React.FC<OwnProps> = ({ handleTimerModal, handleReadModal, 
                 <FlexBoxColumn>
                     <MarginLeft>Commute</MarginLeft>
                 </FlexBoxColumn>
-                <RedCircle value={timerOn}>·</RedCircle>
+                <RedCircle value={timerOn}></RedCircle>
             </FlexBox>
             <FlexBox>
                 <ChangeTimer value={showModal}>

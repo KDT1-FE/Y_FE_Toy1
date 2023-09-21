@@ -163,11 +163,11 @@ const Blink = keyframes`
 `;
 export const RedCircle = styled.span<{ value: boolean }>`
     display: ${(value) => (value.value ? 'block' : 'none')};
-    color: #ca1212;
-    font-size: 60px;
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: 8px;
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    background-color: #ca1212;
     animation: ${Blink} 1.5s 0s infinite;
     animation-timing-function: linear;
 `;
