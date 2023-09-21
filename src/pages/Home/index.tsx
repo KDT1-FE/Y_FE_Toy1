@@ -8,15 +8,32 @@ import {
     AboutUs,
     AboutContent,
     AboutContainer,
+    GalleryContainer,
+    GalleryWrapper,
+    GalleryUs,
+    GalleryTitle,
+    GallerySubTitle,
+    GalleryContent,
+    GalleryImg,
+    RecruitmentContainer,
+    RecruitmentWrapper,
+    RecruitmentTitle,
+    RecruitmentSubTitle,
+    RecruitmentContent,
+    RecruitmentImg,
+    GalleryBgImg,
 } from './style';
-import fastcampusImg from '../../common/MainImg/fastcampus.png';
-import wikiImg from '../../common/MainImg/wiki.png';
-import galleryImg from '../../common/MainImg/gallery.png';
-
 import Carousel from 'react-material-ui-carousel';
 import { Paper } from '@mui/material';
 
 import Footer from '../../common/Footer';
+import { url } from 'inspector';
+// import wikidemo from '../../common/MainImg/wiki_demo.mp4';
+import galleryBg from '../../common/MainImg/galleryBg.jpg';
+import galleryImg from '../../common/MainImg/galleryImg.png';
+import recruitmentImg from '../../common/MainImg/recruitmentImg.png';
+import recruitmentBg from '../../common/MainImg/recruitmentBg.jpg';
+import logoImg from '../../common/MainImg/fastusLogo.png';
 
 const Home: React.FC = () => {
     return (
@@ -30,59 +47,78 @@ const Home: React.FC = () => {
                 autoPlay={true}
             >
                 <Paper>
-                    <AboutContainer>
-                        <AboutWrapper>
-                            <AboutUs>About us</AboutUs>
-                            <AboutTitle>
-                                WIKI FOR <span style={{ color: 'red' }}>FASTCAMPUS</span>
-                            </AboutTitle>
-                            <AboutSubTitle>Page for Fastcampus x Yanolja bootcamp</AboutSubTitle>
-                            <AboutContent>
-                                Our service provides <a href="/wiki">Wiki</a> and <a href="/gallery">Gallery</a> pages.
-                                everyone can fixed wiki and gallery
-                                <br />
-                                for free. if you want make or join team for project create thread in{' '}
-                                <a href="#">Project page</a>
-                            </AboutContent>
-                        </AboutWrapper>
-                        <AboutImg src={fastcampusImg} />
-                    </AboutContainer>
+                    <GalleryContainer>
+                        <GalleryWrapper>
+                            <GalleryTitle>
+                                About <span style={{ color: 'red' }}>FASTUS</span>
+                            </GalleryTitle>
+                            <GallerySubTitle>Study Smarter, Not Harder</GallerySubTitle>
+                            <GalleryContent>
+                                취준생들이 필요한 정보를 한번에! 취업 공고, <br /> 정보 교환, 회사 정보를 찾느라 시간
+                                낭비하지 <br /> 말고 패스터디에서 빠르게 받아보세요!
+                                <br /> 등록, 수정, 삭제하며 관리해보세요.
+                            </GalleryContent>
+                        </GalleryWrapper>
+                        <div>
+                            {/* <p>FASTUS</p> */}
+                            <GalleryImg src={logoImg} />
+                        </div>
+                        <GalleryBgImg src={galleryBg} />
+                    </GalleryContainer>
                 </Paper>
                 <Paper>
-                    <AboutContainer>
-                        <AboutWrapper>
-                            <AboutUs>About us</AboutUs>
-                            <AboutTitle>
+                    <GalleryContainer>
+                        <GalleryWrapper>
+                            <GalleryTitle>
                                 About <span style={{ color: 'blue' }}>WIKI</span>
-                            </AboutTitle>
-                            <AboutSubTitle>Page for Announcement</AboutSubTitle>
-                            <AboutContent>
-                                The main function of the <a href="/wiki">Wiki page</a> provides an announcement
-                                function.
-                                <br />
-                                Create a new channel and write a new wiki !
-                            </AboutContent>
-                        </AboutWrapper>
-                        <AboutImg src={wikiImg} />
-                    </AboutContainer>
+                            </GalleryTitle>
+                            <GallerySubTitle>많은 정보를 한눈에!</GallerySubTitle>
+                            <GalleryContent>
+                                위키 페이지에서 채널을 관리하고 상세 <br />
+                                페이지를 등록해보세요!
+                            </GalleryContent>
+                        </GalleryWrapper>
+                        <div>
+                            <GalleryImg src={galleryImg} />
+                        </div>
+                        <GalleryBgImg src={galleryBg} />
+                    </GalleryContainer>
                 </Paper>
                 <Paper>
-                    <AboutContainer>
-                        <AboutWrapper>
-                            <AboutUs>About us</AboutUs>
-                            <AboutTitle>
+                    <GalleryContainer>
+                        <GalleryWrapper>
+                            <GalleryTitle>
                                 About <span style={{ color: 'green' }}>GALLERY</span>
-                            </AboutTitle>
-                            <AboutSubTitle>Page for Fastcampus x Yanolja bootcamp</AboutSubTitle>
-                            <AboutContent>
-                                The <a href="">gallery page</a> provides you to register, update, and delete user
-                                profiles
-                                <br />
-                                and various reference materials.
-                            </AboutContent>
-                        </AboutWrapper>
-                        <AboutImg src={galleryImg} />
-                    </AboutContainer>
+                            </GalleryTitle>
+                            <GallerySubTitle>우리만의 만남의 광장!</GallerySubTitle>
+                            <GalleryContent>
+                                프로필 뿐만 아니라 다양한 레퍼런스를
+                                <br /> 등록, 수정, 삭제하며 관리해보세요.
+                            </GalleryContent>
+                        </GalleryWrapper>
+                        <div>
+                            <GalleryImg src={galleryImg} />
+                        </div>
+                        <GalleryBgImg src={galleryBg} />
+                    </GalleryContainer>
+                </Paper>
+                <Paper>
+                    <RecruitmentContainer>
+                        <RecruitmentWrapper>
+                            <RecruitmentTitle>
+                                About <span style={{ color: 'purple' }}>RECRUITMENT</span>
+                            </RecruitmentTitle>
+                            <RecruitmentSubTitle>취업 정보도 손쉽게</RecruitmentSubTitle>
+                            <RecruitmentContent>
+                                게시글을 작성하여 모임을 생성 및 가입해보세요!
+                                <br /> 카테고리 별로 정리할 수 있어서 한눈에 보기 좋습니다.
+                            </RecruitmentContent>
+                        </RecruitmentWrapper>
+                        <div>
+                            <RecruitmentImg src={recruitmentImg} />
+                        </div>
+                        <GalleryBgImg src={recruitmentBg} />
+                    </RecruitmentContainer>
                 </Paper>
             </Carousel>
             <Footer />
