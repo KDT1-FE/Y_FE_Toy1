@@ -9,7 +9,7 @@ const Contents = () => {
   const location = useLocation();
   const itemId = location.state;
   const [title, setTitle] = useState('');
-  const [timeAgo, setTimeAgo] = useState('');
+  const [time, setTime] = useState('');
   const [content, setContent] = useState('');
   const [imgUrl, setImgUrl] = useState('');
   const navigate = useNavigate();
@@ -20,11 +20,11 @@ const Contents = () => {
 
     if (docSnap.exists()) {
       const title = docSnap.data().title;
-      const timeAgo = docSnap.data().time_ago;
+      const timeAgo = docSnap.data().time;
       const content = docSnap.data().content;
       const imgUrl = docSnap.data().url;
       setTitle(title);
-      setTimeAgo(timeAgo);
+      setTime(time);
       setContent(content);
       setImgUrl(imgUrl);
     } else {
@@ -39,7 +39,7 @@ const Contents = () => {
   return (
     <div className="contents">
       <div className="content-util">
-        <p className="content-util__time">{timeAgo}</p>
+        <p className="content-util__time">{time}</p>
         <button
           className="btn content-util__modify"
           onClick={() => navigate(`/notice/content/update/${location.state}`, { state: itemId })}>

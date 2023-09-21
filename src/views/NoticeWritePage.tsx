@@ -23,7 +23,7 @@ const NoticeWritePage = () => {
         const data = {
           title,
           content,
-          time_ago: new Date().toLocaleString(),
+          time: new Date().toLocaleString(),
           userEmail,
           url: imgUrl,
           number: new Date().getTime(),
@@ -40,7 +40,7 @@ const NoticeWritePage = () => {
         const data = {
           title,
           content,
-          time_ago: new Date().toLocaleString(),
+          time: new Date().toLocaleString(),
           userEmail,
           url: null,
           number: new Date().getTime(),

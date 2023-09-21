@@ -24,7 +24,7 @@ const NoticeUpdatePage = () => {
         await updateDoc(docRef, {
           title,
           content,
-          time_ago: new Date().toLocaleString(),
+          time: new Date().toLocaleString(),
           url: imgUrl,
         });
         alert('완료 되었습니다.');
@@ -34,7 +34,7 @@ const NoticeUpdatePage = () => {
       await updateDoc(docRef, {
         title,
         content,
-        time_ago: new Date().toLocaleString(),
+        time: new Date().toLocaleString(),
       });
       alert('완료 되었습니다.');
     } catch {
