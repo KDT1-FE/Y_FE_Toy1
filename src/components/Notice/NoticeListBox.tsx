@@ -5,12 +5,6 @@ import { db } from '../../firebase';
 
 import '../../scss/listbox.scss';
 
-interface ListBoxProps {
-  title: string[];
-  itemId: string[];
-  currentItems: NoticeData[] | undefined;
-}
-
 const ListBox: React.FC<ListBoxProps> = ({ title, itemId, currentItems }): JSX.Element => {
   const navigate = useNavigate();
   const handleDelete = async (index: number, e: React.MouseEvent) => {
@@ -44,3 +38,9 @@ const ListBox: React.FC<ListBoxProps> = ({ title, itemId, currentItems }): JSX.E
 };
 
 export default ListBox;
+
+interface ListBoxProps {
+  title: string[];
+  itemId: string[];
+  currentItems: NoticeData[] | undefined;
+}

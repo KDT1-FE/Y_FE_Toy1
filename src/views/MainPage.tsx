@@ -1,6 +1,7 @@
 import React from 'react';
 
 import '../scss/mainPage.scss';
+import Carousel from './Carousel';
 
 const MainPage = (): JSX.Element => {
   return (
@@ -8,7 +9,9 @@ const MainPage = (): JSX.Element => {
       <div className="mainPage__content-wrap">
         <div className="mainPage__content-box main-notice">
           <div className="mainPage__content__title">공지사항</div>
-          <div className="mainPage__content"></div>
+          <div className="mainPage__content">
+            <Carousel />
+          </div>
         </div>
         <div className="mainPage__content-box main-project">
           <div className="mainPage__content__title">프로젝트</div>

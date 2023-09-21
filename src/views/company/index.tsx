@@ -1,4 +1,4 @@
-import Notice from './Notice/Notice';
+import Notice from './notice/Notice';
 import Chart from './Chart';
 import Benefit from './Benefit';
 
