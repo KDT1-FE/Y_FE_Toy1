@@ -38,7 +38,7 @@ const ImageViewModal = ({ imageDetail, setImgModalOpen }: ViewModalProps) => {
               <p>
                 <b>내용</b>: {imageDetail.content}
               </p>
-              <p className="like-icon">
+              <p>
                 <b>좋아요</b> : {imageDetail.like}
               </p>
             </div>

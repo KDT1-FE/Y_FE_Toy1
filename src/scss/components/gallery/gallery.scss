@@ -86,15 +86,22 @@
           align-items: center;
           & span {
             font-size: 1.2rem;
-            margin-left: 1rem;
+            margin-left: 5px;
           }
         }
         & .icon {
-          font-size: 1.8rem;
-          color: #eee;
+          font-size: 2.2rem;
+          color: #fff;
           display: inline-block;
-          &:hover {
-            color: #ff9c9c;
+          transition: all 0.3s;
+          padding: 0 5px 5px;
+          &:hover,
+          &.active {
+            color: #ffb2ac;
+            transform: scale(1.2);
+          }
+          &.minus {
+            opacity: 0.7;
           }
         }
       }
