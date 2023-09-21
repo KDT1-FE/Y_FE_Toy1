@@ -8,6 +8,7 @@ import { auth } from "../../firebase";
 import StudyTime from "components/template/StudyTime";
 import UserInfo from "components/template/UserInfo";
 import DarkModeBtn from "provider/darkModeContext";
+import { IsMobile } from "utils/mediaQuery"
 
 const Header = () => {
   const pageLink = ["Wiki", "Gallery", "Rank"];
@@ -41,74 +42,163 @@ const Header = () => {
     setPathLink(location.pathname.split("/")[1]);
   }, [location]);
 
-  return (
-    <Container>
-      <InnerContainer>
-        <li>
-          <Link to={`/`}>
-            <h1>FASTWIKI</h1>
-          </Link>
-        </li>
-        <ul className="header__link-wrapper">
+  // 모바일 헤더
+  if(IsMobile()){
+    return (
+      <MobileContainer>
+        <MobileFirstHeader>
+          <div></div>
+          <img className="header__mobile-logo" src="svg/user.svg" alt="로고" />
+          <img className="header__mobile-user" src="svg/user.svg" alt="유저모양아이콘" />
+        </MobileFirstHeader>
+        <MobileSecondHeader>
           {pageLink.map((link, idx) => {
             let name = "";
             if (pathLink === pageLink[idx]) name += "active";
             return (
               <li key={pageLink[idx]}>
                 <Link to={`/${link}`}>
-                  <h2 className={name}> {pageLink[idx]} </h2>{" "}
+                  <h2 className={name}> {pageLink[idx]} </h2>
                 </Link>
               </li>
             );
           })}
           <li>
-            <StyledButton onClick={openModal}>
-              <p> 학습 기록</p>{" "}
-            </StyledButton>
+            <MobileStyledButton onClick={openModal}>
+              <p>Timer</p>
+            </MobileStyledButton>
           </li>
+        </MobileSecondHeader>
+        {isModalActive && (
+          <Modal
+            setModal={setIsModalActive}
+            width="500"
+            height="300"
+            element={
+              <StudyTime isStudying={isStudying} studyStartTime={studyStartTime} toggleStudyStatus={toggleStudyStatus} />
+            }
+          />
+        )}
+      </MobileContainer>
+    )
+  }else{
+    // 일반 테스크톱 헤더
+    return (
+      <Container>
+        <InnerContainer>
           <li>
-            {user?.displayName ? (
-              <>
-                <div className="header__user-name">
-                  <p
-                    onClick={() => {
-                      setDisplayUserInfo((prev) => !prev);
-                    }}
-                  >
-                    {sliceStr(user.displayName, 7)}님
-                  </p>
-                  <div className="header__user-info">
-                    {displayUserInfo ? <UserInfo handlerLogout={handlerLogout} user={user} /> : <></>}
-                  </div>
-                  {displayUserInfo ? <div onClick={()=>{setDisplayUserInfo(false)}} className="header__user-info-block"> </div>: <></>}
-                </div>
-              </>
-            ) : (
-              <Link to={`/login`}>
-                <h3>로그인</h3>{" "}
-              </Link>
-            )}{" "}
+            <Link to={`/`}>
+              <h1>FASTWIKI</h1>
+            </Link>
           </li>
-          <DarkModeBtn />
-        </ul>
-      </InnerContainer>
-      {isModalActive && (
-        <Modal
-          setModal={setIsModalActive}
-          width="500"
-          height="300"
-          element={
-            <StudyTime isStudying={isStudying} studyStartTime={studyStartTime} toggleStudyStatus={toggleStudyStatus} />
-          }
-        />
-      )}
-    </Container>
-  );
+          <ul className="header__link-wrapper">
+            {pageLink.map((link, idx) => {
+              let name = "";
+              if (pathLink === pageLink[idx]) name += "active";
+              return (
+                <li key={pageLink[idx]}>
+                  <Link to={`/${link}`}>
+                    <h2 className={name}> {pageLink[idx]} </h2>
+                  </Link>
+                </li>
+              );
+            })}
+            <li>
+              <StyledButton onClick={openModal}>
+                <p> 학습 기록</p>{" "}
+              </StyledButton>
+            </li>
+            <li>
+              {user?.displayName ? (
+                <>
+                  <div className="header__user-name">
+                    <p
+                      onClick={() => {
+                        setDisplayUserInfo((prev) => !prev);
+                      }}
+                    >
+                      {sliceStr(user.displayName, 7)}님
+                    </p>
+                    <div className="header__user-info">
+                      {displayUserInfo ? <UserInfo handlerLogout={handlerLogout} user={user} /> : <></>}
+                    </div>
+                    {displayUserInfo ? <div onClick={()=>{setDisplayUserInfo(false)}} className="header__user-info-block"> </div>: <></>}
+                  </div>
+                </>
+              ) : (
+                <Link to={`/login`}>
+                  <h3>로그인</h3>
+                </Link>
+              )}{" "}
+            </li>
+            <DarkModeBtn />
+          </ul>
+        </InnerContainer>
+        {isModalActive && (
+          <Modal
+            setModal={setIsModalActive}
+            width="500"
+            height="300"
+            element={
+              <StudyTime isStudying={isStudying} studyStartTime={studyStartTime} toggleStudyStatus={toggleStudyStatus} />
+            }
+          />
+        )}
+      </Container>
+    );
+  }
+  
 };
 
 const sliceStr = (str: string, n: number) => {
   return str.length >= n ? str.slice(0, n) + "..." : str;
 };
+
+const MobileContainer = styled.nav`
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100px;
+  border-bottom: 2px solid #ddd;
+  font-size: 1rem;
+  z-index: 20;
+  background-color: #fff;
+  padding: 0 20px;
+  display:flex;
+  flex-flow: column;
+  box-sizing: border-box;
+
+  .header__mobile-user{
+    width: 30px;
+    height: 30px;
+  }
+
+  .header__mobile-logo{
+    width: 30px;
+    height: 30px;
+  }
+  .active {
+    color: var(--main-color);
+  }
+  h2 {
+    font-size: 1.1rem;
+  }
+`
+const MobileFirstHeader = styled.div`
+  height: 65px;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+`
+const MobileSecondHeader = styled.ul`
+  height: 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
 
 const StyledButton = styled.button`
   color: var(--main-color);
@@ -121,6 +211,11 @@ const StyledButton = styled.button`
   p {
     margin: 0 auto;
   }
+`;
+
+const MobileStyledButton = styled(StyledButton)`
+  width: 75px;
+  height: 25px;
 `;
 
 const InnerContainer = styled.div`
