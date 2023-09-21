@@ -67,7 +67,7 @@ const RankWrapper = styled.div`
   text-align: center;
   flex-direction: column;
   border-radius: 5px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
   margin-top: 16px;
 
   .userList {
@@ -77,7 +77,7 @@ const RankWrapper = styled.div`
     align-items: center;
     transition: all 0.3s ease;
     margin: 10px;
-    background-color: ${(props) => props.theme.Userinfo};
+    background-color: ${(props) => props.theme.studyRank};
     border-radius: 5px;
   }
 

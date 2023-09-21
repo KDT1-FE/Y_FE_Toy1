@@ -91,7 +91,7 @@ type settingsType = {
 };
 
 const Container = styled.div`
-  margin-bottom: 50px;
+  margin-bottom: 70px;
 `;
 
 export default Carousel;
