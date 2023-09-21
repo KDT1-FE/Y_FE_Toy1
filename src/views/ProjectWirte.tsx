@@ -19,7 +19,7 @@ const ProjectWirte = ():JSX.Element => {
   const mutation = useFirestoreCollectionMutation(projectCollection);
   const navigate = useNavigate();
   const editorRef = useRef<Editor>(null);
-  const [writeData, setWriteData] = useState<writeType>({
+  const [writeData, setWriteData] = useState<WriteType>({
     status:'',
     title:'',
     content:''
@@ -34,7 +34,7 @@ const ProjectWirte = ():JSX.Element => {
   }
 
   const changeEditHandler = () => {
-    const editorValue = editorRef.current?.getInstance().getHTML();
+    const editorValue = editorRef.current?.getInstance().getMarkdown();
     setWriteData({
         ...writeData,
         content:editorValue
@@ -49,6 +49,7 @@ const ProjectWirte = ():JSX.Element => {
   useEffect(()=>{
     writeData.status && writeData.title && writeData.content ? setBtnState(false) : setBtnState(true)
   },[writeData])
+  
     const submitHandle = (e:React.FormEvent) => {
         e.preventDefault();
         if(writeData.title && writeData.content && writeData.status){
@@ -106,7 +107,7 @@ const ProjectWirte = ():JSX.Element => {
 
 export default ProjectWirte
 
-export interface writeType {
+export interface WriteType {
   status:string,
   title:string,
   content?:string
