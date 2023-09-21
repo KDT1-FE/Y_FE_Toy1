@@ -9,7 +9,7 @@ export const RecruitmentContainer = styled.div`
 
 export const PostsContainer = styled.div`
     background-color: ${(props) => props.theme.recruitmentBack};
-    width: 100vw;
+    width: 100%;
     height: 100%;
 
     overflow: auto;
@@ -112,9 +112,8 @@ export const PostPageBtnWrapper = styled.div`
     justify-content: center;
     align-items: center;
 
-    position: absolute;
-    bottom: 0;
-    margin-bottom: 10px;
+    margin-top: 20px;
+    position: relative;
 `;
 
 export const PostPageBtn = styled.a`
