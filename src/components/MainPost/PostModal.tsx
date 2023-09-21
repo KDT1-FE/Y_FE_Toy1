@@ -35,7 +35,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
     <div className="main-modal">
       <div className="main-modal-content">
         <div className="modal-header">
-          <div className="main-modal-text">모집글 작성</div>
+          <div className="main-modal-text">스터디 모집글 작성</div>
         </div>
         <div className="modal-body">
         <label htmlFor="date">모집 마감일</label>
