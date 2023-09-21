@@ -8,7 +8,7 @@ const Github = () => {
         <h1>Github</h1>
         <BreadCrumb>about &gt; 정보 &gt; github</BreadCrumb>
       </CategoryTitleSection>
-      <a href="https://www.notion.so/i-b0512a32e6f1405a9cd5c5305691982d">
+      <a href="https://github.com/JSH99/Toy1_Team13">
         <StyledImage src="../../../src/assets/notion.png" />
       </a>
       <StyledSpan>사진을 누르면 링크로 이동합니다.</StyledSpan>
