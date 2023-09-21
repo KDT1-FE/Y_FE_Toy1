@@ -40,7 +40,7 @@ export default function WikiForm({
   return (
     <>
       <Styled.ContentsTitle>
-        <Styled.TitleText>
+        <FormStyled.FormTitle>
           <FormStyled.Select
             value={form.parentID}
             onChange={handleParentChange}
@@ -58,7 +58,7 @@ export default function WikiForm({
             onChange={(e) => onFormChange("title", e.target.value)}
             placeholder="제목 입력"
           />
-        </Styled.TitleText>
+        </FormStyled.FormTitle>
       </Styled.ContentsTitle>
 
       <MarkdownEditor form={form} editorRef={editorRef}></MarkdownEditor>
