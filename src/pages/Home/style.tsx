@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 
 export const HomeContainer = styled.div``;
 
@@ -6,7 +6,7 @@ export const AboutContainer = styled.div`
     height: 100vh;
 
     position: relative;
-
+    background-color: ${(props) => props.theme.recruitmentBack};
     padding-top: 72px;
 `;
 

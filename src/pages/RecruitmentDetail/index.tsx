@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
     Btn,
     BtnWrapper,
-    CommentName,
+    CommentInputName,
     CommentWrapper,
     ContentContainer,
     ContentHeader,
@@ -14,14 +14,6 @@ import {
     ContentWrapper,
     Content,
     RecruitmentDetailContainer,
-    DeleteModalContainer,
-    DeleteModalWrapper,
-    DeleteModalTitle,
-    DeleteCloseButton,
-    DeleteModal,
-    DeleteFallbackButton,
-    DeleteCreateButton,
-    DeleteText,
     RecruitmentEndBtn,
     ContentUserImage,
     CommentCreateWrapper,
@@ -29,30 +21,22 @@ import {
     CommentBtn,
 } from './style';
 import CommentItem from './CommentItem';
-import {
-    getRecruitmentDetail,
-    getUserName,
-    createComment,
-    deleteRecruitment,
-    updateRecruitment,
-    getUserImageURL,
-} from '../../utils/firebase';
+import { getUserData, createComment, deleteRecruitment, updateRecruitment } from '../../utils/firebase';
 import { useRecoilState } from 'recoil';
-import { UserId, Render } from '../../utils/recoil';
+import { UserId, Render, RecruitmentData } from '../../utils/recoil';
 import { useNavigate } from 'react-router-dom';
-import { RecruitmentData } from '../../utils/recoil';
-import { collection, serverTimestamp, getDocs, Firestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { serverTimestamp, doc, onSnapshot } from 'firebase/firestore';
 import { firestore } from '../../utils/firebase';
+import swal from 'sweetalert';
 
 const RecruitmentDetail: React.FC = () => {
-    const [userId, setUserId] = useRecoilState(UserId);
-    const [userName, setUserName] = useState('');
-    const [userImageURL, setUserImageURL] = useState('');
+    const [userId, setUserId] = useRecoilState<string>(UserId);
     const [recruitmentData, setRecruitmentData] = useRecoilState(RecruitmentData);
-    const [deleteModalValued, setDeleteModalValued] = useState(false);
     const [commentValue, setCommentValue] = useState('');
     const [comments, setComments] = useState([]);
     const [render, setRender] = useRecoilState(Render);
+    const [userData, setUserData] = useState<any>({});
+    const [commentLength, setCommentLength] = useState<number>(0);
 
     const [data, setData] = useState<any>({});
 
@@ -69,15 +53,8 @@ const RecruitmentDetail: React.FC = () => {
                 (doc) => {
                     setData(doc.data());
                     setComments(doc.data()?.comment);
+                    setCommentLength(doc.data()?.comment.length);
                     // 수정
-                    getUserImageURL(doc.data()?.uid)
-                        .then((result) => {
-                            setUserImageURL(result);
-                        })
-                        .catch((error) => {
-                            // 에러 핸들링
-                            console.error('Error fetching data:', error);
-                        });
                 },
             );
             return () => {
@@ -92,11 +69,29 @@ const RecruitmentDetail: React.FC = () => {
         if (!render) {
             setRender(!render);
         }
+        getUserData(userId)
+            .then((result) => {
+                setUserData(result);
+            })
+            .catch((error) => {
+                // 에러 핸들링
+                console.error('Error fetching data:', error);
+            });
     }, [render]);
 
     const handleCreateCommentSubmit = async (e: any) => {
         e.preventDefault();
 
+        if (!userId) {
+            swal({
+                title: '댓글을 작성하실 수 없습니다.',
+                text: '로그인 후 사용해주세요 !',
+                icon: 'warning',
+                // buttons: true,
+                // dangerMode: true,
+            });
+            return;
+        }
         // e.target 및 속성의 존재 여부 확인
         if (e.target && e.target.uid && e.target.content && e.target.uid.value && e.target.content.value) {
             const fullDate = new Date();
@@ -110,9 +105,19 @@ const RecruitmentDetail: React.FC = () => {
                 fullDate.getHours() +
                 ':' +
                 fullDate.getMinutes();
-            const value = { uid: e.target.uid.value, content: e.target.content.value, time: date };
+            const value = {
+                uid: e.target.uid.value,
+                content: e.target.content.value,
+                time: date,
+                name: userData.name,
+                imageURL: userData.imageURL,
+                email: userData.email,
+            };
             await createComment(channel, path, value);
 
+            swal('댓글이 성공적으로 등록되었습니다!', {
+                icon: 'success',
+            });
             setCommentValue('');
             // location.reload();
         } else {
@@ -121,74 +126,70 @@ const RecruitmentDetail: React.FC = () => {
     };
 
     const handleEdit = () => {
-        for (let i = 0; i < data.comment.length; i++) {
-            data.comment[i] = {
-                uid: data.comment[i].uid,
-                time: data.comment[i].time,
-                content: data.comment[i].content,
-            };
-        }
-        setRecruitmentData({ ...data, channel: channel });
-        navigate('/recruitment/edit/' + channel + '/' + path, data);
+        swal({
+            title: '정말로 글을 수정하시겠습니까? ',
+            text: '수정 버튼을 누르시면 수정 페이지로 이동합니다.!',
+            icon: 'info',
+            buttons: ['취소', '수정'],
+        }).then((willDelete) => {
+            if (willDelete) {
+                setRecruitmentData({ ...data, channel: channel });
+                navigate('/recruitment/edit/' + channel + '/' + path, data);
+            } else {
+                swal('글 수정을 취소합니다!');
+            }
+        });
     };
 
-    const handleDeleteRcruitment = (e: any) => {
-        deleteRecruitment(channel, path);
-        navigate('/recruitment');
-    };
-
-    const handleDeleteModal = () => {
-        setDeleteModalValued(!deleteModalValued);
+    const handleDeleteRecruitment = () => {
+        swal({
+            title: '정말로 글을 삭제하시겠습니까? ',
+            text: '삭제된 글을 되돌리실 수 없습니다!',
+            icon: 'warning',
+            buttons: ['취소', '삭제'],
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                swal('글을 성공적으로 삭제하였습니다.', {
+                    icon: 'success',
+                });
+                deleteRecruitment(channel, path);
+                navigate('/recruitment');
+            } else {
+                swal('글 삭제를 취소합니다!');
+            }
+        });
     };
 
     const handleRecruitmentValued = () => {
-        const updated_at_timestamp = serverTimestamp();
+        swal({
+            title: '모집을 완료하시겠습니까? ',
+            text: '모집중으로 되돌리실 수 없습니다!',
+            icon: 'info',
+            buttons: ['취소', '모집 완료'],
+        }).then((willDelete) => {
+            if (willDelete) {
+                swal('모집이 성공적으로 마감되었습니다.', {
+                    icon: 'success',
+                });
+                const value = data;
+                value.recruitValued = !value.recruitValued;
 
-        const value = {
-            category: data.category,
-            comment: data.comment,
-            content: data.content,
-            people: data.people,
-            recruitValued: !data.recruitValued,
-            time: updated_at_timestamp,
-            title: data.title,
-            uid: data.uid,
-            name: data.name,
-        };
-        for (let i = 0; i < value.comment.length; i++) {
-            value.comment[i] = {
-                uid: data.comment[i].uid,
-                time: data.comment[i].time,
-                content: data.comment[i].content,
-            };
-        }
-        updateRecruitment(channel, path, value);
+                console.log(value);
 
-        navigate('/recruitment');
+                updateRecruitment(channel, path, value);
+            } else {
+                swal('모집 마감이 취소되었습니다.!');
+            }
+        });
     };
-    console.log(data.comment);
+
     return (
         <RecruitmentDetailContainer>
-            {deleteModalValued ? (
-                <DeleteModalContainer>
-                    <DeleteModalWrapper>
-                        <DeleteModal>
-                            <DeleteModalTitle>게시글 삭제</DeleteModalTitle>
-                            <DeleteCloseButton onClick={handleDeleteModal}>x</DeleteCloseButton>
-                            <DeleteText>정말 삭제하시겠습니까?</DeleteText>
-                            <DeleteCreateButton onClick={handleDeleteRcruitment}>삭제</DeleteCreateButton>
-                            <DeleteFallbackButton onClick={handleDeleteModal}>나가기</DeleteFallbackButton>
-                        </DeleteModal>
-                    </DeleteModalWrapper>
-                </DeleteModalContainer>
-            ) : (
-                ''
-            )}
-
             <ContentContainer>
                 <ContentWrapper>
                     <ContentHeader>
-                        <ContentUserImage src={userImageURL} />
+                        <ContentUserImage src={data.imageURL} />
                         <ContentHeaderName>{data.name}</ContentHeaderName>
                         {data.recruitValued ? (
                             <ContentHeaderValuedTrue>모집중</ContentHeaderValuedTrue>
@@ -198,12 +199,16 @@ const RecruitmentDetail: React.FC = () => {
                     </ContentHeader>
                     <ContentTitleWrapper>
                         <h2>{data.title}</h2>
-                        <p>{new Date(data.time?.toMillis()).toLocaleString()}</p>
+                        <p>
+                            {data.editValued
+                                ? new Date(data.editTime?.toMillis()).toLocaleString() + ' (수정됨)'
+                                : new Date(data.time?.toMillis()).toLocaleString()}
+                        </p>
                         {userId == data.uid ? (
                             <BtnWrapper>
-                                {data.recruitValued ? <Btn onClick={handleEdit}>수정하기</Btn> : ''}
+                                {data.recruitValued ? <Btn onClick={handleEdit}>수정</Btn> : ''}
 
-                                <Btn onClick={handleDeleteModal}>삭제하기</Btn>
+                                <Btn onClick={handleDeleteRecruitment}>삭제</Btn>
                             </BtnWrapper>
                         ) : (
                             ''
@@ -211,9 +216,20 @@ const RecruitmentDetail: React.FC = () => {
                     </ContentTitleWrapper>
                     <ContentSub>
                         <p>분야 : {data.category}</p>
-                        <p>인원 : {data.people}</p>
+                        <p>인원 : {data.people} 명</p>
+                        <p>댓글 : {commentLength} 개</p>
                     </ContentSub>
-                    <Content>{data.content}</Content>
+                    <Content>
+                        {data.content?.split('\n').map((line: string) => {
+                            //this.props.data.content: 내용
+                            return (
+                                <span>
+                                    {line}
+                                    <br />
+                                </span>
+                            );
+                        })}
+                    </Content>
 
                     {userId == data.uid ? (
                         data.recruitValued ? (
@@ -229,7 +245,7 @@ const RecruitmentDetail: React.FC = () => {
                     <CommentWrapper>
                         {comments ? comments.map((v: any, i: number) => <CommentItem comment={v} i={i} />) : ''}
                         <CommentCreateWrapper>
-                            <CommentName>댓글 쓰기</CommentName>
+                            <CommentInputName>댓글 쓰기</CommentInputName>
                             <CommentInputWrapper>
                                 <form id="comment" onSubmit={handleCreateCommentSubmit}>
                                     <input
@@ -239,10 +255,17 @@ const RecruitmentDetail: React.FC = () => {
                                         disabled
                                         style={{ display: 'none' }}
                                     />
-                                    <textarea
+                                    <input
                                         name="content"
                                         value={commentValue}
-                                        style={{ width: '880px', height: '60px', border: '1px solid gray' }}
+                                        style={{
+                                            width: '880px',
+                                            height: '60px',
+                                            border: '1px solid gray',
+                                            borderRadius: '5px',
+                                            fontSize: '1rem',
+                                            paddingLeft: '10px',
+                                        }}
                                         onChange={(e) => {
                                             setCommentValue(e.target.value);
                                         }}
@@ -250,7 +273,7 @@ const RecruitmentDetail: React.FC = () => {
                                     />
                                 </form>
                                 <CommentBtn type="submit" form="comment">
-                                    작성하기
+                                    작성
                                 </CommentBtn>
                             </CommentInputWrapper>
                         </CommentCreateWrapper>

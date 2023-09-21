@@ -17,6 +17,8 @@ import {
     updateDoc,
     query,
     orderBy,
+    serverTimestamp,
+    FieldValue,
 } from 'firebase/firestore';
 
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
@@ -24,13 +26,13 @@ import { getAuth } from 'firebase/auth';
 import { Snapshot } from 'recoil';
 
 const firebaseConfig = {
-    apiKey: 'AIzaSyDdTBAy3IzoA_tx-3xM8D59o4S1nZzEax4',
-    authDomain: 'wiki-for-fastcampus.firebaseapp.com',
-    projectId: 'wiki-for-fastcampus',
-    storageBucket: 'wiki-for-fastcampus.appspot.com',
-    messagingSenderId: '302754346576',
-    appId: '1:302754346576:web:bfc3d5da1f48f02814c355',
-    measurementId: 'G-MMJ9WKS2VD',
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID,
+    measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
@@ -38,6 +40,7 @@ export const storage = getStorage(app);
 export const firestore: Firestore = getFirestore(app);
 export const auth = getAuth(app);
 export const storeRef = doc(firestore, 'gallery', '레퍼런스 공유');
+import swal from 'sweetalert';
 
 export type DocumentData = { [key: string]: any };
 
@@ -73,7 +76,12 @@ export const createTimelog = async (collectionName: string, userName: string, cu
     const userRef = doc(firestore, collectionName, userName);
     try {
         const pushTimeLog = await updateDoc(userRef, { timelog: arrayUnion(value) });
-        alert(`${value}\n입/퇴실기록이 정상 기록되었습니다!`);
+        // alert(`${value}\n입/퇴실기록이 정상 기록되었습니다!`);
+        swal({
+            title: '정상적으로 기록되었습니다!',
+            text: `${value}`,
+            icon: 'success',
+        });
         console.log(value);
         console.log('입/퇴실기록이 정상 기록되었습니다!');
     } catch (error) {
@@ -93,7 +101,7 @@ export const readUser = async (collectionName: string, userName: string) => {
             }
         }
     } catch (error) {
-        console.error('타임로그 생성 실패!', error);
+        console.error(error);
         throw error;
     }
 };
@@ -132,6 +140,37 @@ export const updateUserImg = async (collectionName: string, userName: string, up
     const userRef = doc(firestore, collectionName, userName);
     try {
         const pushTimeLog = await updateDoc(userRef, { imageURL: value });
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+export interface themeType {
+    navBar: string;
+    sideMenu: string;
+    text: string;
+    activeColor1: string;
+    activeColor2: string;
+    recruitmentBack: string;
+}
+export interface themeBorder {
+    first: string;
+    second: string;
+    third: string;
+    fourth: string;
+}
+export const updateUserTheme = async (
+    collectionName: string,
+    userName: string,
+    updateData: themeType,
+    selecData: themeBorder,
+) => {
+    const theme = updateData;
+    const themeBorder = selecData;
+    const userRef = doc(firestore, collectionName, userName);
+    try {
+        const pushTheme = await updateDoc(userRef, { Theme: theme });
+        const pushThemeBorder = await updateDoc(userRef, { ThemeBorder: themeBorder });
     } catch (error) {
         console.error(error);
         throw error;
@@ -285,12 +324,12 @@ export const getUserName = async (uid: string) => {
     }
 };
 
-export const getUserImageURL = async (uid: string) => {
+export const getUserData = async (uid: string) => {
     const docRef = doc(firestore, 'user', uid);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-        return docSnap.data().imageURL;
+        return docSnap.data();
     } else {
         console.log('No such document!');
     }
@@ -401,12 +440,14 @@ export const updateChannelContent = async (
         // Update the specific field (subChannel) with the new content (docContent)
         const docSnapshot = await getDoc(docRef);
         if (docSnapshot.exists()) {
+            const updated_at_timestamp = serverTimestamp();
             const currentData = docSnapshot.data();
             // Update the nested field
             currentData[subChannel].content = docContent;
+            currentData[subChannel].time = updated_at_timestamp;
             // Update the document with the modified data
             await updateDoc(docRef, currentData);
-            console.log(currentData[subChannel].content);
+            console.log(currentData[subChannel].time);
             console.log('Nested field updated successfully.');
         } else {
             console.error('Document does not exist.');

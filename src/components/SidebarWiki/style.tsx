@@ -1,11 +1,24 @@
-import styled from '@emotion/styled/macro';
+import styled from 'styled-components';
 
 export const AllChannelsWrapper = styled.div`
-    height: 100%;
     min-width: 16.25%;
+    max-width: 16.25%;
     padding-top: 1%;
-    background-color: #3f0e40;
-    color: #ffffffb3;
+    height: calc(100vh - 72px);
+
+    background-color: ${(props) => props.theme.sideMenu};
+    color: ${(props) => props.theme.text};
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #ffffffb3;
+        border-radius: 6px;
+        border: 3px solid transparent;
+    }
 `;
 
 export const ChannelWrapper = styled.div`
@@ -16,8 +29,8 @@ export const DropDownOptions = styled.div`
     background: #ffffff;
     border-radius: 8px;
     position: absolute;
-    top: 10px;
-    left: 95%;
+    top: 90%;
+    left: 55%;
     min-width: 5rem;
     min-width: 40%;
 
@@ -31,8 +44,8 @@ export const SubDropDownOptions = styled.div`
     background: #ffffff;
     border-radius: 8px;
     position: absolute;
-    top: 10px;
-    left: 95%;
+    top: 90%;
+    left: 55%;
     min-width: 40%;
     display: block;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
@@ -41,7 +54,7 @@ export const SubDropDownOptions = styled.div`
 `;
 
 export const MoreHorizIconWrapper = styled.div`
-    background-color: #4d2a51;
+    background-color: ${(props) => props.theme.pointItem};
     padding: 1px;
     border-radius: 50%;
     display: flex;
@@ -63,19 +76,18 @@ export const SubChannelFlexDiv = styled.div`
     align-items: center;
     position: relative;
     font-size: 1.15rem;
-
     &:hover {
-        background-color: #4d2a51;
+        background-color: ${(props) => props.theme.pointItem};
         cursor: pointer;
         & ${MoreHorizIconWrapper} {
-            background-color: #3f0e40;
-            color: #ffffffb3;
+            background-color: ${(props) => props.theme.sideMenu};
+            color: ${(props) => props.theme.text};
         }
     }
 `;
 
 export const ChannelHr = styled.hr`
-    border: solid 1px #4d2a51;
+    border: solid 1px ${(props) => props.theme.pointItem};
 `;
 
 export const CreateChannelDiv = styled.div`
@@ -84,7 +96,7 @@ export const CreateChannelDiv = styled.div`
     padding: 5px 0px 5px 10%;
 
     &:hover {
-        background-color: #4d2a51;
+        background-color: ${(props) => props.theme.pointItem};
         cursor: pointer;
     }
 `;
@@ -98,7 +110,7 @@ export const OptionButton = styled.button`
     background-color: #ffffff;
 
     &:hover {
-        background-color: #1164a3;
+        background-color: ${(props) => props.theme.activeColor1};
         cursor: pointer;
         color: #ffffff;
     }
@@ -107,10 +119,16 @@ export const OptionButton = styled.button`
 export const ChannelDiv = styled.div`
     font-size: 1.4rem;
     font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 `;
 
 export const SubChannelDiv = styled.div`
     font-size: 1.15rem;
     font-weight: bold;
     padding: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 `;

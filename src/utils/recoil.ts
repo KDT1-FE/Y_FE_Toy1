@@ -1,3 +1,4 @@
+import { Timestamp } from 'firebase/firestore';
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
@@ -67,4 +68,21 @@ export const UserImg = atom({
 export const Render = atom({
     key: 'Render',
     default: true,
+});
+export const ThemeChange = atom({
+    key: 'ThemeChange',
+    default: {},
+});
+export const Current = atom({
+    key: 'Current',
+    default: '',
+});
+export const ThemeRing = atom({
+    key: 'ThemeRing',
+    default: {
+        first: '1px solid black',
+        second: '1px solid black',
+        third: '1px solid black',
+        fourth: '1px solid black',
+    },
 });

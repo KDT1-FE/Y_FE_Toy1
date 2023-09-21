@@ -4,13 +4,15 @@ import { useRecoilState } from 'recoil';
 import { TimerOn } from '../../../utils/recoil';
 import TimerIcon from '@mui/icons-material/Timer';
 import BookIcon from '@mui/icons-material/Book';
+import { ChangeTimelog, ChangeTimer } from './commuteStyle';
 
 interface OwnProps {
-    handleTimerModal(): void;
-    handleReadModal(): void;
+    handleTimerModal(number: number): void;
+    handleReadModal(number: number): void;
+    showModal: boolean;
 }
 
-const MyPageTimelog: React.FC<OwnProps> = ({ handleTimerModal, handleReadModal }) => {
+const MyPageTimelog: React.FC<OwnProps> = ({ handleTimerModal, handleReadModal, showModal }) => {
     const [timerOn, setTimerOn] = useRecoilState(TimerOn);
 
     return (
@@ -19,11 +21,25 @@ const MyPageTimelog: React.FC<OwnProps> = ({ handleTimerModal, handleReadModal }
                 <FlexBoxColumn>
                     <MarginLeft>Commute</MarginLeft>
                 </FlexBoxColumn>
-                <RedCircle value={timerOn}>·</RedCircle>
+                <RedCircle value={timerOn}></RedCircle>
             </FlexBox>
             <FlexBox>
-                <TimerIcon onClick={handleTimerModal} style={{ cursor: 'pointer' }}></TimerIcon>
-                <BookIcon onClick={handleReadModal} style={{ cursor: 'pointer' }}></BookIcon>
+                <ChangeTimer value={showModal}>
+                    <TimerIcon
+                        onClick={() => {
+                            handleTimerModal(1);
+                        }}
+                        style={{ cursor: 'pointer' }}
+                    ></TimerIcon>
+                </ChangeTimer>
+                <ChangeTimelog value={showModal}>
+                    <BookIcon
+                        onClick={() => {
+                            handleReadModal(0);
+                        }}
+                        style={{ cursor: 'pointer' }}
+                    ></BookIcon>
+                </ChangeTimelog>
             </FlexBox>
         </MyPageContents>
     );

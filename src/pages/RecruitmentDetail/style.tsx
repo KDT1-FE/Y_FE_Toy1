@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 
 export const RecruitmentDetailContainer = styled.div`
     display: flex;
@@ -7,7 +7,7 @@ export const RecruitmentDetailContainer = styled.div`
     width: 100vw;
 
     overflow: auto;
-    background-color: var(--mention-badge);
+    background-color: ${(props) => props.theme.recruitmentBack};
 
     position: relative;
 `;
@@ -27,6 +27,9 @@ export const ContentWrapper = styled.div`
     width: 95%;
     min-height: 500px;
     height: auto;
+
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
 
     position: relative;
 `;
@@ -53,6 +56,7 @@ export const ContentHeaderName = styled.div`
 export const Content = styled.div`
     padding: 20px;
     width: 100%;
+    word-break: break-all;
 `;
 
 export const ContentUserImage = styled.img`
@@ -66,13 +70,13 @@ export const ContentUserImage = styled.img`
 `;
 
 export const ContentHeaderValuedTrue = styled.div`
-    margin-right: 20px;
+    margin-right: 25px;
     padding: 4px 10px;
 
     font-size: 1rem;
 
     color: white;
-    background-color: var(--active-current-status);
+    background-color: ${(props) => props.theme.activeColor2};
 
     border-radius: 15px;
 `;
@@ -106,7 +110,7 @@ export const ContentTitleWrapper = styled.div`
 
 export const ContentSub = styled.div`
     width: 100%;
-    height: 70px;
+    height: 100px;
 
     padding-left: 20px;
 
@@ -124,6 +128,9 @@ export const CommentWrapper = styled.div`
 
     background-color: white;
 
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+
     margin: 20px auto;
     padding: 20px 0;
 `;
@@ -133,7 +140,6 @@ export const CommentItemWrapper = styled.div`
     height: 100px;
 
     padding: 20px;
-    margin-bottom: 20px;
 
     display: flex;
     flex-direction: column;
@@ -144,10 +150,31 @@ export const CommentItemWrapper = styled.div`
     position: relative;
 `;
 
-export const CommentName = styled.div`
+export const CommentHeader = styled.div`
+    position: relative;
+`;
+
+export const CommentUserImage = styled.img`
+    width: 25px;
+    height: 25px;
+    border-radius: 20px;
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+`;
+
+export const CommentName = styled.p`
     font-size: 1rem;
     font-weight: 500;
-    margin-bottom: 10px;
+    margin-left: 35px;
+    margin-top: 2px;
+`;
+
+export const CommentInputName = styled.p`
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 4px;
 `;
 
 export const CommentForm = styled.form`
@@ -159,12 +186,15 @@ export const CommentForm = styled.form`
 
 export const CommentContent = styled.input`
     font-size: 1.2rem;
+    margin-top: 5px;
+
     background-color: white;
     border: none;
 `;
 
 export const CommentTime = styled.input`
     font-size: 0.8rem;
+    margin-left: 2px;
 
     background-color: white;
     border: none;
@@ -185,43 +215,34 @@ export const BtnWrapper = styled.div`
 
 export const Btn = styled.button`
     margin-right: 10px;
-    padding: 3px 6px;
+    padding: 5px 16px;
 
-    background-color: #ffffff;
-    color: black;
-
-    height: 30px;
-    width: 70px;
+    background-color: #fff;
+    border: 1px solid #efefef;
+    box-shadow: 1px 1px rgba(0, 0, 0, 0.4);
 
     font-size: 0.8rem;
-    font-weight: bold;
 
-    border: 1px solid gray;
-    border-radius: 8px;
-    border: 0.5px solid black;
+    border-radius: 5px;
 
     &:hover {
+        background-color: #f0f0f0;
         cursor: pointer;
-        background-color: #efefef;
     }
 `;
 
 export const RecruitmentEndBtn = styled.button`
-    margin-right: 10px;
-    padding: 3px 6px;
+    margin-left: 10px;
+    padding: 8px 24px;
 
-    background-color: #ffffff;
-    color: black;
+    background-color: #fff;
+    border: 1px solid #efefef;
+    box-shadow: 1px 1px rgba(0, 0, 0, 0.4);
 
-    height: 35px;
-    width: 80px;
-
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: bold;
 
-    border: 1px solid gray;
-    border-radius: 8px;
-    border: 0.5px solid black;
+    border-radius: 5px;
 
     position: absolute;
     bottom: 20px;
@@ -229,23 +250,19 @@ export const RecruitmentEndBtn = styled.button`
     transform: translate(-50%, 0);
 
     &:hover {
+        background-color: #f0f0f0;
         cursor: pointer;
-        background-color: #efefef;
     }
-`;
-
-export const CommentNameInput = styled.input`
-    font-size: 1rem;
-    font-weight: 500;
 `;
 
 export const CommentCreateWrapper = styled.div`
     width: 98%;
 
     margin: 0 auto;
+    margin-top: 20px;
     padding: 20px;
 
-    border-radius: 20px;
+    border-radius: 10px;
     border: 1px solid gray;
 
     display: flex;
@@ -259,120 +276,16 @@ export const CommentInputWrapper = styled.div`
 
 export const CommentBtn = styled.button`
     margin-left: 20px;
+    width: 100px;
     height: 60px;
-`;
-// DeleteModal
 
-export const DeleteModalContainer = styled.div`
-    position: absolute;
-    margin-top: -72px;
-
-    width: 100vw;
-    height: 100vh;
-
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 2;
-`;
-
-export const DeleteModalWrapper = styled.div`
-    width: 500px;
-    height: 350px;
-
-    padding: 20px;
-
-    background-color: white;
-
-    z-index: 3;
-
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -70%);
-
-    border-radius: 20px;
-`;
-
-export const DeleteModal = styled.div`
-    position: relative;
-    width: 100%;
-    height: 100%;
-`;
-
-export const DeleteModalTitle = styled.div`
-    font-weight: bold;
-    font-size: 1.7rem;
-`;
-
-export const DeleteCloseButton = styled.button`
-    font-size: 1.5rem;
-    padding: 0 10px;
-
-    border: none;
+    background-color: #fff;
+    border: 1px solid #efefef;
     border-radius: 5px;
-    background-color: #ffffff;
+    box-shadow: 1px 1px rgba(0, 0, 0, 0.4);
 
-    margin-right: 10px;
-
-    position: absolute;
-    top: 0;
-    right: 0;
     &:hover {
         background-color: #f0f0f0;
-        cursor: pointer;
-    }
-`;
-
-export const DeleteText = styled.div`
-    width: 100%;
-    height: 150px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 1.3rem;
-`;
-
-export const DeleteFallbackButton = styled.button`
-    background-color: #ffffff;
-    color: black;
-
-    height: 40px;
-    width: 80px;
-
-    font-size: 1.2rem;
-    font-weight: bold;
-
-    border: 1px solid gray;
-    border-radius: 5px;
-    border: 0.5px solid black;
-
-    margin-top: 1rem;
-    margin-left: 1rem;
-
-    &:hover {
-        cursor: pointer;
-    }
-`;
-
-export const DeleteCreateButton = styled.button`
-    background-color: #2bac76;
-    color: #ffffff;
-
-    height: 40px;
-    width: 80px;
-
-    font-size: 1.2rem;
-    font-weight: bold;
-
-    border: 1px solid gray;
-    border-radius: 5px;
-    border: none;
-
-    margin-top: 1rem;
-    margin-left: 30%;
-
-    &:hover {
         cursor: pointer;
     }
 `;

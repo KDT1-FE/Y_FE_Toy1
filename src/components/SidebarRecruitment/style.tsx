@@ -1,11 +1,13 @@
-import styled from '@emotion/styled/macro';
+import styled from 'styled-components';
 
 export const AllChannelsWrapper = styled.div`
-    height: 100%;
+    height: calc(100vh - 72px);
+
     min-width: 16.25%;
+    max-width: 16.25%;
     padding-top: 1%;
-    background-color: #3f0e40;
-    color: #ffffffb3;
+    background-color: ${(props) => props.theme.sideMenu};
+    color: ${(props) => props.theme.text};
 `;
 
 export const ChannelWrapper = styled.div`
@@ -27,11 +29,11 @@ export const SubChannelDiv = styled.div`
     position: relative;
     padding: 5px;
     &:hover {
-        background-color: #4d2a51;
+        background-color: ${(props) => props.theme.pointItem};
         cursor: pointer;
     }
 `;
 
 export const ChannelHr = styled.hr`
-    border: solid 1px #4d2a51;
+    border: solid 1px ${(props) => props.theme.pointItem};
 `;

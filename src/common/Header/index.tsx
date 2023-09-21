@@ -1,16 +1,24 @@
 import React, { useEffect } from 'react';
-import { HeaderComponent, TitleAnchor, AnchorContainer, ListAnchor, RightAnchorContainer } from './style';
+import {
+    HeaderComponent,
+    TitleAnchor,
+    AnchorContainer,
+    ListAnchor,
+    RightAnchorContainer,
+    LogoutButton,
+    LoginButton,
+} from './style';
 import { useRecoilState } from 'recoil';
-import { UserId, TimeLog, TimerOn } from '../../utils/recoil';
+import { UserId, TimeLog, TimerOn, ThemeChange } from '../../utils/recoil';
 import { useNavigate, useLocation } from 'react-router-dom';
-import CommuteBtn from '../../components/modal/Timer/CommuteBtn';
-import { createTimelog } from '../../utils/firebase';
+import { createTimelog, readUser } from '../../utils/firebase';
 import { CreateDay, CreateTime } from '../../components/modal/Hooks/WhatTime';
 import MyPageBtn from '../../components/modal/MyPage/MyPageBtn';
+import swal from 'sweetalert';
+import { RedCircle } from '../../components/modal/MyPage/style';
 
 const Header: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
-
     const navigate = useNavigate();
     const { pathname } = useLocation();
 
@@ -21,6 +29,8 @@ const Header: React.FC = () => {
 
     const [timerOn, setTimerOn] = useRecoilState<boolean>(TimerOn);
     const [timeLog, setTimeLog] = useRecoilState(TimeLog);
+    const [theme, setTheme] = useRecoilState(ThemeChange);
+
     // 페이지 전환 시 세션 스토리지에서 타임로그 현재 상태 받아오기
 
     useEffect(() => {
@@ -47,36 +57,54 @@ const Header: React.FC = () => {
             sessionStorage.setItem('timelog', timeLog);
         }
     }, [timeLog]);
+    const logOutTimeCheck = () => {
+        if (timerOn && timeLog !== '') {
+            setTimeLog(timeLog + ' ' + ' ' + '-' + ' ' + ' ' + '퇴실' + ' ' + ' ' + CreateTime());
+            setTimerOn(false);
+        }
+        // 타임로그 기록 전 아이디 정보가 사라지는 것을 막기위해 setTimeout처리
+        setTimeout(() => {
+            logOutHandler();
+        }, 100);
+    };
 
     return (
         <HeaderComponent>
-            <TitleAnchor href="/">wiki for fastcampus</TitleAnchor>
+            <TitleAnchor href="/">FASTUDY</TitleAnchor>
             <AnchorContainer>
                 <RightAnchorContainer>
-                    <ListAnchor href="/wiki">wiki</ListAnchor>
-                    <ListAnchor href="/recruitment">recruitment</ListAnchor>
-                    <ListAnchor href="/gallery">gallery</ListAnchor>
+                    <ListAnchor href="/wiki">위키</ListAnchor>
+                    <ListAnchor href="/recruitment">모집</ListAnchor>
+                    <ListAnchor href="/gallery">갤러리</ListAnchor>
                     {userId.length > 0 ? (
-                        <button
+                        <LogoutButton
                             onClick={() => {
-                                if (timerOn && timeLog !== '') {
-                                    setTimeLog(
-                                        timeLog + ' ' + ' ' + '-' + ' ' + ' ' + '퇴실' + ' ' + ' ' + CreateTime(),
-                                    );
-                                    setTimerOn(false);
-                                }
-                                // 타임로그 기록 전 아이디 정보가 사라지는 것을 막기위해 setTimeout처리
-                                setTimeout(() => {
-                                    logOutHandler();
-                                }, 100);
+                                swal({
+                                    title: '로그아웃 하시겠습니까?',
+                                    icon: 'warning',
+                                    buttons: ['취소', '로그아웃'],
+                                }).then((yes) => {
+                                    if (yes) {
+                                        if (timerOn) {
+                                            logOutTimeCheck();
+                                        } else {
+                                            logOutHandler();
+                                        }
+                                    }
+                                });
                             }}
                         >
                             LogOut
-                        </button>
+                        </LogoutButton>
                     ) : (
-                        <ListAnchor href={'/LogIn'}>LogIn</ListAnchor>
+                        <ListAnchor href={'/LogIn'}>
+                            <LoginButton>LogIn</LoginButton>
+                        </ListAnchor>
                     )}
                     {userId.length > 0 && <MyPageBtn />}
+                    {timerOn && (
+                        <RedCircle value={timerOn} style={{ position: 'fixed', top: '8px', right: '8px' }}></RedCircle>
+                    )}
                 </RightAnchorContainer>
             </AnchorContainer>
         </HeaderComponent>

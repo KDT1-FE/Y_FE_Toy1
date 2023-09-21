@@ -1,30 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { UserId } from '../../utils/recoil';
-import {
-    PostContainer,
-    RecruitmentPostContainer,
-    PostForm,
-    PostBox,
-    PostName,
-    PostBtn,
-    PostH,
-    PostTextarea,
-} from './style';
+import { PostContainer, RecruitmentPostContainer, PostForm, PostBox, PostBtn, PostH, PostTextarea } from './style';
 import { createRecruitment } from '../../utils/firebase';
 import { useNavigate } from 'react-router-dom';
 import { serverTimestamp } from 'firebase/firestore';
-import { getUserName } from '../../utils/firebase';
+import { getUserData } from '../../utils/firebase';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import TextField from '@mui/material/TextField';
+import swal from 'sweetalert';
 
 const RecruitmentPost: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
     const [categoryToggle, setCategoryToggle] = useState(true);
-    const [userName, setUserName] = useState('');
+    const [userData, setUserData] = useState<any>({});
     const [peopleValue, setPeopleValue] = useState(1);
+    const [categoryViewToggle, setCategoryViewToggle] = useState(false);
 
     const min = 1;
     const max = 50;
@@ -33,12 +26,18 @@ const RecruitmentPost: React.FC = () => {
 
     useEffect(() => {
         if (!userId) {
+            swal({
+                title: '글을 작성하실 수 없습니다.',
+                text: '로그인 후 사용해주세요 !',
+                icon: 'warning',
+                // buttons: true,
+                // dangerMode: true,
+            });
             navigate('/recruitment');
         }
-
-        getUserName(userId)
+        getUserData(userId)
             .then((result) => {
-                setUserName(result);
+                setUserData(result);
             })
             .catch((error) => {
                 // 에러 핸들링
@@ -48,7 +47,6 @@ const RecruitmentPost: React.FC = () => {
 
     const handleCreateRecruitment = (e: any) => {
         e.preventDefault();
-
         if (
             e.target &&
             e.target.content &&
@@ -62,31 +60,55 @@ const RecruitmentPost: React.FC = () => {
             e.target.recruitmentType &&
             e.target.recruitmentType.value
         ) {
-            // const date = new Date().getTime();
-            // console.log(date);
-            const updated_at_timestamp = serverTimestamp();
+            swal({
+                title: '글을 작성하시겠습니까?',
+                text: '작성 후 수정 삭제를 자유롭게 하실 수 있습니다.',
+                icon: 'info',
+                buttons: ['취소', '작성'],
+            }).then((willDelete) => {
+                if (willDelete) {
+                    swal('글을 성공적으로 작성하였습니다.', {
+                        icon: 'success',
+                    });
 
-            const value = {
-                uid: userId,
-                name: userName,
-                category: e.target.category.value,
-                title: e.target.title.value,
-                content: e.target.content.value,
-                people: Number(e.target.people.value),
-                recruitValued: true,
-                comment: [],
-                time: updated_at_timestamp,
-            };
-            console.log(value);
+                    // const date = new Date().getTime();
+                    // console.log(date);
+                    const updated_at_timestamp = serverTimestamp();
 
-            console.log(e.target.recruitmentType.value);
-            createRecruitment(e.target.recruitmentType.value, value);
-            navigate('/recruitment');
+                    const value = {
+                        uid: userId,
+                        name: userData.name,
+                        imageURL: userData.imageURL,
+                        category: e.target.category.value,
+                        title: e.target.title.value,
+                        content: e.target.content.value,
+                        people: Number(e.target.people.value),
+                        recruitValued: true,
+                        comment: [],
+                        time: updated_at_timestamp,
+                        editValued: false,
+                        editTime: updated_at_timestamp,
+                    };
+                    console.log(value);
+
+                    console.log(e.target.recruitmentType.value);
+                    createRecruitment(e.target.recruitmentType.value, value);
+
+                    navigate('/recruitment');
+                } else {
+                    swal('글 작성이 취소되었습니다.');
+                }
+            });
+        } else {
+            swal({ title: '빈 공간 없이 입력해주세요', text: '부탁드립니다..', icon: 'warning' });
         }
     };
 
     const handleCategory = (e: any) => {
         e.preventDefault();
+        if (!categoryViewToggle) {
+            setCategoryViewToggle(true);
+        }
         if (e.target.value == 'study') {
             setCategoryToggle(true);
         } else {
@@ -100,40 +122,64 @@ const RecruitmentPost: React.FC = () => {
                 <PostForm action="submit" onSubmit={handleCreateRecruitment}>
                     <PostBox>
                         <PostH>분야</PostH>
+                        {categoryViewToggle ? (
+                            <Select
+                                labelId="bigCategory"
+                                name="recruitmentType"
+                                onChange={handleCategory}
+                                style={{ width: '150px', height: '40px' }}
+                                disabled
+                            >
+                                <InputLabel id="bigCategory">대분류</InputLabel>
 
-                        <Select
-                            labelId="bigCategory"
-                            label="Age"
-                            name="recruitmentType"
-                            onChange={handleCategory}
-                            style={{ width: '150px' }}
-                        >
-                            <InputLabel id="bigCategory">대분류</InputLabel>
-
-                            <MenuItem value="project">프로젝트</MenuItem>
-                            <MenuItem value="study">스터디</MenuItem>
-                        </Select>
-                        {categoryToggle ? (
-                            <Select labelId="category" name="category" style={{ marginLeft: '10px', width: '150px' }}>
-                                <InputLabel id="category">분류</InputLabel>
-                                <MenuItem value="codingTest">코딩테스트</MenuItem>
-                                <MenuItem value="CS">CS</MenuItem>
-                                <MenuItem value="interview">면접</MenuItem>
-                                <MenuItem value="algorithm">알고리즘</MenuItem>
+                                <MenuItem value="project">프로젝트</MenuItem>
+                                <MenuItem value="study">스터디</MenuItem>
                             </Select>
                         ) : (
-                            <Select labelId="category" name="category" style={{ marginLeft: '10px', width: '150px' }}>
-                                <InputLabel id="category">분류</InputLabel>
-                                <MenuItem value="toyProject">토이프로젝트</MenuItem>
-                                <MenuItem value="corporateProject">연계프로젝트</MenuItem>
+                            <Select
+                                labelId="bigCategory"
+                                name="recruitmentType"
+                                onChange={handleCategory}
+                                style={{ width: '150px', height: '40px' }}
+                            >
+                                <InputLabel id="bigCategory">대분류</InputLabel>
+
+                                <MenuItem value="project">프로젝트</MenuItem>
+                                <MenuItem value="study">스터디</MenuItem>
                             </Select>
+                        )}
+                        {categoryViewToggle ? (
+                            categoryToggle ? (
+                                <Select
+                                    labelId="category"
+                                    name="category"
+                                    style={{ marginLeft: '10px', width: '150px', height: '40px' }}
+                                >
+                                    <InputLabel id="category">분류</InputLabel>
+                                    <MenuItem value="코딩테스트">코딩테스트</MenuItem>
+                                    <MenuItem value="CS">CS</MenuItem>
+                                    <MenuItem value="면접">면접</MenuItem>
+                                    <MenuItem value="알고리즘">알고리즘</MenuItem>
+                                </Select>
+                            ) : (
+                                <Select
+                                    labelId="category"
+                                    name="category"
+                                    style={{ marginLeft: '10px', width: '150px', height: '40px' }}
+                                >
+                                    <InputLabel id="category">분류</InputLabel>
+                                    <MenuItem value="토이 프로젝트">토이 프로젝트</MenuItem>
+                                    <MenuItem value="연계 프로젝트">연계 프로젝트</MenuItem>
+                                </Select>
+                            )
+                        ) : (
+                            ''
                         )}
                     </PostBox>
                     <PostBox>
-                        <PostH>모집 인원(최대 50명)</PostH>
+                        <PostH>모집 인원</PostH>
                         <TextField
                             id="standard-basic"
-                            label="모집 인원"
                             variant="standard"
                             type="number"
                             name="people"
@@ -148,28 +194,25 @@ const RecruitmentPost: React.FC = () => {
 
                                 setPeopleValue(peopleValue);
                             }}
-                            style={{ width: '150px' }}
+                            helperText="최대 50명"
+                            style={{ width: '150px', marginTop: '10px' }}
                         />
                     </PostBox>
-                    <PostName>{userName}</PostName>
                     <PostBox>
                         <PostH>제목</PostH>
                         <TextField
                             id="standard-basic"
-                            label="제목"
                             variant="standard"
                             type="text"
                             name="title"
                             placeholder="글 제목"
-                            style={{ width: '100%', fontSize: '1.5rem' }}
+                            helperText="제목을 30자 내로 작성해주세요"
+                            inputProps={{ maxLength: 20 }}
+                            style={{ width: '100%', fontSize: '1.5rem', marginTop: '10px' }}
                         />
                     </PostBox>
                     <PostBox>
-                        <PostTextarea
-                            name="content"
-                            placeholder="내용을 입력해주세요."
-                            style={{ width: '100%', minHeight: '500px' }}
-                        />
+                        <PostTextarea name="content" placeholder="내용을 입력해주세요." />
                     </PostBox>
 
                     <PostBtn type="submit">작성완료</PostBtn>

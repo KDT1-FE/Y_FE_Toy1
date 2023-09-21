@@ -1,37 +1,20 @@
 import styled from 'styled-components';
 
-export const ModalBtnBox = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
-
-export const HeaderModalBtn = styled.div`
-    font-weight: 500;
-    font-size: 24px;
-    color: var(--text);
-    cursor: pointer;
-`;
-
 export const Modal = styled.div`
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 720px;
-    height: 520px;
-    background-color: #fff;
+    width: 620px;
+    height: 400px;
+    background-color: #fafafa;
     border-radius: 20px;
     box-shadow: 0 5px 5px 2px #7e7e7e;
     overflow: hidden;
 `;
-export const TimerModal = styled(Modal)`
-    width: 680px;
-    height: 480px;
-`;
 
 export const ModalWall = styled.div`
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
@@ -41,10 +24,10 @@ export const ModalWall = styled.div`
 `;
 
 export const CloseBtn = styled.button`
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     position: absolute;
-    font-size: 20px;
+    font-size: 18px;
     top: 10px;
     right: 10px;
     -webkit-appearance: none;
@@ -52,6 +35,7 @@ export const CloseBtn = styled.button`
     appearance: none;
     font-weight: 700;
     border-radius: 25px;
+    cursor: pointer;
     transition: 0.5s all;
     &:hover {
         background-color: #c9c9c9;
@@ -59,7 +43,7 @@ export const CloseBtn = styled.button`
 `;
 
 export const ModalHeader = styled.div`
-    background-color: var(--navigation-background);
+    background-color: ${(props) => props.theme.navBar};
     width: 100%;
     height: 80px;
     font-size: 28px;
@@ -70,52 +54,12 @@ export const ModalHeader = styled.div`
     color: #fff;
 `;
 
-export const Utils = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 8px;
-`;
-
 export const Dday = styled.span`
     display: flex;
     align-items: center;
     justify-content: center;
     color: #000;
     font-weight: 600;
-`;
-
-export const ShowOn = styled.div<{ value: boolean }>`
-    visibility: ${(value) => (value.value ? 'visible' : 'hidden')};
-    width: 60px;
-    height: 40px;
-    color: #fff;
-    background-color: #ca1212;
-    border-radius: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 18px;
-`;
-
-export const Timebox = styled.div`
-    width: 100%;
-    height: 45%;
-    color: #000;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 0 130px;
-    & > p {
-        display: block;
-        font-size: 20px;
-        margin-left: 2px;
-    }
-`;
-export const Now = styled.span`
-    font-size: 80px;
-    font-weight: 700;
 `;
 
 export const BtnBox = styled.div`
@@ -130,25 +74,11 @@ export const BtnClassic = styled.button`
     -moz-appearance: none;
     appearance: none;
     width: 120px;
-    height: 72px;
+    height: 62px;
     border: none;
     border-radius: 20px;
     font-size: 24px;
     font-weight: 700;
     box-shadow: 0 3px 3px 1px #ced0d3;
     cursor: pointer;
-`;
-
-export const OnBtn = styled(BtnClassic)<{ value: boolean }>`
-    margin-top: 2%;
-    color: ${(value) => (value.value ? '#000' : '#fff')};
-    background-color: ${(value) => (value.value ? '#ece7ec' : 'var(--active-current-status)')};
-    box-shadow: ${(value) => (value.value ? '0 3px 3px 1px #ced0d3 inset' : '0 3px 3px 1px #ced0d3')};
-`;
-export const OffBtn = styled(BtnClassic)<{ value: boolean }>`
-    margin-top: 2%;
-
-    color: ${(value) => (value.value ? '#fff' : '#000')};
-    background-color: ${(value) => (value.value ? 'var(--active-current-status)' : '#ece7ec')};
-    box-shadow: ${(value) => (value.value ? '0 3px 3px 1px #ced0d3' : '0 3px 3px 1px #ced0d3 inset')};
 `;

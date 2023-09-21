@@ -1,4 +1,6 @@
 import styled, { keyframes } from 'styled-components';
+import bin from '../../common/Gallery/bin.png';
+import upload from '../../common/Gallery/icons8-upload-64.png';
 
 //갤러리 전체
 export const GalleryContainer = styled.div`
@@ -11,10 +13,13 @@ export const GalleryContainer = styled.div`
 
 // 컨텐츠 영역
 export const ProfileContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
+    padding: 3%;
+    background-color: ${(props) => props.theme.recruitmentBack};
 `;
 
 export const RecruitConstainer = styled.div`
@@ -26,17 +31,16 @@ export const ContentContainer = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
+    background-color: ${(props) => props.theme.recruitmentBack};
 `;
 
 export const ArticleContainer = styled.div`
-    --paddingTop: 1%;
     overflow-y: auto;
-    height: calc(100vh - var(--paddingTop));
-    padding-left: 8%;
-    padding-top: var(--paddingTop);
-    padding-right: 8%;
-    padding-bottom: 8%;
+    height: calc(100vh - 72px);
     box-sizing: border-box;
+    display: flex;
+    align-content: center;
+    justify-content: center;
 `;
 
 export const ContentFirstLine = styled.div`
@@ -48,29 +52,37 @@ export const ContentFirstLine = styled.div`
 `;
 
 export const UploadBtn = styled.button`
-    width: 100px;
-    height: 50px;
+    position: fixed;
+    right: 20px;
+    bottom: 40px;
+    font-size: 60px;
+    width: 150px;
+    height: 150px;
     border-radius: 10px;
     font-size: 26px;
     padding: 10px;
     box-sizing: border-box;
     border: none;
-    background-color: var(--active-current-status);
+    background-color: ${(props) => props.theme.activeColor1};
     color: white;
     cursor: pointer;
+    background-color: transparent;
+    background-image: url(${upload});
+    background-position: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
     &:hover {
-        font-weight: bold;
-        filter: brightness(110%);
+        filter: brightness(90%);
     }
 `;
 
 export const UploadBtnWrapper = styled.div`
     display: flex;
     justify-content: flex-end;
-    padding-top: 1.8%;
-    padding-bottom: 1.8%;
+    padding-top: 1%;
     padding-right: 8%;
     background-color: transparent;
+    z-index: 1;
 `;
 // 아티클 영역
 const jumpShaking = keyframes`
@@ -84,34 +96,34 @@ const jumpShaking = keyframes`
 `;
 
 export const TrashCan = styled.div`
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     position: fixed;
     right: 20px;
-    bottom: 20px;
+    bottom: 40px;
     font-size: 60px;
+    background-image: url(${bin});
+    background-size: cover;
     animation: ${jumpShaking} 2s ease-in-out infinite;
-    z-index: 2;
+    z-index: -1;
 `;
 
 export const ImgContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+    align-items: flex-start;
     padding: 10px;
 `;
 
 export const StyleProfile = styled.div`
-    --paddingTop: 8%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-content: flex-start;
     flex-wrap: wrap;
     height: calc(100vh - 72px);
-    gap: 40px;
-    padding-top: var(--paddingTop);
-    padding-left: 8%;
-    padding-right: 8%;
-    padding-bottom: 8%;
+    gap: 98px;
+    width: 1100px;
     overflow-y: auto;
 `;
 
@@ -122,12 +134,13 @@ export const ProfileWrapper = styled.div`
     height: 250px;
     text-align: center;
     border-radius: 10px;
+    background-color: #fff;
     box-shadow: 2px 2px 1px 2px rgba(0, 0, 0, 0.3);
 `;
 export const ProfileIMG = styled.img`
     width: 200px;
     height: 200px;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
 `;
 export const ProfileName = styled.div`
     text-align: center;
@@ -136,8 +149,8 @@ export const ProfileName = styled.div`
 `;
 // 모달
 export const ModalContainer = styled.div`
-    width: 45%;
-    height: 55%;
+    width: 650px;
+    height: 420px;
     z-index: 999;
     position: fixed;
     top: 50%;
@@ -175,15 +188,14 @@ export const ModalLabel = styled.label`
 
 export const ModalTextarea = styled.textarea`
     width: 100%;
-    height: 190%;
     font-size: 16px;
     resize: none;
     border: 2px solid rgb(118, 118, 118);
     border-radius: 5px;
     &:focus {
         outline: none;
-        border: 1px solid var(--mention-badge);
-        box-shadow: 0px 1px 6px var(--active-item);
+        border: 1px solid ${(props) => props.theme.recruitmentBack};
+        box-shadow: 0px 1px 6px ${(props) => props.theme.navBar};
     }
 `;
 
@@ -214,8 +226,8 @@ export const LinkInput = styled.input`
     font-size: 16px;
     &:focus {
         outline: none;
-        border: 1px solid var(--mention-badge);
-        box-shadow: 0px 1px 6px var(--active-item);
+        border: 1px solid ${(props) => props.theme.recruitmentBack};
+        box-shadow: 0px 1px 6px ${(props) => props.theme.navBar};
     }
 `;
 
@@ -239,11 +251,13 @@ export const Description = styled.div`
     font-size: 20px;
     opacity: 0; /* 설명을 숨깁니다. */
     transition: opacity 0.3s ease-in-out;
+    overflow: hidden;
 `;
 
-export const ChildArticle = styled.div`
+export const ChildArticle = styled.li`
     display: flex;
     align-items: flex-start;
+    padding-bottom: 5%;
     &:hover ${Description} {
         opacity: 1;
     }
@@ -273,7 +287,7 @@ export const PlaceHolder = styled.div`
     height: 200px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
-    background-color: var(--mention-badge);
+    background-color: ${(props) => props.theme.recruitmentBack};
 `;
 
 export const SubmitBtn = styled.button`
@@ -285,12 +299,11 @@ export const SubmitBtn = styled.button`
     vertical-align: middle;
     margin: 25px;
     border: none;
-    background-color: var(--active-current-status);
+    background-color: ${(props) => props.theme.activeColor1};
     color: white;
     cursor: pointer;
     font-size: 20px;
     &:hover {
-        font-weight: bold;
         filter: brightness(110%);
     }
 `;
@@ -308,7 +321,6 @@ export const CancelBtn = styled.button`
     margin: 25px;
     cursor: pointer;
     &:hover {
-        font-weight: bold;
         filter: brightness(90%);
     }
 `;
@@ -316,5 +328,5 @@ export const CancelBtn = styled.button`
 export const BtnAlign = styled.div`
     display: flex;
     justify-content: center;
-    margin-top: 40px;
+    margin-top: 20px;
 `;

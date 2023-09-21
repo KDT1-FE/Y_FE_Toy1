@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs, doc, onSnapshot } from 'firebase/firestore';
+import { collection, getDocs, doc, onSnapshot, DocumentData } from 'firebase/firestore';
 import { firestore } from '../../utils/firebase'; // Firebase firestore 객체 가져오기
-import { ContentFirstLine, ProfileContainer, ProfileIMG, ProfileName, ProfileWrapper, StyleProfile } from './style';
+import { ProfileContainer, ProfileIMG, ProfileName, ProfileWrapper, StyleProfile } from './style';
+
+// Firebase Firestore에서 반환되는 사용자 데이터의 타입 정의
+interface UserData {
+    id: string;
+    name: string;
+    imgURL: string;
+}
 
 const Profile: React.FC = () => {
-    const [users, setUsers] = useState<any[]>([]);
+    const [users, setUsers] = useState<UserData[]>([]);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -18,10 +25,10 @@ const Profile: React.FC = () => {
             // 각 문서에 대한 실시간 변경 사항을 추적
             const unsubscribes = documentIds.map((documentId) => {
                 const userDoc = doc(firestore, 'user', documentId);
-                return onSnapshot(userDoc, (userSnapshot) => {
+                return onSnapshot(userDoc, (userSnapshot: DocumentData) => {
                     if (userSnapshot.exists()) {
                         const userData = userSnapshot.data();
-                        const user = {
+                        const user: UserData = {
                             id: documentId,
                             name: userData.name,
                             imgURL: userData.imageURL,
@@ -54,7 +61,7 @@ const Profile: React.FC = () => {
         <ProfileContainer>
             {/* <ContentFirstLine style={{ font: '16px', fontWeight: 'bold' }}>레퍼런스 공유 {'>'} 취업</ContentFirstLine> */}
             <StyleProfile>
-                {users.map((user: any) => (
+                {users.map((user: UserData) => (
                     <ProfileWrapper key={user.id}>
                         <ProfileIMG src={user.imgURL} alt={`Profile of ${user.name}`} />
                         <ProfileName>{user.name}</ProfileName>

@@ -1,5 +1,4 @@
 import React from 'react';
-import ShowState from '../Timer/ShowState';
 import ShowCurrentTime from '../Timer/ShowCurrentTime';
 import Btns from '../Timer/Btns';
 import { CommuteModalBox } from './commuteStyle';

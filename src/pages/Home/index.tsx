@@ -34,7 +34,7 @@ const Home: React.FC = () => {
                         <AboutWrapper>
                             <AboutUs>About us</AboutUs>
                             <AboutTitle>
-                                WIKI FOR <span style={{ color: 'red' }}>FASTCAMPUS</span>
+                                About <span style={{ color: 'red' }}>FASTUDY</span>
                             </AboutTitle>
                             <AboutSubTitle>Page for Fastcampus x Yanolja bootcamp</AboutSubTitle>
                             <AboutContent>
