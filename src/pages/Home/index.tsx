@@ -8,15 +8,33 @@ import {
     AboutUs,
     AboutContent,
     AboutContainer,
+    GalleryContainer,
+    GalleryWrapper,
+    GalleryUs,
+    GalleryTitle,
+    GallerySubTitle,
+    GalleryContent,
+    GalleryImg,
+    RecruitmentContainer,
+    RecruitmentWrapper,
+    RecruitmentUs,
+    RecruitmentTitle,
+    RecruitmentSubTitle,
+    RecruitmentContent,
+    RecruitmentImg,
+    GalleryBgImg,
+    RecruitmentImgWrapper,
 } from './style';
-import fastcampusImg from '../../common/MainImg/fastcampus.png';
-import wikiImg from '../../common/MainImg/wiki.png';
-import galleryImg from '../../common/MainImg/gallery.png';
-
 import Carousel from 'react-material-ui-carousel';
 import { Paper } from '@mui/material';
 
 import Footer from '../../common/Footer';
+import { url } from 'inspector';
+
+import galleryBg from '../../common/MainImg/galleryBg.jpg';
+import galleryImg from '../../common/MainImg/galleryImg.png';
+import recruitmentImg from '../../common/MainImg/recruitmentImg.png';
+import recruitmentBg from '../../common/MainImg/recruitmentBg.jpg';
 
 const Home: React.FC = () => {
     return (
@@ -27,62 +45,43 @@ const Home: React.FC = () => {
                 animation="slide"
                 duration={300}
                 indicators={false}
-                autoPlay={true}
+                autoPlay={false}
             >
                 <Paper>
-                    <AboutContainer>
-                        <AboutWrapper>
-                            <AboutUs>About us</AboutUs>
-                            <AboutTitle>
-                                WIKI FOR <span style={{ color: 'red' }}>FASTCAMPUS</span>
-                            </AboutTitle>
-                            <AboutSubTitle>Page for Fastcampus x Yanolja bootcamp</AboutSubTitle>
-                            <AboutContent>
-                                Our service provides <a href="/wiki">Wiki</a> and <a href="/gallery">Gallery</a> pages.
-                                everyone can fixed wiki and gallery
-                                <br />
-                                for free. if you want make or join team for project create thread in{' '}
-                                <a href="#">Project page</a>
-                            </AboutContent>
-                        </AboutWrapper>
-                        <AboutImg src={fastcampusImg} />
-                    </AboutContainer>
-                </Paper>
-                <Paper>
-                    <AboutContainer>
-                        <AboutWrapper>
-                            <AboutUs>About us</AboutUs>
-                            <AboutTitle>
-                                About <span style={{ color: 'blue' }}>WIKI</span>
-                            </AboutTitle>
-                            <AboutSubTitle>Page for Announcement</AboutSubTitle>
-                            <AboutContent>
-                                The main function of the <a href="/wiki">Wiki page</a> provides an announcement
-                                function.
-                                <br />
-                                Create a new channel and write a new wiki !
-                            </AboutContent>
-                        </AboutWrapper>
-                        <AboutImg src={wikiImg} />
-                    </AboutContainer>
-                </Paper>
-                <Paper>
-                    <AboutContainer>
-                        <AboutWrapper>
-                            <AboutUs>About us</AboutUs>
-                            <AboutTitle>
+                    <GalleryContainer>
+                        <GalleryWrapper>
+                            <GalleryTitle>
                                 About <span style={{ color: 'green' }}>GALLERY</span>
-                            </AboutTitle>
-                            <AboutSubTitle>Page for Fastcampus x Yanolja bootcamp</AboutSubTitle>
-                            <AboutContent>
-                                The <a href="">gallery page</a> provides you to register, update, and delete user
-                                profiles
-                                <br />
-                                and various reference materials.
-                            </AboutContent>
-                        </AboutWrapper>
-                        <AboutImg src={galleryImg} />
-                    </AboutContainer>
+                            </GalleryTitle>
+                            <GallerySubTitle>Page for Fastcampus x Yanolja bootcamp</GallerySubTitle>
+                            <GalleryContent>
+                                프로필 뿐만 아니라 다양한 레퍼런스를
+                                <br /> 등록, 수정, 삭제하며 관리해보세요.
+                            </GalleryContent>
+                        </GalleryWrapper>
+                        <div>
+                            <GalleryImg src={galleryImg} />
+                        </div>
+                        <GalleryBgImg src={galleryBg} />
+                    </GalleryContainer>
+                </Paper>
+                <Paper>
+                    <RecruitmentContainer>
+                        <RecruitmentWrapper>
+                            <RecruitmentTitle>
+                                About <span style={{ color: 'purple' }}>RECRUITMENT</span>
+                            </RecruitmentTitle>
+                            <RecruitmentSubTitle>Page for Fastcampus x Yanolja bootcamp</RecruitmentSubTitle>
+                            <RecruitmentContent>
+                                게시글을 작성하여 모임을 생성 및 가입해보세요!
+                                <br /> 카테고리 별로 정리할 수 있어서 한눈에 보기 좋습니다.
+                            </RecruitmentContent>
+                        </RecruitmentWrapper>
+                        <div>
+                            <RecruitmentImg src={recruitmentImg} />
+                        </div>
+                        <GalleryBgImg src={recruitmentBg} />
+                    </RecruitmentContainer>
                 </Paper>
             </Carousel>
             <Footer />
