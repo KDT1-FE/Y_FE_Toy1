@@ -7,11 +7,18 @@ import { GoDotFill } from 'react-icons/go';
 import { storage } from '../common/config';
 import { ref, listAll, getDownloadURL } from 'firebase/storage';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { useNavigate } from 'react-router-dom';
 
 export default function Carousel() {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const navigateToNoticeDetailPage = (index: number) => {
+    console.log(index);
+    navigate(`notice/${index + 1}`)
+  }
 
   const showImage = (index: number) => {
     setCurrentImageIndex(index);
@@ -78,6 +85,7 @@ export default function Carousel() {
                     key={index}
                     src={image}
                     style={{display: index === currentImageIndex ? 'block' : 'none'}}
+                    onClick={() => navigateToNoticeDetailPage(index)}
                   />
                 ))
               }

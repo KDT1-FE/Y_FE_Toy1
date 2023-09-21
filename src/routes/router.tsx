@@ -17,6 +17,7 @@ import Figma from '../pages/about/Figma';
 import Notion from '../pages/about/Notion';
 import Github from '../pages/about/Github';
 
+
 export const router = createBrowserRouter([
   {
     path: '/',
