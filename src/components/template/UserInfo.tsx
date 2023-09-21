@@ -6,7 +6,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import { getClassName } from "utils/class";
 
-const UserInfo: React.FC<Props> = ({ handlerLogout, user }) => {
+const UserInfo: React.FC<Props> = ({ handlerLogout, user, isborder }) => {
   const [isLogout, setIsLogout] = useState(true); // Logout 모드(true) 또는 사진 추가 모드(false)가 가능합니다.
   const [userPhotoURL, setUserPhotoURL] = useState(user?.photoURL);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -68,13 +68,13 @@ const UserInfo: React.FC<Props> = ({ handlerLogout, user }) => {
   };
 
   return (
-    <Container>
+    <Container isborder={isborder}>
       <div className="userInfo__img-container">
         <img className="userInfo__user-img" src={userPhotoURL!} alt="유저 이미지" />
         <div className="userInfo__img-edit" onClick={handleEditImage}>
           <img src="/svg/icon/icon-edit.svg" alt="수정버튼" />
         </div>
-        <div>{userClassName}</div>
+        {/* <div>{userClassName}</div> */}
         <FileInput type="file" accept="image/*" ref={fileInputRef} onInput={handleFileChange} />
       </div>
 
@@ -91,13 +91,19 @@ const UserInfo: React.FC<Props> = ({ handlerLogout, user }) => {
 interface Props {
   handlerLogout: () => void;
   user: User;
+  isborder: string;
 }
 
 const FileInput = styled.input`
   display: none;
 `;
 
-const Container = styled.section`
+interface IContainer{
+  isborder:string;
+}
+
+const Container = styled.section<IContainer>`
+  margin: 0 auto;
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -109,6 +115,7 @@ const Container = styled.section`
   box-sizing: border-box;
   padding: 35px 0;
   gap: 20px;
+  border: ${props=> props.isborder==="true" ? "var(--main-color) solid 2px;" : "none;"}
   .userInfo__img-container {
     position: relative;
   }
@@ -123,6 +130,8 @@ const Container = styled.section`
     position: absolute;
     border-radius: 50%;
     background-color: white;
+    width: 25px;
+    height: 25px;
     padding: 5px;
     bottom: 0;
     right: 0;
@@ -131,7 +140,7 @@ const Container = styled.section`
   h1 {
     margin: 0;
     font-size: 24px;
-    font-weight: normal;
+    font-weight: bold;
   }
   h2 {
     font-size: 14px;

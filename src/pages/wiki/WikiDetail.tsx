@@ -6,7 +6,7 @@ import { db } from "../../firebase";
 import ContentsViewer from "components/template/ContentViewer";
 import Swal from "sweetalert2";
 import "style/Wiki.css";
-
+import styled from "styled-components";
 const WikiDetail = () => {
   const navigate = useNavigate();
   // 페이지 정보
@@ -53,11 +53,12 @@ const WikiDetail = () => {
         text: "수정은 로그인 후에만 가능합니다.  로그인 하시겠습니까 ?",
         showCancelButton: true,
         confirmButtonText: "로그인",
-        cancelButtonText: "취소",
+        cancelButtonText: "닫기",
+        confirmButtonColor: "#ED234B",
       }).then((res) => {
         /* Read more about isConfirmed, isDenied below */
         if (res.isConfirmed) {
-          //삭제 요청 처리
+          //로그인 페이지로
           navigate("/login");
         }
       });
@@ -78,11 +79,17 @@ const WikiDetail = () => {
         <div className="wiki__textContent">
           <ContentsViewer content={content} />
         </div>
-        <div>수정 시각 : {updatedAt}</div>
-        <div>수정한 글쓴이 : {displayName} </div>
+        <Wiki_edit>
+          수정한 사람 : {displayName} | 수정 시각 : {updatedAt}
+        </Wiki_edit>
       </section>
     </>
   );
 };
 
 export default WikiDetail;
+
+const Wiki_edit = styled.div`
+  margin-top: 10px;
+  color: #a6a4a4;
+`;

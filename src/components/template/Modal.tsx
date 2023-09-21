@@ -55,7 +55,9 @@ export const Modal = ({ width, height, element, setModal }: Props) => {
     <>
       <ModalContainer width={width} height={height}>
         <ModalWrapper>{element}</ModalWrapper>
-        <button className="btn modal__close-btn">X</button>
+        <button onClick={disableModal} className="btn modal__close-btn">
+          X
+        </button>
       </ModalContainer>
       <ModalBackground onClick={disableModal} />
     </>

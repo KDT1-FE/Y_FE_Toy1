@@ -7,11 +7,17 @@ import Rank from "pages/rank/Rank";
 import Login from "pages/auth/Login";
 import SignUp from "pages/auth/SignUp";
 import styled from "styled-components";
+import { IsMobile } from "utils/mediaQuery";
 
 const Router = () => {
+  let topmargin = 60
+  if(IsMobile()){
+    topmargin = 100
+  }
+
   return (
     <>
-      <Container>
+      <Container topmargin={topmargin}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/wiki/*" element={<Wiki />} />
@@ -25,11 +31,15 @@ const Router = () => {
   );
 };
 
-const Container = styled.main`
+const Container = styled.main<IContainer>`
   margin: 0 auto;
   max-width: 1200px;
   position: relative;
-  top: 60px;
+  top: ${props=>props.topmargin}px;
 `;
+
+interface IContainer{
+  topmargin : number
+}
 
 export default Router;

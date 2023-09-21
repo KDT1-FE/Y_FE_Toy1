@@ -1,6 +1,7 @@
 import { db } from '../firebase';
 import { updateDoc ,getDoc, doc } from "firebase/firestore"
 import { User } from "@firebase/auth";
+import Swal from 'sweetalert2';
 
 /* 클래스를 결정, studyTime(단위 m)을 받아 class(1,2,3)를 리턴 */
 export const determineClass = (studyTime:number) => {
@@ -30,7 +31,10 @@ export const getClassLocalStorage = (uid:string) => {
 // localStorage와 Db가 변경됐는지 chk, 있으면 alert 창 + 정보 업데이트
 export const chkClassChangeAndAlert = (userClass:number, databaseClass:number) => {
   if(userClass !== databaseClass){
-    alert('승급을 축하드립니다 다음 승급까지 - 만큼 남으셨습니다.')
+    Swal.fire({
+      icon:"success",
+      title: `${getClassName(userClass)} 승급을 축하드립니다 다음 승급까지 ${getClassMin(userClass+1)}분 만큼 남으셨습니다.`
+    })
     return true
   }else{
     return false
@@ -63,6 +67,14 @@ export const SynchroClassAndAlert = async (user:User) => {
 export const getClassName = (classCode:number) => {
   const userClassAry = ["브론즈","실버","골드"]
   return userClassAry[classCode]
+}
+
+export const getClassMin = (classCode:number) => {
+  const classMin = [0,1,60]
+  if(classMin.length <= classCode){
+    return 10000
+  }
+  return classMin[classCode]
 }
 
 class ClassError extends Error {
