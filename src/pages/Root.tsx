@@ -12,6 +12,10 @@ import { RootState } from '../redux/types';
 import { useSelector } from 'react-redux';
 import { getDoc, doc } from 'firebase/firestore';
 import PostedModal from '../components/MainPost/PostedModal';
+import '../styles/Main.scss';
+import leftArrowImage from '../images/left-arrow-button.png';
+import rightArrowImage from '../images/right-arrow-button.png';
+
 
 export default function Root() {
   const { auth } = useAuth();
@@ -148,7 +152,7 @@ const fetchPosts = async () => {
       {location.pathname === '/' &&  <div className='post-container'>
       <div className="post-list">
         <div className='post-list-top'>
-      <div className='posted-text'>스터디 모집</div>
+      <div className='posted-text'>🔥스터디 모집🔥</div>
       <button className="newPostBtn">
       {user && user.uid ? (
         <div className="open-modal-button" onClick={handleOpenModal}>
@@ -172,6 +176,10 @@ const fetchPosts = async () => {
         />
       )}
       <Outlet />
+      <div className="pagination-buttons">
+        <button className='left-btn' onClick={goToPrevPage} disabled={currentPage === 1}></button>
+        <button className='right-btn' onClick={goToNextPage} disabled={currentPage * postsPerPage >= posts.length}></button>
+      </div>
       <ul className="post-grid">
         {currentPosts.map((post, index) => (
           <li className="post-item grid-item" key={index} onClick={() => handleOpenPostModal(post)}>
@@ -184,10 +192,6 @@ const fetchPosts = async () => {
           </li>
         ))}
       </ul>
-      <div className="pagination-buttons">
-      <button onClick={goToPrevPage} disabled={currentPage === 1}>이전 페이지</button>
-      <button onClick={goToNextPage} disabled={currentPage * postsPerPage >= posts.length}>다음 페이지</button>
-    </div>
       </div>
     </div>}
     {PostedModalOpen && (
