@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import loginIcon from '../../assets/icons/loginIcon.svg';
 import googleIcon from '../../assets/icons/googleIcons.svg';
 import { useNavigate } from 'react-router-dom';
 import { media } from 'styles/media';
@@ -16,7 +15,6 @@ function Login() {
   return (
     <StyledSection>
       <StyledContainer>
-        <StyledIconImage src={loginIcon} alt="로그인 아이콘" />
         로그인 후 WIKI 서비스를 <br />
         사용하실 수 있습니다
       </StyledContainer>
@@ -84,13 +82,6 @@ font-size: 1.3rem;
 `)}
 ${media.mobile(`
 display:none;
-`)}
-`;
-
-const StyledIconImage = styled.img`
-  margin: 0 0 1rem 3rem;
-  ${media.tablet(`
-  display:none;
 `)}
 `;
 
