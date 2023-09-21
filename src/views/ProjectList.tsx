@@ -33,9 +33,9 @@ const ProjectList = ():JSX.Element => {
               const date = writeDate?.toDate().toLocaleString();
               
               return  <div className="section__project-item-box" key={index}>
-                          <NavLink to={`/project/${id}`}>{title}</NavLink>
+                          <NavLink className='section__project-title' to={`/project/${id}`}>{title}</NavLink>
                           <div className="section__project-date">{date}</div>
-                            <div className={`section__project-status ${status}`}>{status}</div>
+                          <div className={`section__project-status ${status}`}>{status}</div>
                           <button className="section__project-delete-btn" onClick={() => deleteHandle(id)}><AiFillDelete /></button>
                       </div>;
           })}
