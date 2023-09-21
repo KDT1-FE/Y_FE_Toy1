@@ -205,3 +205,70 @@
     font-size: 24px;
     font-weight: 400;
   }
+
+/* 작성된 게시글 모달창 디자인 */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7); /* 배경에 어둡게 보이도록 설정 */
+}
+
+/* Modal content styles */
+.modal-content {
+  background-color: #fefefe; /* 모달 내용 배경색 */
+  margin: 10% auto; /* 모달을 화면 중앙에 위치 */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%; /* 모달 너비 조정 */
+  max-width: 600px; /* 최대 너비 설정 */
+  border-radius: 8px;
+  text-align: left; /* 텍스트를 왼쪽으로 정렬 */
+  position: relative;
+}
+
+/* Close button styles */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #f00; /* Hover 시 색상 변경 */
+}
+
+/* Posted info styles */
+.postedInfo {
+  margin-top: 20px; 
+}
+
+/* Posted text styles */
+.postedText {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center; /* 가운데 정렬 추가 */
+}
+
+/* Posted content styles */
+.postedContent {
+  font-size: 16px;
+}
+
+.postedTitle {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.postedContent {
+  font-size: 20px;
+  font-weight: 500;
+}
