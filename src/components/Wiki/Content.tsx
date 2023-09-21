@@ -2,10 +2,18 @@ import React, {useEffect, useState} from "react";
 import "../../styles/wiki/wiki.css";
 import "../../styles/wiki/reactMarkdown.css";
 import {useParams} from "react-router-dom";
+import swal from "sweetalert";
 import Loading from "../Loading";
 import EditButton from "./EditButton";
 import TeamContent from "./TeamContent";
 import OtherContent from "./OtherContent";
+import {ReactComponent as RefreshIcon} from "../../assets/icons/Refresh.svg";
+import {
+  LOADING_TIME,
+  UPDATE_DOC_TITLE,
+  UPDATE_DOC_TEXT,
+  UPDATE_DOC_DONE,
+} from "../../constant";
 
 function Content() {
   const {id} = useParams() as {id: string};
@@ -54,12 +62,38 @@ function Content() {
 
     setTimeout(() => {
       setisLoading(false);
-    }, 1000);
+    }, LOADING_TIME);
   }, [id]);
 
   useEffect(() => {
     setText(content);
   }, [content]);
+
+  const updateContent = () => {
+    swal({
+      title: UPDATE_DOC_TITLE,
+      text: UPDATE_DOC_TEXT,
+      buttons: ["취소", true],
+      icon: "warning",
+      dangerMode: true,
+    }).then(willDelete => {
+      if (willDelete) {
+        swal(UPDATE_DOC_DONE, {
+          icon: "success",
+        });
+
+        const newContent = sessionStorage.getItem(title);
+
+        if (newContent) {
+          setContent(JSON.parse(newContent).content);
+          if (isEditorOpen) {
+            setText(content);
+            setIsEditorOpen(false);
+          }
+        }
+      }
+    });
+  };
 
   return (
     <div className="WikiContentWrap">
@@ -69,10 +103,16 @@ function Content() {
         {isTeamContent ? (
           ""
         ) : (
-          <EditButton
-            isEditorOpen={isEditorOpen}
-            setIsEditorOpen={setIsEditorOpen}
-          />
+          <div className="FeatBtns">
+            <div className="RefreshBtnWrap" title="refresh">
+              <RefreshIcon className="ButtonIcon" onClick={updateContent} />
+              <span className="RefreshLabel">refresh</span>
+            </div>
+            <EditButton
+              isEditorOpen={isEditorOpen}
+              setIsEditorOpen={setIsEditorOpen}
+            />
+          </div>
         )}
       </div>
 

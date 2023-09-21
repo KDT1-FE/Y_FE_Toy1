@@ -1,10 +1,11 @@
 import React from "react";
 import "../../styles/wiki/wikiTeamCard.css";
+import {TEAMLIST} from "../../constant";
 import SaveTeam from "./SaveTeam";
 import TeamCard from "./TeamCard";
 
 function TeamContent() {
-  const teamListString = sessionStorage.getItem("teamList");
+  const teamListString = sessionStorage.getItem(TEAMLIST);
   let teamList = [];
 
   teamListString

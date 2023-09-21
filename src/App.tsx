@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {Routes, Route} from "react-router-dom";
 import SaveContents from "./components/Wiki/SaveContents";
 import SaveTeam from "./components/Wiki/SaveTeam";
-
+import {CATEGORIES} from "./constant/index";
 import Home from "./pages/Home";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -20,9 +20,9 @@ import {
 function App() {
   useEffect(() => {
     if (!sessionStorage.getItem("teamList")) {
-      SaveContents();
-      SaveTeam();
+      SaveTeam().then(() => SaveContents(CATEGORIES));
     }
+
     getRankingDocsToArr().then(doc => {
       const sortedData = sortRanking(doc);
       saveRankingInBrowser(sortedData);

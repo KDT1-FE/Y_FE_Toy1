@@ -12,7 +12,7 @@ async function DeletePhotos(
 
   const imagesCollection = collection(db, albumKey);
   const imgSnapshot = await getDocs(imagesCollection);
-  const deletionPromises: any[] = [];
+  const deletionPromises: object[] = [];
 
   imgSnapshot.forEach(async docs => {
     try {

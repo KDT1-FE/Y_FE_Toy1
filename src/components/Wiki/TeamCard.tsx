@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-
+import {CAN_NOT_FOUND} from "../../constant";
 import PostTeam from "./PostTeam";
 
 function TeamCard({teamName}: {teamName: string}) {
@@ -12,9 +12,7 @@ function TeamCard({teamName}: {teamName: string}) {
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [teamContent, setTeamContent] = useState("");
 
-  teamString
-    ? (team = JSON.parse(teamString))
-    : "팀 컨텐츠를 찾을 수 없습니다.";
+  teamString ? (team = JSON.parse(teamString)) : CAN_NOT_FOUND;
 
   useEffect(() => {
     setText(team.content);

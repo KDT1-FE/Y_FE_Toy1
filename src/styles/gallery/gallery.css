@@ -9,6 +9,9 @@
 }
 
 .Button {
+  width: 35px;
+  height: 35px;
+
   background-color: transparent;
 
   cursor: pointer;
@@ -183,6 +186,7 @@
   padding: 1.4rem;
 
   text-align: left;
+  font-size: 22px;
 }
 
 #AlbumIcons {
@@ -190,7 +194,7 @@
   justify-content: flex-start;
   align-items: center;
 
-  padding: 1.4rem;
+  padding: 0 1.4rem;
 }
 
 #AlbumContainer {
