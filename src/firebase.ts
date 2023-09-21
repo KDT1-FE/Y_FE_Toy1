@@ -5,15 +5,16 @@ import { getStorage } from "firebase/storage";
 import { getFirestore } from "@firebase/firestore"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
+const { REACT_APP_APIKEY, REACT_APP_AUTHDOMAIN, REACT_APP_PROJECTID, REACT_APP_STORAGEBUCKET, REACT_APP_MESSAGINGSENDERID, REACT_APP_FIREBASEAPPID } = process.env
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBjMrRAvL85KYQ6okbz7FPTy_iJ6EnSPn0",
-  authDomain: "fastcampus-wiki.firebaseapp.com",
-  projectId: "fastcampus-wiki",
-  storageBucket: "fastcampus-wiki.appspot.com",
-  messagingSenderId: "38983729603",
-  appId: "1:38983729603:web:395c72acc46e26b15f3d76"
+  apiKey: REACT_APP_APIKEY,
+  authDomain: REACT_APP_AUTHDOMAIN,
+  projectId: REACT_APP_PROJECTID,
+  storageBucket: REACT_APP_STORAGEBUCKET,
+  messagingSenderId: REACT_APP_MESSAGINGSENDERID,
+  appId: REACT_APP_FIREBASEAPPID
 };
 
 // Initialize Firebase
