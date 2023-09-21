@@ -4,6 +4,7 @@ import carouselData from '../../db/wiki/CarouselData';
 import { BsArrowLeftCircle, BsArrowRightCircle } from 'react-icons/bs';
 
 
+
 const Carousel = () => {
   const vw = window.innerWidth;
   const initialCarouselWidth = vw * 62 / 100;
