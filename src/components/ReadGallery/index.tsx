@@ -5,7 +5,7 @@ import DeleteGallery from 'utils/deleteGalleryData';
 import styled from 'styled-components';
 import deleteIcon from '../../assets/icons/deleteIcon.png';
 import { media } from 'styles/media';
-import Loading from 'components/Common/Loading';
+import { Loading } from 'components/Common/Loading';
 
 function ReadGallery() {
   const [galleryRead, setGalleryRead] = useState<GalleryData[]>([]);
