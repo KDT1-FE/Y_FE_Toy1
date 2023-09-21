@@ -12,10 +12,12 @@ const NoticeUpdatePage = () => {
   const [title, setTitle] = useState<string>('');
   const [file, setFile] = useState<File | null>(null);
   const [content, setContent] = useState<string>();
+  const [btnDisabled, setBtnDisabled] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      setBtnDisabled(true);
       if (file !== null) {
         const noticeRef = ref(storage, `images/notice/${new Date().getTime() + file.name}`);
         const snapshot = await uploadBytes(noticeRef, file);
@@ -38,15 +40,16 @@ const NoticeUpdatePage = () => {
       });
       alert('완료 되었습니다.');
     } catch {
+      setBtnDisabled(false);
       console.error();
     } finally {
+      setBtnDisabled(true);
       window.location.href = '/company/notice';
     }
   };
 
   const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
-    console.log(title);
   };
 
   const handleContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -96,7 +99,7 @@ const NoticeUpdatePage = () => {
       </div>
       <div className="write-util">
         <input type="file" accept="image/*" name="file" className="write-util__image" onChange={handleFile} />
-        <button type="submit" className="write-form__button btn">
+        <button type="submit" className="write-form__button btn" disabled={btnDisabled}>
           완료
         </button>
       </div>
