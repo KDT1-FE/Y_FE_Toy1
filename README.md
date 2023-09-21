@@ -7,6 +7,7 @@
 > 개발기간: 2023.09.15 ~ 2023.09.22
 > <br>
 
+
 ## 🌐 배포 주소
 
 > 배포 주소: 추가 예정
@@ -36,6 +37,51 @@
 
 <img src="https://img.shields.io/badge/slack-4A154B?style=for-the-badge&logo=slack&logoColor=white"> <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
 <br>
+<br>
+
+## 💡 User Flow
+![230921_WIKI_userflow](https://github.com/toy-1/wiki/assets/139189610/c02df72b-32d0-4865-ab16-e7fd9a200576)
+
+<br>
+
+## 🗂 디렉토리 구조
+
+```
+📦 public
+📦 src                             
+ ┣📦 components        공통 또는 페이지별로 활용되는 컴포넌트가 포함된 폴더입니다.
+ ┃ ┣ 📦 common
+ ┃ ┣ 📦 gallery
+ ┃ ┣ 📦 home
+ ┃ ┣ 📦 login
+ ┃ ┣ 📦 wiki
+ ┃ ┣ 📦 styles
+ ┃ ┣ 📦 utils
+ ┣📦 db/wiki                             
+ ┣📦 pages              Router를 사용하여 이동할 큰 단위의 컴포넌트가 포함된 폴더입니다.  
+ ┃ ┣ 📦 gallery
+ ┃ ┣ 📦 home
+ ┃ ┣ 📦 login
+ ┃ ┣ 📦 wiki
+ ┃ ┣ 📦 styles
+ ┃ ┣ 📦 utils
+ ┣📜 App.tsx
+ ┣📜 AppRouter.tsx
+ ┣📜 main.tsx
+ ...
+```
+
+<br/>
+<br/>
+
+## 🤝 협업 방식
+커밋 컨벤션, 코딩 컨벤션, 깃허브 규칙 등의 내용은 아래의 노션 페이지를 참고해주세요! </br>
+ 
+ ### [🔗 노션 페이지](https://www.notion.so/2a7d2563e69f48ae93f71c4f4e382e45?pvs=4) </br>
+
+<br/>
+<br/>
+
 
 ## 🛠️ 주요기능
 
@@ -61,6 +107,9 @@
 
 - Gallery 페이지에서 게시물을 CRUD 할 수 있습니다.
   <br>
+
+  <br>
+
 
 ## 🔍 팀원별 세부 구현 사항
 
@@ -132,6 +181,71 @@
 <summary style="font-size: 18px">이승연: 🔑 로그인 페이지</summary>
 <div markdown="1">
 
+### 1. 접근 제한 라우팅
+
+#### 로그인 여부에 따른 제한 접근 라우팅
+
+![1라우팅](https://github.com/toy-1/wiki/assets/139189610/1c80fc0a-44f7-415f-8dab-a77803aa2f5f)
+
+
+```
+💡 해당 홈페이지는 사내 사이트로, 로그인 정보가 없는 경우 login페이지로 이동합니다.
+로그아웃하지 않았다면 탭 종료 후 재접속하여도 로그인 상태를 유지합니다.
+```
+
+### 2. 회원 가입
+
+#### 회원 가입
+
+![2회원가입성공](https://github.com/toy-1/wiki/assets/139189610/1e90a153-3c2a-495d-9d10-d17f12e0a4a3)
+
+
+```
+💡 회원 가입 버튼 클릭시 회원 가입이 가능한 다이얼로그가 노출됩니다.
+ID와 PW 값을 입력후 가입하기 버튼을 클릭시 User로 저장되며 해당 계정으로 사이트 로그인이 가능합니다.
+```
+
+#### 회원가입 유효성 검사
+
+![5회원가입유효성검사](https://github.com/toy-1/wiki/assets/139189610/53ef774c-dda4-4433-ab7e-bd6cfc9cda8f)
+
+```
+💡 프로세스에 따라 회원가입 유효성 검사 후 얼럿을 노출합니다. 
+정상적으로 입력이 완료되었다면 로그인 페이지로 진입합니다.
+```
+
+### 3. 로그인
+
+#### 로그인
+
+![3로그인성공](https://github.com/toy-1/wiki/assets/139189610/202a3736-b97d-4bf4-b656-90698c55380a)
+
+
+```
+💡 회원가입한 계정의 ID와 PW 값을 입력후 들어가기 버튼을 클릭하여 사이트 로그인이 가능합니다.
+```
+
+#### 로그인 유효성 검사
+
+![6로그인유효성검사](https://github.com/toy-1/wiki/assets/139189610/b29d9537-f53e-439d-bf0d-53dc460ba08e)
+
+```
+💡 프로세스에 따라 로그인 유효성 검사 후 얼럿을 노출합니다. 
+정상적으로 입력이 완료되었다면 메인 페이지로 진입합니다.
+```
+
+### 4. 로그인 정보 전달 
+
+#### 로그인한 유저 정보 전달
+
+![4인증정보내려주기](https://github.com/toy-1/wiki/assets/139189610/e9944d13-203d-469f-9f73-908cf05ef495)
+
+```
+💡 현재 사이트 로그인 중인 User 정보를 전달합니다.
+이를 통해 Header와 WIKI페이지의 등록/수정/삭제 등의 기능 구현을 지원합니다.
+```
+
+
 </div>
 </details>
 
@@ -161,3 +275,7 @@
 
 </div>
 </details>
+
+<br>
+
+
