@@ -3,6 +3,7 @@ import LandingPage from './views/LandingPage';
 import LoginPage from './views/LoginPage';
 import RegisterPage from './views/RegisterPage';
 import { Notice, Chart, Benefit } from './views/company';
+import MainPage from './views/MainPage';
 import Attendance from './views/AttendancePage';
 import ProjectList from './views/ProjectList';
 import GalleryPage from './views/GalleryPage';
@@ -30,6 +31,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />}>
+          <Route index element={<MainPage />}></Route>
           <Route path="/company/notice" element={<Notice />} />
           <Route path="/company/chart" element={<Chart />} />
           <Route path="/company/benefit" element={<Benefit />} />
