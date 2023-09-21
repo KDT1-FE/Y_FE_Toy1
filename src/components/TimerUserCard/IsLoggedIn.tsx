@@ -44,17 +44,16 @@ export function IsLoggedIn({ userId }: any) {
 
   return (
     <div>
-      {/* {Object.keys(userStatus).map((userId) => ( */}
-      <div
-        key={userId}
-        style={{
-          backgroundColor: isLoggedIn ? 'green' : 'red',
-          width: '20px',
-          height: '20px',
-          borderRadius: '50%',
-        }}
-      ></div>
-      {/* ))} */}
+      {userStatus[userId] !== undefined && (
+        <div
+          style={{
+            backgroundColor: userStatus[userId] ? 'green' : 'red',
+            width: '20px',
+            height: '20px',
+            borderRadius: '50%',
+          }}
+        ></div>
+      )}
     </div>
   );
 }
