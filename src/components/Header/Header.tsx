@@ -6,6 +6,8 @@ import { logoutAction } from '../../redux/action'; // 로그아웃 액션 임포
 import { useLocation } from 'react-router-dom';
 import './Header.css';
 import logo from '../../images/logo.png';
+import { signOut } from 'firebase/auth';
+
 
 export default function Header() {
   // useSelector를 통해 스토어의 유저 정보 읽어오기
