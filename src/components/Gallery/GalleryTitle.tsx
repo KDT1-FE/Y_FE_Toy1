@@ -9,7 +9,7 @@ const GalleryTitle = ({ setFormModalOpen }: Props) => {
   return (
     <div className="gallery__top">
       {' '}
-      <h1>HIGHFIVE Gallery</h1>
+      <h1>갤러리</h1>
       <span className="gallery__top__add-btn">
         <BsPlusSquareFill
           onClick={() => {
