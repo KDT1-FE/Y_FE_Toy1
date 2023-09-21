@@ -24,7 +24,7 @@ const Editor = ({value, onChange, quillRef}: EditData) => {
   };
 
   return (
-      <ReactQuill modules={modules} value={value || ''} onChange={(content, delta, source, editor) => onChange(editor.getHTML()) } ref={quillRef} style={{ height: "300px" , marginBottom: "40px" }} /> 
+      <ReactQuill modules={modules} value={value || ''} onChange={(content, delta, source, editor) => onChange(editor.getHTML()) } ref={quillRef} /> 
   )
 }
 

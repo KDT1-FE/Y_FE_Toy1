@@ -38,7 +38,7 @@ const WikiEdit = () => {
       await updateDoc(doc(db, "wiki", page), {
         title: value.title,
         content: value.content,
-        updatedAt: dayjs().format("YYYY.MM.DD HH:mm:ss"),
+        updatedAt: dayjs().format("YYYY.MM.DD  HH:mm:ss"),
         displayName: user?.displayName,
       });
       console.log("Document updated successfully");
@@ -82,7 +82,12 @@ const WikiEdit = () => {
       <div className="wiki__wrapper">
         <form onSubmit={handleSubmitBtn}>
           <div className="wiki__header">
-            <input className="wikiEdit__title " name="title" onChange={handleTitleChange} value={value.title} />
+            <input
+              className="wikiEdit__title "
+              name="title"
+              onChange={handleTitleChange}
+              value={value.title}
+            />
             <div className="wikiEdit__btn">
               <button className="wikiEdit__btn-edit" type="submit">
                 완료

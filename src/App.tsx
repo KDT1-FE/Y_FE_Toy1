@@ -11,7 +11,7 @@ const App = () => {
       <AuthProvider>
         <BrowserRouter>
           <Header />
-          <Router />
+          <Router/>
         </BrowserRouter>
       </AuthProvider>
     </DarkMode>
