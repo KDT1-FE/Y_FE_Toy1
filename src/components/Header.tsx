@@ -5,7 +5,7 @@ import Modal from "./Modal";
 import TimerModal from "./Timer/TimerModal";
 import useModal from "../hooks/useModal";
 import useTimer from "../hooks/useTimer";
-import logoImage from "../assets/Logo.png";
+import logoImage from "../assets/images/Logo.png";
 
 function Header() {
   const {isOpen, toggle} = useModal();
@@ -31,11 +31,6 @@ function Header() {
       <header className="HeaderMain">
         <div className="Logo">
           <img src={logoImage} alt="로고" className="LogoImg" />
-          {/* <h1>
-            <Link to="/" className="SubListMain">
-              Yanolja Tech School
-            </Link>
-          </h1> */}
         </div>
         <nav className="NavbarWrap">
           <ul className="List">
