@@ -5,10 +5,25 @@ import { deleteDoc, doc, orderBy, query } from 'firebase/firestore';
 import { AiFillDelete } from 'react-icons/ai';
 import firebase from 'firebase/compat/app';
 import '../scss/projectList.scss';
+import { useSelector } from 'react-redux';
+
+interface StateValue {
+  isLogin: boolean;
+  name: string;
+  email: string;
+}
+interface State {
+  loginUpdate: StateValue;
+}
 
 const ProjectList = (): JSX.Element => {
   const navigate = useNavigate();
   const ref = query(projectCollection, orderBy('writeDate', 'desc'));
+  const loginState = useSelector((state: State) => state.loginUpdate);
+
+  console.log(loginState);
+  
+
   const queryResult = useFirestoreQuery(['project'], ref, {
     subscribe: true,
   });
@@ -23,7 +38,7 @@ const ProjectList = (): JSX.Element => {
     <section className="section container">
       <article className="section__filter">
         <input className="section__project-search-input" type="text" />
-        <button className="section__project-write-btn btn" onClick={() => navigate('/project/write')}>
+        <button className={`section__project-write-btn ${!loginState.isLogin ? " " : 'btn'}`} onClick={() => navigate('/project/write')} disabled={!loginState.isLogin}>
           글쓰기
         </button>
       </article>
