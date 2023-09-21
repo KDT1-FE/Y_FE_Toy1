@@ -3,11 +3,19 @@ import styled from "styled-components";
 import dayjs from "dayjs";
 import { useContext } from "react";
 import { AuthContext } from "provider/userContext";
-import { collection, doc, deleteDoc, query, onSnapshot, orderBy, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  deleteDoc,
+  query,
+  onSnapshot,
+  orderBy,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../../firebase";
 import Swal from "sweetalert2";
 import CommentAdd from "./CommentAdd";
-import { AiOutlineCheckCircle } from "react-icons/ai";
+import { AiOutlineCheck } from "react-icons/ai";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FiEdit2 } from "react-icons/fi";
 //한국 날짜 설정
@@ -58,6 +66,7 @@ const Comment = () => {
       showCancelButton: true,
       confirmButtonText: "삭제",
       cancelButtonText: "취소",
+      confirmButtonColor: "#ED234B",
     }).then((res) => {
       if (res.isConfirmed) {
         //삭제 요청 처리
@@ -96,27 +105,31 @@ const Comment = () => {
       <CommentEntry>
         <Comment_user>
           <div>티어 사진</div>
-          <div>{comment.useName}</div>
-          <div>{comment.updatedAt}</div>
+          <Comment_user__name>{comment.useName}</Comment_user__name>
+          <Comment_user__updateAt>{comment.updatedAt}</Comment_user__updateAt>
         </Comment_user>
         <div>
-          {editComment === comment.id && open ? <input onChange={handleChange}></input> : <div>{comment.comment}</div>}
+          {editComment === comment.id && open ? (
+            <Comment_input onChange={handleChange}></Comment_input>
+          ) : (
+            <Comment_reply>{comment.comment}</Comment_reply>
+          )}
         </div>
       </CommentEntry>
       {user?.uid == comment.uid && (
         <div>
           {editComment === comment.id && open ? (
             <Comment_btn onClick={() => handleUpdate(comment.id)}>
-              <AiOutlineCheckCircle />
+              완료
             </Comment_btn>
           ) : (
             <Comment_btn onClick={() => handleEdit(comment.id)}>
-              <FiEdit2 />
+              수정
             </Comment_btn>
           )}
 
           <Comment_btn onClick={() => handleDelete(comment.id)}>
-            <RiDeleteBin5Line />
+            삭제
           </Comment_btn>
         </div>
       )}
@@ -136,6 +149,8 @@ const Comment = () => {
 };
 
 export default Comment;
+
+// 임시로 핑크 박스
 const Container = styled.div`
   height: 300px;
   width: 100%;
@@ -143,32 +158,75 @@ const Container = styled.div`
   // background-color: pink;
   border-top: 3px solid #ddd;
 `;
+
 const Comment_Container = styled.div`
   height: 60px;
-  width: 800px;
   display: flex;
   justify-content: space-between;
   // margin: 30px;
-  background-color: pink;
-  border: 3px solid #ddd;
+  //background-color: pink;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 20px;
+  padding: 10px;
 `;
 
-const CommentEntry = styled.div``;
+const CommentEntry = styled.div`
+  width: 90%;
+  height: 100%;
+  //background-color: blue;
+`;
 
 // 티어 사진, 닉네임, 작성시간
 const Comment_user = styled.div`
+  height: 27px;
+  //background-color: yellow;
+  width: 35%;
   display: flex;
   justify-content: space-between;
+`;
+
+const Comment_user__name = styled.div`
+  font-weight: 700;
+  font-size: 20px;
+`;
+
+const Comment_user__updateAt = styled.div`
+  font-weight: 400;
+  color: #a6a4a4;
+  padding-top: 5px;
+  //padding-right: 20px;
+`;
+
+const Comment_input = styled.input`
+  height: 25px;
+  width: 100%;
+  // padding: 10px;
+  border-radius: 4px;
+  font-size: 16px;
+  // border: 0;
+  // border-bottom: 1px solid var(--main-color);
+  outline: none;
+  margin: 5px;
+  border: 1px solid #ddd;
+`;
+
+const Comment_reply = styled.div`
+  font-size: 18px;
+  height: 25px;
+  width: 80%;
+  // padding-left: 10px;
+  margin: 5px 5px 5px 0px;
 `;
 
 // 버튼 css
 const Comment_btn = styled.button`
   border: 0;
   background-color: transparent;
-  background-color: var(--main-color);
-  color: white;
-  font-size: 20px;
-  padding: 20px;
-  border-radius: 50%;
-  margin: 10px;
+  cursor: pointer;
+  //background-color: var(--main-color);
+  // color: white;
+  font-size: 12px;
+  padding: 7px;
+  border-radius: 4px;
+  // margin: 15px 5px 15px 15px;
 `;

@@ -29,6 +29,7 @@ const CommentAdd = () => {
         showCancelButton: true,
         confirmButtonText: "로그인",
         cancelButtonText: "취소",
+        confirmButtonColor: "#ED234B",
       }).then((res) => {
         /* Read more about isConfirmed, isDenied below */
         if (res.isConfirmed) {
@@ -68,7 +69,6 @@ const CommentAdd = () => {
   return (
     <>
       <Wiki__CommentBox>
-        <div>♡</div>
         <Wiki_input
           value={comment}
           placeholder="댓글을 입력해주세요"
@@ -85,23 +85,28 @@ const CommentAdd = () => {
 export default CommentAdd;
 
 const Wiki__CommentBox = styled.div`
-  background-color: pink;
-  height: 60px;
+  height: 40px;
   margin-bottom: 20px;
   display: flex;
-  padding: 10px;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 5px;
 `;
 
 const Wiki_input = styled.input`
-  width: 100%;
+  width: 88%;
   padding: 10px;
   border-radius: 4px;
   font-size: 16px;
   border: 0;
-  border-bottom: 1px solid var(--main-color);
+  //border-bottom: 1px solid #ddd;
+  border: 1px solid #ddd;
   outline: none;
 `;
 const Wiki__button = styled.button`
   background-color: var(--main-color);
-  border-top: 3px solid #ddd;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  width: 8%;
 `;
