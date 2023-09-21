@@ -75,7 +75,7 @@ const Carousel = () => {
             currentIndex={currentIndex}
             carouselWidth={carouselWidth}>
 
-            {carouselData.map((data, pageIndex) => (
+            {carouselData.map((_, pageIndex) => (
               <>
                 <style.CarouselContent 
                   pageIndex={pageIndex}
@@ -93,7 +93,7 @@ const Carousel = () => {
           </style.CarouselRightButton> 
 
           <style.CarouselDotContainer>
-            {carouselData.map((data, pageIndex) => (
+            {carouselData.map((_, pageIndex) => (
               <style.CarouselDot 
                 key={pageIndex} 
                 onClick={() => goToCarousel(pageIndex)} />

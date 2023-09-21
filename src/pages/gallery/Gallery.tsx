@@ -41,8 +41,8 @@ export default function Gallery() {
   const [addListModal, setAddListModal] = useState(false);
   const [configList, setConfigList] = useState(false);
   const [galleryData, setGalleryData] = useState<Folders[]>([]);
-  const [album, setAlbum] = useState("album1");
-  const [albumId, setAlbumId] = useState("1moHSjI2ZdSS9iPoZMnp");
+  const [album, setAlbum] = useState("개발팀");
+  const [albumId, setAlbumId] = useState("0jL7NLzNrPzOuqeuJSk2");
   const [imagePaths, setImagePaths] = useState<string[]>([]);
   const [curImg, setCurImg] = useState<string>("");
   const [viewImg, setViewImg] = useState<boolean>(false);
