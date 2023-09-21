@@ -28,13 +28,14 @@ export const AnchorContainer = styled.div`
 export const RightAnchorContainer = styled.div`
     display: flex;
     justify-content: space-around;
+    align-items: center;
     gap: 20px;
     margin-right: 10px;
 `;
 
 export const ListAnchor = styled.a`
     margin-right: 20px;
-    font-weight: 500;
+    font-weight: 700;
     font-size: 24px;
     color: ${(props) => props.theme.text};
 `;

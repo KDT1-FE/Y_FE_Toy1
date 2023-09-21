@@ -65,9 +65,9 @@ const Header: React.FC = () => {
             <TitleAnchor href="/">FASTUDY</TitleAnchor>
             <AnchorContainer>
                 <RightAnchorContainer>
-                    <ListAnchor href="/wiki">wiki</ListAnchor>
-                    <ListAnchor href="/recruitment">recruitment</ListAnchor>
-                    <ListAnchor href="/gallery">gallery</ListAnchor>
+                    <ListAnchor href="/wiki">위키</ListAnchor>
+                    <ListAnchor href="/recruitment">모집</ListAnchor>
+                    <ListAnchor href="/gallery">갤러리</ListAnchor>
                     {userId.length > 0 ? (
                         <button
                             onClick={() => {
