@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil';
 import { UserId, Render } from '../../utils/recoil';
 import { useParams, useNavigate } from 'react-router-dom';
 import { checkedListCommand } from '@uiw/react-md-editor';
+import swal from 'sweetalert';
 
 interface CommentProps {
     comment: {
@@ -23,8 +24,6 @@ const CommentItem: React.FC<CommentProps> = (props) => {
 
     const [data, setData] = useState<any>({});
     const { channel, path } = useParams<{ channel: string; path: string }>();
-    // const channel = location.pathname.split('/')[2];
-    // const path = location.pathname.split('/')[3];
 
     useEffect(() => {
         if (channel && path) {
@@ -49,33 +48,46 @@ const CommentItem: React.FC<CommentProps> = (props) => {
 
     const handleDeleteCommentSubmit = async (e: any) => {
         e.preventDefault();
-        if (confirm('댓글을 삭제하시겠습니까?')) {
-            if (channel && path) {
-                // Null 체크
-                if (
-                    e.target &&
-                    e.target.uid &&
-                    e.target.content &&
-                    e.target.time &&
-                    e.target.uid.value &&
-                    e.target.content.value &&
-                    e.target.time.value
-                ) {
-                    const value = {
-                        uid: e.target.uid.value,
-                        name: props.comment.name,
-                        imageURL: props.comment.imageURL,
-                        content: props.comment.content,
-                        time: e.target.time.value,
-                    };
-                    await deleteComment(channel, path, value);
-                    setRender(!render);
+        if (channel && path) {
+            swal({
+                title: '정말로 삭제하시겠습니까?',
+                text: '한번 삭제하면 되돌리실 수 없습니다!',
+                icon: 'warning',
+                buttons: ['취소', '삭제'],
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    swal('댓글이 성공적으로 삭제되었습니다!', {
+                        icon: 'success',
+                    });
+                    if (
+                        e.target &&
+                        e.target.uid &&
+                        e.target.content &&
+                        e.target.time &&
+                        e.target.uid.value &&
+                        e.target.content.value &&
+                        e.target.time.value
+                    ) {
+                        const value = {
+                            uid: e.target.uid.value,
+                            name: props.comment.name,
+                            imageURL: props.comment.imageURL,
+                            content: props.comment.content,
+                            time: e.target.time.value,
+                        };
+                        deleteComment(channel, path, value);
+                        setRender(!render);
+                    } else {
+                        console.error('uid 또는 content가 정의되지 않았습니다.');
+                    }
                 } else {
-                    console.error('uid 또는 content가 정의되지 않았습니다.');
+                    swal('삭제가 취소되었습니다!');
                 }
-            } else {
-                console.error('channel 또는 path가 정의되지 않았습니다.');
-            }
+            });
+            // Null 체크
+        } else {
+            console.error('channel 또는 path가 정의되지 않았습니다.');
         }
     };
 

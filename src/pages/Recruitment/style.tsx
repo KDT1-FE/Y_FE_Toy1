@@ -116,3 +116,17 @@ export const PostPageBtnWrapper = styled.div`
     bottom: 0;
     margin-bottom: 10px;
 `;
+
+export const PostPageBtn = styled.a`
+    color: black;
+
+    margin-left: 2px;
+    padding: 4px 8px;
+
+    border: none;
+
+    text-decoration: underline;
+    &:hover {
+        color: blue;
+    }
+`;

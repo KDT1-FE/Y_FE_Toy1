@@ -177,7 +177,7 @@ const Wiki: React.FC = () => {
                                 rehypePlugins: [[rehypeSanitize]],
                             }}
                             height={'95vh'}
-                            style={{ backgroundColor: 'var(--mention-badge)' }}
+                            style={{ backgroundColor: '#ffffff', color: 'black' }}
                         />
                     </ChannelNames>
                 </WikiContent>

@@ -10,6 +10,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import TextField from '@mui/material/TextField';
+import swal from 'sweetalert';
 
 const RecruitmentPost: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
@@ -25,7 +26,13 @@ const RecruitmentPost: React.FC = () => {
 
     useEffect(() => {
         if (!userId) {
-            alert('로그인 후 사용해주세요');
+            swal({
+                title: '글을 작성하실 수 없습니다.',
+                text: '로그인 후 사용해주세요 !',
+                icon: 'warning',
+                // buttons: true,
+                // dangerMode: true,
+            });
             navigate('/recruitment');
         }
         getUserData(userId)
@@ -40,7 +47,6 @@ const RecruitmentPost: React.FC = () => {
 
     const handleCreateRecruitment = (e: any) => {
         e.preventDefault();
-
         if (
             e.target &&
             e.target.content &&
@@ -54,33 +60,47 @@ const RecruitmentPost: React.FC = () => {
             e.target.recruitmentType &&
             e.target.recruitmentType.value
         ) {
-            // const date = new Date().getTime();
-            // console.log(date);
-            const updated_at_timestamp = serverTimestamp();
+            swal({
+                title: '모집을 완료하시겠습니까? ',
+                text: '모집중으로 되돌리실 수 없습니다!',
+                icon: 'info',
+                buttons: ['취소', '모집 완료'],
+            }).then((willDelete) => {
+                if (willDelete) {
+                    swal('모집이 성공적으로 마감되었습니다.', {
+                        icon: 'success',
+                    });
 
-            const value = {
-                uid: userId,
-                name: userData.name,
-                imageURL: userData.imageURL,
-                category: e.target.category.value,
-                title: e.target.title.value,
-                content: e.target.content.value,
-                people: Number(e.target.people.value),
-                recruitValued: true,
-                comment: [],
-                time: updated_at_timestamp,
-                editValued: false,
-                editTime: updated_at_timestamp,
-            };
-            console.log(value);
+                    // const date = new Date().getTime();
+                    // console.log(date);
+                    const updated_at_timestamp = serverTimestamp();
 
-            console.log(e.target.recruitmentType.value);
-            createRecruitment(e.target.recruitmentType.value, value);
+                    const value = {
+                        uid: userId,
+                        name: userData.name,
+                        imageURL: userData.imageURL,
+                        category: e.target.category.value,
+                        title: e.target.title.value,
+                        content: e.target.content.value,
+                        people: Number(e.target.people.value),
+                        recruitValued: true,
+                        comment: [],
+                        time: updated_at_timestamp,
+                        editValued: false,
+                        editTime: updated_at_timestamp,
+                    };
+                    console.log(value);
 
-            alert('글 작성에 성공했습니다.');
-            navigate('/recruitment');
+                    console.log(e.target.recruitmentType.value);
+                    createRecruitment(e.target.recruitmentType.value, value);
+
+                    navigate('/recruitment');
+                } else {
+                    swal('모집 마감이 취소되었습니다.!');
+                }
+            });
         } else {
-            alert('빈 공간 없이 입력해주세요');
+            swal({ title: '빈 공간 없이 입력해주세요', text: '부탁드립니다..', icon: 'warning' });
         }
     };
 
