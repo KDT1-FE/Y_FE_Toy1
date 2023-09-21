@@ -1,16 +1,23 @@
 import MDEditor from '@uiw/react-md-editor';
 import styled from 'styled-components';
-import { Timestamp } from 'firebase/firestore';
-import { wikiDelete } from 'apis/Wiki/index'
+import { DocumentData } from 'firebase/firestore';
+import { wikiDelete } from 'apis/Wiki/index';
 import { media } from 'styles/media';
 
 interface loadingProps {
-  data: any;
+  data: DocumentData | undefined;
   setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsChanged: React.Dispatch<React.SetStateAction<boolean>>;
+  isChange: boolean;
 }
 
-function WikiContent({ data, setIsEdit }: loadingProps) {
-  const time = data?.writeTime as Timestamp;
+function WikiContent({
+  data,
+  setIsEdit,
+  setIsChanged,
+  isChange,
+}: loadingProps) {
+  const time = data?.writeTime;
   const documentWritedTime = time?.toDate().toString();
 
   return (
@@ -38,8 +45,9 @@ function WikiContent({ data, setIsEdit }: loadingProps) {
                 수정하기
               </button>
               <button
-                onClick={() => {
-                  wikiDelete(data?.subject);
+                onClick={async () => {
+                  await wikiDelete(data?.subject);
+                  setIsChanged(!isChange);
                 }}
               >
                 삭제하기
@@ -71,7 +79,6 @@ const StyledWikiContentContainer = styled.div`
   width: 100%;
 `;
 
-
 const StyledWikiNotExist = styled.div`
   font-size: 1.5rem;
   font-weight: 600;
@@ -80,7 +87,7 @@ const StyledWikiNotExist = styled.div`
 
   width: 100%;
   height: 100%;
-  top: 50%; 
+  top: 50%;
 
   button {
     position: relative;
