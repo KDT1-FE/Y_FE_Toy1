@@ -12,10 +12,9 @@ export const WikiContent = styled.div`
     display: flex;
     justify-content: left;
 
-    position: relative;
+    background-color: var(--mention-badge);
     width: 100%;
-    height: calc(100vh - 112px);
-    margin: 20px 40px 20px 40px;
+    padding: 20px 40px 20px 40px;
     overflow: auto;
     &::-webkit-scrollbar {
         width: 12px;

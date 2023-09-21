@@ -6,6 +6,9 @@ import rehypeSanitize from 'rehype-sanitize';
 import { updateChannelContent } from '../../utils/firebase';
 import editImg from '../../common/WikiImg/icons8-edit-50.png';
 import doneImg from '../../common/WikiImg/icons8-done-50.png';
+import { handleGetDocs, DocumentData } from '../../utils/firebase';
+import { QuerySnapshot } from 'firebase/firestore';
+import { Timestamp } from 'firebase/firestore';
 const Wiki: React.FC = () => {
     const defaultChannel = '기본 정보';
     const defaultSubChannel = '과정 참여 규칙';
@@ -17,26 +20,23 @@ const Wiki: React.FC = () => {
             content: '',
         },
     });
+    const [docsWithFields, setDocsWithFields] = useState<{ docId: string; docKeys: string[]; docData: DocumentData }[]>(
+        [],
+    );
+    const [isClicked, setIsClicked] = useState(false);
+
     const [md, setMd] = useState<string>('');
     const [time, setTime] = useState<string>('');
     const [isToggled, setIsToggled] = useState(true);
+    const defaultChannels = ['기본 정보'];
+    const defaultSubChannels = ['과정 참여 규칙', '링크 모음'];
     const toggleButton = () => {
         setIsToggled(!isToggled);
     };
-    useEffect(() => {
-        // This code will run whenever clickedValue changes
-        if (clickedValue !== null) {
-            setMd(clickedValue.value.content);
-            if (clickedValue.value.time) {
-                setTime(clickedValue.value.time.toDate().toLocaleString());
-            } else {
-                setTime(''); // Set a default value or an empty string if time is undefined
-            }
-        }
-    }, [clickedValue]);
 
     const handleKeyClick = (value: any) => {
         setClickedValue(value);
+        setIsClicked(true);
         if (!isToggled) {
             setIsToggled(true);
         }
@@ -46,6 +46,20 @@ const Wiki: React.FC = () => {
     const handleEditorChange = (value: string | undefined) => {
         if (value !== undefined) {
             setMd(value);
+
+            if (isClicked) {
+                setClickedValue((prevState: any) => {
+                    const newTime = Timestamp.fromDate(new Date());
+                    return {
+                        ...prevState,
+                        value: {
+                            ...prevState.value,
+                            content: value,
+                            time: newTime,
+                        },
+                    };
+                });
+            }
         }
     };
 
@@ -77,6 +91,45 @@ const Wiki: React.FC = () => {
             setIsToggled(true);
         }
     };
+
+    useEffect(() => {
+        handleGetDocs('wiki', (querySnapshot: QuerySnapshot<DocumentData>) => {
+            const data: { docId: string; docKeys: string[]; docData: DocumentData }[] = [];
+
+            querySnapshot.forEach((doc: any) => {
+                const docData = doc.data();
+                const docId = doc.id;
+                const docKeys = Object.keys(docData);
+                data.push({ docId, docKeys, docData });
+            });
+            setDocsWithFields(data);
+        });
+    }, []);
+
+    useEffect(() => {
+        if (isClicked) {
+            setMd(clickedValue.value.content);
+            if (clickedValue.value.time) {
+                setTime(clickedValue.value.time.toDate().toLocaleString());
+            } else {
+                setTime(''); // 시간이 정의되지 않은 경우 기본값 또는 빈 문자열 설정
+            }
+        } else {
+            docsWithFields.forEach((item) => {
+                item.docKeys.forEach((item2) => {
+                    if (item.docId === defaultChannels[0] && item2 === defaultSubChannels[0]) {
+                        setMd(item.docData[item2].content);
+                        if (item.docData[item2].time) {
+                            setTime(item.docData[item2].time.toDate().toLocaleString());
+                        } else {
+                            setTime(''); // 시간이 정의되지 않은 경우 기본값 또는 빈 문자열 설정
+                        }
+                    }
+                });
+            });
+        }
+    }, [docsWithFields, clickedValue, isClicked]);
+
     return (
         <WikiContainer>
             <SidebarWiki onKeyClick={handleKeyClick} />
@@ -87,14 +140,18 @@ const Wiki: React.FC = () => {
                             <div style={{ fontSize: '2rem', fontWeight: 'bold', color: 'black' }}>
                                 {clickedValue.subChannel}
                             </div>
-                            <MDEditBtn onClick={toggleButton}>
+                            <MDEditBtn
+                                onClick={() => {
+                                    toggleButton();
+                                }}
+                            >
                                 <img style={{ width: '30px' }} src={editImg}></img>
                             </MDEditBtn>
                         </ReadChannel>
                         <div style={{ marginBottom: '16px', color: 'black' }}>{time}</div>
                         <MDEditor.Markdown
                             source={md}
-                            style={{ backgroundColor: 'var(--mention-badge)', minHeight: 'calc(100vh - 202px)' }}
+                            style={{ backgroundColor: 'var(--mention-badge)', minHeight: 'calc(100vh - 252px)' }}
                         />
                     </ChannelNames>
                 </WikiContent>
@@ -105,7 +162,11 @@ const Wiki: React.FC = () => {
                             <div style={{ fontSize: '2rem', fontWeight: 'bold', color: 'black' }}>
                                 {clickedValue.subChannel}
                             </div>
-                            <MDEditBtn onClick={handleToggleAndUpdateClick}>
+                            <MDEditBtn
+                                onClick={() => {
+                                    handleToggleAndUpdateClick();
+                                }}
+                            >
                                 <img style={{ width: '30px' }} src={doneImg}></img>
                             </MDEditBtn>
                         </ReadChannel>

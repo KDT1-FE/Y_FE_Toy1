@@ -21,6 +21,7 @@ import { handleGetDocs, deleteChannelDoc, deleteFieldFromDoc, DocumentData } fro
 import { QuerySnapshot } from 'firebase/firestore';
 import ChannelModal from '../ChannelModal';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import swal from 'sweetalert';
 
 interface SidebarWikiProps {
     onKeyClick: (value: any) => void; // 클릭된 값의 핸들러 함수를 props로 받습니다.
@@ -39,6 +40,7 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
     const [subChannel, setSubChannel] = useRecoilState(subChannelState);
     const defaultChannels = ['기본 정보'];
     const defaultSubChannels = ['과정 참여 규칙', '링크 모음'];
+
     useEffect(() => {
         if (!channel || !subChannel) {
             setChannel(defaultChannels[0]);
@@ -138,6 +140,7 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
     };
 
     const collectionName = 'wiki';
+
     return (
         <>
             <AllChannelsWrapper>
@@ -214,10 +217,22 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
                                             </OptionButton>
                                             <OptionButton
                                                 onClick={() => {
-                                                    const shouldDelete = window.confirm('정말로 삭제하시겠습니까?');
-                                                    if (shouldDelete) {
-                                                        deleteChannelDoc('wiki', item.docId);
-                                                    }
+                                                    swal({
+                                                        title: '정말로 삭제하시겠습니까?',
+                                                        text: '한번 삭제하면 되돌릴 수 없습니다!',
+                                                        icon: 'warning',
+                                                        // buttons: true,
+                                                        // dangerMode: true,
+                                                    }).then((willDelete) => {
+                                                        if (willDelete) {
+                                                            swal('성공적으로 삭제되었습니다!', {
+                                                                icon: 'success',
+                                                            });
+                                                            deleteChannelDoc('wiki', item.docId);
+                                                        } else {
+                                                            swal('삭제가 취소되었습니다!');
+                                                        }
+                                                    });
                                                 }}
                                             >
                                                 삭제
@@ -266,11 +281,22 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
                                                     </OptionButton>
                                                     <OptionButton
                                                         onClick={() => {
-                                                            const shouldDelete =
-                                                                window.confirm('정말로 삭제하시겠습니까?');
-                                                            if (shouldDelete) {
-                                                                deleteFieldFromDoc('wiki', item.docId, item2);
-                                                            }
+                                                            swal({
+                                                                title: '정말로 삭제하시겠습니까?',
+                                                                text: '한번 삭제하면 되돌릴 수 없습니다!',
+                                                                icon: 'warning',
+                                                                // buttons: true,
+                                                                // dangerMode: true,
+                                                            }).then((willDelete) => {
+                                                                if (willDelete) {
+                                                                    swal('성공적으로 삭제되었습니다!', {
+                                                                        icon: 'success',
+                                                                    });
+                                                                    deleteFieldFromDoc('wiki', item.docId, item2);
+                                                                } else {
+                                                                    swal('삭제가 취소되었습니다!');
+                                                                }
+                                                            });
                                                         }}
                                                     >
                                                         삭제
