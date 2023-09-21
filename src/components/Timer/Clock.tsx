@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {INTERVAL_IN_MILLISECONDS} from "../../constant";
 
 function Clock() {
   const [timeString, setTimeString] = useState("");
@@ -19,7 +20,6 @@ function Clock() {
 
   function init() {
     watch();
-    const INTERVAL_IN_MILLISECONDS = 1000;
     setInterval(watch, INTERVAL_IN_MILLISECONDS);
   }
 

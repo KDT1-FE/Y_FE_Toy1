@@ -28,5 +28,5 @@ export const UPDATE_DOC_DONE = "문서가 업데이트 되었습니다!";
 
 // Timer
 export const RANKING_URL = "https://techschool-wiki.web.app/ranking";
-
+export const INTERVAL_IN_MILLISECONDS = 1000;
 // Ranking
