@@ -144,7 +144,7 @@ const StyledModal: ReactModal.Styles = {
     backgroundColor: ' rgba(0, 0, 0, 0.4)',
     width: '100%',
     height: '100vh',
-    zIndex: '10',
+    zIndex: '90000',
     position: 'fixed',
     top: '0',
     left: '0',
