@@ -1,30 +1,39 @@
 import MDEditor from '@uiw/react-md-editor';
 import styled from 'styled-components';
-import { Timestamp } from 'firebase/firestore';
-import { wikiDelete } from 'apis/Wiki/index'
+import { DocumentData } from 'firebase/firestore';
+import { wikiDelete } from 'apis/Wiki/index';
 import { media } from 'styles/media';
+import { dayFormat } from 'utils/format';
 
 interface loadingProps {
-  data: any;
+  data: DocumentData | undefined;
   setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsChanged: React.Dispatch<React.SetStateAction<boolean>>;
+  isChange: boolean;
 }
 
-function WikiContent({ data, setIsEdit }: loadingProps) {
-  const time = data?.writeTime as Timestamp;
-  const documentWritedTime = time?.toDate().toString();
+function WikiContent({
+  data,
+  setIsEdit,
+  setIsChanged,
+  isChange,
+}: loadingProps) {
+  const documentWritedTime = dayFormat(data?.writeTime?.toDate());
 
   return (
     <StyledWikiContentContainer>
       {data === undefined ? (
         <StyledWikiNotExist>
-          <h1>아직 작성된 글이 없습니다.</h1>
-          <button
-            onClick={() => {
-              setIsEdit(true);
-            }}
-          >
-            + 글 작성하기
-          </button>
+          <StyledWikiNotExistText>
+            아직 작성된 글이 없습니다
+            <button
+              onClick={() => {
+                setIsEdit(true);
+              }}
+            >
+              + 글 작성하기
+            </button>
+          </StyledWikiNotExistText>
         </StyledWikiNotExist>
       ) : (
         <div>
@@ -38,8 +47,9 @@ function WikiContent({ data, setIsEdit }: loadingProps) {
                 수정하기
               </button>
               <button
-                onClick={() => {
-                  wikiDelete(data?.subject);
+                onClick={async () => {
+                  await wikiDelete(data?.subject);
+                  setIsChanged(!isChange);
                 }}
               >
                 삭제하기
@@ -58,6 +68,7 @@ function WikiContent({ data, setIsEdit }: loadingProps) {
   );
 }
 export default WikiContent;
+
 const StyledButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -68,56 +79,43 @@ const StyledButtonContainer = styled.div`
 `;
 
 const StyledWikiContentContainer = styled.div`
-  width: 100%;
-`;
-
-
-const StyledWikiNotExist = styled.div`
-  font-size: 1.5rem;
-  font-weight: 600;
-  text-align: center;
-  position: absolute;
-
-  width: 100%;
   height: 100%;
-  top: 50%; 
+`;
+const StyledWikiNotExistText = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  font-size: 2rem;
+  font-weight: 700;
 
   button {
-    position: relative;
     color: #3584f4;
     font-size: 1rem;
-    text-align: right;
-    cursor: pointer;
   }
 
+  gap: 0.5rem;
+
   ${media.desktop_lg(`
-    font-size: 1.5rem;
-    button {
-      left: 13rem;
-    }
-  `)}
+  font-size: 1.25rem;
+`)}
   ${media.tablet(`
-    font-size: 1.25rem;
-    button {
-      left: 10rem;
-    }
-  `)}
-  ${media.tablet_680(`
-    font-size: 1rem;
-    button {
-      left: 7.5rem;
-    }
-  `)}
-  ${media.tablet_625(`
-    font-size: 0.75rem;
-    button {
-      left: 5rem;
-    }
-  `)}
-  ${media.mobile_430(`
-    font-size: 0.5rem;
-    button {
-      left: 2.5rem;
-    }
-  `)}
+  font-size: 1.25rem;
+`)}
+${media.tablet_680(`
+  font-size: 1rem;
+`)}
+${media.tablet_625(`
+  font-size: 0.875rem;
+`)}
+${media.mobile_430(`
+  font-size: 0.75rem;
+`)}
+`;
+const StyledWikiNotExist = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  top: 50%;
 `;
