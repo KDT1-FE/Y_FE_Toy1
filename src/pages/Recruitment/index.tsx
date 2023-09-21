@@ -16,6 +16,7 @@ import {
     Time,
     People,
     PostPageBtnWrapper,
+    PostPageBtn,
 } from './style';
 import SidebarRecruitment from '../../components/SidebarRecruitment';
 import { showRecruitmentFields } from '../../utils/firebase';
@@ -126,31 +127,24 @@ const Recruitment: React.FC = () => {
     }
 
     const handlePage = (e: any) => {
-        setPostStartIndex((e.target.value - 1) * postNumber);
+        setPostStartIndex((Number(e.target.innerHTML) - 1) * postNumber);
     };
 
     const pageNumbers = [];
     const pageFilterNumbers = [];
 
     for (let i = 0; i < recruitmentData.length / postNumber; i++) {
-        pageNumbers.push(
-            <button onClick={handlePage} value={i + 1}>
-                {i + 1}
-            </button>,
-        );
+        pageNumbers.push(<PostPageBtn onClick={handlePage}>{i + 1}</PostPageBtn>);
     }
 
     for (let i = 0; i < filteredData.length / postNumber; i++) {
-        pageFilterNumbers.push(
-            <button onClick={handlePage} value={i + 1}>
-                {i + 1}
-            </button>,
-        );
+        pageFilterNumbers.push(<PostPageBtn onClick={handlePage}>{i + 1}</PostPageBtn>);
     }
 
     return (
         <RecruitmentContainer>
             <SidebarRecruitment />
+
             <PostsContainer>
                 <PostNav>
                     <Link to="/recruitment/post">

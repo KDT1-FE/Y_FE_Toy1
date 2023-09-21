@@ -185,6 +185,7 @@ const Wiki: React.FC = () => {
                                 },
                             }}
                             height={'95vh'}
+
                             style={{ backgroundColor: 'var(--mention-badge)', color: 'black' }}
                         />
                     </ChannelNames>

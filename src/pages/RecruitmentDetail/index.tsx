@@ -14,20 +14,11 @@ import {
     ContentWrapper,
     Content,
     RecruitmentDetailContainer,
-    DeleteModalContainer,
-    DeleteModalWrapper,
-    DeleteModalTitle,
-    DeleteCloseButton,
-    DeleteModal,
-    DeleteFallbackButton,
-    DeleteCreateButton,
-    DeleteText,
     RecruitmentEndBtn,
     ContentUserImage,
     CommentCreateWrapper,
     CommentInputWrapper,
     CommentBtn,
-    DeleteBtnWrapper,
 } from './style';
 import CommentItem from './CommentItem';
 import { getUserData, createComment, deleteRecruitment, updateRecruitment } from '../../utils/firebase';
@@ -36,11 +27,11 @@ import { UserId, Render, RecruitmentData } from '../../utils/recoil';
 import { useNavigate } from 'react-router-dom';
 import { serverTimestamp, doc, onSnapshot } from 'firebase/firestore';
 import { firestore } from '../../utils/firebase';
+import swal from 'sweetalert';
 
 const RecruitmentDetail: React.FC = () => {
     const [userId, setUserId] = useRecoilState<string>(UserId);
     const [recruitmentData, setRecruitmentData] = useRecoilState(RecruitmentData);
-    const [deleteModalValued, setDeleteModalValued] = useState<boolean>(false);
     const [commentValue, setCommentValue] = useState('');
     const [comments, setComments] = useState([]);
     const [render, setRender] = useRecoilState(Render);
@@ -92,7 +83,13 @@ const RecruitmentDetail: React.FC = () => {
         e.preventDefault();
 
         if (!userId) {
-            alert('로그인 후 사용해주세요');
+            swal({
+                title: '댓글을 작성하실 수 없습니다.',
+                text: '로그인 후 사용해주세요 !',
+                icon: 'warning',
+                // buttons: true,
+                // dangerMode: true,
+            });
             return;
         }
         // e.target 및 속성의 존재 여부 확인
@@ -117,7 +114,9 @@ const RecruitmentDetail: React.FC = () => {
             };
             await createComment(channel, path, value);
 
-            alert('댓글이 등록되었습니다.');
+            swal('댓글이 성공적으로 등록되었습니다!', {
+                icon: 'success',
+            });
             setCommentValue('');
             // location.reload();
         } else {
@@ -126,50 +125,66 @@ const RecruitmentDetail: React.FC = () => {
     };
 
     const handleEdit = () => {
-        setRecruitmentData({ ...data, channel: channel });
-        navigate('/recruitment/edit/' + channel + '/' + path, data);
+        swal({
+            title: '정말로 글을 수정하시겠습니까? ',
+            text: '수정 버튼을 누르시면 수정 페이지로 이동합니다.!',
+            icon: 'info',
+            buttons: ['취소', '수정'],
+        }).then((willDelete) => {
+            if (willDelete) {
+                setRecruitmentData({ ...data, channel: channel });
+                navigate('/recruitment/edit/' + channel + '/' + path, data);
+            } else {
+                swal('글 수정을 취소합니다!');
+            }
+        });
     };
 
-    const handleDeleteRcruitment = () => {
-        deleteRecruitment(channel, path);
-        navigate('/recruitment');
-    };
-
-    const handleDeleteModal = () => {
-        setDeleteModalValued(!deleteModalValued);
+    const handleDeleteRecruitment = () => {
+        swal({
+            title: '정말로 글을 삭제하시겠습니까? ',
+            text: '삭제된 글을 되돌리실 수 없습니다!',
+            icon: 'warning',
+            buttons: ['취소', '삭제'],
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                swal('글을 성공적으로 삭제하였습니다.', {
+                    icon: 'success',
+                });
+                deleteRecruitment(channel, path);
+                navigate('/recruitment');
+            } else {
+                swal('글 삭제를 취소합니다!');
+            }
+        });
     };
 
     const handleRecruitmentValued = () => {
-        const updated_at_timestamp = serverTimestamp();
+        swal({
+            title: '모집을 완료하시겠습니까? ',
+            text: '모집중으로 되돌리실 수 없습니다!',
+            icon: 'info',
+            buttons: ['취소', '모집 완료'],
+        }).then((willDelete) => {
+            if (willDelete) {
+                swal('모집이 성공적으로 마감되었습니다.', {
+                    icon: 'success',
+                });
+                const value = data;
+                value.recruitValued = !value.recruitValued;
 
-        const value = data;
-        value.recruitValued = !value.recruitValued;
+                console.log(value);
 
-        console.log(value);
-
-        updateRecruitment(channel, path, value);
+                updateRecruitment(channel, path, value);
+            } else {
+                swal('모집 마감이 취소되었습니다.!');
+            }
+        });
     };
 
     return (
         <RecruitmentDetailContainer>
-            {deleteModalValued ? (
-                <DeleteModalContainer>
-                    <DeleteModalWrapper>
-                        <DeleteModal>
-                            <DeleteModalTitle>게시글 삭제</DeleteModalTitle>
-                            <DeleteCloseButton onClick={handleDeleteModal}>x</DeleteCloseButton>
-                            <DeleteText>정말 삭제하시겠습니까?</DeleteText>
-                            <DeleteBtnWrapper>
-                                <DeleteCreateButton onClick={handleDeleteRcruitment}>삭제</DeleteCreateButton>
-                                <DeleteFallbackButton onClick={handleDeleteModal}>나가기</DeleteFallbackButton>
-                            </DeleteBtnWrapper>
-                        </DeleteModal>
-                    </DeleteModalWrapper>
-                </DeleteModalContainer>
-            ) : (
-                ''
-            )}
-
             <ContentContainer>
                 <ContentWrapper>
                     <ContentHeader>
@@ -192,7 +207,7 @@ const RecruitmentDetail: React.FC = () => {
                             <BtnWrapper>
                                 {data.recruitValued ? <Btn onClick={handleEdit}>수정</Btn> : ''}
 
-                                <Btn onClick={handleDeleteModal}>삭제</Btn>
+                                <Btn onClick={handleDeleteRecruitment}>삭제</Btn>
                             </BtnWrapper>
                         ) : (
                             ''
