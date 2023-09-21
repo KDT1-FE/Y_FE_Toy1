@@ -14,6 +14,7 @@ const GallerySidebar: React.FC<GalleryProps> = ({
 }) => {
   const [displaySidebar, setDisplaySidebar] = useState(false);
   // 모바일 갤러리 사이드바
+
   if (IsMobile()) {
     return (
       <MobileContainer>
@@ -32,8 +33,18 @@ const GallerySidebar: React.FC<GalleryProps> = ({
               alt="닫기 버튼"
             />
           </div>
+           <ListItem
+          className={activeCategory === "all" ? "active" : ""}
+          onClick={() => {
+            handleClick("all")
+            setDisplaySidebar(false)
+          }}
+        > 전체보기
+        </ListItem>
+          
           <MobileMarginTop />
           <MobileListItem
+
             className={activeCategory === "notice" ? "active" : ""}
             onClick={() => {
               handleClick("notice");
@@ -77,6 +88,11 @@ const GallerySidebar: React.FC<GalleryProps> = ({
     return (
       <Container>
         <SidebarList>
+          <ListItem
+            className={activeCategory === "all" ? "active" : ""}
+            onClick={() => handleClick("all")}
+          > 전체보기
+          </ListItem>
           <ListItem
             className={activeCategory === "notice" ? "active" : ""}
             onClick={() => handleClick("notice")}
@@ -129,11 +145,11 @@ interface IMobileInnerContainer {
 }
 const MobileInnerContainer = styled.div<IMobileInnerContainer>`
   position:absolute;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   z-index: 15;
   background-color: #fff;
-  left:${(props) => (props.displaysidebar === "true" ? "0px;" : "-100vw;")}
+  left:${props=>props.displaysidebar==="true"? '0px;' : '-100%;'}
   transition: all 1s ease-in-out;
   
   .header__mobile-close-wrap{

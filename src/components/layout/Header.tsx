@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Modal } from "../template/Modal";
+import { Modal, MobileModal } from "../template/Modal";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "provider/userContext";
@@ -145,11 +145,11 @@ const Header = () => {
               </MobileStyledButton>
             </li>
           </MobileSecondHeader>
-          {isModalActive && (
-            <Modal
+          {isModalActive ? (
+            <MobileModal
+              width="150"
+              height="180"
               setModal={setIsModalActive}
-              width="500"
-              height="300"
               element={
                 <StudyTime
                   isStudying={isStudying}
@@ -158,7 +158,7 @@ const Header = () => {
                 />
               }
             />
-          )}
+          ) : null}
         </MobileContainer>
         {mobileUserInfo ? <MobileUserInfo /> : <></>}
       </>
@@ -238,8 +238,8 @@ const Header = () => {
         {isModalActive && (
           <Modal
             setModal={setIsModalActive}
-            width="500"
-            height="300"
+            width="400"
+            height="250"
             element={
               <StudyTime
                 isStudying={isStudying}
@@ -397,8 +397,19 @@ const Container = styled.nav`
     display: flex;
     justify-content: flex-end;
     margin-right: 3rem;
-    gap: 50px;
+    gap: 45px;
     align-items: center;
+  }
+  @media(max-width: 900px){
+    .header__link-wrapper{
+      gap:25px;
+    }
+  }
+
+  @media(max-width: 768px){
+    .header__link-wrapper{
+      gap:10px;
+    }
   }
   .header__user-name {
     position: relative;

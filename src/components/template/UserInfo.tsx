@@ -79,10 +79,10 @@ const UserInfo: React.FC<Props> = ({ handlerLogout, user, isborder }) => {
       </div>
 
       <h1>{user.displayName + "님"}</h1>
-      <h2>{user.email}</h2>
+      <h3>{user.email}</h3>
 
       <StyledButton onClick={isLogout ? handlerLogout : handlerConfirmImage}>
-        <h3>{isLogout ? `로그아웃` : `사진저장`}</h3>
+        <h4>{isLogout ? `로그아웃` : `사진저장`}</h4>
       </StyledButton>
     </Container>
   );
@@ -142,13 +142,13 @@ const Container = styled.section<IContainer>`
     font-size: 24px;
     font-weight: bold;
   }
-  h2 {
+  h3 {
     font-size: 14px;
     margin: 0;
     margin-bottom: 16px;
     font-weight: 300;
   }
-  h3 {
+  h4 {
     margin: 0;
   }
 `;
