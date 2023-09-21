@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import SidebarBottom from "./SidebarBottom";
+import { IsMobile } from "utils/mediaQuery"
 
 const Sidebar = () => {
   const location = useLocation();

@@ -8,11 +8,21 @@ import styled from "styled-components";
 import { db } from "../../firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import userData from "./UserData";
+import { IsMobile } from "utils/mediaQuery";
 
 const Gallery = () => {
   const [onEdit, setOnEdit] = useState<boolean>(false);
   const [galleryData, setGalleryData] = useState<userData[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>("notice"); // 초기값 설정
+
+  let leftMargin = 200
+  let topMargin = 60
+  
+  if(IsMobile()){
+    leftMargin = 0
+    topMargin = 100
+  }
+
   // 초기값
   useEffect(() => {
     const fetchData = async () => {
@@ -48,7 +58,7 @@ const Gallery = () => {
   return (
     <>
       <GallerySidebar handleClick={handleClick} activeCategory={activeCategory} />
-      <Container>
+      <Container leftMargin={leftMargin} topMargin={topMargin}>
         <Routes>
           <Route path="" element={<GalleryList galleryData={galleryData} activeCategory={activeCategory} />} />
           <Route
@@ -69,16 +79,21 @@ const Gallery = () => {
   );
 };
 
-const Container = styled.section`
+const Container = styled.section<IContainer>`
   position: relative;
-  left: 200px;
-  height: calc(100% - 60px);
-  width: calc(100% - 200px);
+  left: ${props=>props.leftMargin}px;
+  height: calc(100% - ${props=>props.topMargin}px);
+  width: calc(100% - ${props=>props.leftMargin}px);
   padding: 5px;
   box-sizing: border-box;
   img {
     max-width: 100%;
   }
 `;
+
+interface IContainer {
+  leftMargin : number;
+  topMargin : number;
+}
 
 export default Gallery;

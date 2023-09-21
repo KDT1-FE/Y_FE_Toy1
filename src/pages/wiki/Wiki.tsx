@@ -7,12 +7,19 @@ import WikiDetail from "./WikiDetail";
 import WikiEdit from "./WikiEdit";
 //import WikiTime from "pages/wiki/WikiTime";
 import WikiTimeRank from "pages/wiki/WikiTimeRank";
-
+import { IsMobile } from "utils/mediaQuery";
 const Wiki = () => {
+  let leftMargin = 200
+  let topMargin = 60
+  if(IsMobile()){
+    leftMargin = 0
+    topMargin = 100
+  }
+  
   return (
     <>
       <Sidebar />
-      <Container>
+      <Container leftMargin={leftMargin} topMargin={topMargin}>
         <Routes>
           {/* 리다이렉션 */}
           <Route path="/" element={<Navigate to="/Wiki/출석" />} />
@@ -32,13 +39,18 @@ const Wiki = () => {
   );
 };
 
-const Container = styled.section`
+const Container = styled.section<IContainer>`
   position: relative;
-  left: 200px;
-  height: calc(100% - 60px);
-  width: calc(100% - 200px);
+  left: ${props=>props.leftMargin}px;
+  height: calc(100% - ${props=>props.topMargin}px);
+  width: calc(100% - ${props=>props.leftMargin}px);
   padding: 5px;
   box-sizing: border-box;
 `;
+
+interface IContainer {
+  leftMargin : number;
+  topMargin : number;
+}
 
 export default Wiki;
