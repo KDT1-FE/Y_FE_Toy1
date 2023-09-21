@@ -14,7 +14,10 @@ interface GalleryDetailProps {
   setGalleryData: React.Dispatch<React.SetStateAction<userData[]>>;
 }
 
-const GalleryDetail: React.FC<GalleryDetailProps> = ({ setOnEdit, setGalleryData }) => {
+const GalleryDetail: React.FC<GalleryDetailProps> = ({
+  setOnEdit,
+  setGalleryData,
+}) => {
   // 현재 url의 id값 구하기
   const { id } = useParams<string>();
   const navigate = useNavigate();
