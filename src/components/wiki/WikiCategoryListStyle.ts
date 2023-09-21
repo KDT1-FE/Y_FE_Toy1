@@ -46,9 +46,16 @@ export const ChildWikiWrapper = styled.div``;
 export const WikiTitle = styled.span<isSelectedWiki>`
   overflow: hidden;
   white-space: nowrap;
+  text-overflow: ellipsis;
   color: ${(props) =>
     props.selected ? "var(--color-main)" : "var(--color-gray)"};
   font-weight: ${(props) => (props.selected ? 600 : 500)};
+`;
+
+export const ChildWikiTitle = styled(WikiTitle)`
+  && {
+    padding-right: 2.5rem;
+  }
 `;
 
 export const DepthSymbol = styled.div`
