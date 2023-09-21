@@ -35,11 +35,11 @@ function WikiCreate({ setIsEdit, selectedCategory, data }: createProps) {
 
   return (
     <StyledTextareaContainer>
-      <ButtonContainer>
+      <StyledButtonContainer>
         <button onClick={handleWikiContent}>
           {isCreate ? '등록하기' : '수정하기'}
         </button>
-      </ButtonContainer>
+      </StyledButtonContainer>
       <MDEditor
         placeholder="등록할 내용을 입력해주세요."
         value={textValue}
@@ -53,7 +53,7 @@ function WikiCreate({ setIsEdit, selectedCategory, data }: createProps) {
 }
 
 export default WikiCreate;
-const ButtonContainer = styled.div`
+const StyledButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
 
