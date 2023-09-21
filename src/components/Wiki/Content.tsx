@@ -9,6 +9,7 @@ import TeamContent from "./TeamContent";
 import OtherContent from "./OtherContent";
 import {ReactComponent as RefreshIcon} from "../../assets/icons/Refresh.svg";
 import {
+  LOADING_TIME,
   UPDATE_DOC_TITLE,
   UPDATE_DOC_TEXT,
   UPDATE_DOC_DONE,
@@ -61,7 +62,7 @@ function Content() {
 
     setTimeout(() => {
       setisLoading(false);
-    }, 1000);
+    }, LOADING_TIME);
   }, [id]);
 
   useEffect(() => {

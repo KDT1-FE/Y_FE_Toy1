@@ -10,6 +10,7 @@ import AddPhotos from "./AddPhotos";
 import UploadModal from "./UploadModal";
 import {ReactComponent as DeleteBtn} from "../../assets/icons/DeleteBtn.svg";
 import {ReactComponent as Upload} from "../../assets/icons/Upload.svg";
+import {LOADING_TIME} from "../../constant";
 
 function Album() {
   const {id} = useParams<{id: string}>();
@@ -35,7 +36,7 @@ function Album() {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, LOADING_TIME);
   }, [id]);
 
   useEffect(() => {
@@ -48,7 +49,7 @@ function Album() {
           setFiles(photoFiles);
           setTimeout(() => {
             setIsLoading(false);
-          }, 1000);
+          }, LOADING_TIME);
         })
         .catch(err => {
           throw new Error(err);
