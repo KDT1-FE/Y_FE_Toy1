@@ -2,8 +2,8 @@
 @use '../base' as *;
 
 .header {
-  padding: 1rem 4rem;
-  height: 60px;
+  padding: 1rem 2rem;
+  height: 7rem;
   background: $white;
   position: sticky;
   top: 0;
@@ -13,30 +13,17 @@
   align-items: center;
   width: 100%;
   box-sizing: border-box;
-
+  @include shadow();
   &__logo {
-    width: 120px;
-    height: 40px;
+    width: 20rem;
+    height: 5rem;
     display: block;
-
-    // 나중에 이미지로 대체시 삭제 해 주세요
-    display: inline-block;
-    width: 120px;
-    height: 40px;
-    font-size: $font-lg;
-    font-weight: $font-bold700;
-    text-align: center;
-    padding: 1rem;
-    line-height: 40px;
-    // 나중에 이미지로 대체시 삭제 해 주세요
-    &__logo img {
-      width: 100%;
-    }
   }
 
   &__user {
     display: flex;
     justify-content: flex-end;
+    padding-right: 2rem;
     align-items: center;
     gap: 14px;
     position: relative;
