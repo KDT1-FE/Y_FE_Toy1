@@ -27,6 +27,7 @@ export const AnchorContainer = styled.div`
 
 export const RightAnchorContainer = styled.div`
     display: flex;
+    align-items: center;
     justify-content: space-around;
     align-items: center;
     gap: 20px;
@@ -38,4 +39,28 @@ export const ListAnchor = styled.a`
     font-weight: 700;
     font-size: 24px;
     color: ${(props) => props.theme.text};
+`;
+
+export const LogoutButton = styled.button`
+    min-height: 50px;
+    border-radius: 42.5%;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: ${(props) => props.theme.text};
+    background-color: ${(props) => props.theme.sideMenu};
+    &:hover {
+        cursor: pointer;
+    }
+`;
+
+export const LoginButton = styled.button`
+    min-height: 50px;
+    border-radius: 42.5%;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: ${(props) => props.theme.text};
+    background-color: ${(props) => props.theme.sideMenu};
+    &:hover {
+        cursor: pointer;
+    }
 `;

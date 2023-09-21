@@ -1,5 +1,13 @@
 import React, { useEffect } from 'react';
-import { HeaderComponent, TitleAnchor, AnchorContainer, ListAnchor, RightAnchorContainer } from './style';
+import {
+    HeaderComponent,
+    TitleAnchor,
+    AnchorContainer,
+    ListAnchor,
+    RightAnchorContainer,
+    LogoutButton,
+    LoginButton,
+} from './style';
 import { useRecoilState } from 'recoil';
 import { UserId, TimeLog, TimerOn, ThemeChange } from '../../utils/recoil';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -69,7 +77,7 @@ const Header: React.FC = () => {
                     <ListAnchor href="/recruitment">모집</ListAnchor>
                     <ListAnchor href="/gallery">갤러리</ListAnchor>
                     {userId.length > 0 ? (
-                        <button
+                        <LogoutButton
                             onClick={() => {
                                 swal({
                                     title: '로그아웃 하시겠습니까?',
@@ -87,9 +95,11 @@ const Header: React.FC = () => {
                             }}
                         >
                             LogOut
-                        </button>
+                        </LogoutButton>
                     ) : (
-                        <ListAnchor href={'/LogIn'}>LogIn</ListAnchor>
+                        <ListAnchor href={'/LogIn'}>
+                            <LoginButton>LogIn</LoginButton>
+                        </ListAnchor>
                     )}
                     {userId.length > 0 && <MyPageBtn />}
                     {timerOn && (
