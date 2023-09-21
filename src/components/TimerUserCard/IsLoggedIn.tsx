@@ -3,6 +3,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from 'data/user';
 import { db } from 'data/firebase';
 import { doc, updateDoc, collection, getDocs } from 'firebase/firestore';
+import './IsLoggedIn.scss';
 
 export function IsLoggedIn({ userId }: any) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -46,6 +47,7 @@ export function IsLoggedIn({ userId }: any) {
     <div>
       {userStatus[userId] !== undefined && (
         <div
+          className="user-status"
           style={{
             backgroundColor: userStatus[userId] ? 'green' : 'red',
             width: '20px',

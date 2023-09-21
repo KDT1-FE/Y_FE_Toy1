@@ -1,24 +1,37 @@
 @import '/src/styles/common';
 
 .user-card__container {
-  background-color: white;
+  background-color: $blackColor;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(25%, auto));
-  row-gap: 2em;
+  row-gap: 0.2rem;
+  margin: 20px;
+  border-radius: 20px;
+  padding: 20px;
+  user-select: none;
+  h3 {
+    margin: 15% 0px 0px 20%;
+    font-size: 5rem;
+    color: white;
+    font-family: 'Sinoreta PERSONAL USE', sans-serif;
+  }
 }
 .user-card {
   color: $whiteColor;
   text-align: center;
   font-size: 18px;
-  margin: 10px 20px;
+  margin: 10px;
   padding: 20px 0px;
   border-radius: 20px;
-  background-color: $blackColor;
+  // background-color: $blackColor;
+  background-image: url('https://i.pinimg.com/564x/c8/77/f3/c877f377d10dc6ffa07c3f50fb04e2c4.jpg');
+  background-position: 10% center;
+  transition: background-position 0.7s;
+  cursor: pointer;
 }
-// .user-card :hover {
-//   background-color: $highlightColor;
-//   transition: background-color 0.3s;
-// }
+.user-card:hover {
+  background-position: 90% 18%;
+}
 .user-card img {
   width: 150px;
   height: 150px;

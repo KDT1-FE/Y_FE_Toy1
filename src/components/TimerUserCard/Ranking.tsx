@@ -30,7 +30,7 @@ export function Ranking() {
 
   return (
     <div className={'user-rank__container'}>
-      <h1>👑 랭킹 👑</h1>
+      <h1>👑 Rank 👑</h1>
       <ul className={'user-rank__table'}>
         {topThree.map((entry, index) => (
           <li
