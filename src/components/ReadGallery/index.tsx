@@ -5,15 +5,19 @@ import DeleteGallery from 'components/DeleteGallery';
 import styled from 'styled-components';
 import deleteIcon from '../../assets/icons/deleteIcon.png';
 import { media } from 'styles/media';
+import Loading from 'components/Common/Loading';
 
 function ReadGallery() {
   const [galleryRead, setGalleryRead] = useState<GalleryData[]>([]);
+  const [isReading, setIsReading] = useState(false);
 
   const getGalleryList = async () => {
+    setIsReading(true);
     const result = await getStorage();
     if (result !== undefined) {
       setGalleryRead(result);
     }
+    setIsReading(false);
   };
 
   useEffect(() => {
@@ -25,34 +29,36 @@ function ReadGallery() {
   const selectedCategory = searchParams.get('category');
 
   return (
-    <StyledImgContainer>
-      {galleryRead.map((item, index) => {
-        if (selectedCategory !== item.category) {
-          console.log('category1: ', item.category);
-          return (
-            <StyledReadGalleryNone key={index}>
+    <>
+      {isReading ? (
+        <Loading></Loading>
+      ) : (
+        <StyledImgContainer>
+          {galleryRead.map((item, index) => {
+            if (selectedCategory === item.category) {
+              return (
+                <StyledPhotoContainer key={index} id={item.category}>
+                  <StyledReadGallery src={item.src}></StyledReadGallery>
+                  <StyledDeleteIcon
+                    id={item.id}
+                    src={deleteIcon}
+                    onClick={() => {
+                      DeleteGallery(item.id);
+                    }}
+                  ></StyledDeleteIcon>
+                </StyledPhotoContainer>
+              );
+            }
+            return null;
+          })}
+          {galleryRead.every((item) => selectedCategory !== item.category) && (
+            <StyledReadGalleryNone>
               아직 등록된 사진이 없습니다.
             </StyledReadGalleryNone>
-          );
-        } else {
-          return (
-            <StyledPhotoContainer key={index} id={item.category}>
-              <StyledReadGallery src={item.src}></StyledReadGallery>
-              <StyledDeleteIcon
-                id={item.id}
-                src={deleteIcon}
-                onClick={() => {
-                  DeleteGallery(item.id);
-                }}
-              ></StyledDeleteIcon>
-            </StyledPhotoContainer>
-          );
-        }
-      })}
-      <StyledReadGalleryNone>
-        아직 등록된 사진이 없습니다.
-      </StyledReadGalleryNone>
-    </StyledImgContainer>
+          )}
+        </StyledImgContainer>
+      )}
+    </>
   );
 }
 export default ReadGallery;
@@ -100,7 +106,7 @@ const StyledPhotoContainer = styled.div`
   height: 12.9375rem;
   position: relative;
   transition: all 0.2s ease-in-out;
-  &: hover {
+  &:hover {
     transform: translateY(-10px);
   }
   ${media.desktop_2xl(`
@@ -148,7 +154,7 @@ const StyledDeleteIcon = styled.img`
   top: 0.625rem;
   left: 87%;
   transition: all 0.3s ease-in-out;
-  &: hover {
+  &:hover {
     transform: scale(1.1);
   }
   ${media.desktop_xl(`
