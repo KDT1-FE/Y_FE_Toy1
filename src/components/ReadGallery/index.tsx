@@ -102,8 +102,8 @@ const StyledImgContainer = styled.div`
 `;
 
 const StyledPhotoContainer = styled.div`
-  width: 24.625rem;
-  height: 12.9375rem;
+  width: 20rem;
+  height: 11.5rem;
   position: relative;
   transition: all 0.2s ease-in-out;
   &:hover {
@@ -150,6 +150,7 @@ const StyledReadGallery = styled.img`
 `;
 
 const StyledDeleteIcon = styled.img`
+  width: 1.5rem;
   position: absolute;
   top: 0.625rem;
   left: 87%;
@@ -157,23 +158,12 @@ const StyledDeleteIcon = styled.img`
   &:hover {
     transform: scale(1.1);
   }
-  ${media.desktop_xl(`
-    width: 2rem;
-`)}
-
-  ${media.desktop_xl(`
-    width: 1.7rem;
-  `)}
 
   ${media.tablet(`
-    width: 1.5rem;
+    width: 1.3rem;
   `)}
 
   ${media.tablet_680(`
-    width: 1.2rem;
-`)}
-
-${media.mobile_430(`
     width: 1rem;
 `)}
 `;
