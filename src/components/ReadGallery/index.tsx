@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getStorage, GalleryData } from 'apis/Gallery';
+import { getGalleryData, GalleryData } from 'apis/Gallery';
 import { useLocation } from 'react-router-dom';
 import DeleteGallery from 'components/DeleteGallery';
 import styled from 'styled-components';
@@ -13,7 +13,7 @@ function ReadGallery() {
 
   const getGalleryList = async () => {
     setIsReading(true);
-    const result = await getStorage();
+    const result = await getGalleryData();
     if (result !== undefined) {
       setGalleryRead(result);
     }
