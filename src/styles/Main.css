@@ -272,3 +272,40 @@
   font-size: 20px;
   font-weight: 500;
 }
+
+
+/* 페이지 네비게이션 스타일 */
+.pagination-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.pagination-buttons button {
+  padding: 8px 16px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.pagination-buttons button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* 그리드 레이아웃 스타일 */
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4개의 열로 구성 */
+  grid-gap: 16px;
+  list-style: none;
+}
+
+.grid-item {
+  border: 1px solid #ccc;
+  padding: 16px;
+}
+
+/* 나머지 스타일은 필요에 따라 추가하세요. */

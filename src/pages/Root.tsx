@@ -17,13 +17,36 @@ export default function Root() {
   const { auth } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false); // 게시글 작성 모달
   const [selectedPost, setSelectedPost] = useState<FirestorePostData | null>(null);
-  
+
   const [PostedModalOpen, setPostedModalOpen] = useState(false); // 작성된 게시글 모달
   const [posts, setPosts] = useState<FirestorePostData[]>([]);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const location = useLocation();
   const user = useSelector((state: RootState) => state);
+
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호
+  const postsPerPage = 8; // 한 페이지에 표시할 게시물 수
+
+  // 이전 페이지로 이동
+  const goToPrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  // 다음 페이지로 이동
+  const goToNextPage = () => {
+    const maxPage = Math.ceil(posts.length / postsPerPage);
+    if (currentPage < maxPage) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+// 현재 페이지에 표시할 게시물 범위 계산
+const indexOfLastPost = currentPage * postsPerPage;
+const indexOfFirstPost = indexOfLastPost - postsPerPage;
+const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
   // 작성된 게시글 보는 모달
   const handleOpenPostModal = (post: FirestorePostData) => {
@@ -150,10 +173,10 @@ const fetchPosts = async () => {
       )}
       <Outlet />
       <ul className="post-grid">
-        {posts.map((post,index) => (
-          <li className="post-item" key={index} onClick={() => handleOpenPostModal(post)}>
+        {currentPosts.map((post, index) => (
+          <li className="post-item grid-item" key={index} onClick={() => handleOpenPostModal(post)}>
             <div className="post-content-container">
-            <p className='post-user'>작성자: {post.username}</p>
+              <p className='post-user'>작성자: {post.username}</p>
               <p className='post-title'>{post.title}</p>
               <p className='post-content'>{post.content}</p>
               <p className='post-due-date'>모집기간: {(post.timestamp as any).toDate().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
@@ -161,6 +184,10 @@ const fetchPosts = async () => {
           </li>
         ))}
       </ul>
+      <div className="pagination-buttons">
+      <button onClick={goToPrevPage} disabled={currentPage === 1}>이전 페이지</button>
+      <button onClick={goToNextPage} disabled={currentPage * postsPerPage >= posts.length}>다음 페이지</button>
+    </div>
       </div>
     </div>}
     {PostedModalOpen && (
