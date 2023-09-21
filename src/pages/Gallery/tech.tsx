@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import ModalT from './UploadModal/ModalT';
-import { onSnapshot, updateDoc } from 'firebase/firestore';
-import { ref, deleteObject } from 'firebase/storage';
+import { onSnapshot, updateDoc, DocumentData } from 'firebase/firestore';
+import { ref, deleteObject, StorageReference } from 'firebase/storage';
 import { storeRef, storage } from '../../utils/firebase';
 import {
     ArticleContainer,
@@ -12,14 +12,21 @@ import {
     ModalBackground,
     TrashCan,
     UploadBtn,
-    UploadBtnWrapper,
 } from './style';
 import swal from 'sweetalert';
 
+// Firebase Firestore에서 반환되는 데이터의 타입
+interface FirebaseArticleData {
+    index: number;
+    recruitURL: string;
+    thumbnailURL: string;
+    description: string;
+}
+
 const Tech: React.FC = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [articleTs, setArticleTs] = useState<any[]>([]);
-    const [isDraggingItem, setIsDraggingItem] = useState(false); // 추가: 아이템을 드래그할 때만 쓰레기통 보이기
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [articleTs, setArticleTs] = useState<FirebaseArticleData[]>([]);
+    const [isDraggingItem, setIsDraggingItem] = useState<boolean>(false);
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -33,39 +40,37 @@ const Tech: React.FC = () => {
         setIsDraggingItem(true);
     };
 
-    const handleDragEnd = async (result: any) => {
+    const handleDragEnd = async (result: DropResult) => {
         setIsDraggingItem(false);
 
         if (result.destination) {
             if (result.destination.droppableId === 'trashCan') {
                 const itemToDelete = articleTs[result.source.index];
 
-                const shouldDelete = swal({
-                    title: '정말로 사진을 하시겠습니까? ',
+                const shouldDelete = await swal({
+                    title: '정말로 사진을 삭제하시겠습니까?',
                     text: '삭제 버튼을 누르시면 사진 파일이 사라집니다!',
                     icon: 'info',
                     buttons: ['취소', '삭제'],
-                }).then((shouldDelete) => {
-                    if (shouldDelete) {
-                        if (shouldDelete) {
-                            // Firestore에서 해당 요소 삭제
-                            const updatedArticleTs = [...articleTs];
-                            updatedArticleTs.splice(result.source.index, 1);
-                            updateDoc(storeRef, {
-                                '테크.articleT': updatedArticleTs,
-                            });
-
-                            // Storage에서 이미지 파일 삭제
-                            const imageRef = ref(storage, `thumbnailT/${itemToDelete.index}`);
-                            deleteObject(imageRef);
-
-                            // 상태 업데이트
-                            setArticleTs(updatedArticleTs);
-                        }
-                    } else {
-                        swal('사진 삭제를 취소합니다!');
-                    }
                 });
+
+                if (shouldDelete) {
+                    // Firestore에서 해당 요소 삭제
+                    const updatedArticleTs = [...articleTs];
+                    updatedArticleTs.splice(result.source.index, 1);
+                    await updateDoc(storeRef, {
+                        '테크.articleT': updatedArticleTs,
+                    });
+
+                    // Storage에서 이미지 파일 삭제
+                    const imageRef: StorageReference = ref(storage, `thumbnailT/${itemToDelete.index}`);
+                    await deleteObject(imageRef);
+
+                    // 상태 업데이트
+                    setArticleTs(updatedArticleTs);
+                } else {
+                    swal('사진 삭제를 취소합니다!');
+                }
             } else {
                 // 기존 드래그 앤 드롭 로직 (항목의 순서 변경)
                 const newArticleTs = [...articleTs];
@@ -80,10 +85,10 @@ const Tech: React.FC = () => {
     };
 
     useEffect(() => {
-        const unsubscribe = onSnapshot(storeRef, (docSnapshot) => {
+        const unsubscribe = onSnapshot(storeRef, (docSnapshot: DocumentData) => {
             if (docSnapshot.exists()) {
                 const data = docSnapshot.data();
-                const articleTData = data?.테크?.articleT || [];
+                const articleTData: FirebaseArticleData[] = data?.테크?.articleT || [];
                 setArticleTs(articleTData);
             } else {
                 console.log('Document does not exist.');
@@ -103,7 +108,10 @@ const Tech: React.FC = () => {
                     <ModalT onClose={closeModal} />
                 </div>
             )}
-            <UploadBtn onClick={openModal} style={{ opacity: isDraggingItem ? '0' : '1', zIndex: '1' }}></UploadBtn>
+            <UploadBtn
+                onClick={openModal}
+                style={{ opacity: isDraggingItem ? '0' : '1', zIndex: isDraggingItem ? '1' : '0' }}
+            ></UploadBtn>
             <ArticleContainer>
                 <DragDropContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
                     <Droppable droppableId="trashCan">
@@ -111,8 +119,8 @@ const Tech: React.FC = () => {
                             <TrashCan
                                 ref={provided.innerRef}
                                 style={{
-                                    opacity: isDraggingItem == true ? '1' : '0',
-                                    zIndex: isDraggingItem == true ? '2' : '0',
+                                    opacity: isDraggingItem === true ? '1' : '0',
+                                    zIndex: isDraggingItem === true ? '2' : '0',
                                 }}
                                 {...provided.droppableProps}
                             >
@@ -154,7 +162,7 @@ const Tech: React.FC = () => {
                                                 <a
                                                     href={articleT.recruitURL}
                                                     key={articleT.index}
-                                                    id={articleT.index}
+                                                    id={articleT.index.toString()}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     style={{ position: 'relative' }}
@@ -175,7 +183,7 @@ const Tech: React.FC = () => {
                                                     <Description>
                                                         {articleT.description
                                                             .split('\n')
-                                                            .map((line: any, index: any) => (
+                                                            .map((line: string, index: number) => (
                                                                 <React.Fragment key={index}>
                                                                     {line}
                                                                     <br />
