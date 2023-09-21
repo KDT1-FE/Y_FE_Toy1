@@ -7,7 +7,7 @@ import Loading from 'components/Common/LoadingImgRegister';
 import { useState } from 'react';
 
 function Gallery() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <>
       <StyledContainer>
