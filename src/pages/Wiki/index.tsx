@@ -151,7 +151,11 @@ const Wiki: React.FC = () => {
                         <div style={{ marginBottom: '16px', color: 'black' }}>{time}</div>
                         <MDEditor.Markdown
                             source={md}
-                            style={{ backgroundColor: 'var(--mention-badge)', minHeight: 'calc(100vh - 252px)' }}
+                            style={{
+                                backgroundColor: 'var(--mention-badge)',
+                                color: 'black',
+                                minHeight: 'calc(100vh - 252px)',
+                            }}
                         />
                     </ChannelNames>
                 </WikiContent>
@@ -175,9 +179,13 @@ const Wiki: React.FC = () => {
                             onChange={handleEditorChange}
                             previewOptions={{
                                 rehypePlugins: [[rehypeSanitize]],
+                                style: {
+                                    backgroundColor: 'var(--mention-badge)',
+                                    color: 'black',
+                                },
                             }}
                             height={'95vh'}
-                            style={{ backgroundColor: 'var(--mention-badge)' }}
+                            style={{ backgroundColor: 'var(--mention-badge)', color: 'black' }}
                         />
                     </ChannelNames>
                 </WikiContent>
