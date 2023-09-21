@@ -74,7 +74,15 @@ const StyledButtonContainer = styled.div`
   justify-content: flex-end;
 
   button {
-    margin: 1rem;
+    margin: 0.5rem;
+    // color: #3584f4;
+    border: 1px solid rgb(226, 232, 240);
+    padding: 0.5rem;
+    border-radius: 1rem;
+  }
+
+  button:hover {
+    background-color: rgb(237, 242, 247);
   }
 `;
 
