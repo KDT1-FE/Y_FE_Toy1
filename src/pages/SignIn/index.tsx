@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -76,7 +75,21 @@ export default function SignIn() {
 
     return (
         <ThemeProvider theme={defaultTheme}>
-            <Container component="main" maxWidth="xs" style={{ paddingTop: '72px' }}>
+            <Container
+                component="main"
+                maxWidth="xs"
+                style={{
+                    position: 'absolute',
+                    border: '1px solid #efefef',
+                    borderRadius: '20px',
+                    padding: '0px 30px 40px 30px',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    boxShadow: '1px 1px rgba(0, 0, 0, 0.4)',
+                    backgroundColor: 'white',
+                }}
+            >
                 <CssBaseline />
                 <Box
                     sx={{
@@ -86,6 +99,8 @@ export default function SignIn() {
                         alignItems: 'center',
                     }}
                 >
+                    <Avatar sx={{ m: 1, bgcolor: 'whitegray' }}></Avatar>
+
                     <Typography component="h1" variant="h5">
                         회원가입
                     </Typography>
@@ -122,7 +137,13 @@ export default function SignIn() {
                             autoComplete="current-password"
                         />
 
-                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                            style={{ backgroundColor: 'var( --active-item)' }}
+                        >
                             회원가입
                         </Button>
                     </Box>

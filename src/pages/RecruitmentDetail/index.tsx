@@ -38,9 +38,9 @@ import { serverTimestamp, doc, onSnapshot } from 'firebase/firestore';
 import { firestore } from '../../utils/firebase';
 
 const RecruitmentDetail: React.FC = () => {
-    const [userId, setUserId] = useRecoilState(UserId);
+    const [userId, setUserId] = useRecoilState<string>(UserId);
     const [recruitmentData, setRecruitmentData] = useRecoilState(RecruitmentData);
-    const [deleteModalValued, setDeleteModalValued] = useState(false);
+    const [deleteModalValued, setDeleteModalValued] = useState<boolean>(false);
     const [commentValue, setCommentValue] = useState('');
     const [comments, setComments] = useState([]);
     const [render, setRender] = useRecoilState(Render);
@@ -126,20 +126,11 @@ const RecruitmentDetail: React.FC = () => {
     };
 
     const handleEdit = () => {
-        for (let i = 0; i < data.comment.length; i++) {
-            data.comment[i] = {
-                uid: data.comment[i].uid,
-                time: data.comment[i].time,
-                content: data.comment[i].content,
-                name: data.comment[i].name,
-                imageURL: data.comment[i].imageURL,
-            };
-        }
         setRecruitmentData({ ...data, channel: channel });
         navigate('/recruitment/edit/' + channel + '/' + path, data);
     };
 
-    const handleDeleteRcruitment = (e: any) => {
+    const handleDeleteRcruitment = () => {
         deleteRecruitment(channel, path);
         navigate('/recruitment');
     };
