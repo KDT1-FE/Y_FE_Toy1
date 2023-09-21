@@ -8,7 +8,7 @@ export const RecruitmentContainer = styled.div`
 `;
 
 export const PostsContainer = styled.div`
-    background-color: var(--mention-badge);
+    background-color: ${(props) => props.theme.recruitmentBack};
     width: 100vw;
     height: 100%;
 
@@ -29,8 +29,8 @@ export const PostNav = styled.div`
 `;
 
 export const PostButton = styled.button`
-    background-color: var(--active-item);
-    color: var(--text);
+    background-color: ${(props) => props.theme.activeColor2};
+    color: #fff;
     padding: 5px 10px;
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.5);
     border-radius: 5px;
@@ -51,7 +51,7 @@ export const SearchInput = styled.input`
 `;
 
 export const PostsWrapper = styled.div`
-    background-color: var(--text);
+    background-color: #fff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     border-radius: 15px;
 `;
@@ -68,23 +68,23 @@ export const PostWrapper = styled.div`
 `;
 
 export const Category = styled.div`
-    background-color: var(--point-item);
-    color: var(--text);
+    background-color: ${(props) => props.theme.activeColor1};
+    color: #fff;
     padding: 2px 5px;
     border-radius: 5px;
 `;
 
 export const People = styled.div`
-    background-color: var(--point-item);
-    color: var(--text);
+    background-color: ${(props) => props.theme.activeColor1};
+    color: #fff;
     padding: 2px 5px;
     margin-right: 10px;
     border-radius: 5px;
 `;
 
 export const RecruitValued = styled.div<{ isRecruitCompleted: boolean }>`
-    background-color: ${(props) => (props.isRecruitCompleted ? 'gray' : 'var(--active-current-status)')};
-    color: var(--text);
+    background-color: ${(props) => (props.isRecruitCompleted ? 'gray' : props.theme.activeColor2)};
+    color: #fff;
     font-weight: bold;
     padding: 2px 5px;
     margin-right: 10px;

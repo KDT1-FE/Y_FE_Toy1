@@ -72,7 +72,16 @@ export const ThemeChange = atom({
     key: 'ThemeChange',
     default: {},
 });
-export const CurrentTheme = atom({
-    key: 'CurrentTheme',
+export const Current = atom({
+    key: 'Current',
     default: '',
+});
+export const ThemeRing = atom({
+    key: 'ThemeRing',
+    default: {
+        first: '1px solid black',
+        second: '1px solid black',
+        third: '1px solid black',
+        fourth: '1px solid black',
+    },
 });

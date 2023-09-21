@@ -27,6 +27,7 @@ export const ContentContainer = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
+    background-color: ${(props) => props.theme.recruitmentBack};
 `;
 
 export const ArticleContainer = styled.div`
@@ -56,7 +57,7 @@ export const UploadBtn = styled.button`
     padding: 10px;
     box-sizing: border-box;
     border: none;
-    background-color: var(--active-item);
+    background-color: ${(props) => props.theme.activeColor1};
     color: white;
     cursor: pointer;
     &:hover {
@@ -183,8 +184,8 @@ export const ModalTextarea = styled.textarea`
     border-radius: 5px;
     &:focus {
         outline: none;
-        border: 1px solid var(--mention-badge);
-        box-shadow: 0px 1px 6px var(--active-item);
+        border: 1px solid ${(props) => props.theme.recruitmentBack};
+        box-shadow: 0px 1px 6px ${(props) => props.theme.navBar};
     }
 `;
 
@@ -215,8 +216,8 @@ export const LinkInput = styled.input`
     font-size: 16px;
     &:focus {
         outline: none;
-        border: 1px solid var(--mention-badge);
-        box-shadow: 0px 1px 6px var(--active-item);
+        border: 1px solid ${(props) => props.theme.recruitmentBack};
+        box-shadow: 0px 1px 6px ${(props) => props.theme.navBar};
     }
 `;
 
@@ -275,7 +276,7 @@ export const PlaceHolder = styled.div`
     height: 200px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
-    background-color: var(--mention-badge);
+    background-color: ${(props) => props.theme.recruitmentBack};
 `;
 
 export const SubmitBtn = styled.button`
@@ -287,7 +288,7 @@ export const SubmitBtn = styled.button`
     vertical-align: middle;
     margin: 25px;
     border: none;
-    background-color: var(--active-current-status);
+    background-color: ${(props) => props.theme.activeColor1};
     color: white;
     cursor: pointer;
     font-size: 20px;

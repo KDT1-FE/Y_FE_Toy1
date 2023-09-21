@@ -12,8 +12,8 @@ import SidebarWiki from '../../components/SidebarWiki';
 import MDEditor, { bold } from '@uiw/react-md-editor';
 import rehypeSanitize from 'rehype-sanitize';
 import { updateChannelContent } from '../../utils/firebase';
-import editImg from '../../common/wikiImg/icons8-edit-50.png';
-import doneImg from '../../common/wikiImg/icons8-done-50.png';
+import editImg from '../../common/WikiImg/icons8-edit-50.png';
+import doneImg from '../../common/WikiImg/icons8-done-50.png';
 const Wiki: React.FC = () => {
     const v = {
         value: {

@@ -28,7 +28,7 @@ export const CloseBtn = styled.button`
 `;
 
 export const ModalHeader = styled.div`
-    background-color: var(--navigation-background);
+    background-color: ${(value) => value.theme.activeColor2};
     width: 100%;
     height: 80px;
     font-size: 28px;
@@ -98,14 +98,14 @@ export const TimerBtnClassic = styled.button`
 export const TimerOnBtn = styled(TimerBtnClassic)<{ value: boolean }>`
     margin-top: 2%;
     color: ${(value) => (value.value ? '#000' : '#fff')};
-    background-color: ${(value) => (value.value ? '#ece7ec' : 'var(--active-current-status)')};
+    background-color: ${(value) => (value.value ? '#ece7ec' : value.theme.activeColor2)};
     box-shadow: ${(value) => (value.value ? '0 3px 3px 1px #ced0d3 inset' : '0 3px 3px 1px #ced0d3')};
 `;
 export const TimerOffBtn = styled(TimerBtnClassic)<{ value: boolean }>`
     margin-top: 2%;
 
     color: ${(value) => (value.value ? '#fff' : '#000')};
-    background-color: ${(value) => (value.value ? 'var(--active-current-status)' : '#ece7ec')};
+    background-color: ${(value) => (value.value ? value.theme.activeColor2 : '#ece7ec')};
     box-shadow: ${(value) => (value.value ? '0 3px 3px 1px #ced0d3' : '0 3px 3px 1px #ced0d3 inset')};
 `;
 export const ChangeTimer = styled.div<{ value: boolean }>`

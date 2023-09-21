@@ -1,7 +1,7 @@
 // SidebarWiki.tsx 파일 내에서
 import React, { useEffect, useState, useRef } from 'react';
 import { useRecoilState } from 'recoil';
-import { channelState, subChannelState } from '../../utils/recoil';
+import { ThemeChange, channelState, subChannelState } from '../../utils/recoil';
 import {
     AllChannelsWrapper,
     ChannelWrapper,
@@ -17,7 +17,7 @@ import {
     SubChannelDiv,
 } from './style';
 
-import { handleGetDocs, deleteChannelDoc, deleteFieldFromDoc, DocumentData } from '../../utils/firebase';
+import { handleGetDocs, deleteChannelDoc, deleteFieldFromDoc, DocumentData, themeType } from '../../utils/firebase';
 import { QuerySnapshot } from 'firebase/firestore';
 import ChannelModal from '../ChannelModal';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -39,6 +39,21 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
     const [subChannel, setSubChannel] = useRecoilState(subChannelState);
     const defaultChannels = ['기본 정보'];
     const defaultSubChannels = ['과정 참여 규칙', '링크 모음'];
+    const [back, setBack] = useState('');
+    const [currentTheme, setCurrentTheme] = useRecoilState(ThemeChange);
+
+    useEffect(() => {
+        const selected = (theme: themeType) => {
+            setBack(theme.activeColor1);
+        };
+        if (localStorage.getItem('theme')) {
+            const localtheme = localStorage.getItem('theme');
+            if (localtheme) {
+                const color = JSON.parse(localtheme);
+                selected(color);
+            }
+        }
+    }, [currentTheme]);
     useEffect(() => {
         if (!channel || !subChannel) {
             setChannel(defaultChannels[0]);
@@ -159,9 +174,7 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
                                             }}
                                             style={{
                                                 color: isSubChannelActive(item.docId, item2) ? '#ffffff' : '',
-                                                backgroundColor: isSubChannelActive(item.docId, item2)
-                                                    ? 'var(--active-item)'
-                                                    : '',
+                                                backgroundColor: isSubChannelActive(item.docId, item2) ? back : '',
                                                 borderRadius: isSubChannelActive(item.docId, item2) ? '5px' : '',
                                                 fontWeight: isSubChannelActive(item.docId, item2) ? 'bold' : '',
                                             }}
@@ -236,9 +249,7 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
                                             }}
                                             style={{
                                                 color: isSubChannelActive(item.docId, item2) ? '#ffffff' : '',
-                                                backgroundColor: isSubChannelActive(item.docId, item2)
-                                                    ? 'var(--active-item)'
-                                                    : '',
+                                                backgroundColor: isSubChannelActive(item.docId, item2) ? back : '',
                                                 borderRadius: isSubChannelActive(item.docId, item2) ? '5px' : '',
                                                 fontWeight: isSubChannelActive(item.docId, item2) ? 'bold' : '',
                                             }}

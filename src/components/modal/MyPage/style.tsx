@@ -2,11 +2,16 @@ import styled, { keyframes } from 'styled-components';
 import { BtnClassic } from '../Timer/style';
 import { CommuteModalBox } from './commuteStyle';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
+import { themeType } from '../../../utils/firebase';
 
 export const ModalBtnImg = styled.img`
     width: 50px;
     height: 50px;
     border-radius: 10px;
+    background-color: ${(props) => props.theme.navBar};
+    background-size: contain;
+    outline: none;
+    border: none;
     cursor: pointer;
 `;
 
@@ -119,13 +124,14 @@ export const ThemeColors = styled.div`
     align-items: center;
     gap: 5px;
 `;
-export const ThemeColorEl = styled.button`
+export const ThemeColorEl = styled.button<{ thisTheme: themeType; selectTheme: string }>`
+    background-color: ${(props) => (props ? props.thisTheme.navBar : '#000')};
     -webkit-appearance: none;
     -moz-appearance: none;
     width: 20px;
     height: 20px;
     border-radius: 20px;
-    border: 1px solid black;
+    outline: ${(props) => (props ? props.selectTheme : '1px solid #000')};
     cursor: pointer;
     transition: 1s;
     &:hover {
@@ -239,7 +245,7 @@ export const EditInput = styled.input`
     &:focus {
         outline: none;
         border: none;
-        box-shadow: 0 1px 6px var(--active-item);
+        box-shadow: 0 1px 6px ${(props) => props.theme.activeColor1};
     }
 `;
 export const InputImg = styled.img`
@@ -252,8 +258,8 @@ export const SubmitBtn = styled(BtnClassic)`
     width: 150px;
     height: 60px;
     border-radius: 10px;
-    color: var(--text);
-    background-color: var(--active-current-status);
+    color: #fff;
+    background-color: ${(props) => props.theme.activeColor2};
 `;
 export const FlexBox = styled.div`
     display: flex;
@@ -279,7 +285,7 @@ export const UploadBtn = styled(CloudUploadOutlinedIcon)`
     height: 60px;
     padding: 5px;
     border-radius: 10px;
-    background-color: var(--active-item);
+    background-color: ${(props) => props.theme.activeColor1};
     color: #fafafa;
     box-shadow: 0 3px 3px 1px #ced0d3;
     cursor: pointer;

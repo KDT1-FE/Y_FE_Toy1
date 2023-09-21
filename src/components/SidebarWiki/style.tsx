@@ -76,9 +76,8 @@ export const SubChannelFlexDiv = styled.div`
     align-items: center;
     position: relative;
     font-size: 1.15rem;
-
     &:hover {
-        background-color: #4d2a51;
+        background-color: ${(props) => props.theme.pointItem};
         cursor: pointer;
         & ${MoreHorizIconWrapper} {
             background-color: ${(props) => props.theme.sideMenu};

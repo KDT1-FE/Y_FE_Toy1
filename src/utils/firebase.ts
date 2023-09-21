@@ -40,6 +40,7 @@ export const storage = getStorage(app);
 export const firestore: Firestore = getFirestore(app);
 export const auth = getAuth(app);
 export const storeRef = doc(firestore, 'gallery', '레퍼런스 공유');
+import swal from 'sweetalert';
 
 export type DocumentData = { [key: string]: any };
 
@@ -75,7 +76,12 @@ export const createTimelog = async (collectionName: string, userName: string, cu
     const userRef = doc(firestore, collectionName, userName);
     try {
         const pushTimeLog = await updateDoc(userRef, { timelog: arrayUnion(value) });
-        alert(`${value}\n입/퇴실기록이 정상 기록되었습니다!`);
+        // alert(`${value}\n입/퇴실기록이 정상 기록되었습니다!`);
+        swal({
+            title: '정상적으로 기록되었습니다!',
+            text: `${value}`,
+            icon: 'success',
+        });
         console.log(value);
         console.log('입/퇴실기록이 정상 기록되었습니다!');
     } catch (error) {
@@ -139,19 +145,32 @@ export const updateUserImg = async (collectionName: string, userName: string, up
         throw error;
     }
 };
-interface themeType {
+export interface themeType {
     navBar: string;
     sideMenu: string;
     text: string;
     activeColor1: string;
     activeColor2: string;
-    badge: string;
+    recruitmentBack: string;
 }
-export const updateUserTheme = async (collectionName: string, userName: string, updateData: themeType) => {
-    const value = updateData;
+export interface themeBorder {
+    first: string;
+    second: string;
+    third: string;
+    fourth: string;
+}
+export const updateUserTheme = async (
+    collectionName: string,
+    userName: string,
+    updateData: themeType,
+    selecData: themeBorder,
+) => {
+    const theme = updateData;
+    const themeBorder = selecData;
     const userRef = doc(firestore, collectionName, userName);
     try {
-        const pushTimeLog = await updateDoc(userRef, { Theme: value });
+        const pushTheme = await updateDoc(userRef, { Theme: theme });
+        const pushThemeBorder = await updateDoc(userRef, { ThemeBorder: themeBorder });
     } catch (error) {
         console.error(error);
         throw error;

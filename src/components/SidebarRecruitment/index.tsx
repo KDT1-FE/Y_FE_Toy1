@@ -1,13 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { channelState, subChannelState } from '../../utils/recoil';
+import { ThemeChange, channelState, subChannelState } from '../../utils/recoil';
 import { AllChannelsWrapper, ChannelWrapper, ChannelDiv, SubChannelDiv, ChannelHr } from './style';
+import { themeType } from '../../utils/firebase';
 
 const SidebarRecruitment: React.FC = () => {
     const [channel, setChannel] = useRecoilState(channelState);
     const [subChannel, setSubChannel] = useRecoilState(subChannelState);
     const defaultChannel = 'study';
     const defaultSubChannel = '전체';
+    const [currentTheme, setCurrentTheme] = useRecoilState(ThemeChange);
+    const [back, setBack] = useState('');
+
+    useEffect(() => {
+        const selected = (theme: themeType) => {
+            setBack(theme.activeColor1);
+        };
+        if (localStorage.getItem('theme')) {
+            const localtheme = localStorage.getItem('theme');
+            if (localtheme) {
+                const color = JSON.parse(localtheme);
+                selected(color);
+            }
+        }
+    }, [currentTheme]);
 
     useEffect(() => {
         if (!channel || !subChannel) {
@@ -26,7 +42,7 @@ const SidebarRecruitment: React.FC = () => {
             <SubChannelDiv
                 style={{
                     color: isActive ? '#ffffff' : '',
-                    backgroundColor: isActive ? 'var(--active-item)' : '',
+                    backgroundColor: isActive ? back : '',
                     borderRadius: isActive ? '5px' : '',
                     marginRight: isActive ? '10px' : '',
                     fontWeight: 'bold',
