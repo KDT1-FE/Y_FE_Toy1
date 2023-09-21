@@ -138,10 +138,16 @@ const formatTime = (milliseconds: number) => {
   )}:${String(seconds % 60).padStart(2, "0")}`;
 };
 
-const SectionTitle = styled.div`
-  font-size: 32px;
+const SectionTitle = styled.h4`
+  font-size: 28px;
   font-weight: 700;
+  margin-top: 0;
   margin-bottom: 60px;
+  @media only screen and (max-width: 600px) {
+    h4 {
+      font-size: 18px;
+    }
+  }
 `;
 const CounterWrap = styled.div`
   margin: 0 auto;
@@ -158,7 +164,7 @@ const CounterLabel = styled.p`
   font-size: 20px;
   margin-right: 24px;
 `;
-const CounterData = styled.div`
+const CounterData = styled.p`
   font-weight: 700;
   position: relative;
   font-variant-numeric: tabular-nums;
