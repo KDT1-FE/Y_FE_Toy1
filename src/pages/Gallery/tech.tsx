@@ -14,6 +14,7 @@ import {
     UploadBtn,
     UploadBtnWrapper,
 } from './style';
+import swal from 'sweetalert';
 
 const Tech: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -39,23 +40,32 @@ const Tech: React.FC = () => {
             if (result.destination.droppableId === 'trashCan') {
                 const itemToDelete = articleTs[result.source.index];
 
-                const shouldDelete = window.confirm('삭제하시겠습니까?');
+                const shouldDelete = swal({
+                    title: '정말로 사진을 하시겠습니까? ',
+                    text: '삭제 버튼을 누르시면 사진 파일이 사라집니다!',
+                    icon: 'info',
+                    buttons: ['취소', '삭제'],
+                }).then((shouldDelete) => {
+                    if (shouldDelete) {
+                        if (shouldDelete) {
+                            // Firestore에서 해당 요소 삭제
+                            const updatedArticleTs = [...articleTs];
+                            updatedArticleTs.splice(result.source.index, 1);
+                            updateDoc(storeRef, {
+                                '테크.articleT': updatedArticleTs,
+                            });
 
-                if (shouldDelete) {
-                    // Firestore에서 해당 요소 삭제
-                    const updatedArticleTs = [...articleTs];
-                    updatedArticleTs.splice(result.source.index, 1);
-                    await updateDoc(storeRef, {
-                        '테크.articleT': updatedArticleTs,
-                    });
+                            // Storage에서 이미지 파일 삭제
+                            const imageRef = ref(storage, `thumbnailT/${itemToDelete.index}`);
+                            deleteObject(imageRef);
 
-                    // Storage에서 이미지 파일 삭제
-                    const imageRef = ref(storage, `thumbnailT/${itemToDelete.index}`);
-                    await deleteObject(imageRef);
-
-                    // 상태 업데이트
-                    setArticleTs(updatedArticleTs);
-                }
+                            // 상태 업데이트
+                            setArticleTs(updatedArticleTs);
+                        }
+                    } else {
+                        swal('사진 삭제를 취소합니다!');
+                    }
+                });
             } else {
                 // 기존 드래그 앤 드롭 로직 (항목의 순서 변경)
                 const newArticleTs = [...articleTs];
@@ -93,10 +103,7 @@ const Tech: React.FC = () => {
                     <ModalT onClose={closeModal} />
                 </div>
             )}
-            <UploadBtn
-                onClick={openModal}
-                style={{ opacity: isDraggingItem ? '0' : '1', zIndex: isDraggingItem ? '1' : '3' }}
-            ></UploadBtn>
+            <UploadBtn onClick={openModal} style={{ opacity: isDraggingItem ? '0' : '1', zIndex: '1' }}></UploadBtn>
             <ArticleContainer>
                 <DragDropContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
                     <Droppable droppableId="trashCan">
@@ -105,6 +112,7 @@ const Tech: React.FC = () => {
                                 ref={provided.innerRef}
                                 style={{
                                     opacity: isDraggingItem == true ? '1' : '0',
+                                    zIndex: isDraggingItem == true ? '2' : '0',
                                 }}
                                 {...provided.droppableProps}
                             >
