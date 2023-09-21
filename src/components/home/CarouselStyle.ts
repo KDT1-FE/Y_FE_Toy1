@@ -1,15 +1,5 @@
 import styled from "styled-components";
-import carouselData from '../../db/wiki/CarouselData';
-
-interface CarouselContainerProps {
-  carouselWidth: number;
-  currentIndex: number;
-}
-
-interface CarouselContentProps {
-  pageIndex: number;
-  carouselWidth: number;
-}
+import carouselData from "../../db/wiki/CarouselData";
 
 export const CarouselWrapper = styled.div`
   width: 100%;
@@ -21,12 +11,16 @@ export const CarouselWrapper = styled.div`
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 `;
 
-export const CarouselContainer = styled.div<CarouselContainerProps>`
+export const CarouselContainer = styled.div<{
+  $currentIndex: number;
+  $carouselWidth: number;
+}>`
   height: 100%;
-  width: ${({ carouselwidth }) => `${carouselwidth * 5}px`};
+  width: ${({ $carouselWidth }) => `${$carouselWidth * 5}px`};
   display: flex;
   overflow: hidden;
-  transform: ${({ currentindex, carouselwidth }) => `translateX(${-currentindex * carouselwidth}px)`};
+  transform: ${({ $currentIndex, $carouselWidth }) =>
+    `translateX(${-$currentIndex * $carouselWidth}px)`};
   transition: 0.5s ease-in-out;
   border-radius: 5px;
 `;
@@ -55,10 +49,14 @@ export const CarouselText = styled.a`
   cursor: pointer;
 `;
 
-export const CarouselContent = styled.div<CarouselContentProps>`
-  background-image: ${({pageindex}) => `url(${carouselData[pageindex].url})`};
+export const CarouselContent = styled.div<{
+  $pageIndex: number;
+  $carouselWidth: number;
+}>`
+  background-image: ${({ $pageIndex }) =>
+    `url(${carouselData[$pageIndex].url})`};
   height: 100%;
-  width: ${({ carouselwidth }) => `${carouselwidth}px`};
+  width: ${({ $carouselWidth }) => `${$carouselWidth}px`};
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -70,7 +68,7 @@ export const CarouselLeftBackDrop = styled.div`
   width: 40%;
   height: 27%;
   background-color: rgba(255, 255, 255, 0.3);
-  left: .5rem;
+  left: 0.5rem;
   top: 12.5rem;
   position: absolute;
   z-index: 2;
@@ -86,7 +84,7 @@ export const CarouselDotContainer = styled.div`
   text-align: center;
   position: absolute;
   bottom: 1.5rem;
-  gap: .6rem;
+  gap: 0.6rem;
   left: 50%;
   transform: translate(-50%, 0);
   z-index: 4;
@@ -94,18 +92,18 @@ export const CarouselDotContainer = styled.div`
 
 export const CarouselDot = styled.div`
   width: 1.7rem;
-  height: .6rem;
+  height: 0.6rem;
   border-radius: 5px;
-  transition: .3s;
+  transition: 0.3s;
   background-color: var(--color-main);
-  cursor: pointer; 
+  cursor: pointer;
   &:hover {
     transform: scaleX(1.5);
-    margin: 0 .5rem;
+    margin: 0 0.5rem;
     border-radius: 4px;
   }
 `;
-  
+
 export const CarouselPageButton = styled.a`
   display: inline-block;
   width: 8rem;
