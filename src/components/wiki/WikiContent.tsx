@@ -5,6 +5,7 @@ import * as Styled from "./WikiContentStyle";
 import { WikiContentProps } from "@/components/wiki/WikiCommonType";
 
 export default function WikiContent({
+  currentUser,
   Wiki,
   form,
   parents,
@@ -40,7 +41,10 @@ export default function WikiContent({
       ) : Wiki === null ? (
         <RenderNoWiki />
       ) : (
-        <RenderWikiContent {...wikiContentProps}></RenderWikiContent>
+        <RenderWikiContent
+          {...wikiContentProps}
+          currentUser={currentUser}
+        ></RenderWikiContent>
       )}
     </Styled.ContentsWrapper>
   );

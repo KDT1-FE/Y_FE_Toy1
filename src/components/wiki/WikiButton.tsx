@@ -4,12 +4,24 @@ interface Props {
   text: string;
   margin?: string;
   padding: string;
+  isDisabled?: boolean;
   onClick?: () => void;
 }
 
-function WikiButton({ text, padding, margin, onClick }: Props) {
+function WikiButton({
+  text,
+  padding,
+  margin,
+  isDisabled = false,
+  onClick,
+}: Props) {
   return (
-    <Styled.WikiButton $margin={margin} $padding={padding} onClick={onClick}>
+    <Styled.WikiButton
+      $margin={margin}
+      $padding={padding}
+      onClick={onClick}
+      disabled={isDisabled}
+    >
       {text}
     </Styled.WikiButton>
   );

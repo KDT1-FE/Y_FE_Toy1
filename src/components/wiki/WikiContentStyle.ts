@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const ContentsWrapper = styled.div`
   height: 44.75rem;
+  overflow-y: scroll;
   flex: 1;
   padding: 1.88rem 2.5rem;
   background-color: var(--color-white);

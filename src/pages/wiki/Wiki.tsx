@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef, useMemo } from "react";
+import { useLocation } from "react-router";
 import { Editor } from "@toast-ui/react-editor";
 import {
   doc,
   addDoc,
   setDoc,
+  getDoc,
   deleteDoc,
   collection,
   query,
@@ -47,6 +49,9 @@ export default function WikiPage({ email }: Props) {
   const editorRef = useRef<Editor | null>(null);
   const unsubscribeRef = useRef<null | (() => void)>(null);
 
+  const queryString = new URLSearchParams(useLocation().search).get("wikiID");
+  const wikiIDFromQuery = queryString ? queryString : EMPTY_STRING;
+
   useEffect(() => {
     loadRootWikis();
 
@@ -56,11 +61,28 @@ export default function WikiPage({ email }: Props) {
   }, []);
 
   useEffect(() => {
-    if (wikiData.length > 0 && !selectedEntry) {
+    if (wikiData.length > 0 && (!selectedEntry || !form)) {
       setSelectedEntry(wikiData[0]);
       setForm(wikiData[0]);
     }
-  }, [wikiData, selectedEntry]);
+  }, [wikiData, selectedEntry, form]);
+  useEffect(() => {
+    if (wikiIDFromQuery !== EMPTY_STRING) {
+      loadWikiByID(wikiIDFromQuery);
+    }
+  }, [wikiIDFromQuery]);
+
+  async function loadWikiByID(id: string) {
+    const wikiRef = doc(db, "Wiki", id);
+    const wikiSnap = await getDoc(wikiRef);
+    if (wikiSnap.exists()) {
+      const wiki = wikiSnap.data() as Wiki;
+      setSelectedEntry(wiki);
+      setForm(wiki);
+    } else {
+      console.warn(`Wiki ID ${id}가 존재하지 않습니다.`);
+    }
+  }
 
   function loadRootWikis() {
     const q = query(
@@ -267,6 +289,7 @@ export default function WikiPage({ email }: Props) {
           />
           {
             <WikiContent
+              currentUser={email}
               Wiki={selectedEntry}
               form={form}
               parents={parents}
