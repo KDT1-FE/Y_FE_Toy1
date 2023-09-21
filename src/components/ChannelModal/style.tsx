@@ -28,8 +28,8 @@ export const FallbackButton = styled.button`
     font-weight: bold;
     border: 1px solid gray;
     border-radius: 5px;
-    margin-top: 7%;
-    margin-left: 65%;
+    margin-top: 10%;
+    margin-left: 66%;
     &:hover {
         cursor: pointer;
     }
@@ -45,7 +45,7 @@ export const CreateButton = styled.button`
     font-weight: bold;
     border: 1px solid gray;
     border-radius: 5px;
-    margin-top: 7%;
+    margin-top: 10%;
     margin-left: 1rem;
     &:hover {
         cursor: pointer;
