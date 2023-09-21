@@ -221,8 +221,8 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
                                                         title: '정말로 삭제하시겠습니까?',
                                                         text: '한번 삭제하면 되돌릴 수 없습니다!',
                                                         icon: 'warning',
-                                                        // buttons: true,
-                                                        // dangerMode: true,
+                                                        buttons: ['취소', '삭제'],
+                                                        dangerMode: true,
                                                     }).then((willDelete) => {
                                                         if (willDelete) {
                                                             swal('성공적으로 삭제되었습니다!', {
@@ -285,8 +285,8 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
                                                                 title: '정말로 삭제하시겠습니까?',
                                                                 text: '한번 삭제하면 되돌릴 수 없습니다!',
                                                                 icon: 'warning',
-                                                                // buttons: true,
-                                                                // dangerMode: true,
+                                                                buttons: ['취소', '삭제'],
+                                                                dangerMode: true,
                                                             }).then((willDelete) => {
                                                                 if (willDelete) {
                                                                     swal('성공적으로 삭제되었습니다!', {
