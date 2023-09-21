@@ -1,11 +1,11 @@
+import { format, formatDistanceToNow } from 'date-fns';
+import { ko } from 'date-fns/locale';
+
 /**
  * @description 시간을 입력 받으면 필요에 따라 format해주는 함수
  * @param {number} workTime 업무 시간
  * @param {boolean} isFinishing 종료 여부
  */
-
-import { format, formatDistanceToNow } from 'date-fns';
-import { ko } from 'date-fns/locale';
 
 export const timeFormat = (workTime: number, isFinishing = false) => {
   if (workTime < 60) {
@@ -47,15 +47,9 @@ export const liveClockFormat = (date: Date) => {
 /**
  * @description 현재 날짜를 형식에 맞게 출력해주는 함수
  */
-export const dayFormat = () => {
-  const date = new Date();
-  const dateString = date.toLocaleDateString('ko-KR', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  });
-  const day = date.toLocaleString('ko-KR', { weekday: 'short' });
-  return `${dateString} (${day})`;
+export const dayFormat = (date: Date | undefined) => {
+  if (!date) return;
+  return format(new Date(date), 'yyyy-MM-dd');
 };
 
 const nowTimeString = (workTime: string) => {
@@ -71,7 +65,7 @@ const finishTimeString = (workTime: string) => {
  * @param {Date} date
  * @returns format된 형식의 날짜.
  */
-export const usedateFormat = (date: Date) => {
+export const dateFormat = (date: Date) => {
   const renewDate = new Date(date);
   const now = Date.now();
 
@@ -91,7 +85,7 @@ export const usedateFormat = (date: Date) => {
  * @param {number} seconds
  * @returns 포맷된 형식의 시간
  */
-export const useSecondsFormat = (seconds: number) => {
+export const secondFormat = (seconds: number) => {
   if (seconds < 60) {
     return `${seconds}초`;
   } else if (seconds < 3600) {
@@ -104,18 +98,4 @@ export const useSecondsFormat = (seconds: number) => {
     const remainSeconds = seconds % 60;
     return `${hours}시간${remainMinutes}분${remainSeconds}초`;
   }
-};
-
-export const calendarDayFormat = (dateString: Date | undefined) => {
-  if (!dateString) {
-    return '';
-  }
-  const date = new Date(dateString);
-
-  const year = date.getFullYear();
-  // JavaScript의 getMonth()는 0부터 시작하므로 +1이 필요합니다.
-  const month = ('0' + (date.getMonth() + 1)).slice(-2);
-  const day = ('0' + date.getDate()).slice(-2);
-
-  return `${year}-${month}-${day}`;
 };

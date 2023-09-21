@@ -16,8 +16,16 @@ function Header() {
   const navigate = useNavigate();
 
   const menus = [
-    { name: 'Wiki', route: ROUTES.WIKI, logo: wikiLogo },
-    { name: 'Gallery', route: ROUTES.GALLERY, logo: galleryLogo },
+    {
+      name: 'Wiki',
+      route: `${ROUTES.WIKI}?category=companyRule`,
+      logo: wikiLogo,
+    },
+    {
+      name: 'Gallery',
+      route: `${ROUTES.GALLERY}?category=사진첩1`,
+      logo: galleryLogo,
+    },
     { name: 'Calendar', route: ROUTES.CALENDAR, logo: calendarLogo },
   ];
 

@@ -41,6 +41,7 @@ const StyledLottieContainer = styled.div`
   position: relative;
   width: 100%;
   margin: 0 auto;
+  cursor: pointer;
 
   ${media.tablet(`
     min-width: 768px;

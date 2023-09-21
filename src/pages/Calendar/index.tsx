@@ -10,7 +10,7 @@ import {
   uploadCalendarData,
 } from 'apis/Calendar';
 import { CloseImg } from 'components/CommuteModal';
-import { calendarDayFormat } from 'utils/format';
+import { dayFormat } from 'utils/format';
 import Swal from 'sweetalert2';
 import { getName } from 'utils/user';
 import { EventClickArg } from '@fullcalendar/core';
@@ -28,6 +28,7 @@ function Calendar() {
   const [isDelete, setIsDelete] = useState(false);
 
   const getEvents = async () => {
+    console.log('실행');
     const responseArray = await getCalendarData();
     setEvents(responseArray);
   };
@@ -43,9 +44,9 @@ function Calendar() {
   const handleEventAlert = async (info: EventClickArg) => {
     const result = await Swal.fire({
       title: `${info.event._def?.title}`,
-      text: `${calendarDayFormat(
-        info.event._instance?.range.end,
-      )}~${calendarDayFormat(info.event._instance?.range.start)}`,
+      text: `${dayFormat(info.event._instance?.range.end)}~${dayFormat(
+        info.event._instance?.range.start,
+      )}`,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#001529',

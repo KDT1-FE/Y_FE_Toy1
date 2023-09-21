@@ -1,198 +1,78 @@
 import NavigationWiki from 'components/NavigationWiki';
 import styled from 'styled-components';
-import MDEditor from '@uiw/react-md-editor';
-import { useState, useEffect } from 'react'
-import { create, read, update, wikiDelete } from 'apis/Wiki';
-import { useLocation } from 'react-router-dom'
-import { Timestamp } from 'firebase/firestore'
-
-interface createProps {
-  setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-interface updateProps {
-  setIsUpdate: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function WikiCreate({ setIsEdit }: createProps) {
-  const location = useLocation()
-  const searchParams = new URLSearchParams(location.search)
-  let selectedCategory = searchParams.get('category')
-  if (selectedCategory === null) selectedCategory = 'companyRule'
-  const [textValue, setTextValue] = useState('')  
-  const handleSetValue = (text: string) => {
-    if (text) {
-      setTextValue(text);
-    }
-  };
-
-  return (
-    <TextareaContainer>
-      <ButtonContainer>
-        <button onClick={() => {
-          if (textValue === '') {
-            alert('빈 내용은 등록하실 수 없습니다.')
-            return;
-          }
-          create(selectedCategory as string, textValue)
-          setIsEdit(false)
-        }}>등록하기</button>
-      </ButtonContainer>
-      <MDEditor
-        placeholder='등록할 내용을 입력해주세요.'
-        value={textValue}
-        onChange={(event) => {handleSetValue(event as string)}}
-        id='markdownEditor'
-      />
-    </TextareaContainer>
-  )  
-}
-
-
-function WikiUpdate({ setIsUpdate }: updateProps) {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  let selectedCategory = searchParams.get('category');
-  if (selectedCategory === null) selectedCategory = 'companyRule';
-  const [textValue, setTextValue] = useState('');
-  const handleSetValue = (text: string) => {
-    if (text) {
-      setTextValue(text);
-    }
-  };
-
-  return (
-    <TextareaContainer>
-      <ButtonContainer>
-        <button
-          onClick={() => {
-            if (textValue === '') {
-              alert('빈 내용은 등록하실 수 없습니다.');
-              return;
-            }
-            update(selectedCategory as string, textValue);
-            setIsUpdate(false);
-          }}
-        >
-          등록하기
-        </button>
-      </ButtonContainer>
-      <MDEditor
-        placeholder="등록할 내용을 입력해주세요."
-        value={textValue}
-        onChange={(event) => {
-          handleSetValue(event as string);
-        }}
-        id="markdownEditor"
-      />
-    </TextareaContainer>
-  );
-}
-
+import { useState, useEffect } from 'react';
+import { read } from 'apis/Wiki';
+import { useLocation } from 'react-router-dom';
+import { media } from 'styles/media';
+import Loading from 'components/Common/Loading';
+import WikiContent from 'components/Wiki/index'
+import WikiCreate from 'components/Wiki/WikiCreate'
 
 function Wiki() {
   const [isEdit, setIsEdit] = useState(false);
-  const [isUpdate, setIsUpdate] = useState(false);
-  const [isDocumentExist, setDocumentExist] = useState(false);
   const [data, setData] = useState(Object);
-  const [documentTime, setDocumentTime] = useState('');
+  const [isChange, setIsChanged] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   let selectedCategory = searchParams.get('category');
   if (selectedCategory === null) selectedCategory = 'companyRule';
 
   const getDocumentList = async () => {
-    const document = await read(selectedCategory as string);
-    document === undefined ? setDocumentExist(false) : setDocumentExist(true);
+    setIsLoading(true)
+    if (selectedCategory === null) return;
+    const document = await read(selectedCategory);
     setData(document);
-    const time = document?.writeTime as Timestamp;
-    if (time) {
-      setDocumentTime(time.toDate().toString());
-    }
+    setIsLoading(false)
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const documentData = await getDocumentList();
-      return documentData;
-    };
-    fetchData();
-  }, [selectedCategory]);
+    getDocumentList();
+  }, [isEdit]);
+
+  useEffect(() => {
+    if (isEdit) setIsEdit(false);
+    getDocumentList();
+  }, [isChange])
 
   return (
-    <WikiContainer>
-      <NavigationWiki></NavigationWiki>
+    <StyledWikiContainer>
+      <NavigationWiki
+        setIsChanged={setIsChanged}
+        isChange={isChange}
+      ></NavigationWiki>
       <div>
-        {isEdit === true ? (
-          <WikiCreate setIsEdit={setIsEdit}></WikiCreate>
+        {isEdit ? (
+          <WikiCreate
+            setIsEdit={setIsEdit}
+            data={data}
+            selectedCategory={selectedCategory}
+          ></WikiCreate>
         ) : (
-          <TextareaContainer>
-            {isDocumentExist === false ? (
-              <div
-                onClick={() => {
-                  setIsEdit(true);
-                }}
-              >
-                <h1>아직 작성된 글이 없습니다.</h1>글 작성하기
-              </div>
+          <StyledTextareaContainer>
+            {isLoading ? (
+              <Loading></Loading>
             ) : (
-              <div className="document">
-                {isUpdate === true ? (
-                  <WikiUpdate
-                    setIsUpdate={setIsUpdate}
-                  ></WikiUpdate>
-                ) : (
-                  <div>
-                    <ButtonContainer>
-                      <div>
-                        <button
-                          onClick={() => {
-                            setIsUpdate(true);
-                          }}
-                        >
-                          수정하기
-                        </button>
-                        <button onClick={() => {
-                          wikiDelete(selectedCategory as string)
-                        }}>삭제하기</button>
-                      </div>
-                    </ButtonContainer>
-                    <p>최종 수정 시간: {documentTime}</p>
-                    <br />
-                    <MDEditor.Markdown
-                      className="markdownViewer"
-                      source={data?.content}
-                    />
-                  </div>
-                )}
-              </div>
+              <WikiContent data={data} setIsEdit={setIsEdit} />
             )}
-          </TextareaContainer>
+          </StyledTextareaContainer>
         )}
       </div>
-    </WikiContainer>
+    </StyledWikiContainer>
   );
 }
 
 
-const WikiContainer = styled.div`
+const StyledWikiContainer = styled.div`
   display: grid;
-  grid-template-columns: 0.2fr 0.8fr
+  grid-template-columns: 0.2fr 0.8fr;
 `;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
 
-  button {
-    margin: 1rem;
-  }
-`;
-
-const TextareaContainer = styled.div`
+const StyledTextareaContainer = styled.div`
   margin: 2rem;
   position: relative;
-  height: 50vw;
 
   #markdownEditor {
     height: 100% !important;
@@ -210,6 +90,62 @@ const TextareaContainer = styled.div`
   .document .markdownViewer::-webkit-scrollbar {
     display: none;
   }
+
+  ${media.desktop_lg(`
+    width: 35rem;
+    height: 40rem; 
+  `)}
+  ${media.tablet(`
+    width: 30rem;
+    height: 35rem;
+  `)}
+  ${media.tablet_680(`
+    width: 25rem;
+    height: 35rem;
+  `)}
+  ${media.tablet_625(`
+    width: 20rem;
+    height: 30rem;
+  `)}
+  ${media.mobile_430(`
+    width: 15rem;
+    height: 25rem;
+  `)}
 `;
+
+// const StyledWikiNotExist = styled.div`
+//   font-size: 1.5rem;
+//   font-weight: 600;
+//   text-align: center;
+//   position: absolute;
+
+//   width: 100%;
+//   height: 100%;
+//   top: 50%;
+
+//   button {
+//     position: relative;
+//     color: #3584f4;
+//     font-size: 1rem;
+//     text-align: right;
+//     cursor: pointer;
+//   }
+
+//   ${media.desktop_lg(`
+//     font-size: 1.5rem;
+//   `)}
+//   ${media.tablet(`
+//     font-size: 1.25rem;
+//   `)}
+//   ${media.tablet_680(`
+//     font-size: 1rem;
+//   `)}
+//   ${media.tablet_625(`
+//     font-size: 0.75rem;
+//   `)}
+//   ${media.mobile_430(`
+//     font-size: 0.5rem;
+//   `)}
+// `;
 
 export default Wiki;

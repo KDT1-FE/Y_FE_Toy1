@@ -1,8 +1,4 @@
-interface IuserData {
-  [key: string]: unknown;
-  uid: string;
-  displayName: string;
-}
+import { IuserData } from 'types/user';
 
 export const getSessionUserData = (): IuserData | undefined => {
   for (const key of Object.keys(sessionStorage)) {

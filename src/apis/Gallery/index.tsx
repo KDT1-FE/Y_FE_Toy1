@@ -12,32 +12,27 @@ import {
 
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
-export const addFirestore = (imageURL: string, selectedCategory: string) => {
+export const addFirestore = async (
+  imageURL: string,
+  selectedCategory: string,
+) => {
   try {
-    addDoc(collection(db, 'gallery'), {
+    await addDoc(collection(db, 'gallery'), {
       src: imageURL,
       category: selectedCategory,
       timestamp: serverTimestamp(),
-    }).then(() => {
-      window.location.reload();
     });
   } catch (error) {
     alert('알 수 없는 오류가 발생했습니다.');
   }
 };
 
-export const addStorage = (
-  file: FileList,
-  setImageURL: React.Dispatch<React.SetStateAction<string>>,
-) => {
-  const storageRef = ref(storage, `images/${file[0].name}`);
-  const uploadTask = uploadBytes(storageRef, file[0]);
+export const addStorage = async (image: File) => {
+  const storageRef = ref(storage, image.name);
   try {
-    uploadTask.then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((downloadURL) => {
-        setImageURL(downloadURL);
-      });
-    });
+    const snapshot = await uploadBytes(storageRef, image);
+    const downloadURL = await getDownloadURL(snapshot.ref);
+    return downloadURL;
   } catch (error) {
     alert('알 수 없는 오류가 발생했습니다.');
   }
