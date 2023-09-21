@@ -22,8 +22,9 @@
   opacity: 1;
 }
 
-.EditButton {
-  padding: 0 1.5rem;
+.ButtonIcon {
+  padding: 0 1rem;
+  cursor: pointer;
 }
 
 /* src/pages/Wiki.tsx */
@@ -128,6 +129,21 @@
 
 .FeatBtns {
   display: flex;
+}
+
+.RefreshBtnWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 60px;
+}
+
+.RefreshLabel {
+  padding-top: 0.3rem;
+
+  font-size: 0.5rem;
+  color: gray;
 }
 
 /* src/component/Wiki/TextEditor */

@@ -68,24 +68,28 @@ function Album() {
       <div id="AlbumHeader">
         <h1 id="AlbumTitle">앨범: {albumKey}</h1>
         <div id="AlbumIcons">
-          <DeleteBtn
-            type="button"
-            id="AlbumDelete"
-            className="Button"
-            onClick={() => {
-              toggle();
-              ChangeModalFalse();
-            }}
-          />
-          <Upload
-            type="button"
-            id="AlbumUpload"
-            className="Button"
-            onClick={() => {
-              toggle();
-              ChangeModalTrue();
-            }}
-          />
+          <div title="삭제">
+            <DeleteBtn
+              type="button"
+              id="AlbumDelete"
+              className="Button"
+              onClick={() => {
+                toggle();
+                ChangeModalFalse();
+              }}
+            />
+          </div>
+          <div title="업로드">
+            <Upload
+              type="button"
+              id="AlbumUpload"
+              className="Button"
+              onClick={() => {
+                toggle();
+                ChangeModalTrue();
+              }}
+            />
+          </div>
         </div>
       </div>
       <div id="AlbumContainer">

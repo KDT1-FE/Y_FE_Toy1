@@ -11,10 +11,10 @@ import {
   sortRanking,
   getRankingDocsToArr,
   saveRankingInBrowser,
-  RANKING_URL,
   getTimeFromBrowser,
   calculateTimer,
 } from "../../utils/timerAndRanking";
+import {RANKING_URL} from "../../constant";
 
 function TimerModal(props: TimerModalProps) {
   const {
