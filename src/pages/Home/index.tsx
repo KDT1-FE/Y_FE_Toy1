@@ -43,7 +43,7 @@ const Home: React.FC = () => {
                 animation="slide"
                 duration={300}
                 indicators={false}
-                autoPlay={false}
+                autoPlay={true}
             >
                 <Paper>
                     <GalleryContainer>
