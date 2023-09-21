@@ -4,7 +4,7 @@ import HeaderDropDown from './HeaderDropDown';
 import AttendanceModal from './Attendance/AttendanceModal';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 
-import '../scss/components/_userInfo.scss';
+import '../scss/components/_headerDropDown.scss';
 import '../scss/components/_header.scss';
 
 interface StateValue {

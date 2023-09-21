@@ -15,7 +15,7 @@ const Benefit = (): JSX.Element => {
   return (
     <div className="benefit">
       <div className="benefit__top">
-        <h1>HIGHFIVE Benefit</h1>
+        <h1>복리후생</h1>
       </div>
 
       <div className="inner">
