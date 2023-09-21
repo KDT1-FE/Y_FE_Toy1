@@ -290,7 +290,6 @@ export default function WikiPage({ email }: Props) {
           {
             <WikiContent
               currentUser={email}
-              WiKiList={wikiData}
               Wiki={selectedEntry}
               form={form}
               parents={parents}

@@ -38,7 +38,6 @@ export type WikiCategoryProps = {
 };
 
 export type WikiFormProps = {
-  WiKiList: Wiki[];
   form: Wiki;
   onFormChange: (key: keyof Wiki, value: string) => void;
   editorRef: React.MutableRefObject<Editor | null>;
@@ -47,7 +46,6 @@ export type WikiFormProps = {
 
 export type WikiContentProps = {
   currentUser: string;
-  WiKiList: Wiki[];
   Wiki: Wiki | null;
   form: Wiki;
   isEditMode: boolean;
