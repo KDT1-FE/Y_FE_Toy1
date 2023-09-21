@@ -11,16 +11,20 @@ const StyledClock = styled.p`
   font-variant-numeric: tabular-nums;
 `;
 
+const getCurrentTime = () => {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const seconds = String(now.getSeconds()).padStart(2, "0");
+  return `${hours}:${minutes}:${seconds}`;
+};
+
 const Clock: React.FC = () => {
-  const [currentTime, setCurrentTime] = useState<string>("00:00:00");
+  const [currentTime, setCurrentTime] = useState<string>(getCurrentTime());
 
   useEffect(() => {
     const updateTime = () => {
-      const now = new Date();
-      const hours = String(now.getHours()).padStart(2, "0");
-      const minutes = String(now.getMinutes()).padStart(2, "0");
-      const seconds = String(now.getSeconds()).padStart(2, "0");
-      setCurrentTime(`${hours}:${minutes}:${seconds}`);
+      setCurrentTime(getCurrentTime());
     };
 
     const intervalId = setInterval(updateTime, 1000);
@@ -39,7 +43,11 @@ interface StudyTimeProps {
   toggleStudyStatus: () => void;
 }
 
-const StudyTime: React.FC<StudyTimeProps> = ({ isStudying, studyStartTime, toggleStudyStatus }) => {
+const StudyTime: React.FC<StudyTimeProps> = ({
+  isStudying,
+  studyStartTime,
+  toggleStudyStatus,
+}) => {
   const user = useContext(AuthContext);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
 
@@ -89,10 +97,14 @@ const StudyTime: React.FC<StudyTimeProps> = ({ isStudying, studyStartTime, toggl
         <CounterLabel>학습시간</CounterLabel>
         <CounterData>
           {formatTime(elapsedTime)}
-          <CounterBadge show={isStudying}>{isStudying ? "기록 중" : null}</CounterBadge>
+          <CounterBadge show={isStudying}>
+            {isStudying ? "기록 중" : null}
+          </CounterBadge>
         </CounterData>
       </CounterWrap>
-      <Button onClick={toggleStudyStatus}>{isStudying ? "공부 종료" : "공부 시작"}</Button>
+      <Button onClick={toggleStudyStatus}>
+        {isStudying ? "공부 종료" : "공부 시작"}
+      </Button>
     </div>
   );
 };
@@ -102,10 +114,10 @@ const formatTime = (milliseconds: number) => {
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
 
-  return `${String(hours).padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}:${String(seconds % 60).padStart(
+  return `${String(hours).padStart(2, "0")}:${String(minutes % 60).padStart(
     2,
     "0"
-  )}`;
+  )}:${String(seconds % 60).padStart(2, "0")}`;
 };
 
 const SectionTitle = styled.div`
