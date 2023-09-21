@@ -5,7 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -43,16 +43,42 @@ export default function LogIn() {
                 navigate('/', { state: pathname });
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-
-                console.log(errorCode, errorMessage);
+                switch (error.code) {
+                    case 'auth/user-not-found' || 'auth/wrong-password':
+                        return alert('이메일 혹은 비밀번호가 일치하지 않습니다.');
+                    case 'auth/email-already-in-use':
+                        return alert('이미 사용 중인 이메일입니다.');
+                    case 'auth/weak-password':
+                        return alert('비밀번호는 6글자 이상이어야 합니다.');
+                    case 'auth/network-request-failed':
+                        return alert('네트워크 연결에 실패 하였습니다.');
+                    case 'auth/invalid-email':
+                        return alert('잘못된 이메일 형식입니다.');
+                    case 'auth/internal-error':
+                        return alert('잘못된 요청입니다.');
+                    default:
+                        return alert('로그인에 실패 하였습니다.');
+                }
             });
     };
 
     return (
         <ThemeProvider theme={defaultTheme}>
-            <Container component="main" maxWidth="xs" style={{ paddingTop: '72px' }}>
+            <Container
+                component="main"
+                maxWidth="xs"
+                style={{
+                    position: 'absolute',
+                    border: '1px solid #efefef',
+                    borderRadius: '20px',
+                    padding: '0px 30px 40px 30px',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    boxShadow: '1px 1px rgba(0, 0, 0, 0.4)',
+                    backgroundColor: 'white',
+                }}
+            >
                 <CssBaseline />
                 <Box
                     sx={{
@@ -62,11 +88,9 @@ export default function LogIn() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
+                    <Avatar sx={{ m: 1, bgcolor: 'whitegray' }}></Avatar>
                     <Typography component="h1" variant="h5">
-                        Log in
+                        로그인
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
@@ -74,7 +98,7 @@ export default function LogIn() {
                             required
                             fullWidth
                             id="email"
-                            label="Email Address"
+                            label="이메일"
                             name="email"
                             autoComplete="email"
                             autoFocus
@@ -84,17 +108,23 @@ export default function LogIn() {
                             required
                             fullWidth
                             name="password"
-                            label="Password"
+                            label="비밀번호"
                             type="password"
                             id="password"
                             autoComplete="current-password"
                         />
-                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-                            Log in
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                            style={{ backgroundColor: 'var( --active-item)' }}
+                        >
+                            로그인
                         </Button>
 
                         <Link href="/signin" variant="body2">
-                            sign in
+                            회원가입
                         </Link>
                     </Box>
                 </Box>
