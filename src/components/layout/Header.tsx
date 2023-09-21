@@ -48,8 +48,8 @@ const Header = () => {
       <MobileContainer>
         <MobileFirstHeader>
           <div></div>
-          <img className="header__mobile-logo" src="svg/user.svg" alt="로고" />
-          <img className="header__mobile-user" src="svg/user.svg" alt="유저모양아이콘" />
+          <img className="header__mobile-logo" src={process.env.PUBLIC_URL+'/svg/user.svg'} alt="로고" />
+          <img className="header__mobile-user" src={process.env.PUBLIC_URL+'/svg/user.svg'} alt="유저모양아이콘" />
         </MobileFirstHeader>
         <MobileSecondHeader>
           {pageLink.map((link, idx) => {
