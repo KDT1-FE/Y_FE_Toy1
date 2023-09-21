@@ -10,25 +10,25 @@ export default function Home() {
   return (
     <>
       <style.Temp>
-        <style.Item1>
+        <style.MainTitle>
           <h3>공지사항</h3>
-        </style.Item1>
-        <style.Item2>
+        </style.MainTitle>
+        <style.MainCarousel>
           <Carousel />
-        </style.Item2>
-        <style.Item3>
+        </style.MainCarousel>
+        <style.WikiTitle>
           <h3>최근 업데이트 된 WIKI</h3>
-        </style.Item3>
+        </style.WikiTitle>
         <style.Item4>
         </style.Item4>
         <style.Item5>
         </style.Item5>
-        <style.Item6>
+        <style.GalleryTitle>
           <h3>최근 업데이트 된 GALLERY</h3>
-        </style.Item6>
-        <style.Item7>
+        </style.GalleryTitle>
+        <style.GalleryPreview>
           <GalleryPreview />
-        </style.Item7>
+        </style.GalleryPreview>
       </style.Temp>
     </>
   );

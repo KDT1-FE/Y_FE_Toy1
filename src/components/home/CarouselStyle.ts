@@ -18,12 +18,12 @@ export const CarouselWrapper = styled.div`
   position: relative;
   overflow: hidden;
   border-radius: 10px;
-  border: 1px solid var(--color-main);
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 `;
 
 export const CarouselContainer = styled.div<CarouselContainerProps>`
   height: 100%;
-  width: ${({ carouselWidth }) => `${carouselWidth * 4}px`};
+  width: ${({ carouselWidth }) => `${carouselWidth * 5}px`};
   display: flex;
   overflow: hidden;
   transform: ${({ currentIndex, carouselWidth }) => `translateX(${-currentIndex * carouselWidth}px)`};
@@ -37,19 +37,21 @@ export const CarouselTitle = styled.a`
   top: 16rem;
   left: 6rem;
   z-index: 2;
-  font-size: 1.5rem;
-  color: var(--color-white);
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--color-main);
   cursor: pointer;
 `;
 
 export const CarouselText = styled.a`
   position: absolute;
   display: inline-block;
+  width: 35%;
   top: 20rem;
   left: 5rem;
   z-index: 2;
   font-size: 1rem;
-  color: var(--color-white);
+  color: var(--color-black);
   cursor: pointer;
 `;
 
@@ -65,13 +67,14 @@ export const CarouselContent = styled.div<CarouselContentProps>`
 `;
 
 export const CarouselLeftBackDrop = styled.div`
-  width: 60%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
-  left: 0;
-  top: 0;
+  width: 43%;
+  height: 27%;
+  background-color: rgba(255, 255, 255, 0.3);
+  left: .5rem;
+  top: 14.6rem;
   position: absolute;
   z-index: 2;
+  border-radius: 20px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 `;
@@ -83,7 +86,7 @@ export const CarouselRightButton = styled.span`
   top: 50%;
   transform: translate(0, -50%);
   font-size: 2.3rem;
-  color: var(--color-white);
+  color: var(--color-main);
   cursor: pointer;
 `;
 
@@ -94,7 +97,7 @@ export const CarouselLeftButton = styled.span`
   top: 50%;
   transform: translate(0, -50%);
   font-size: 2.3rem;
-  color: var(--color-white);
+  color: var(--color-main);
   cursor: pointer;
 `;
 
@@ -105,25 +108,23 @@ export const CarouselDotContainer = styled.div`
   text-align: center;
   position: absolute;
   bottom: 1.5rem;
-  gap: .8rem;
+  gap: .6rem;
   left: 50%;
   transform: translate(-50%, 0);
   z-index: 4;
 `;
 
 export const CarouselDot = styled.div`
-  width: 2rem;
+  width: 1.7rem;
   height: .6rem;
   border-radius: 5px;
   transition: .3s;
-  background-color: var(--color-white);
-  opacity: .7;
+  background-color: var(--color-main);
   cursor: pointer; 
   &:hover {
     transform: scaleX(1.5);
     margin: 0 .5rem;
     border-radius: 4px;
-    opacity: 1;
   }
 `;
   
@@ -133,7 +134,7 @@ export const CarouselPageButton = styled.a`
   height: 1.5rem;
   position: absolute;
   top: 28rem;
-  left: 5rem;
+  left: 6rem;
   z-index: 5;
   text-align: center;
   vertical-align: center;
