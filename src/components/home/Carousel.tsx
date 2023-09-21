@@ -80,7 +80,7 @@ const Carousel = () => {
           </style.CarouselContainer>
 
           <style.CarouselDotContainer>
-            {carouselData.map((pageindex) => (
+            {carouselData.map((_, pageindex) => (
               <style.CarouselDot 
                 onClick={() => goToCarousel(pageindex)} />
             ))}
