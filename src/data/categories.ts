@@ -105,14 +105,22 @@ export const allCategories: CategoriesType[] = [
     ],
   },
   {
-    path: '/contact',
+    path: '/about',
     categories: [
       {
-        title: 'contact',
+        title: '정보',
         subCategories: [
           {
-            link: '',
-            text: 'contact',
+            link: 'figma',
+            text: 'figma',
+          },
+          {
+            link: 'notion',
+            text: 'notion',
+          },
+          {
+            link: 'github',
+            text: 'github',
           },
         ],
       },

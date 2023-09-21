@@ -20,8 +20,8 @@ const NavBar = () => {
         <div className={`category ${selectedCategory === 'gallery' ? 'selected' : ''}`}>
           <Link to={'gallery'}>Gallery</Link>
         </div>
-        <div className={`category ${selectedCategory === '' ? 'selected' : ''}`}>
-          <Link to={'/contact'}>Contact</Link>
+        <div className={`category ${selectedCategory === 'about' ? 'selected' : ''}`}>
+          <Link to={'/about'}>About</Link>
         </div>
       </Categories>
     </Container>

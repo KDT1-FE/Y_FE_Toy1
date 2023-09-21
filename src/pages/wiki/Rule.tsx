@@ -5,6 +5,7 @@ import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { StyledContainer, StyledTitle, StyledButton, StyledTime } from './Info';
 import { useUser } from '../../common/UserContext';
+import { CategoryTitleSection, BreadCrumb } from '../Gallery/Project';
 
 const Rule = () => {
   const [title, setTitle] = useState<string>('');
@@ -55,6 +56,7 @@ const Rule = () => {
             editor: user.name,
           });
           setLastEdited(currentTime.toDate());
+          setEditor(user.name);
         } catch (error) {
           console.error(error);
         }
@@ -87,7 +89,11 @@ const Rule = () => {
         </>
       ) : (
         <>
-          <h1>{title}</h1>
+          <CategoryTitleSection>
+            <h1>{title}</h1>
+            <BreadCrumb>위키 &gt; 규칙 &gt; 기본 규칙</BreadCrumb>
+          </CategoryTitleSection>
+
           {lastEdited && (
             <StyledTime>
               마지막 수정: {lastEdited.toLocaleString()} / 최근 편집자: {editor}
