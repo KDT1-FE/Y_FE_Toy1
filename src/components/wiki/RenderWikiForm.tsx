@@ -23,10 +23,12 @@ export default function WikiForm({
     e: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     const newParentID = e.target.value;
+    const isNewWiki = () => form.wikiID === "";
+
     const hasChild = await hasChildWikis(form.wikiID);
 
     // 현재 위키가 자식을 가지고 있지 않고, 선택한 parentID가 현재 위키의 자식 위키가 아니면 변경 허용
-    if (!hasChild && newParentID !== form.wikiID) {
+    if (isNewWiki() || (!hasChild && newParentID !== form.wikiID)) {
       onFormChange("parentID", newParentID);
     } else {
       alert(
