@@ -1,7 +1,7 @@
 import NoticeListBox from './NoticeListBox';
 import { useSelector } from 'react-redux';
 import { db } from '../../firebase';
-import { getDocs, collection, orderBy, query } from 'firebase/firestore';
+import { getDocs, collection, orderBy, query, onSnapshot, doc } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 
 import '../../scss/noticeProjectList.scss';
@@ -37,6 +37,12 @@ const NoticeList = () => {
     getData();
   }, []);
 
+  useEffect(() => {
+    return () => {
+      getData();
+    };
+  }, []);
+
   const userEmail = useSelector(state => state.loginUpdate.email);
   const handleWriteBtn = (): void => {
     if (userEmail === '') {
@@ -63,6 +69,15 @@ const NoticeList = () => {
       alert('가장 마지막 페이지입니다!');
     }
   };
+
+  const querySnapshot = query(collection(db, 'notice'), orderBy('number', 'desc'));
+  const unsubscribe = onSnapshot(querySnapshot, snapshot => {
+    snapshot.docChanges().forEach(change => {
+      if (change.type === 'removed') {
+        getData();
+      }
+    });
+  });
 
   return (
     <section className="notice">
