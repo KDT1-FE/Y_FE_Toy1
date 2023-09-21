@@ -4,7 +4,7 @@ import { doc, addDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 import { useState } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from 'react-query';
 import { GalleryQueryKeyEnum } from '../hooks/gallery/query/common';
 import useDocList from '../hooks/gallery/query/useDocList';
 import useImgList from '../hooks/gallery/query/useImgList';

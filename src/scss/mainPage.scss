@@ -46,6 +46,15 @@
         font-weight: $font-bold900;
         color: $blue;
         margin-bottom: 1rem;
+        margin: 2rem auto 2rem;
+      }
+
+      &.notice-container {
+        padding: 0.5rem;
+        background: $blue;
+        width: 60%;
+        height: 100%;
+        margin: 0 auto;
       }
     }
   }
