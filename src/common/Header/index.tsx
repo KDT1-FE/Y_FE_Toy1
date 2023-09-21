@@ -62,7 +62,7 @@ const Header: React.FC = () => {
 
     return (
         <HeaderComponent>
-            <TitleAnchor href="/">wiki for fastcampus</TitleAnchor>
+            <TitleAnchor href="/">FASTUDY</TitleAnchor>
             <AnchorContainer>
                 <RightAnchorContainer>
                     <ListAnchor href="/wiki">wiki</ListAnchor>
