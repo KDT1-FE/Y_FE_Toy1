@@ -10,8 +10,9 @@ import {
   collection,
   query,
   where,
-  onSnapshot,
+  orderBy,
   Timestamp,
+  getDocs,
 } from "firebase/firestore";
 import WikiContent from "@/components/wiki/WikiContent";
 import WikiCategoryList from "@/components/wiki/WikiCategoryList";
@@ -39,25 +40,17 @@ export default function WikiPage({ email }: Props) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [sideMenuVisible, setSideMenuVisible] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
-  const parents = useMemo(
-    () => wikiData.filter((wiki) => !wiki.parentID),
-    [wikiData],
-  );
+  const parents = wikiData.filter((wiki) => !wiki.parentID);
   const initialFormValue = useMemo(initializeForm, []);
   const [form, setForm] = useState<Wiki>(initialFormValue);
   const [selectedEntry, setSelectedEntry] = useState<Wiki | null>(null);
   const editorRef = useRef<Editor | null>(null);
-  const unsubscribeRef = useRef<null | (() => void)>(null);
 
   const queryString = new URLSearchParams(useLocation().search).get("wikiID");
   const wikiIDFromQuery = queryString ? queryString : EMPTY_STRING;
 
   useEffect(() => {
     loadRootWikis();
-
-    return () => {
-      if (unsubscribeRef.current) unsubscribeRef.current();
-    };
   }, []);
 
   useEffect(() => {
@@ -84,31 +77,28 @@ export default function WikiPage({ email }: Props) {
     }
   }
 
-  function loadRootWikis() {
+  async function loadRootWikis() {
     const q = query(
       collection(db, "Wiki"),
       where("parentID", "==", EMPTY_STRING),
+      orderBy("createdAt", "asc"),
     );
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      setWikiData(snapshot.docs.map((doc) => doc.data() as Wiki));
-      setIsLoading(false);
-    });
+    const docs = await getDocs(q);
 
-    unsubscribeRef.current = unsubscribe;
+    const wikis = docs.docs.map((doc) => doc.data() as Wiki);
+    setWikiData(wikis);
+    setIsLoading(false);
   }
-
   function handleEntryClick(entry: Wiki) {
     setSelectedEntry(entry);
     setForm(entry);
   }
 
-  function toggleChildWikis(parentWiki: Wiki) {
+  async function toggleChildWikis(parentWiki: Wiki) {
     const existingChildWikis = wikiData.filter(
       (wiki) => wiki.parentID === parentWiki.wikiID,
     );
-
     if (existingChildWikis.length > 0) {
-      // 이미 로드된 자식 위키들은 숨기거나 보여줌
       setWikiData((prev) => {
         const parentIndex = prev.findIndex(
           (wiki) => wiki.wikiID === parentWiki.wikiID,
@@ -118,13 +108,11 @@ export default function WikiPage({ email }: Props) {
           prev[parentIndex + 1] &&
           prev[parentIndex + 1].parentID === parentWiki.wikiID
         ) {
-          // 이미 자식 위키들이 추가되어 있으므로 숨기기
           return [
             ...prev.slice(0, parentIndex + 1),
             ...prev.slice(parentIndex + 1 + existingChildWikis.length),
           ];
         } else {
-          // 자식 위키들 추가
           return [
             ...prev.slice(0, parentIndex + 1),
             ...existingChildWikis,
@@ -133,43 +121,27 @@ export default function WikiPage({ email }: Props) {
         }
       });
     } else {
+      console.log("call");
       const q = query(
         collection(db, "Wiki"),
         where("parentID", "==", parentWiki.wikiID),
+        orderBy("createdAt", "asc"),
       );
+      const docs = await getDocs(q);
 
-      if (unsubscribeRef.current) {
-        unsubscribeRef.current();
-        unsubscribeRef.current = null;
-      }
-
-      const unsubscribe = onSnapshot(q, (snapshot) => {
-        const childWikis = snapshot.docs.map((doc) => doc.data() as Wiki);
-
-        // 중복된 데이터가 없도록 업데이트
-        setWikiData((prev) => {
-          const parentIndex = prev.findIndex(
-            (wiki) => wiki.wikiID === parentWiki.wikiID,
-          );
-
-          // 중복된 데이터를 체크
-          const uniqueChildWikis = childWikis.filter(
-            (child) => !prev.some((wiki) => wiki.wikiID === child.wikiID),
-          );
-
-          return [
-            ...prev.slice(0, parentIndex + 1),
-            ...uniqueChildWikis,
-            ...prev.slice(parentIndex + 1 + existingChildWikis.length),
-          ];
-        });
+      const childWikis = docs.docs.map((doc) => doc.data() as Wiki);
+      setWikiData((prev) => {
+        const parentIndex = prev.findIndex(
+          (wiki) => wiki.wikiID === parentWiki.wikiID,
+        );
+        return [
+          ...prev.slice(0, parentIndex + 1),
+          ...childWikis,
+          ...prev.slice(parentIndex + 1),
+        ];
       });
-
-      // 새로운 구독을 추적
-      unsubscribeRef.current = unsubscribe;
     }
   }
-
   function handleWikiEditButtonClick() {
     setSideMenuVisible(!sideMenuVisible);
   }
@@ -185,9 +157,6 @@ export default function WikiPage({ email }: Props) {
   }
 
   async function handleSaveClick() {
-    setIsEditMode(false);
-    setSideMenuVisible(true);
-
     const markDownContent =
       editorRef.current?.getInstance().getMarkdown() || EMPTY_STRING;
     const currentTime = Timestamp.now();
@@ -202,9 +171,11 @@ export default function WikiPage({ email }: Props) {
     };
 
     try {
+      let linkWikiID;
       if (newForm.wikiID && newForm.wikiID !== EMPTY_STRING) {
         const wikiRef = doc(db, "Wiki", newForm.wikiID);
         await setDoc(wikiRef, newForm, { merge: true });
+        linkWikiID = newForm.wikiID;
       } else {
         const wikiCollection = collection(db, "Wiki");
         const newDocRef = await addDoc(wikiCollection, newForm);
@@ -218,11 +189,19 @@ export default function WikiPage({ email }: Props) {
           { ...newForm, wikiID: generatedID },
           { merge: true },
         );
+        linkWikiID = generatedID;
       }
-      alert("위키를 저장했습니다.");
+      loadWikiByID(linkWikiID);
+      setSelectedEntry(newForm);
+      setForm(newForm);
+      alert("위키를 저장하였습니다.");
     } catch (error) {
       console.error("Error saving wiki:", error);
       alert("위키 저장 중 오류가 발생했습니다.");
+    } finally {
+      loadRootWikis();
+      setIsEditMode(false);
+      setSideMenuVisible(true);
     }
   }
 
@@ -249,10 +228,28 @@ export default function WikiPage({ email }: Props) {
         const wikiRef = doc(db, "Wiki", form.wikiID);
         await deleteDoc(wikiRef);
 
+        setWikiData((prev) =>
+          prev.filter(
+            (wiki) =>
+              wiki.wikiID !== form.wikiID && wiki.parentID !== form.wikiID,
+          ),
+        );
+
+        if (wikiData.length > 0) {
+          setSelectedEntry(wikiData[0]);
+          setForm(wikiData[0]);
+        } else {
+          setSelectedEntry(null);
+          setForm(initializeForm());
+        }
+
         alert("위키를 삭제하였습니다.");
       } catch (error) {
         console.error("Error deleting wiki:", error);
         alert("위키 삭제 중 오류가 발생했습니다.");
+      } finally {
+        setIsEditMode(false);
+        setSideMenuVisible(true);
       }
     }
   }

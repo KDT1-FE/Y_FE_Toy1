@@ -1,4 +1,11 @@
 import styled from "styled-components";
+import { TitleText } from "./WikiContentStyle";
+
+export const FormTitle = styled(TitleText)`
+  & {
+    width: 100%;
+  }
+`;
 
 export const Input = styled.input`
   width: 100%;
@@ -37,7 +44,7 @@ export const Textarea = styled.textarea`
 export const Select = styled.select`
   width: 8rem;
   height: 1.88rem;
-  padding: 0.4rem;
+  padding: 0.2rem;
   margin-right: 1rem;
 
   border-radius: 0.25rem;
