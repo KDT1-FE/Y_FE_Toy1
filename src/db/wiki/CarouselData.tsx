@@ -3,32 +3,44 @@ const CarouselData = [
 
     { 
       id: 0, 
-      title: "회사 연휴 알림", 
-      text: "추석 연휴로 인해 회사는 9월 10일부터 9월 12일까지 휴무입니다.", 
-      url: "/images/notification01.jpg" 
+      title: "2023년 프로젝트 안내", 
+      text: "2023년에 진행될 프로젝트를 안내 드립니다. 올해도 작년에 이어 기업이 발전 할 수 있도록 임직원 여러분의 많은 노력과 관심 부탁드립니다.", 
+      url: "/images/notification01.png",
+      link: "wiki/egJBjpktC5m7mzP5KFBA"
     },
 
     { 
       id: 1, 
-      title: "급여 조정 관련", 
-      text: "올해 급여 조정은 10월 중으로 진행될 예정입니다.", 
-      url: "/images/notification02.jpg"
+      title: "조직 개편 안내", 
+      text: "9굴 임직원 여러분, 2023년 조직 개편 사항을 안내드리오니 업무에 참고 부탁드립니다.", 
+      url: "/images/notification02.png",
+      link: "wiki/4XEcLRkFpzVWmXGyglld"
     },
 
     { 
       id: 2, 
-      title: "오리엔테이션 일정", 
-      text: "신입사원 오리엔테이션은 입사 후 첫 주 월요일에 진행됩니다.", 
-      url: "/images/notification03.jpg" 
+      title: "9굴에서 일 잘하는 법 11가지", 
+      text: "1. 9시 1분은 9시가 아니다. 2. 업무는 수직적, 인간적인 관계는 수평적.", 
+      url: "/images/notification03.png",
+      link: "wiki/owcPdSFRsUmFBVMrTq62"
     },
 
     { 
       id: 3, 
-      title: "교육 자료",
-      text: "모든 교육 자료는 사내 포털에서 다운로드 가능합니다.", 
-      url: "/images/notification04.jpg" 
+      title: "개발팀 규칙",
+      text: "1. Git git commit convention 제목 제목은 간단하게 해당 커밋의 목적을 요약해서 작성합니다.", 
+      url: "/images/notification04.png",
+      link: "wiki/IMOryxzff38FWXIHe71R"
+    },
+
+    { 
+      id: 4, 
+      title: "9월 일정 안내",
+      text: "9굴 임직원 여러분, 2023년 9월 일정을 안내드리오니 업무에 참고 부탁드립니다. <9월 일정 안내>", 
+      url: "/images/notification05.png",
+      link: "wiki/8Dvc4OoK5781neTyvYKD" 
     }
 
 ]
 
-export default CarouselData
+export default CarouselData;
