@@ -4,7 +4,7 @@ import ReactModal from 'react-modal';
 import closeButton from '../../assets/icons/closeButton.svg';
 import { useLocation, Link } from 'react-router-dom';
 import { media } from 'styles/media';
-import { addFirestore, addStorage } from 'apis/Gallery';
+import { addGalleryData, addStorage } from 'apis/Gallery';
 
 interface IUploadGalleryProps {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -58,7 +58,7 @@ function UploadGallery({ setIsLoading }: IUploadGalleryProps) {
         setIsLoading(true);
         const downLoadUrl = await addStorage(image);
         if (downLoadUrl && selectedCategory) {
-          await addFirestore(downLoadUrl, selectedCategory);
+          await addGalleryData(downLoadUrl, selectedCategory);
           closeModal();
           setIsLoading(false);
         }
