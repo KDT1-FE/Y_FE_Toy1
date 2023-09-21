@@ -9,7 +9,7 @@ export default function RootPage() {
       const interval = setInterval(() => {
         auth.onAuthStateChanged((user) => {
           if (location.pathname !== "/login" && user == null) {
-            setTimeout(() => window.location.replace("/login"), 2000);
+            setTimeout(() => window.location.replace("/login"), 800);
           }
         });
       });
