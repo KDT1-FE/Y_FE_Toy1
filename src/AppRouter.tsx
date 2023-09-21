@@ -4,10 +4,10 @@ import Header from "./components/common/Header";
 import RootPage from "./components/common/RootPage";
 import { Props } from "./App";
 
-export default function AppRouter({ email }: Props) {
+export default function AppRouter({ email, uid }: Props) {
   return (
     <BrowserRouter>
-      <Header email={email} />
+      <Header uid={uid} email={email} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />

@@ -48,7 +48,7 @@ export default function Home() {
         <>
           {lastestWikis?.map((lastestWiki) => {
             return (
-              <div id={lastestWiki.wikiID}>
+              <div key={lastestWiki.wikiID}>
                 <WikiPreview wikiData={lastestWiki} />
               </div>
             );
