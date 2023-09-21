@@ -1,21 +1,16 @@
 @use '../scss/abstracts/' as *;
 
-.section {
-  width: 80%;
-  margin: 1rem auto;
-  display: flex;
-  flex-direction: column;
-  row-gap: 3rem;
-
-  &__filter {
+.section{
+    width: 80%;
+    margin: 1rem auto;
     display: flex;
-    column-gap: 2rem;
-  }
-
-  &__project-delete-btn {
-    flex: 1;
-    height: 3rem;
-  }
+    flex-direction: column;
+    row-gap: 3rem;
+    
+    &__filter{
+        display: flex;
+        column-gap: 2rem;
+    }
 
   &__project-write-btn {
     flex: 1;
@@ -26,12 +21,54 @@
     flex: 10;
   }
 
-  &__project-container {
-    border: 1px solid $blue;
-    border-radius: 1rem;
-    height: 43vw;
-    padding: 1rem;
-    background-color: $white;
-    @include shadow;
+  &__project-container{
+      border: 1px solid $blue;
+      border-radius: 1rem;
+      height: 100%;
+      padding: 3rem;
   }
+
+  &__project-item-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 1rem;
+    height: 3rem;
+    font-size: 2rem;
+  }
+
+  &__project-date{
+    font-size: 13px;
+  }
+
+  &__project-status{
+    width: 7rem;
+    color: $white;
+    font-size: 13px;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.expected{
+      background-color: rgb(255, 200, 129);
+    }
+    &.complete{
+      background-color: green;
+    }
+    &.proceeding{
+      background-color: $blue
+    }
+  }
+  &__project-title{
+    flex: 7;
+  }
+  &__project-delete-btn {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 }
