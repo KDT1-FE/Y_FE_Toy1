@@ -25,14 +25,19 @@ function Carousel() {
   }, [images.length]);
 
   return (
-    <div className="carousel-container">
-      <div className="slideshow">
-        <img src={images[currentSlide]} alt={`Slide ${currentSlide + 1}`} />
+    <div className="CarouselContainer">
+      <div
+        className="Slideshow"
+        style={{transform: `translate3d(${currentSlide * -100}%, 0, 0)`}}
+      >
+        {images.map((image, index) => (
+          <img key={image} src={image} alt={`Slide ${index}`} />
+        ))}
       </div>
-      <div className="dots">
+      <div className="Dots">
         {images.map((image, index) => (
           <span
-            className="dot"
+            className="Dot"
             key={image}
             style={{
               backgroundColor:

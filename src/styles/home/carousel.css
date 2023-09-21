@@ -1,32 +1,51 @@
-.carousel-container {
+.CarouselContainer {
   position: relative;
+
   max-width: 100%;
 }
 
-.slideshow {
-  text-align: center;
+.Slideshow {
+  display: flex;
+
   margin: 30px 0;
-}
 
-.slideshow img {
-  width: 74%;
-  height: 78vh;
-}
-
-.dots {
   text-align: center;
+
+  transition: transform 0.3s ease-in-out;
+}
+
+.Slideshow img {
+  display: block;
+
+  width: 100%;
+  height: 84vh;
+
+  flex-shrink: 0;
+
+  object-fit: cover;
+}
+
+.Dots {
   position: absolute;
+
   bottom: 10px;
   left: 50%;
+
+  text-align: center;
+
   transform: translate(-50%, -50%);
 }
 
-.dot {
+.Dot {
   display: inline-block;
+
   width: 10px;
   height: 6px;
+
   margin: 0px 5px;
   padding: 0 10px;
+
   background-color: #fff;
+
   cursor: pointer;
 }
