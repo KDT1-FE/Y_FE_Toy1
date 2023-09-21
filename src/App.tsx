@@ -13,6 +13,9 @@ import NoticeUpdatePage from './views/company/notice/NoticeUpdatePage';
 
 import { useDispatch } from 'react-redux';
 import { login } from './store/loginSlice';
+import ProjectWirte from './views/ProjectWirte';
+import ProjectDetail from './views/ProjectDetail';
+import ProjectUpdate from './views/ProjectUpdate';
 
 const App = () => {
   const isLogin = localStorage.getItem('isLogin');
@@ -35,7 +38,10 @@ const App = () => {
           <Route path="/company/notice" element={<Notice />} />
           <Route path="/company/chart" element={<Chart />} />
           <Route path="/company/benefit" element={<Benefit />} />
-          <Route path="project" element={<ProjectList />} />
+          <Route path="/project" element={<ProjectList />} />
+          <Route path="/project/:id" element={<ProjectDetail />} />
+          <Route path="/project/write" element={<ProjectWirte />} />
+          <Route path="/project/update/:id" element={<ProjectUpdate />} />
           <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/notice/write" element={<NoticeWritePage />} />
           <Route path="/notice/content/:itemId" element={<Contents />} />
