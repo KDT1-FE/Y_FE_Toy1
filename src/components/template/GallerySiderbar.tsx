@@ -33,18 +33,18 @@ const GallerySidebar: React.FC<GalleryProps> = ({
               alt="닫기 버튼"
             />
           </div>
-           <ListItem
-          className={activeCategory === "all" ? "active" : ""}
-          onClick={() => {
-            handleClick("all")
-            setDisplaySidebar(false)
-          }}
-        > 전체보기
-        </ListItem>
-          
           <MobileMarginTop />
           <MobileListItem
+            className={activeCategory === "all" ? "active" : ""}
+            onClick={() => {
+              handleClick("all");
+              setDisplaySidebar(false);
+            }}
+          >
+            전체보기
+          </MobileListItem>
 
+          <MobileListItem
             className={activeCategory === "notice" ? "active" : ""}
             onClick={() => {
               handleClick("notice");
@@ -91,7 +91,9 @@ const GallerySidebar: React.FC<GalleryProps> = ({
           <ListItem
             className={activeCategory === "all" ? "active" : ""}
             onClick={() => handleClick("all")}
-          > 전체보기
+          >
+            {" "}
+            전체보기
           </ListItem>
           <ListItem
             className={activeCategory === "notice" ? "active" : ""}
@@ -149,7 +151,7 @@ const MobileInnerContainer = styled.div<IMobileInnerContainer>`
   width: 100%;
   z-index: 15;
   background-color: #fff;
-  left:${props=>props.displaysidebar==="true"? '0px;' : '-100%;'}
+  left:${(props) => (props.displaysidebar === "true" ? "0px;" : "-100%;")}
   transition: all 1s ease-in-out;
   
   .header__mobile-close-wrap{
