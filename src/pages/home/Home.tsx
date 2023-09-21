@@ -33,9 +33,9 @@ export default function Home() {
   return (
     <>
       <style.Temp>
-        <style.MainTitle>
+        <style.Item1>
           <h3>공지사항</h3>
-        </style.MainTitle>
+        </style.Item1>
         <style.Item2>
           <Carousel />
         </style.Item2>

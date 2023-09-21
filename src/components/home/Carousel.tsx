@@ -54,7 +54,7 @@ const Carousel = () => {
 
   return (
     <>
-      <div style={{width: '67vw', height: '46rem'}}> {/*  추후 스타일드 컴포넌트로 수정 예정 => height: "100%"  */}
+      <div style={{width: '67vw', height: '100%'}}> {/*  추후 스타일드 컴포넌트로 수정 예정 => height: "100%"  */}
         <style.CarouselWrapper>
 
           <style.CarouselLeftBackDrop />
