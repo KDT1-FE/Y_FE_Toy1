@@ -46,6 +46,21 @@ export default function SignIn() {
                     imageURL:
                         'https://firebasestorage.googleapis.com/v0/b/wiki-for-fastcampus.appspot.com/o/images%2Fprofile.jpeg?alt=media&token=29da086e-74a8-445c-99b3-7332569544f7',
                     timelog: [],
+                    Theme: {
+                        navBar: '#350d36',
+                        sideMenu: '#3F0E40',
+                        pointItem: '#4D2A51',
+                        text: '#fff',
+                        activeColor1: '#1164A3',
+                        activeColor2: '#2BAC76',
+                        recruitmentBack: '#ECE7EC',
+                    },
+                    ThemeBorder: {
+                        first: '3px solid #fff',
+                        second: 'none',
+                        third: 'none',
+                        fourth: 'none',
+                    },
                 };
                 addUser(user.uid, value);
 

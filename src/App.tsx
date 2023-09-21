@@ -29,11 +29,12 @@ const App: React.FC = () => {
         text: '#fff',
         activeColor1: '#1164A3',
         activeColor2: '#2BAC76',
-        badge: '#ECE7EC',
+        recruitmentBack: '#ECE7EC',
     };
     const user = async () => {
         {
             const userData = await readUser('user', userId);
+
             if (userData) {
                 const userTheme = userData['Theme'];
                 const userThemeRing = userData['ThemeBorder'];
