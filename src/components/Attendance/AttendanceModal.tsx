@@ -20,22 +20,31 @@ const Attendance = ({ isOpen, onClose }: AttendanceProps) => {
   const [docId, setDocId] = useState<string | null>(null);
   const [user, setUser] = useState<null | User>(null);
 
+  const setLocalStorage = (checkIn: string, docId: string) => {
+    localStorage.setItem('checkIn', checkIn);
+    localStorage.setItem('docId', docId);
+  };
+
+  const removeLocalStorage = () => {
+    localStorage.removeItem('checkIn');
+    localStorage.removeItem('docId');
+  };
+
+  const currentTime = Timestamp.fromDate(new Date());
+  const commonDate = currentTime.toDate().toISOString().split('T')[0];
+
   const toggleAttendance = async () => {
     if (!user) return;
 
-    const currentTime = Timestamp.fromDate(new Date());
     if (attendStatus === '출근') {
       try {
         const docRef = await addDoc(collection(db, 'attendance', user.uid, 'records'), {
-          date: currentTime.toDate().toISOString().split('T')[0],
+          date: commonDate,
           checkIn: currentTime,
           checkOut: null,
         });
         setDocId(docRef.id);
-
-        // LocalStorage에 checkIn 시간과 docId 저장
-        localStorage.setItem('checkIn', currentTime.toDate().toISOString());
-        localStorage.setItem('docId', docRef.id);
+        setLocalStorage(commonDate, docRef.id);
 
         setAttendStatus('퇴근');
         setCounter('근무 시작');
@@ -47,18 +56,15 @@ const Attendance = ({ isOpen, onClose }: AttendanceProps) => {
     } else {
       try {
         if (docId) {
-          await updateDoc(doc(db, 'attendance', user.uid, 'records', docId), {
-            checkOut: currentTime,
-          });
-
-          // LocalStorage에서 데이터 제거
-          localStorage.removeItem('checkIn');
-          localStorage.removeItem('docId');
+          await updateDoc(doc(db, 'attendance', user.uid, 'records', docId), { checkOut: currentTime });
+          removeLocalStorage();
         }
         setAttendStatus('출근');
         setCounter('출근 전');
         setAttendActive(false);
         setStartTime(null);
+        onClose();
+        window.location.reload();
       } catch (error) {
         console.error('Error updating document: ', error);
       }
@@ -74,40 +80,27 @@ const Attendance = ({ isOpen, onClose }: AttendanceProps) => {
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-        if (minutes < 1) {
-          setCounter(`${seconds}초 동안 근무중`);
-        } else {
-          setCounter(`${hours}시간 ${minutes}분 동안 근무중`);
-        }
+        const counterMsg = minutes < 1 ? `${seconds}초 동안 근무중` : `${hours}시간 ${minutes}분 동안 근무중`;
+        setCounter(counterMsg);
       }
     }, 1000);
 
-    return () => {
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, [startTime]);
+
   useEffect(() => {
-    // 페이지 로딩 시 LocalStorage에서 데이터 로드
     const storedCheckIn = localStorage.getItem('checkIn');
     const storedDocId = localStorage.getItem('docId');
+    if (storedCheckIn) setStartTime(new Date(storedCheckIn));
+    if (storedDocId) setDocId(storedDocId);
 
-    if (storedCheckIn) {
-      setAttendStatus('퇴근');
-      setCounter('근무 시작');
-      setAttendActive(true);
-      setStartTime(new Date(storedCheckIn));
-    }
-
-    if (storedDocId) {
-      setDocId(storedDocId);
-    }
+    setAttendActive(!!storedCheckIn);
+    setCounter(storedCheckIn ? '근무 시작' : '출근 전');
+    setAttendStatus(storedCheckIn ? '퇴근' : '출근');
   }, []);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, currentUser => {
-      setUser(currentUser);
-    });
-
+    const unsubscribe = onAuthStateChanged(auth, setUser);
     return () => unsubscribe();
   }, []);
 
@@ -116,6 +109,7 @@ const Attendance = ({ isOpen, onClose }: AttendanceProps) => {
   return (
     <Modal onClose={onClose} showCloseButton={true}>
       <div className="attendance">
+        <div className="attendance__date">{commonDate}</div>
         <div className="attendance__clock">{time.toLocaleTimeString()}</div>
         <div className="attendance__btn-box">
           <div className={`attendance__btn__counter ${attendActive === true ? 'active' : ''}`}>{counter}</div>

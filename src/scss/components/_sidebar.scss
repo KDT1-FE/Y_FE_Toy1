@@ -19,6 +19,12 @@
     &__item {
       list-style: none;
       position: relative;
+      &.active {
+        > a,
+        button {
+          background: $darkBlue;
+        }
+      }
 
       &.on {
         font-weight: $font-bold700;

@@ -4,24 +4,30 @@
   @include flex-center-col;
   width: 100%;
   box-sizing: border-box;
-  padding: 0 20px 20px;
-  .attendancePage__title-box {
+  padding: 1rem 4rem;
+  .attendancePage__top {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    h2 {
+    border-bottom: 1px solid $darkBlue;
+    padding: 0rem 4rem;
+    margin-bottom: 2rem;
+    box-sizing: border-box;
+    & h1 {
       font-size: $font-lg;
-      font-weight: $font-bold700;
+      color: $darkBlue;
     }
-    div {
-      @include flex-center-row;
-      width: 100px;
-      height: 40px;
-      border: 1px solid #999;
-      border-radius: 15px;
-      font-size: $font-base;
+
+    &__attend-btn {
+      font-size: 2rem;
+      font-weight: $font-bold700;
+      color: #fff;
       cursor: pointer;
+      transition: 0.5s;
+      background: $blue;
+      padding: 10px;
+      border-radius: 15px;
     }
   }
   .attendance__list {
@@ -38,7 +44,7 @@
       @include flex-center-col;
       width: 100%;
       height: 100%;
-      border: 1px solid #999;
+      border: 2px solid $blue;
       border-radius: 15px;
       overflow: hidden;
     }
@@ -46,7 +52,6 @@
       display: flex;
       width: 100%;
       padding: 1rem 0;
-      border-bottom: 1px solid #999;
       background: $blue;
       color: #fff;
       div {
@@ -63,7 +68,7 @@
             transform: translateY(-50%);
             width: 1px;
             height: 90%;
-            background: #999;
+            background: #fff;
           }
           &::before {
             left: 0;
@@ -80,6 +85,7 @@
       justify-content: space-between;
       width: 100%;
       height: 100%;
+      background: #fff;
       .placeholder.attendance {
         height: 100%;
       }
@@ -89,6 +95,7 @@
       width: 100%;
       height: 50px;
       column-gap: 5px;
+      flex-shrink: 0;
       .number {
         @include flex-center-row;
         font-size: $font-base;

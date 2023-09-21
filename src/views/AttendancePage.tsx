@@ -25,25 +25,28 @@ interface State {
 }
 
 const Attendance = (): JSX.Element => {
-  const [modal, setModal] = useState<boolean>(false);
+  const [modal, setModal] = useState(false);
   const [attendanceData, setAttendanceData] = useState<AttendanceRecord[]>([]);
   const [startPage, setStartPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-
   const itemsPerPage = 18;
   const maxPageNumbersToShow = 10;
   const totalPages = Math.ceil(attendanceData.length / itemsPerPage);
   const lastPageToShow = Math.min(startPage + maxPageNumbersToShow - 1, totalPages);
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = attendanceData.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = attendanceData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
-  const loginState = useSelector((state: State) => {
-    const isLogin = state.loginUpdate.isLogin;
-    const name = state.loginUpdate.name;
+  const loginState = useSelector((state: State) => state.loginUpdate);
 
-    return { isLogin, name };
-  });
+  const fetchAttendanceData = async () => {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const qSnapshot = await getDocs(
+      query(collection(db, 'attendance', user.uid, 'records'), orderBy('checkIn', 'desc')),
+    );
+    const data: AttendanceRecord[] = qSnapshot.docs.map(doc => ({ ...(doc.data() as AttendanceRecord), id: doc.id }));
+    setAttendanceData(data);
+  };
 
   const formatTimestamp = (timestamp: Timestamp | null): string => {
     if (!timestamp) return '-';
@@ -75,57 +78,28 @@ const Attendance = (): JSX.Element => {
   };
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async user => {
-      if (user) {
-        const querySnapshot = await getDocs(
-          query(collection(db, 'attendance', user.uid, 'records'), orderBy('checkIn', 'desc')),
-        );
-        const data: AttendanceRecord[] = [];
-        querySnapshot.forEach(doc => {
-          data.push({ ...(doc.data() as AttendanceRecord), id: doc.id });
-        });
-        setAttendanceData(data);
-        console.log(data);
-      }
-    });
-
+    const unsubscribe = auth.onAuthStateChanged(() => fetchAttendanceData());
     return () => unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const user = auth.currentUser;
-
-      if (!user) return;
-
-      const querySnapshot = await getDocs(
-        query(collection(db, 'attendance', user.uid, 'records'), orderBy('checkIn', 'desc')),
-      );
-      const data: AttendanceRecord[] = [];
-      querySnapshot.forEach(doc => {
-        data.push({ ...(doc.data() as AttendanceRecord), id: doc.id });
-      });
-      setAttendanceData(data);
-    };
-
-    fetchData();
   }, []);
 
   return (
     <>
       <div id="attendancePage">
-        <div className="attendancePage__title-box">
-          <h2>근무 내역</h2>
-          <div
-            onClick={() => {
-              if (!loginState.isLogin) {
-                alert('로그인이 필요합니다');
-                return;
-              }
-              setModal(true);
-            }}>
-            출퇴근
-          </div>
+        <div className="attendancePage__top">
+          <h1>근무 내역</h1>
+          <span className="attendancePage__top__add-btn">
+            <div
+              className="attendancePage__top__attend-btn"
+              onClick={() => {
+                if (!loginState.isLogin) {
+                  alert('로그인이 필요합니다');
+                  return;
+                }
+                setModal(true);
+              }}>
+              출퇴근
+            </div>
+          </span>
         </div>
         <div className="attendance__list-wrap">
           <div className="attendance__list__title">
