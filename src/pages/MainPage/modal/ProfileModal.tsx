@@ -85,8 +85,8 @@ export default function ProfileModal({ setActiveModalIdx }: ProfileProp) {
 
   const handleLogout = async () => {
 
-    signOut(auth).then(async () => {
-      await setLoginState(false)
+    signOut(auth).then(() => {
+      setLoginState(false)
       navigate("/login")
       setUserState({
         isLogin: false,
