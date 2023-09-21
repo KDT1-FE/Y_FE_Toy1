@@ -1,0 +1,47 @@
+@import '../../styles/_common.scss';
+
+//NavAddImage 이미지 추가 버튼
+.btn-addImage {
+  width: 150px;
+  height: 40px;
+  background-color: $highlightColor;
+  font-size: 20px;
+  color: #fff;
+  border: none;
+  margin: 20px;
+  cursor: pointer;
+}
+
+.addImage-container {
+  display: flex;
+  flex-direction: column;
+  label {
+    color: $blackColor;
+    font-size: 16px;
+  }
+  select {
+    border: none;
+    background-color: $whiteColor;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+  }
+  .dropZone {
+    //   position: relative;
+    //   height: 250px;
+    //   background-color: $whiteColor;
+    //   input {
+    //     height: 100%;
+    //   }
+  }
+}
+
+.preview {
+  // &-zone {
+  //   position: absolute;
+  //   backface-visibility: hidden;
+  // }
+  &-image {
+    width: 300px;
+    height: auto;
+  }
+}

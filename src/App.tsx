@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
-import { Wiki } from 'components/Wiki/Wiki';
+import { Wiki } from 'pages/Wiki';
 import { Provider } from 'react-redux';
 import { wikiStore } from 'redux/store';
 import Root from 'pages/Root';

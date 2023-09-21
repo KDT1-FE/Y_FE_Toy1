@@ -1,0 +1,28 @@
+@import '../../styles/_common.scss';
+
+.modal-container {
+  border-radius: 10px;
+  border: none;
+  box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+
+  &-comment {
+    width: 80vw;
+    height: 85vh;
+  }
+  &-image {
+    width: 40vw;
+    height: 70vh;
+  }
+}
+
+.modal-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+}
+
+//공통 Close버튼

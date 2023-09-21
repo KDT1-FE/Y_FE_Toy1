@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { UploadImage } from '../../data/galleryImage';
+import './ModalAddImage.scss';
 
 export function AddImageDragDrop() {
   const [files, setFiles] = useState([]);
@@ -30,6 +31,7 @@ export function AddImageDragDrop() {
     <div key={file.name}>
       <div>
         <img
+          className="preview-image"
           src={file.preview}
           onLoad={() => {
             URL.revokeObjectURL(file.preview);
@@ -56,8 +58,8 @@ export function AddImageDragDrop() {
   }, []);
 
   return (
-    <section className="container">
-      <label htmlFor="select-id">Category </label>
+    <section className="addImage-container">
+      <label htmlFor="select-id"> 카테고리를 선택하세요! </label>
       <select
         name="category-select"
         onChange={handleSelect}
@@ -70,11 +72,11 @@ export function AddImageDragDrop() {
           </option>
         ))}
       </select>
-      <div {...getRootProps({ className: 'dropzone' })}>
+      <div {...getRootProps({ className: 'addImage-dropZone dropzone' })}>
         <input {...getInputProps()} />
         <p>Drag n drop some files here, or click to select files</p>
       </div>
-      <aside>{handleUploadImage}</aside>
+      <aside className="preview-zone">{handleUploadImage}</aside>
     </section>
   );
 }

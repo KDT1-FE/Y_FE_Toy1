@@ -39,7 +39,7 @@
     padding-right: 150px;
   }
 
-  .auth-button1 {
+  .signInBtn {
     font-size: 20px;
     font-weight: bold;
     background-color: coral;
@@ -50,9 +50,10 @@
     cursor: pointer; 
     transition: background-color 0.3s ease;
     margin-right: 10px;
+    text-decoration: none;
   }
 
-  .auth-button2 {
+  .signUpBtn {
     font-size: 20px;
     font-weight: bold;
     background-color: coral; 
@@ -62,13 +63,14 @@
     padding: 15px 20px; 
     cursor: pointer; 
     transition: background-color 0.3s ease; 
+    text-decoration: none;
   }
 
-  .auth-button1:hover {
+  .signInBtn:hover {
     background-color: rgb(214, 108, 69);
   }
 
-  .auth-button2:hover {
+  .signUpBtn:hover {
     background-color: rgb(214, 108, 69);
   }
 

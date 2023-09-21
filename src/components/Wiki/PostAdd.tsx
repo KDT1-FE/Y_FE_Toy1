@@ -62,14 +62,32 @@ export function PostAdd(props: any) {
     setMarkdown(value);
   };
 
+  React.useEffect(()=>{
+    if (sessionStorage.uid){
+        return
+    }
+    else {
+        navigate('error')
+    }
+  })
+
   return (
     <div className="post__page--add">
       <BoardNav />
-      <h1>게시글 작성하기</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="">제목 : </label>
-          <input type="text" onChange={handleChangeTitle} value={title} />
+
+      <form onSubmit={handleSubmit} id="form">
+        <div className="mb-3" >
+          <label htmlFor="exampleFormControlInput1" className="form-label">
+            제목
+          </label>
+          <input
+            type="text"
+            onChange={handleChangeTitle}
+            value={title}
+            className="form-control"
+            id="exampleFormControlInput1"
+            placeholder="제목을 입력하세요"
+          />
         </div>
         <div>
           <MdEditor
@@ -79,7 +97,7 @@ export function PostAdd(props: any) {
             height={500}
           />
         </div>
-        <button type="submit">작성하기</button>
+        <button type="submit" className='btn btn-primary'>수정하기</button>
       </form>
     </div>
   );
