@@ -8,8 +8,8 @@ const MainPage = (): JSX.Element => {
     <div id="mainPage">
       <div className="mainPage__content-wrap">
         <div className="mainPage__content-box main-notice">
-          <div className="mainPage__content__title">공지사항</div>
-          <div className="mainPage__content">
+          <div className="mainPage__content__title notice__title">공지사항</div>
+          <div className="mainPage__content notice-container">
             <Carousel />
           </div>
         </div>

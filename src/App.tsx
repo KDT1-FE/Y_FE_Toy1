@@ -6,8 +6,8 @@ import { Notice, Chart, Benefit } from './views/company';
 import MainPage from './views/MainPage';
 import Attendance from './views/AttendancePage';
 import ProjectList from './views/ProjectList';
-import GalleryPage from './views/galleryPage';
-import NoticeWritePage from './views/NoticeWritePage';
+import GalleryPage from './views/GalleryPage';
+import NoticeWritePage from './views/company/notice/NoticeWritePage';
 import Contents from './views/Contents';
 import NoticeUpdatePage from './views/company/notice/NoticeUpdatePage';
 
@@ -39,7 +39,7 @@ const App = () => {
           <Route path="/company/chart" element={<Chart />} />
           <Route path="/company/benefit" element={<Benefit />} />
           <Route path="/project" element={<ProjectList />} />
-          <Route path='/project/:id' element={<ProjectDetail />} />
+          <Route path="/project/:id" element={<ProjectDetail />} />
           <Route path="/project/write" element={<ProjectWirte />} />
           <Route path="/project/update/:id" element={<ProjectUpdate />} />
           <Route path="/gallery" element={<GalleryPage />} />
