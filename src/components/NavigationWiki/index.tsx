@@ -25,9 +25,9 @@ function NavigationWiki({ setIsChanged, isChange }: INavigationWikiProps) {
 
   return (
     <Container>
-      <CategoryContainer>
+      <StyledCategoryContainer>
         {CATEGORY.map((category: ICategory, categoryIndex) => (
-          <CategoryUl key={categoryIndex}>
+          <StyledCategoryUl key={categoryIndex}>
             <h1>회사생활</h1>
             {category.info.map((info, infoIndex) => (
               <span
@@ -43,19 +43,19 @@ function NavigationWiki({ setIsChanged, isChange }: INavigationWikiProps) {
                 {info.text}
               <br/><br/></span>
             ))}
-          </CategoryUl>
+          </StyledCategoryUl>
         ))}
-      </CategoryContainer>
+      </StyledCategoryContainer>
     </Container>
   );
 }
 
-const CategoryContainer = styled.div`
+const StyledCategoryContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const CategoryUl = styled.ul`
+const StyledCategoryUl = styled.ul`
   padding: 0;
   color: white;
   margin-top: 2rem;
