@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Button, ButtonWhite } from "./Button";
 import { useContext } from "react";
@@ -48,6 +49,7 @@ const StudyTime: React.FC<StudyTimeProps> = ({
   studyStartTime,
   toggleStudyStatus,
 }) => {
+  const navigate = useNavigate();
   const user = useContext(AuthContext);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
 
@@ -60,21 +62,6 @@ const StudyTime: React.FC<StudyTimeProps> = ({
         const elapsedMilliseconds = currentTime - studyStartTime;
         setElapsedTime(elapsedMilliseconds);
       }, 1000);
-    } else {
-      if (studyStartTime) {
-        const endTime = new Date().getTime();
-        const elapsedMinutes = Math.floor((endTime - studyStartTime) / 60000);
-
-        if (user && user.uid) {
-          const userDocRef = doc(db, "user", user.uid);
-          updateDoc(userDocRef, {
-            studyTime: increment(elapsedMinutes),
-          }).then(() => {
-            // 현재 firestore에 변경된 studytime을 확인해, database에 저장된 class 값과 비교하고 달라졌다면 alert 창을 띄움
-            SynchroClassAndAlert(user);
-          });
-        }
-      }
     }
 
     return () => {
@@ -83,6 +70,37 @@ const StudyTime: React.FC<StudyTimeProps> = ({
       }
     };
   }, [isStudying, studyStartTime]);
+
+  const handleStartStudy = () => {
+    //로그인 했을 때
+    if (user && user.uid) {
+      if (!isStudying) {
+        const startTime = new Date().getTime();
+        toggleStudyStatus();
+      } else {
+        toggleStudyStatus();
+
+        if (studyStartTime) {
+          // 공부 종료 시에만 실행
+          const endTime = new Date().getTime();
+          const elapsedMinutes =
+            Math.floor((endTime - studyStartTime) / 60000) + 1;
+
+          const userDocRef = doc(db, "user", user.uid);
+          updateDoc(userDocRef, {
+            studyTime: increment(elapsedMinutes),
+          }).then(() => {
+            // 현재 firestore에 변경된 studytime을 확인해, database에 저장된 class 값과 비교하고 달라졌다면 alert 창을 띄움
+            SynchroClassAndAlert(user);
+            console.log("저장된 학습시간: " + elapsedMinutes);
+          });
+        }
+      }
+    } else {
+      alert("학습시간 기록을 위해 로그인이 필요합니다.");
+      // navigate("/login");
+    }
+  };
 
   return (
     <div>
@@ -102,7 +120,7 @@ const StudyTime: React.FC<StudyTimeProps> = ({
           </CounterBadge>
         </CounterData>
       </CounterWrap>
-      <Button onClick={toggleStudyStatus}>
+      <Button onClick={handleStartStudy}>
         {isStudying ? "공부 종료" : "공부 시작"}
       </Button>
     </div>
