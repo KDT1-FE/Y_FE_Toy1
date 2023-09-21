@@ -13,7 +13,10 @@ interface GalleryDetailProps {
   setGalleryData: React.Dispatch<React.SetStateAction<userData[]>>;
 }
 
-const GalleryDetail: React.FC<GalleryDetailProps> = ({ setOnEdit, setGalleryData }) => {
+const GalleryDetail: React.FC<GalleryDetailProps> = ({
+  setOnEdit,
+  setGalleryData,
+}) => {
   // 현재 url의 id값 구하기
   const { id } = useParams<string>();
   const navigate = useNavigate();
@@ -48,7 +51,9 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({ setOnEdit, setGalleryData
           const userDoc = doc(collectionRef, id);
           await deleteDoc(userDoc);
 
-          setGalleryData((prevData) => prevData.filter((item) => item.id !== id));
+          setGalleryData((prevData) =>
+            prevData.filter((item) => item.id !== id)
+          );
           console.log("제거");
 
           alert("삭제 완료했습니다");
@@ -62,7 +67,9 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({ setOnEdit, setGalleryData
         return;
       }
     } else {
-      const confirmed = window.confirm("로그인해야 이용할 수 있습니다. 로그인 하시겠습니까?");
+      const confirmed = window.confirm(
+        "로그인해야 이용할 수 있습니다. 로그인 하시겠습니까?"
+      );
       if (confirmed) {
         navigate("/login");
       } else {
@@ -83,7 +90,9 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({ setOnEdit, setGalleryData
         return;
       }
     } else {
-      const confirmed = window.confirm("로그인해야 이용할 수 있습니다. 로그인 하시겠습니까?");
+      const confirmed = window.confirm(
+        "로그인해야 이용할 수 있습니다. 로그인 하시겠습니까?"
+      );
       if (confirmed) {
         navigate("/login");
       } else {
@@ -128,7 +137,9 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({ setOnEdit, setGalleryData
               </GalleryDesc>
             </GalleryThumb>
             <GalleryEditor>
-              {user.desc ? <div dangerouslySetInnerHTML={{ __html: user.desc }}></div> : null}
+              {user.desc ? (
+                <div dangerouslySetInnerHTML={{ __html: user.desc }}></div>
+              ) : null}
             </GalleryEditor>
           </div>
         );
