@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 import { useState, ChangeEvent, useEffect } from 'react';
-import { auth, db, storage } from '../common/config';
+import { auth, db, storage } from '../../common/config';
 import { createUserWithEmailAndPassword, updateProfile, User } from 'firebase/auth';
 import { uploadBytesResumable, ref, getDownloadURL } from 'firebase/storage';
 import { doc, setDoc, updateDoc } from 'firebase/firestore';
-import useBlobUrl from '../hooks/useBlobUrl';
-import JoinPhoneNumber from '../components/JoinPhoneNumber';
+import useBlobUrl from '../../hooks/useBlobUrl';
+import JoinPhoneNumber from '../../components/JoinPhoneNumber';
 import { Link } from 'react-router-dom';
+import { useUser } from '../../common/UserContext';
 
 interface UserType {
   name?: string;
@@ -16,6 +17,7 @@ interface UserType {
 }
 
 const Join = () => {
+  const { updateUser } = useUser();
   const [user, setUser] = useState<User | null>(null);
   const [joinUser, setJoinUser] = useState<UserType>({
     name: '',
@@ -74,10 +76,10 @@ const Join = () => {
             const newUser = data.user;
 
             // 이름 업데이트
-            updateProfile(newUser, { displayName: joinUser.name }).then(() => {
+            updateProfile(newUser, { displayName: joinUser.name }).then(async () => {
               // 유저 정보 db 저장
               const docRef = doc(db, 'user', newUser.uid);
-              setDoc(docRef, {
+              await setDoc(docRef, {
                 email: newUser.email,
                 name: newUser.displayName,
               });
@@ -85,11 +87,11 @@ const Join = () => {
               // 사진 첨부 했으면
               if (localPhotoUrl) {
                 const photoRoute = ref(storage, 'user/' + newUser.uid);
-                uploadBytesResumable(photoRoute, localPhotoUrl)
+                await uploadBytesResumable(photoRoute, localPhotoUrl)
                   .then(async () => {
                     const photoUrl = await getDownloadURL(photoRoute);
                     // 사진 url 업데이트
-                    updateProfile(newUser, { photoURL: photoUrl });
+                    await updateProfile(newUser, { photoURL: photoUrl });
                     updateDoc(docRef, {
                       photoUrl: photoUrl,
                     });
@@ -99,7 +101,16 @@ const Join = () => {
                   });
               }
 
-              setUser(newUser); // 사용자 정보
+              await setUser(newUser); // 사용자 정보 업데이트
+              const user = {
+                name: newUser.displayName || '',
+                uid: newUser.uid,
+                email: newUser.email || '',
+                photoUrl: newUser.photoURL || '',
+                phone: newUser.phoneNumber || '',
+                emailVerified: newUser.emailVerified,
+              };
+              updateUser(user);
             });
           })
           .catch((error) => {

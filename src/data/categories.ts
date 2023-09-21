@@ -98,24 +98,14 @@ export const allCategories: CategoriesType[] = [
     path: '/login',
     categories: [
       {
-        title: '로그인',
+        title: '회원인증',
         subCategories: [
           {
             link: '',
             text: '로그인',
           },
-        ],
-      },
-    ],
-  },
-  {
-    path: '/join',
-    categories: [
-      {
-        title: '회원가입',
-        subCategories: [
           {
-            link: '',
+            link: 'join',
             text: '회원가입',
           },
         ],

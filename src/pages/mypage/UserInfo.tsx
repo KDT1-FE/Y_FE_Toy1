@@ -39,6 +39,7 @@ const UserInfo = () => {
       <h1>회원 정보</h1>
       <p>{user?.displayName}</p>
       <p>{user?.email}</p>
+      <p>{user?.phoneNumber}</p>
       <p>{lastSign}</p>
       <p>{creation}</p>
       {user?.emailVerified ? <p>이메일 인증 완료</p> : <p>이메일 인증 미완료</p>}

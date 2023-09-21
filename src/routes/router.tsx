@@ -9,8 +9,9 @@ import Wiki from '../pages/wiki/Wiki';
 import Info from '../pages/wiki/Info';
 import Rule from '../pages/wiki/Rule';
 import Team from '../pages/wiki/Team';
-import Login from '../pages/Login';
-import Join from '../pages/Join';
+import Auth from '../pages/auth/Auth';
+import Login from '../pages/auth/Login';
+import Join from '../pages/auth/Join';
 import Detail from '../pages/detail/Detail';
 import Contact from '../pages/contact/Contact';
 import Modify from '../pages/mypage/modify';
@@ -112,11 +113,17 @@ export const router = createBrowserRouter([
       },
       {
         path: 'login',
-        element: <Login />,
-      },
-      {
-        path: 'join',
-        element: <Join />,
+        element: <Auth />,
+        children: [
+          {
+            index: true,
+            element: <Login />,
+          },
+          {
+            path: 'join',
+            element: <Join />,
+          },
+        ],
       },
       {
         path: 'contact',
