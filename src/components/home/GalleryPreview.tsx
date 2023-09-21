@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
@@ -33,7 +32,7 @@ export default function GalleryPreview () {
     const fetchImages = async () => {
       try {
         const storage = getStorage(app);
-        const imagesRef = ref(storage, 'Gallery/0jL7NLzNrPzOuqeuJSk2');
+        const imagesRef = ref(storage, `Gallery/0jL7NLzNrPzOuqeuJSk2`);
         const imageList = await listAll(imagesRef);
 
         const paths = imageList.items.map(async (item) => {
