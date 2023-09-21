@@ -33,7 +33,7 @@ export default function GalleryPreview () {
     const fetchImages = async () => {
       try {
         const storage = getStorage(app);
-        const imagesRef = ref(storage, `Gallery/1moHSjI2ZdSS9iPoZMnp`);
+        const imagesRef = ref(storage, 'Gallery/0jL7NLzNrPzOuqeuJSk2');
         const imageList = await listAll(imagesRef);
 
         const paths = imageList.items.map(async (item) => {

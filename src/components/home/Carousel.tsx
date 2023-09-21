@@ -6,7 +6,7 @@ import { BsArrowLeftCircle, BsArrowRightCircle } from 'react-icons/bs';
 
 const Carousel = () => {
   const vw = window.innerWidth;
-  const initialCarouselWidth = vw * 67 / 100;
+  const initialCarouselWidth = vw * 62 / 100;
 
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [carouselWidth, setCarouselWidth] = useState<number>(initialCarouselWidth);
@@ -16,7 +16,7 @@ const Carousel = () => {
 
   window.addEventListener('resize', () => {
     const vw = window.innerWidth;
-    const vw67 = (vw * 67) / 100;
+    const vw67 = (vw * 62) / 100;
     const parentWidth = carouselRef.current ? vw67 : 938;
     setCarouselWidth(parentWidth);
   });
@@ -54,7 +54,7 @@ const Carousel = () => {
 
   return (
     <>
-      <div style={{width: '67vw', height: '100%'}}> {/*  추후 스타일드 컴포넌트로 수정 예정 => height: "100%"  */}
+      <div style={{width: '62vw', height: '100%'}}> {/*  추후 스타일드 컴포넌트로 수정 예정 => height: "100%"  */}
         <style.CarouselWrapper>
 
           <style.CarouselLeftBackDrop />
