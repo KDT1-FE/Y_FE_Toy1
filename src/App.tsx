@@ -13,7 +13,6 @@ import { PostAdd } from 'components/Wiki/PostAdd';
 import { PostEdit } from 'components/Wiki/PostEdit';
 import { SignIn } from 'pages/SignIn';
 import { Error } from 'pages/Error';
-import { Main } from 'pages/Main';
 
 function App() {
   const router = createBrowserRouter([
@@ -22,7 +21,6 @@ function App() {
       element: <Root />,
       errorElement: <Error />,
       children: [
-        { index: true, element: <Main /> },
         { path: '/study', element: <Study /> },
         { path: '/gallery', element: <Gallery /> },
         { path: '/study', element: <Study /> },
