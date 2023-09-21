@@ -6,7 +6,6 @@ import { WikiContentProps } from "@/components/wiki/WikiCommonType";
 
 export default function WikiContent({
   currentUser,
-  WiKiList,
   Wiki,
   form,
   parents,
@@ -19,7 +18,6 @@ export default function WikiContent({
   onWikiDeleteButtonClick,
 }: WikiContentProps) {
   const wikiFormProps = {
-    WiKiList,
     form,
     editorRef,
     parents,
