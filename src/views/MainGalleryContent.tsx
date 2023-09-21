@@ -5,7 +5,6 @@ import useMainGalleryList from '../hooks/gallery/query/useMainGalleryList';
 import '../scss/mainGallery.scss';
 
 const MainGalleryContents = () => {
-  // const queryClient = useQueryClient();
   const { data: mainGalleryList } = useMainGalleryList();
   return (
     <Link to="/gallery">
@@ -15,7 +14,7 @@ const MainGalleryContents = () => {
             <figure key={item.id} style={{ backgroundImage: `url(${item.url})` }} onClick={() => {}}>
               <figcaption>
                 <h3>{item.title}</h3>
-                <p>{item.timestamp}</p>
+                {/* <p>{item.timestamp}</p> */}
               </figcaption>
             </figure>
           );

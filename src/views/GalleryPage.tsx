@@ -61,6 +61,13 @@ const GalleryPage = () => {
     queryClient.invalidateQueries([GalleryQueryKeyEnum.DocList]);
   };
 
+  const hateImage = async (id: string, like: number) => {
+    const myDoc = doc(db, 'gallery', id);
+    const newFields = { like: like - 1 };
+    await updateDoc(myDoc, newFields);
+    queryClient.invalidateQueries([GalleryQueryKeyEnum.DocList]);
+  };
+
   const deleteData = async (id: string) => {
     const myDoc = doc(db, 'gallery', id);
     await deleteDoc(myDoc);
@@ -91,7 +98,7 @@ const GalleryPage = () => {
           setImgModalOpen={setImgModalOpen}
           selectedImage={selectedImage}
           imageDetail={imageDetail}
-          likeImage={likeImage}
+          // likeImage={likeImage}
         />
       )}
       <article className="gallery__list">
@@ -99,6 +106,7 @@ const GalleryPage = () => {
           docList={docList}
           likeImage={likeImage}
           deleteData={deleteData}
+          hateImage={hateImage}
           onImageClick={(index: number) => {
             handleClick(imageList[index]);
             setImageDetail(docList[index]);
