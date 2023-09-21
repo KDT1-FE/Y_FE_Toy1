@@ -20,7 +20,7 @@ const Contents = () => {
 
     if (docSnap.exists()) {
       const title = docSnap.data().title;
-      const timeAgo = docSnap.data().time;
+      const time = docSnap.data().time;
       const content = docSnap.data().content;
       const imgUrl = docSnap.data().url;
       setTitle(title);
