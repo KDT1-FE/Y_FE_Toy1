@@ -30,7 +30,9 @@ function Header() {
     <div className="Main">
       <header className="HeaderMain">
         <div className="Logo">
-          <img src={logoImage} alt="로고" className="LogoImg" />
+          <Link to="/" className="SubListMain">
+            <img src={logoImage} alt="로고" className="LogoImg" />
+          </Link>
         </div>
         <nav className="NavbarWrap">
           <ul className="List">
