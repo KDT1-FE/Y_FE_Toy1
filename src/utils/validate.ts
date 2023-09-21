@@ -1,8 +1,8 @@
-import { VALIDATE_ALERT } from 'constants/alert';
+import { ALERT } from 'constants/common';
 
 export const checkValidate = (endDate: string, startDate: string) => {
   if (new Date(endDate) > new Date(startDate)) {
-    alert(VALIDATE_ALERT);
+    alert(ALERT.VALIDATE);
     return false;
   }
   return true;

@@ -10,6 +10,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import CommuteModal from 'components/CommuteModal';
 import { media } from 'styles/media';
 import { useState } from 'react';
+import { CALENDAR, GALLERY, WIKI } from 'constants/common';
 
 function Header() {
   const [menuToggle, setMenuToggle] = useState(false);
@@ -17,16 +18,16 @@ function Header() {
 
   const menus = [
     {
-      name: 'Wiki',
+      name: `${WIKI}`,
       route: `${ROUTES.WIKI}?category=companyRule`,
       logo: wikiLogo,
     },
     {
-      name: 'Gallery',
+      name: `${GALLERY}`,
       route: `${ROUTES.GALLERY}?category=사진첩1`,
       logo: galleryLogo,
     },
-    { name: 'Calendar', route: ROUTES.CALENDAR, logo: calendarLogo },
+    { name: `${CALENDAR}`, route: ROUTES.CALENDAR, logo: calendarLogo },
   ];
 
   return (

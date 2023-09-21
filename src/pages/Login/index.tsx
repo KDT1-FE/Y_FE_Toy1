@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { media } from 'styles/media';
 import { ROUTES } from 'constants/routes';
 import { login } from 'apis/User';
+import { GOOGLE_LOGIN, LOGIN } from 'constants/login';
 
 function Login() {
   const navigate = useNavigate();
@@ -25,10 +26,10 @@ function Login() {
       </StyledMobileContainer>
       <StyledLoginContainer>
         <StyledMainText>WIKI</StyledMainText>
-        로그인 하기
+        {LOGIN}
         <StyledLoginButton onClick={handleGoogleLogin}>
           <StyledGoogleLogo src={googleIcon} />
-          Google로 간편 로그인
+          {GOOGLE_LOGIN}
         </StyledLoginButton>
       </StyledLoginContainer>
     </StyledSection>

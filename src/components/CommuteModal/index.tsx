@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import LiveClock from './LiveClock';
 import {
+  COMMUTE_TIMER_TITLE,
   INTERVAL,
   WORK_STATE_BUTTON,
   WORK_STATE_TEXT,
@@ -14,6 +15,7 @@ import useInterval from 'hooks/useInterval';
 import { dayFormat, timeFormat } from 'utils/format';
 import { addWorkTimeData } from 'apis/WorkTime';
 import { media } from 'styles/media';
+import { COMMUTE } from 'constants/common';
 
 function CommuteModal() {
   const [showModal, setShowModal] = useState(false);
@@ -77,7 +79,7 @@ function CommuteModal() {
           setShowModal(true);
         }}
       >
-        Commute
+        {COMMUTE}
         <img src={commuteLogo}></img>
       </StyledCommuteMenu>
       <StyledCustomModal
@@ -88,7 +90,8 @@ function CommuteModal() {
       >
         <StyledTopContainer>
           <StyledTitle>
-            출퇴근<StyledDate>{dayFormat(new Date())}</StyledDate>
+            {COMMUTE_TIMER_TITLE}
+            <StyledDate>{dayFormat(new Date())}</StyledDate>
           </StyledTitle>
           <StyledCloseImg
             src={closeButton}
@@ -114,7 +117,7 @@ function CommuteModal() {
                   setIsRunning(false);
                 }}
               >
-                stop
+                {WORK_STATE_BUTTON.STOP}
               </StyledStopButton>
             )}
           </StyledMainContainer>
