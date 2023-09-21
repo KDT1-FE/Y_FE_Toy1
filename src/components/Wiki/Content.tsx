@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import "../../styles/wiki/wiki.css";
 import "../../styles/wiki/reactMarkdown.css";
 import {useParams} from "react-router-dom";
+import swal from "sweetalert";
 import Loading from "../Loading";
 import EditButton from "./EditButton";
 import TeamContent from "./TeamContent";
@@ -63,15 +64,29 @@ function Content() {
   }, [content]);
 
   const updateContent = () => {
-    const newContent = sessionStorage.getItem(title);
+    swal({
+      title: "정말 문서를 업데이트 하시겠습니까?",
+      text: "기존에 편집중인 내용은 따로 복사 후 업데이트하는 것을 권장합니다.",
+      buttons: ["취소", true],
+      icon: "warning",
+      dangerMode: true,
+    }).then(willDelete => {
+      if (willDelete) {
+        swal("문서가 업데이트 되었습니다!", {
+          icon: "success",
+        });
 
-    if (newContent) {
-      setContent(JSON.parse(newContent).content);
-      if (isEditorOpen) {
-        setText(content);
-        setIsEditorOpen(false);
+        const newContent = sessionStorage.getItem(title);
+
+        if (newContent) {
+          setContent(JSON.parse(newContent).content);
+          if (isEditorOpen) {
+            setText(content);
+            setIsEditorOpen(false);
+          }
+        }
       }
-    }
+    });
   };
 
   return (

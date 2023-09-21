@@ -1,3 +1,4 @@
+import swal from "sweetalert";
 import {doc, onSnapshot} from "firebase/firestore";
 import {db} from "../../utils/firebaseConfig";
 
@@ -20,12 +21,10 @@ async function SaveContents(categories: string[]): Promise<any> {
         callSnapshot > categories.length &&
         sameLocation !== -1
       ) {
-        /* eslint-disable */
-        alert(
-          "⚠️ 문서가 업데이트되었습니다! \n\n 🙏🏻 refresh 버튼을 누른 후 계속 작업해주세요. 🙏🏻",
+        swal(
+          "문서가 업데이트되었습니다!",
+          "🙏🏻 refresh 버튼을 누른 후 계속 작업해주세요. 🙏🏻",
         );
-
-        /* eslint-enable */
       }
     });
   });
