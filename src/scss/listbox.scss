@@ -1,26 +1,35 @@
 @use '../scss/abstracts/' as *;
 
-.listbox{
-    width: 95%;
-    height: 3vw;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    border: 1px solid $blue;
-    border-radius: 1rem;
-    margin: 1rem auto;
-    padding: 0 1rem;
+.listbox {
+  width: 95%;
+  height: 3vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid $blue;
+  border-radius: 1rem;
+  margin: 1rem auto;
+  padding: 0 1rem;
+  background-color: $white;
+  cursor: pointer;
+  @include shadow;
 
-    &__delete-checkbox{
-        flex: .5;
-    }
+  &__delete-checkbox {
+    flex: 0.5;
+  }
 
-    &__title{
-        flex: 20;
-        font-size: 1.3rem;
-    }
+  &__title {
+    flex: 20;
+    font-size: 1.3rem;
+  }
 
-    &__modify-btn{
-        flex: 1;
-    }
+  &__modify-btn {
+    flex: 1;
+  }
+
+  &__delete-btn {
+    background-color: $gray;
+    margin-left: 1rem;
+    flex: 1;
+  }
 }
