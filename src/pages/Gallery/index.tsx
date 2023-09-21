@@ -3,7 +3,7 @@ import UploadGalleryModal from 'components/UploadGalleryModal';
 import ReadGallery from 'components/ReadGallery';
 import styled from 'styled-components';
 import { media } from 'styles/media';
-import Loading from 'components/Common/LoadingImgRegister';
+import { LoadingImgRegister } from 'components/Common/Loading';
 import { useState } from 'react';
 
 function Gallery() {
@@ -16,7 +16,7 @@ function Gallery() {
           {isLoading ? (
             <>
               <StyledLoadingContainer>
-                <Loading></Loading>
+                <LoadingImgRegister></LoadingImgRegister>
                 <StyledLoadingText>이미지 등록 중</StyledLoadingText>
               </StyledLoadingContainer>
             </>
