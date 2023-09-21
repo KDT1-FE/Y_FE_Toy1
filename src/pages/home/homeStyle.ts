@@ -55,4 +55,8 @@ export const MoreBtn = styled(Link)`
   font-weight: 500;
   font-size: 0.875rem;
   line-height: normal;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
