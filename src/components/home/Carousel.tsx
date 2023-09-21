@@ -1,28 +1,26 @@
-import * as style from './CarouselStyle';
-import { useState, useEffect, useRef, useCallback } from 'react';
-import carouselData from '../../db/wiki/CarouselData';
-import { BsArrowLeftCircle, BsArrowRightCircle } from 'react-icons/bs';
-
-
+import * as style from "./CarouselStyle";
+import { useState, useEffect, useRef, useCallback } from "react";
+import carouselData from "../../db/wiki/CarouselData";
 
 const Carousel = () => {
   const vw = window.innerWidth;
-  const initialCarouselWidth = vw * 62 / 100;
+  const initialCarouselWidth = (vw * 62) / 100;
 
   const [currentindex, setCurrentindex] = useState<number>(0);
-  const [carouselwidth, setCarouselwidth] = useState<number>(initialCarouselWidth);
+  const [carouselwidth, setCarouselwidth] =
+    useState<number>(initialCarouselWidth);
 
   const docRef = useRef<number | null>(null);
   const carouselRef = useRef(null);
 
-  window.addEventListener('resize', () => {
+  window.addEventListener("resize", () => {
     const vw = window.innerWidth;
     const vw67 = (vw * 62) / 100;
     const parentWidth = carouselRef.current ? vw67 : 938;
     setCarouselwidth(parentWidth);
   });
 
-  const goToNext = useCallback (() => {
+  const goToNext = useCallback(() => {
     const isLastSlide = currentindex === carouselData.length - 1;
     const newIndex = isLastSlide ? 0 : currentindex + 1;
     setCurrentindex(newIndex);
@@ -30,7 +28,7 @@ const Carousel = () => {
 
   useEffect(() => {
     if (docRef.current !== null) {
-        clearTimeout(docRef.current);
+      clearTimeout(docRef.current);
     }
     docRef.current = window.setTimeout(() => {
       goToNext();
@@ -49,9 +47,10 @@ const Carousel = () => {
 
   return (
     <>
-      <div style={{width: '62vw', height: '100%'}}> {/*  추후 스타일드 컴포넌트로 수정 예정 => height: "100%"  */}
+      <div style={{ width: "62vw", height: "100%" }}>
+        {" "}
+        {/*  추후 스타일드 컴포넌트로 수정 예정 => height: "100%"  */}
         <style.CarouselWrapper>
-
           <style.CarouselLeftBackDrop />
 
           <style.CarouselTitle href={"/wiki"}>
@@ -61,33 +60,38 @@ const Carousel = () => {
             {carouselData[currentindex].text}
           </style.CarouselText>
 
-
-          <style.CarouselContainer 
-            currentindex={currentindex}
-            carouselwidth={carouselwidth}>
-
-            {carouselData.map((_, pageindex) => (
-              <>
+          <style.CarouselContainer
+            $currentIndex={currentindex}
+            $carouselWidth={carouselwidth}
+          >
+            {carouselData.map((data, pageindex) => {
+              return (
                 <style.CarouselContent
-                  pageindex={pageindex}
+                  key={data.id}
+                  $pageIndex={pageindex}
                   ref={carouselRef}
-                  carouselwidth={carouselwidth}>
-                  <style.CarouselPageButton href={`${carouselData[pageindex].link}`}>자세히 보기</style.CarouselPageButton>
+                  $carouselWidth={carouselwidth}
+                >
+                  <style.CarouselPageButton
+                    href={`${carouselData[pageindex].link}`}
+                  >
+                    자세히 보기
+                  </style.CarouselPageButton>
                 </style.CarouselContent>
-              </>
-            ))}
-
+              );
+            })}
           </style.CarouselContainer>
 
           <style.CarouselDotContainer>
-            {carouselData.map((_, pageindex) => (
-              <style.CarouselDot 
-                onClick={() => goToCarousel(pageindex)} />
+            {carouselData.map((data, pageindex) => (
+              <style.CarouselDot
+                key={data.id}
+                onClick={() => goToCarousel(pageindex)}
+              />
             ))}
           </style.CarouselDotContainer>
-
-        </style.CarouselWrapper>  
-      </div>    
+        </style.CarouselWrapper>
+      </div>
     </>
   );
 };
