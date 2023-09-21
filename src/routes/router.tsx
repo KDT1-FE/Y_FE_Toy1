@@ -17,6 +17,7 @@ import Contact from '../pages/contact/Contact';
 import Modify from '../pages/mypage/modify';
 import Mypage from '../pages/mypage/Mypage';
 import UserInfo from '../pages/mypage/UserInfo';
+import Notice from '../pages/Notice';
 
 export const router = createBrowserRouter([
   {
@@ -128,6 +129,10 @@ export const router = createBrowserRouter([
       {
         path: 'contact',
         element: <Contact />,
+      },
+      {
+        path: 'notice/:index',
+        element: <Notice />,
       },
     ],
   },
