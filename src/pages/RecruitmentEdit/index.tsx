@@ -132,8 +132,8 @@ const RecruitmentEdit: React.FC = () => {
                                 style={{ marginLeft: '10px', width: '150px', height: '40px' }}
                             >
                                 <InputLabel id="category">분류</InputLabel>
-                                <MenuItem value="토이 프로젝트">토이프로젝트</MenuItem>
-                                <MenuItem value="연계 프로젝트">연계프로젝트</MenuItem>
+                                <MenuItem value="토이 프로젝트">토이 프로젝트</MenuItem>
+                                <MenuItem value="연계 프로젝트">연계 프로젝트</MenuItem>
                             </Select>
                         )}
                     </PostBox>
@@ -155,6 +155,7 @@ const RecruitmentEdit: React.FC = () => {
 
                                 setPeopleValue(peopleValue);
                             }}
+                            helperText="최대 50명"
                             style={{ width: '150px' }}
                         />
                     </PostBox>
@@ -166,6 +167,8 @@ const RecruitmentEdit: React.FC = () => {
                             variant="standard"
                             type="text"
                             name="title"
+                            helperText="제목을 30자 내로 작성해주세요"
+                            inputProps={{ maxLength: 30 }}
                             style={{ width: '100%', fontSize: '1.5rem' }}
                         />
                     </PostBox>

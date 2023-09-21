@@ -4,6 +4,7 @@ import { getRecruitmentDetail, getUserData, deleteComment } from '../../utils/fi
 import { useRecoilState } from 'recoil';
 import { UserId, Render } from '../../utils/recoil';
 import { useParams, useNavigate } from 'react-router-dom';
+import { checkedListCommand } from '@uiw/react-md-editor';
 
 interface CommentProps {
     comment: {
@@ -11,6 +12,7 @@ interface CommentProps {
         uid: string;
         time: string;
         content: string;
+        imageURL: string;
     }; // comment 프로퍼티의 타입은 any로 설정하거나 실제 타입으로 지정
     i: number;
 }
@@ -47,32 +49,33 @@ const CommentItem: React.FC<CommentProps> = (props) => {
 
     const handleDeleteCommentSubmit = async (e: any) => {
         e.preventDefault();
-
-        if (channel && path) {
-            // Null 체크
-            if (
-                e.target &&
-                e.target.uid &&
-                e.target.content &&
-                e.target.time &&
-                e.target.uid.value &&
-                e.target.content.value &&
-                e.target.time.value
-            ) {
-                const value = {
-                    uid: e.target.uid.value,
-                    name: userData.name,
-                    imageURL: userData.imageURL,
-                    content: e.target.content.value,
-                    time: e.target.time.value,
-                };
-                await deleteComment(channel, path, value);
-                setRender(!render);
+        if (confirm('댓글을 삭제하시겠습니까?')) {
+            if (channel && path) {
+                // Null 체크
+                if (
+                    e.target &&
+                    e.target.uid &&
+                    e.target.content &&
+                    e.target.time &&
+                    e.target.uid.value &&
+                    e.target.content.value &&
+                    e.target.time.value
+                ) {
+                    const value = {
+                        uid: e.target.uid.value,
+                        name: props.comment.name,
+                        imageURL: props.comment.imageURL,
+                        content: props.comment.content,
+                        time: e.target.time.value,
+                    };
+                    await deleteComment(channel, path, value);
+                    setRender(!render);
+                } else {
+                    console.error('uid 또는 content가 정의되지 않았습니다.');
+                }
             } else {
-                console.error('uid 또는 content가 정의되지 않았습니다.');
+                console.error('channel 또는 path가 정의되지 않았습니다.');
             }
-        } else {
-            console.error('channel 또는 path가 정의되지 않았습니다.');
         }
     };
 
@@ -87,7 +90,7 @@ const CommentItem: React.FC<CommentProps> = (props) => {
                 <CommentTime defaultValue={props.comment.time} name="time" disabled />
             </CommentForm>
 
-            {userId == props.comment.uid ? (
+            {userId == props.comment.uid || userId == data.uid ? (
                 <BtnWrapper>
                     <Btn type="submit" form={'commentForm' + props.i}>
                         삭제

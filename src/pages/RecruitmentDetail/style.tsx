@@ -28,6 +28,9 @@ export const ContentWrapper = styled.div`
     min-height: 500px;
     height: auto;
 
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+
     position: relative;
 `;
 
@@ -53,6 +56,7 @@ export const ContentHeaderName = styled.div`
 export const Content = styled.div`
     padding: 20px;
     width: 100%;
+    word-break: break-all;
 `;
 
 export const ContentUserImage = styled.img`
@@ -124,6 +128,9 @@ export const CommentWrapper = styled.div`
 
     background-color: white;
 
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+
     margin: 20px auto;
     padding: 20px 0;
 `;
@@ -133,7 +140,6 @@ export const CommentItemWrapper = styled.div`
     height: 100px;
 
     padding: 20px;
-    margin-bottom: 20px;
 
     display: flex;
     flex-direction: column;
@@ -236,6 +242,7 @@ export const CommentCreateWrapper = styled.div`
     width: 98%;
 
     margin: 0 auto;
+    margin-top: 20px;
     padding: 20px;
 
     border-radius: 20px;

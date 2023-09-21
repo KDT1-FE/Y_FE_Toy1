@@ -30,27 +30,17 @@ import {
     DeleteBtnWrapper,
 } from './style';
 import CommentItem from './CommentItem';
-import {
-    getRecruitmentDetail,
-    getUserData,
-    createComment,
-    deleteRecruitment,
-    updateRecruitment,
-} from '../../utils/firebase';
+import { getUserData, createComment, deleteRecruitment, updateRecruitment } from '../../utils/firebase';
 import { useRecoilState } from 'recoil';
-import { UserId, Render } from '../../utils/recoil';
+import { UserId, Render, RecruitmentData } from '../../utils/recoil';
 import { useNavigate } from 'react-router-dom';
-import { RecruitmentData } from '../../utils/recoil';
-import { collection, serverTimestamp, getDocs, Firestore, doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { serverTimestamp, doc, onSnapshot } from 'firebase/firestore';
 import { firestore } from '../../utils/firebase';
-import MDEditor from '@uiw/react-md-editor';
 
 const RecruitmentDetail: React.FC = () => {
-    const [userId, setUserId] = useRecoilState(UserId);
-    const [userName, setUserName] = useState('');
-    const [userImageURL, setUserImageURL] = useState('');
+    const [userId, setUserId] = useRecoilState<string>(UserId);
     const [recruitmentData, setRecruitmentData] = useRecoilState(RecruitmentData);
-    const [deleteModalValued, setDeleteModalValued] = useState(false);
+    const [deleteModalValued, setDeleteModalValued] = useState<boolean>(false);
     const [commentValue, setCommentValue] = useState('');
     const [comments, setComments] = useState([]);
     const [render, setRender] = useRecoilState(Render);
@@ -127,6 +117,7 @@ const RecruitmentDetail: React.FC = () => {
             };
             await createComment(channel, path, value);
 
+            alert('댓글이 등록되었습니다.');
             setCommentValue('');
             // location.reload();
         } else {
@@ -135,20 +126,11 @@ const RecruitmentDetail: React.FC = () => {
     };
 
     const handleEdit = () => {
-        for (let i = 0; i < data.comment.length; i++) {
-            data.comment[i] = {
-                uid: data.comment[i].uid,
-                time: data.comment[i].time,
-                content: data.comment[i].content,
-                name: data.comment[i].name,
-                imageURL: data.comment[i].imageURL,
-            };
-        }
         setRecruitmentData({ ...data, channel: channel });
         navigate('/recruitment/edit/' + channel + '/' + path, data);
     };
 
-    const handleDeleteRcruitment = (e: any) => {
+    const handleDeleteRcruitment = () => {
         deleteRecruitment(channel, path);
         navigate('/recruitment');
     };
@@ -160,7 +142,6 @@ const RecruitmentDetail: React.FC = () => {
     const handleRecruitmentValued = () => {
         const updated_at_timestamp = serverTimestamp();
 
-        console.log(data);
         const value = data;
         value.recruitValued = !value.recruitValued;
 
@@ -258,10 +239,16 @@ const RecruitmentDetail: React.FC = () => {
                                         disabled
                                         style={{ display: 'none' }}
                                     />
-                                    <textarea
+                                    <input
                                         name="content"
                                         value={commentValue}
-                                        style={{ width: '880px', height: '60px', border: '1px solid gray' }}
+                                        style={{
+                                            width: '880px',
+                                            height: '60px',
+                                            border: '1px solid gray',
+                                            fontSize: '1rem',
+                                            paddingLeft: '10px',
+                                        }}
                                         onChange={(e) => {
                                             setCommentValue(e.target.value);
                                         }}

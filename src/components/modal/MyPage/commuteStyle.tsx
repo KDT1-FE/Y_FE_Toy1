@@ -3,9 +3,10 @@ import styled from 'styled-components';
 export const CommuteModalBox = styled.div`
     width: 100%;
     height: 30%;
-    min-height: 210px;
+    min-height: 240px;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
 `;
 
 // export const ModalWall = styled.div`
@@ -101,11 +102,11 @@ export const TimerBtnClassic = styled.button`
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    width: 100px;
-    height: 62px;
+    width: 90px;
+    height: 52px;
     border: none;
     border-radius: 20px;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 700;
     box-shadow: 0 3px 3px 1px #ced0d3;
     cursor: pointer;

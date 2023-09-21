@@ -4,8 +4,8 @@ import { useRecoilState } from 'recoil';
 import { UserId, TimeLog, TimerOn } from '../../utils/recoil';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { createTimelog } from '../../utils/firebase';
-import { CreateDay, CreateTime } from '../../components/modal/Hooks/WhatTime';
-import MyPageBtn from '../../components/modal/MyPage/MyPageBtn';
+import { CreateDay, CreateTime } from '../../components/Modal/Hooks/WhatTime';
+import MyPageBtn from '../../components/Modal/MyPage/MyPageBtn';
 
 const Header: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);

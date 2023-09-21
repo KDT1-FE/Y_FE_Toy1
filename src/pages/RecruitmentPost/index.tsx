@@ -76,7 +76,11 @@ const RecruitmentPost: React.FC = () => {
 
             console.log(e.target.recruitmentType.value);
             createRecruitment(e.target.recruitmentType.value, value);
+
+            alert('글 작성에 성공했습니다.');
             navigate('/recruitment');
+        } else {
+            alert('빈 공간 없이 입력해주세요');
         }
     };
 
@@ -98,18 +102,32 @@ const RecruitmentPost: React.FC = () => {
                 <PostForm action="submit" onSubmit={handleCreateRecruitment}>
                     <PostBox>
                         <PostH>분야</PostH>
+                        {categoryViewToggle ? (
+                            <Select
+                                labelId="bigCategory"
+                                name="recruitmentType"
+                                onChange={handleCategory}
+                                style={{ width: '150px', height: '40px' }}
+                                disabled
+                            >
+                                <InputLabel id="bigCategory">대분류</InputLabel>
 
-                        <Select
-                            labelId="bigCategory"
-                            name="recruitmentType"
-                            onChange={handleCategory}
-                            style={{ width: '150px', height: '40px' }}
-                        >
-                            <InputLabel id="bigCategory">대분류</InputLabel>
+                                <MenuItem value="project">프로젝트</MenuItem>
+                                <MenuItem value="study">스터디</MenuItem>
+                            </Select>
+                        ) : (
+                            <Select
+                                labelId="bigCategory"
+                                name="recruitmentType"
+                                onChange={handleCategory}
+                                style={{ width: '150px', height: '40px' }}
+                            >
+                                <InputLabel id="bigCategory">대분류</InputLabel>
 
-                            <MenuItem value="project">프로젝트</MenuItem>
-                            <MenuItem value="study">스터디</MenuItem>
-                        </Select>
+                                <MenuItem value="project">프로젝트</MenuItem>
+                                <MenuItem value="study">스터디</MenuItem>
+                            </Select>
+                        )}
                         {categoryViewToggle ? (
                             categoryToggle ? (
                                 <Select
@@ -130,8 +148,8 @@ const RecruitmentPost: React.FC = () => {
                                     style={{ marginLeft: '10px', width: '150px', height: '40px' }}
                                 >
                                     <InputLabel id="category">분류</InputLabel>
-                                    <MenuItem value="토이 프로젝트">토이프로젝트</MenuItem>
-                                    <MenuItem value="연계 프로젝트">연계프로젝트</MenuItem>
+                                    <MenuItem value="토이 프로젝트">토이 프로젝트</MenuItem>
+                                    <MenuItem value="연계 프로젝트">연계 프로젝트</MenuItem>
                                 </Select>
                             )
                         ) : (
@@ -139,7 +157,7 @@ const RecruitmentPost: React.FC = () => {
                         )}
                     </PostBox>
                     <PostBox>
-                        <PostH>모집 인원(최대 50명)</PostH>
+                        <PostH>모집 인원</PostH>
                         <TextField
                             id="standard-basic"
                             variant="standard"
@@ -156,6 +174,7 @@ const RecruitmentPost: React.FC = () => {
 
                                 setPeopleValue(peopleValue);
                             }}
+                            helperText="최대 50명"
                             style={{ width: '150px', marginTop: '10px' }}
                         />
                     </PostBox>
@@ -167,6 +186,8 @@ const RecruitmentPost: React.FC = () => {
                             type="text"
                             name="title"
                             placeholder="글 제목"
+                            helperText="제목을 30자 내로 작성해주세요"
+                            inputProps={{ maxLength: 20 }}
                             style={{ width: '100%', fontSize: '1.5rem', marginTop: '10px' }}
                         />
                     </PostBox>
