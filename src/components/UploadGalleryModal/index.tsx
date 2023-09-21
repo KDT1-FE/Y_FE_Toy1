@@ -4,7 +4,7 @@ import ReactModal from 'react-modal';
 import closeButton from '../../assets/icons/closeButton.svg';
 import { useLocation, Link } from 'react-router-dom';
 import { media } from 'styles/media';
-import { addFirestore, addStorage } from 'apis/Gallery';
+import { addGalleryData, addStorage } from 'apis/Gallery';
 
 interface IUploadGalleryProps {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -58,7 +58,7 @@ function UploadGallery({ setIsLoading }: IUploadGalleryProps) {
         setIsLoading(true);
         const downLoadUrl = await addStorage(image);
         if (downLoadUrl && selectedCategory) {
-          await addFirestore(downLoadUrl, selectedCategory);
+          await addGalleryData(downLoadUrl, selectedCategory);
           closeModal();
           setIsLoading(false);
         }
@@ -144,7 +144,7 @@ const StyledModal: ReactModal.Styles = {
     backgroundColor: ' rgba(0, 0, 0, 0.4)',
     width: '100%',
     height: '100vh',
-    zIndex: '10',
+    zIndex: '90000',
     position: 'fixed',
     top: '0',
     left: '0',
@@ -278,6 +278,9 @@ const StyledContainerInput = styled.div`
     border: 0;
   }
   .imgUpload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 8.75rem;
     height: 2.5rem;
     background-color: #3584f4;
@@ -287,8 +290,8 @@ const StyledContainerInput = styled.div`
     font-weight: 700;
     ${media.tablet_625(`
       width: 6rem;
-      font-size: 0.9rem;
-      padding: 0.625rem 0.9rem;
+      font-size: 0.8rem;
+      padding: 0.625rem 0.7rem;
   `)}
   }
   .imgUpload:hover {

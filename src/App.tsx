@@ -13,7 +13,7 @@ import Login from 'pages/Login';
 import NotFound from 'pages/NotFound';
 import { auth } from 'apis/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import Loading from 'components/Common/Loading';
+import { Loading } from 'components/Common/Loading';
 import Calendar from 'pages/Calendar';
 import { ERROR_ALERT } from 'constants/alert';
 

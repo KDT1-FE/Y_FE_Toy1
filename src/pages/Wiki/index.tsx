@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { read } from 'apis/Wiki';
 import { useLocation } from 'react-router-dom';
 import { media } from 'styles/media';
-import Loading from 'components/Common/Loading';
+import { Loading } from 'components/Common/Loading';
 import WikiContent from 'components/Wiki/WikiContent';
 import WikiCreate from 'components/Wiki/WikiCreate';
 import { DocumentData } from 'firebase/firestore';

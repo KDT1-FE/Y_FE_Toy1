@@ -12,7 +12,7 @@ import {
 
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
-export const addFirestore = async (
+export const addGalleryData = async (
   imageURL: string,
   selectedCategory: string,
 ) => {
@@ -45,7 +45,7 @@ export interface GalleryData {
   id: string;
 }
 
-export const getStorage = async () => {
+export const getGalleryData = async () => {
   try {
     const getImg = collection(db, 'gallery');
     const result = await getDocs(query(getImg, orderBy('timestamp', 'desc')));

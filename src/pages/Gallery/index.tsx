@@ -2,7 +2,8 @@ import NavigationGallery from 'components/NavigationGallery';
 import UploadGalleryModal from 'components/UploadGalleryModal';
 import ReadGallery from 'components/ReadGallery';
 import styled from 'styled-components';
-import Loading from 'components/Common/Loading';
+import { media } from 'styles/media';
+import { LoadingImgRegister } from 'components/Common/Loading';
 import { useState } from 'react';
 
 function Gallery() {
@@ -14,7 +15,10 @@ function Gallery() {
         <StyledGalleryContainer>
           {isLoading ? (
             <>
-              이미지 등록 중<Loading></Loading>
+              <StyledLoadingContainer>
+                <LoadingImgRegister></LoadingImgRegister>
+                <StyledLoadingText>이미지 등록 중</StyledLoadingText>
+              </StyledLoadingContainer>
             </>
           ) : (
             <>
@@ -39,6 +43,34 @@ const StyledGalleryContainer = styled.div`
   height: 56rem;
   display: flex;
   flex-direction: column;
+`;
+
+const StyledLoadingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  ${media.desktop_lg(`
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+`)}
+  ${media.tablet_680(`
+  height: 35rem;
+`)}
+${media.mobile_430(`
+  height: 25rem;
+`)}
+`;
+
+const StyledLoadingText = styled.div`
+  position: absolute;
+  bottom: 45%;
+  ${media.tablet_680(`
+    bottom: 43%;
+`)}
+  ${media.mobile_430(`
+    bottom: 40%;
+`)}
 `;
 
 export default Gallery;

@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { getStorage, GalleryData } from 'apis/Gallery';
+import { getGalleryData, GalleryData } from 'apis/Gallery';
 import { useLocation } from 'react-router-dom';
-import DeleteGallery from 'components/DeleteGallery';
+import DeleteGallery from 'utils/deleteGalleryData';
 import styled from 'styled-components';
 import deleteIcon from '../../assets/icons/deleteIcon.png';
 import { media } from 'styles/media';
-import Loading from 'components/Common/Loading';
+import { Loading } from 'components/Common/Loading';
 
 function ReadGallery() {
   const [galleryRead, setGalleryRead] = useState<GalleryData[]>([]);
@@ -13,7 +13,7 @@ function ReadGallery() {
 
   const getGalleryList = async () => {
     setIsReading(true);
-    const result = await getStorage();
+    const result = await getGalleryData();
     if (result !== undefined) {
       setGalleryRead(result);
     }
@@ -34,27 +34,24 @@ function ReadGallery() {
         <Loading></Loading>
       ) : (
         <StyledImgContainer>
-          {galleryRead.length > 0 ? (
-            galleryRead.map((item, index) => {
-              if (
-                item.category === selectedCategory ||
-                selectedCategory === null
-              ) {
-                return (
-                  <StyledPhotoContainer key={index} id={item.category}>
-                    <StyledReadGallery src={item.src}></StyledReadGallery>
-                    <StyledDeleteIcon
-                      id={item.id}
-                      src={deleteIcon}
-                      onClick={() => {
-                        DeleteGallery(item.id);
-                      }}
-                    ></StyledDeleteIcon>
-                  </StyledPhotoContainer>
-                );
-              }
-            })
-          ) : (
+          {galleryRead.map((item, index) => {
+            if (selectedCategory === item.category) {
+              return (
+                <StyledPhotoContainer key={index} id={item.category}>
+                  <StyledReadGallery src={item.src}></StyledReadGallery>
+                  <StyledDeleteIcon
+                    id={item.id}
+                    src={deleteIcon}
+                    onClick={() => {
+                      DeleteGallery(item.id);
+                    }}
+                  ></StyledDeleteIcon>
+                </StyledPhotoContainer>
+              );
+            }
+            return null;
+          })}
+          {galleryRead.every((item) => selectedCategory !== item.category) && (
             <StyledReadGalleryNone>
               아직 등록된 사진이 없습니다.
             </StyledReadGalleryNone>
@@ -105,11 +102,11 @@ const StyledImgContainer = styled.div`
 `;
 
 const StyledPhotoContainer = styled.div`
-  width: 24.625rem;
-  height: 12.9375rem;
+  width: 20rem;
+  height: 11.5rem;
   position: relative;
   transition: all 0.2s ease-in-out;
-  &: hover {
+  &:hover {
     transform: translateY(-10px);
   }
   ${media.desktop_2xl(`
@@ -153,30 +150,20 @@ const StyledReadGallery = styled.img`
 `;
 
 const StyledDeleteIcon = styled.img`
+  width: 1.5rem;
   position: absolute;
   top: 0.625rem;
   left: 87%;
   transition: all 0.3s ease-in-out;
-  &: hover {
+  &:hover {
     transform: scale(1.1);
   }
-  ${media.desktop_xl(`
-    width: 2rem;
-`)}
-
-  ${media.desktop_xl(`
-    width: 1.7rem;
-  `)}
 
   ${media.tablet(`
-    width: 1.5rem;
+    width: 1.3rem;
   `)}
 
   ${media.tablet_680(`
-    width: 1.2rem;
-`)}
-
-${media.mobile_430(`
     width: 1rem;
 `)}
 `;
@@ -201,7 +188,7 @@ const StyledReadGalleryNone = styled.div`
   top: 40%;
 `)}
 ${media.mobile(`
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   top: 50%;
 `)}
 `;

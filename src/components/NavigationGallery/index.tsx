@@ -18,8 +18,8 @@ function NavigationGallery() {
 
   return (
     <Container>
-      <LogoText>사진첩</LogoText>
-      <GalleryCategories>
+      <StyledLogoText>사진첩</StyledLogoText>
+      <StyledGalleryCategories>
         {categories.map((category) => {
           const url = `/gallery?category=${category.name}`;
           return (
@@ -34,12 +34,12 @@ function NavigationGallery() {
             </StyledLink>
           );
         })}
-      </GalleryCategories>
+      </StyledGalleryCategories>
     </Container>
   );
 }
 
-const LogoText = styled.span`
+const StyledLogoText = styled.span`
   margin: 1.875rem 0;
   font-size: 1.5rem;
   font-weight: 700;
@@ -50,7 +50,7 @@ const LogoText = styled.span`
 `)}
 `;
 
-const GalleryCategories = styled.ul`
+const StyledGalleryCategories = styled.ul`
   padding: 0;
   display: flex;
   flex-direction: column;
