@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
-import { storage, db } from '../firebase';
+import { storage, db } from '../../../firebase';
 import { doc, addDoc, collection, updateDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useSelector } from 'react-redux';
 
-import '../scss/components/writePage/writePage.scss';
+import '../../../scss/components/writePage/writePage.scss';
 
 const NoticeWritePage = () => {
   const [title, setTitle] = useState<string>('');
   const [file, setFile] = useState<File | null>(null);
   const [content, setContent] = useState<string>();
   const userEmail = useSelector(state => state.loginUpdate.email);
+  const [btnDisabled, setBtnDisabled] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
+      setBtnDisabled(true);
       if (file !== null) {
         const noticeRef = ref(storage, `images/notice/${new Date().getTime() + file.name}`);
         const snapshot = await uploadBytes(noticeRef, file);
@@ -54,8 +56,10 @@ const NoticeWritePage = () => {
         });
       }
     } catch {
+      setBtnDisabled(false);
       console.error();
     } finally {
+      setBtnDisabled(true);
       window.location.href = '/company/notice';
     }
   };
@@ -89,7 +93,7 @@ const NoticeWritePage = () => {
       </div>
       <div className="write-util">
         <input type="file" accept="image/*" name="file" className="write-util__image" onChange={handleFile} />
-        <button type="submit" className="write-form__button btn">
+        <button type="submit" className="write-form__button btn" disabled={btnDisabled}>
           완료
         </button>
       </div>

@@ -5,18 +5,12 @@ import { db } from '../../firebase';
 
 import '../../scss/listbox.scss';
 
-interface ListBoxProps {
-  title: string[];
-  itemId: string[];
-}
-
-const ListBox: React.FC<ListBoxProps> = ({ title, itemId }): JSX.Element => {
+const ListBox: React.FC<ListBoxProps> = ({ title, itemId, currentItems }): JSX.Element => {
   const navigate = useNavigate();
   const handleDelete = async (index: number, e: React.MouseEvent) => {
     e.stopPropagation();
     await deleteDoc(doc(db, 'notice', itemId[index]));
   };
-
   const handleModify = (e: React.MouseEvent, itemId: string) => {
     e.stopPropagation();
     navigate(`/notice/content/update/${itemId}`, { state: itemId });
@@ -24,13 +18,13 @@ const ListBox: React.FC<ListBoxProps> = ({ title, itemId }): JSX.Element => {
 
   return (
     <>
-      {title.map((title: string, index: number) => (
+      {currentItems?.map((title: string, index: number) => (
         <div
           className="listbox"
           key={itemId[index]}
           data-id={itemId[index]}
           onClick={() => navigate(`/notice/content/${itemId[index]}`, { state: itemId[index] })}>
-          <span className="listbox__title">{title}</span>
+          <span className="listbox__title">{currentItems[index].title}</span>
           <button className="listbox__modify-btn btn" onClick={e => handleModify(e, itemId[index])}>
             수정
           </button>
@@ -44,3 +38,9 @@ const ListBox: React.FC<ListBoxProps> = ({ title, itemId }): JSX.Element => {
 };
 
 export default ListBox;
+
+interface ListBoxProps {
+  title: string[];
+  itemId: string[];
+  currentItems: NoticeData[] | undefined;
+}
