@@ -23,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
       sans-serif;
-
+    background-color: ${(props) => props.theme.recruitmentBack};
     font-size:16px;
     line-height: 1.5;
     width: 100vw;

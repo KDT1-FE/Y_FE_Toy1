@@ -19,7 +19,6 @@ const defaultTheme = createTheme();
 
 export default function LogIn() {
     const [userId, setUserId] = useRecoilState(UserId);
-
     const navigate = useNavigate();
     const { pathname } = useLocation();
 

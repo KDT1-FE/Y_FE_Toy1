@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { ModalBtn, ModalBtnImg } from './style';
 import MyPageModal from './MyPageModal';
 import { useRecoilState } from 'recoil';
-import { SlideOn, UserEmail, UserId, UserImg, UserInfo, UserName } from '../../../utils/recoil';
+import { SlideOn, ThemeChange, UserEmail, UserId, UserImg, UserInfo, UserName } from '../../../utils/recoil';
 import { readUser } from '../../../utils/firebase';
+import Loading from '../../../common/profileImgloading.gif';
 
 export default function MyPageBtn() {
     const [userId, setUserId] = useRecoilState(UserId);
@@ -14,6 +15,10 @@ export default function MyPageBtn() {
     const [userInfo, setUserInfo] = useRecoilState(UserInfo);
     const [userImg, setUserImg] = useRecoilState(UserImg);
 
+    const onErrorImg = (e: any) => {
+        e.target.src = Loading;
+    };
+
     useEffect(() => {
         async function getUserData() {
             try {
@@ -23,7 +28,6 @@ export default function MyPageBtn() {
                     setUserEmail(user['email']);
                     setUserImg(user['imageURL']);
                     setUserInfo(user['info']);
-                    console.log(userImg);
                 }
             } catch {
                 console.log('error');
@@ -55,7 +59,7 @@ export default function MyPageBtn() {
                 }
             }}
         >
-            <ModalBtnImg src={userImg}></ModalBtnImg>;
+            <ModalBtnImg src={userImg} onError={onErrorImg}></ModalBtnImg>
             {showMyPage && userId.length > 0 && <MyPageModal handleMyPage={handleMyPage} />}
         </ModalBtn>
     );

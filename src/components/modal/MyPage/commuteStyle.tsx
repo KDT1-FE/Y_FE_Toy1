@@ -2,22 +2,12 @@ import styled from 'styled-components';
 
 export const CommuteModalBox = styled.div`
     width: 100%;
-    height: 30%;
+    height: 40%;
     min-height: 240px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
 `;
-
-// export const ModalWall = styled.div`
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     width: 100vw;
-//     height: 100vh;
-//     z-index: 100;
-//     background-color: rgba(0, 0, 0, 0.6);
-// `;
 
 export const CloseBtn = styled.button`
     width: 35px;
@@ -38,7 +28,7 @@ export const CloseBtn = styled.button`
 `;
 
 export const ModalHeader = styled.div`
-    background-color: var(--navigation-background);
+    background-color: ${(value) => value.theme.activeColor2};
     width: 100%;
     height: 80px;
     font-size: 28px;
@@ -47,13 +37,6 @@ export const ModalHeader = styled.div`
     justify-content: center;
     align-items: center;
     color: #fff;
-`;
-
-export const Dday = styled.span`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #000;
 `;
 
 export const ShowTimerOn = styled.div<{ value: boolean }>`
@@ -74,7 +57,7 @@ export const ShowTimerOn = styled.div<{ value: boolean }>`
 
 export const TimeNowbox = styled.div`
     width: 100%;
-    height: 80%;
+    padding: 10% 0;
     color: #000;
     display: flex;
     flex-direction: column;
@@ -115,14 +98,14 @@ export const TimerBtnClassic = styled.button`
 export const TimerOnBtn = styled(TimerBtnClassic)<{ value: boolean }>`
     margin-top: 2%;
     color: ${(value) => (value.value ? '#000' : '#fff')};
-    background-color: ${(value) => (value.value ? '#ece7ec' : 'var(--active-current-status)')};
+    background-color: ${(value) => (value.value ? '#ece7ec' : value.theme.activeColor2)};
     box-shadow: ${(value) => (value.value ? '0 3px 3px 1px #ced0d3 inset' : '0 3px 3px 1px #ced0d3')};
 `;
 export const TimerOffBtn = styled(TimerBtnClassic)<{ value: boolean }>`
     margin-top: 2%;
 
     color: ${(value) => (value.value ? '#fff' : '#000')};
-    background-color: ${(value) => (value.value ? 'var(--active-current-status)' : '#ece7ec')};
+    background-color: ${(value) => (value.value ? value.theme.activeColor2 : '#ece7ec')};
     box-shadow: ${(value) => (value.value ? '0 3px 3px 1px #ced0d3' : '0 3px 3px 1px #ced0d3 inset')};
 `;
 export const ChangeTimer = styled.div<{ value: boolean }>`

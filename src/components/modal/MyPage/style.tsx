@@ -2,11 +2,16 @@ import styled, { keyframes } from 'styled-components';
 import { BtnClassic } from '../Timer/style';
 import { CommuteModalBox } from './commuteStyle';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
+import { themeType } from '../../../utils/firebase';
 
 export const ModalBtnImg = styled.img`
     width: 50px;
     height: 50px;
     border-radius: 10px;
+    background-color: ${(props) => props.theme.navBar};
+    background-size: contain;
+    outline: none;
+    border: none;
     cursor: pointer;
 `;
 
@@ -22,11 +27,7 @@ export const MyPage = styled.div<{ value: boolean }>`
     display: flex;
     flex-direction: column;
     height: calc(100vh - 72px);
-    /* width: 17vw;
-    max-width: 400px;
-    min-width: 320px; */
-    width: 320px;
-    max-height: 1080px;
+    width: 340px;
     background-color: #fafafa;
     top: 72px;
     border-left: 1px solid #ece7ec;
@@ -74,7 +75,7 @@ export const MyPageProfile = styled.div`
     height: 50%;
     max-height: 540px;
     min-height: 400px;
-    padding: 20px 5%;
+    padding: 5% 5%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -84,11 +85,6 @@ export const MyPageProfile = styled.div`
 export const ProfileImg = styled.img`
     width: 220px;
     min-height: 220px;
-    /* width: 80%;
-    height: 45%;
-    min-width: 180px;
-    max-height: 300px;
-    min-height: 180px; */
     background-color: rgba(15, 15, 15, 0.1);
     border-radius: 20px;
 `;
@@ -106,14 +102,7 @@ export const ProfileEdit = styled.span`
         transform: scale(1.1);
     }
 `;
-export const ProfileIntroduce = styled.div`
-    width: 100%;
-    height: 20%;
-    background-color: #fff;
-    border: 1px solid #ece7ec;
-    border-radius: 10px;
-    padding: 10px;
-`;
+
 export const MyPageContents = styled(MyPageCase)`
     display: flex;
     justify-content: space-between;
@@ -135,14 +124,16 @@ export const ThemeColors = styled.div`
     align-items: center;
     gap: 5px;
 `;
-export const ThemeColorEl = styled.button`
+export const ThemeColorEl = styled.button<{ thisTheme: themeType; selectTheme: string }>`
+    background-color: ${(props) => (props ? props.thisTheme.navBar : '#000')};
     -webkit-appearance: none;
     -moz-appearance: none;
     width: 20px;
     height: 20px;
     border-radius: 20px;
-    border: 1px solid black;
+    outline: ${(props) => (props ? props.selectTheme : '1px solid #000')};
     cursor: pointer;
+    transition: 1s;
     &:hover {
         transition: 0.2s;
         transform: scale(1.1);
@@ -160,10 +151,6 @@ export const MarginLeft = styled.span`
     font-size: 20px;
     font-weight: 700;
     cursor: default;
-`;
-
-export const GreenCircle = styled.span`
-    color: var(--active-current-status);
 `;
 
 const Blink = keyframes`
@@ -185,7 +172,7 @@ export const RedCircle = styled.span<{ value: boolean }>`
     animation-timing-function: linear;
 `;
 export const TimelogBox = styled(CommuteModalBox)`
-    height: 30%;
+    height: 40%;
     min-height: 210px;
 `;
 export const TimelogBoxScroll = styled.div`
@@ -258,7 +245,7 @@ export const EditInput = styled.input`
     &:focus {
         outline: none;
         border: none;
-        box-shadow: 0 1px 6px var(--active-item);
+        box-shadow: 0 1px 6px ${(props) => props.theme.activeColor1};
     }
 `;
 export const InputImg = styled.img`
@@ -271,8 +258,8 @@ export const SubmitBtn = styled(BtnClassic)`
     width: 150px;
     height: 60px;
     border-radius: 10px;
-    color: var(--text);
-    background-color: var(--active-current-status);
+    color: #fff;
+    background-color: ${(props) => props.theme.activeColor2};
 `;
 export const FlexBox = styled.div`
     display: flex;
@@ -298,7 +285,7 @@ export const UploadBtn = styled(CloudUploadOutlinedIcon)`
     height: 60px;
     padding: 5px;
     border-radius: 10px;
-    background-color: var(--active-item);
+    background-color: ${(props) => props.theme.activeColor1};
     color: #fafafa;
     box-shadow: 0 3px 3px 1px #ced0d3;
     cursor: pointer;

@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 
 export const RecruitmentDetailContainer = styled.div`
     display: flex;
@@ -7,7 +7,7 @@ export const RecruitmentDetailContainer = styled.div`
     width: 100vw;
 
     overflow: auto;
-    background-color: var(--mention-badge);
+    background-color: ${(props) => props.theme.recruitmentBack};
 
     position: relative;
 `;
@@ -76,7 +76,7 @@ export const ContentHeaderValuedTrue = styled.div`
     font-size: 1rem;
 
     color: white;
-    background-color: var(--active-current-status);
+    background-color: ${(props) => props.theme.activeColor2};
 
     border-radius: 15px;
 `;

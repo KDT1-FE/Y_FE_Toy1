@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 
 export const RecruitmentPostContainer = styled.div`
     padding-top: 72px;
@@ -6,7 +6,7 @@ export const RecruitmentPostContainer = styled.div`
     width: 100vw;
 
     overflow: auto;
-    background-color: var(--mention-badge);
+    background-color: ${(props) => props.theme.recruitmentBack};
 `;
 
 export const PostContainer = styled.div`
@@ -49,10 +49,15 @@ export const PostTextarea = styled.textarea`
     height: 300px;
     padding: 10px;
     box-sizing: border-box;
-    border: solid 2px #1e90ff;
+    border: 2px solid black;
     border-radius: 5px;
     font-size: 16px;
     resize: both;
+    box-sizing: border-box;
+    &:focus {
+        outline: 1px solid ${(props) => props.theme.activeColor1};
+        border: 2px solid ${(props) => props.theme.activeColor1};
+    }
 `;
 
 export const PostBtn = styled.button`
@@ -67,7 +72,7 @@ export const PostBtn = styled.button`
 
     color: white;
 
-    background-color: var(--active-item);
+    background-color: ${(props) => props.theme.activeColor1};
 
     &:hover {
         cursor: pointer;

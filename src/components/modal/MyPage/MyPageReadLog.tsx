@@ -2,7 +2,6 @@ import React from 'react';
 import { TimelogBox, TimelogBoxScroll, TimelogEl, TimelogText } from './style';
 import { ReadTimelog } from '../../../utils/recoil';
 import { useRecoilState } from 'recoil';
-import { CommuteModalBox } from './commuteStyle';
 
 export default function MyPageReadLog() {
     const [readTimelog, setReadTimelog] = useRecoilState(ReadTimelog);

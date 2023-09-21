@@ -1,9 +1,9 @@
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 export const HeaderComponent = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: var(--navigation-background);
+    background-color: ${(props) => props.theme.navBar};
 
     position: fixed;
     z-index: 2;
@@ -17,7 +17,7 @@ export const HeaderComponent = styled.div`
 export const TitleAnchor = styled.a`
     font-size: 32px;
     font-weight: bold;
-    color: var(--text);
+    color: ${(props) => props.theme.text};
     margin-left: 30px;
 `;
 
@@ -36,5 +36,5 @@ export const ListAnchor = styled.a`
     margin-right: 20px;
     font-weight: 500;
     font-size: 24px;
-    color: var(--text);
+    color: ${(props) => props.theme.text};
 `;
