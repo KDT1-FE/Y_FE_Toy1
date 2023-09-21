@@ -77,6 +77,24 @@ export const allCategories: CategoriesType[] = [
     ],
   },
   {
+    path: '/mypage',
+    categories: [
+      {
+        title: '마이페이지',
+        subCategories: [
+          {
+            link: 'userinfo',
+            text: '회원 정보',
+          },
+          {
+            link: 'modify',
+            text: '회원 정보 수정',
+          },
+        ],
+      },
+    ],
+  },
+  {
     path: '/login',
     categories: [
       {

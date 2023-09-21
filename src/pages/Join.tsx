@@ -6,6 +6,7 @@ import { uploadBytesResumable, ref, getDownloadURL } from 'firebase/storage';
 import { doc, setDoc, updateDoc } from 'firebase/firestore';
 import useBlobUrl from '../hooks/useBlobUrl';
 import JoinPhoneNumber from '../components/JoinPhoneNumber';
+import { Link } from 'react-router-dom';
 
 interface UserType {
   name?: string;
@@ -55,70 +56,66 @@ const Join = () => {
   };
 
   const handleJoin = async () => {
-    // 패스워드 & 패스워드 확인 입력 시
-    if (joinUser.password && joinUser.passwordConfirm) {
+    // 폼 값 체크
+    if (!joinUser.email) alert('이메일을 입력해 주세요.');
+    if (!joinUser.name) alert('이름을 입력해 주세요.');
+    if (!joinUser.password) alert('비밀번호를 입력해 주세요.');
+    if (!joinUser.passwordConfirm) alert('비밀번호 확인을 입력해 주세요.');
+
+    if (joinUser.email && joinUser.name && joinUser.password && joinUser.passwordConfirm) {
       // 패스워드 값 체크
       const result = await passwordCheck(joinUser.password, joinUser.passwordConfirm);
 
-      // 패스워드값이 동일하고 이메일 입력 시
+      // 패스워드값이 동일할 시
       if (result) {
-        if (joinUser.email) {
-          if (joinUser.name) {
-            // 유저 아이디 생성
-            await createUserWithEmailAndPassword(auth, joinUser.email, joinUser.password)
-              .then((data) => {
-                const newUser = data.user;
+        // 유저 아이디 생성
+        await createUserWithEmailAndPassword(auth, joinUser.email, joinUser.password)
+          .then((data) => {
+            const newUser = data.user;
 
-                // 이름 업데이트
-                updateProfile(newUser, { displayName: joinUser.name }).then(() => {
-                  // 유저 정보 db 저장
-                  const docRef = doc(db, 'user', newUser.uid);
-                  setDoc(docRef, {
-                    email: newUser.email,
-                    name: newUser.displayName,
-                  });
-
-                  if (localPhotoUrl) {
-                    const photoRoute = ref(storage, 'user/' + newUser.uid);
-                    uploadBytesResumable(photoRoute, localPhotoUrl)
-                      .then(async () => {
-                        const photoUrl = await getDownloadURL(photoRoute);
-                        // 사진 url 업데이트
-                        updateProfile(newUser, { photoURL: photoUrl });
-                        updateDoc(docRef, {
-                          photoUrl: photoUrl,
-                        });
-                      })
-                      .catch((error) => {
-                        console.error(error);
-                      });
-                  }
-
-                  setUser(newUser); // 사용자 정보
-                });
-              })
-              .catch((error) => {
-                if (error.code === 'auth/email-already-in-use') {
-                  alert('이미 사용 중인 이메일 입니다.');
-                } else if (error.code === 'auth/weak-password') {
-                  alert('비밀번호는 6자 이상으로 기입해 주세요.');
-                } else if (error.code === 'auth/missing-email') {
-                  alert('이메일을 입력해 주세요.');
-                } else if (error.code === 'auth/missing-password') {
-                  alert('비밀번호를 입력해 주세요.');
-                } else {
-                  alert('정의되지 않은 오류입니다. 관리자에 문의해 주세요.');
-                }
+            // 이름 업데이트
+            updateProfile(newUser, { displayName: joinUser.name }).then(() => {
+              // 유저 정보 db 저장
+              const docRef = doc(db, 'user', newUser.uid);
+              setDoc(docRef, {
+                email: newUser.email,
+                name: newUser.displayName,
               });
-          } else {
-            alert('이름을 입력해 주세요.');
-          }
-        } else {
-          alert('이메일을 입력해 주세요.');
-        }
+
+              // 사진 첨부 했으면
+              if (localPhotoUrl) {
+                const photoRoute = ref(storage, 'user/' + newUser.uid);
+                uploadBytesResumable(photoRoute, localPhotoUrl)
+                  .then(async () => {
+                    const photoUrl = await getDownloadURL(photoRoute);
+                    // 사진 url 업데이트
+                    updateProfile(newUser, { photoURL: photoUrl });
+                    updateDoc(docRef, {
+                      photoUrl: photoUrl,
+                    });
+                  })
+                  .catch((error) => {
+                    console.error(error);
+                  });
+              }
+
+              setUser(newUser); // 사용자 정보
+            });
+          })
+          .catch((error) => {
+            if (error.code === 'auth/email-already-in-use') {
+              alert('이미 사용 중인 이메일 입니다.');
+            } else if (error.code === 'auth/weak-password') {
+              alert('비밀번호는 6자 이상으로 기입해 주세요.');
+            } else if (error.code === 'auth/missing-email') {
+              alert('이메일을 입력해 주세요.');
+            } else if (error.code === 'auth/missing-password') {
+              alert('비밀번호를 입력해 주세요.');
+            } else {
+              alert('정의되지 않은 오류입니다. 관리자에 문의해 주세요.');
+            }
+          });
       }
-    } else {
-      alert('비밀번호와 비밀번호 확인을 입력해 주세요.');
     }
   };
 
@@ -128,6 +125,10 @@ const Join = () => {
       <div>
         <label>이메일:</label>
         <input type="email" name="email" value={joinUser.email} onChange={handleChange} />
+      </div>
+      <div>
+        <label>이름:</label>
+        <input type="text" name="name" value={joinUser.name} onChange={handleChange} />
       </div>
       <div>
         <label>비밀번호:</label>
@@ -142,10 +143,6 @@ const Join = () => {
           onChange={handleChange}
         />
       </div>
-      <div>
-        <label>이름:</label>
-        <input type="text" name="name" value={joinUser.name} onChange={handleChange} />
-      </div>
 
       <PreviewImage
         style={url ? { backgroundImage: `url(${url})` } : { backgroundColor: `rgba(0,0,0,0.2)` }}
@@ -156,7 +153,12 @@ const Join = () => {
         <input type="file" onChange={handlePhotoChange} />
       </div>
       <button onClick={handleJoin}>회원가입</button>
-      {user && <JoinPhoneNumber user={user} />}
+
+      {user && (
+        <div>
+          <JoinPhoneNumber user={user} /> <Link to="/">건너뛰기</Link>
+        </div>
+      )}
     </div>
   );
 };

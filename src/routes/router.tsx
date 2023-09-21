@@ -13,6 +13,9 @@ import Login from '../pages/Login';
 import Join from '../pages/Join';
 import Detail from '../pages/detail/Detail';
 import Contact from '../pages/contact/Contact';
+import Modify from '../pages/mypage/modify';
+import Mypage from '../pages/mypage/Mypage';
+import UserInfo from '../pages/mypage/UserInfo';
 
 export const router = createBrowserRouter([
   {
@@ -86,6 +89,24 @@ export const router = createBrowserRouter([
                 element: <RegisterProject />,
               },
             ],
+          },
+        ],
+      },
+      {
+        path: 'mypage',
+        element: <Mypage />,
+        children: [
+          {
+            index: true,
+            element: <UserInfo />,
+          },
+          {
+            path: 'userinfo',
+            element: <UserInfo />,
+          },
+          {
+            path: 'modify',
+            element: <Modify />,
           },
         ],
       },
