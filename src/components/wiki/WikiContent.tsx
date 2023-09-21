@@ -9,6 +9,7 @@ export default function WikiContent({
   Wiki,
   form,
   parents,
+  hasChildMap,
   isEditMode,
   isLoading,
   editorRef,
@@ -21,6 +22,7 @@ export default function WikiContent({
     form,
     editorRef,
     parents,
+    hasChildMap,
     onFormChange,
   };
   const wikiContentProps = {
