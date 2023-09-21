@@ -250,17 +250,56 @@ export function BoardDetail(props: any) {
             </div>
           </form>
 
-          <ul id="article-comments" className="row col-md-10 col-lg-8 pt-3">
+          <ul id="article-comments" className="row col-12">
             {boardInfo.comment.map((commentData: any, index: number) => (
-              <li key="index">
+              <li key="index" className="comment">
                 <div className="row">
-                  <div className="row col-md-10 col-lg-9">
+                  <div className="row col-12">
                     <strong>{commentData.nickname}</strong>
                     <small>
                       <time>{commentData.time}</time>
                     </small>
-                    <p>{commentData.content}</p>
+                    <div className="comment__content__box">
+                      <p className="comment__content">{commentData.content}</p>
+                      {commentData.uid === sessionStorage.uid && (
+                        <div className="comment__state__box">
+                          <button
+                            className="btn btn-primary"
+                            onClick={handleClickModify}
+                          >
+                            수정
+                          </button>
+                          <button
+                            className="btn btn-primary"
+                            onClick={handleDeleteComment}
+                          >
+                            삭제
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
+                </div>
+
+                <div className="input__edit__box hide">
+                  <input
+                    type="text"
+                    className="form-control input--mod"
+                    id="exampleFormControlInput1"
+                  />
+                  <button
+                    className="btn btn-primary"
+                    onClick={handleEditConfirm}
+                  >
+                    수정
+                  </button>
+                  <button
+                    className="btn btn-primary"
+                    onClick={handleCancelEdit}
+                  >
+                    취소
+                  </button>
+                  <p className="info__hide">{commentData.id}</p>
                 </div>
               </li>
             ))}
