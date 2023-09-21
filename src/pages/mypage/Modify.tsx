@@ -12,7 +12,7 @@ import {
   EmailAuthProvider,
 } from 'firebase/auth';
 import { uploadBytesResumable, ref, getDownloadURL } from 'firebase/storage';
-import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 import useBlobUrl from '../../hooks/useBlobUrl';
 import JoinPhoneNumber from '../../components/JoinPhoneNumber';
 
