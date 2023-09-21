@@ -258,7 +258,7 @@ export function BoardDetail(props: any) {
                       <time>{commentData.time}</time>
                     </small>
                     <div className="comment__content__box">
-                      <p className="comment__content">{commentData.content}</p>
+                      <pre className="comment__content" >{commentData.content}</pre>
                       {commentData.uid === sessionStorage.uid && (
                         <div className="comment__state__box">
                           <button

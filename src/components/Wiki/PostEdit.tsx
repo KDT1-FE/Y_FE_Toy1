@@ -93,7 +93,7 @@ export function PostEdit(props: any) {
           height={500}
         />
         <button type="submit" className="btn btn-primary">
-          작성하기
+            수정하기
         </button>
       </form>
     </div>
