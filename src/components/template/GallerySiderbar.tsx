@@ -15,6 +15,11 @@ const GallerySidebar: React.FC<GalleryProps> = ({
     <Container>
       <SidebarList>
         <ListItem
+          className={activeCategory === "all" ? "active" : ""}
+          onClick={() => handleClick("all")}
+        > 전체보기
+        </ListItem>
+        <ListItem
           className={activeCategory === "notice" ? "active" : ""}
           onClick={() => handleClick("notice")}
         >
