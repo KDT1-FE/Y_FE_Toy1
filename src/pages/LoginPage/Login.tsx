@@ -21,7 +21,7 @@ function Login() {
   const setUserState = useSetRecoilState(userState)
   const setLoginState = useSetRecoilState(loginState)
 
-  const handleButtonClick = async () => {
+  const handleButtonClick = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         // Signed in 
@@ -30,11 +30,11 @@ function Login() {
         const docRef = doc(db, "user", userId);
         const docSnap = (await getDoc(docRef));
         const userCopy = JSON.parse(JSON.stringify(user));
-        await setUserState({
+        setUserState({
           userCredential: userCopy,
           userData: docSnap.data()
         })
-        await setLoginState(true)
+        setLoginState(true)
         navigate("/")
       })
       .catch((error) => {
