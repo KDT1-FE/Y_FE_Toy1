@@ -98,7 +98,6 @@ export const router = createBrowserRouter([
         ],
       },
       {
-
         path: 'mypage',
         element: <Mypage />,
         children: [
@@ -115,7 +114,8 @@ export const router = createBrowserRouter([
             element: <Modify />,
           },
         ],
-
+      },
+      {
         path: '/about',
         element: <About />,
         children: [
@@ -136,6 +136,10 @@ export const router = createBrowserRouter([
             element: <Github />,
           },
         ],
+      },
+      {
+        path: 'notice/:index',
+        element: <Notice />,
       },
       {
         path: 'login',
