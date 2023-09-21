@@ -278,6 +278,9 @@ const StyledContainerInput = styled.div`
     border: 0;
   }
   .imgUpload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 8.75rem;
     height: 2.5rem;
     background-color: #3584f4;
@@ -287,8 +290,8 @@ const StyledContainerInput = styled.div`
     font-weight: 700;
     ${media.tablet_625(`
       width: 6rem;
-      font-size: 0.9rem;
-      padding: 0.625rem 0.9rem;
+      font-size: 0.8rem;
+      padding: 0.625rem 0.7rem;
   `)}
   }
   .imgUpload:hover {
