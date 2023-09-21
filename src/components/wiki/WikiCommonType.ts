@@ -45,6 +45,7 @@ export type WikiFormProps = {
 };
 
 export type WikiContentProps = {
+  currentUser: string;
   Wiki: Wiki | null;
   form: Wiki;
   isEditMode: boolean;
@@ -58,6 +59,7 @@ export type WikiContentProps = {
 };
 
 export type RenderWikiContentProps = {
+  currentUser: string;
   Wiki: Wiki | null;
   onWikiEditButtonClick: () => void;
   onWikiDeleteButtonClick: () => void;

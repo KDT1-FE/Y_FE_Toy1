@@ -21,6 +21,12 @@ const Carousel = () => {
     setCarouselWidth(parentWidth);
   });
 
+  const goToPrevious = () => {
+    const isFirstSlide = currentIndex === 0;
+    const newIndex = isFirstSlide ? carouselData.length - 1 : currentIndex - 1;
+    setCurrentIndex(newIndex);
+  }
+
   const goToNext = useCallback (() => {
     const isLastSlide = currentIndex === carouselData.length - 1;
     const newIndex = isLastSlide ? 0 : currentIndex + 1;
@@ -48,10 +54,12 @@ const Carousel = () => {
 
   return (
     <>
-      <div style={{width: '67vw', height: '46rem'}}> {/*  추후 스타일드 컴포넌트로 수정 예정 => height: "100%"  */}
+      <div style={{width: '67vw', height: '100%'}}> {/*  추후 스타일드 컴포넌트로 수정 예정 => height: "100%"  */}
         <style.CarouselWrapper>
 
-          <style.CarouselLeftButton>
+          <style.CarouselLeftBackDrop />
+
+          <style.CarouselLeftButton onClick={goToPrevious}>
             <BsArrowLeftCircle />
           </style.CarouselLeftButton>
 
@@ -73,7 +81,7 @@ const Carousel = () => {
                   pageIndex={pageIndex}
                   ref={carouselRef}
                   carouselWidth={carouselWidth}>
-                  <style.CarouselPageButton>자세히 보기</style.CarouselPageButton>
+                  <style.CarouselPageButton href={`${carouselData[pageIndex].link}`}>자세히 보기</style.CarouselPageButton>
                 </style.CarouselContent>
               </>
             ))}
