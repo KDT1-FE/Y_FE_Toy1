@@ -23,7 +23,7 @@
 }
 
 .ButtonIcon {
-  padding: 0 1.5rem;
+  padding: 0 1rem;
   cursor: pointer;
 }
 
@@ -135,6 +135,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  width: 60px;
 }
 
 .RefreshLabel {
