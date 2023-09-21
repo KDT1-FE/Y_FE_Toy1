@@ -18,7 +18,7 @@ export const WIKI = "wiki";
 export const CAN_NOT_FOUND = "팀 컨텐츠를 찾을 수 없습니다.";
 export const UPDATE_DOC_NOTICE = "문서가 업데이트되었습니다!";
 export const UPDATE_DOC_NOTICE_PLZ =
-  "문🙏🏻 refresh 버튼을 누른 후 계속 작업해주세요. 🙏🏻";
+  "🙏🏻 refresh 버튼을 누른 후 계속 작업해주세요. 🙏🏻";
 export const UPDATE_DOC_TITLE = "정말 문서를 업데이트 하시겠습니까?";
 export const UPDATE_DOC_TEXT =
   "기존에 편집중인 내용은 따로 복사 후 업데이트하는 것을 권장합니다.";
