@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { CommentContent, CommentItemWrapper, Btn, BtnWrapper, CommentName, CommentTime, CommentForm } from './style';
+import {
+    CommentContent,
+    CommentItemWrapper,
+    Btn,
+    BtnWrapper,
+    CommentName,
+    CommentTime,
+    CommentForm,
+    ContentUserImage,
+    CommentHeader,
+    CommentUserImage,
+} from './style';
 import { getRecruitmentDetail, getUserData, deleteComment } from '../../utils/firebase';
 import { useRecoilState } from 'recoil';
 import { UserId, Render } from '../../utils/recoil';
@@ -14,6 +25,7 @@ interface CommentProps {
         time: string;
         content: string;
         imageURL: string;
+        email: string;
     }; // comment 프로퍼티의 타입은 any로 설정하거나 실제 타입으로 지정
     i: number;
 }
@@ -75,6 +87,7 @@ const CommentItem: React.FC<CommentProps> = (props) => {
                             imageURL: props.comment.imageURL,
                             content: props.comment.content,
                             time: e.target.time.value,
+                            email: props.comment.email,
                         };
                         deleteComment(channel, path, value);
                         setRender(!render);
@@ -93,9 +106,14 @@ const CommentItem: React.FC<CommentProps> = (props) => {
 
     return (
         <CommentItemWrapper>
-            <CommentName>
-                {props.comment.uid == data.uid ? <span style={{ color: 'blue' }}>글쓴이</span> : props.comment.name}
-            </CommentName>
+            <CommentHeader>
+                <CommentUserImage src={props.comment.imageURL} />
+
+                <CommentName>
+                    {props.comment.uid == data.uid ? <span style={{ color: 'blue' }}>글쓴이</span> : props.comment.name}
+                    {'  (' + props.comment.email.slice(0, 4) + '**)'}
+                </CommentName>
+            </CommentHeader>
             <CommentForm id={'commentForm' + props.i} onSubmit={handleDeleteCommentSubmit} style={{ margin: '0' }}>
                 <input defaultValue={props.comment.uid} name="uid" style={{ display: 'none' }} disabled />
                 <CommentContent defaultValue={props.comment.content} name="content" disabled />
