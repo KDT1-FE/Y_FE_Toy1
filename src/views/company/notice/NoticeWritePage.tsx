@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { storage, db } from '../firebase';
+import { storage, db } from '../../../firebase';
 import { doc, addDoc, collection, updateDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useSelector } from 'react-redux';
 
-import '../scss/components/writePage/writePage.scss';
+import '../../../scss/components/writePage/writePage.scss';
 
 const NoticeWritePage = () => {
   const [title, setTitle] = useState<string>('');
