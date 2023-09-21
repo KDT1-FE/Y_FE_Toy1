@@ -23,7 +23,6 @@ function NoticeWrite({ isEdit, noticeData }: any) {
   type UpdatedData = {
     noticeNumber: number;
     createAt: string;
-    password?: string;
     subject?: string;
     contents?: string;
     imageUrl?: string;
@@ -55,7 +54,7 @@ function NoticeWrite({ isEdit, noticeData }: any) {
   const isFormValid = (): boolean => {
     let isValid = true;
 
-    if (password === '') {
+    if (password.trim() === '') {
       setPasswordError('비밀번호를 입력해주세요.');
       isValid = false;
     } else {
@@ -63,14 +62,14 @@ function NoticeWrite({ isEdit, noticeData }: any) {
     }
 
     if (!isEdit) {
-      if (subject === '') {
+      if (subject.trim() === '') {
         setSubjectError('제목을 입력해주세요.');
         isValid = false;
       } else {
         setSubjectError('');
       }
 
-      if (contents === '') {
+      if (contents.trim() === '') {
         setContentsError('공지내용을 입력해주세요.');
         isValid = false;
       } else {
@@ -102,8 +101,8 @@ function NoticeWrite({ isEdit, noticeData }: any) {
       await setDoc(doc(db, 'notice', String(noticeNumber)), {
         noticeNumber,
         password,
-        subject,
-        contents,
+        subject: subject.trim(),
+        contents: contents.trim(),
         imageUrl,
         imageName,
         imageId,
@@ -153,14 +152,11 @@ function NoticeWrite({ isEdit, noticeData }: any) {
         createAt: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
       };
 
-      if (password !== '') {
-        updatedData.password = password;
+      if (subject.trim() !== '') {
+        updatedData.subject = subject.trim();
       }
-      if (subject !== '') {
-        updatedData.subject = subject;
-      }
-      if (contents !== '') {
-        updatedData.contents = contents;
+      if (contents.trim() !== '') {
+        updatedData.contents = contents.trim();
       }
       if (imageUrl !== '') {
         updatedData.imageUrl = imageUrl;

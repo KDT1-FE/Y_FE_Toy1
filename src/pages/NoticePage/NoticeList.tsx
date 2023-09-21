@@ -32,7 +32,7 @@ function NoticeList() {
 
   // 검색 함수
   const formSearch = (): void => {
-    const searchList = dataFetch?.filter((el: any) => el.subject.includes(keyword));
+    const searchList = dataFetch?.filter((el: any) => el.subject.includes(keyword.trim()));
     if (searchList !== undefined) setNoticeList(searchList);
     else setNoticeList(noticeList);
 
@@ -53,7 +53,7 @@ function NoticeList() {
   return (
     <S.Wrapper>
       <S.Header>
-        <S.HeaderTitle>NOTICE</S.HeaderTitle>
+        <S.HeaderTitle>공지사항</S.HeaderTitle>
         <S.WriteBtn type='button'>
           <Link to='/notice/write'>공지 등록하기</Link>
         </S.WriteBtn>
