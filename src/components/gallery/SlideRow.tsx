@@ -4,11 +4,21 @@ import { getImageData } from '../../data/galleryImage';
 import { MapImages } from './SlideOpenModal';
 import './SlideRow.scss';
 
-interface ISlide {
+export interface ISlide {
   categoryId: string;
   slideClassName: string;
   cateEmoji: string;
   slideContent: string;
+}
+
+export interface IImageData {
+  id: string;
+  image: any;
+  timestamp: string;
+  comments: Array<object>;
+  uid: string;
+  nickname: string;
+  like: number;
 }
 
 export function CarouselSlide({
@@ -18,10 +28,10 @@ export function CarouselSlide({
   slideContent,
 }: ISlide): JSX.Element {
   const imageData = getImageData(categoryId);
-  const [imageDataInfo, setImageDataInfo]: any = useState();
+  const [imageDataInfo, setImageDataInfo] = useState<IImageData[]>();
 
-  React.useEffect(() => {
-    imageData.then((item: any) => {
+  useEffect(() => {
+    imageData.then((item) => {
       setImageDataInfo(item);
     });
   }, []);
@@ -51,7 +61,7 @@ export function CarouselSlide({
       <span className="slide-cate-content"> {slideContent}</span>
 
       <div className={slideClassName}>
-        {imageDataInfo?.map((image: any) => (
+        {imageDataInfo?.map((image: IImageData) => (
           <MapImages
             key={image.timestamp}
             image={image}

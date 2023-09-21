@@ -25,7 +25,10 @@ export interface RootState {
     id: string; // 이 필드를 추가
     title: string;
     content: string;
-    username: string; // 이 필드를 추가
+    username: string;
+    userId: string; 
+    date: string;
+    timestamp: Date; // 이 필드를 추가
     // 기타 필요한 속성 추가
   }
 

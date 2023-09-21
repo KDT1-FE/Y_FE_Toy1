@@ -2,7 +2,7 @@
 
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import { app, db } from './firebase'; // 수정된 이름으로 가져옵니다.
+import { app, db } from './firebase'; 
 
 // Firebase 초기화
 const auth = getAuth(app);
