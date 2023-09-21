@@ -1,59 +1,69 @@
-import { getFirestore, collection, doc, setDoc, deleteDoc, query, getDocs, where, orderBy, limit, serverTimestamp } from 'firebase/firestore/lite';
+import {
+  getFirestore,
+  collection,
+  doc,
+  setDoc,
+  deleteDoc,
+  query,
+  getDocs,
+  where,
+  orderBy,
+  limit,
+  serverTimestamp,
+} from 'firebase/firestore/lite';
 import { app } from 'apis/firebase';
 
 const db = getFirestore(app);
-const wikiRef = collection(db, 'wiki')
-export const create = async function(category: string, contents: string) {
+const wikiRef = collection(db, 'wiki');
+export const create = async (category: string, contents: string) => {
   try {
-    console.log('wiki writing success')
-    setDoc(doc(db, `wiki/${category}`), {
+    await setDoc(doc(db, `wiki/${category}`), {
       subject: category,
       content: contents,
       writeTime: serverTimestamp(),
-      id: wikiRef.id
-    }).then(() => window.location.reload())     
-  } catch(e) {
-    console.log('wiki writing error')
-    console.error(e)
+      id: wikiRef.id,
+    });
+  } catch (e) {
+    console.error(e);
+    alert('알 수 없는 오류입니다');
   }
-}
+};
 
-export const read = async function(category: string) {
-  // 쿼리를 통해 데이터베이스 내에서 선택된 카테고리의 게시글 중 작성 시간이 가장 빠른 글을 하나 가져옴
-  const document = query(wikiRef, where('subject', '==', category), orderBy('writeTime', 'desc'), limit(1))
-  const latestDocument = await getDocs(document)
+export const read = async (category: string) => {
+  const document = query(
+    wikiRef,
+    where('subject', '==', category),
+    orderBy('writeTime', 'desc'),
+    limit(1),
+  );
+  const latestDocument = await getDocs(document);
 
   if (latestDocument.docs.length !== 0) {
     return latestDocument.docs[0].data();
-  } else {
-    return;
   }
-}
+};
 
-export const update = async function(category: string, updatedContents: string) {
+export const update = async (category: string, updatedContents: string) => {
   try {
-    const documentForUpdate = doc(wikiRef)
+    const documentForUpdate = doc(wikiRef);
     await setDoc(doc(db, `wiki/${category}`), {
       subject: category,
       content: updatedContents,
       id: documentForUpdate.id,
-      writeTime: serverTimestamp()
-    }).then(() => window.location.reload())
-  } catch(e) {
-    console.log('wiki update failed')
-    console.error(e)
+      writeTime: serverTimestamp(),
+    });
+  } catch (e) {
+    console.error(e);
   }
-}
+};
 
 export const wikiDelete = async function (category: string) {
   try {
-    await deleteDoc(doc(db, `wiki/${category}`))
     if (confirm('글을 삭제하시겠습니까?') == true) {
-      alert('글이 삭제되었습니다.')
-      window.location.reload()
-    } 
-  } catch(e) {
-    alert('삭제에 실패했습니다.')
-    console.error(e)
+      await deleteDoc(doc(db, `wiki/${category}`));
+    }
+  } catch (e) {
+    alert('삭제에 실패했습니다.');
+    console.error(e);
   }
-}
+};
