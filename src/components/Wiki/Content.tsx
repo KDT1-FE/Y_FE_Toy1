@@ -8,6 +8,11 @@ import EditButton from "./EditButton";
 import TeamContent from "./TeamContent";
 import OtherContent from "./OtherContent";
 import {ReactComponent as RefreshIcon} from "../../assets/icons/Refresh.svg";
+import {
+  UPDATE_DOC_TITLE,
+  UPDATE_DOC_TEXT,
+  UPDATE_DOC_DONE,
+} from "../../constant";
 
 function Content() {
   const {id} = useParams() as {id: string};
@@ -65,14 +70,14 @@ function Content() {
 
   const updateContent = () => {
     swal({
-      title: "정말 문서를 업데이트 하시겠습니까?",
-      text: "기존에 편집중인 내용은 따로 복사 후 업데이트하는 것을 권장합니다.",
+      title: UPDATE_DOC_TITLE,
+      text: UPDATE_DOC_TEXT,
       buttons: ["취소", true],
       icon: "warning",
       dangerMode: true,
     }).then(willDelete => {
       if (willDelete) {
-        swal("문서가 업데이트 되었습니다!", {
+        swal(UPDATE_DOC_DONE, {
           icon: "success",
         });
 

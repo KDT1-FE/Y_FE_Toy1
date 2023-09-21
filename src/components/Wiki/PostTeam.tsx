@@ -1,5 +1,6 @@
 import {updateDoc, doc} from "firebase/firestore";
 import {db} from "../../utils/firebaseConfig";
+import {TEAM} from "../../constant";
 
 async function PostTeam(
   dataKey: string,
@@ -8,7 +9,7 @@ async function PostTeam(
   멘토: string,
   img: string,
 ): Promise<void> {
-  await updateDoc(doc(db, "team", dataKey), {
+  await updateDoc(doc(db, TEAM, dataKey), {
     content: newContent,
   });
 

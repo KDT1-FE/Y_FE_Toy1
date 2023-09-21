@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {Routes, Route} from "react-router-dom";
 import SaveContents from "./components/Wiki/SaveContents";
 import SaveTeam from "./components/Wiki/SaveTeam";
-
+import {CATEGORIES} from "./constant/index";
 import Home from "./pages/Home";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -18,18 +18,9 @@ import {
 } from "./utils/timerAndRanking";
 
 function App() {
-  const categories = [
-    "커리큘럼",
-    "교육생 소개",
-    "완료된 프로젝트",
-    "진행 중인 프로젝트",
-    "휴가 정책",
-    "복리후생",
-  ];
-
   useEffect(() => {
     if (!sessionStorage.getItem("teamList")) {
-      SaveTeam().then(() => SaveContents(categories));
+      SaveTeam().then(() => SaveContents(CATEGORIES));
     }
 
     getRankingDocsToArr().then(doc => {
@@ -37,7 +28,6 @@ function App() {
       saveRankingInBrowser(sortedData);
     });
     getDayAndReset();
-
   }, []);
 
   return (
