@@ -16,10 +16,10 @@ interface IModalComment {
   image: string;
   imgId: string;
   categoryId: string;
-  commentsListData: object[];
+  commentsListData: any;
   writerId: string;
   writerName: string;
-  likeData: string;
+  likeData?: number;
 }
 
 interface IComment {
@@ -27,6 +27,7 @@ interface IComment {
   commentUid: string;
   text: string;
   commentUser: string;
+  userImage?: string;
 }
 
 export function ModalComment({
@@ -37,10 +38,10 @@ export function ModalComment({
   categoryId,
   commentsListData,
   likeData,
-}: IModalComment) {
+}: IModalComment): JSX.Element {
   const [like, setLike] = useState<number>(0);
-  const [comment, setComment]: any = useState('');
-  const [commentList, setCommentList] = useState<object[]>([]);
+  const [comment, setComment] = useState<string>('');
+  const [commentList, setCommentList] = useState<IComment[]>([]);
   const [isChange, setChange] = useState<boolean>(true);
 
   //스토어 유저 정보
@@ -75,7 +76,7 @@ export function ModalComment({
   };
 
   //submit 후 DB 저장
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (comment !== '') {
       const newCommentList: any = [...commentList, comment];
@@ -100,8 +101,8 @@ export function ModalComment({
     const fetchList = async (categoryId: string, imgId: string) => {
       // ... try, catch 생략
       const commentsRef = doc(db, categoryId, imgId);
-      const unsub = onSnapshot(commentsRef, (doc: any) => {
-        setCommentList(doc.data().comments);
+      const unsub = onSnapshot(commentsRef, (doc) => {
+        setCommentList(doc.data()?.comments);
       });
       return unsub;
     };
@@ -117,12 +118,18 @@ export function ModalComment({
   }, [isChange, doc, onSnapshot]);
 
   // 댓글 삭제
-  const handleDeleteComment = async (e: any) => {
-    const getDelText: string = e.target.previousElementSibling.id;
-    const getDelUid: string = e.target.closest('.commentList-item').id;
+  const handleDeleteComment = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    const getDelText: string = (
+      e.currentTarget.previousElementSibling as HTMLElement
+    )?.id;
+    const getDelUid: string = (
+      e.currentTarget.closest('.commentList-item') as HTMLElement
+    )?.id;
 
     try {
-      const updatedData = commentList.filter((comment: any) => {
+      const updatedData = commentList.filter((comment) => {
         return (
           comment.text !== getDelText.trim() &&
           comment.commentUid == getDelUid.trim()
@@ -150,7 +157,10 @@ export function ModalComment({
         <span className="comment-imageUploaderName">작성자 : {writerName}</span>
 
         {user.nickname === writerName ? (
-          <button className="btn--delImage" onClick={handleDeleteImage}>
+          <button
+            className="btn--delImagebtn btn btn-primary"
+            onClick={handleDeleteImage}
+          >
             이미지 게시글 삭제
           </button>
         ) : null}
@@ -158,7 +168,9 @@ export function ModalComment({
 
       <div className="comment-container-inner">
         <div className="imageView-container">
-          <img className="imageView-image" src={image} alt={image} />
+          <div className="imageView-imageBox">
+            <img className="imageView-imageBox-image" src={image} alt={image} />
+          </div>
           <span className="imageView-like" onClick={handleLike}>
             💖{like} likes
           </span>
@@ -176,7 +188,9 @@ export function ModalComment({
                 value={comment}
                 onChange={handleComments}
               />
-              <button type="submit">제출</button>
+              <button type="submit" className="btn btn-primary">
+                게시
+              </button>
             </form>
           ) : (
             <h2>댓글 작성을 위해 로그인이 필요합니다.</h2>
@@ -186,7 +200,7 @@ export function ModalComment({
         <div className="commentList-container">
           <div className="commentList-header">😄 comments</div>
           <ul>
-            {commentList?.map((comment: any) => (
+            {commentList?.map((comment) => (
               <li
                 key={comment.commentsTime}
                 id={comment.commentUid}
