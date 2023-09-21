@@ -16,6 +16,7 @@ import { CreateDay, CreateTime } from '../../components/modal/Hooks/WhatTime';
 import MyPageBtn from '../../components/modal/MyPage/MyPageBtn';
 import swal from 'sweetalert';
 import { RedCircle } from '../../components/modal/MyPage/style';
+import Logo from './Logo';
 
 const Header: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
@@ -71,6 +72,7 @@ const Header: React.FC = () => {
     return (
         <HeaderComponent>
             <TitleAnchor href="/">FASTUDY</TitleAnchor>
+            {/* <Logo></Logo> */}
             <AnchorContainer>
                 <RightAnchorContainer>
                     <ListAnchor href="/wiki">위키</ListAnchor>
@@ -94,11 +96,11 @@ const Header: React.FC = () => {
                                 });
                             }}
                         >
-                            LogOut
+                            <span>로그아웃</span>
                         </LogoutButton>
                     ) : (
                         <ListAnchor href={'/LogIn'}>
-                            <LoginButton>LogIn</LoginButton>
+                            <LoginButton>로그인</LoginButton>
                         </ListAnchor>
                     )}
                     {userId.length > 0 && <MyPageBtn />}

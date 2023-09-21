@@ -4,6 +4,7 @@ import { EditBox, EditInput, EditInputBox, FlexAroundBox, InputImg, InputLabel, 
 import { updateUserEmail, updateUserImg, updateUserInfo, updateUserName, uploadStorage } from '../../../utils/firebase';
 import { useRecoilState } from 'recoil';
 import { UserEmail, UserId, UserImg, UserInfo, UserName } from '../../../utils/recoil';
+import swal from 'sweetalert';
 
 interface ownProps {
     handleEdit(): void;
@@ -38,7 +39,10 @@ const UserEditModal: React.FC<ownProps> = ({ handleEdit }) => {
         } catch (error) {
             console.log(error);
         } finally {
-            alert('수정되었습니다!');
+            swal({
+                title: '수정되었습니다!',
+                icon: 'success',
+            });
             handleEdit();
         }
     }
