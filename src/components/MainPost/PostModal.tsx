@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import DatePicker from 'react-datepicker'; // react-datepicker 불러오기
-import 'react-datepicker/dist/react-datepicker.css'; // react-datepicker 스타일 파일 불러오기
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
-// CreatePostModalProps 인터페이스 정의
-interface CreatePostModalProps {
+interface ICreatePostModalProps {
   onSave: (title: string, content: string, selectedDate: Date) => void;
   title: string;
   setTitle: (title: string) => void;
@@ -12,7 +11,7 @@ interface CreatePostModalProps {
   onClose: () => void;
 }
 
-const CreatePostModal: React.FC<CreatePostModalProps> = ({
+const CreatePostModal: React.FC<ICreatePostModalProps> = ({
   onSave,
   onClose,
 }) => {
@@ -38,7 +37,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({
           <div className="main-modal-text">스터디 모집글 작성</div>
         </div>
         <div className="modal-body">
-        <label htmlFor="date">모집 마감일</label>
+          <label htmlFor="date">모집 마감일</label>
           <DatePicker
             id="date"
             selected={selectedDate}

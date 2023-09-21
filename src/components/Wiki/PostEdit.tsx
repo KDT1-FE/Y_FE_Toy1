@@ -1,17 +1,9 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BoardNav } from './BoardNav';
-import { useState } from 'react';
 import { readPostData, updatePostData } from 'data/wikiboard';
 import { useNavigate, useParams } from 'react-router-dom';
 import MdEditor from '@uiw/react-md-editor';
 
-type Post = {
-  title: string | undefined;
-  content: string | undefined;
-  time: string;
-  name: string;
-  id: any;
-};
 export function PostEdit(props: any) {
   const { boardState, id } = useParams();
 
@@ -22,7 +14,7 @@ export function PostEdit(props: any) {
     return postData?.data();
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     checkPermission();
     readPrevData();
   }, []);
@@ -52,7 +44,7 @@ export function PostEdit(props: any) {
         };
       }
     } catch (error) {
-      console.error('error');
+      console.error(error);
     }
     return newPostData;
   };
@@ -81,7 +73,7 @@ export function PostEdit(props: any) {
     <div>
       <BoardNav />
       <form onSubmit={handleSubmit} id="form">
-      <div className="mb-3" >
+        <div className="mb-3">
           <label htmlFor="exampleFormControlInput1" className="form-label">
             제목
           </label>
@@ -100,7 +92,9 @@ export function PostEdit(props: any) {
           onChange={handleChange}
           height={500}
         />
-        <button type="submit"className='btn btn-primary'>작성하기</button>
+        <button type="submit" className="btn btn-primary">
+          작성하기
+        </button>
       </form>
     </div>
   );

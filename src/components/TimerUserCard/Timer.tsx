@@ -5,13 +5,12 @@ import {
   onSnapshot,
   Unsubscribe,
   getDoc,
-  serverTimestamp,
   query,
   collection,
 } from 'firebase/firestore';
 import { db } from 'data/firebase';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/types'; // RootState 타입 추가
+import { RootState } from '../../redux/types';
 import { formatTime } from 'data/formatTime';
 
 //unix timestamp
@@ -22,22 +21,18 @@ function getCurrentDateFromStamp(timestamp: number): number {
   return onlyDate;
 }
 
-interface TimerProps {
+interface ITimerProps {
   id: string;
 }
 
 //Timer 컴포넌트
-export function Timer({ id }: TimerProps): JSX.Element {
+export function Timer({ id }: ITimerProps): JSX.Element {
   const [count, setCount] = useState(0);
-  const intervalRef = useRef<number | null>(null); // interval ID 저장
+  const intervalRef = useRef<number | null>(null);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
-  // const [currentDate, setCurrentDate] = useState(
-  //   getCurrentDateFromStamp(timeStamp),
-  // );
 
   let unsubscribe: Unsubscribe | undefined;
   let timer: any;
-  //스토어 유저 정보
   const user = useSelector((state: RootState) => state);
 
   //페이지 로드 시 count 데이터 불러오기
@@ -52,6 +47,7 @@ export function Timer({ id }: TimerProps): JSX.Element {
     };
     fetchData();
   }, [id]);
+
   //firestore에서 데이터 업데이트 발생 시 데이터 받아오기
   useEffect(() => {
     const docRefs = query(collection(db, 'User'));
@@ -64,11 +60,9 @@ export function Timer({ id }: TimerProps): JSX.Element {
     });
   }, [count]);
 
-  //시작 버튼 동작
   const handleStart: (event: any) => void = useCallback(
     async (event) => {
       event.stopPropagation();
-      //버튼 비활성화
       setIsTimerRunning(true);
 
       if (intervalRef.current !== null) {
@@ -76,7 +70,6 @@ export function Timer({ id }: TimerProps): JSX.Element {
       }
       const chosenUserRef = doc(db, 'User', event.target.id);
       if (!isTimerRunning) {
-        // 타이머 시작 (1초마다 호출)
         timer = setInterval(async () => {
           const docSnapshot = await getDoc(chosenUserRef);
           if (docSnapshot.exists()) {
@@ -105,41 +98,38 @@ export function Timer({ id }: TimerProps): JSX.Element {
     [isTimerRunning],
   );
 
-  //정지 버튼 동작
   const handleStop: (event: any) => void = useCallback((event) => {
     event.stopPropagation();
     if (timer !== null) {
       clearInterval(timer);
-      timer = null; // 타이머 중지
+      timer = null;
     }
 
     if (unsubscribe) {
       unsubscribe();
       unsubscribe = undefined;
     }
-    // 버튼 활성화
+
     setIsTimerRunning(false);
   }, []);
 
   // 날짜 변경 감지 및 count 초기화
   useEffect(() => {
     const userRef = doc(db, 'User', id);
-    // 간격을 두고 실행
     const checkDateInterval = setInterval(async () => {
       const docSnapshot = await getDoc(userRef);
       if (docSnapshot.exists()) {
         const userData = docSnapshot.data();
-        const serverTimestamp = userData.serverTimestamp; // Firestore의 서버 타임스탬프
+        const serverTimestamp = userData.serverTimestamp;
         const currentServerTime = Math.floor(new Date().getTime() / 1000);
 
-        // 서버 시간과 Firestore의 서버 타임스탬프를 비교하여 날짜 변경 확인
+        // 서버 시간과 Firestore의 서버 타임스탬프를 비교해서 count 업데이트
         if (currentServerTime > serverTimestamp) {
           setCount(0);
-          // Firestore에 count 업데이트
           await updateDoc(userRef, { accumulateCount: 0 });
         }
       }
-    }, 1800000); // 30분마다 체크
+    }, 1800000);
 
     return () => {
       clearInterval(checkDateInterval);

@@ -39,7 +39,6 @@ export function UserCard() {
         ))}
       </div>
 
-      {/* Bootstrap 모달 */}
       <UserCardModal
         showModal={showModal}
         selectedUser={selectedUser}

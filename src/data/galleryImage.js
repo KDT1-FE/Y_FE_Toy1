@@ -28,7 +28,7 @@ async function UploadImage(selected, file, uid, userName) {
       });
     });
   } catch (error) {
-    console.error();
+    console.error(error);
   }
   return;
 }
@@ -54,7 +54,7 @@ async function getImageData(categoryId) {
     });
     return rowImages;
   } catch (error) {
-    console.error();
+    console.error(error);
   }
   return;
 }

@@ -1,28 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../redux/types'; // RootState 타입 추가
-import { logoutAction } from '../../redux/action'; // 로그아웃 액션 임포트
-import { useLocation } from 'react-router-dom';
+import { RootState } from '../../redux/types';
+import { logoutAction } from '../../redux/action';
 import './Header.css';
 import logo from '../../images/logo.png';
-import { signOut } from 'firebase/auth';
-
 
 export default function Header() {
-  // useSelector를 통해 스토어의 유저 정보 읽어오기
   const user = useSelector((state: RootState) => state);
-  console.log(user);
-
-  // useDispatch를 통해 로그아웃 액션 디스패치 함수 가져오기
   const dispatch = useDispatch();
 
   /// Redux 스토어에 로그아웃 액션을 디스패치한 후 세션 스토리지 업데이트
   const handleLogout = () => {
-    // 로그아웃 액션 디스패치
     dispatch(logoutAction());
-
-    // 세션 스토리지 업데이트
     sessionStorage.clear();
   };
 

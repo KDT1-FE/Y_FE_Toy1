@@ -2,7 +2,7 @@ import React from 'react';
 import './UserCardModal.scss';
 import { Timer } from 'components/TimerUserCard/Timer';
 
-interface UserCardModalProps {
+interface IUserCardModalProps {
   showModal: boolean;
   selectedUser: any;
   handleModalClose: () => void;
@@ -12,7 +12,7 @@ export function UserCardModal({
   showModal,
   selectedUser,
   handleModalClose,
-}: UserCardModalProps): JSX.Element {
+}: IUserCardModalProps): JSX.Element {
   return (
     <div
       className={`modal fade ${

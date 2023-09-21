@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './NavBar.scss';
 import { AddImageModal } from './ModalAddImage';
 import { RootState } from 'redux/types'; // RootState 타입 추가

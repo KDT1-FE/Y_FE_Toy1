@@ -1,19 +1,18 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { readBoardData } from '../../data/wikiboard';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './BoardContent.scss';
 
-type Post = {
+interface IPost {
   name: string;
   title: string;
   time: string;
   content: string;
   id: string;
-};
+}
 
 export function BoardContent({ boardState }: any) {
-  const [boardData, setboardData] = useState<Post[]>([]);
+  const [boardData, setboardData] = useState<IPost[]>([]);
   const navigate = useNavigate();
 
   const handleClickBoard = (event: any) => {
@@ -41,12 +40,12 @@ export function BoardContent({ boardState }: any) {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const data = readBoardData(boardState);
     data.then((item: any) => {
       setboardData(item);
     });
-  }, [boardState,sessionStorage.uid]);
+  }, [boardState, sessionStorage.uid]);
 
   return (
     <div className="board__content">

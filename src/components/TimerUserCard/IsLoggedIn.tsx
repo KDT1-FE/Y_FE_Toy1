@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from 'data/user';
-import { db } from 'data/firebase';
+import { db, auth } from 'data/firebase';
 import { doc, updateDoc, collection, getDocs } from 'firebase/firestore';
 
 export function IsLoggedIn({ userId }: any) {
@@ -44,7 +43,6 @@ export function IsLoggedIn({ userId }: any) {
 
   return (
     <div>
-      {/* {Object.keys(userStatus).map((userId) => ( */}
       <div
         key={userId}
         style={{
@@ -54,7 +52,6 @@ export function IsLoggedIn({ userId }: any) {
           borderRadius: '50%',
         }}
       ></div>
-      {/* ))} */}
     </div>
   );
 }
@@ -69,11 +66,9 @@ export const updateFirestoreUserStatus = async (
 
   try {
     await updateDoc(userRef, { isLoggedIn });
-    console.log(`Firestore에서 사용자의 isLoggedIn 상태가 업데이트되었습니다.`);
   } catch (error) {
     console.error(
-      `Firestore에서 사용자의 isLoggedIn 상태를 업데이트하는 중 오류 발생:`,
-      error,
+      `Firestore에서 사용자의 isLoggedIn 상태를 업데이트하는 중 오류 발생: ${error}`,
     );
   }
 };

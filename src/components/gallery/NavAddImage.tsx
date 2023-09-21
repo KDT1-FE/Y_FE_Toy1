@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { UploadImage } from '../../data/galleryImage';
-import { RootState } from 'redux/types'; // RootState 타입 추가
+import { RootState } from 'redux/types';
 import { useSelector } from 'react-redux';
 import './ModalAddImage.scss';
 
@@ -79,7 +79,10 @@ export function AddImageDragDrop(): JSX.Element {
       </select>
       <div {...getRootProps({ className: 'addImage-dropZone dropzone' })}>
         <input {...getInputProps()} />
-        <p>Drag n drop some files here, or click to select files</p>
+        <p>
+          이곳에 파일을 드래그 & 드랍으로 추가할 수 있어요. <br />
+          또는 이곳을 클릭해서 이미지를 추가해보세요!
+        </p>
       </div>
       <aside className="preview-zone">{handleUploadImage}</aside>
     </section>

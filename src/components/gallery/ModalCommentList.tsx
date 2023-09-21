@@ -1,6 +1,6 @@
 import { db } from 'data/firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
-import React, { useState, useEffect, HTMLProps } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   updateLike,
   uploadCommentList,

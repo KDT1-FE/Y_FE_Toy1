@@ -1,6 +1,5 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BoardNav } from './BoardNav';
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { addNewPostDB, readLastPostId } from 'data/wikiboard';
 import moment from 'moment';
@@ -8,25 +7,15 @@ import { useNavigate } from 'react-router-dom';
 import './PostAdd.scss';
 import MdEditor from '@uiw/react-md-editor';
 
-type Post = {
-  title: string | undefined;
-  content: string | undefined;
-  time: string;
-  name: string;
-  id: any;
-};
 export function PostAdd(props: any) {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
   const boardState = useSelector((state: any) => state.boardState.value);
 
   const handleChangeTitle = (event: any) => {
     setTitle(event.target.value);
   };
-  const handleChangeContent = (event: any) => {
-    setContent(event.target.value);
-  };
+
   const AddnewPostData = async () => {
     const now = moment();
     const formattedDate = now.format('YY-MM-DD HH:mm');
@@ -45,7 +34,7 @@ export function PostAdd(props: any) {
         };
       }
     } catch (error) {
-      console.error('error');
+      console.error(error);
     }
     return newPostData;
   };
@@ -62,21 +51,20 @@ export function PostAdd(props: any) {
     setMarkdown(value);
   };
 
-  React.useEffect(()=>{
-    if (sessionStorage.uid){
-        return
+  useEffect(() => {
+    if (sessionStorage.uid) {
+      return;
+    } else {
+      navigate('error');
     }
-    else {
-        navigate('error')
-    }
-  })
+  });
 
   return (
     <div className="post__page--add">
       <BoardNav />
 
       <form onSubmit={handleSubmit} id="form">
-        <div className="mb-3" >
+        <div className="mb-3">
           <label htmlFor="exampleFormControlInput1" className="form-label">
             제목
           </label>
@@ -97,7 +85,9 @@ export function PostAdd(props: any) {
             height={500}
           />
         </div>
-        <button type="submit" className='btn btn-primary'>수정하기</button>
+        <button type="submit" className="btn btn-primary">
+          수정하기
+        </button>
       </form>
     </div>
   );
