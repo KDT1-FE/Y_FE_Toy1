@@ -30,7 +30,7 @@ function NavigationWiki({ setIsChanged, isChange }: INavigationWikiProps) {
           <CategoryUl key={categoryIndex}>
             <h1>회사생활</h1>
             {category.info.map((info, infoIndex) => (
-              <li
+              <span
                 key={infoIndex}
                 className={
                   info.pathName === selectedCategory ? 'selected_category' : ''
@@ -41,7 +41,7 @@ function NavigationWiki({ setIsChanged, isChange }: INavigationWikiProps) {
                 }}
               >
                 {info.text}
-              </li>
+              <br/><br/></span>
             ))}
           </CategoryUl>
         ))}
@@ -60,13 +60,16 @@ const CategoryUl = styled.ul`
   color: white;
   margin-top: 2rem;
 
-  li {
-    list-style: none;
-    margin: 1rem 0 1rem 1rem;
+  h1 {
+    margin-bottom: 1rem;
+  }
+
+  span {
+    margin: 1rem;
     cursor: default;
   }
 
-  li:hover {
+  span:hover {
     cursor: pointer;
   }
   .selected_category {
