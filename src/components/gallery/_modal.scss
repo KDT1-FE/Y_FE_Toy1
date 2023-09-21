@@ -5,14 +5,14 @@
   border: none;
   box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.1);
   padding: 20px;
-
+  max-height: 80vh;
+  min-height: fit-content;
   &-comment {
-    width: 80vw;
-    height: 85vh;
+    max-width: 80vw;
+    height: auto;
   }
   &-image {
     width: 40vw;
-    height: 70vh;
   }
 }
 
@@ -20,9 +20,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: auto;
+  max-height: 100%;
   width: 100%;
   flex-direction: column;
 }
 
 //공통 Close버튼
+.btn-close {
+  margin-top: 15px;
+  width: 45px;
+  height: auto;
+}
+
+.comment-h2 {
+  display: block;
+}

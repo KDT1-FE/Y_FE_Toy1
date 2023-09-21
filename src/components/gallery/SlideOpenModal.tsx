@@ -2,17 +2,26 @@ import React, { useRef } from 'react';
 import { ModalComment } from './ModalCommentList';
 import './_modal.scss';
 import './SlideRow.scss';
+import { IImageData } from './SlideRow';
+
+interface IMapImages extends Partial<IImageData> {
+  userId: string;
+  nickName: string;
+  categoryId: string;
+  commentsListData: Array<object>;
+  slideClassName?: string;
+}
 
 export function MapImages({
   userId,
   nickName,
-  image,
   categoryId,
   commentsListData,
+  image,
   like,
   slideClassName,
-}: any): JSX.Element {
-  const modalRef: any = useRef();
+}: IMapImages): JSX.Element {
+  const modalRef = useRef<HTMLDialogElement | null>(null);
 
   return (
     <div className="slide-card">
@@ -30,7 +39,7 @@ export function MapImages({
           className="modal-container modal-container-comment"
         >
           <div className="modal-inner modal-comment-inner">
-            <h2>Comment Page</h2>
+            <h2 className="comment-h2">Comment Page</h2>
 
             <ModalComment
               image={image.image}
