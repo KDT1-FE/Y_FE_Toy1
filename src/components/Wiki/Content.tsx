@@ -6,6 +6,7 @@ import Loading from "../Loading";
 import EditButton from "./EditButton";
 import TeamContent from "./TeamContent";
 import OtherContent from "./OtherContent";
+import {ReactComponent as RefreshIcon} from "../../assets/icons/Refresh.svg";
 
 function Content() {
   const {id} = useParams() as {id: string};
@@ -82,9 +83,10 @@ function Content() {
           ""
         ) : (
           <div className="FeatBtns">
-            <button type="button" onClick={updateContent}>
-              변경 사항 불러오기
-            </button>
+            <div className="RefreshBtnWrap">
+              <RefreshIcon className="ButtonIcon" onClick={updateContent} />
+              <span className="RefreshLabel">refresh</span>
+            </div>
             <EditButton
               isEditorOpen={isEditorOpen}
               setIsEditorOpen={setIsEditorOpen}
