@@ -5,7 +5,7 @@ export const WikiTop = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.05rem;
 `;
 
 export const WikiTitle = styled.span`

@@ -54,9 +54,11 @@ const WikiCategoryList = ({
             ) : (
               <>
                 <Styled.DepthSymbol />
-                <Styled.WikiTitle selected={wiki.wikiID === selectedWikiId}>
+                <Styled.ChildWikiTitle
+                  selected={wiki.wikiID === selectedWikiId}
+                >
                   {wiki.title}
-                </Styled.WikiTitle>
+                </Styled.ChildWikiTitle>
               </>
             )}
           </Styled.WikiItem>

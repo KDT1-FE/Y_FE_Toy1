@@ -27,7 +27,7 @@ export default function WikiPreview({ wikiData }: Props) {
   }, []);
 
   return (
-    <style.Container to={`/wiki?wikIid=${wikiID}`}>
+    <style.Container to={`/wiki?wikiID=${wikiID}`}>
       <style.WikiCategory>{parentTitle}</style.WikiCategory>
       <style.WikiTitle>{title}</style.WikiTitle>
       <style.WikiDescription>{content}</style.WikiDescription>

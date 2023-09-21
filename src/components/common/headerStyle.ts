@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export const Container = styled.div`
   position: sticky;
@@ -24,7 +24,7 @@ export const Wrapper = styled.div`
   align-items: center;
 `;
 
-export const Logo = styled.span`
+export const Logo = styled(Link)`
   color: var(--color-dark-gray);
   font-weight: 700;
   font-size: 1.13rem;
@@ -54,6 +54,10 @@ export const WorkingTime = styled.div`
   font-weight: 400;
   font-size: 0.875rem;
   line-height: normal;
+`;
+
+export const WorkedTime = styled(WorkingTime)`
+  border: 1px solid #fd0d29;
 `;
 
 export const LogoutBtn = styled.button`
