@@ -1,23 +1,39 @@
 import { useEffect, useRef, useState } from "react";
 import Button from "./Button";
 import * as style from "./commuteModalStyle";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../../firebase";
 
 interface Props {
   showModal: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
   startTime: Date | null;
-  setStartTitme: React.Dispatch<React.SetStateAction<Date | null>>;
+  setStartTime: React.Dispatch<React.SetStateAction<Date | null>>;
   endTime: Date | null;
-  setEndTitme: React.Dispatch<React.SetStateAction<Date | null>>;
+  setEndTime: React.Dispatch<React.SetStateAction<Date | null>>;
+  workingHours: number;
+  workingMinutes: number;
+  setWorkedHours: React.Dispatch<React.SetStateAction<number>>;
+  setWorkedMinutes: React.Dispatch<React.SetStateAction<number>>;
+  disabledEndBtn: boolean;
+  setDisabledEndBtn: React.Dispatch<React.SetStateAction<boolean>>;
+  uid: string | undefined;
 }
 
 export default function CommuteModal({
   showModal,
   setShowModal,
   startTime,
-  setStartTitme,
+  setStartTime,
   endTime,
-  setEndTitme,
+  setEndTime,
+  workingHours,
+  workingMinutes,
+  setWorkedHours,
+  setWorkedMinutes,
+  disabledEndBtn,
+  setDisabledEndBtn,
+  uid,
 }: Props) {
   const [time, setTime] = useState(new Date());
 
@@ -48,12 +64,36 @@ export default function CommuteModal({
     };
   }, [showModal]);
 
-  const onStartClick = () => {
-    setStartTitme(time);
+  const onStartClick = async () => {
+    if (uid) {
+      await setDoc(doc(db, "Commute", uid), {
+        start: time,
+      });
+    }
+    setStartTime(time);
+    setDisabledEndBtn(false);
   };
-  const onEndClick = () => {
-    setEndTitme(time);
+  const onEndClick = async () => {
+    if (uid) {
+      await setDoc(
+        doc(db, "Commute", uid),
+        {
+          end: time,
+          workingHours: workingHours,
+          workingMinutes: workingMinutes,
+        },
+        { merge: true },
+      );
+    }
+    setEndTime(time);
+    setDisabledEndBtn(true);
+    setWorkedHours(workingHours);
+    setWorkedMinutes(workingMinutes);
   };
+
+  window.addEventListener("keydown", (e) => {
+    e.key === "Escape" && setShowModal(false);
+  });
 
   return (
     <style.Container>
@@ -91,7 +131,7 @@ export default function CommuteModal({
           <Button
             text={"퇴근하기"}
             padding={"0.3125rem 0.75rem"}
-            disabled={startTime ? false : true}
+            disabled={disabledEndBtn}
             onClick={onEndClick}
           />
         </style.BtnWrapper>

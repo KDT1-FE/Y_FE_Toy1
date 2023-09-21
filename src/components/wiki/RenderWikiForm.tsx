@@ -23,10 +23,12 @@ export default function WikiForm({
     e: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     const newParentID = e.target.value;
+    const isNewWiki = () => form.wikiID === "";
+
     const hasChild = await hasChildWikis(form.wikiID);
 
     // 현재 위키가 자식을 가지고 있지 않고, 선택한 parentID가 현재 위키의 자식 위키가 아니면 변경 허용
-    if (!hasChild && newParentID !== form.wikiID) {
+    if (isNewWiki() || (!hasChild && newParentID !== form.wikiID)) {
       onFormChange("parentID", newParentID);
     } else {
       alert(
@@ -38,7 +40,7 @@ export default function WikiForm({
   return (
     <>
       <Styled.ContentsTitle>
-        <Styled.TitleText>
+        <FormStyled.FormTitle>
           <FormStyled.Select
             value={form.parentID}
             onChange={handleParentChange}
@@ -56,7 +58,7 @@ export default function WikiForm({
             onChange={(e) => onFormChange("title", e.target.value)}
             placeholder="제목 입력"
           />
-        </Styled.TitleText>
+        </FormStyled.FormTitle>
       </Styled.ContentsTitle>
 
       <MarkdownEditor form={form} editorRef={editorRef}></MarkdownEditor>
