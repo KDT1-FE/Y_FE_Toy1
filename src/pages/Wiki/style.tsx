@@ -46,11 +46,12 @@ export const BeforeEdit = styled.div`
     font-weight: 500;
     font-size: 24px;
     color: ${(props) => props.theme.text};
-
+`;
 
 export const ChannelNames = styled.div`
     width: 100%;
 `;
+
 export const MDEditBtn = styled.button`
     border: none;
     background-color: transparent;
@@ -58,6 +59,7 @@ export const MDEditBtn = styled.button`
     width: 50px;
     height: 50px;
 `;
+
 export const ReadChannel = styled.div`
     display: flex;
     justify-content: space-between;

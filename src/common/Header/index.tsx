@@ -9,8 +9,6 @@ import MyPageBtn from '../../components/modal/MyPage/MyPageBtn';
 import swal from 'sweetalert';
 import { RedCircle } from '../../components/modal/MyPage/style';
 
-
-
 const Header: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
     const navigate = useNavigate();
