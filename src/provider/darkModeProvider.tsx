@@ -6,7 +6,7 @@ const lightTheme = {
   body: "#fff",
   text: "#1f2023",
   carouselDots: "#373a3c",
-  Userinfo: "#ffffff",
+  Userinfo: "#ddd",
 };
 
 const darkTheme = {
@@ -16,19 +16,26 @@ const darkTheme = {
   Userinfo: "#373a3c",
 };
 
-export const ThemeContext = createContext<() => void>(() => {});
+export const ThemeContext = createContext<{
+  toggleTheme: () => void;
+  currentTheme: "dark" | "light";
+}>({
+  toggleTheme: () => {},
+  currentTheme: "light",
+});
+
 interface PropsType {
   children: ReactNode;
 }
 const DarkMode = ({ children }: PropsType) => {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState<"dark" | "light">("light");
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
 
   return (
-    <ThemeContext.Provider value={toggleTheme}>
+    <ThemeContext.Provider value={{ toggleTheme, currentTheme: theme }}>
       <StyledThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
         <GlobalStyle />
         {children}

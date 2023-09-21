@@ -4,7 +4,7 @@ import { ThemeContext } from "./darkModeProvider";
 
 const DarkModeBtn: React.FC = () => {
   const [DarkMode, setDarkMode] = useState(() => false);
-  const toggleTheme = useContext(ThemeContext);
+  const { toggleTheme } = useContext(ThemeContext);
 
   return (
     <DarkModeToggle

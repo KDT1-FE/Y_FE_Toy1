@@ -1,7 +1,7 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { db } from "../../firebase";
+import { ThemeContext } from "../../provider/darkModeProvider";
 
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 
@@ -15,8 +15,9 @@ interface UsersData {
 
 const StudyTimeRanking = () => {
   const [users, setUsers] = useState<UsersData[]>([]);
-
   const q = query(collection(db, "user"), orderBy("studyTime", "desc"), limit(5));
+  const { currentTheme } = useContext(ThemeContext);
+  const theme: "dark" | "light" = currentTheme;
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -34,66 +35,68 @@ const StudyTimeRanking = () => {
           };
         });
         setUsers(data);
-        console.log(users);
       } catch (error) {
         console.error("데이터를 불러오는데 실패했습니다.", error);
       }
     };
-
     fetchUser();
   }, []);
 
   return (
-    <RankWrapper>
-      <table>
-        <thead>
-          <tr>
-            <th>순위</th>
-            <th>닉네임</th>
-            <th>클래스</th>
-            <th>공부 시간</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((usersData: UsersData, index: number) => (
-            <tr key={usersData.id}>
-              <td>
-                <img src={process.env.PUBLIC_URL + `/svg/number/${index + 1}_icon.svg`} alt="오류" />
-              </td>
-              <td>{usersData.nickName}</td>
-              <td>{usersData.class}</td>
-              <td>{usersData.studyTime}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </RankWrapper>
+    <>
+      <h1>공부시간 랭킹</h1>
+      <RankWrapper>
+        {users.map((usersData: UsersData, index: number) => (
+          <div className="userList" key={usersData.id}>
+            <div className="userList__icon">
+              <img src={process.env.PUBLIC_URL + `/svg/number/${theme}/${index + 1}_icon-${theme}.svg`} alt="오류" />
+            </div>
+            <div className="userList__nickName">{usersData.nickName}</div>
+            <div className="userList__studyTime">{usersData.studyTime}분</div>
+          </div>
+        ))}
+      </RankWrapper>
+    </>
   );
 };
 
 const RankWrapper = styled.div`
-  background-color: gray;
+  display: flex;
   width: auto;
   height: auto;
-  margin-bottom: 5px;
-  display: flex;
-  /* justify-content: space-between; */
   text-align: center;
-  /* align-items: center; */
-  table {
-    width: 100%; /* 테이블 전체 너비를 화면 너비에 맞춤 */
-    table-layout: fixed; /* 테이블 레이아웃을 고정된 너비로 설정 */
+  flex-direction: column;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  margin-top: 16px;
+
+  .userList {
+    font-weight: 700;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    margin: 10px;
+    background-color: ${(props) => props.theme.Userinfo};
+    border-radius: 5px;
   }
 
-  thead {
-    background-color: red;
-
+  .userList:hover {
+    background-color: var(--main-color);
+    transform: scale(1.03);
   }
-  
-  /* th,
-  td {
-    width: 25%; // 각 셀의 너비를 테이블 너비의 25%로 지정
-  } */
+
+  .userList__icon {
+    flex: 1 1 10%;
+  }
+
+  .userList__nickName {
+    flex: 1 1 20%;
+  }
+
+  .userList__studyTime {
+    flex: 1 1 70%;
+  }
 `;
 
 export default StudyTimeRanking;
