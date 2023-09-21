@@ -1,0 +1,274 @@
+@import '_common.scss';
+
+.main-container-text {
+    margin: 0 auto;
+    font-size: 70px;
+    width: 90%;
+    display: flex;
+    align-items: center;
+}
+
+.main-container {
+    padding-top: 10px;
+}
+
+.carousel {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    /* margin-top: 100px; */
+    /* height: 100vh; 화면 높이에 맞게 조절 */
+  }
+  
+  /* 슬라이더 너비 조절 */ 
+  .carousel .slick-slider {
+    width: 100%;
+  }
+
+  .carousel .slick-slide img {
+    width: 600px;
+    height: 420px; 
+  }
+
+.slide {
+    display: flex;
+    align-items: center;
+}
+
+  
+  /* 슬라이드 내용 스타일 */
+  .slide-content {
+    display: flex;
+    width: 100%;
+    height: 500px;
+  }
+  
+  .slide-left {
+    flex: 1;
+    flex-direction: column;
+    padding-left: 7.5%;
+    margin: auto;
+  }
+
+  .slide-right {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start; /* 이미지를 수직으로 중앙에 정렬하면서 왼쪽 끝에 붙임 */
+    align-items: center; /* 이미지를 수직으로 중앙에 정렬 */
+  }
+
+
+  .post-list-top {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+
+  .newPostBtn {
+    margin-left: auto;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: coral; 
+    color: white; 
+    border: none; 
+    border-radius: 30px; 
+    padding: 15px 20px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+    text-decoration: none;
+  }
+
+  /* .open-modal-button {
+    margin-left: auto;
+  } */
+
+  .newPostBtn:hover {
+    background-color: rgb(214, 108, 69);
+  }
+
+
+  /* 모달 열기 상태를 처리하는 CSS */
+.modal.open {
+    display: flex;
+  }
+  
+  .main-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+  
+  .main-modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    width: 500px;
+  }
+
+  .main-modal-text {
+    margin: auto;
+    font-size: 20px;
+    font-weight: 500;
+  }
+  
+  .modal-header {
+    text-align: center;
+  }
+  
+  .modal-body {
+    margin-top: 20px;
+  }
+  
+  .modal-body label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .modal-body input,
+  .modal-body textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .modal-footer {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .modal-footer button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    background-color: #ff6523;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .modal-footer button:last-child {
+    background-color: #363636;
+  }
+  
+
+  .posted-text {
+    font-size: 50px;
+  }
+  
+  
+  .post-container {
+    width: 90%;
+    margin: auto;
+    padding-top: 100px;
+  }
+
+  
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 한 줄에 4개씩 */
+    gap: 16px; /* 아이템 사이의 간격 설정 */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .post-item {
+    border: 3px solid #ccc;
+    padding: 16px;
+    border-radius: 20px;
+    height: 300px;
+  }
+
+  .post-user {
+    font-size: 20px;
+    font-weight: 500;
+    color: gray;
+  }
+
+  .post-title {
+    font-size: 30px;
+    font-weight: 500;
+  }
+  
+  .post-content {
+    font-size: 24px;
+    font-weight: 400;
+  }
+
+/* 작성된 게시글 모달창 디자인 */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7); /* 배경에 어둡게 보이도록 설정 */
+}
+
+/* Modal content styles */
+.modal-content {
+  background-color: #fefefe; /* 모달 내용 배경색 */
+  margin: 10% auto; /* 모달을 화면 중앙에 위치 */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%; /* 모달 너비 조정 */
+  max-width: 600px; /* 최대 너비 설정 */
+  border-radius: 8px;
+  text-align: left; /* 텍스트를 왼쪽으로 정렬 */
+  position: relative;
+}
+
+/* Close button styles */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #f00; /* Hover 시 색상 변경 */
+}
+
+/* Posted info styles */
+.postedInfo {
+  margin-top: 20px; 
+}
+
+/* Posted text styles */
+.postedText {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center; /* 가운데 정렬 추가 */
+}
+
+/* Posted content styles */
+.postedContent {
+  font-size: 16px;
+}
+
+.postedTitle {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.postedContent {
+  font-size: 20px;
+  font-weight: 500;
+}

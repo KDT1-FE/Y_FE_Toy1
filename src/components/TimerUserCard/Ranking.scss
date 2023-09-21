@@ -1,0 +1,67 @@
+@import '/src/styles/common';
+
+.user-rank__container {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-family: 'Pretendard';
+
+  h1 {
+    font-family: 'Sinoreta PERSONAL USE', 'Pretendard';
+    margin: 0px 0px 70px 0px;
+  }
+}
+.user-rank__table {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  width: 42rem;
+
+  img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  li {
+    position: relative; // li 요소를 상대 위치로 설정
+
+    &:nth-child(1) {
+      grid-column: 2 / 3;
+      grid-row: 1 / 2;
+      transform: translateY(-30px);
+    }
+
+    &:nth-child(2) {
+      grid-column: 1 / 2;
+      grid-row: 2 / 3;
+      transform: translateY(-30px);
+    }
+
+    &:nth-child(3) {
+      grid-column: 3 / 4;
+      grid-row: 3 / 4;
+      transform: translateY(-30px);
+    }
+
+    &:nth-child(n + 4):nth-child(-n + 6) {
+      background-color: $highlightColor;
+    }
+
+    &:nth-child(4) {
+      grid-column: 1 / 2;
+      grid-row: 3 / 5;
+    }
+
+    &:nth-child(5) {
+      grid-column: 2 / 3;
+      grid-row: 2 / 5;
+    }
+
+    &:nth-child(6) {
+      grid-column: 3 / 4;
+      grid-row: 4 / 5;
+    }
+  }
+}

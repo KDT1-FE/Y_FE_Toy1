@@ -1,0 +1,16 @@
+@import '/src/styles/common';
+
+.user-card-modal__container {
+  font-family: Pretendard;
+  img {
+    width: 100%;
+    object-fit: cover;
+    margin: 0px 0px 20px 0px;
+  }
+  h4 {
+    margin: 0px 0px 20px 0px;
+  }
+  p {
+    margin: 0px 0px 10px 0px;
+  }
+}
