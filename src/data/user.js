@@ -8,7 +8,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { app, db } from './firebase';
 import { adjective, emoji, noun } from './nickname';
 
-const auth = getAuth(app);
+export const auth = getAuth(app);
 
 // 이메일로 회원가입
 export const createAuth = async (user) => {
@@ -23,13 +23,14 @@ export const createAuth = async (user) => {
 
 // user 데이터 생성
 export const createUserData = async (user, id) => {
-  const { username, email, nickname, image } = user;
+  const { username, email, nickname, image, isLoggedIn } = user;
   setDoc(doc(db, 'User', id), {
     username,
     email,
     nickname,
     image,
     accumulateCount: 0,
+    isLoggedIn: false,
   });
 };
 
