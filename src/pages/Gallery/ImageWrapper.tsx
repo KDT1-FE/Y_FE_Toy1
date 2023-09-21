@@ -1,44 +1,50 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import EditModal from './EditModal';
-import { ProjectStateProps } from './Project';
+import { ProjectProps } from './Project';
+import ProjectDetailModal from './ProjectDetailModal';
 
+const ImageWrapper = ({
+  imageUrl,
+  projectId,
+  state,
+  name,
+  description,
+  participant,
+}: ProjectProps) => {
+  const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
 
-const ImageWrapper = ({ imageUrl, projectId, state }: ProjectStateProps) => {
-  const [showEditStateBtn, setShowEditStateBtn] = useState<boolean>(false);
-  const [showEditModal, setShowEditModal] = useState<boolean>(false);
-
-  const showEditModalHandler = () => {
-    setShowEditModal(true);
+  const showDetailModalHandler = () => {
+    setShowDetailModal(true);
     document.body.style.overflow = 'hidden';
   };
-  const closeEditModalHandler = () => {
-    setShowEditModal(false);
+  const closeDetailModalHandler = () => {
+    setShowDetailModal(false);
     document.body.style.overflow = 'auto';
   };
 
   return (
     <>
       <ImageWrapperDiv
-        onMouseEnter={() => setShowEditStateBtn(true)}
-        onMouseLeave={() => setShowEditStateBtn(false)}
+        onClick={showDetailModalHandler}
         style={{
           backgroundImage: `url(${imageUrl})`,
           backgroundColor: imageUrl ? 'none' : 'lightgray',
         }}
       >
+        <ProjectName style={{}}>{name}</ProjectName>
         {!imageUrl && <div>이미지가 없습니다</div>}
-        {showEditStateBtn && (
-          <EditStateBtn onClick={() => showEditModalHandler()}>수정</EditStateBtn>
-        )}
       </ImageWrapperDiv>
-      {showEditModal && (
-        <EditModal
+      {showDetailModal && (
+        <ProjectDetailModal
           imageUrl={imageUrl}
           projectId={projectId}
           state={state}
-          closeOnClick={() => closeEditModalHandler()}
-        ></EditModal>
+          name={name}
+          description={description}
+          participant={participant}
+          closeOnClick={closeDetailModalHandler}
+        ></ProjectDetailModal>
       )}
     </>
   );
@@ -58,23 +64,12 @@ const ImageWrapperDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-const EditStateBtn = styled.div`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 5px 10px;
-  background-color: #e2e2e2;
-  color: #797979;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
   cursor: pointer;
-  font-size: 14px;
-
-  @media screen and (max-width: 1200px) {
-    padding: 3px 6px;
-    font-size: 12px;
-  }
+`;
+const ProjectName = styled.div`
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  font-size: 16px;
+  font-weight: 600;
 `;

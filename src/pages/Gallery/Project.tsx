@@ -5,28 +5,28 @@ import { db } from '../../common/config';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import LoadingSpinner from './LoadingSpinner';
 
-interface ProjectProps {
+export interface ProjectProps {
   state: string;
-}
-
-export interface ProjectStateProps extends ProjectProps {
   projectId: any;
   imageUrl: any;
+  name: any;
+  description: any;
+  participant: any;
 }
 
 const Project = ({ state }: ProjectProps) => {
-  const [projectData, setProjectData] = useState<Array<ProjectStateProps>>();
+  const [projectData, setProjectData] = useState<Array<ProjectProps>>();
   const [isLoading, setIsLoading] = useState(true);
   const fetchProjectData = async () => {
     try {
       const filterStateQuery = query(collection(db, 'projectData'), where('state', '==', state));
       const querySnapshot = await getDocs(filterStateQuery);
-      const filteredData: Array<ProjectStateProps> = [];
+      const filteredData: Array<ProjectProps> = [];
 
       querySnapshot.forEach((doc) => {
         const projectId = doc.id;
         const data = doc.data();
-        filteredData.push({ ...data, projectId } as ProjectStateProps);
+        filteredData.push({ ...data, projectId } as ProjectProps);
       });
       setProjectData(filteredData);
     } catch (error) {
@@ -50,7 +50,7 @@ const Project = ({ state }: ProjectProps) => {
   return (
     <GalleryMainContainer>
       <CategoryTitleSection>
-        <h1>{projectState} 프로젝트</h1>
+        <CategoryTitle>{projectState} 프로젝트</CategoryTitle>
         <BreadCrumb>갤러리 &gt; 프로젝트 &gt; {projectState} 프로젝트</BreadCrumb>
       </CategoryTitleSection>
       <ImageSection>
@@ -63,6 +63,9 @@ const Project = ({ state }: ProjectProps) => {
                 key={index}
                 imageUrl={item.imageUrl}
                 projectId={item.projectId}
+                name={item.name}
+                description={item.description}
+                participant={item.participant}
                 state={item.state}
               />
             );
@@ -92,6 +95,11 @@ export const BreadCrumb = styled.span`
   text-align: right;
   color: gray;
 `;
+export const CategoryTitle = styled.h1`
+  font-size: 32px;
+`
+
+
 export const ImageSection = styled.section`
   display: flex;
   flex-wrap: wrap;
