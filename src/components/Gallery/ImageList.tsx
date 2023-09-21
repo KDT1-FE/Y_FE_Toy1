@@ -1,6 +1,6 @@
 import React from 'react';
 import { UploadedImage } from './types';
-import { BsFillTrashFill, BsFillHeartFill } from 'react-icons/bs';
+import { BsFillTrashFill } from 'react-icons/bs';
 import { FaHeartCirclePlus, FaHeartCircleMinus } from 'react-icons/fa6';
 interface ImgListProps {
   docList: UploadedImage[];
