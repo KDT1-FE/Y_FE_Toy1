@@ -9,7 +9,7 @@ export interface RootState {
     user: {
       uid: string | null;
       email: string | null;
-      nickname: string | null;
+      nickname: string;
       image: string | null;
       // 기타 사용자 관련 상태 필드 추가
     } | null;
@@ -25,7 +25,10 @@ export interface RootState {
     id: string; // 이 필드를 추가
     title: string;
     content: string;
-    username: string; // 이 필드를 추가
+    username: string;
+    userId: string; 
+    date: string;
+    timestamp: Date; // 이 필드를 추가
     // 기타 필요한 속성 추가
   }
 
