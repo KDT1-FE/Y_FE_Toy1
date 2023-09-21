@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { DocumentData } from 'firebase/firestore';
 import { wikiDelete } from 'apis/Wiki/index';
 import { media } from 'styles/media';
+import { dayFormat } from 'utils/format';
 
 interface loadingProps {
   data: DocumentData | undefined;
@@ -17,8 +18,7 @@ function WikiContent({
   setIsChanged,
   isChange,
 }: loadingProps) {
-  const time = data?.writeTime;
-  const documentWritedTime = time?.toDate().toString();
+  const documentWritedTime = dayFormat(data?.writeTime?.toDate());
 
   return (
     <StyledWikiContentContainer>
