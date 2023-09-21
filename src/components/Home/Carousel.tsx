@@ -25,8 +25,27 @@ function Carousel() {
   }, [images.length]);
 
   return (
-    <div className="SlideShow">
-      <img src={images[currentSlide]} alt={`Slide ${currentSlide + 1}`} />
+    <div className="CarouselContainer">
+      <div
+        className="Slideshow"
+        style={{transform: `translate3d(${currentSlide * -100}%, 0, 0)`}}
+      >
+        {images.map((image, index) => (
+          <img key={image} src={image} alt={`Slide ${index}`} />
+        ))}
+      </div>
+      <div className="Dots">
+        {images.map((image, index) => (
+          <span
+            className="Dot"
+            key={image}
+            style={{
+              backgroundColor:
+                currentSlide === index ? "rgb(255, 101, 144)" : "#fff",
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 }

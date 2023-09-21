@@ -21,7 +21,8 @@
     "react-markdown": "^8.0.7",
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^3.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "sweetalert": "^2.1.2"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.62.0",

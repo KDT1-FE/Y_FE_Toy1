@@ -10,6 +10,7 @@ import AddPhotos from "./AddPhotos";
 import UploadModal from "./UploadModal";
 import {ReactComponent as DeleteBtn} from "../../assets/icons/DeleteBtn.svg";
 import {ReactComponent as Upload} from "../../assets/icons/Upload.svg";
+import {LOADING_TIME} from "../../constant";
 
 function Album() {
   const {id} = useParams<{id: string}>();
@@ -35,7 +36,7 @@ function Album() {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, LOADING_TIME);
   }, [id]);
 
   useEffect(() => {
@@ -48,7 +49,7 @@ function Album() {
           setFiles(photoFiles);
           setTimeout(() => {
             setIsLoading(false);
-          }, 1000);
+          }, LOADING_TIME);
         })
         .catch(err => {
           throw new Error(err);
@@ -68,24 +69,28 @@ function Album() {
       <div id="AlbumHeader">
         <h1 id="AlbumTitle">앨범: {albumKey}</h1>
         <div id="AlbumIcons">
-          <DeleteBtn
-            type="button"
-            id="AlbumDelete"
-            className="Button"
-            onClick={() => {
-              toggle();
-              ChangeModalFalse();
-            }}
-          />
-          <Upload
-            type="button"
-            id="AlbumUpload"
-            className="Button"
-            onClick={() => {
-              toggle();
-              ChangeModalTrue();
-            }}
-          />
+          <div title="삭제">
+            <DeleteBtn
+              type="button"
+              id="AlbumDelete"
+              className="Button"
+              onClick={() => {
+                toggle();
+                ChangeModalFalse();
+              }}
+            />
+          </div>
+          <div title="업로드">
+            <Upload
+              type="button"
+              id="AlbumUpload"
+              className="Button"
+              onClick={() => {
+                toggle();
+                ChangeModalTrue();
+              }}
+            />
+          </div>
         </div>
       </div>
       <div id="AlbumContainer">

@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {Routes, Route} from "react-router-dom";
 import SaveContents from "./components/Wiki/SaveContents";
 import SaveTeam from "./components/Wiki/SaveTeam";
-
+import {CATEGORIES} from "./constant/index";
 import Home from "./pages/Home";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -10,11 +10,24 @@ import Wiki from "./pages/Wiki";
 import Gallery from "./pages/Gallery";
 import Ranking from "./pages/Ranking";
 import "./styles/reset.css";
+import {
+  sortRanking,
+  getDayAndReset,
+  getRankingDocsToArr,
+  saveRankingInBrowser,
+} from "./utils/timerAndRanking";
 
 function App() {
   useEffect(() => {
-    SaveContents();
-    SaveTeam();
+    if (!sessionStorage.getItem("teamList")) {
+      SaveTeam().then(() => SaveContents(CATEGORIES));
+    }
+
+    getRankingDocsToArr().then(doc => {
+      const sortedData = sortRanking(doc);
+      saveRankingInBrowser(sortedData);
+    });
+    getDayAndReset();
   }, []);
 
   return (

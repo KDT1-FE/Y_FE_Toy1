@@ -12,9 +12,13 @@ function EditButton({isEditorOpen, setIsEditorOpen}: EditButtonProps) {
   return (
     <div>
       {isEditorOpen ? (
-        <CancelIcon className="EditButton" onClick={clickEdit} />
+        <div title="취소하기">
+          <CancelIcon className="ButtonIcon" onClick={clickEdit} />
+        </div>
       ) : (
-        <EditIcon className="EditButton" onClick={clickEdit} />
+        <div title="수정하기">
+          <EditIcon className="ButtonIcon" onClick={clickEdit} />
+        </div>
       )}
     </div>
   );
