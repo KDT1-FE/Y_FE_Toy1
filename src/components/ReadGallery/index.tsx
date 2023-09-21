@@ -188,7 +188,7 @@ const StyledReadGalleryNone = styled.div`
   top: 40%;
 `)}
 ${media.mobile(`
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   top: 50%;
 `)}
 `;
