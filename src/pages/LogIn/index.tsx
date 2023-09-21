@@ -10,10 +10,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { auth } from '../../utils/firebase';
+import { auth, themeType } from '../../utils/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useRecoilState } from 'recoil';
-import { UserId } from '../../utils/recoil';
+import { ThemeChange, UserId } from '../../utils/recoil';
 
 const defaultTheme = createTheme();
 
@@ -21,6 +21,21 @@ export default function LogIn() {
     const [userId, setUserId] = useRecoilState(UserId);
     const navigate = useNavigate();
     const { pathname } = useLocation();
+    const [back, setBack] = React.useState('');
+    const [currentTheme, setCurrentTheme] = useRecoilState(ThemeChange);
+
+    React.useEffect(() => {
+        const selected = (theme: themeType) => {
+            setBack(theme.recruitmentBack);
+        };
+        if (localStorage.getItem('theme')) {
+            const localtheme = localStorage.getItem('theme');
+            if (localtheme) {
+                const color = JSON.parse(localtheme);
+                selected(color);
+            }
+        }
+    }, [currentTheme]);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -63,6 +78,16 @@ export default function LogIn() {
 
     return (
         <ThemeProvider theme={defaultTheme}>
+            <div
+                style={{
+                    position: 'fixed',
+                    top: '72px',
+                    left: '0',
+                    width: '100vw',
+                    height: 'calc(100vh - 72px)',
+                    backgroundColor: back,
+                }}
+            ></div>
             <Container
                 component="main"
                 maxWidth="xs"

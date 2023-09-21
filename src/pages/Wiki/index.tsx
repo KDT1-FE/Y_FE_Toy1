@@ -3,16 +3,32 @@ import { WikiContainer, EditCompletedButton, WikiContent, ChannelNames, MDEditBt
 import SidebarWiki from '../../components/SidebarWiki';
 import MDEditor, { bold } from '@uiw/react-md-editor';
 import rehypeSanitize from 'rehype-sanitize';
-import { updateChannelContent } from '../../utils/firebase';
+import { themeType, updateChannelContent } from '../../utils/firebase';
 import editImg from '../../common/WikiImg/icons8-edit-50.png';
 import doneImg from '../../common/WikiImg/icons8-done-50.png';
 import { handleGetDocs, DocumentData } from '../../utils/firebase';
 import { QuerySnapshot } from 'firebase/firestore';
 import { Timestamp } from 'firebase/firestore';
+import { useRecoilState } from 'recoil';
+import { ThemeChange } from '../../utils/recoil';
 const Wiki: React.FC = () => {
     const defaultChannel = '기본 정보';
     const defaultSubChannel = '과정 참여 규칙';
+    const [back, setBack] = useState('');
+    const [currentTheme, setCurrentTheme] = useRecoilState(ThemeChange);
 
+    useEffect(() => {
+        const selected = (theme: themeType) => {
+            setBack(theme.recruitmentBack);
+        };
+        if (localStorage.getItem('theme')) {
+            const localtheme = localStorage.getItem('theme');
+            if (localtheme) {
+                const color = JSON.parse(localtheme);
+                selected(color);
+            }
+        }
+    }, [currentTheme]);
     const [clickedValue, setClickedValue] = useState<any>({
         channel: defaultChannel,
         subChannel: defaultSubChannel,
@@ -152,7 +168,7 @@ const Wiki: React.FC = () => {
                         <MDEditor.Markdown
                             source={md}
                             style={{
-                                backgroundColor: 'var(--mention-badge)',
+                                backgroundColor: back,
                                 color: 'black',
                                 minHeight: 'calc(100vh - 252px)',
                             }}
@@ -180,12 +196,12 @@ const Wiki: React.FC = () => {
                             previewOptions={{
                                 rehypePlugins: [[rehypeSanitize]],
                                 style: {
-                                    backgroundColor: 'var(--mention-badge)',
+                                    backgroundColor: back,
                                     color: 'black',
                                 },
                             }}
                             height={'95vh'}
-                            style={{ backgroundColor: 'var(--mention-badge)', color: 'black' }}
+                            style={{ backgroundColor: back, color: 'black' }}
                         />
                     </ChannelNames>
                 </WikiContent>

@@ -27,7 +27,6 @@ const GlobalStyle = createGlobalStyle`
     font-size:16px;
     line-height: 1.5;
     width: 100vw;
-    background-color: var(--mention-badge);
   }
 
   a{

@@ -41,7 +41,7 @@ const SidebarRecruitment: React.FC = () => {
         return (
             <SubChannelDiv
                 style={{
-                    color: isActive ? '#ffffff' : '',
+                    color: isActive ? '#fff' : '',
                     backgroundColor: isActive ? back : '',
                     borderRadius: isActive ? '5px' : '',
                     marginRight: isActive ? '10px' : '',

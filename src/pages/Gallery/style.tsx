@@ -19,6 +19,7 @@ export const ProfileContainer = styled.div`
     width: 100%;
     height: 100vh;
     padding: 3%;
+    background-color: ${(props) => props.theme.recruitmentBack};
 `;
 
 export const RecruitConstainer = styled.div`
@@ -134,6 +135,7 @@ export const ProfileWrapper = styled.div`
     height: 250px;
     text-align: center;
     border-radius: 10px;
+    background-color: #fff;
     box-shadow: 2px 2px 1px 2px rgba(0, 0, 0, 0.3);
 `;
 export const ProfileIMG = styled.img`

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { channelState, subChannelState } from '../../utils/recoil';
+import { ThemeChange, channelState, subChannelState } from '../../utils/recoil';
 import {
     AllChannelsWrapper,
     ChannelWrapper,
@@ -11,7 +11,7 @@ import {
     SubChannelDiv,
 } from './style';
 
-import { handleGetDocs } from '../../utils/firebase';
+import { handleGetDocs, themeType } from '../../utils/firebase';
 import { QuerySnapshot } from 'firebase/firestore';
 
 interface DocumentData {
@@ -30,6 +30,21 @@ const SidebarGallery: React.FC<SidebarGalleryProps> = ({ onKeyClick }) => {
     const [subChannel, setSubChannel] = useRecoilState(subChannelState);
     const defaultChannel = '레퍼런스 공유';
     const defaultSubChannel = '취업';
+    const [back, setBack] = useState('');
+    const [currentTheme, setCurrentTheme] = useRecoilState(ThemeChange);
+
+    useEffect(() => {
+        const selected = (theme: themeType) => {
+            setBack(theme.activeColor1);
+        };
+        if (localStorage.getItem('theme')) {
+            const localtheme = localStorage.getItem('theme');
+            if (localtheme) {
+                const color = JSON.parse(localtheme);
+                selected(color);
+            }
+        }
+    }, [currentTheme]);
 
     useEffect(() => {
         if (!channel || !subChannel) {
@@ -84,12 +99,8 @@ const SidebarGallery: React.FC<SidebarGalleryProps> = ({ onKeyClick }) => {
                                     setSubChannel(item2);
                                 }}
                                 style={{
-                                    color: isSubChannelActive(item.docId, item2)
-                                        ? '${(props) => props.theme.text}'
-                                        : '',
-                                    backgroundColor: isSubChannelActive(item.docId, item2)
-                                        ? '${(props) => props.theme.activeColor1}'
-                                        : '',
+                                    color: isSubChannelActive(item.docId, item2) ? '#fff' : '',
+                                    backgroundColor: isSubChannelActive(item.docId, item2) ? back : '',
                                     borderRadius: isSubChannelActive(item.docId, item2) ? '5px' : '',
                                     marginRight: isSubChannelActive(item.docId, item2) ? '10px' : '',
                                     fontWeight: isSubChannelActive(item.docId, item2) ? 'bold' : '',

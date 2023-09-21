@@ -85,6 +85,8 @@ const UserEditModal: React.FC<ownProps> = ({ handleEdit }) => {
                                 id="email"
                                 value={userEmail}
                                 spellCheck={false}
+                                disabled={true}
+                                style={{ backgroundColor: '#999' }}
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                     setUserEmail(e.target.value);
                                 }}

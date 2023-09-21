@@ -12,7 +12,7 @@ export const WikiContent = styled.div`
     display: flex;
     justify-content: left;
 
-    background-color: var(--mention-badge);
+    background-color: ${(props) => props.theme.recruitmentBack};
     width: 100%;
     padding: 20px 40px 20px 40px;
     overflow: auto;
