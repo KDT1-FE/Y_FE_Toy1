@@ -11,6 +11,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 import { auth, addUser } from '../../utils/firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import swal from 'sweetalert';
 
 const defaultTheme = createTheme();
 
@@ -30,8 +31,20 @@ export default function SignIn() {
         const passwordEntry = data.get('password');
         const password = passwordEntry !== null ? passwordEntry.toString() : '';
 
+        const confirmPasswordEntry = data.get('confirmPassword');
+        const confirmPassword = confirmPasswordEntry !== null ? confirmPasswordEntry.toString() : '';
+
         const nameEntry = data.get('name');
         const name = nameEntry !== null ? nameEntry.toString() : '';
+
+        if (password != confirmPassword) {
+            swal({
+                title: '비밀번호가 일치하지 않습니다.',
+                text: '비밀번호를 다시 확인해주세요',
+                icon: 'warning',
+            });
+            return;
+        }
 
         // firebase Auth 등록
         createUserWithEmailAndPassword(auth, email, password)
@@ -64,25 +77,58 @@ export default function SignIn() {
                 };
                 addUser(user.uid, value);
 
+                swal({
+                    title: '회원가입 성공',
+                    text: '가입해주셔서 감사합니다 !',
+                    icon: 'success',
+                });
                 // 회원가입 성공시 redirect
                 navigate('/login', { state: pathname });
             })
             .catch((error) => {
                 switch (error.code) {
                     case 'auth/user-not-found' || 'auth/wrong-password':
-                        return alert('이메일 혹은 비밀번호가 일치하지 않습니다.');
+                        return swal({
+                            title: '회원가입 에러',
+                            text: '이메일 혹은 비밀번호가 일치하지 않습니다.',
+                            icon: 'warning',
+                        });
                     case 'auth/email-already-in-use':
-                        return alert('이미 사용 중인 이메일입니다.');
+                        return swal({
+                            title: '회원가입 에러',
+                            text: '이미 사용중인 이메일입니다.',
+                            icon: 'warning',
+                        });
                     case 'auth/weak-password':
-                        return alert('비밀번호는 6글자 이상이어야 합니다.');
+                        return swal({
+                            title: '회원가입 에러',
+                            text: '비밀번호는 6자리 이상으로 작성해주세요',
+                            icon: 'warning',
+                        });
                     case 'auth/network-request-failed':
-                        return alert('네트워크 연결에 실패 하였습니다.');
+                        return swal({
+                            title: '회원가입 에러',
+                            text: '네트워크 연결에 실패 하였습니다.',
+                            icon: 'warning',
+                        });
                     case 'auth/invalid-email':
-                        return alert('잘못된 이메일 형식입니다.');
+                        return swal({
+                            title: '회원가입 에러',
+                            text: '잘못된 이메일 형식입니다.',
+                            icon: 'warning',
+                        });
                     case 'auth/internal-error':
-                        return alert('잘못된 요청입니다.');
+                        return swal({
+                            title: '회원가입 에러',
+                            text: '잘못된 요청입니다.',
+                            icon: 'warning',
+                        });
                     default:
-                        return alert('로그인에 실패 하였습니다.');
+                        return swal({
+                            title: '회원가입 에러',
+                            text: '회원가입에 실패 하였습니다. 다시 확인해주세요',
+                            icon: 'warning',
+                        });
                 }
                 // ..
             });
@@ -128,6 +174,8 @@ export default function SignIn() {
                             label="이름"
                             type="text"
                             id="name"
+                            inputProps={{ maxLength: 6 }}
+                            placeholder="홍길동"
                             autoComplete="name"
                         />
 
@@ -138,6 +186,7 @@ export default function SignIn() {
                             id="email"
                             label="이메일"
                             name="email"
+                            placeholder="fastudy@fast.com"
                             autoComplete="email"
                             autoFocus
                         />
@@ -149,6 +198,18 @@ export default function SignIn() {
                             label="비밀번호"
                             type="password"
                             id="password"
+                            placeholder="6자리 이상 입력해주세요"
+                            autoComplete="current-password"
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="confirmPassword"
+                            label="비밀번호 확인"
+                            type="password"
+                            id="confirmPassword"
+                            placeholder="6자리 이상 입력해주세요"
                             autoComplete="current-password"
                         />
 

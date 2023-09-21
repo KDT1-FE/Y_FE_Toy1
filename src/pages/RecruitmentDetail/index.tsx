@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
     Btn,
     BtnWrapper,
-    CommentName,
+    CommentInputName,
     CommentWrapper,
     ContentContainer,
     ContentHeader,
@@ -111,6 +111,7 @@ const RecruitmentDetail: React.FC = () => {
                 time: date,
                 name: userData.name,
                 imageURL: userData.imageURL,
+                email: userData.email,
             };
             await createComment(channel, path, value);
 
@@ -244,7 +245,7 @@ const RecruitmentDetail: React.FC = () => {
                     <CommentWrapper>
                         {comments ? comments.map((v: any, i: number) => <CommentItem comment={v} i={i} />) : ''}
                         <CommentCreateWrapper>
-                            <CommentName>댓글 쓰기</CommentName>
+                            <CommentInputName>댓글 쓰기</CommentInputName>
                             <CommentInputWrapper>
                                 <form id="comment" onSubmit={handleCreateCommentSubmit}>
                                     <input
@@ -261,6 +262,7 @@ const RecruitmentDetail: React.FC = () => {
                                             width: '880px',
                                             height: '60px',
                                             border: '1px solid gray',
+                                            borderRadius: '5px',
                                             fontSize: '1rem',
                                             paddingLeft: '10px',
                                         }}

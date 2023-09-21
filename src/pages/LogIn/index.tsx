@@ -14,6 +14,7 @@ import { auth } from '../../utils/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useRecoilState } from 'recoil';
 import { UserId } from '../../utils/recoil';
+import swal from 'sweetalert';
 
 const defaultTheme = createTheme();
 
@@ -44,19 +45,47 @@ export default function LogIn() {
             .catch((error) => {
                 switch (error.code) {
                     case 'auth/user-not-found' || 'auth/wrong-password':
-                        return alert('이메일 혹은 비밀번호가 일치하지 않습니다.');
+                        return swal({
+                            title: '로그인 에러',
+                            text: '이메일 혹은 비밀번호가 일치하지 않습니다.',
+                            icon: 'warning',
+                        });
                     case 'auth/email-already-in-use':
-                        return alert('이미 사용 중인 이메일입니다.');
+                        return swal({
+                            title: '로그인 에러',
+                            text: '이미 사용중인 이메일입니다.',
+                            icon: 'warning',
+                        });
                     case 'auth/weak-password':
-                        return alert('비밀번호는 6글자 이상이어야 합니다.');
+                        return swal({
+                            title: '로그인 에러',
+                            text: '비밀번호는 6자리 이상으로 작성해주세요',
+                            icon: 'warning',
+                        });
                     case 'auth/network-request-failed':
-                        return alert('네트워크 연결에 실패 하였습니다.');
+                        return swal({
+                            title: '로그인 에러',
+                            text: '네트워크 연결에 실패 하였습니다.',
+                            icon: 'warning',
+                        });
                     case 'auth/invalid-email':
-                        return alert('잘못된 이메일 형식입니다.');
+                        return swal({
+                            title: '로그인 에러',
+                            text: '잘못된 이메일 형식입니다.',
+                            icon: 'warning',
+                        });
                     case 'auth/internal-error':
-                        return alert('잘못된 요청입니다.');
+                        return swal({
+                            title: '로그인 에러',
+                            text: '잘못된 요청입니다.',
+                            icon: 'warning',
+                        });
                     default:
-                        return alert('로그인에 실패 하였습니다.');
+                        return swal({
+                            title: '로그인 에러',
+                            text: '로그인에 실패 하였습니다. 다시 확인해주세요',
+                            icon: 'warning',
+                        });
                 }
             });
     };
