@@ -25,8 +25,22 @@ function Carousel() {
   }, [images.length]);
 
   return (
-    <div className="SlideShow">
-      <img src={images[currentSlide]} alt={`Slide ${currentSlide + 1}`} />
+    <div className="carousel-container">
+      <div className="slideshow">
+        <img src={images[currentSlide]} alt={`Slide ${currentSlide + 1}`} />
+      </div>
+      <div className="dots">
+        {images.map((image, index) => (
+          <span
+            className="dot"
+            key={image}
+            style={{
+              backgroundColor:
+                currentSlide === index ? "rgb(255, 101, 144)" : "#fff",
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 }
