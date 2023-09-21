@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { SideBarLink } from 'components/Gallery/NavBar';
-import { MainSlides } from 'components/Gallery/SlideContainer';
+import React from 'react';
+import { SideBarLink } from '../components/Gallery/NavBar';
+import { MainSlides } from '../components/Gallery/SlideContainer';
 import '../styles/pages/Gallery.scss';
 
 export function Gallery(): JSX.Element {
