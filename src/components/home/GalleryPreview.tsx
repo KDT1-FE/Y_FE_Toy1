@@ -27,6 +27,7 @@ export default function GalleryPreview () {
   }
 
   const [imagepaths, setImagepaths] = useState<string[]>([]);
+  const [currentindex, setCurrentindex] = useState<number>(0);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -65,8 +66,6 @@ export default function GalleryPreview () {
   fetchImages();
   }, []);
 
-
-  const [currentindex, setCurrentindex] = useState<number>(0);
   const galleryImagesRef = useRef<number | null>(null);
 
   const goToNext = useCallback (() => {

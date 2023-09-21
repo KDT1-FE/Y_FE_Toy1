@@ -67,7 +67,7 @@ const Carousel = () => {
 
             {carouselData.map((_, pageindex) => (
               <>
-                <style.CarouselContent 
+                <style.CarouselContent
                   pageindex={pageindex}
                   ref={carouselRef}
                   carouselwidth={carouselwidth}>
@@ -79,9 +79,8 @@ const Carousel = () => {
           </style.CarouselContainer>
 
           <style.CarouselDotContainer>
-            {carouselData.map((_, pageindex) => (
+            {carouselData.map((pageindex) => (
               <style.CarouselDot 
-                key={pageindex} 
                 onClick={() => goToCarousel(pageindex)} />
             ))}
           </style.CarouselDotContainer>
