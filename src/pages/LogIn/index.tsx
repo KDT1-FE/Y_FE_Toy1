@@ -5,7 +5,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import LockOpenIcon from '@mui/icons-material/LockOpen';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -22,11 +21,13 @@ export default function LogIn() {
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const [back, setBack] = React.useState('');
+    const [buttonColor, setButtonColor] = React.useState('');
     const [currentTheme, setCurrentTheme] = useRecoilState(ThemeChange);
 
     React.useEffect(() => {
         const selected = (theme: themeType) => {
             setBack(theme.recruitmentBack);
+            setButtonColor(theme.navBar);
         };
         if (localStorage.getItem('theme')) {
             const localtheme = localStorage.getItem('theme');
@@ -142,7 +143,7 @@ export default function LogIn() {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
-                            style={{ backgroundColor: 'var( --active-item)' }}
+                            style={{ backgroundColor: buttonColor }}
                         >
                             로그인
                         </Button>
