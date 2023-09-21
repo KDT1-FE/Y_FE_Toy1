@@ -8,6 +8,7 @@ import EditButton from "./EditButton";
 import TeamContent from "./TeamContent";
 import OtherContent from "./OtherContent";
 import {ReactComponent as RefreshIcon} from "../../assets/icons/Refresh.svg";
+import {LOADING_TIME} from "../../constant";
 
 function Content() {
   const {id} = useParams() as {id: string};
@@ -56,7 +57,7 @@ function Content() {
 
     setTimeout(() => {
       setisLoading(false);
-    }, 1000);
+    }, LOADING_TIME);
   }, [id]);
 
   useEffect(() => {
