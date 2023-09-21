@@ -83,7 +83,7 @@ function Content() {
           ""
         ) : (
           <div className="FeatBtns">
-            <div className="RefreshBtnWrap">
+            <div className="RefreshBtnWrap" title="refresh">
               <RefreshIcon className="ButtonIcon" onClick={updateContent} />
               <span className="RefreshLabel">refresh</span>
             </div>
