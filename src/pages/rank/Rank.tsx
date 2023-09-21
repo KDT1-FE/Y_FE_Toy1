@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { db } from "../../firebase";
-
+import { IsMobile } from "utils/mediaQuery";
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 import Sidebar from "components/layout/Sidebar";
 interface UsersData {
@@ -12,11 +12,22 @@ interface UsersData {
   nickName: string;
   studyTime: number;
 }
+interface IContainer {
+  leftmargin : number;
+  topmargin : number;
+}
 
 const Rank = () => {
   const [users, setUsers] = useState<UsersData[]>([]);
 
   const q = query(collection(db, "user"), orderBy("studyTime", "desc"), limit(100));
+
+  let leftMargin = 200
+  let topMargin = 60
+  if(IsMobile()){
+    leftMargin = 0
+    topMargin = 100
+  }
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -46,7 +57,7 @@ const Rank = () => {
   return (
     <>
       <Sidebar />
-      <Container>
+      <Container leftmargin={leftMargin} topmargin={topMargin}>
         <RankWrapper>
           <table>
             <thead>
@@ -76,11 +87,11 @@ const Rank = () => {
   );
 };
 
-const Container = styled.section`
+const Container = styled.section<IContainer>`
   position: relative;
-  left: 200px;
-  height: calc(100% - 60px);
-  width: calc(100% - 200px);
+  left: ${props=>props.leftmargin}px;
+  height: calc(100% - ${props=>props.topmargin}px);
+  width: calc(100% - ${props=>props.leftmargin}px);
   padding: 5px;
   box-sizing: border-box;
 `;
