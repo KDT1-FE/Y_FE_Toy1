@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import SidebarBottom from "components/layout/SidebarBottom";
+import { IsMobile } from "utils/mediaQuery"
 
 interface GalleryProps {
   handleClick: (category: string) => void;
@@ -11,31 +12,39 @@ const GallerySidebar: React.FC<GalleryProps> = ({
   handleClick,
   activeCategory,
 }) => {
-  return (
-    <Container>
-      <SidebarList>
-        <ListItem
-          className={activeCategory === "notice" ? "active" : ""}
-          onClick={() => handleClick("notice")}
-        >
-          공지사항
-        </ListItem>
-        <ListItem
-          className={activeCategory === "news" ? "active" : ""}
-          onClick={() => handleClick("news")}
-        >
-          모집공고
-        </ListItem>
-        <ListItem
-          className={activeCategory === "random" ? "active" : ""}
-          onClick={() => handleClick("random")}
-        >
-          랜덤토크
-        </ListItem>
-      </SidebarList>
-      <SidebarBottom />
-    </Container>
-  );
+
+  // 모바일 갤러리 사이드바
+  if(IsMobile()){
+    return(
+      <></>
+    )
+  }else{
+    return (
+      <Container>
+        <SidebarList>
+          <ListItem
+            className={activeCategory === "notice" ? "active" : ""}
+            onClick={() => handleClick("notice")}
+          >
+            공지사항
+          </ListItem>
+          <ListItem
+            className={activeCategory === "news" ? "active" : ""}
+            onClick={() => handleClick("news")}
+          >
+            모집공고
+          </ListItem>
+          <ListItem
+            className={activeCategory === "random" ? "active" : ""}
+            onClick={() => handleClick("random")}
+          >
+            랜덤토크
+          </ListItem>
+        </SidebarList>
+        <SidebarBottom />
+      </Container>
+    );
+  }
 };
 
 const SidebarList = styled.ul`

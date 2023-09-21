@@ -17,7 +17,7 @@ const Gallery = () => {
 
   let leftMargin = 200
   let topMargin = 60
-  
+
   if(IsMobile()){
     leftMargin = 0
     topMargin = 100
@@ -58,7 +58,7 @@ const Gallery = () => {
   return (
     <>
       <GallerySidebar handleClick={handleClick} activeCategory={activeCategory} />
-      <Container leftMargin={leftMargin} topMargin={topMargin}>
+      <Container leftmargin={leftMargin} topmargin={topMargin}>
         <Routes>
           <Route path="" element={<GalleryList galleryData={galleryData} activeCategory={activeCategory} />} />
           <Route
@@ -81,9 +81,9 @@ const Gallery = () => {
 
 const Container = styled.section<IContainer>`
   position: relative;
-  left: ${props=>props.leftMargin}px;
-  height: calc(100% - ${props=>props.topMargin}px);
-  width: calc(100% - ${props=>props.leftMargin}px);
+  left: ${props=>props.leftmargin}px;
+  height: calc(100% - ${props=>props.topmargin}px);
+  width: calc(100% - ${props=>props.leftmargin}px);
   padding: 5px;
   box-sizing: border-box;
   img {
@@ -92,8 +92,8 @@ const Container = styled.section<IContainer>`
 `;
 
 interface IContainer {
-  leftMargin : number;
-  topMargin : number;
+  leftmargin : number;
+  topmargin : number;
 }
 
 export default Gallery;

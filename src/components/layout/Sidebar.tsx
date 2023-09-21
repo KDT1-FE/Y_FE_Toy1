@@ -14,90 +14,97 @@ const Sidebar = () => {
   if (hashSplit[1] === "Wiki") {
     const sideLinkAttendance = ["출석 인정", "QR출결 정정 "];
     const sideLinkAdmin = ["휴가", "훈련장려금"];
-
+  
     // 클릭시 항목 상태 업데이트
     const handleItemClick = (item: string) => {
       setActiveItem(item);
     };
-    // Wiki 사이드바
-    return (
-      <Container>
-        <SidebarList>
-          <li key={"출석"} className={"sidebar__menu"}>
-            <Link to="출석" onClick={() => handleItemClick("출석")}>
-              출석
-            </Link>
-          </li>
-          {sideLinkAttendance.map((page, idx) => {
-            return (
-              <li className={`sidebar__item ${activeItem === page ? "active" : ""}`} key={sideLinkAttendance[idx]}>
-                <Link to={`${page}`} onClick={() => handleItemClick(page)}>
-                  {page}
-                </Link>
-              </li>
-            );
-          })}
-          <li key={"행정"} className="sidebar__menu">
-            행정
-          </li>
-          {sideLinkAdmin.map((page, idx) => {
-            return (
-              <li className={`sidebar__item ${activeItem === page ? "active" : ""}`} key={sideLinkAdmin[idx]}>
-                <Link to={`${page}`} onClick={() => handleItemClick(page)}>
-                  {page}
-                </Link>
-              </li>
-            );
-          })}
-          <li key={"학습시간 등급"} className="sidebar__menu">
-            <Link
-              to="학습시간 등급"
-              onClick={() => handleItemClick("학습시간 등급 안내")}
-            >
-              학습시간 등급 안내
-            </Link>
-          </li>
-          <li key={"학습 시간왕"} className="sidebar__menu">
-            <Link
-              to="학습 시간왕"
-              onClick={() => handleItemClick("학습 시간왕")}
-            >
-              학습 시간왕
-            </Link>
-          </li>
-          <li key={"학습 일정"} className="sidebar__menu">
-            <Link to="학습 일정" onClick={() => handleItemClick("금주의 학습 일정")}>
-              금주의 학습 일정
-            </Link>
-          </li>
-        </SidebarList>
-        <SidebarBottom />
-      </Container>
-    );
+    
+    // Wiki 모바일 사이드바
+    if(IsMobile()){
+      return(
+        <MobileContainer>
+        </MobileContainer>
+      )
+    }else{
+      // Wiki 데스크톱 사이드바
+      return (
+        <Container>
+          <SidebarList>
+            <li key={"출석"} className={"sidebar__menu"}>
+              <Link to="출석" onClick={() => handleItemClick("출석")}>
+                출석
+              </Link>
+            </li>
+            {sideLinkAttendance.map((page, idx) => {
+              return (
+                <li className={`sidebar__item ${activeItem === page ? "active" : ""}`} key={sideLinkAttendance[idx]}>
+                  <Link to={`${page}`} onClick={() => handleItemClick(page)}>
+                    {page}
+                  </Link>
+                </li>
+              );
+            })}
+            <li key={"행정"} className="sidebar__menu">
+              행정
+            </li>
+            {sideLinkAdmin.map((page, idx) => {
+              return (
+                <li className={`sidebar__item ${activeItem === page ? "active" : ""}`} key={sideLinkAdmin[idx]}>
+                  <Link to={`${page}`} onClick={() => handleItemClick(page)}>
+                    {page}
+                  </Link>
+                </li>
+              );
+            })}
+            <li key={"학습시간 등급"} className="sidebar__menu">
+              <Link
+                to="학습시간 등급"
+                onClick={() => handleItemClick("학습시간 등급 안내")}
+              >
+                학습시간 등급 안내
+              </Link>
+            </li>
+            <li key={"학습 시간왕"} className="sidebar__menu">
+              <Link
+                to="학습 시간왕"
+                onClick={() => handleItemClick("학습 시간왕")}
+              >
+                학습 시간왕
+              </Link>
+            </li>
+            <li key={"학습 일정"} className="sidebar__menu">
+              <Link to="학습 일정" onClick={() => handleItemClick("금주의 학습 일정")}>
+                금주의 학습 일정
+              </Link>
+            </li>
+          </SidebarList>
+          <SidebarBottom />
+        </Container>
+      );
+    }
+    
 
-    // Gallery 사이드바
-  } else if (hashSplit[1] === "Gallery") {
-    return (
-      <Container>
-        <SidebarList>
-          <li>갤러리글 1</li>
-          <li>갤러리글 2</li>
-          <li>갤러리글 3</li>
-        </SidebarList>
-        <SidebarBottom />
-      </Container>
-    );
+    
   } else if (hashSplit[1] === "Rank") {
-    return (
-      <Container>
-        <SidebarList>
-          <li>리더보드</li>
-        </SidebarList>
-        <SidebarBottom />
-      </Container>
-    );
+    if(IsMobile()){
+      <></>
+    }else{
+      return (
+        <Container>
+          <SidebarList>
+            <li>리더보드</li>
+          </SidebarList>
+          <SidebarBottom />
+        </Container>
+      );
+    } 
   }
 };
+
+const MobileContainer = styled.div`
+  
+`
 
 const SidebarList = styled.ul`
   height: calc(100vh - 300px);

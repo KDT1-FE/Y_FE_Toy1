@@ -13,8 +13,8 @@ interface UsersData {
   studyTime: number;
 }
 interface IContainer {
-  leftMargin : number;
-  topMargin : number;
+  leftmargin : number;
+  topmargin : number;
 }
 
 const Rank = () => {
@@ -57,7 +57,7 @@ const Rank = () => {
   return (
     <>
       <Sidebar />
-      <Container leftMargin={leftMargin} topMargin={topMargin}>
+      <Container leftmargin={leftMargin} topmargin={topMargin}>
         <RankWrapper>
           <table>
             <thead>
@@ -89,9 +89,9 @@ const Rank = () => {
 
 const Container = styled.section<IContainer>`
   position: relative;
-  left: ${props=>props.leftMargin}px;
-  height: calc(100% - ${props=>props.topMargin}px);
-  width: calc(100% - ${props=>props.leftMargin}px);
+  left: ${props=>props.leftmargin}px;
+  height: calc(100% - ${props=>props.topmargin}px);
+  width: calc(100% - ${props=>props.leftmargin}px);
   padding: 5px;
   box-sizing: border-box;
 `;

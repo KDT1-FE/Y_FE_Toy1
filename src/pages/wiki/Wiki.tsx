@@ -15,11 +15,11 @@ const Wiki = () => {
     leftMargin = 0
     topMargin = 100
   }
-  
+
   return (
     <>
       <Sidebar />
-      <Container leftMargin={leftMargin} topMargin={topMargin}>
+      <Container leftmargin={leftMargin} topmargin={topMargin}>
         <Routes>
           {/* 리다이렉션 */}
           <Route path="/" element={<Navigate to="/Wiki/출석" />} />
@@ -41,16 +41,16 @@ const Wiki = () => {
 
 const Container = styled.section<IContainer>`
   position: relative;
-  left: ${props=>props.leftMargin}px;
-  height: calc(100% - ${props=>props.topMargin}px);
-  width: calc(100% - ${props=>props.leftMargin}px);
+  left: ${props=>props.leftmargin}px;
+  height: calc(100% - ${props=>props.topmargin}px);
+  width: calc(100% - ${props=>props.leftmargin}px);
   padding: 5px;
   box-sizing: border-box;
 `;
 
 interface IContainer {
-  leftMargin : number;
-  topMargin : number;
+  leftmargin : number;
+  topmargin : number;
 }
 
 export default Wiki;
