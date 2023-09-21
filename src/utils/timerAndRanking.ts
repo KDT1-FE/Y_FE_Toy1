@@ -9,7 +9,7 @@ import {
 import {db} from "./firebaseConfig";
 
 // collection에 있는 데이터 다 가져온 후 배열로 반환
-export async function getDocsToArr() {
+export async function getRankingDocsToArr() {
   const arr: object[] = [];
   const snap = await getDocs(collection(db, "ranking"));
   snap.forEach(a => {
@@ -21,7 +21,7 @@ export async function getDocsToArr() {
 
 // 이름 & 공부시간 firestore에 포스트
 export async function postData(id: string) {
-  const secs = Number(localStorage.getItem("time"));
+  const secs = Number(sessionStorage.getItem("time"));
   await setDoc(doc(db, "ranking", id), {
     name: id,
     time: secs,
@@ -103,6 +103,33 @@ export const calculateStudyTime = (
   return `총 공부 시간 : ${hours}시간 ${minutes}분 ${seconds}초`;
 };
 
+// 시간 세션스토리지에 저장
 export const saveTimeInBrowser = (time: number | null) => {
-  localStorage.setItem("time", String(time));
+  sessionStorage.setItem("time", String(time));
 };
+
+// 랭킹 세션스토리지에 저장
+export const saveRankingInBrowser = (data: object[]) => {
+  sessionStorage.setItem("ranking", JSON.stringify(data));
+};
+
+// 랭킹 URL 상수
+export const RANKING_URL = "https://techschool-wiki.web.app/ranking";
+
+export const getTimeFromBrowser = (): number | null => {
+  const storedTime = sessionStorage.getItem("time");
+  if (storedTime !== null) {
+    return parseInt(storedTime, 10);
+  }
+  return null;
+};
+
+// export const getTimeFromBrowser = (reset = false) => {
+//   if (reset) {
+//     sessionStorage.setItem('studyTime', '0');
+//     return 0;
+//   }
+
+//   const time = sessionStorage.getItem('studyTime');
+//   return time ? parseInt(time, 10) : null;
+// };

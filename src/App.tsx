@@ -10,6 +10,12 @@ import Wiki from "./pages/Wiki";
 import Gallery from "./pages/Gallery";
 import Ranking from "./pages/Ranking";
 import "./styles/reset.css";
+import {
+  sortRanking,
+  getDayAndReset,
+  getRankingDocsToArr,
+  saveRankingInBrowser,
+} from "./utils/timerAndRanking";
 
 function App() {
   const categories = [
@@ -22,7 +28,16 @@ function App() {
   ];
 
   useEffect(() => {
-    SaveTeam().then(() => SaveContents(categories));
+    if (!sessionStorage.getItem("teamList")) {
+      SaveTeam().then(() => SaveContents(categories));
+    }
+
+    getRankingDocsToArr().then(doc => {
+      const sortedData = sortRanking(doc);
+      saveRankingInBrowser(sortedData);
+    });
+    getDayAndReset();
+
   }, []);
 
   return (

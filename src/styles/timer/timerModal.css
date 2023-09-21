@@ -48,19 +48,16 @@
 }
 
 /* play, stop 아이콘 */
-.material-symbols-outlined {
-  font-size: 56px !important;
-}
-
 .PlayStopContainer {
   display: flex;
-  justify-content: center;
-  align-items: center;
 
   position: absolute;
   top: 32%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  align-items: center;
+  justify-content: center;
 }
 
 .PlayStopContainer::before {
@@ -81,53 +78,61 @@
 .PlayButtonContainer,
 .StopButtonContainer {
   display: flex;
+
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.PlayButtonContainer {
-  margin-right: 22px;
+.PlayButton {
+  margin-right: 20px;
+
+  cursor: pointer;
 }
 
-.StopButtonContainer {
-  margin-left: 42px;
+.StopButton {
+  margin-left: 100px;
+
+  cursor: pointer;
 }
 
 .TimeLabelsContainer {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 100px;
 
   position: absolute;
   top: 44%;
   left: 50%;
   transform: translate(-50%, -50%);
 
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+
   line-height: 16px;
 }
 
-.StopLabel {
-  margin-right: 20px;
+.StopTimeContainer {
+  margin-left: 30px;
 }
 
 .StopTime {
-  margin-right: 22px;
   font-size: 12px;
 }
 
 .PlayLabel,
 .StopLabel {
+  margin-right: 4px;
+
   font-size: 14px;
 }
 
 .PlayTime {
   margin-left: 8px;
+
   font-size: 12px;
 }
 
-/* ResumeButton, BreakButton & ResetButton */
+/* 휴식, 휴식끝, Reset 버튼 */
 .ResumeButton,
 .BreakButton,
 .ResetButton {
@@ -160,8 +165,6 @@
 /* 타이머 */
 .TimeContainer {
   display: flex;
-  align-items: center;
-  justify-content: center;
 
   position: absolute;
   top: 60%;
@@ -173,6 +176,9 @@
 
   border: 1px solid #dddada;
   background-color: #f9f9f9;
+
+  align-items: center;
+  justify-content: center;
 }
 
 .TimerText,
@@ -193,7 +199,7 @@
   left: 31%;
   transform: translate(-50%, -50%);
 
-  font-size: 16px;
+  font-size: 14px;
   color: rgb(170, 175, 175);
 }
 
@@ -266,6 +272,7 @@
 
   appearance: button;
   cursor: pointer;
+
   outline: none;
   overflow: visible;
   touch-action: manipulation;
@@ -277,6 +284,7 @@
 
 .SubmitButton:after {
   position: absolute;
+
   bottom: -4px;
   left: 0;
   right: 0;
