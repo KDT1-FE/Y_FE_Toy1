@@ -38,7 +38,7 @@ export function UserCardModal({
                   <h4>{selectedUser.nickname}</h4>
                   <p>{'Name : ' + selectedUser.username}</p>
                   <p>{'Email : ' + selectedUser.email}</p>
-                  <Timer id={selectedUser.id} />
+                  <Timer showButton={false} id={selectedUser.id} />
                 </div>
               </>
             )}
