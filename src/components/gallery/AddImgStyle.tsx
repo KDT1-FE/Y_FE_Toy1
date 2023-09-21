@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  z-index: 10000;
   position: fixed;
   top: 0;
   left: 0;
@@ -45,6 +46,12 @@ export const ImgLabel = styled.label`
   &.active {
     border: 3px dashed var(--color-main);
     background-color: var(--color-area);
+  }
+
+  & > .preview_msg {
+    margin-top: 1rem;
+    font-weight: 500;
+    color: var(--color-main);
   }
 `;
 

@@ -32,10 +32,8 @@ export default function SignIn() {
 
   const handleClickCreate = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log("안녕하세요");
     signInWithEmailAndPassword(auth, email, pwd)
       .then(() => {
-        alert("로그인 성공");
         navigate("/");
       })
       .catch((e) => {

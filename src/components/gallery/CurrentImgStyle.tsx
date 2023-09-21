@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const CurrentImgBg = styled.div<{ scale: number }>`
-  z-index: 1000;
+  z-index: 10000;
   position: fixed;
   top: 0;
   left: 0;
@@ -124,12 +124,18 @@ export const Size = styled.div`
 `;
 
 export const DeleteBtn = styled.div`
-  border: 1px solid red;
+  // border: 1px solid red;
+  border-radius: 0.85rem;
+  background-color: rgba(0, 0, 0, 0.8);
   cursor: pointer;
-  color: red;
+  color: #fff;
   font-weight: bold;
-  padding: 3px 6px;
+  padding: 10px 20px;
   position: fixed;
   top: 2%;
   right: 2%;
+
+  &:hover {
+    background-color: rgba(150, 150, 150, 0.9);
+  }
 `;

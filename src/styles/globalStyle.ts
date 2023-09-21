@@ -1,11 +1,15 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
-  :root {
+  * {
     font-family: "Noto Sans KR";
     line-height: 1.5;
     font-size: 16px;
     box-sizing: border-box;
+  }
+
+  #root {
+    position: relative;
   }
   
   html {
@@ -63,6 +67,13 @@ export const GlobalStyle = createGlobalStyle`
     border: 0;
     border-radius: 12px 12px 12px 12px;
   }
+
+  .tui-editor-contents {
+    font-family: "Noto Sans KR";
+    line-height: 1.5;
+    font-size: 16px;
+  }
+
 `;
 
 export default GlobalStyle;

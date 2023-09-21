@@ -5,6 +5,7 @@ interface Props {
   margin?: string;
   padding: string;
   normal?: string;
+  disabled?: boolean;
   onClick?: () => void;
 }
 
@@ -13,13 +14,15 @@ export default function Button({
   padding,
   margin,
   normal,
+  disabled,
   onClick,
 }: Props) {
   return (
     <style.Container
-      margin={margin}
-      padding={padding}
-      normal={normal}
+      disabled={disabled}
+      $margin={margin}
+      $padding={padding}
+      $normal={normal}
       onClick={onClick}
     >
       {text}

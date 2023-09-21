@@ -1,4 +1,3 @@
-import React from "react";
 import SignIn from "@components/login/SignIn";
 
 import * as style from "./loginStyle";

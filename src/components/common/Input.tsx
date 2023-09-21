@@ -8,6 +8,7 @@ interface Props {
   placeholder?: string;
   forwardedRef?: React.Ref<HTMLInputElement>;
   value?: string;
+  width?: string;
 }
 
 export default function Input({
@@ -18,6 +19,7 @@ export default function Input({
   placeholder,
   forwardedRef,
   value,
+  width,
 }: Props) {
   return (
     <style.Input
@@ -28,6 +30,7 @@ export default function Input({
       onKeyPress={onKeyPress}
       ref={forwardedRef}
       value={value}
+      width={width}
     />
   );
 }
