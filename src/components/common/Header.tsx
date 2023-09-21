@@ -41,7 +41,7 @@ export default function Header({ email }: Props) {
       <style.Container>
         <style.Top>
           <style.Wrapper>
-            <style.Logo>9굴 WIKI</style.Logo>
+            <style.Logo to={"/"}>9굴 WIKI</style.Logo>
           </style.Wrapper>
           <style.Wrapper>
             <style.UserName>{email}</style.UserName>

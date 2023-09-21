@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export const Container = styled.div`
   position: sticky;
@@ -24,7 +24,7 @@ export const Wrapper = styled.div`
   align-items: center;
 `;
 
-export const Logo = styled.span`
+export const Logo = styled(Link)`
   color: var(--color-dark-gray);
   font-weight: 700;
   font-size: 1.13rem;
