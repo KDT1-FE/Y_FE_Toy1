@@ -23,16 +23,18 @@ const Header = () => {
       <Navbar>
         <div className="nav-wrapper">
           <div className="title">
-            <Link to={'/'}>App Logo</Link>
+            <Link to={'/'}>
+              <StyledImage src="../../../src/assets/Pokemon.png"></StyledImage>
+            </Link>
           </div>
-          <InputWrapper>
+          {/* <InputWrapper>
             <div className="icon">
               <button className="btn">
                 <CiSearch size="20" />
               </button>
             </div>
             <input type="text" />
-          </InputWrapper>
+          </InputWrapper> */}
         </div>
 
         <div className="nav-wrapper">
@@ -145,6 +147,11 @@ const InputWrapper = styled.div`
     font-size: ${(props) => props.theme.fontSize.text};
     font-weight: 400;
   }
+`;
+
+const StyledImage = styled.img`
+  width: 80px;
+  padding-left: 10px;
 `;
 
 export default Header;

@@ -13,11 +13,13 @@ import Auth from '../pages/auth/Auth';
 import Login from '../pages/auth/Login';
 import Join from '../pages/auth/Join';
 import Detail from '../pages/detail/Detail';
-import Contact from '../pages/contact/Contact';
 import Modify from '../pages/mypage/modify';
 import Mypage from '../pages/mypage/Mypage';
 import UserInfo from '../pages/mypage/UserInfo';
-import Notice from '../pages/Notice';
+import About from '../pages/about/About';
+import Figma from '../pages/about/Figma';
+import Notion from '../pages/about/Notion';
+import Github from '../pages/about/Github';
 
 export const router = createBrowserRouter([
   {
@@ -113,6 +115,28 @@ export const router = createBrowserRouter([
         ],
       },
       {
+        path: '/about',
+        element: <About />,
+        children: [
+          {
+            index: true,
+            element: <Figma />,
+          },
+          {
+            path: 'figma',
+            element: <Figma />,
+          },
+          {
+            path: 'notion',
+            element: <Notion />,
+          },
+          {
+            path: 'github',
+            element: <Github />,
+          },
+        ],
+      },
+      {
         path: 'login',
         element: <Auth />,
         children: [
@@ -125,14 +149,6 @@ export const router = createBrowserRouter([
             element: <Join />,
           },
         ],
-      },
-      {
-        path: 'contact',
-        element: <Contact />,
-      },
-      {
-        path: 'notice/:index',
-        element: <Notice />,
       },
     ],
   },
