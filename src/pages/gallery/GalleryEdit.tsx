@@ -7,7 +7,6 @@ import { collection, doc, addDoc, updateDoc, getDoc, Timestamp } from "firebase/
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "provider/userContext";
 import userData from "./UserData";
-import { timeStamp } from "console";
 import Swal from "sweetalert2";
 
 // 함수 인자 타입 선언
@@ -43,16 +42,25 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit, setGalle
     // 새로고침방지
     e.preventDefault();
 
+  // 카테고리, 제목, 설명 유효성 검사
+  if (!originData.category || !originData.title || !originData.desc) {
+    Swal.fire({
+      icon: "error",
+      title: "모든 필드를 채워주세요",
+      confirmButtonText: "확인",
+    });
+    return; // 유효성 검사 실패 시 함수 종료
+  }
+
     // 글 작성한 날짜 구하기
     const today = new Date();
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0'); 
     const day = String(today.getDate()).padStart(2, '0');
     const printedData = `${year}-${month}-${day}`;
-    console.log('a')
     // 등록할 썸네일 변수선언
     let thumbnailUrl: string | undefined;
-    console.log('b')
+
     // 썸네일 이미지 업로드
     if (imageUpload) {
       const imageRef = ref(storage, `image/${imageUpload.name}`);
@@ -97,7 +105,6 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit, setGalle
       });
 
       setGalleryData((prevData) => [
-        ...prevData,
         {
           category: originData.category,
           title: originData.title,
@@ -107,7 +114,8 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit, setGalle
           writer: String(user?.displayName),
           uid: user?.uid,
           thumbnail: thumbnailUrl
-        }
+        },
+        ...prevData
       ]);
 
       // 리스트 경로로 이동
@@ -265,7 +273,6 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit, setGalle
       const usersCollectionRef = collection(db, "gallery");
       const userRef = doc(usersCollectionRef, id);
       const userSnap = await getDoc(userRef);
-      console.log('edit 페이지')
       if (userSnap.exists()){
         const {category, title, desc, thumbnail, date} = userSnap.data()
         setFormData({
@@ -273,9 +280,8 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit, setGalle
         })
       }
   }
-  if(onEdit){
+  if(onEdit && id){
     fetchUser(id)
-    console.log('수정할 데이터 가져오기 성공')
   }
   }, [onEdit, id]);
 
@@ -382,6 +388,9 @@ const FormList = styled.div`
     width:100%;
     border: 1px solid #ccc;
     height:30px;
+    @media screen and (max-width:1200px) {
+      width:  80%;
+    }
   }
   .preview{
     position: relative;
@@ -391,6 +400,7 @@ const FormList = styled.div`
     overflow: hidden;
     display: flex;
     justify-content: center;
+
     &:after{
       content:'썸네일 수정';
       position: absolute;
@@ -416,6 +426,16 @@ const FormList = styled.div`
       z-index:3;
       left: 0;
       top: 0;
+    }
+  }
+  .quill{
+    height:300px;
+    margin-bottom:40px;
+  }
+  @media screen and (max-width:1200px) {
+    .quill{
+      height:100%;
+      margin-bottom:0px;
     }
   }
 `

@@ -132,13 +132,6 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({ setOnEdit, setGalleryData
         return (
           <div key={user.id} style={{ margin: "30px" }}>
               <GalleryHeader>
-                <div className="Gallery__btn-wrap">
-                <button onClick={() => {deleteGallery(user.id)}} className="Gallery__btn delete">삭제</button>
-                <button onClick={() => {editGallery(user.id)}} className="Gallery__btn">수정</button>
-                </div>
-              </GalleryHeader>
-              <GalleryThumb>
-                <img src={user.thumbnail} alt="썸네일"/>
               <GalleryDesc>
                 <div className="Gallery__title"> {user.title}</div>
                 <div className="Gallery__desc">
@@ -146,10 +139,17 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({ setOnEdit, setGalleryData
                   <span>{user.writer}</span>
                 </div>
               </GalleryDesc>
-            </GalleryThumb>
-            <GalleryEditor>
-              { user.desc ? <div dangerouslySetInnerHTML={{ __html: user.desc }}></div> : null }
-            </GalleryEditor>
+                <div className="Gallery__btn-wrap">
+                <button onClick={() => {deleteGallery(user.id)}} className="Gallery__btn delete">삭제</button>
+                <button onClick={() => {editGallery(user.id)}} className="Gallery__btn">수정</button>
+                </div>
+              </GalleryHeader>
+              <GalleryThumb>
+                <img src={user.thumbnail} alt="썸네일"/>
+              </GalleryThumb>
+              <GalleryEditor>
+                { user.desc ? <div dangerouslySetInnerHTML={{ __html: user.desc }}></div> : null }
+              </GalleryEditor>
           </div>
         )
       })
@@ -167,7 +167,14 @@ const GalleryHeader = styled.div`
   margin-top: 40px;
   display: flex;
   justify-content: flex-end;
+  align-items: flex-start;
   margin-bottom: 20px;
+
+  @media screen and (max-width:1200px){
+    flex-direction: column;
+    gap: 20px;
+  }
+
   .Gallery__btn-wrap {
     display: flex;
     gap: 10px;
@@ -192,18 +199,10 @@ const GalleryHeader = styled.div`
 const GalleryDesc = styled.div`
   font-size: 14px;
   font-weight: 400;
-  margin-top: 10px;
-  position: absolute;
   width: 100%;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index:10;
-  padding: 0 20px;
   .Gallery__title {
     font-size: 1.4rem;
     font-weight: 700;
-    color:white;
   }
   .Gallery__desc{
     position: relative;
@@ -214,7 +213,6 @@ const GalleryDesc = styled.div`
     position: relative;
     display: inline-block;
     padding: 0 0.5em;
-    color: rgba(255,255,255,0.6);
     font-weight: 400;
     &:before {
       content: "";
