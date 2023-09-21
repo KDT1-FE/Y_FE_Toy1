@@ -1,4 +1,3 @@
-import React from 'react';
 import { useRef } from 'react';
 import useOnClickOutside from '../../hooks/gallery/useOnClickOutside';
 import { UploadedImage } from './types';
@@ -9,10 +8,9 @@ interface ViewModalProps {
   imageDetail: UploadedImage;
   selectedImage: string;
   setImgModalOpen: (isOpen: boolean) => void;
-  likeImage: (id: string, like: number) => void;
 }
 
-const ImageViewModal = ({ imageDetail, setImgModalOpen, likeImage }: ViewModalProps) => {
+const ImageViewModal = ({ imageDetail, setImgModalOpen }: ViewModalProps) => {
   const ref = useRef();
   //hooks
   useOnClickOutside(ref, () => {

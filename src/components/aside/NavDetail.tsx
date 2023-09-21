@@ -16,7 +16,7 @@ const NavDetail = () => {
   const links = [
     { to: '/company/notice', text: '공지사항' },
     { to: '/company/chart', text: '회사 조직도' },
-    { to: '/company/bylaws', text: '회사 내규' },
+    { to: '/company/benefit', text: '회사 내규' },
   ];
 
   return (

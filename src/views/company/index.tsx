@@ -1,5 +1,5 @@
 import Notice from './Notice';
 import Chart from './Chart';
-import Bylaws from './Bylaws';
+import Benefit from './Benefit';
 
-export { Notice, Chart, Bylaws };
+export { Notice, Chart, Benefit };

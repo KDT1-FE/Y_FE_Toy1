@@ -23,7 +23,7 @@ const ImageUploadModal = ({
   handleImageUploadClick,
 }: Props) => {
   const ref = useRef();
-  console.log('uploadRef', ref.current);
+  // console.log('uploadRef', ref.current);
   useOnClickOutside(ref, () => {
     setFormModalOpen(false);
   });

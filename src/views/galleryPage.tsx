@@ -1,10 +1,10 @@
-import app from '../firebase/config';
+// import app from '../firebase/config';
 import { db, storage, galleryCollection } from '../firebase';
 import { doc, addDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 import { useState } from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { GalleryQueryKeyEnum } from '../hooks/gallery/query/common';
 import useDocList from '../hooks/gallery/query/useDocList';
 import useImgList from '../hooks/gallery/query/useImgList';
@@ -30,6 +30,7 @@ const GalleryPage = () => {
   //upload image
   const uploadImg = async () => {
     if (imageFileToUpload === null) {
+      alert('이미지를 첨부해 주세요');
       return;
     }
     const imgRef = ref(storage, `images/gallery/${imageFileToUpload.name + new Date().getTime()}`);
@@ -53,14 +54,14 @@ const GalleryPage = () => {
     setFormModalOpen(false);
   };
 
-  const likeImage = async (id, like) => {
+  const likeImage = async (id: string, like: number) => {
     const myDoc = doc(db, 'gallery', id);
     const newFields = { like: like + 1 };
     await updateDoc(myDoc, newFields);
     queryClient.invalidateQueries([GalleryQueryKeyEnum.DocList]);
   };
 
-  const deleteData = async id => {
+  const deleteData = async (id: string) => {
     const myDoc = doc(db, 'gallery', id);
     await deleteDoc(myDoc);
     queryClient.invalidateQueries([GalleryQueryKeyEnum.DocList]);
@@ -69,7 +70,7 @@ const GalleryPage = () => {
   const handleClick = (url: string) => {
     setImgModalOpen(true);
     setSelectedImage(url);
-    console.log(url);
+    // console.log(url);
   };
 
   return (
