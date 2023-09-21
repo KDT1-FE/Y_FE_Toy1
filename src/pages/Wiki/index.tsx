@@ -5,26 +5,26 @@ import { read } from 'apis/Wiki';
 import { useLocation } from 'react-router-dom';
 import { media } from 'styles/media';
 import Loading from 'components/Common/Loading';
-import WikiContent from 'components/Wiki/index'
-import WikiCreate from 'components/Wiki/WikiCreate'
+import WikiContent from 'components/Wiki/WikiContent';
+import WikiCreate from 'components/Wiki/WikiCreate';
+import { DocumentData } from 'firebase/firestore';
 
 function Wiki() {
   const [isEdit, setIsEdit] = useState(false);
-  const [data, setData] = useState(Object);
+  const [data, setData] = useState<DocumentData | undefined>();
   const [isChange, setIsChanged] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
+  const searchParams = new URLSearchParams(useLocation().search);
   let selectedCategory = searchParams.get('category');
-  if (selectedCategory === null) selectedCategory = 'companyRule';
+  if (!selectedCategory) selectedCategory = 'companyRule';
 
   const getDocumentList = async () => {
-    setIsLoading(true)
-    if (selectedCategory === null) return;
+    setIsLoading(true);
+    if (!selectedCategory) return;
     const document = await read(selectedCategory);
     setData(document);
-    setIsLoading(false)
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -34,41 +34,39 @@ function Wiki() {
   useEffect(() => {
     if (isEdit) setIsEdit(false);
     getDocumentList();
-  }, [isChange])
+  }, [isChange]);
 
   return (
     <StyledWikiContainer>
-      <NavigationWiki
-        setIsChanged={setIsChanged}
-        isChange={isChange}
-      ></NavigationWiki>
-      <div>
-        {isEdit ? (
-          <WikiCreate
-            setIsEdit={setIsEdit}
-            data={data}
-            selectedCategory={selectedCategory}
-          ></WikiCreate>
-        ) : (
-          <StyledTextareaContainer>
-            {isLoading ? (
-              <Loading></Loading>
-            ) : (
-              <WikiContent data={data} setIsEdit={setIsEdit} />
-            )}
-          </StyledTextareaContainer>
-        )}
-      </div>
+      <NavigationWiki setIsChanged={setIsChanged} isChange={isChange} />
+      {isEdit ? (
+        <WikiCreate
+          setIsEdit={setIsEdit}
+          data={data}
+          selectedCategory={selectedCategory}
+        />
+      ) : (
+        <StyledTextareaContainer>
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <WikiContent
+              data={data}
+              setIsEdit={setIsEdit}
+              setIsChanged={setIsChanged}
+              isChange={isChange}
+            />
+          )}
+        </StyledTextareaContainer>
+      )}
     </StyledWikiContainer>
   );
 }
 
-
 const StyledWikiContainer = styled.div`
   display: grid;
-  grid-template-columns: 0.2fr 0.8fr;
+  grid-template-columns: 0.2fr 1fr;
 `;
-
 
 const StyledTextareaContainer = styled.div`
   margin: 2rem;
@@ -112,40 +110,5 @@ const StyledTextareaContainer = styled.div`
     height: 25rem;
   `)}
 `;
-
-// const StyledWikiNotExist = styled.div`
-//   font-size: 1.5rem;
-//   font-weight: 600;
-//   text-align: center;
-//   position: absolute;
-
-//   width: 100%;
-//   height: 100%;
-//   top: 50%;
-
-//   button {
-//     position: relative;
-//     color: #3584f4;
-//     font-size: 1rem;
-//     text-align: right;
-//     cursor: pointer;
-//   }
-
-//   ${media.desktop_lg(`
-//     font-size: 1.5rem;
-//   `)}
-//   ${media.tablet(`
-//     font-size: 1.25rem;
-//   `)}
-//   ${media.tablet_680(`
-//     font-size: 1rem;
-//   `)}
-//   ${media.tablet_625(`
-//     font-size: 0.75rem;
-//   `)}
-//   ${media.mobile_430(`
-//     font-size: 0.5rem;
-//   `)}
-// `;
 
 export default Wiki;

@@ -1,5 +1,6 @@
 import MDEditor from '@uiw/react-md-editor';
 import { create, update } from 'apis/Wiki';
+import { DocumentData } from 'firebase/firestore';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { media } from 'styles/media';
@@ -7,13 +8,13 @@ import { media } from 'styles/media';
 interface createProps {
   setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
   selectedCategory: string;
-  data: any;
+  data: DocumentData | undefined;
 }
 
 function WikiCreate({ setIsEdit, selectedCategory, data }: createProps) {
   const isCreate = data === undefined;
   const [textValue, setTextValue] = useState(isCreate ? '' : data.content);
-  const handleSetValue = (text: string) => {
+  const handleSetValue = (text: string | undefined) => {
     if (text) {
       setTextValue(text);
     }
@@ -26,11 +27,10 @@ function WikiCreate({ setIsEdit, selectedCategory, data }: createProps) {
     }
     if (isCreate) {
       await create(selectedCategory, textValue);
-      setIsEdit(false);
     } else {
       await update(selectedCategory, textValue);
-      setIsEdit(false);
     }
+    setIsEdit(false);
   };
 
   return (
@@ -44,7 +44,7 @@ function WikiCreate({ setIsEdit, selectedCategory, data }: createProps) {
         placeholder="등록할 내용을 입력해주세요."
         value={textValue}
         onChange={(event) => {
-          handleSetValue(event as string);
+          handleSetValue(event);
         }}
         id="markdownEditor"
       />
@@ -83,7 +83,7 @@ const StyledTextareaContainer = styled.div`
   .document .markdownViewer::-webkit-scrollbar {
     display: none;
   }
-  
+
   ${media.desktop_lg(`
     width: 35rem;
     height: 40rem; 
