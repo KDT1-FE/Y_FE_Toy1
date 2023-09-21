@@ -9,12 +9,13 @@ import {
   getCalendarData,
   uploadCalendarData,
 } from 'apis/Calendar';
-import { CloseImg } from 'components/CommuteModal';
+import { StyledCloseImg } from 'components/CommuteModal';
 import { dayFormat } from 'utils/format';
 import Swal from 'sweetalert2';
 import { getName } from 'utils/user';
 import { EventClickArg } from '@fullcalendar/core';
 import { media } from 'styles/media';
+import { checkValidate } from 'utils/validate';
 
 interface IEvent {
   title: string;
@@ -28,31 +29,25 @@ function Calendar() {
   const [isDelete, setIsDelete] = useState(false);
 
   const getEvents = async () => {
-    console.log('실행');
     const responseArray = await getCalendarData();
     setEvents(responseArray);
   };
 
-  const checkValidate = (endDate: string, startDate: string) => {
-    if (new Date(endDate) > new Date(startDate)) {
-      alert('종료일이 시작일보다 먼저입니다 다시 작성해주세요');
-      return false;
-    }
-    return true;
-  };
-
   const handleEventAlert = async (info: EventClickArg) => {
+    const title = info.event._def?.title;
+    const startDate = info.event._instance?.range.start;
+    const endDate = info.event._instance?.range.end;
+
     const result = await Swal.fire({
-      title: `${info.event._def?.title}`,
-      text: `${dayFormat(info.event._instance?.range.end)}~${dayFormat(
-        info.event._instance?.range.start,
-      )}`,
+      title: `${title}`,
+      text: `${dayFormat(endDate)}~${dayFormat(startDate)}`,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#001529',
       confirmButtonText: '일정 삭제',
       cancelButtonText: '취소',
     });
+
     if (result.isConfirmed) {
       await deleteCalendarData(info.event._def?.publicId);
       setIsDelete(!isDelete);
@@ -117,7 +112,7 @@ function Calendar() {
       <ReactModal isOpen={showModal} ariaHideApp={false} style={StyledModal}>
         <StyledTopContainer>
           일정을 등록해주세요
-          <CloseImg
+          <StyledCloseImg
             src={closeButton}
             onClick={() => {
               setShowModal(false);

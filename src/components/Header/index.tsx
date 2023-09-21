@@ -31,21 +31,21 @@ function Header() {
 
   return (
     <StyledHeader>
-      <Container>
-        <LogoContainer>
+      <StyledContainer>
+        <StyledLogoContainer>
           <StyledMainMenu to={ROUTES.MAIN}>
             <img src={logo}></img>
             WIKI
           </StyledMainMenu>
-        </LogoContainer>
-        <MenuContainer>
+        </StyledLogoContainer>
+        <StyledMenuContainer>
           {menus.map((menu, index) => (
-            <Menu to={menu.route} key={index}>
+            <StyledMenu to={menu.route} key={index}>
               {menu.name}
               <img src={menu.logo}></img>
-            </Menu>
+            </StyledMenu>
           ))}
-        </MenuContainer>
+        </StyledMenuContainer>
         <div
           onClick={() => {
             setMenuToggle(false);
@@ -75,12 +75,12 @@ function Header() {
             ))}
           </StyledSideBar>
         )}
-      </Container>
+      </StyledContainer>
     </StyledHeader>
   );
 }
 
-const Menu = styled(Link)`
+const StyledMenu = styled(Link)`
   font-size: 1.1rem;
   font-weight: 300;
 
@@ -104,7 +104,7 @@ const StyledHeader = styled.div`
   top: 0;
   z-index: 10000;
 `;
-const Container = styled.div`
+const StyledContainer = styled.div`
   max-width: 98.75rem;
   margin: 0 auto;
   height: 4rem;
@@ -122,7 +122,7 @@ const Container = styled.div`
     max-width: 55rem;
   `)}
 `;
-const LogoContainer = styled.div`
+const StyledLogoContainer = styled.div`
   width: 6.25rem;
 
   flex-grow: 6;
@@ -139,7 +139,7 @@ const StyledMainMenu = styled(Link)`
   display: flex;
   align-items: center;
 `;
-const MenuContainer = styled.div`
+const StyledMenuContainer = styled.div`
   display: flex;
   gap: 1rem;
   flex: 1;
