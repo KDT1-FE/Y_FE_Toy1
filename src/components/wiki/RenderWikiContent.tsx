@@ -20,14 +20,14 @@ export default function RenderWikiContent({
     ? convertTimestampToDate(Wiki.createdAt)
     : null;
   const formattedCreatedAt = createdAtDate
-    ? formatDateToCustomFormat(createdAtDate, "yyyy.dd.MM HH:mm:ss")
+    ? formatDateToCustomFormat(createdAtDate, "yyyy.MM.dd HH:mm:ss")
     : "";
 
   const updatedAtDate = Wiki?.updatedAt
     ? convertTimestampToDate(Wiki.updatedAt)
     : null;
   const formattedUpdatedAt = updatedAtDate
-    ? formatDateToCustomFormat(updatedAtDate, "yyyy.dd.MM HH:mm:ss")
+    ? formatDateToCustomFormat(updatedAtDate, "yyyy.MM.dd HH:mm:ss")
     : "";
 
   const isAdmin = (currentUser: string | undefined) =>
