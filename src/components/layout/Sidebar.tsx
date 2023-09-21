@@ -27,7 +27,7 @@ const Sidebar = () => {
       return(
         <MobileContainer>
           {/*Inner Container 부분이 움직입니다, MobileContainer 부분은 움직이지 않고, 모바일 사이드바 렌더링 시 나타납니다 */}
-          <MobileInnerContainer displaysidebar={displaySidebar}>
+          <MobileInnerContainer displaysidebar={displaySidebar?"true":"false"}>
             <div className="header__mobile-close-wrap" onClick={()=>{setDisplaySidebar(false)}}>
               <img src={process.env.PUBLIC_URL+'/svg/icon_close.svg'} alt="닫기 버튼" />    
             </div>
@@ -152,7 +152,7 @@ const Sidebar = () => {
       return(
         <MobileContainer>
         {/*Inner Container 부분이 움직입니다, MobileContainer 부분은 움직이지 않고, 모바일 사이드바 렌더링 시 나타납니다 */}
-        <MobileInnerContainer displaysidebar={displaySidebar}>
+        <MobileInnerContainer displaysidebar={displaySidebar?"true":"false"}>
           <div className="header__mobile-close-wrap" onClick={()=>{setDisplaySidebar(false)}}>
             <img src={process.env.PUBLIC_URL+'/svg/icon_close.svg'} alt="닫기 버튼" />    
           </div>
@@ -199,7 +199,7 @@ const MobileContainer = styled.div`
 `
 
 interface IMobileInnerContainer {
-  displaysidebar: boolean;
+  displaysidebar: string;
 }
 const MobileInnerContainer = styled.div<IMobileInnerContainer>`
   position:absolute;
@@ -207,7 +207,7 @@ const MobileInnerContainer = styled.div<IMobileInnerContainer>`
   width: 100vw;
   z-index: 15;
   background-color: #fff;
-  left:${props=>props.displaysidebar? '0px;' : '-100vw;'}
+  left:${props=>props.displaysidebar==="true" ? '0px;' : '-100vw;'}
   transition: all 1s ease-in-out;
 
   .header__mobile-close-wrap{
