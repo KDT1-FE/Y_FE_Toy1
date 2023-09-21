@@ -89,9 +89,9 @@ const Rank = () => {
 
 const Container = styled.section<IContainer>`
   position: relative;
-  left: 200px;
+  left: ${props=>props.leftMargin}px;
   height: calc(100% - ${props=>props.topMargin}px);
-  width: calc(100% - 200px);
+  width: calc(100% - ${props=>props.leftMargin}px);
   padding: 5px;
   box-sizing: border-box;
 `;
