@@ -16,6 +16,7 @@ import Detail from '../pages/detail/Detail';
 import Modify from '../pages/mypage/modify';
 import Mypage from '../pages/mypage/Mypage';
 import UserInfo from '../pages/mypage/UserInfo';
+import Notice from '../pages/Notice';
 import About from '../pages/about/About';
 import Figma from '../pages/about/Figma';
 import Notion from '../pages/about/Notion';
@@ -135,6 +136,10 @@ export const router = createBrowserRouter([
             element: <Github />,
           },
         ],
+      },
+      {
+        path: 'notice/:index',
+        element: <Notice />,
       },
       {
         path: 'login',
