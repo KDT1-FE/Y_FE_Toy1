@@ -17,6 +17,7 @@ export default function Root() {
   const { auth } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false); // 게시글 작성 모달
   const [selectedPost, setSelectedPost] = useState<FirestorePostData | null>(null);
+  
   const [PostedModalOpen, setPostedModalOpen] = useState(false); // 작성된 게시글 모달
   const [posts, setPosts] = useState<FirestorePostData[]>([]);
   const [title, setTitle] = useState('');
@@ -34,7 +35,6 @@ export default function Root() {
     setPostedModalOpen(false);
   };
 
-  
   // 게시글 작성하는 모달
   const handleOpenModal = () => {
     if (user && user.uid) {
