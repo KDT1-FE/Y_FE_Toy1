@@ -10,6 +10,11 @@
     font-weight: $font-bold700;
     margin-bottom: 1.6rem;
   }
+  &__date {
+    font-size: 2rem;
+    font-weight: $font-bold900;
+    margin-bottom: 1rem;
+  }
   &__btn {
     &-box {
       display: flex;
@@ -36,11 +41,6 @@
       width: 30%;
       flex-shrink: 0;
       cursor: pointer;
-      // &.active {
-      //   background: $blue;
-      //   border: $blue;
-      //   color: #e3ff2e;
-      // }
     }
   }
 }
