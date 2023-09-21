@@ -61,6 +61,18 @@ function Content() {
     setText(content);
   }, [content]);
 
+  const updateContent = () => {
+    const newContent = sessionStorage.getItem(title);
+
+    if (newContent) {
+      setContent(JSON.parse(newContent).content);
+      if (isEditorOpen) {
+        setText(content);
+        setIsEditorOpen(false);
+      }
+    }
+  };
+
   return (
     <div className="WikiContentWrap">
       {isLoading ? <Loading /> : <div> </div>}
@@ -69,10 +81,15 @@ function Content() {
         {isTeamContent ? (
           ""
         ) : (
-          <EditButton
-            isEditorOpen={isEditorOpen}
-            setIsEditorOpen={setIsEditorOpen}
-          />
+          <div className="FeatBtns">
+            <button type="button" onClick={updateContent}>
+              변경 사항 불러오기
+            </button>
+            <EditButton
+              isEditorOpen={isEditorOpen}
+              setIsEditorOpen={setIsEditorOpen}
+            />
+          </div>
         )}
       </div>
 

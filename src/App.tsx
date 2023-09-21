@@ -18,16 +18,26 @@ import {
 } from "./utils/timerAndRanking";
 
 function App() {
+  const categories = [
+    "커리큘럼",
+    "교육생 소개",
+    "완료된 프로젝트",
+    "진행 중인 프로젝트",
+    "휴가 정책",
+    "복리후생",
+  ];
+
   useEffect(() => {
     if (!sessionStorage.getItem("teamList")) {
-      SaveContents();
-      SaveTeam();
+      SaveTeam().then(() => SaveContents(categories));
     }
+
     getRankingDocsToArr().then(doc => {
       const sortedData = sortRanking(doc);
       saveRankingInBrowser(sortedData);
     });
     getDayAndReset();
+
   }, []);
 
   return (

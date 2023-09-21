@@ -126,6 +126,10 @@
   font-size: 22px;
 }
 
+.FeatBtns {
+  display: flex;
+}
+
 /* src/component/Wiki/TextEditor */
 
 .TextEditorWrap {
