@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import { read } from 'apis/Wiki';
 import { useLocation } from 'react-router-dom';
 import { media } from 'styles/media';
-import Loading from 'components/Common/Loading';
-import WikiContent from 'components/Wiki/index'
-import WikiCreate from 'components/Wiki/WikiCreate'
+import { Loading } from 'components/Common/Loading';
+import WikiContent from 'components/Wiki/index';
+import WikiCreate from 'components/Wiki/WikiCreate';
 
 function Wiki() {
   const [isEdit, setIsEdit] = useState(false);
@@ -20,11 +20,11 @@ function Wiki() {
   if (selectedCategory === null) selectedCategory = 'companyRule';
 
   const getDocumentList = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     if (selectedCategory === null) return;
     const document = await read(selectedCategory);
     setData(document);
-    setIsLoading(false)
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -34,7 +34,7 @@ function Wiki() {
   useEffect(() => {
     if (isEdit) setIsEdit(false);
     getDocumentList();
-  }, [isChange])
+  }, [isChange]);
 
   return (
     <StyledWikiContainer>
@@ -63,12 +63,10 @@ function Wiki() {
   );
 }
 
-
 const StyledWikiContainer = styled.div`
   display: grid;
   grid-template-columns: 0.2fr 0.8fr;
 `;
-
 
 const StyledTextareaContainer = styled.div`
   margin: 2rem;
