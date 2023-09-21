@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux/es/hooks/useSelector';
 import '../scss/components/_headerDropDown.scss';
 import '../scss/components/_header.scss';
 
+import logo from '../assets/highfive_logo.png';
+
 interface StateValue {
   isLogin: boolean;
   name: string;
@@ -33,8 +35,7 @@ const Header = (): JSX.Element => {
       <header className="header shadow">
         <div className="header__logo">
           <Link to="/">
-            <span> HIGH FIVE</span>
-            {/* <img src="" alt="" />*/}
+            <img src={logo} alt="하이파이브 위키 로고" style={{ width: '100%', height: '100%' }} />
           </Link>
         </div>
         <div className="header__user">
