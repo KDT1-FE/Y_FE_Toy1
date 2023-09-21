@@ -24,14 +24,16 @@ function WikiContent({
     <StyledWikiContentContainer>
       {data === undefined ? (
         <StyledWikiNotExist>
-          <h1>아직 작성된 글이 없습니다.</h1>
-          <button
-            onClick={() => {
-              setIsEdit(true);
-            }}
-          >
-            + 글 작성하기
-          </button>
+          <StyledWikiNotExistText>
+            아직 작성된 글이 없습니다
+            <button
+              onClick={() => {
+                setIsEdit(true);
+              }}
+            >
+              + 글 작성하기
+            </button>
+          </StyledWikiNotExistText>
         </StyledWikiNotExist>
       ) : (
         <div>
@@ -66,6 +68,7 @@ function WikiContent({
   );
 }
 export default WikiContent;
+
 const StyledButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -78,40 +81,41 @@ const StyledButtonContainer = styled.div`
 const StyledWikiContentContainer = styled.div`
   height: 100%;
 `;
-
-const StyledWikiNotExist = styled.div`
-  font-size: 1.5rem;
-  font-weight: 600;
-  text-align: center;
-
+const StyledWikiNotExistText = styled.div`
   display: flex;
   flex-direction: column;
+
+  font-size: 2rem;
+  font-weight: 700;
+
+  button {
+    color: #3584f4;
+    font-size: 1rem;
+  }
+
+  gap: 0.5rem;
+
+  ${media.desktop_lg(`
+  font-size: 1.25rem;
+`)}
+  ${media.tablet(`
+  font-size: 1.25rem;
+`)}
+${media.tablet_680(`
+  font-size: 1rem;
+`)}
+${media.tablet_625(`
+  font-size: 0.875rem;
+`)}
+${media.mobile_430(`
+  font-size: 0.75rem;
+`)}
+`;
+const StyledWikiNotExist = styled.div`
+  display: flex;
   justify-content: center;
+  align-items: center;
 
   height: 100%;
   top: 50%;
-
-  button {
-    position: relative;
-    color: #3584f4;
-    font-size: 1rem;
-    text-align: right;
-    cursor: pointer;
-  }
-
-  ${media.desktop_lg(`
-    font-size: 1.25rem;
-  `)}
-  ${media.tablet(`
-    font-size: 1.25rem;
-  `)}
-  ${media.tablet_680(`
-    font-size: 1rem;
-  `)}
-  ${media.tablet_625(`
-    font-size: 0.875rem;
-  `)}
-  ${media.mobile_430(`
-    font-size: 0.75rem;
-  `)}
 `;
