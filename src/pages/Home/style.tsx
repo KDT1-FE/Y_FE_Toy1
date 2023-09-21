@@ -82,17 +82,20 @@ export const GalleryTitle = styled.h1`
     font-size: 3.5rem;
     margin-top: 0;
     margin-bottom: 0;
+    text-shadow: 1px 1px 1px black;
 `;
 
 export const GallerySubTitle = styled.h2`
     color: #c3c4c7;
     font-size: 2rem;
+    text-shadow: 1px 1px 1px black;
 `;
 
 export const GalleryContent = styled.p`
     margin-top: 1rem;
     font-size: 2rem;
     color: white;
+    text-shadow: 1px 1px 1px black;
 `;
 
 export const GalleryBgImg = styled.img`
@@ -129,7 +132,6 @@ export const RecruitmentWrapper = styled.div`
     margin-top: 12rem;
     margin-left: 5rem;
 `;
-export const RecruitmentImgWrapper = styled.div;
 
 export const RecruitmentUs = styled.p`
     font-size: 1.5rem;
@@ -139,15 +141,18 @@ export const RecruitmentTitle = styled.h1`
     font-size: 3.5rem;
     margin-top: 0;
     margin-bottom: 0;
+    text-shadow: 1px 1px 1px black;
 `;
 
 export const RecruitmentSubTitle = styled.h2`
     color: #c3c4c7;
     font-size: 2rem;
+    text-shadow: 1px 1px 1px black;
 `;
 
 export const RecruitmentContent = styled.p`
     margin-top: 1rem;
     font-size: 2rem;
     color: white;
+    text-shadow: 1px 1px 1px black;
 `;

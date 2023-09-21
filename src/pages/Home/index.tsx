@@ -17,13 +17,11 @@ import {
     GalleryImg,
     RecruitmentContainer,
     RecruitmentWrapper,
-    RecruitmentUs,
     RecruitmentTitle,
     RecruitmentSubTitle,
     RecruitmentContent,
     RecruitmentImg,
     GalleryBgImg,
-    RecruitmentImgWrapper,
 } from './style';
 import Carousel from 'react-material-ui-carousel';
 import { Paper } from '@mui/material';
@@ -45,7 +43,7 @@ const Home: React.FC = () => {
                 animation="slide"
                 duration={300}
                 indicators={false}
-                autoPlay={false}
+                autoPlay={true}
             >
                 <Paper>
                     <GalleryContainer>
