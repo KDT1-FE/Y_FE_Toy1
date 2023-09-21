@@ -22,8 +22,9 @@
   cursor: pointer;
 }
 
-.Logo h1 {
-  font-size: 25px;
+.LogoImg {
+  width: 90%;
+  margin-bottom: 4px;
 }
 
 .List {
