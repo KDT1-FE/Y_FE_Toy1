@@ -8,8 +8,8 @@ const Carousel = () => {
   const vw = window.innerWidth;
   const initialCarouselWidth = vw * 62 / 100;
 
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [carouselWidth, setCarouselWidth] = useState<number>(initialCarouselWidth);
+  const [currentindex, setCurrentindex] = useState<number>(0);
+  const [carouselwidth, setCarouselwidth] = useState<number>(initialCarouselWidth);
 
   const docRef = useRef<number | null>(null);
   const carouselRef = useRef(null);
@@ -18,20 +18,14 @@ const Carousel = () => {
     const vw = window.innerWidth;
     const vw67 = (vw * 62) / 100;
     const parentWidth = carouselRef.current ? vw67 : 938;
-    setCarouselWidth(parentWidth);
+    setCarouselwidth(parentWidth);
   });
 
-  const goToPrevious = () => {
-    const isFirstSlide = currentIndex === 0;
-    const newIndex = isFirstSlide ? carouselData.length - 1 : currentIndex - 1;
-    setCurrentIndex(newIndex);
-  }
-
   const goToNext = useCallback (() => {
-    const isLastSlide = currentIndex === carouselData.length - 1;
-    const newIndex = isLastSlide ? 0 : currentIndex + 1;
-    setCurrentIndex(newIndex);
-  }, [currentIndex]);
+    const isLastSlide = currentindex === carouselData.length - 1;
+    const newIndex = isLastSlide ? 0 : currentindex + 1;
+    setCurrentindex(newIndex);
+  }, [currentindex]);
 
   useEffect(() => {
     if (docRef.current !== null) {
@@ -48,8 +42,8 @@ const Carousel = () => {
     };
   }, [goToNext]);
 
-  const goToCarousel = (pageIndex: number) => {
-    setCurrentIndex(pageIndex);
+  const goToCarousel = (pageindex: number) => {
+    setCurrentindex(pageindex);
   };
 
   return (
@@ -59,44 +53,36 @@ const Carousel = () => {
 
           <style.CarouselLeftBackDrop />
 
-          <style.CarouselLeftButton onClick={goToPrevious}>
-            <BsArrowLeftCircle />
-          </style.CarouselLeftButton>
-
           <style.CarouselTitle href={"/wiki"}>
-            {carouselData[currentIndex].title}
+            {carouselData[currentindex].title}
           </style.CarouselTitle>
           <style.CarouselText href={"/wiki"}>
-            {carouselData[currentIndex].text}
+            {carouselData[currentindex].text}
           </style.CarouselText>
 
 
           <style.CarouselContainer 
-            currentIndex={currentIndex}
-            carouselWidth={carouselWidth}>
+            currentindex={currentindex}
+            carouselwidth={carouselwidth}>
 
-            {carouselData.map((_, pageIndex) => (
+            {carouselData.map((_, pageindex) => (
               <>
                 <style.CarouselContent 
-                  pageIndex={pageIndex}
+                  pageindex={pageindex}
                   ref={carouselRef}
-                  carouselWidth={carouselWidth}>
-                  <style.CarouselPageButton href={`${carouselData[pageIndex].link}`}>자세히 보기</style.CarouselPageButton>
+                  carouselwidth={carouselwidth}>
+                  <style.CarouselPageButton href={`${carouselData[pageindex].link}`}>자세히 보기</style.CarouselPageButton>
                 </style.CarouselContent>
               </>
             ))}
 
           </style.CarouselContainer>
 
-          <style.CarouselRightButton onClick={goToNext}>
-            <BsArrowRightCircle /> 
-          </style.CarouselRightButton> 
-
           <style.CarouselDotContainer>
-            {carouselData.map((_, pageIndex) => (
+            {carouselData.map((_, pageindex) => (
               <style.CarouselDot 
-                key={pageIndex} 
-                onClick={() => goToCarousel(pageIndex)} />
+                key={pageindex} 
+                onClick={() => goToCarousel(pageindex)} />
             ))}
           </style.CarouselDotContainer>
 

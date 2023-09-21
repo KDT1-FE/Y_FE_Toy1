@@ -6,7 +6,7 @@ import { getStorage, ref, listAll, getMetadata, getDownloadURL } from 'firebase/
 
 interface GalleryPreviewStyle {
   imagePaths: string[];
-  currentIndex: number;
+  currentindex: number;
 }
 
 export default function GalleryPreview () {
@@ -26,7 +26,7 @@ export default function GalleryPreview () {
     };
   }
 
-  const [imagePaths, setImagePaths] = useState<string[]>([]);
+  const [imagepaths, setImagepaths] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -44,18 +44,19 @@ export default function GalleryPreview () {
 
         const imageInfoList: ImageInfo[] = await Promise.all(paths);
         const sortedImages = imageInfoList.sort((a, b) => {
-          if (a.metadata.customMetadata) {
-            console.log('metadata sorting...');
+          const timestampA = a.metadata.customMetadata?.timestamp || '';
+          const timestampB = b.metadata.customMetadata?.timestamp || '';
+          if (timestampA && timestampB) {
+            return (
+              new Date(timestampB).getTime() - new Date(timestampA).getTime()
+            );
+          } else {
+            return 0;
           }
-          const timestampA = a.metadata.customMetadata?.timestamp;
-          const timestampB = b.metadata.customMetadata?.timestamp;
-          return (
-          new Date(timestampB || '').getTime() - new Date(timestampA || '').getTime()
-          );
         });
 
         const urls = sortedImages.map((item) => item.url).slice(0, 3);
-        setImagePaths(urls);
+        setImagepaths(urls);
       } catch (error) {
       console.error("이미지 목록을 가져오는 중 오류 발생:", error);
     }
@@ -65,14 +66,14 @@ export default function GalleryPreview () {
   }, []);
 
 
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [currentindex, setCurrentindex] = useState<number>(0);
   const galleryImagesRef = useRef<number | null>(null);
 
   const goToNext = useCallback (() => {
-    const isLastSlide = currentIndex === imagePaths.length - 1;
-    const newIndex = isLastSlide ? 0 : currentIndex + 1;
-    setCurrentIndex(newIndex);
-  }, [currentIndex, imagePaths]);
+    const isLastSlide = currentindex === imagepaths.length - 1;
+    const newIndex = isLastSlide ? 0 : currentindex + 1;
+    setCurrentindex(newIndex);
+  }, [currentindex, imagepaths]);
   
   useEffect(() => {
 
@@ -94,8 +95,8 @@ export default function GalleryPreview () {
   return (
     <>
       <GalleryPreviewStyle 
-        currentIndex={currentIndex} 
-        imagePaths={imagePaths} 
+        currentindex={currentindex} 
+        imagepaths={imagepaths} 
         onClick={goToGallery}>
         <div style={{height: '15rem'}}></div>
       </GalleryPreviewStyle>
@@ -104,7 +105,7 @@ export default function GalleryPreview () {
 }
 
 const GalleryPreviewStyle = styled.div<GalleryPreviewStyle>`
-  background-image: ${({ imagePaths, currentIndex }) => `url(${imagePaths[currentIndex]})`};
+  background-image: ${({ imagepaths, currentindex }) => `url(${imagepaths[currentindex]})`};
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

@@ -23,10 +23,10 @@ export const CarouselWrapper = styled.div`
 
 export const CarouselContainer = styled.div<CarouselContainerProps>`
   height: 100%;
-  width: ${({ carouselWidth }) => `${carouselWidth * 5}px`};
+  width: ${({ carouselwidth }) => `${carouselwidth * 5}px`};
   display: flex;
   overflow: hidden;
-  transform: ${({ currentIndex, carouselWidth }) => `translateX(${-currentIndex * carouselWidth}px)`};
+  transform: ${({ currentindex, carouselwidth }) => `translateX(${-currentindex * carouselwidth}px)`};
   transition: 0.5s ease-in-out;
   border-radius: 5px;
 `;
@@ -35,7 +35,7 @@ export const CarouselTitle = styled.a`
   position: absolute;
   display: inline-block;
   top: 14rem;
-  left: 5rem;
+  left: 3rem;
   z-index: 2;
   font-size: 1.8rem;
   font-weight: 500;
@@ -48,7 +48,7 @@ export const CarouselText = styled.a`
   display: inline-block;
   width: 35%;
   top: 18rem;
-  left: 5rem;
+  left: 3rem;
   z-index: 2;
   font-size: 1rem;
   color: var(--color-black);
@@ -56,9 +56,9 @@ export const CarouselText = styled.a`
 `;
 
 export const CarouselContent = styled.div<CarouselContentProps>`
-  background-image: ${({pageIndex}) => `url(${carouselData[pageIndex].url})`};
+  background-image: ${({pageindex}) => `url(${carouselData[pageindex].url})`};
   height: 100%;
-  width: ${({ carouselWidth }) => `${carouselWidth}px`};
+  width: ${({ carouselwidth }) => `${carouselwidth}px`};
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -67,7 +67,7 @@ export const CarouselContent = styled.div<CarouselContentProps>`
 `;
 
 export const CarouselLeftBackDrop = styled.div`
-  width: 47%;
+  width: 40%;
   height: 27%;
   background-color: rgba(255, 255, 255, 0.3);
   left: .5rem;
@@ -77,28 +77,6 @@ export const CarouselLeftBackDrop = styled.div`
   border-radius: 20px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-`;
-
-export const CarouselRightButton = styled.span`
-  position: absolute;
-  z-index: 3;
-  right: 10px;
-  top: 50%;
-  transform: translate(0, -50%);
-  font-size: 2.3rem;
-  color: var(--color-main);
-  cursor: pointer;
-`;
-
-export const CarouselLeftButton = styled.span`
-  position: absolute;
-  z-index: 3;
-  left: 10px;
-  top: 50%;
-  transform: translate(0, -50%);
-  font-size: 2.3rem;
-  color: var(--color-main);
-  cursor: pointer;
 `;
 
 export const CarouselDotContainer = styled.div`
@@ -134,7 +112,7 @@ export const CarouselPageButton = styled.a`
   height: 2.6rem;
   position: absolute;
   top: 25rem;
-  left: 5rem;
+  left: 3rem;
   z-index: 5;
   text-align: center;
   vertical-align: center;
