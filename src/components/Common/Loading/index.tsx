@@ -1,4 +1,5 @@
 import loadingLottie from 'assets/lottieJSON/loading.json';
+import loadingImgRegister from 'assets/lottieJSON/loadingImgRegister.json';
 import LottieWrapper from 'components/Common/LoadingLottieContainer';
 import styled from 'styled-components';
 
@@ -7,6 +8,16 @@ function Loading() {
     <>
       <StyledWrapper>
         <LottieWrapper lottieData={loadingLottie} />
+      </StyledWrapper>
+    </>
+  );
+}
+
+function LoadingImgRegister() {
+  return (
+    <>
+      <StyledWrapper>
+        <LottieWrapper lottieData={loadingImgRegister} />
       </StyledWrapper>
     </>
   );
@@ -22,4 +33,4 @@ const StyledWrapper = styled.div`
   margin-top: 1rem;
 `;
 
-export default Loading;
+export { Loading, LoadingImgRegister };
