@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import {
     BtnAlign,
     CancelBtn,
@@ -18,7 +18,7 @@ import {
     SubmitBtn,
 } from '../style';
 import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
-import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion, DocumentReference } from 'firebase/firestore';
 import { storage, firestore } from '../../../utils/firebase';
 
 interface ModalProps {
@@ -26,46 +26,50 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ onClose }) => {
-    const [link, setLink] = useState(''); // 링크 입력 상태
+    const [link, setLink] = useState<string>(''); // 링크 입력 상태
     const [imageFile, setImageFile] = useState<Blob | null>(null); // 이미지 파일 상태
     const [thumbnailURL, setThumbnailURL] = useState<string | null>(null);
-    const [textValue, setTextValue] = useState('');
-    const [isUploading, setIsUploading] = useState(false);
-    const handleTextChange = (e: any) => {
+    const [textValue, setTextValue] = useState<string>('');
+    const [isUploading, setIsUploading] = useState<boolean>(false);
+
+    const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setTextValue(e.target.value);
     };
 
     // 링크 입력 핸들러
-    const handleLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleLinkChange = (e: ChangeEvent<HTMLInputElement>) => {
         setLink(e.target.value);
     };
 
     // 이미지 파일 선택 핸들러
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             const selectedFile = e.target.files[0];
             setImageFile(selectedFile);
         }
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         setIsUploading(true);
-        // 유닉한 이미지 이름
+
+        // 유니크한 이미지 이름
         const uniqueName = Date.now();
         // storage 경로에 현재 시간을 추가하여 고유한 경로 참조
         const storageRef = ref(storage, 'thumbnailT/' + uniqueName);
+
         // storage에 이미지 파일이 존재하는 경우에만 업로드
         if (imageFile) {
             await uploadBytes(storageRef, imageFile);
         }
+
         // storage에 업로드 된 이미지 URL 가져오기
         const url = await getDownloadURL(storageRef);
         // thumbnaulURL 에 이미지 url 할당
         setThumbnailURL(url);
 
         // firestore 경로에 고유한 경로 참조
-        const storeRef = doc(firestore, 'gallery', '레퍼런스 공유');
+        const storeRef: DocumentReference = doc(firestore, 'gallery', '레퍼런스 공유');
         // firestore 추가할 데이터
         const newArticle = {
             thumbnailURL: url,
