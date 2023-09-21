@@ -1,20 +1,31 @@
 import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai';
-import { ProjectStateProps } from './Project';
+import { ProjectProps } from './Project';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 import { db, storage } from '../../common/config';
 
-interface ModalProps extends ProjectStateProps {
+interface ModalProps extends ProjectProps {
   closeOnClick: () => void;
 }
 
-const EditModal = ({ state, projectId, imageUrl, closeOnClick }: ModalProps) => {
-  const [projectInfo, setProjectInfo] = useState<ProjectStateProps>({
+const EditModal = ({
+  state,
+  projectId,
+  imageUrl,
+  name,
+  description,
+  participant,
+  closeOnClick,
+}: ModalProps) => {
+  const [projectInfo, setProjectInfo] = useState<ProjectProps>({
     imageUrl: imageUrl,
     projectId: projectId,
     state: state,
+    name: name,
+    description: description,
+    participant: participant,
   });
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -40,6 +51,19 @@ const EditModal = ({ state, projectId, imageUrl, closeOnClick }: ModalProps) => 
     }));
   };
 
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setProjectInfo((prevInfo) => ({
+      ...prevInfo,
+      name: e.target.value,
+    }));
+  };
+  const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setProjectInfo((prevInfo) => ({
+      ...prevInfo,
+      description: e.target.value,
+    }));
+  };
+
   const editProject = async () => {
     try {
       const docRef = doc(db, 'projectData', projectInfo.projectId);
@@ -61,11 +85,15 @@ const EditModal = ({ state, projectId, imageUrl, closeOnClick }: ModalProps) => 
         await setDoc(docRef, {
           state: projectInfo.state,
           imageUrl: imageUrl,
+          name: projectInfo.name ? projectInfo.name : '',
+          description: projectInfo.description ? projectInfo.description : '',
         });
       } else {
         await setDoc(docRef, {
           state: projectInfo.state,
           imageUrl: projectInfo.imageUrl ? projectInfo.imageUrl : '',
+          name: projectInfo.name ? projectInfo.name : '',
+          description: projectInfo.description ? projectInfo.description : '',
         });
       }
 
@@ -80,40 +108,58 @@ const EditModal = ({ state, projectId, imageUrl, closeOnClick }: ModalProps) => 
     <EditModalBg onClick={closeOnClick}>
       <EditModalContainer onClick={(e) => e.stopPropagation()}>
         <FlexDiv>
-          <div style={{ flex: '1' }}></div>
-          <b style={{ flex: '2', textAlign: 'center', fontSize: '20px' }}>프로젝트 수정</b>
           <div style={{ flex: '1', display: 'flex', justifyContent: 'flex-end' }}>
             <CloseBtn onClick={closeOnClick} />
           </div>
         </FlexDiv>
-        <FlexStartDiv>
-          <b>프로젝트 사진</b>
-        </FlexStartDiv>
-        <FlexCenterDiv>
-          <ImageWrapperDiv
-            style={{ backgroundImage: `url(${projectInfo.imageUrl})` }}
-          ></ImageWrapperDiv>
-          <input
-            style={{ width: '50%', fontSize: '12px', marginTop: '5px' }}
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-          />
-        </FlexCenterDiv>
-        <FlexStartDiv>
-          <b>프로젝트 상태</b>
-        </FlexStartDiv>
-        <SelectState value={projectInfo.state} onChange={handleSelectChange}>
-          <option value="ongoing">진행</option>
-          <option value="scheduled">예정</option>
-          <option value="completed">종료</option>
-        </SelectState>
-        <FlexCenterDiv style={{ flexDirection: 'row', marginTop: '20px', gap: '30px' }}>
-          <Button onClick={closeOnClick}>취소</Button>
-          <Button onClick={editProject} style={{ backgroundColor: '#1F94FF', color: '#FCFCFC' }}>
+        <MainDiv>
+          <MainLeftDiv>
+            <TitleDiv>
+              <b>사진</b>
+            </TitleDiv>
+            <FlexCenterDiv>
+              <ImageWrapperDiv
+                style={{ backgroundImage: `url(${projectInfo.imageUrl})` }}
+              ></ImageWrapperDiv>
+              <input
+                style={{ width: '100%', fontSize: '12px', marginTop: '5px' }}
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+            </FlexCenterDiv>
+            <TitleDiv style={{ marginTop: '20px' }}>
+              <b>상태</b>
+            </TitleDiv>
+            <SelectState value={projectInfo.state} onChange={handleSelectChange}>
+              <option value="ongoing">진행</option>
+              <option value="scheduled">예정</option>
+              <option value="completed">종료</option>
+            </SelectState>
+          </MainLeftDiv>
+          <MainRightDiv>
+            <TitleDiv>이름</TitleDiv>
+            <NameInput
+              onChange={handleNameChange}
+              placeholder="프로젝트 이름을 입력해주세요."
+              value={projectInfo.name}
+            />
+            <TitleDiv>설명</TitleDiv>
+            <DescriptionDiv
+              onChange={handleDescriptionChange}
+              value={projectInfo.description}
+              placeholder="프로젝트 설명을 입력해주세요."
+            />
+          </MainRightDiv>
+        </MainDiv>
+        <ButtonSection>
+          <Button onClick={closeOnClick} style={{ color: '#797979' }}>
+            취소
+          </Button>
+          <Button onClick={editProject} style={{ backgroundColor: '#3267B1' }}>
             확인
           </Button>
-        </FlexCenterDiv>
+        </ButtonSection>
       </EditModalContainer>
     </EditModalBg>
   );
@@ -129,6 +175,7 @@ const EditModalBg = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+  
 `;
 
 const EditModalContainer = styled.div`
@@ -136,24 +183,65 @@ const EditModalContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 500px;
-  padding: 20px 30px;
+  width: 700px;
+  height: 582px;
+  padding: 40px;
   box-sizing: border-box;
   background-color: white;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
 
-  @media (max-width: 1024px) {
-    left: 50%;
+  @media (max-width: 768px) {
     width: 400px;
+    height: 70vh;
+    overflow: scroll;
+    padding: 20px;
   }
 `;
-
-const FlexStartDiv = styled.div`
+const MainDiv = styled.div`
   display: flex;
-  justify-content: flex-start;
-  margin: 20px 0;
+  justify-content: space-between;
+  gap: 40px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap:20px;
+  }
+`;
+const MainLeftDiv = styled.div``;
+const MainRightDiv = styled.div`
+  width: 100%;
+`;
+
+const TitleDiv = styled.div`
+  margin-bottom: 10px;
+  font-size: 21px;
+  font-weight: 700;
+`;
+
+const NameInput = styled.input`
+  font-family: 'Noto Sans KR';
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  border-radius: 4px;
+  border: 1px solid #9d9c9c30;
+  margin-bottom: 20px;
+`;
+
+const DescriptionDiv = styled.textarea`
+  width: 100%;
+  height: 268px;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #9d9c9c30;
+  resize: none;
+  outline: none;
+  font-family: 'Noto Sans KR';
+  @media (max-width: 768px) {
+    height: 150px;
+  }
 `;
 
 const FlexDiv = styled.div`
@@ -175,15 +263,20 @@ const FlexCenterDiv = styled.div`
 `;
 const ImageWrapperDiv = styled.div`
   position: relative;
-  width: 50%;
-  aspect-ratio: 1;
+  width: 240px;
+  height: 240px;
   background-size: cover;
   background-position: center;
   border-radius: 4px;
   border: 0.1px solid #9d9c9c30;
+  @media (max-width: 768px) {
+    width: 150px;
+    height: 150px;
+  }
 `;
 const SelectState = styled.select`
   padding: 5px;
+  width: 100%;
   border: 0.1px solid #9d9c9c30;
   border-radius: 4px;
   height: 40px;
@@ -192,14 +285,29 @@ const SelectState = styled.select`
   }
 `;
 
+const ButtonSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 10px;
+  }
+`;
+
 const Button = styled.button`
   font-family: 'Noto Sans KR';
-  width: 50%;
+  width: 240px;
   cursor: pointer;
-  height: 40px;
-  padding: 5px;
+  height: 47px;
   border: none;
-  border-radius: 4px;
-  background-color: rgba(250, 250, 250, 1);
-  color: rgba(10, 10, 10, 0.7);
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgb(252, 252, 252);
+  text-align: center;
+  line-height: 47px;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
