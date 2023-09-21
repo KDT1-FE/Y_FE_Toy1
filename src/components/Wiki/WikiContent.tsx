@@ -75,7 +75,6 @@ const StyledButtonContainer = styled.div`
 
   button {
     margin: 0.5rem;
-    // color: #3584f4;
     border: 1px solid rgb(226, 232, 240);
     padding: 0.5rem;
     border-radius: 1rem;
