@@ -23,6 +23,10 @@ export function UserCard() {
   return (
     <>
       <div className="user-card__container">
+        <h3>
+          Study <br />
+          Timer
+        </h3>
         {userObjects.map((user) => (
           <div
             className={`user-card ${user.id}`}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { db, auth } from 'data/firebase';
 import { doc, updateDoc, collection, getDocs } from 'firebase/firestore';
+import './IsLoggedIn.scss';
 
 export function IsLoggedIn({ userId }: any) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -43,15 +44,17 @@ export function IsLoggedIn({ userId }: any) {
 
   return (
     <div>
-      <div
-        key={userId}
-        style={{
-          backgroundColor: isLoggedIn ? 'green' : 'red',
-          width: '20px',
-          height: '20px',
-          borderRadius: '50%',
-        }}
-      ></div>
+      {userStatus[userId] !== undefined && (
+        <div
+          className="user-status"
+          style={{
+            backgroundColor: userStatus[userId] ? 'green' : 'red',
+            width: '20px',
+            height: '20px',
+            borderRadius: '50%',
+          }}
+        ></div>
+      )}
     </div>
   );
 }
