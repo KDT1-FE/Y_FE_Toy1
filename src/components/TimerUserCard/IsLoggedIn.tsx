@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from 'data/user';
-import { db } from 'data/firebase';
+import { db, auth } from 'data/firebase';
 import { doc, updateDoc, collection, getDocs } from 'firebase/firestore';
 import './IsLoggedIn.scss';
 
@@ -70,11 +69,9 @@ export const updateFirestoreUserStatus = async (
 
   try {
     await updateDoc(userRef, { isLoggedIn });
-    console.log(`Firestore에서 사용자의 isLoggedIn 상태가 업데이트되었습니다.`);
   } catch (error) {
     console.error(
-      `Firestore에서 사용자의 isLoggedIn 상태를 업데이트하는 중 오류 발생:`,
-      error,
+      `Firestore에서 사용자의 isLoggedIn 상태를 업데이트하는 중 오류 발생: ${error}`,
     );
   }
 };

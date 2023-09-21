@@ -7,10 +7,9 @@ import {
   getDocs,
   collection,
 } from 'firebase/firestore';
-import { userId, userNickname } from 'pages/Gallery';
 
 // 이미지 storage와 db에 업로드
-async function UploadImage(selected, file) {
+async function UploadImage(selected, file, uid, userName) {
   try {
     const SwitchCollection = doc(collection(db, selected));
     const storageRef = ref(storage, `${selected}/ ${file.name}`);
@@ -21,15 +20,15 @@ async function UploadImage(selected, file) {
           imgUrl: url,
           timestamp: new Date(),
           category: selected,
-          comments: [{}],
-          uid: userId,
-          nickname: userNickname,
+          comments: [],
+          uid: uid,
+          nickname: userName,
           like: 0,
         });
       });
     });
   } catch (error) {
-    console.error();
+    console.error(error);
   }
   return;
 }
@@ -55,7 +54,7 @@ async function getImageData(categoryId) {
     });
     return rowImages;
   } catch (error) {
-    console.error();
+    console.error(error);
   }
   return;
 }

@@ -26,7 +26,7 @@ const Slide: React.FC<ISlideProps> = ({ backgroundColor, text, imageSrc }) => {
                 style={{
                   ...textItem.style,
                   backgroundColor: textItem.style.backgroundColor,
-                  display: 'inline-block', // 텍스트 세로 정렬을 위해 추가
+                  display: 'inline-block',
                   marginBottom: '40px',
                 }}
               >

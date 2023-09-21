@@ -1,4 +1,4 @@
-import { IHandleChange, IHandleNothing, IUser } from 'pages/SignUp';
+import { HandleChange, HandleNothing, IUser } from 'pages/SignUp';
 import React, { useState } from 'react';
 import { createAuth } from 'data/user';
 import { useNavigate } from 'react-router-dom';
@@ -6,8 +6,8 @@ import './SignUpNext.scss';
 
 interface ISignUpNextProps {
   user: IUser;
-  handleInputChange: IHandleChange;
-  handleTogglePage: IHandleNothing;
+  handleInputChange: HandleChange;
+  handleTogglePage: HandleNothing;
 }
 
 export function SignUpNext({

@@ -1,11 +1,11 @@
 import { createNickname, uploadUserImage } from 'data/user';
-import { IHandleChange, IHandleNothing, IUser } from 'pages/SignUp';
+import { HandleNothing, IUser } from 'pages/SignUp';
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import './SignUpPrev.scss';
 
 interface ISignUpPrevProps {
   user: IUser;
-  handleTogglePage: IHandleNothing;
+  handleTogglePage: HandleNothing;
   updateUserData: (name: string, value: string) => void;
 }
 

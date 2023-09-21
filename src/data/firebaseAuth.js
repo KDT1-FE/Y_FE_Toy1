@@ -1,11 +1,6 @@
-// firebaseAuth.js
-
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import { app, db } from './firebase'; // 수정된 이름으로 가져옵니다.
-
-// Firebase 초기화
-const auth = getAuth(app);
+import { db, auth } from './firebase';
 
 // 사용자 정보 가져오기
 export const getCurrentUserData = async () => {

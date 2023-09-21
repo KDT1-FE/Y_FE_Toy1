@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { UploadImage } from '../../data/galleryImage';
+import { RootState } from 'redux/types';
+import { useSelector } from 'react-redux';
 import './ModalAddImage.scss';
 
-export function AddImageDragDrop() {
-  const [files, setFiles] = useState([]);
+export function AddImageDragDrop(): JSX.Element {
+  const [files, setFiles] = useState<any>([]);
   const selectList = ['StudyTipsGallery', 'EventsGallery', 'HumorsGallery'];
   const [selected, setSelected] = useState('StudyTipsGallery');
 
-  const handleSelect = (e: any) => {
+  const user = useSelector((state: RootState) => state);
+
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelected(e.target.value);
   };
 
@@ -16,9 +20,9 @@ export function AddImageDragDrop() {
     accept: {
       'image/*': [],
     },
-    onDrop: (acceptedFiles: any) => {
+    onDrop: (acceptedFiles: File[]) => {
       setFiles(
-        acceptedFiles.map((file: any) =>
+        acceptedFiles.map((file: File) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
           }),
@@ -29,7 +33,7 @@ export function AddImageDragDrop() {
 
   const handleUploadImage = files.map((file: any) => (
     <div key={file.name}>
-      <div>
+      <div className="preview-container">
         <img
           className="preview-image"
           src={file.preview}
@@ -38,12 +42,13 @@ export function AddImageDragDrop() {
           }}
         />
         <button
+          className="btn btn-secondary"
           onClick={async () => {
-            await UploadImage(selected, file);
+            await UploadImage(selected, file, user.uid, user.nickname);
             alert('저장에 성공했습니다.');
           }}
         >
-          저장
+          upload
         </button>
       </div>
     </div>
@@ -74,7 +79,10 @@ export function AddImageDragDrop() {
       </select>
       <div {...getRootProps({ className: 'addImage-dropZone dropzone' })}>
         <input {...getInputProps()} />
-        <p>Drag n drop some files here, or click to select files</p>
+        <p>
+          이곳에 파일을 드래그 & 드랍으로 추가할 수 있어요. <br />
+          또는 이곳을 클릭해서 이미지를 추가해보세요!
+        </p>
       </div>
       <aside className="preview-zone">{handleUploadImage}</aside>
     </section>

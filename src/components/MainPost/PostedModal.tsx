@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { FirestorePostData } from '../../redux/types';
-import { collection, doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../data/firebase';
 
-interface PostedModalProps {
+interface IPostedModalProps {
   postId: string;
   onClose: () => void;
 }
 
-const PostedModal: React.FC<PostedModalProps> = ({ postId, onClose }) => {
+const PostedModal: React.FC<IPostedModalProps> = ({ postId, onClose }) => {
   const [post, setPost] = useState<FirestorePostData | null>(null);
 
   useEffect(() => {
@@ -37,7 +37,6 @@ const PostedModal: React.FC<PostedModalProps> = ({ postId, onClose }) => {
         <span className="close-button" onClick={onClose}>
           &times;
         </span>
-        {/* post 데이터가 로드되면 제목을 표시 */}
         {post && (
           <div>
             <h2>{post.title}</h2>

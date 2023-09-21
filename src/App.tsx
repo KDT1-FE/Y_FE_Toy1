@@ -1,6 +1,5 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './App.css';
 import { Wiki } from 'pages/Wiki';
 import { Provider } from 'react-redux';
 import { wikiStore } from 'redux/store';
@@ -23,7 +22,6 @@ function App() {
       children: [
         { path: '/study', element: <Study /> },
         { path: '/gallery', element: <Gallery /> },
-        { path: '/study', element: <Study /> },
         {
           path: '/wiki/:boardState/:id',
           element: (

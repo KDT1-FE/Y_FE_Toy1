@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './BoardDetail.scss';
 import { deletePostData, readPostData, updatePostData } from 'data/wikiboard';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -7,7 +6,7 @@ import moment from 'moment';
 import MdEditor from '@uiw/react-md-editor';
 import { selectUserData } from 'data/getUser';
 
-type Board = {
+interface IBoard {
   name: string;
   content: string;
   time: string;
@@ -15,9 +14,9 @@ type Board = {
   uid: string;
   comment: any;
   id: number;
-};
+}
 
-const initialData: Board = {
+const initialData: IBoard = {
   name: '...Loading',
   content: '...Loading',
   time: '...Loading',
@@ -31,7 +30,7 @@ export function BoardDetail(props: any) {
   const { id, boardState } = useParams();
   const navigate = useNavigate();
   const [commentContent, setCommentContent] = useState('');
-  const [boardInfo, setBoardInfo] = useState<Board>(initialData);
+  const [boardInfo, setBoardInfo] = useState<IBoard>(initialData);
   const itemData = readPostData(boardState, id);
   const [isChange, setChange] = useState(true);
 
@@ -162,7 +161,6 @@ export function BoardDetail(props: any) {
   const handleDelete = async () => {
     const deleteConfirm = confirm('삭제 하시겠습니까?');
 
-    // console.log(boardInfo)
     if (deleteConfirm && boardInfo.uid === sessionStorage.uid) {
       await deletePostData(boardState, boardInfo.id);
       navigate('/wiki');

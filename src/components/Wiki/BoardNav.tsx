@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import './BoardNav.scss';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { boardStateSlice } from 'redux/store';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +9,6 @@ type BoardState = 'QA' | 'Free' | 'Best';
 export function BoardNav(props: any) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const boardState = useSelector((state: any) => state.boardState.value);
 
   const handleBoardClick = (event: any): void => {
     const selectBoard: string = event.target.innerHTML;
@@ -26,15 +25,6 @@ export function BoardNav(props: any) {
   };
 
   return (
-    // <nav>
-    //     <ul className='boardList'>
-    //         <li onClick={handleBoardClick}>Q & A</li>
-    //         <li onClick={handleBoardClick}>커뮤니티</li>
-    //         <li onClick={handleBoardClick}>지식 공유</li>
-    //     </ul>
-    //     {/* <p>상태 : {boardState}</p> */}
-
-    // </nav>
     <nav id="navbar-example2" className="navbar bg-body-tertiary px-3 mb-3">
       <a className="navbar-brand" href="#">
         wiki

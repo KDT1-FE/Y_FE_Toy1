@@ -1,4 +1,4 @@
-import { app, db } from './firebase';
+import { db } from './firebase';
 import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
 
 // firestore에서 User 데이터 불러오기

@@ -12,8 +12,8 @@ export interface IUser {
   image?: string;
 }
 
-export type IHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => void;
-export type IHandleNothing = () => void;
+export type HandleChange = (e: React.ChangeEvent<HTMLInputElement>) => void;
+export type HandleNothing = () => void;
 
 export function SignUp() {
   // 유저정보
