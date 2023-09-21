@@ -5,7 +5,7 @@ export const Temp = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-template-rows: auto auto auto auto auto;
-  margin: 30px 50px;
+  margin: 1.4rem 5rem;
   gap: 30px;
 `;
 export const GridBox = styled.div`
@@ -25,7 +25,6 @@ export const Item3 = styled.div`
   grid-row-start: 1;
   grid-row-end: 1;
 `;
-
 export const Item4 = styled.div`
   grid-row-start: 2;
   grid-row-end: 2;
