@@ -336,8 +336,19 @@ const Container = styled.nav`
     display: flex;
     justify-content: flex-end;
     margin-right: 3rem;
-    gap: 50px;
+    gap: 45px;
     align-items: center;
+  }
+  @media(max-width: 900px){
+    .header__link-wrapper{
+      gap:25px;
+    }
+  }
+
+  @media(max-width: 768px){
+    .header__link-wrapper{
+      gap:10px;
+    }
   }
   .header__user-name {
     position: relative;

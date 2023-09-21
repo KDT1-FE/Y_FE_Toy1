@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { auth, db } from "../../firebase";
+import { auth } from "../../firebase";
 import { Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import "style/Authentication.css";
 import Swal from "sweetalert2";
-import { specificErrorContent } from "../../utils/authentication";
-import { SynchroClassAndAlert } from "../../utils/class";
+import { specificErrorContent } from "utils/authentication";
+import { SynchroClassAndAlert } from "utils/class";
 import { FirebaseError } from "firebase/app";
 
 const Login = () => {
@@ -53,21 +53,19 @@ const Login = () => {
       <h1> 로그인</h1>
       <form className="authentication__form" onSubmit={handleSubmit}>
         <div className="authentication__form-el">
-          <label htmlFor="id"> 이메일 </label>{" "}
+          <label htmlFor="id"> 이메일 </label>
           <input type="email" id="email" onChange={handleEmail} value={email} />
         </div>
         <div className="authentication__form-el">
-          <label htmlFor="pwd"> 비밀번호 </label>{" "}
+          <label htmlFor="pwd"> 비밀번호 </label>
           <input type="password" id="pwd" onChange={handlePwd} value={pwd} />
         </div>
         <button className="btn" type="submit">
-          {" "}
-          로그인{" "}
+          로그인
         </button>
       </form>
       <Link to={`/signup`} replace={true}>
-        {" "}
-        <b>회원가입</b>{" "}
+        <b>회원가입</b>
       </Link>
     </Container>
   );
