@@ -25,7 +25,7 @@ export function UserCard() {
       <div className="user-card__container">
         {userObjects.map((user) => (
           <div
-            className="user-card"
+            className={`user-card ${user.id}`}
             onClick={() => handleUserCardClick(user)}
             key={user.id}
           >
