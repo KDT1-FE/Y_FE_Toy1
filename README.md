@@ -18,7 +18,7 @@
 | :--------------------------------------------------------: | :--------------------------------------------------------: | :-------------------------------------------------------: | :--------------------------------------------------------: | :-------------------------------------------------------: |
 |             [@2YH02](https://github.com/2YH02)             |          [@ewinkite](https://github.com/ewinkite)          |       [@yangjaejun](https://github.com/yangjaejun)        |              [@KSJT](https://github.com/KSJT)              |         [@jseo9732](https://github.com/jseo9732)          |
 | ![](https://avatars.githubusercontent.com/u/125336070?v=4) | ![](https://avatars.githubusercontent.com/u/139189610?v=4) | ![](https://avatars.githubusercontent.com/u/79828541?v=4) | ![](https://avatars.githubusercontent.com/u/118329943?v=4) | ![](https://avatars.githubusercontent.com/u/79249376?v=4) |
-|              갤러리 페이지 CRUD 및 세부 기능               |        로그인 페이지 로그인, 회원가입 기능 및 인증         |               WIKI 페이지 CRUD 및 세부 기능               |         메인 페이지 이미지, WIKI 연동 및 세부 기능         |            메인 페이지 출퇴근 기록 및 세부기능            |
+|              갤러리 페이지 CRUD 및 세부 기능               |  로그인 페이지 로그인, 회원가입 기능 및 유저 플로우 작성   |               WIKI 페이지 CRUD 및 세부 기능               |         메인 페이지 이미지, WIKI 연동 및 세부 기능         |            메인 페이지 출퇴근 기록 및 세부기능            |
 
 <br>
 
@@ -65,7 +65,7 @@
 ## 🔍 팀원별 세부 구현 사항
 
 <details>
-<summary>이용훈: 갤러리 페이지</summary>
+<summary style="font-size: 18px">이용훈: 📷 갤러리 페이지</summary>
 <div markdown="1">
 
 ### 1. 카테고리 추가
@@ -75,7 +75,8 @@
 ![카테고리등록](https://github.com/toy-1/wiki/assets/125336070/41b35c67-9a33-42c8-8acd-368f4671acad)
 
 ```
-💡 카테고리 편집에서 원하는 앨범 카테고리를 만들 수 있습니다. 카테고리를 생성하면 파이어베이스 데이터베이스에 생성 날짜와 고유한 ID 값을 가지고 저장이 됩니다.
+💡 카테고리 편집에서 원하는 앨범 카테고리를 만들 수 있습니다.
+카테고리를 생성하면 파이어베이스 데이터베이스에 생성 날짜와 고유한 ID 값을 가지고 저장이 됩니다.
 ```
 
 ### 2. 앨범 추가
@@ -89,13 +90,46 @@
 파이어베이스 데이터베이스에 생성 날짜, 상위 카테고리 ID, ID 값을 가지고 저장이 됩니다.
 ```
 
+### 3. 이미지 추가
+
+#### 앨범 폴더 내부에 이미지 추가
+
+![이미지등록](https://github.com/toy-1/wiki/assets/125336070/c82f42d6-f986-4eed-8221-1329e90f7e7e)
+
+```
+💡 원하는 앨범 카테고리에 원하는 이미지를 추가합니다.
+추가 시 파이어베이스 스토리지에 해당 앨범의 ID 값을 이름으로 하는 폴더에 저장됩니다.
+```
+
+### 4. 이미지 삭제
+
+#### 앨범 폴더 내부에 이미지 삭제
+
+![이미지삭제](https://github.com/toy-1/wiki/assets/125336070/c3689b49-465e-4c0f-ae3e-3eaff2dca87e)
+
+```
+💡 앨범에 있는 이미지를 삭제합니다.
+삭제 시 파이어베이스 스토리지에 저장 돼 있던 해당 이미지가 삭제됩니다
+```
+
+### 5. 이미지 상세보기
+
+#### 이미지 방향 전환 및 크기 조절
+
+![이미지전환](https://github.com/toy-1/wiki/assets/125336070/fefe12c3-2b97-43c1-8bf1-8107dc115d77)
+
+```
+💡 이미지 클릭 시 상세보기가 가능하고 버튼 클릭과 화살표 키보드로 다음 이미지로의 방향 전환이 가능합니다.
+또한 이미지 크기 조절이 가능하도록 기능을 추가하였습니다.
+```
+
 </div>
 </details>
 
 <br>
 
 <details>
-<summary>이승연</summary>
+<summary style="font-size: 18px">이승연: 🔑 로그인 페이지</summary>
 <div markdown="1">
 
 </div>
@@ -104,7 +138,7 @@
 <br>
 
 <details>
-<summary>양재준</summary>
+<summary style="font-size: 18px">양재준: 📂 WIKI 페이지</summary>
 <div markdown="1">
 
 </div>
@@ -113,7 +147,7 @@
 <br>
 
 <details>
-<summary>서지수</summary>
+<summary style="font-size: 18px">서지수: 🌐 메인 페이지</summary>
 <div markdown="1">
 
 </div>
@@ -122,7 +156,7 @@
 <br>
 
 <details>
-<summary>김소정</summary>
+<summary style="font-size: 18px">김소정: 🌐 메인 페이지</summary>
 <div markdown="1">
 
 </div>
