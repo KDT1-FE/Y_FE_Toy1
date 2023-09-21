@@ -3,13 +3,13 @@ import { auth, db } from '../common/config';
 import { useState, ChangeEvent } from 'react';
 import { updatePhoneNumber, RecaptchaVerifier, PhoneAuthProvider } from 'firebase/auth';
 import { doc, updateDoc } from 'firebase/firestore';
-import { Link } from 'react-router-dom';
 
 const JoinPhoneNumber = ({ user }: { user: User | null }) => {
   const [phone, setPhone] = useState<string>('');
   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPhone(e.target.value);
   };
+  const location = window.location.pathname;
 
   const addPhoneNumber = () => {
     if (user) {
@@ -34,8 +34,13 @@ const JoinPhoneNumber = ({ user }: { user: User | null }) => {
                       await updateDoc(docRef, {
                         phone: user.phoneNumber,
                       });
-                      alert('회원가입이 완료되었습니다.');
-                      window.location.href = '/';
+                      if (location === '/mypage/modify') {
+                        alert('휴대폰번호 수정이 완료되었습니다.');
+                        window.location.reload();
+                      } else {
+                        alert('회원가입이 완료되었습니다.');
+                        window.location.href = '/';
+                      }
                     })
                     .catch((error) => {
                       appVerifier.clear();
@@ -44,7 +49,6 @@ const JoinPhoneNumber = ({ user }: { user: User | null }) => {
                       } else if (error.code === 'auth/account-exists-with-different-credential') {
                         appVerifier.render();
                         alert('이미 등록된 번호입니다.');
-                        //window.location.href = '/';
                       } else {
                         alert('정의되지 않은 오류입니다. 관리자에 문의해 주세요.');
                         console.log(error);
@@ -71,13 +75,12 @@ const JoinPhoneNumber = ({ user }: { user: User | null }) => {
     }
   };
   return (
-    <div>
+    <>
       <label>휴대폰번호:</label>
       <input type="number" name="phone" value={phone} onChange={handlePhoneChange} />
-      <button onClick={addPhoneNumber}>인증</button>
-      <Link to="/">건너뛰기</Link>
       <div id="recaptcha-container"></div>
-    </div>
+      <button onClick={addPhoneNumber}>인증</button>
+    </>
   );
 };
 

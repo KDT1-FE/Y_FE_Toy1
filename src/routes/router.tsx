@@ -9,14 +9,18 @@ import Wiki from '../pages/wiki/Wiki';
 import Info from '../pages/wiki/Info';
 import Rule from '../pages/wiki/Rule';
 import Team from '../pages/wiki/Team';
-import Login from '../pages/Login';
-import Join from '../pages/Join';
+import Auth from '../pages/auth/Auth';
+import Login from '../pages/auth/Login';
+import Join from '../pages/auth/Join';
 import Detail from '../pages/detail/Detail';
+import Modify from '../pages/mypage/modify';
+import Mypage from '../pages/mypage/Mypage';
+import UserInfo from '../pages/mypage/UserInfo';
+import Notice from '../pages/Notice';
 import About from '../pages/about/About';
 import Figma from '../pages/about/Figma';
 import Notion from '../pages/about/Notion';
 import Github from '../pages/about/Github';
-
 
 export const router = createBrowserRouter([
   {
@@ -94,6 +98,24 @@ export const router = createBrowserRouter([
         ],
       },
       {
+
+        path: 'mypage',
+        element: <Mypage />,
+        children: [
+          {
+            index: true,
+            element: <UserInfo />,
+          },
+          {
+            path: 'userinfo',
+            element: <UserInfo />,
+          },
+          {
+            path: 'modify',
+            element: <Modify />,
+          },
+        ],
+
         path: '/about',
         element: <About />,
         children: [
@@ -117,11 +139,17 @@ export const router = createBrowserRouter([
       },
       {
         path: 'login',
-        element: <Login />,
-      },
-      {
-        path: 'join',
-        element: <Join />,
+        element: <Auth />,
+        children: [
+          {
+            index: true,
+            element: <Login />,
+          },
+          {
+            path: 'join',
+            element: <Join />,
+          },
+        ],
       },
     ],
   },

@@ -1,7 +1,7 @@
 import { useState, ChangeEvent } from 'react';
-import { auth } from '../common/config';
+import { auth } from '../../common/config';
 import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
-import { useUser } from '../common/UserContext';
+import { useUser } from '../../common/UserContext';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
@@ -51,7 +51,7 @@ const Login = () => {
         <input type="password" value={password} onChange={handlePasswordChange} />
       </div>
       <button onClick={handleLogin}>로그인</button>
-      <Link to="/join">회원가입</Link>
+      <Link to="/login/join">회원가입</Link>
     </div>
   );
 };
