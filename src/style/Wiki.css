@@ -26,8 +26,9 @@
   cursor: pointer;
 }
 .wiki__textContent {
-  background-color: azure;
+  background-color: #fefef2;
   height: 500px;
+  padding: 20px;
 }
 
 /* WiKiEdit */
@@ -40,4 +41,10 @@
 .wikiEdit__title {
   font-size: 1.2rem;
   width: 700px;
+}
+
+/* 에디터 수정 */
+.toastui-editor-contents p,
+.toastui-editor-contents h6 {
+  font-size: 1rem;
 }
