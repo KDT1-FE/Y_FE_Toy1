@@ -7,9 +7,9 @@ import MainPage from './views/MainPage';
 import Attendance from './views/AttendancePage';
 import ProjectList from './views/ProjectList';
 import GalleryPage from './views/GalleryPage';
-import NoticeWritePage from './views/NoticeWritePage';
+import NoticeWritePage from './views/company/notice/NoticeWritePage';
 import Contents from './views/Contents';
-import NoticeUpdatePage from './views/NoticeUpdatePage';
+import NoticeUpdatePage from './views/company/notice/NoticeUpdatePage';
 
 import { useDispatch } from 'react-redux';
 import { login } from './store/loginSlice';
