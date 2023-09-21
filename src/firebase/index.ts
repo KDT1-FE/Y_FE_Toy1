@@ -6,8 +6,9 @@ import { getAuth } from 'firebase/auth';
 
 const db = getFirestore(app);
 const storage = getStorage(app);
+const projectCollection = collection(db, 'project');
 const galleryCollection = collection(db, 'gallery');
 const galleryStorageRef = ref(storage, 'images');
 const auth = getAuth(app);
 
-export { db, storage, galleryCollection, galleryStorageRef, auth };
+export { db, storage, galleryCollection, galleryStorageRef, auth ,projectCollection };

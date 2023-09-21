@@ -1,21 +1,16 @@
 @use '../scss/abstracts/' as *;
 
-.section {
-  width: 80%;
-  margin: 1rem auto;
-  display: flex;
-  flex-direction: column;
-  row-gap: 3rem;
-
-  &__filter {
+.section{
+    width: 80%;
+    margin: 1rem auto;
     display: flex;
-    column-gap: 2rem;
-  }
-
-  &__project-delete-btn {
-    flex: 1;
-    height: 3rem;
-  }
+    flex-direction: column;
+    row-gap: 3rem;
+    
+    &__filter{
+        display: flex;
+        column-gap: 2rem;
+    }
 
   &__project-write-btn {
     flex: 1;
@@ -26,12 +21,10 @@
     flex: 10;
   }
 
-  &__project-container {
-    border: 1px solid $blue;
-    border-radius: 1rem;
-    height: 43vw;
-    padding: 1rem;
-    background-color: $white;
-    @include shadow;
+  &__project-container{
+      border: 1px solid $blue;
+      border-radius: 1rem;
+      height: 43vw;
+      padding: 1rem;
   }
 }
