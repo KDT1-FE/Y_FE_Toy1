@@ -12,9 +12,9 @@ function EditButton({isEditorOpen, setIsEditorOpen}: EditButtonProps) {
   return (
     <div>
       {isEditorOpen ? (
-        <CancelIcon className="EditButton" onClick={clickEdit} />
+        <CancelIcon className="ButtonIcon" onClick={clickEdit} />
       ) : (
-        <EditIcon className="EditButton" onClick={clickEdit} />
+        <EditIcon className="ButtonIcon" onClick={clickEdit} />
       )}
     </div>
   );
