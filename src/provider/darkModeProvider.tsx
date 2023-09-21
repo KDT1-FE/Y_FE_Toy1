@@ -6,7 +6,7 @@ const lightTheme = {
   body: "#fff",
   text: "#1f2023",
   carouselDots: "#373a3c",
-  Userinfo: "#ddd",
+  Userinfo: "#ffffff",
 };
 
 const darkTheme = {

@@ -14,7 +14,9 @@ import { IsMobile } from "utils/mediaQuery";
 const Gallery = () => {
   const [onEdit, setOnEdit] = useState<boolean>(false);
   const [galleryData, setGalleryData] = useState<userData[]>([]);
-  const [activeCategory, setActiveCategory] = useState<string>("notice"); // 초기값 설정
+  const [activeCategory, setActiveCategory] = useState<string>("all"); // 초기값 설정
+  const location = useLocation();
+  const Navigate = useNavigate();
 
   let leftMargin = 200
   let topMargin = 60
@@ -23,10 +25,6 @@ const Gallery = () => {
     leftMargin = 0
     topMargin = 100
   }
-
-  const [activeCategory, setActiveCategory] = useState<string>("all"); // 초기값 설정
-  const location = useLocation();
-  const Navigate = useNavigate();
   // 초기값
   useEffect(() => {
     const fetchData = async () => {
