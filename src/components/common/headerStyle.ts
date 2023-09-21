@@ -56,6 +56,10 @@ export const WorkingTime = styled.div`
   line-height: normal;
 `;
 
+export const WorkedTime = styled(WorkingTime)`
+  border: 1px solid #fd0d29;
+`;
+
 export const LogoutBtn = styled.button`
   display: flex;
   align-items: center;
