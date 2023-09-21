@@ -1,9 +1,6 @@
 import * as style from './CarouselStyle';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import carouselData from '../../db/wiki/CarouselData';
-import { BsArrowLeftCircle, BsArrowRightCircle } from 'react-icons/bs';
-
-
 
 const Carousel = () => {
   const vw = window.innerWidth;
@@ -69,8 +66,9 @@ const Carousel = () => {
             {carouselData.map((_, pageindex) => (
               <>
                 <style.CarouselContent
-                  pageindex={pageindex}
                   ref={carouselRef}
+                  currentindex={currentindex}
+                  pageindex={pageindex}
                   carouselwidth={carouselwidth}>
                   <style.CarouselPageButton href={`${carouselData[pageindex].link}`}>자세히 보기</style.CarouselPageButton>
                 </style.CarouselContent>
