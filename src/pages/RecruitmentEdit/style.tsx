@@ -17,6 +17,8 @@ export const PostContainer = styled.div`
     background-color: white;
 
     padding: 20px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
 `;
 
 export const PostForm = styled.form`

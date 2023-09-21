@@ -15,6 +15,8 @@ import {
     Title,
     Time,
     People,
+    PostPageBtnWrapper,
+    PostPageBtn,
 } from './style';
 import SidebarRecruitment from '../../components/SidebarRecruitment';
 import { showRecruitmentFields } from '../../utils/firebase';
@@ -31,9 +33,12 @@ const Recruitment: React.FC = () => {
 
     const [lastIndex, setLastIndex] = useState(0);
 
+    const [postStartIndex, setPostStartIndex] = useState(0);
+
     const handleEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             setSearching(true);
+            setPostStartIndex(0);
         } else {
             setSearching(false);
             setLastIndex(recruitmentData.length - 1);
@@ -61,6 +66,8 @@ const Recruitment: React.FC = () => {
 
                 setRecruitmentData(subChannelFields);
                 setLastIndex(subChannelFields.length - 1);
+                setSearchTitle('');
+                setPostStartIndex(0);
             } catch (error) {
                 console.error('데이터 가져오기 실패:', error);
             }
@@ -76,14 +83,68 @@ const Recruitment: React.FC = () => {
             );
             setFilteredData(filtered);
             setLastIndex(filtered.length - 1);
+            setPostStartIndex(0);
         } else {
             setFilteredData([]);
         }
     }, [searching, searchTitle]);
 
+    console.log(recruitmentData, '1');
+
+    const postItem = [];
+    const postFilterItem = [];
+    const postNumber = Math.floor((window.innerHeight - 100) / 130 - 1);
+    console.log(postNumber);
+
+    for (let i = postStartIndex; i < postStartIndex + postNumber; i++) {
+        if (recruitmentData[i]) {
+            postItem.push(
+                <Post
+                    key={i}
+                    data={recruitmentData[i].data}
+                    id={recruitmentData[i].id}
+                    index={i}
+                    lastIndex={lastIndex}
+                    channel={channel}
+                />,
+            );
+        }
+    }
+
+    for (let i = postStartIndex; i < postStartIndex + postNumber; i++) {
+        if (filteredData[i]) {
+            postFilterItem.push(
+                <Post
+                    key={i}
+                    data={filteredData[i].data}
+                    id={filteredData[i].id}
+                    index={i}
+                    lastIndex={lastIndex}
+                    channel={channel}
+                />,
+            );
+        }
+    }
+
+    const handlePage = (e: any) => {
+        setPostStartIndex((Number(e.target.innerHTML) - 1) * postNumber);
+    };
+
+    const pageNumbers = [];
+    const pageFilterNumbers = [];
+
+    for (let i = 0; i < recruitmentData.length / postNumber; i++) {
+        pageNumbers.push(<PostPageBtn onClick={handlePage}>{i + 1}</PostPageBtn>);
+    }
+
+    for (let i = 0; i < filteredData.length / postNumber; i++) {
+        pageFilterNumbers.push(<PostPageBtn onClick={handlePage}>{i + 1}</PostPageBtn>);
+    }
+
     return (
         <RecruitmentContainer>
             <SidebarRecruitment />
+
             <PostsContainer>
                 <PostNav>
                     <Link to="/recruitment/post">
@@ -97,29 +158,8 @@ const Recruitment: React.FC = () => {
                         onKeyDown={handleEnterKey}
                     ></SearchInput>
                 </PostNav>
-                <PostsWrapper>
-                    {searching
-                        ? filteredData.map((data, index) => (
-                              <Post
-                                  key={index}
-                                  data={data.data}
-                                  id={data.id}
-                                  index={index}
-                                  lastIndex={lastIndex}
-                                  channel={channel}
-                              />
-                          ))
-                        : recruitmentData.map((data, index) => (
-                              <Post
-                                  key={index}
-                                  data={data.data}
-                                  id={data.id}
-                                  index={index}
-                                  lastIndex={lastIndex}
-                                  channel={channel}
-                              />
-                          ))}
-                </PostsWrapper>
+                <PostsWrapper>{searching ? postFilterItem : postItem}</PostsWrapper>
+                <PostPageBtnWrapper>{searching ? pageFilterNumbers : pageNumbers}</PostPageBtnWrapper>
             </PostsContainer>
         </RecruitmentContainer>
     );

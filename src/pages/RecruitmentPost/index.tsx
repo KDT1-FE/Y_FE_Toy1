@@ -10,6 +10,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import TextField from '@mui/material/TextField';
+import swal from 'sweetalert';
 
 const RecruitmentPost: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
@@ -25,7 +26,13 @@ const RecruitmentPost: React.FC = () => {
 
     useEffect(() => {
         if (!userId) {
-            alert('로그인 후 사용해주세요');
+            swal({
+                title: '글을 작성하실 수 없습니다.',
+                text: '로그인 후 사용해주세요 !',
+                icon: 'warning',
+                // buttons: true,
+                // dangerMode: true,
+            });
             navigate('/recruitment');
         }
         getUserData(userId)
@@ -40,7 +47,6 @@ const RecruitmentPost: React.FC = () => {
 
     const handleCreateRecruitment = (e: any) => {
         e.preventDefault();
-
         if (
             e.target &&
             e.target.content &&
@@ -54,29 +60,47 @@ const RecruitmentPost: React.FC = () => {
             e.target.recruitmentType &&
             e.target.recruitmentType.value
         ) {
-            // const date = new Date().getTime();
-            // console.log(date);
-            const updated_at_timestamp = serverTimestamp();
+            swal({
+                title: '모집을 완료하시겠습니까? ',
+                text: '모집중으로 되돌리실 수 없습니다!',
+                icon: 'info',
+                buttons: ['취소', '모집 완료'],
+            }).then((willDelete) => {
+                if (willDelete) {
+                    swal('모집이 성공적으로 마감되었습니다.', {
+                        icon: 'success',
+                    });
 
-            const value = {
-                uid: userId,
-                name: userData.name,
-                imageURL: userData.imageURL,
-                category: e.target.category.value,
-                title: e.target.title.value,
-                content: e.target.content.value,
-                people: Number(e.target.people.value),
-                recruitValued: true,
-                comment: [],
-                time: updated_at_timestamp,
-                editValued: false,
-                editTime: updated_at_timestamp,
-            };
-            console.log(value);
+                    // const date = new Date().getTime();
+                    // console.log(date);
+                    const updated_at_timestamp = serverTimestamp();
 
-            console.log(e.target.recruitmentType.value);
-            createRecruitment(e.target.recruitmentType.value, value);
-            navigate('/recruitment');
+                    const value = {
+                        uid: userId,
+                        name: userData.name,
+                        imageURL: userData.imageURL,
+                        category: e.target.category.value,
+                        title: e.target.title.value,
+                        content: e.target.content.value,
+                        people: Number(e.target.people.value),
+                        recruitValued: true,
+                        comment: [],
+                        time: updated_at_timestamp,
+                        editValued: false,
+                        editTime: updated_at_timestamp,
+                    };
+                    console.log(value);
+
+                    console.log(e.target.recruitmentType.value);
+                    createRecruitment(e.target.recruitmentType.value, value);
+
+                    navigate('/recruitment');
+                } else {
+                    swal('모집 마감이 취소되었습니다.!');
+                }
+            });
+        } else {
+            swal({ title: '빈 공간 없이 입력해주세요', text: '부탁드립니다..', icon: 'warning' });
         }
     };
 
@@ -98,18 +122,32 @@ const RecruitmentPost: React.FC = () => {
                 <PostForm action="submit" onSubmit={handleCreateRecruitment}>
                     <PostBox>
                         <PostH>분야</PostH>
+                        {categoryViewToggle ? (
+                            <Select
+                                labelId="bigCategory"
+                                name="recruitmentType"
+                                onChange={handleCategory}
+                                style={{ width: '150px', height: '40px' }}
+                                disabled
+                            >
+                                <InputLabel id="bigCategory">대분류</InputLabel>
 
-                        <Select
-                            labelId="bigCategory"
-                            name="recruitmentType"
-                            onChange={handleCategory}
-                            style={{ width: '150px', height: '40px' }}
-                        >
-                            <InputLabel id="bigCategory">대분류</InputLabel>
+                                <MenuItem value="project">프로젝트</MenuItem>
+                                <MenuItem value="study">스터디</MenuItem>
+                            </Select>
+                        ) : (
+                            <Select
+                                labelId="bigCategory"
+                                name="recruitmentType"
+                                onChange={handleCategory}
+                                style={{ width: '150px', height: '40px' }}
+                            >
+                                <InputLabel id="bigCategory">대분류</InputLabel>
 
-                            <MenuItem value="project">프로젝트</MenuItem>
-                            <MenuItem value="study">스터디</MenuItem>
-                        </Select>
+                                <MenuItem value="project">프로젝트</MenuItem>
+                                <MenuItem value="study">스터디</MenuItem>
+                            </Select>
+                        )}
                         {categoryViewToggle ? (
                             categoryToggle ? (
                                 <Select
@@ -130,8 +168,8 @@ const RecruitmentPost: React.FC = () => {
                                     style={{ marginLeft: '10px', width: '150px', height: '40px' }}
                                 >
                                     <InputLabel id="category">분류</InputLabel>
-                                    <MenuItem value="토이 프로젝트">토이프로젝트</MenuItem>
-                                    <MenuItem value="연계 프로젝트">연계프로젝트</MenuItem>
+                                    <MenuItem value="토이 프로젝트">토이 프로젝트</MenuItem>
+                                    <MenuItem value="연계 프로젝트">연계 프로젝트</MenuItem>
                                 </Select>
                             )
                         ) : (
@@ -139,7 +177,7 @@ const RecruitmentPost: React.FC = () => {
                         )}
                     </PostBox>
                     <PostBox>
-                        <PostH>모집 인원(최대 50명)</PostH>
+                        <PostH>모집 인원</PostH>
                         <TextField
                             id="standard-basic"
                             variant="standard"
@@ -156,6 +194,7 @@ const RecruitmentPost: React.FC = () => {
 
                                 setPeopleValue(peopleValue);
                             }}
+                            helperText="최대 50명"
                             style={{ width: '150px', marginTop: '10px' }}
                         />
                     </PostBox>
@@ -167,6 +206,8 @@ const RecruitmentPost: React.FC = () => {
                             type="text"
                             name="title"
                             placeholder="글 제목"
+                            helperText="제목을 30자 내로 작성해주세요"
+                            inputProps={{ maxLength: 20 }}
                             style={{ width: '100%', fontSize: '1.5rem', marginTop: '10px' }}
                         />
                     </PostBox>

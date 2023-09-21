@@ -93,10 +93,10 @@ const Tech: React.FC = () => {
                     <ModalT onClose={closeModal} />
                 </div>
             )}
-            {/* <ContentFirstLine style={{ font: '16px', fontWeight: 'bold' }}>레퍼런스 공유 {'>'} 테크</ContentFirstLine> */}
-            <UploadBtnWrapper>
-                <UploadBtn onClick={openModal}>업로드</UploadBtn>
-            </UploadBtnWrapper>
+            <UploadBtn
+                onClick={openModal}
+                style={{ opacity: isDraggingItem ? '0' : '1', zIndex: isDraggingItem ? '1' : '3' }}
+            ></UploadBtn>
             <ArticleContainer>
                 <DragDropContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
                     <Droppable droppableId="trashCan">
@@ -114,13 +114,18 @@ const Tech: React.FC = () => {
                     </Droppable>
                     <Droppable droppableId="yourDroppableId">
                         {(provided) => (
-                            <div
+                            <ul
                                 ref={provided.innerRef}
                                 style={{
                                     display: 'flex',
                                     flexWrap: 'wrap',
-                                    gap: '20px',
-                                    justifyContent: 'space-between',
+                                    gap: ' 0 98px',
+                                    justifyContent: 'flex-start',
+                                    alignContent: 'flex-start',
+                                    marginBlock: '0px',
+                                    paddingInlineStart: '0px',
+                                    width: '1100px',
+                                    paddingTop: '3%',
                                 }}
                                 {...provided.droppableProps}
                             >
@@ -175,7 +180,7 @@ const Tech: React.FC = () => {
                                     </Draggable>
                                 ))}
                                 {provided.placeholder}
-                            </div>
+                            </ul>
                         )}
                     </Droppable>
                 </DragDropContext>

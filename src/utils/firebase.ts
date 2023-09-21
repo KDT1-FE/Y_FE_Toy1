@@ -26,13 +26,13 @@ import { getAuth } from 'firebase/auth';
 import { Snapshot } from 'recoil';
 
 const firebaseConfig = {
-    apiKey: 'AIzaSyDdTBAy3IzoA_tx-3xM8D59o4S1nZzEax4',
-    authDomain: 'wiki-for-fastcampus.firebaseapp.com',
-    projectId: 'wiki-for-fastcampus',
-    storageBucket: 'wiki-for-fastcampus.appspot.com',
-    messagingSenderId: '302754346576',
-    appId: '1:302754346576:web:bfc3d5da1f48f02814c355',
-    measurementId: 'G-MMJ9WKS2VD',
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID,
+    measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);

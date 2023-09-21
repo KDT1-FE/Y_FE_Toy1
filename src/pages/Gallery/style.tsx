@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import bin from '../../common/Gallery/bin.png';
+import upload from '../../common/Gallery/icons8-upload-64.png';
 
 //갤러리 전체
 export const GalleryContainer = styled.div`
@@ -12,10 +13,12 @@ export const GalleryContainer = styled.div`
 
 // 컨텐츠 영역
 export const ProfileContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
+    padding: 3%;
 `;
 
 export const RecruitConstainer = styled.div`
@@ -31,14 +34,12 @@ export const ContentContainer = styled.div`
 `;
 
 export const ArticleContainer = styled.div`
-    --paddingTop: 1%;
     overflow-y: auto;
-    height: calc(100vh - var(--paddingTop));
-    padding-left: 8%;
-    padding-top: var(--paddingTop);
-    padding-right: 8%;
-    padding-bottom: 8%;
+    height: calc(100vh - 72px);
     box-sizing: border-box;
+    display: flex;
+    align-content: center;
+    justify-content: center;
 `;
 
 export const ContentFirstLine = styled.div`
@@ -50,8 +51,13 @@ export const ContentFirstLine = styled.div`
 `;
 
 export const UploadBtn = styled.button`
-    width: 100px;
-    height: 50px;
+    position: fixed;
+    right: 20px;
+    bottom: 40px;
+    font-size: 60px;
+    z-index: 3;
+    width: 150px;
+    height: 150px;
     border-radius: 10px;
     font-size: 26px;
     padding: 10px;
@@ -60,8 +66,13 @@ export const UploadBtn = styled.button`
     background-color: ${(props) => props.theme.activeColor1};
     color: white;
     cursor: pointer;
+    background-color: transparent;
+    background-image: url(${upload});
+    background-position: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
     &:hover {
-        filter: brightness(110%);
+        filter: brightness(90%);
     }
 `;
 
@@ -101,20 +112,18 @@ export const ImgContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+    align-items: flex-start;
     padding: 10px;
 `;
 
 export const StyleProfile = styled.div`
-    --paddingTop: 8%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-content: flex-start;
     flex-wrap: wrap;
     height: calc(100vh - 72px);
-    gap: 40px;
-    padding-top: var(--paddingTop);
-    padding-left: 8%;
-    padding-right: 8%;
-    padding-bottom: 8%;
+    gap: 98px;
+    width: 1100px;
     overflow-y: auto;
 `;
 
@@ -130,7 +139,7 @@ export const ProfileWrapper = styled.div`
 export const ProfileIMG = styled.img`
     width: 200px;
     height: 200px;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
 `;
 export const ProfileName = styled.div`
     text-align: center;
@@ -247,6 +256,7 @@ export const Description = styled.div`
 export const ChildArticle = styled.li`
     display: flex;
     align-items: flex-start;
+    padding-bottom: 5%;
     &:hover ${Description} {
         opacity: 1;
     }

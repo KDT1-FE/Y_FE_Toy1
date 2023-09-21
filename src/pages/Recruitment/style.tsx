@@ -103,3 +103,30 @@ export const Title = styled.div`
 export const Time = styled.div`
     color: black;
 `;
+
+export const PostPageBtnWrapper = styled.div`
+    width: 100%;
+    height: 50px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 10px;
+`;
+
+export const PostPageBtn = styled.a`
+    color: black;
+
+    margin-left: 2px;
+    padding: 4px 8px;
+
+    border: none;
+
+    text-decoration: underline;
+    &:hover {
+        color: blue;
+    }
+`;

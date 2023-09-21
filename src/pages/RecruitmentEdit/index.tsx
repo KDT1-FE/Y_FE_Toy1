@@ -10,6 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import TextField from '@mui/material/TextField';
 import { RecruitmentData } from '../../utils/recoil';
+import swal from 'sweetalert';
 
 const RecruitmentEdit: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
@@ -40,41 +41,55 @@ const RecruitmentEdit: React.FC = () => {
     const handleUpdateRecruitment = (e: any) => {
         e.preventDefault();
 
-        if (
-            e.target &&
-            e.target.content &&
-            e.target.content.value &&
-            e.target.category &&
-            e.target.category.value &&
-            e.target.title &&
-            e.target.title.value &&
-            e.target.people &&
-            e.target.people.value &&
-            e.target.recruitmentType &&
-            e.target.recruitmentType.value
-        ) {
-            // const date = new Date().getTime();
-            // console.log(date);
-            const updated_at_timestamp = serverTimestamp();
+        swal({
+            title: '수정을 완료하시겠습니까? ',
+            text: '수정된 정보로 글이 수정됩니다.',
+            icon: 'info',
+            buttons: ['취소', '수정'],
+        }).then((willDelete) => {
+            if (willDelete) {
+                swal('수정이 성공적으로 마감되었습니다.', {
+                    icon: 'success',
+                });
+                if (
+                    e.target &&
+                    e.target.content &&
+                    e.target.content.value &&
+                    e.target.category &&
+                    e.target.category.value &&
+                    e.target.title &&
+                    e.target.title.value &&
+                    e.target.people &&
+                    e.target.people.value &&
+                    e.target.recruitmentType &&
+                    e.target.recruitmentType.value
+                ) {
+                    // const date = new Date().getTime();
+                    // console.log(date);
+                    const updated_at_timestamp = serverTimestamp();
 
-            const value = {
-                uid: userId,
-                category: e.target.category.value,
-                title: e.target.title.value,
-                content: e.target.content.value,
-                people: Number(e.target.people.value),
-                recruitValued: true,
-                comment: recruitmentData.comment,
-                time: recruitmentData.time,
-                name: recruitmentData.name,
-                imageURL: recruitmentData.imageURL,
-                editValued: true,
-                editTime: updated_at_timestamp,
-            };
+                    const value = {
+                        uid: userId,
+                        category: e.target.category.value,
+                        title: e.target.title.value,
+                        content: e.target.content.value,
+                        people: Number(e.target.people.value),
+                        recruitValued: true,
+                        comment: recruitmentData.comment,
+                        time: recruitmentData.time,
+                        name: recruitmentData.name,
+                        imageURL: recruitmentData.imageURL,
+                        editValued: true,
+                        editTime: updated_at_timestamp,
+                    };
 
-            updateRecruitment(channel, path, value);
-            navigate('/recruitment/' + channel + '/' + path);
-        }
+                    updateRecruitment(channel, path, value);
+                    navigate('/recruitment/' + channel + '/' + path);
+                }
+            } else {
+                swal('수정이 취소되었습니다.!');
+            }
+        });
     };
 
     const handleCategory = (e: any) => {
@@ -132,8 +147,8 @@ const RecruitmentEdit: React.FC = () => {
                                 style={{ marginLeft: '10px', width: '150px', height: '40px' }}
                             >
                                 <InputLabel id="category">분류</InputLabel>
-                                <MenuItem value="토이 프로젝트">토이프로젝트</MenuItem>
-                                <MenuItem value="연계 프로젝트">연계프로젝트</MenuItem>
+                                <MenuItem value="토이 프로젝트">토이 프로젝트</MenuItem>
+                                <MenuItem value="연계 프로젝트">연계 프로젝트</MenuItem>
                             </Select>
                         )}
                     </PostBox>
@@ -155,6 +170,7 @@ const RecruitmentEdit: React.FC = () => {
 
                                 setPeopleValue(peopleValue);
                             }}
+                            helperText="최대 50명"
                             style={{ width: '150px' }}
                         />
                     </PostBox>
@@ -166,6 +182,8 @@ const RecruitmentEdit: React.FC = () => {
                             variant="standard"
                             type="text"
                             name="title"
+                            helperText="제목을 30자 내로 작성해주세요"
+                            inputProps={{ maxLength: 30 }}
                             style={{ width: '100%', fontSize: '1.5rem' }}
                         />
                     </PostBox>
