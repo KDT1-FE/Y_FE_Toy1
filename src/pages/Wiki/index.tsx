@@ -39,35 +39,33 @@ function Wiki() {
   return (
     <StyledWikiContainer>
       <NavigationWiki setIsChanged={setIsChanged} isChange={isChange} />
-      <div>
-        {isEdit ? (
-          <WikiCreate
-            setIsEdit={setIsEdit}
-            data={data}
-            selectedCategory={selectedCategory}
-          />
-        ) : (
-          <StyledTextareaContainer>
-            {isLoading ? (
-              <Loading />
-            ) : (
-              <WikiContent
-                data={data}
-                setIsEdit={setIsEdit}
-                setIsChanged={setIsChanged}
-                isChange={isChange}
-              />
-            )}
-          </StyledTextareaContainer>
-        )}
-      </div>
+      {isEdit ? (
+        <WikiCreate
+          setIsEdit={setIsEdit}
+          data={data}
+          selectedCategory={selectedCategory}
+        />
+      ) : (
+        <StyledTextareaContainer>
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <WikiContent
+              data={data}
+              setIsEdit={setIsEdit}
+              setIsChanged={setIsChanged}
+              isChange={isChange}
+            />
+          )}
+        </StyledTextareaContainer>
+      )}
     </StyledWikiContainer>
   );
 }
 
 const StyledWikiContainer = styled.div`
   display: grid;
-  grid-template-columns: 0.2fr 0.8fr;
+  grid-template-columns: 0.2fr 1fr;
 `;
 
 const StyledTextareaContainer = styled.div`
@@ -112,40 +110,5 @@ const StyledTextareaContainer = styled.div`
     height: 25rem;
   `)}
 `;
-
-// const StyledWikiNotExist = styled.div`
-//   font-size: 1.5rem;
-//   font-weight: 600;
-//   text-align: center;
-//   position: absolute;
-
-//   width: 100%;
-//   height: 100%;
-//   top: 50%;
-
-//   button {
-//     position: relative;
-//     color: #3584f4;
-//     font-size: 1rem;
-//     text-align: right;
-//     cursor: pointer;
-//   }
-
-//   ${media.desktop_lg(`
-//     font-size: 1.5rem;
-//   `)}
-//   ${media.tablet(`
-//     font-size: 1.25rem;
-//   `)}
-//   ${media.tablet_680(`
-//     font-size: 1rem;
-//   `)}
-//   ${media.tablet_625(`
-//     font-size: 0.75rem;
-//   `)}
-//   ${media.mobile_430(`
-//     font-size: 0.5rem;
-//   `)}
-// `;
 
 export default Wiki;

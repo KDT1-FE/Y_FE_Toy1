@@ -76,16 +76,18 @@ const StyledButtonContainer = styled.div`
 `;
 
 const StyledWikiContentContainer = styled.div`
-  width: 100%;
+  height: 100%;
 `;
 
 const StyledWikiNotExist = styled.div`
   font-size: 1.5rem;
   font-weight: 600;
   text-align: center;
-  position: absolute;
 
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   height: 100%;
   top: 50%;
 
@@ -98,33 +100,18 @@ const StyledWikiNotExist = styled.div`
   }
 
   ${media.desktop_lg(`
-    font-size: 1.5rem;
-    button {
-      left: 13rem;
-    }
+    font-size: 1.25rem;
   `)}
   ${media.tablet(`
     font-size: 1.25rem;
-    button {
-      left: 10rem;
-    }
   `)}
   ${media.tablet_680(`
     font-size: 1rem;
-    button {
-      left: 7.5rem;
-    }
   `)}
   ${media.tablet_625(`
-    font-size: 0.75rem;
-    button {
-      left: 5rem;
-    }
+    font-size: 0.875rem;
   `)}
   ${media.mobile_430(`
-    font-size: 0.5rem;
-    button {
-      left: 2.5rem;
-    }
+    font-size: 0.75rem;
   `)}
 `;
