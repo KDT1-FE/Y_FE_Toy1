@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import GalleryEdit from "./GalleryEdit";
 import GalleryDetail from "./GalleryDetail";
 import GalleryList from "./GalleryList";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { db } from "../../firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
 import userData from "./UserData";
 import { IsMobile } from "utils/mediaQuery";
+
 
 const Gallery = () => {
   const [onEdit, setOnEdit] = useState<boolean>(false);
@@ -23,34 +24,51 @@ const Gallery = () => {
     topMargin = 100
   }
 
+  const [activeCategory, setActiveCategory] = useState<string>("all"); // 초기값 설정
+  const location = useLocation();
+  const Navigate = useNavigate();
   // 초기값
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getDocs(collection(db, "gallery"));
+      const q = query(
+        collection(db, "gallery"),
+        orderBy("timestamp", "desc")
+      );
+      const data = await getDocs(q);
       const galleryData: userData[] = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      galleryData.sort((a, b) => {
-        if (a.timestamp && b.timestamp) {
-          return b.timestamp.toMillis() - a.timestamp.toMillis();
-        }
-        return 0;
-      });
+
       setGalleryData(galleryData);
     };
 
     fetchData();
   }, []);
 
+
+
   // 사이드바 쿼리구현
   const handleClick = async (category: string) => {
-    const q = query(collection(db, "gallery"), where("category", "==", category));
+
+    // 글 작성시에 메뉴 클릭하면 강제 
+    const path = location.pathname;
+    const galleryPath = "/Gallery/";
+    const subPath = path.substring(galleryPath.length); 
+    
+    // 리스트페이지가 아닐 경우에 리스트로 이동
+    if (subPath.startsWith("edit") || subPath.startsWith("detail/")) {
+      Navigate('/Gallery')
+    } 
+
+    // 카테고리에 따른 데이터 호출
+    let q;
+    if(category === 'all'){
+      q = query(collection(db, "gallery"), orderBy("timestamp", "desc"));
+    } else {
+      const cateQuery = query(collection(db, "gallery"), where("category", "==", category));
+      q = query(cateQuery, orderBy("timestamp", "desc"));
+    }
+
     const data = await getDocs(q);
     const galleryData: userData[] = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-    galleryData.sort((a, b) => {
-      if (a.timestamp && b.timestamp) {
-        return b.timestamp.toMillis() - a.timestamp.toMillis();
-      }
-      return 0;
-    });
     setGalleryData(galleryData);
     setActiveCategory(category);
   };

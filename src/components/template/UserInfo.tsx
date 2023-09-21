@@ -72,7 +72,7 @@ const UserInfo: React.FC<Props> = ({ handlerLogout, user, isborder }) => {
       <div className="userInfo__img-container">
         <img className="userInfo__user-img" src={userPhotoURL!} alt="유저 이미지" />
         <div className="userInfo__img-edit" onClick={handleEditImage}>
-          <img src="svg/icon-edit.svg" alt="수정버튼" />
+          <img src="svg/icon/icon-edit.svg" alt="수정버튼" />
         </div>
         {/* <div>{userClassName}</div> */}
         <FileInput type="file" accept="image/*" ref={fileInputRef} onInput={handleFileChange} />

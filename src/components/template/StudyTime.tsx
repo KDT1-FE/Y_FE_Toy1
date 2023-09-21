@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Button, ButtonWhite } from "./Button";
 import { useContext } from "react";
@@ -11,16 +12,20 @@ const StyledClock = styled.p`
   font-variant-numeric: tabular-nums;
 `;
 
+const getCurrentTime = () => {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const seconds = String(now.getSeconds()).padStart(2, "0");
+  return `${hours}:${minutes}:${seconds}`;
+};
+
 const Clock: React.FC = () => {
-  const [currentTime, setCurrentTime] = useState<string>("00:00:00");
+  const [currentTime, setCurrentTime] = useState<string>(getCurrentTime());
 
   useEffect(() => {
     const updateTime = () => {
-      const now = new Date();
-      const hours = String(now.getHours()).padStart(2, "0");
-      const minutes = String(now.getMinutes()).padStart(2, "0");
-      const seconds = String(now.getSeconds()).padStart(2, "0");
-      setCurrentTime(`${hours}:${minutes}:${seconds}`);
+      setCurrentTime(getCurrentTime());
     };
 
     const intervalId = setInterval(updateTime, 1000);
@@ -39,7 +44,12 @@ interface StudyTimeProps {
   toggleStudyStatus: () => void;
 }
 
-const StudyTime: React.FC<StudyTimeProps> = ({ isStudying, studyStartTime, toggleStudyStatus }) => {
+const StudyTime: React.FC<StudyTimeProps> = ({
+  isStudying,
+  studyStartTime,
+  toggleStudyStatus,
+}) => {
+  const navigate = useNavigate();
   const user = useContext(AuthContext);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
 
@@ -52,21 +62,6 @@ const StudyTime: React.FC<StudyTimeProps> = ({ isStudying, studyStartTime, toggl
         const elapsedMilliseconds = currentTime - studyStartTime;
         setElapsedTime(elapsedMilliseconds);
       }, 1000);
-    } else {
-      if (studyStartTime) {
-        const endTime = new Date().getTime();
-        const elapsedMinutes = Math.floor((endTime - studyStartTime) / 60000);
-
-        if (user && user.uid) {
-          const userDocRef = doc(db, "user", user.uid);
-          updateDoc(userDocRef, {
-            studyTime: increment(elapsedMinutes),
-          }).then(() => {
-            // 현재 firestore에 변경된 studytime을 확인해, database에 저장된 class 값과 비교하고 달라졌다면 alert 창을 띄움
-            SynchroClassAndAlert(user);
-          });
-        }
-      }
     }
 
     return () => {
@@ -75,6 +70,37 @@ const StudyTime: React.FC<StudyTimeProps> = ({ isStudying, studyStartTime, toggl
       }
     };
   }, [isStudying, studyStartTime]);
+
+  const handleStartStudy = () => {
+    //로그인 했을 때
+    if (user && user.uid) {
+      if (!isStudying) {
+        const startTime = new Date().getTime();
+        toggleStudyStatus();
+      } else {
+        toggleStudyStatus();
+
+        if (studyStartTime) {
+          // 공부 종료 시에만 실행
+          const endTime = new Date().getTime();
+          const elapsedMinutes =
+            Math.floor((endTime - studyStartTime) / 60000) + 1;
+
+          const userDocRef = doc(db, "user", user.uid);
+          updateDoc(userDocRef, {
+            studyTime: increment(elapsedMinutes),
+          }).then(() => {
+            // 현재 firestore에 변경된 studytime을 확인해, database에 저장된 class 값과 비교하고 달라졌다면 alert 창을 띄움
+            SynchroClassAndAlert(user);
+            console.log("저장된 학습시간: " + elapsedMinutes);
+          });
+        }
+      }
+    } else {
+      alert("학습시간 기록을 위해 로그인이 필요합니다.");
+      // navigate("/login");
+    }
+  };
 
   return (
     <div>
@@ -89,10 +115,14 @@ const StudyTime: React.FC<StudyTimeProps> = ({ isStudying, studyStartTime, toggl
         <CounterLabel>학습시간</CounterLabel>
         <CounterData>
           {formatTime(elapsedTime)}
-          <CounterBadge show={isStudying}>{isStudying ? "기록 중" : null}</CounterBadge>
+          <CounterBadge show={isStudying}>
+            {isStudying ? "기록 중" : null}
+          </CounterBadge>
         </CounterData>
       </CounterWrap>
-      <Button onClick={toggleStudyStatus}>{isStudying ? "공부 종료" : "공부 시작"}</Button>
+      <Button onClick={handleStartStudy}>
+        {isStudying ? "공부 종료" : "공부 시작"}
+      </Button>
     </div>
   );
 };
@@ -102,10 +132,10 @@ const formatTime = (milliseconds: number) => {
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
 
-  return `${String(hours).padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}:${String(seconds % 60).padStart(
+  return `${String(hours).padStart(2, "0")}:${String(minutes % 60).padStart(
     2,
     "0"
-  )}`;
+  )}:${String(seconds % 60).padStart(2, "0")}`;
 };
 
 const SectionTitle = styled.div`

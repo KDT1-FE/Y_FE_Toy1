@@ -36,55 +36,28 @@ const Carousel: React.FC = () => {
   return (
     <Container>
       <Slider {...settings}>
-        <a
-          href="https://kdt.fastcampus.co.kr/account/sign-in"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <img
-            src={process.env.PUBLIC_URL + "/svg/fastcampus_banner.svg"}
-            alt="fastcampus_banner"
-          />
+        <a href="https://kdt.fastcampus.co.kr/account/sign-in" target="_blank" rel="noreferrer">
+          <img src={process.env.PUBLIC_URL + "/svg/banner/fastcampus_banner.svg"} alt="fastcampus_banner" />
         </a>
-        <a
-          href="https://www.notion.so/X-24f85bf2ff4e4c69bd45ddc4e05d464b"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <img
-            src={process.env.PUBLIC_URL + "/svg/notion_banner.svg"}
-            alt="notion_banner"
-          />
+        <a href="https://www.notion.so/X-24f85bf2ff4e4c69bd45ddc4e05d464b" target="_blank" rel="noreferrer">
+          <img src={process.env.PUBLIC_URL + "/svg/banner/notion_banner.svg"} alt="notion_banner" />
         </a>
-        <a
-          href="https://app.slack.com/client/T057XJP4T34/threads"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <img
-            src={process.env.PUBLIC_URL + "/svg/slack_banner.svg"}
-            alt="slack_banner"
-          />
+        <a href="https://app.slack.com/client/T057XJP4T34/threads" target="_blank" rel="noreferrer">
+          <img src={process.env.PUBLIC_URL + "/svg/banner/slack_banner.svg"} alt="slack_banner" />
         </a>
         <a
           href="https://us06web.zoom.us/j/4912611157?pwd=N2swc3kxRG9uYTFKa2lBTUI2dS9NZz09#success"
           target="_blank"
           rel="noreferrer"
         >
-          <img
-            src={process.env.PUBLIC_URL + "/svg/zoom_banner.svg"}
-            alt="zoom_banner"
-          />
+          <img src={process.env.PUBLIC_URL + "/svg/banner/zoom_banner.svg"} alt="zoom_banner" />
         </a>
         <a
           href="https://docs.google.com/spreadsheets/d/1Ffg--2TCzecwLMODoBHrTAk7zWufPLrJoyLVCwE4ea4/edit#gid=831646039"
           target="_blank"
           rel="noreferrer"
         >
-          <img
-            src={process.env.PUBLIC_URL + "/svg/sheet_banner.svg"}
-            alt="sheet_banner"
-          />
+          <img src={process.env.PUBLIC_URL + "/svg/banner/sheet_banner.svg"} alt="sheet_banner" />
         </a>
       </Slider>
     </Container>
@@ -122,5 +95,3 @@ const Container = styled.div`
 `;
 
 export default Carousel;
-
-
