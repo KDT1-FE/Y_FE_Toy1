@@ -4,6 +4,7 @@ import { Timer } from 'components/TimerUserCard/Timer';
 import './UserCard.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { UserCardModal } from './UserCardModal';
+import { IsLoggedIn } from './IsLoggedIn';
 
 export function UserCard() {
   const [showModal, setShowModal] = useState(false);
@@ -24,12 +25,13 @@ export function UserCard() {
       <div className="user-card__container">
         {userObjects.map((user) => (
           <div
-            className="user-card"
+            className={`user-card ${user.id}`}
             onClick={() => handleUserCardClick(user)}
             key={user.id}
           >
             <div>
               <img src={user.image} alt={user.nickname + '님의 사진'}></img>
+              <IsLoggedIn userId={user.id} />
               <div className="name">{user.nickname}</div>
             </div>
             <Timer id={user.id} />

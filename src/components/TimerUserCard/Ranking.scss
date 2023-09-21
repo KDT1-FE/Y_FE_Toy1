@@ -45,7 +45,7 @@
     }
 
     &:nth-child(n + 4):nth-child(-n + 6) {
-      background-color: orange;
+      background-color: $highlightColor;
     }
 
     &:nth-child(4) {

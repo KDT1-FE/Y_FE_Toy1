@@ -29,7 +29,11 @@ interface TimerProps {
 //Timer 컴포넌트
 export function Timer({ id }: TimerProps): JSX.Element {
   const [count, setCount] = useState(0);
-  const intervalRef: React.MutableRefObject<unknown | null> = useRef(null);
+  const intervalRef = useRef<number | null>(null); // interval ID 저장
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
+  // const [currentDate, setCurrentDate] = useState(
+  //   getCurrentDateFromStamp(timeStamp),
+  // );
 
   let unsubscribe: Unsubscribe | undefined;
   let timer: any;
@@ -61,38 +65,45 @@ export function Timer({ id }: TimerProps): JSX.Element {
   }, [count]);
 
   //시작 버튼 동작
-  const handleStart: (event: any) => void = useCallback(async (event) => {
-    event.stopPropagation();
-    if (intervalRef.current !== null) {
-      return;
-    }
-    const chosenUserRef = doc(db, 'User', event.target.id);
+  const handleStart: (event: any) => void = useCallback(
+    async (event) => {
+      event.stopPropagation();
+      //버튼 비활성화
+      setIsTimerRunning(true);
 
-    // 타이머 시작 (1초마다 호출)
-    timer = setInterval(async () => {
-      const docSnapshot = await getDoc(chosenUserRef);
-      if (docSnapshot.exists()) {
-        const userData = docSnapshot.data();
-        const newAccumulateCount = userData.accumulateCount + 1;
-        await updateDoc(chosenUserRef, {
-          accumulateCount: newAccumulateCount,
-        });
-        setCount(newAccumulateCount);
-      } else {
-        console.error('문서가 없음');
-      }
-    }, 1000);
-
-    //실시간 업데이트 수신 중지
-    unsubscribe = onSnapshot(chosenUserRef, async (docSnapshot) => {
-      if (docSnapshot.exists()) {
-        const userData = docSnapshot.data();
-        setCount(userData.accumulateCount);
-      } else {
+      if (intervalRef.current !== null) {
         return;
       }
-    });
-  }, []);
+      const chosenUserRef = doc(db, 'User', event.target.id);
+      if (!isTimerRunning) {
+        // 타이머 시작 (1초마다 호출)
+        timer = setInterval(async () => {
+          const docSnapshot = await getDoc(chosenUserRef);
+          if (docSnapshot.exists()) {
+            const userData = docSnapshot.data();
+            const newAccumulateCount = userData.accumulateCount + 1;
+            setCount(newAccumulateCount);
+            await updateDoc(chosenUserRef, {
+              accumulateCount: newAccumulateCount,
+            });
+          } else {
+            console.error('문서가 없음');
+          }
+        }, 1000);
+      }
+
+      //실시간 업데이트 수신 중지
+      unsubscribe = onSnapshot(chosenUserRef, async (docSnapshot) => {
+        if (docSnapshot.exists()) {
+          const userData = docSnapshot.data();
+          setCount(userData.accumulateCount);
+        } else {
+          return;
+        }
+      });
+    },
+    [isTimerRunning],
+  );
 
   //정지 버튼 동작
   const handleStop: (event: any) => void = useCallback((event) => {
@@ -106,20 +117,36 @@ export function Timer({ id }: TimerProps): JSX.Element {
       unsubscribe();
       unsubscribe = undefined;
     }
+    // 버튼 활성화
+    setIsTimerRunning(false);
   }, []);
 
-  //시간 초기화
-  const reset: () => void = useCallback(() => {
-    setCount(0);
-  }, []);
+  // 날짜 변경 감지 및 count 초기화
+  useEffect(() => {
+    const userRef = doc(db, 'User', id);
+    // 간격을 두고 실행
+    const checkDateInterval = setInterval(async () => {
+      const docSnapshot = await getDoc(userRef);
+      if (docSnapshot.exists()) {
+        const userData = docSnapshot.data();
+        const serverTimestamp = userData.serverTimestamp; // Firestore의 서버 타임스탬프
+        const currentServerTime = Math.floor(new Date().getTime() / 1000);
+
+        // 서버 시간과 Firestore의 서버 타임스탬프를 비교하여 날짜 변경 확인
+        if (currentServerTime > serverTimestamp) {
+          setCount(0);
+          // Firestore에 count 업데이트
+          await updateDoc(userRef, { accumulateCount: 0 });
+        }
+      }
+    }, 1800000); // 30분마다 체크
+
+    return () => {
+      clearInterval(checkDateInterval);
+    };
+  }, [id]);
 
   const formattedTime = formatTime(count);
-
-  const currentDate = getCurrentDateFromStamp(timeStamp);
-
-  useEffect(() => {
-    reset();
-  }, [currentDate]);
 
   return (
     <div>
