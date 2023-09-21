@@ -3,7 +3,7 @@ import "../../styles/modal.css";
 import "../../styles/timer/timerModal.css";
 import {TimerModalProps} from "../../types/Modal";
 import Controls from "./TimerControls";
-import Clock from "../../utils/clock";
+import Clock from "./Clock";
 import TimeLabels from "./TimeLabels";
 import StudyStatus from "./StudyStatus";
 import {
@@ -12,6 +12,8 @@ import {
   getRankingDocsToArr,
   saveRankingInBrowser,
   RANKING_URL,
+  getTimeFromBrowser,
+  calculateTimer,
 } from "../../utils/timerAndRanking";
 
 function TimerModal(props: TimerModalProps) {
@@ -37,10 +39,15 @@ function TimerModal(props: TimerModalProps) {
   const [studyDuration, setStudyDuration] = useState<string>("");
   const [breakStartTime, setBreakStartTime] = useState<number | null>(null);
   const [username, setUsername] = useState<string>("");
+  const studyDurationFromSession = getTimeFromBrowser();
 
   const handleCloseModal = () => {
     onClose();
   };
+
+  const timeArray = studyDurationFromSession
+    ? calculateTimer(studyDurationFromSession)
+    : null;
 
   if (hidden) {
     return null;
@@ -58,7 +65,7 @@ function TimerModal(props: TimerModalProps) {
         </button>
         <main>
           <section className="CurrentTimeContainer">
-            <Clock isModal />
+            <Clock />
             <StudyStatus
               statusText={statusText}
               setStatusText={setStatusText}
@@ -94,15 +101,20 @@ function TimerModal(props: TimerModalProps) {
             setStatusText={setStatusText}
             timeInSeconds={timeInSeconds}
           />
-          {/* <TimeLabels playTime={playTime} stopTime={stopTime} />  */}
-          <div className="StudyDurationContainer">{studyDuration}</div>
+
+          <div className="StudyDurationContainer">
+            총 공부 시간 :
+            {timeArray
+              ? `${timeArray[0]}시 ${timeArray[1]}분 ${timeArray[2]}초`
+              : " 0시간 0분 0초 "}
+          </div>
           {!isRunning && studyDuration && (
             <div className="SubmitSection">
               <div className="input">
                 <label htmlFor="username">
                   <input
                     type="text"
-                    id="username"
+                    id="UserName"
                     value={username}
                     onChange={e => setUsername(e.target.value)}
                     placeholder="이름을 입력하세요"
@@ -127,13 +139,6 @@ function TimerModal(props: TimerModalProps) {
             </div>
           )}
         </main>
-        {/* <button
-          type="button"
-          className="CancelButton"
-          onClick={handleCloseModal}
-        >
-          Cancel
-        </button> */}
         <button type="button" className="OKButton" onClick={handleCloseModal}>
           OK
         </button>
