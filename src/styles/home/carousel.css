@@ -5,7 +5,7 @@
   justify-content: center;
 
   width: 90vw;
-  height: 81vh;
+  height: 90vh;
 
   margin: auto;
 }
@@ -13,8 +13,8 @@
 .Slideshow {
   display: flex;
 
-  width: 60vw;
-  height: 60vh;
+  width: 70vw;
+  height: 65vh;
 
   overflow: hidden;
 }
@@ -27,14 +27,14 @@
 }
 
 .SlideshowImgBox img {
-  width: 60vw;
+  width: 70vw;
   height: 100%;
 
   border-radius: 8px;
 
   object-fit: cover;
 
-  transition: transform 0.3s ease-in-out;
+  transition: transform 1s ease-in-out;
 }
 
 .Dots {
