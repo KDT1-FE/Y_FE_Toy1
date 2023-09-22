@@ -1,0 +1,207 @@
+/* src/pages/Gallery.tsx */
+@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
+
+.GalleryWrapper {
+  display: flex;
+
+  width: 100%;
+  min-height: 850px;
+}
+
+.Button {
+  width: 35px;
+  height: 35px;
+
+  background-color: transparent;
+
+  cursor: pointer;
+
+  font-size: 2rem;
+
+  border: transparent;
+}
+
+.Button:nth-child(1) {
+  margin-right: 1.4rem;
+}
+
+.Photo {
+  display: flex;
+  justify-content: center;
+
+  position: relative;
+
+  width: 25%;
+
+  margin-bottom: 4%;
+}
+
+.PhotoImgDiv {
+  width: 15vw;
+
+  float: left;
+
+  margin-bottom: 1vh;
+
+  border-radius: 6px;
+}
+
+.PhotoContainer {
+  position: relative;
+
+  width: 15vw;
+}
+
+.PhotoImg {
+  position: relative;
+
+  width: 15vw;
+  height: 60vh;
+
+  border-radius: 8px;
+
+  object-fit: fill;
+}
+
+.PhotoImg.checked {
+  position: relative;
+
+  width: 15vw;
+  height: 60vh;
+
+  border-radius: 8px;
+
+  object-fit: fill;
+
+  filter: blur(5px);
+}
+
+.CheckBox {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  margin: 0.4vw;
+
+  zoom: 1.5;
+
+  cursor: pointer;
+}
+
+.Name {
+  font-family: "Hanna", sans-serif;
+
+  position: absolute;
+  right: 0;
+  bottom: 0;
+
+  margin-bottom: -2vw;
+}
+
+.GallerySidebar {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 250px;
+  min-height: 100vh;
+
+  padding: 2rem 0;
+
+  background-color: #34576d;
+
+  color: white;
+}
+
+.GalleryCategory {
+  padding: 1rem;
+  margin: 0rem 0.5rem;
+
+  border-bottom: 1px solid white;
+
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.GalleryListWrapper {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  padding: 1.2rem 0rem;
+}
+
+.GalleryListWrapper a {
+  padding: 0.6rem;
+  padding-left: 2.5rem;
+
+  color: white;
+
+  text-align: left;
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+.GalleryListWrapper a:hover {
+  font-weight: 600;
+  color: #ff648f;
+
+  transition: all 0.3s;
+}
+
+.GalleryListWrapper a:focus {
+  font-weight: 600;
+  color: #ff648f;
+
+  transition: all 0.3s;
+}
+
+.GalleryContentSection {
+  display: flex;
+  flex-direction: column;
+
+  width: 80%;
+  height: inherit;
+
+  padding: 0.5rem;
+}
+
+/* src/components/Gallery/Album.tsx */
+
+#AlbumWrapper {
+  height: 100%;
+}
+
+#AlbumHeader {
+  display: flex;
+  justify-content: space-between;
+
+  border-bottom: 2px solid #34576d;
+
+  margin-bottom: 1vh;
+}
+
+#AlbumTitle {
+  padding: 1.4rem;
+
+  text-align: left;
+  font-size: 22px;
+}
+
+#AlbumIcons {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  padding: 0 1.4rem;
+}
+
+#AlbumContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  position: relative;
+}

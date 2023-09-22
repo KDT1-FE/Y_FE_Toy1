@@ -1,0 +1,212 @@
+/* common */
+
+.WikiButtonContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.WikiButton {
+  position: absolute;
+  top: 10px;
+  right: 140px;
+
+  width: 80px;
+
+  padding: 0.8rem;
+  margin: 0.5rem;
+
+  border: none;
+  border-radius: 0.5rem;
+
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  text-align: center;
+
+  transition: 0.5s;
+  opacity: 0.8;
+}
+
+.WikiButton:hover {
+  opacity: 1;
+}
+
+.ButtonIcon {
+  padding: 0 1rem;
+  cursor: pointer;
+}
+
+/* src/pages/Wiki.tsx */
+
+.WikiWrap {
+  display: flex;
+
+  width: 100%;
+  min-height: 850px;
+}
+
+.WikiSidebar {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 250px;
+  min-height: 100vh;
+
+  padding: 2rem 0;
+
+  background-color: #34576d;
+
+  color: white;
+}
+
+.WikiCategory {
+  padding: 1rem;
+  margin: 0rem 0.5rem;
+
+  border-bottom: 1px solid white;
+
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.CategoryListWrapper {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  padding: 1.2rem 0rem;
+}
+
+.CategoryListWrapper a {
+  width: inherit;
+
+  padding: 0.6rem;
+  padding-left: 2.5rem;
+
+  color: white;
+
+  text-align: left;
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+.CategoryListWrapper a:hover,
+.CategoryListWrapper a:focus {
+  font-weight: 600;
+  color: #ff648f;
+
+  transition: all 0.3s;
+}
+
+.markdown-body {
+  height: 100%;
+
+  margin: 1rem 0 5rem;
+
+  animation: fadein 1.5s;
+}
+
+/* src/component/Wiki/Content */
+
+.WikiContentWrap {
+  display: flex;
+  flex-direction: column;
+
+  width: 80%;
+
+  padding: 0.5rem;
+
+  position: relative;
+}
+
+.None {
+  display: none;
+}
+
+.ContentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border-bottom: 2px solid #34576d;
+}
+
+.ContentTitle {
+  padding: 1.4rem;
+
+  text-align: left;
+  font-size: 22px;
+}
+
+.FeatBtns {
+  display: flex;
+}
+
+.RefreshBtnWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 60px;
+}
+
+.RefreshLabel {
+  padding-top: 0.3rem;
+
+  font-size: 0.5rem;
+  color: gray;
+}
+
+/* src/component/Wiki/TextEditor */
+
+.TextEditorWrap {
+  display: flex;
+  justify-content: space-around;
+}
+
+.EditorForm {
+  width: 50%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.TextArea {
+  width: 100%;
+  height: 100%;
+
+  padding: 1rem;
+
+  border: 1px solid #3d4e62;
+  border-radius: 10px;
+  outline: none;
+
+  background-color: #f1f4f6;
+
+  color: #3d4e62;
+  font-size: 0.8rem;
+  line-height: 1.8rem;
+
+  animation: fadein 1.5s;
+}
+
+.MarkdownBodyEditor {
+  width: 45%;
+}
+
+.Project:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

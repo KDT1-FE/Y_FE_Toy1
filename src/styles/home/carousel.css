@@ -1,0 +1,54 @@
+.CarouselContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 90vw;
+  height: 90vh;
+
+  margin: auto;
+}
+
+.Slideshow {
+  display: flex;
+
+  width: 70vw;
+  height: 65vh;
+
+  overflow: hidden;
+}
+
+.SlideshowImgBox {
+  width: auto;
+  height: 100%;
+
+  margin-right: 0 20vh;
+}
+
+.SlideshowImgBox img {
+  width: 70vw;
+  height: 100%;
+
+  border-radius: 8px;
+
+  object-fit: cover;
+
+  transition: transform 1s ease-in-out;
+}
+
+.Dots {
+  margin-top: 10px;
+}
+
+.Dot {
+  display: inline-block;
+
+  width: 10px;
+  height: 6px;
+
+  margin: 0px 5px;
+  padding: 0 10px;
+
+  cursor: pointer;
+}

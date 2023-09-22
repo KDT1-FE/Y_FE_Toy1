@@ -1,0 +1,49 @@
+.LoadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+
+  z-index: 1;
+
+  background-color: white;
+
+  animation: fadeout 2s;
+}
+
+.LoadingCircle {
+  width: 50px;
+  height: 50px;
+
+  position: fixed;
+  top: 40vh;
+
+  border: 9px solid #ff648f;
+  border-radius: 50%;
+  border-color: #ff648f #ff648f #ff648f transparent;
+
+  animation: spinning 1s linear infinite;
+}
+
+@keyframes spinning {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}

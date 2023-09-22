@@ -1,0 +1,173 @@
+.TeamContent {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  width: 100%;
+  height: 40vh;
+
+  padding: 3vh 0;
+  margin-top: 2vh;
+
+  border-bottom: 1px solid #34576d37;
+}
+
+.TeamContent:last-child {
+  padding-bottom: 10vh;
+}
+
+.TeamCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: relative;
+
+  width: 18vw;
+  height: 30vh;
+
+  margin: 2vh 0;
+
+  border: 1px solid #34576da2;
+  border-radius: 10px;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.44);
+  border-left: 2px rgba(255, 255, 255, 0.545) outset;
+
+  box-shadow: -15px 20px 30px rgba(0, 0, 0, 0.28);
+
+  transition: 0.4s;
+}
+
+.TeamCard:hover {
+  width: 20vw;
+}
+
+.TeamImg {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  border-radius: 8px;
+
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.TeamCardBg {
+  width: 100%;
+  height: 100%;
+
+  border-radius: 8px;
+
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.TeamCardBg:hover {
+  background-color: #34576d;
+
+  color: white;
+
+  opacity: 0.85;
+}
+
+.TeamText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  text-shadow: -10px 5px 10px rgba(0, 0, 0, 0.573);
+}
+
+.TeamName {
+  margin: 9vh 2vw 1vh;
+
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.Mentor,
+.Mentee {
+  margin: 2vh 2vw 0vh;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.TeamCardContent {
+  width: 45vw;
+  height: 35vh;
+
+  margin-left: 5vw;
+}
+
+.TeamCardBtns {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  width: 100%;
+  height: 6vh;
+
+  animation: fadein 1s;
+}
+
+.TeamCardEditBtn,
+.TeamCardSubmitBtn {
+  width: 15vw;
+  height: 4vh;
+
+  border: none;
+  border-radius: 10px;
+
+  text-align: center;
+  font-weight: 700;
+
+  outline: none;
+  animation: fadein 1s;
+}
+
+.TeamCardSubmitBtn {
+  background-color: rgba(255, 0, 85, 0.5);
+}
+
+.TeamCardTextarea,
+.markdownBodyTeam {
+  width: 100%;
+  height: 100%;
+
+  padding: 30px;
+
+  border: none;
+  border-radius: 10px;
+  background-color: #6e93aa6f;
+
+  color: black;
+
+  font-size: 1.2rem;
+
+  box-sizing: border-box;
+  animation: fadein 1.5s;
+}
+
+.TeamCardTextarea {
+  background-color: #eaf7ff6f;
+  box-shadow: inset 1px 3px 7px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
