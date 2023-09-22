@@ -9,7 +9,8 @@ import { Loading } from 'components/Common/Loading';
 
 function ReadGallery() {
   const [galleryRead, setGalleryRead] = useState<GalleryData[]>([]);
-  const [isReading, setIsReading] = useState(false);
+  const [isReading, setIsReading] = useState(true);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const getGalleryList = async () => {
     setIsReading(true);
@@ -18,11 +19,12 @@ function ReadGallery() {
       setGalleryRead(result);
     }
     setIsReading(false);
+    setIsDeleting(false);
   };
 
   useEffect(() => {
     getGalleryList();
-  }, []);
+  }, [isDeleting]);
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -43,7 +45,7 @@ function ReadGallery() {
                     id={item.id}
                     src={deleteIcon}
                     onClick={() => {
-                      DeleteGallery(item.id);
+                      DeleteGallery(item.id, setIsDeleting);
                     }}
                   ></StyledDeleteIcon>
                 </StyledPhotoContainer>
