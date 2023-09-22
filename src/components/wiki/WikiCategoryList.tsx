@@ -5,6 +5,7 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/Io";
 
 const WikiCategoryList = ({
   WiKiList,
+  hasChildMap,
   onEntryClick,
   onArrowClick,
   isVisible,
@@ -43,13 +44,15 @@ const WikiCategoryList = ({
                 <Styled.WikiTitle selected={wiki.wikiID === selectedWikiId}>
                   {wiki.title}
                 </Styled.WikiTitle>
-                <Styled.ArrowIcon onClick={() => handleArrowClick(wiki)}>
-                  {unfoldedWikiIds.includes(wiki.wikiID) ? (
-                    <IoIosArrowUp />
-                  ) : (
-                    <IoIosArrowDown />
-                  )}
-                </Styled.ArrowIcon>
+                {hasChildMap[wiki.wikiID] && (
+                  <Styled.ArrowIcon onClick={() => handleArrowClick(wiki)}>
+                    {unfoldedWikiIds.includes(wiki.wikiID) ? (
+                      <IoIosArrowUp />
+                    ) : (
+                      <IoIosArrowDown />
+                    )}
+                  </Styled.ArrowIcon>
+                )}
               </Styled.ParentWikiWrapper>
             ) : (
               <>
