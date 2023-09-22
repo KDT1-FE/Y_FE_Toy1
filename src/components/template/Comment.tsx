@@ -23,24 +23,6 @@ dayjs.locale("ko");
 const Comment = () => {
   const user = useContext(AuthContext);
 
-  // // 유저의 엠블럼 구하기
-  // const emblem = () => {
-  //   let num = 0; // 기본값 설정
-  //   let imgSrc = "";
-
-  //   if (user) {
-  //     num = Number(localStorage.getItem(user.uid));
-  //     // console.log(Number(localStorage.getItem(user.uid)));
-  //     imgSrc = `../../../public/png/class_${num}.png`;
-  //   }
-
-  //   return imgSrc;
-  // };
-
-  // // userEmblem 결과를 변수에 저장
-  // const userEmblem = emblem(); // 함수 호출 결과를 변수에 저장
-  // console.log(userEmblem); // 결과 출력
-
   // 변경된 댓글 내용 관리
   const [comment, setComment] = useState("dd");
 
@@ -87,8 +69,6 @@ const Comment = () => {
         deleteDoc(doc(db, "comment", id));
       }
     });
-
-    // await deleteDoc(doc(db, "comment", id));
   };
 
   // 댓글 수정
