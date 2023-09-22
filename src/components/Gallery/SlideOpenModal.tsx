@@ -39,14 +39,10 @@ export function MapImages({
           ref={modalRef}
           className="modal-container modal-container-comment"
         >
-          <button
-            type="button"
-            className="btn-close"
-            onClick={async () => {
-              await modalRef.current?.close();
-            }}
-          />
           <div className="modal-inner modal-comment-inner">
+            <img src={userImage} alt="" />
+            <h2 className="comment-imageUploaderName">{nickName}님의 사진</h2>
+
             <ModalComment
               image={image.image}
               imgId={image.id}
@@ -56,6 +52,14 @@ export function MapImages({
               writerImage={userImage}
               writerName={nickName}
               likeData={like}
+            />
+
+            <button
+              type="button"
+              className="btn-close"
+              onClick={async () => {
+                await modalRef.current?.close();
+              }}
             />
           </div>
         </dialog>
