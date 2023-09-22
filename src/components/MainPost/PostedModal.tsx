@@ -32,7 +32,7 @@ const PostedModal: React.FC<IPostedModalProps> = ({ postId, onClose }) => {
   }, [postId]);
 
   return (
-    <div className="modal open">
+    <div className="modal open modal-dialog modal-dialog-centered">
       <div className="modal-content">
         <span className="close-button" onClick={onClose}>
           &times;

@@ -8,3 +8,22 @@
     background-color: black;
     
 }
+
+.btn.btn-secondary {
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #ad704a;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.btn.btn-secondary:hover {
+    background-color: rgba(213, 150, 82, 0.5);
+}

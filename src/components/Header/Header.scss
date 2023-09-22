@@ -1,13 +1,16 @@
 @import '/src/styles/_common';
 
 .header-container {
-  width: 100%;
+  width: 90%;
   font-family: 'LOTTERIACHAB';
   display: flex;
+  margin: 30px auto;
 
   .logo {
     display: flex;
     align-items: center;
+    margin-right: 50px;
+
     img {
       width: 60px;
       height: auto;
@@ -21,36 +24,42 @@
   .pageList {
     display: flex;
     align-items: center;
+    margin-right: auto;
+  }
+
+  .pageListed {
+    margin-left: auto;
   }
 
   .page {
-    font-size: 40px;
-    margin-right: 80px;
+    font-size: 30px;
+    margin-right: 90px;
     margin-top: 30px;
     margin-bottom: 30px;
     cursor: pointer;
     font-weight: normal;
     text-decoration: none;
+    color: $mainColor;
   }
 
   .page.active {
-    color: black;
+    color: $subColor;
   }
 
   .page:hover {
-    color: coral;
+    color: $highlightColor;
   }
 
   .auth-buttons {
+    align-self: center;
     margin-left: auto;
-    padding-right: 150px;
     font-family: $fontMain;
   }
 
   .signInBtn {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
-    background-color: coral;
+    background-color: $highlightColor;
     color: white;
     border: none;
     border-radius: 30px;
@@ -62,9 +71,9 @@
   }
 
   .signUpBtn {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
-    background-color: coral;
+    background-color: $highlightColor;
     color: white;
     border: none;
     border-radius: 30px;
@@ -75,32 +84,34 @@
   }
 
   .signInBtn:hover {
-    background-color: rgb(214, 108, 69);
+    background-color: $backgroundColor-50;
   }
 
   .signUpBtn:hover {
-    background-color: rgb(214, 108, 69);
+    background-color: $backgroundColor-50;
   }
 
   .userInfo-container {
     display: flex;
     align-items: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .userNickname-container {
     display: flex;
     flex-direction: column;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     margin-right: 15px;
     line-height: 1.2;
-    margin-top: 5px;
   }
 
   .logoutBtn {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
-    background-color: coral;
+    background-color: $highlightColor;
     color: white;
     border: none;
     border-radius: 30px;
@@ -110,6 +121,6 @@
   }
 
   .logoutBtn:hover {
-    background-color: rgb(214, 108, 69);
+    background-color: $backgroundColor-50;
   }
 }

@@ -1,12 +1,14 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css');
 @import url('https://cdn.jsdelivr.net/gh/toss/tossface/dist/tossface.css');
 
-$highlightColor: #ff6523;
+$highlightColor: #ad704a;
 $mainColor: #f6cf92;
+$backgroundColor-50: rgba(213, 150, 82, 0.5);
 $backgroundColor: #d59652;
 $subColor: #a25829;
 $blackColor: #363636;
 $whiteColor: #f5f5f5;
+$grayColor: #9e9e9e;
 
 $fontMain: Pretendard, 'Tossface', 'Noto Sans KR', sans-serif;
 
@@ -18,9 +20,19 @@ $fontMain: Pretendard, 'Tossface', 'Noto Sans KR', sans-serif;
   font-style: normal;
 }
 
+
+@mixin btn-design {
+  border-color: $mainColor;
+  color: $mainColor;
+  &:hover {
+    background-color: $mainColor;
+    color: $whiteColor;
+  }
+}
+
 .main-btn {
-  border-color: $highlightColor;
-  color: $highlightColor;
+  border-color: $mainColor;
+  color: $mainColor;
   &:hover {
     background-color: $mainColor;
     color: $whiteColor;
@@ -37,15 +49,28 @@ $fontMain: Pretendard, 'Tossface', 'Noto Sans KR', sans-serif;
 }
 
 .gallNav {
-  background-color: $mainColor;
-  border-radius: 10px;
+  background-color: inherit;
 }
 .navbar-brand {
-  color: $highlightColor;
+  color: $blackColor;
 }
 .nav-link {
-  color: $whiteColor;
+  color: $highlightColor;
   &:hover {
-    color: $backgroundColor;
+    color: $subColor;
   }
 }
+
+// 사용예시입니다~~
+//btn {
+//   @include btn-design;
+// }
+
+body {
+  background-image: url('https://i.pinimg.com/564x/06/7e/90/067e90a8414b9d1d53a0ce1469c09228.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+

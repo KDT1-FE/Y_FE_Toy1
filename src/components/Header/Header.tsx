@@ -54,10 +54,10 @@ export default function Header() {
         <div className="logo">
           <Link to="/">
             <img src={logo} alt="Logo" />
-            <span className="title">투게더스</span>
           </Link>
         </div>
         <div className="pageList">
+          <div className='pageListed'>
           <Link
             to="/"
             className={`page ${location.pathname === '/' ? 'active' : ''}`}
@@ -84,6 +84,8 @@ export default function Header() {
           >
             Study
           </Link>
+          </div>
+          </div>
           <div className="auth-buttons">
             {user.uid ? ( // 사용자가 로그인한 경우
               <div className="userInfo-container">
@@ -107,7 +109,6 @@ export default function Header() {
               </>
             )}
           </div>
-        </div>
       </div>
     </header>
   );

@@ -176,7 +176,7 @@ export function BoardDetail(props: any) {
   return (
     <main className="container">
       <header className="py-5 text-center">
-        <h1>{boardInfo.title}</h1>
+        <h1 className="content__title">{boardInfo.title}</h1>
       </header>
 
       <div className="row g-5">

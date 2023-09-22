@@ -12,6 +12,7 @@ import { db } from 'data/firebase';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/types';
 import { formatTime } from 'data/formatTime';
+import './Timer.scss';
 
 //unix timestamp
 const timeStamp = Math.floor(new Date().getTime() / 1000);
@@ -140,15 +141,17 @@ export function Timer({ id, showButton = true }: ITimerProps): JSX.Element {
   const formattedTime = formatTime(count);
 
   return (
-    <div>
+    <div className="timer">
       <p>{formattedTime}</p>
       {showButton && user.uid === id && (
-        <button id={id} onClick={handleStart}>
+        <button className="btn" id={id} onClick={handleStart}>
           시작
         </button>
       )}
       {showButton && user.uid === id && (
-        <button onClick={handleStop}>정지</button>
+        <button className="btn" onClick={handleStop}>
+          정지
+        </button>
       )}
     </div>
   );

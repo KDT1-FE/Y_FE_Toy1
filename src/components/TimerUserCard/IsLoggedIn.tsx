@@ -31,8 +31,8 @@ export function IsLoggedIn({ userId }: any) {
           className="user-status"
           style={{
             backgroundColor: userStatus ? 'green' : 'red',
-            width: '20px',
-            height: '20px',
+            width: '23px',
+            height: '23px',
             borderRadius: '50%',
           }}
         ></div>

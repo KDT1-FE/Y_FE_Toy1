@@ -49,3 +49,33 @@
 .form-control {
     margin-bottom: 30px;
 }
+
+.board__content {
+    padding:5px;
+    background-color: inherit !important;
+
+    
+}
+
+.content__title {
+    font-family: 'LOTTERIACHAB';
+}
+
+.btn.btn-primary {
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #ad704a;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+    text-decoration: none; 
+}
+
+.btn.btn-primary:hover {
+    background-color: rgba(213, 150, 82, 0.5);
+}
+
