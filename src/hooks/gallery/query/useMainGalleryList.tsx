@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from 'react-query';
 import { getDocs, query, orderBy, limit } from 'firebase/firestore';
 import { UploadedImage } from '../../../components/Gallery/types';
 import { galleryCollection } from '../../../firebase';
