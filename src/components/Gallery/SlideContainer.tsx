@@ -7,7 +7,7 @@ export function MainSlides(): JSX.Element {
       <div className="inner">
         <div id="studyTips" className="studyTips-title">
           <CarouselSlide
-            categoryId="StudyTipsGallery"
+            categoryId="공부꿀팁"
             slideClassName="leftSlideItem"
             cateEmoji="✏"
             slideContent="모두 다같이 힘내서 공부해봅시다~!"
@@ -16,7 +16,7 @@ export function MainSlides(): JSX.Element {
 
         <div id="events" className="events-title">
           <CarouselSlide
-            categoryId="EventsGallery"
+            categoryId="이벤트"
             slideClassName="rightSlideItem"
             cateEmoji="✨"
             slideContent="좋은 이벤트 정보를 모두에게 알려주면 어떨까요??"
@@ -25,7 +25,7 @@ export function MainSlides(): JSX.Element {
 
         <div id="humors" className="humors-title">
           <CarouselSlide
-            categoryId="HumorsGallery"
+            categoryId="유머"
             slideClassName="leftSlideItem"
             cateEmoji="😄"
             slideContent="웃긴 이미지로 모두와 웃음을 나눠 보세요!"

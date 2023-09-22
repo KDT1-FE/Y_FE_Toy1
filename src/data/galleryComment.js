@@ -15,6 +15,7 @@ const uploadCommentList = (
   imgId,
   categoryId,
   comment,
+  commentId,
   uid,
   userName,
   userImage,
@@ -22,6 +23,7 @@ const uploadCommentList = (
   const commentRef = doc(db, categoryId, imgId);
   updateDoc(commentRef, {
     comments: arrayUnion({
+      commentId: commentId,
       commentUid: uid,
       commentUser: userName,
       text: comment,

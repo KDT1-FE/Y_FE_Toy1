@@ -7,8 +7,8 @@ import './ModalAddImage.scss';
 
 export function AddImageDragDrop(): JSX.Element {
   const [files, setFiles] = useState<any>([]);
-  const selectList = ['StudyTipsGallery', 'EventsGallery', 'HumorsGallery'];
-  const [selected, setSelected] = useState('StudyTipsGallery');
+  const selectList = ['공부꿀팁', '이벤트', '유머'];
+  const [selected, setSelected] = useState('공부꿀팁');
 
   const user = useSelector((state: RootState) => state);
 

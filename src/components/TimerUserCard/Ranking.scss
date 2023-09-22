@@ -5,10 +5,10 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  font-family: 'Pretendard';
+  font-family: $fontMain;
 
   h1 {
-    font-family: 'Sinoreta PERSONAL USE', 'Pretendard';
+    font-family: $fontMain;
     margin: 0px 0px 70px 0px;
   }
 }

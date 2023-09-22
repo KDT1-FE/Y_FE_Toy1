@@ -1,53 +1,61 @@
-.Header {
-    width: 85%;
-}
+@import '/src/styles/_common';
+
+.header-container {
+  width: 100%;
+  font-family: 'LOTTERIACHAB';
+  display: flex;
+
+  .logo {
+    display: flex;
+    align-items: center;
+    img {
+      width: 60px;
+      height: auto;
+    }
+    .title {
+      color: $mainColor;
+      text-decoration: none;
+    }
+  }
+
   .pageList {
     display: flex;
     align-items: center;
-    /* margin: 0 auto; */
   }
 
-  .logo img {
-    width: 60px; 
-    height: auto; 
-    margin-right: 100px;
-  }
-  
-  
   .page {
-    font-size: 30px;
+    font-size: 40px;
     margin-right: 80px;
     margin-top: 30px;
     margin-bottom: 30px;
     cursor: pointer;
     font-weight: normal;
-    color: gray;
-    text-decoration: none; 
+    text-decoration: none;
   }
-  
+
   .page.active {
     color: black;
-    font-weight: bold;
   }
-  
+
   .page:hover {
     color: coral;
   }
-  
+
   .auth-buttons {
     margin-left: auto;
     padding-right: 150px;
+    font-family: $fontMain;
   }
 
   .signInBtn {
     font-size: 20px;
     font-weight: bold;
     background-color: coral;
-    color: white; 
-    border: none; 
-    border-radius: 30px; 
+    color: white;
+    border: none;
+    border-radius: 30px;
     padding: 15px 20px;
-    cursor: pointer; 
+    cursor: pointer;
     transition: background-color 0.3s ease;
     margin-right: 10px;
     text-decoration: none;
@@ -56,13 +64,13 @@
   .signUpBtn {
     font-size: 20px;
     font-weight: bold;
-    background-color: coral; 
-    color: white; 
-    border: none; 
-    border-radius: 30px; 
-    padding: 15px 20px; 
-    cursor: pointer; 
-    transition: background-color 0.3s ease; 
+    background-color: coral;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
     text-decoration: none;
   }
 
@@ -92,15 +100,16 @@
   .logoutBtn {
     font-size: 20px;
     font-weight: bold;
-    background-color: coral; 
-    color: white; 
-    border: none; 
-    border-radius: 30px; 
-    padding: 15px 20px; 
-    cursor: pointer; 
-    transition: background-color 0.3s ease; 
+    background-color: coral;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
   }
 
   .logoutBtn:hover {
     background-color: rgb(214, 108, 69);
   }
+}
