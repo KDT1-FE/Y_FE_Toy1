@@ -191,6 +191,13 @@ const GalleryHeader = styled.div`
     border: none;
     outline: none;
     cursor: pointer;
+    
+    @media screen and (max-width:1200px){
+      width: 64px;
+      height: 28px;
+    }
+
+
     &.delete {
       background-color: white;
       color: var(--main-color);

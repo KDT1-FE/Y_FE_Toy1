@@ -100,20 +100,18 @@ const ListWrapper = styled.div`
   margin-left: -10px;
   margin-right: -10px;
    >div {
-    /* 수치 추후에 조정 */
     display: block;
-    flex: 1 0 31.2%;
-    max-width: 31.2%;
-    padding: 0 10px;
+    flex: 1 0 33.3%;
+    max-width: 33.3%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     transition: transform 0.3s;
-    @media screen and (max-width:1100px) {
-      flex: 1 0 47.8%;
-      max-width: 47.8%;
+    @media screen and (max-width:1200px) {
+      flex: 1 0 50%;
+      max-width: 50%;
     }
-    @media screen and (max-width:700px) {
+    @media screen and (max-width:600px) {
       flex: 1 0 100%;
       max-width: 100%;
     }
@@ -121,12 +119,14 @@ const ListWrapper = styled.div`
       width:100%; 
       display:block;
     }
-    &:hover{
+    @media screen and (min-width:601px) {
+      &:hover{
       transform:translateY(-10px);
+    }
     }
   }
   .Gallery__link {
-    width: 100%;
+    padding: 0 10px;
   }
   .img-bx {
     width: 100%;

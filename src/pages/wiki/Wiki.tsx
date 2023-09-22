@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Route, Routes, Navigate } from "react-router-dom";
 import WikiDetail from "./WikiDetail";
 import WikiEdit from "./WikiEdit";
-import WikiTimeRank from "pages/wiki/WikiTimeRank";
 import { IsMobile } from "utils/mediaQuery";
 const Wiki = () => {
   let leftMargin = 200;
@@ -24,8 +23,6 @@ const Wiki = () => {
           <Route path="/:page" element={<WikiDetail />}></Route>
           {/* 수정 페이지 */}
           <Route path="/:page/edit" element={<WikiEdit />}></Route>
-          {/* 학습 시간왕 */}
-          <Route path="학습 시간왕" element={<WikiTimeRank />}></Route>
         </Routes>
       </Container>
     </>

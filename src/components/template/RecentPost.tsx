@@ -67,7 +67,8 @@ const RecentPost: React.FC = () => {
       <ListWrapper>
         {posts.map((post: postData) => {
           return (
-            <Link to={`/Gallery/detail/${post.id}`} key={post.id}>
+            <div key={post.id}>
+            <Link to={`/Gallery/detail/${post.id}`} >
               <div className="Gallery__link">
                 <p className="img-bx">
                   <img src={post.thumbnail} alt="썸네일" />
@@ -79,6 +80,7 @@ const RecentPost: React.FC = () => {
                 </p>
               </div>
             </Link>
+            </div>
           );
         })}
       </ListWrapper>
@@ -89,22 +91,36 @@ const RecentPost: React.FC = () => {
 const ListWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  /* margin-left: -10px;
-  margin-right: -10px; */
-  justify-content: center;
-
-  > a {
-    /* 수치 추후에 조정 */
+  margin-left: -10px;
+  margin-right: -10px;
+   >div {
     display: block;
-    flex: 1 0 31%;
-    max-width: 31%;
-    padding: 0 10px;
+    flex: 1 0 33.3%;
+    max-width: 33.3%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    transition: transform 0.3s;
+    @media screen and (max-width:1200px) {
+      flex: 1 0 50%;
+      max-width: 50%;
+    }
+    @media screen and (max-width:600px) {
+      flex: 1 0 100%;
+      max-width: 100%;
+    }
+    a{
+      width:100%; 
+      display:block;
+    }
+    @media screen and (min-width:601px) {
+      &:hover{
+      transform:translateY(-10px);
+    }
+    }
   }
   .Gallery__link {
-    width: 100%;
+    padding: 0 10px;
   }
   .img-bx {
     width: 100%;
@@ -136,13 +152,15 @@ const ListWrapper = styled.div`
   .Gallery__title {
     font-size: 16px;
     font-weight: 600;
-    margin: 0 0 5px 0; //호진 변경설정
-    /* margin-top: 25px; 예인님 설정*/
+    margin-bottom: 0px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .Gallery__desc {
     font-size: 14px;
     font-weight: 400;
-    margin-top: 0px;
+    margin-top: 5px;
     position: relative;
     overflow: hidden;
     left: -0.5em;
