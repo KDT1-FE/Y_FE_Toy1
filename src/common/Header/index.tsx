@@ -109,11 +109,11 @@ const Header: React.FC = () => {
                                     }}
                                     style={{ color: '#fff' }}
                                 >
-                                    LogOut
+                                    로그아웃
                                 </LogoutButton>
                             ) : (
                                 <ListAnchor href={'/LogIn'}>
-                                    <LoginButton style={{ color: '#fff' }}>LogIn</LoginButton>
+                                    <LoginButton style={{ color: '#fff' }}>로그인</LoginButton>
                                 </ListAnchor>
                             )}
                             {userId.length > 0 && <MyPageBtn />}
