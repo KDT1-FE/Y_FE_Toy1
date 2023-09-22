@@ -319,12 +319,14 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit, setGalle
       // onEdit 이 true일 경우
       <form onSubmit={updateUser}>
         <FormList>
+          <div className="select__wrap">
           <select name="category" id="category" value={formData.category} onChange={setCategory}>
             <option value="">카테고리 선택</option>
-            <option value="notice">모집공고</option>
-            <option value="news">패캠소식</option>
+            <option value="notice">공지사항</option>
+            <option value="news">모집공고</option>
             <option value="random">랜덤토크</option>
           </select>
+          </div>
         </FormList>
         <FormList>
           <input id="title" type="text" placeholder="제목을 입력해주세요" value={formData.title} onChange={setTitle} />
@@ -347,12 +349,14 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit, setGalle
       // onEdit 이 false일 경우
       <form action="" onSubmit={createUser}>
       <FormList>
+      <div className="select__wrap">
         <select name="category" id="category" onChange={setOriginCategory}>
           <option value="">카테고리 선택</option>
-          <option value="notice">모집공고</option>
-          <option value="news">패캠소식</option>
-          <option value="random">랜덤토크</option>
+          <option value="notice">공지사항</option>
+            <option value="news">모집공고</option>
+            <option value="random">랜덤토크</option>
         </select>
+        </div>
       </FormList>
       <FormList>
         <input id="title" type="text" placeholder="제목을 입력해주세요" onChange={setOriginTitle} />
@@ -384,13 +388,59 @@ const FormSection = styled.div`
 
 const FormList = styled.div`
   padding: 10px 0;
-  input[type="text"]{
-    width:100%;
+  @media screen and (max-width:600px) {
+    padding: 5px 0;
+  }
+  .select__wrap {
+    background-color: #fff;
     border: 1px solid #ccc;
-    height:30px;
-    @media screen and (max-width:1200px) {
-      width:  80%;
-    }
+    color: gray;
+    position: relative;
+    max-width: 200px;
+  }
+  .select__wrap:before {
+    display: block;
+    border-top: 6px solid gray;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    text-align: center;
+    content: '';
+    pointer-events: none;
+  }
+  .select__wrap select {
+    background-color: transparent;
+    border: 0 none;
+    box-shadow: none;
+    color: gray;
+    display: block;
+    font-size: 100%;
+    line-height: normal;
+    margin: 0;
+    padding: .5em;
+    width: 100%;
+    height: 35px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  .select__wrap select::-ms-expand {
+    display: none;
+  }
+  select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+  }
+
+  input[type="text"]{
+    width: 80%;
+    border: 1px solid #ccc;
+    height: 35px;
+    font-size: 100%;
+    padding: 0 8px;
+    color: gray;
   }
   .preview{
     position: relative;
@@ -400,7 +450,10 @@ const FormList = styled.div`
     overflow: hidden;
     display: flex;
     justify-content: center;
-
+    @media screen and (max-width:600px) {
+      width: 150px;
+      height: 80px;
+    }
     &:after{
       content:'썸네일 수정';
       position: absolute;
@@ -441,7 +494,7 @@ const FormList = styled.div`
 `
 
 const GalleryBtn = styled.div`
-margin-top: 20px;
+margin-top: 30px;
 text-align:center;
   button{
     background-color: var(--main-color);
