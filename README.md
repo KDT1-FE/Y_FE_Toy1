@@ -239,7 +239,7 @@ React 초보라 상태 관리 라이브러리나 관련된 툴을 사용해 본�
 <details>
 <summary>정진주</summary>
 
-## ProjectPage 주요 기능
+## 🌟ProjectPage 주요 기능
 
 |프로젝트 리스트 페이지|프로젝트 작성 페이지|
 |:--:|:--:|
@@ -256,7 +256,7 @@ React 초보라 상태 관리 라이브러리나 관련된 툴을 사용해 본�
 <img width="248" alt="스크린샷 2023-09-22 오후 2 35 46" src="https://github.com/wowba/Wikinity/assets/85981963/0da589b0-2ecc-4d3b-9c7f-e418cce8a61f">
 <img width="246" alt="스크린샷 2023-09-22 오후 3 22 06" src="https://github.com/wowba/Wikinity/assets/85981963/d4077873-c0eb-4217-b6ae-71703f26986b">
 
-- firestore에서도 project 컬렉션을 통해 데이터 crud가 가능하도록 구현하였다.
+## firestore에서도 project 컬렉션을 통해 데이터 crud가 가능하도록 구현하였다.
 
 ## 캘린더 기능
 
