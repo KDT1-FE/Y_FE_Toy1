@@ -170,32 +170,32 @@
   align-items: baseline;
 }
 
-  .deleteBtn {
-    margin-left: auto;
-    font-size: 12px;
-    font-weight: bold;
-    background-color: coral; 
-    color: white; 
-    border: none; 
-    border-radius: 30px; 
-    padding: 3px 10px; 
-    cursor: pointer; 
-    transition: background-color 0.3s ease; 
-    text-decoration: none;
-  }
-  
-  .post-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-gap: 20px;
-    list-style: none;
-    padding: 0;
-  }
-  
-  .post-item {
-    border-radius: 20px;
-    overflow: hidden;
-  }
+.deleteBtn {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: coral;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 3px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px;
+  list-style: none;
+  padding: 0;
+}
+
+.post-item {
+  border-radius: 20px;
+  overflow: hidden;
+}
 
 .post-user {
   font-size: 15px;
@@ -209,17 +209,20 @@
   color: $backgroundColor;
 }
 
-  .post-title {
-    font-size: 20px;
-    font-weight: 500;
-    color: $highlightColor;
-  }
-  
-  .post-content {
-    font-size: 17px;
-    font-weight: 500;
-    color: $blackColor;
-  }
+.post-title {
+  font-size: 20px;
+  font-weight: 500;
+  color: $highlightColor;
+}
+
+.post-content {
+  font-size: 17px;
+  font-weight: 500;
+  color: $blackColor;
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  white-space: nowrap;
+}
 
 /* 작성된 게시글 모달창 디자인 */
 .modal {
@@ -330,15 +333,6 @@
 .pagination-buttons button:disabled {
   cursor: not-allowed;
 }
-
-/* 그리드 레이아웃 스타일 */
-.post-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4개의 열로 구성 */
-  grid-gap: 25px;
-  list-style: none;
-  margin-bottom: 50px;
-  }
 
 .grid-item {
   border: 2px solid $backgroundColor;
