@@ -1,10 +1,5 @@
 import { useState, useEffect } from 'react';
 
-interface InputType {
-  value: string;
-  validationPass: boolean;
-}
-
 const useButtonActivate = (...input: InputType[]): boolean => {
   const [buttonActivate, setButtonActivate] = useState(false);
 
@@ -22,3 +17,8 @@ const useButtonActivate = (...input: InputType[]): boolean => {
 };
 
 export default useButtonActivate;
+
+interface InputType {
+  value: string;
+  validationPass: boolean;
+}

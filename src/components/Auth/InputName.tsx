@@ -2,16 +2,6 @@ import { Icon, ErrorMsg } from '../../components/Auth';
 
 import '../../scss/components/auth/input.scss';
 
-interface InputType {
-  value: string;
-  validationPass: boolean;
-}
-
-interface NameProps {
-  name: InputType;
-  handleName: React.ChangeEventHandler<HTMLInputElement>;
-}
-
 const InputName = ({ name, handleName }: NameProps): JSX.Element => {
   return (
     <div className="input-container">
@@ -29,3 +19,13 @@ const InputName = ({ name, handleName }: NameProps): JSX.Element => {
 };
 
 export default InputName;
+
+interface InputType {
+  value: string;
+  validationPass: boolean;
+}
+
+interface NameProps {
+  name: InputType;
+  handleName: React.ChangeEventHandler<HTMLInputElement>;
+}

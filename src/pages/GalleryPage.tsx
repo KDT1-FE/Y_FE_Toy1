@@ -12,7 +12,7 @@ import useImgList from '../hooks/gallery/query/useImgList';
 import { GalleryTitle, ImageList, ImageUploadModal, ImageViewModal } from '../components/Gallery';
 import { ImageUploadPayload, UploadedImage } from '../components/Gallery/types';
 
-import '../scss/components/gallery/gallery.scss';
+import '../scss/galleryPage.scss';
 
 const GalleryPage = () => {
   const [formModalOpen, setFormModalOpen] = useState<boolean>(false);

@@ -30,7 +30,8 @@
     &-info {
       cursor: pointer;
       @include flex-center-row;
-      gap: 1rem;
+      font-size: 1.4rem;
+      gap: 2rem;
       &-img {
         display: block;
         width: 30px;

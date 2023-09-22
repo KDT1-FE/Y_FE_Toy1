@@ -1,13 +1,3 @@
-interface InputType {
-  value: string;
-  validationPass: boolean;
-}
-
-interface ErrorProps {
-  target: string;
-  input: InputType;
-}
-
 const ErrorMsg = ({ target, input }: ErrorProps): JSX.Element => {
   const showError = () => {
     if (target === 'email') {
@@ -30,3 +20,13 @@ const ErrorMsg = ({ target, input }: ErrorProps): JSX.Element => {
 };
 
 export default ErrorMsg;
+
+interface InputType {
+  value: string;
+  validationPass: boolean;
+}
+
+interface ErrorProps {
+  target: string;
+  input: InputType;
+}

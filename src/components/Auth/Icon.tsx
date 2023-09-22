@@ -1,14 +1,5 @@
 import { BsFillXCircleFill, BsCheckCircleFill } from 'react-icons/bs';
 
-interface InputType {
-  value: string;
-  validationPass: boolean;
-}
-
-interface IconProps {
-  input: InputType;
-}
-
 const Icon = ({ input }: IconProps): JSX.Element => {
   if (!input.value) return <></>;
 
@@ -28,3 +19,12 @@ const Icon = ({ input }: IconProps): JSX.Element => {
 };
 
 export default Icon;
+
+interface InputType {
+  value: string;
+  validationPass: boolean;
+}
+
+interface IconProps {
+  input: InputType;
+}

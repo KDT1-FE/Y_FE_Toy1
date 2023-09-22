@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { collection, getDocs, Timestamp, query, orderBy } from 'firebase/firestore';
 import { db, auth } from '../firebase';
@@ -8,21 +8,6 @@ import Placeholder from '../components/Placeholder';
 import AttendanceModal from '../components/Attendance/AttendanceModal';
 
 import '../scss/attendancePage.scss';
-
-interface AttendanceRecord {
-  date: string;
-  checkIn: Timestamp;
-  checkOut: Timestamp | null;
-  id?: string;
-}
-interface StateValue {
-  isLogin: boolean;
-  name: string;
-  email: string;
-}
-interface State {
-  loginUpdate: StateValue;
-}
 
 const Attendance = (): JSX.Element => {
   const [modal, setModal] = useState(false);
@@ -144,3 +129,18 @@ const Attendance = (): JSX.Element => {
 };
 
 export default Attendance;
+
+interface AttendanceRecord {
+  date: string;
+  checkIn: Timestamp;
+  checkOut: Timestamp | null;
+  id?: string;
+}
+interface StateValue {
+  isLogin: boolean;
+  name: string;
+  email: string;
+}
+interface State {
+  loginUpdate: StateValue;
+}

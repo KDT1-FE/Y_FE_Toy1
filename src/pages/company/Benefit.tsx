@@ -1,4 +1,3 @@
-import React from 'react';
 import '../../scss/benefit.scss';
 import { BsHospital } from 'react-icons/bs';
 import {

@@ -5,15 +5,6 @@ import { ImageUploadPayload } from './types';
 import '../../scss/components/gallery/modal.scss';
 import '../../scss/components/gallery/modalButton.scss';
 
-interface Props {
-  setFormModalOpen: (isOpen: boolean) => void;
-  closeFormModal: () => void;
-  setImageFileToUpload: Dispatch<SetStateAction<File | null>>;
-  imageUploadPayload: ImageUploadPayload;
-  setImageUploadPayload: Dispatch<SetStateAction<ImageUploadPayload>>;
-  handleImageUploadClick: () => void;
-}
-
 const ImageUploadModal = ({
   setFormModalOpen,
   closeFormModal,
@@ -86,3 +77,12 @@ const ImageUploadModal = ({
 };
 
 export default ImageUploadModal;
+
+interface Props {
+  setFormModalOpen: (isOpen: boolean) => void;
+  closeFormModal: () => void;
+  setImageFileToUpload: Dispatch<SetStateAction<File | null>>;
+  imageUploadPayload: ImageUploadPayload;
+  setImageUploadPayload: Dispatch<SetStateAction<ImageUploadPayload>>;
+  handleImageUploadClick: () => void;
+}

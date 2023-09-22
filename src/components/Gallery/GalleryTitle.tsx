@@ -1,9 +1,4 @@
-import React from 'react';
 import { BsPlusSquareFill } from 'react-icons/bs';
-
-interface Props {
-  setFormModalOpen: (isOpen: boolean) => void;
-}
 
 const GalleryTitle = ({ setFormModalOpen }: Props) => {
   return (
@@ -22,3 +17,7 @@ const GalleryTitle = ({ setFormModalOpen }: Props) => {
 };
 
 export default GalleryTitle;
+
+interface Props {
+  setFormModalOpen: (isOpen: boolean) => void;
+}

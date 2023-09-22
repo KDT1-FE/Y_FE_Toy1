@@ -4,11 +4,6 @@ import { UploadedImage } from './types';
 
 import '../../scss/components/gallery/modal.scss';
 import '../../scss/components/gallery/modalButton.scss';
-interface ViewModalProps {
-  imageDetail: UploadedImage;
-  selectedImage: string;
-  setImgModalOpen: (isOpen: boolean) => void;
-}
 
 const ImageViewModal = ({ imageDetail, setImgModalOpen }: ViewModalProps) => {
   const ref = useRef();
@@ -50,3 +45,9 @@ const ImageViewModal = ({ imageDetail, setImgModalOpen }: ViewModalProps) => {
 };
 
 export default ImageViewModal;
+
+interface ViewModalProps {
+  imageDetail: UploadedImage;
+  selectedImage: string;
+  setImgModalOpen: (isOpen: boolean) => void;
+}
