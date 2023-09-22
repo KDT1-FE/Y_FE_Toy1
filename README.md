@@ -121,7 +121,7 @@ $ npm run start
 
 <br/>
 
-### 2. 아키텍쳐 디자인 : 클라이언트-서버 아키텍쳐
+### 2. 아키텍쳐 파악
 
 ![클라이언트-서버](https://github.com/turkey-kim/techschool_wiki/assets/101972330/f24ba60a-cbb8-4760-8a9b-f734b4ed8ce5)
 
