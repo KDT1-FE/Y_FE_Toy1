@@ -14,7 +14,7 @@ function OtherContent({
   content,
   setContent,
   setIsEditorOpen,
-}: OtherContentProps) {
+}: OtherContentProps): JSX.Element {
   return isEditorOpen ? (
     <TextEditor
       dataKey={dataKey}

@@ -2,7 +2,7 @@ import {collection, getDocs} from "firebase/firestore";
 import {db} from "../../utils/firebaseConfig";
 import {TEAM} from "../../constant";
 
-async function SaveTeam(): Promise<any> {
+async function SaveTeam(): Promise<void> {
   const teamSnapshot = await getDocs(collection(db, TEAM));
 
   teamSnapshot.forEach(teamDoc => {

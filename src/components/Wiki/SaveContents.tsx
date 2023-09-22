@@ -3,7 +3,7 @@ import {doc, onSnapshot} from "firebase/firestore";
 import {db} from "../../utils/firebaseConfig";
 import {WIKI, UPDATE_DOC_NOTICE, UPDATE_DOC_NOTICE_PLZ} from "../../constant";
 
-async function SaveContents(categories: string[]): Promise<any> {
+async function SaveContents(categories: string[]): Promise<void> {
   let callSnapshot = 0;
 
   categories.forEach(category => {

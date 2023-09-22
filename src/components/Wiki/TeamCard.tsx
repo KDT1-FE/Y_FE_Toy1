@@ -5,12 +5,12 @@ import rehypeRaw from "rehype-raw";
 import {CAN_NOT_FOUND} from "../../constant";
 import PostTeam from "./PostTeam";
 
-function TeamCard({teamName}: {teamName: string}) {
+function TeamCard({teamName}: {teamName: string}): JSX.Element {
   const teamString = sessionStorage.getItem(teamName);
   let team = {멘티: "", 멘토: "", img: "", content: ""};
-  const [text, setText] = useState("");
-  const [isEditorOpen, setIsEditorOpen] = useState(false);
-  const [teamContent, setTeamContent] = useState("");
+  const [text, setText] = useState<string>("");
+  const [isEditorOpen, setIsEditorOpen] = useState<boolean>(false);
+  const [teamContent, setTeamContent] = useState<string>("");
 
   teamString ? (team = JSON.parse(teamString)) : CAN_NOT_FOUND;
 
@@ -19,7 +19,7 @@ function TeamCard({teamName}: {teamName: string}) {
     setTeamContent(team.content);
   }, []);
 
-  const clickEdit = () => {
+  const clickEdit = (): void => {
     setIsEditorOpen(!isEditorOpen);
   };
 
@@ -27,7 +27,7 @@ function TeamCard({teamName}: {teamName: string}) {
     setText(e.target.value);
   };
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
 
     PostTeam(teamName, text, team.멘티, team.멘토, team.img).then(() => {

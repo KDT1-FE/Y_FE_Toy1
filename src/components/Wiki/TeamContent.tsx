@@ -4,7 +4,7 @@ import {TEAMLIST} from "../../constant";
 import SaveTeam from "./SaveTeam";
 import TeamCard from "./TeamCard";
 
-function TeamContent() {
+function TeamContent(): JSX.Element {
   const teamListString = sessionStorage.getItem(TEAMLIST);
   let teamList = [];
 
