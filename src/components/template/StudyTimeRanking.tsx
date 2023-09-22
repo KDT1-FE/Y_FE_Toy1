@@ -24,6 +24,7 @@ const StudyTimeRanking = () => {
   );
   const { currentTheme } = useContext(ThemeContext);
   const theme: "dark" | "light" = currentTheme;
+  
 
   const medalSelector = (index: number): string => {
     switch (index) {
