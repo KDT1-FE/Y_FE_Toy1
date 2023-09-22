@@ -1,9 +1,18 @@
 /* common */
 
+.WikiButtonContainer {
+  display: flex;
+  flex-direction: column;
+}
+
 .WikiButton {
+  position: absolute;
+  top: 10px;
+  right: 140px;
+
   width: 80px;
 
-  padding: 1rem;
+  padding: 0.8rem;
   margin: 0.5rem;
 
   border: none;
