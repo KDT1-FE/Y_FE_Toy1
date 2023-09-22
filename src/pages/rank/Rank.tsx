@@ -5,6 +5,7 @@ import { db } from "../../firebase";
 import { IsMobile } from "utils/mediaQuery";
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 import Sidebar from "components/layout/Sidebar";
+import Comment from "components/template/Comment";
 
 interface UsersData {
   id: string;
@@ -134,6 +135,7 @@ const Rank = () => {
             </div>
           ))}
         </RankWrapper>
+        <Comment />
       </Container>
     </>
   );
@@ -144,7 +146,7 @@ const Container = styled.section<IContainer>`
   left: ${(props) => props.leftmargin}px;
   height: calc(100% - ${(props) => props.topmargin}px);
   width: calc(100% - ${(props) => props.leftmargin}px);
-  padding: 5px;
+  padding: 5px 30px 5px 30px;
   box-sizing: border-box;
 `;
 
