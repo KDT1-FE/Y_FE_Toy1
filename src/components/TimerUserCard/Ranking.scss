@@ -1,0 +1,86 @@
+@import '/src/styles/_common';
+
+.user-rank__container {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-family: $fontMain;
+  user-select: none;
+  h1 {
+    font-family: $fontMain;
+    margin: 0px 0px 70px 0px;
+    padding: 50px 40px;
+    background-color: $subColor;
+    border-radius: 50%;
+    color: $mainColor;
+    font-family: 'Tossface', 'LOTTERIACHAB';
+    cursor: pointer;
+    position: absolute;
+    top: 20%;
+    transition:
+      border-radius 2s,
+      padding 2s;
+  }
+  h1:hover {
+    border-radius: 50px;
+    padding: 50px 350px 410px;
+  }
+}
+.user-rank__users {
+  margin: 270px 0 0;
+  user-select: none;
+  display: flex;
+  flex-direction: row;
+
+  img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 20px 10px;
+    box-shadow: 0 9px 30px rgba(255, 149, 5, 0.3);
+    position: relative;
+
+    &:hover {
+      animation: waviy 2s;
+      animation-delay: calc(0.1s * var(--i));
+    }
+  }
+
+  .user-rank__username1:before,
+  .user-rank__username2:before,
+  .user-rank__username3:before {
+    content: '🥇';
+    font-size: 50px;
+    position: absolute;
+    transform: translate(90px, -40px);
+    z-index: 2;
+  }
+
+  .user-rank__username2:before {
+    content: '🥈';
+  }
+
+  .user-rank__username3:before {
+    content: '🥉';
+  }
+
+  .user-rank__username1,
+  .user-rank__username2,
+  .user-rank__username3 {
+    z-index: 2;
+    font-weight: 900;
+  }
+}
+
+@keyframes waviy {
+  0%,
+  40%,
+  100% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-10px);
+  }
+}

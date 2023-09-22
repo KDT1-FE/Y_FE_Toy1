@@ -1,0 +1,21 @@
+@import '~bootstrap/scss/bootstrap';
+@import '../_common.scss';
+
+* {
+  font-family: $fontMain;
+}
+
+.gallery-container {
+  font-family: $fontMain;
+  margin: 0 15% 10%;
+  overflow: hidden;
+  a {
+    text-decoration: none;
+  }
+  h2 {
+    font-family: 'LOTTERIACHAB';
+    display: block;
+    margin: 10px;
+    color: $highlightColor;
+  }
+}

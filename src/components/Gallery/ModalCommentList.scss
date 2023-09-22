@@ -1,0 +1,117 @@
+@import '../../styles/_common.scss';
+
+.btn-close {
+  right: 0;
+}
+
+.comment {
+  &-container {
+    height: auto;
+    width: 100%;
+    box-sizing: border-box;
+    &-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin: 0 20px;
+      height: auto;
+    }
+  }
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+}
+
+.comment-writer {
+  display: flex;
+  &-name {
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+    color: $blackColor;
+  }
+}
+
+.imageView {
+  &-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  &-imageBox {
+    width: 100%;
+    max-height: 100%;
+    &-image {
+      max-height: 80vh;
+      max-width: 100%;
+      object-fit: contain;
+      height: 100%;
+    }
+  }
+  span {
+    font-size: 16px;
+  }
+  &-commentForm {
+    height: 60%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    input {
+      width: 80%;
+      border: 1px solid #d8d8d8;
+    }
+  }
+}
+
+.commentList {
+  &-header {
+    font-size: 20px;
+    font-weight: 700;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+  }
+  &-container {
+    width: 100%;
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+  }
+  &-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    color: $blackColor;
+
+    &-delBtn {
+      font-size: 25px;
+    }
+  }
+}
+
+.commentBox {
+  display: flex;
+  &-image {
+    border: none;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+  }
+  &-text {
+    display: flex;
+    flex-direction: column;
+    .comment-name {
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .comment-text {
+      font-size: 18px;
+      padding-left: 5px;
+    }
+  }
+}

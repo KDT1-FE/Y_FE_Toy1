@@ -1,0 +1,57 @@
+@import '/src/styles/common';
+
+.user-card__container {
+  background-image: url('https://i.pinimg.com/564x/9e/de/4d/9ede4d844495badbae0a4d426d0f6ab3.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: fill;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 330px));
+  row-gap: 0.2rem;
+  margin: 50px 20px 20px;
+  border-radius: 20px;
+  padding: 20px;
+  user-select: none;
+  font-family: $fontMain;
+  justify-content: center;
+  h3 {
+    font-family: 'LOTTERIACHAB';
+    text-align: left;
+    display: flex;
+    align-items: center;
+    font-size: 5rem;
+    color: white;
+    justify-content: center;
+  }
+}
+.user-card {
+  color: $highlightColor;
+  text-align: center;
+  font-size: 18px;
+  margin: 10px;
+  padding: 20px 0px;
+  border-radius: 20px;
+  background-color: $mainColor;
+  background-position: 10% center;
+  transition:
+    background-position 0.7s,
+    color 0.5s;
+  cursor: pointer;
+}
+.user-card:hover {
+  background-position: 90% 18%;
+  color: $blackColor;
+}
+.user-card img {
+  border: solid 1px $blackColor;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: $highlightColor;
+  margin: 10px 10px 20px 10px;
+}
+.user-card .name {
+  font-size: 20px;
+  font-weight: 900;
+}
