@@ -169,7 +169,7 @@ function CreateAccount() {
         <span>이용약관 개인정보 수집 및 정보이용에 동의합니다.</span>
       </CreateAccountApproveBox>
 
-      <CreateAccountBtn $isFormCorrect={isFormCorrect} disabled={isFormCorrect} onClick={handleButtonClick} type='button' >가입하기</CreateAccountBtn>
+      <CreateAccountBtn $isFormCorrect={isFormCorrect} onClick={handleButtonClick} type='button' >가입하기</CreateAccountBtn>
 
     </CreateAccountLayout>
   )
