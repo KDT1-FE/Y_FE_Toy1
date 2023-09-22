@@ -7,6 +7,7 @@ import { AuthContext } from "provider/userContext";
 import { increment, doc, updateDoc } from "firebase/firestore";
 import { SynchroClassAndAlert } from "utils/class";
 import { db } from "../../firebase";
+import Swal from "sweetalert2";
 
 const StyledClock = styled.p`
   font-variant-numeric: tabular-nums;
@@ -40,18 +41,27 @@ const Clock: React.FC = () => {
 
 interface StudyTimeProps {
   isStudying: boolean;
-  studyStartTime: number | null;
-  toggleStudyStatus: () => void;
+  studyStartTime?: number | null;
+  // toggleStudyStatus: () => void;
+  onIsStudyingChange: (isStudying: boolean) => void;
 }
 
 const StudyTime: React.FC<StudyTimeProps> = ({
   isStudying,
-  studyStartTime,
-  toggleStudyStatus,
+  studyStartTime: propStudyStartTime = null,
+  // toggleStudyStatus,
+  onIsStudyingChange,
 }) => {
   const navigate = useNavigate();
   const user = useContext(AuthContext);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
+  const [studyStartTime, setStudyStartTime] = useState<number | null>(
+    propStudyStartTime
+  );
+
+  const toggleStudyStatus = () => {
+    onIsStudyingChange(!isStudying);
+  };
 
   useEffect(() => {
     let interval: NodeJS.Timeout | undefined = undefined;
@@ -59,7 +69,7 @@ const StudyTime: React.FC<StudyTimeProps> = ({
     if (isStudying && studyStartTime) {
       interval = setInterval(() => {
         const currentTime = new Date().getTime();
-        const elapsedMilliseconds = currentTime - studyStartTime;
+        const elapsedMilliseconds = currentTime - studyStartTime!;
         setElapsedTime(elapsedMilliseconds);
       }, 1000);
     }
@@ -72,13 +82,17 @@ const StudyTime: React.FC<StudyTimeProps> = ({
   }, [isStudying, studyStartTime]);
 
   const handleStartStudy = () => {
-    //로그인 했을 때
+    //로그인 했을 때만
     if (user && user.uid) {
       if (!isStudying) {
         const startTime = new Date().getTime();
+        console.log("StartTime:", startTime);
+        setStudyStartTime(startTime);
         toggleStudyStatus();
+        console.log("공부시작");
       } else {
         toggleStudyStatus();
+        console.log("공부종료");
 
         if (studyStartTime) {
           // 공부 종료 시에만 실행
@@ -92,13 +106,20 @@ const StudyTime: React.FC<StudyTimeProps> = ({
           }).then(() => {
             // 현재 firestore에 변경된 studytime을 확인해, database에 저장된 class 값과 비교하고 달라졌다면 alert 창을 띄움
             SynchroClassAndAlert(user);
-            console.log("저장된 학습시간: " + elapsedMinutes);
+            console.log("저장된 학습시간: ", elapsedMinutes);
           });
         }
       }
     } else {
-      alert("학습시간 기록을 위해 로그인이 필요합니다.");
-      // navigate("/login");
+      Swal.fire({
+        icon: "warning",
+        title: "로그인해야 이용할 수 있습니다. 로그인 하시겠습니까?",
+        confirmButtonText: "확인",
+      }).then((res) => {
+        if (res.isConfirmed) {
+          navigate("/login");
+        }
+      });
     }
   };
 
@@ -132,10 +153,9 @@ const formatTime = (milliseconds: number) => {
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
 
-  return `${String(hours).padStart(2, "0")}:${String(minutes % 60).padStart(
-    2,
-    "0"
-  )}:${String(seconds % 60).padStart(2, "0")}`;
+  return `${String(hours).padStart(2, "0")}:
+  ${String(minutes % 60).padStart(2, "0")}:
+  ${String(seconds % 60).padStart(2, "0")}`;
 };
 
 const SectionTitle = styled.h4`
