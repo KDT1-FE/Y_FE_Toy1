@@ -44,7 +44,7 @@ const Figma = () => {
       <a href="https://www.figma.com/file/MokbPAUs2FpKGMwDgAnfzk/Untitled?type=design&node-id=0-1&mode=design&t=VJNm1SjjrWKzgKyJ-0">
         <StyledImage src={imageUrl ? imageUrl : imageSrc} />
       </a>
-      <StyledSpan>사진을 누르면 링크로 이동합니다.</StyledSpan>
+      <StyledSpan>사진을 누르면 figma(UI) 링크로 이동합니다.</StyledSpan>
     </SubPageContainer>
   );
 };
