@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai';
 import { ProjectProps } from './Project';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 import { db, storage } from '../../common/config';
 
@@ -82,7 +82,7 @@ const EditModal = ({
         await uploadBytes(storageRef, imageBlob);
         const imageUrl = await getDownloadURL(storageRef);
 
-        await setDoc(docRef, {
+        await updateDoc(docRef, {
           state: projectInfo.state,
           imageUrl: imageUrl,
           participants: projectInfo.participants,
@@ -90,7 +90,7 @@ const EditModal = ({
           description: projectInfo.description ? projectInfo.description : '',
         });
       } else {
-        await setDoc(docRef, {
+        await updateDoc(docRef, {
           state: projectInfo.state,
           imageUrl: projectInfo.imageUrl ? projectInfo.imageUrl : '',
           participants: projectInfo.participants,

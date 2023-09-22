@@ -5,7 +5,7 @@ import { ProjectProps } from './Project';
 import EditModal from './EditModal';
 import statusIcon from '../../assets/status-icon.svg';
 import memberIcon from '../../assets/member-icon.png';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../common/config';
 import { useUser } from '../../common/UserContext';
 
@@ -61,7 +61,7 @@ const ProjectDetailModal = ({
         projectInfo.participants?.length > 0
           ? [...projectInfo.participants, user.name]
           : [user.name];
-      await setDoc(docRef, { participants: newParticipants });
+      await updateDoc(docRef, { participants: newParticipants });
       alert('프로젝트에 정상적으로 참가되었습니다.');
       window.location.reload();
       closeOnClick();
