@@ -29,7 +29,7 @@ export default function Carousel() {
         const docRef = collection(db, `commute/${uid}/commuteDays`);
         const querySnapshot = await getDocs(docRef);
 
-        const formattedData:CommuteData[] = [];
+        const formattedData: CommuteData[] = [];
 
         querySnapshot.forEach((doc) => {
           const date = doc.id;
@@ -38,8 +38,8 @@ export default function Carousel() {
           // sessions 마지막 데이터
           const lastSession = sessions[sessions.length - 1];
 
-          const start = new Time(lastSession.startTime)
-          const end = new Time(lastSession.endTime)
+          const start = new Time(lastSession.startTime);
+          const end = new Time(lastSession.endTime);
 
           formattedData.push({
             date: date,
@@ -74,12 +74,12 @@ export default function Carousel() {
 
   return (
     <>
-      {user && (
-        isLoading ? (
+      {user &&
+        (isLoading ? (
           <LoadingSpinner />
         ) : (
           <>
-            <H1>{name}님의 출퇴근 기록</H1>
+            <H2>{name}님의 출퇴근 기록</H2>
             {data.length > 0 ? (
               <Table>
                 <THead>
@@ -105,15 +105,14 @@ export default function Carousel() {
               <Message>출퇴근 기록이 없습니다.</Message>
             )}
           </>
-        )
-      )}
+        ))}
     </>
   );
 }
 
-const H1 = styled.h1`
+const H2 = styled.h2`
   margin-top: 1.5rem;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
 `;
 

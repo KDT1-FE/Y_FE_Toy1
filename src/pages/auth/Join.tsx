@@ -217,14 +217,15 @@ const AuthMainContainer = styled.div`
   > form {
     margin-top: 15px;
     display: grid;
-    grid-template: 100% / repeat(2, 45%);
+    grid-template: auto / repeat(2, 45%);
     justify-content: space-between;
     gap: 10px;
 
     @media screen and (max-width: 1150px) {
       margin-bottom: 20px;
+      grid-template: auto / repeat(1, 100%);
 
-      div {
+      > div {
         width: 100%;
       }
     }

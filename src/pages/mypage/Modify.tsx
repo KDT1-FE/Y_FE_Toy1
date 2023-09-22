@@ -44,7 +44,8 @@ const Modify = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleModify = async () => {
+  const handleModify = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    e.preventDefault();
     // 유저 정보 확인
     if (user) {
       const docRef = doc(db, 'user', user.uid);
@@ -150,39 +151,179 @@ const Modify = () => {
   };
 
   return (
-    <div>
-      <h1>회원 정보 수정</h1>
+    <MypageMainContainer>
+      <CategoryTitleSection>
+        <CategoryTitle>마이페이지</CategoryTitle>
+        <BreadCrumb>마이페이지 &gt; 회원 정보 수정</BreadCrumb>
+      </CategoryTitleSection>
 
-      {user?.emailVerified && <button onClick={handlePassword}>비밀번호 변경</button>}
-      {user && !user.emailVerified && <button onClick={handleEmailConfirm}>이메일 인증</button>}
-      <button onClick={handleDeleteUser}>회원탈퇴</button>
+      <MypageSubContainer>
+        <ButtonSection>
+          {user?.emailVerified && (
+            <button className="button--password" onClick={handlePassword}>
+              비밀번호 변경
+            </button>
+          )}
+          {user && !user.emailVerified && (
+            <button className="button--email" onClick={handleEmailConfirm}>
+              이메일 인증
+            </button>
+          )}
+          <button className="button--delete" onClick={handleDeleteUser}>
+            회원탈퇴
+          </button>
+        </ButtonSection>
+        <form onSubmit={handleModify}>
+          <InfoSection>
+            <p>회원 사진</p>
+            <PhotoContainer>
+              <PreviewImage
+                style={url ? { backgroundImage: `url(${url})` } : { backgroundImage: `none` }}
+              ></PreviewImage>
 
-      <div>
-        <label>이름:</label>
-        <input type="text" name="name" value={name} onChange={handleNameChange} />
-      </div>
+              <label>사진</label>
+              <input type="file" onChange={handlePhotoChange} />
+            </PhotoContainer>
 
-      <PreviewImage
-        style={
-          url
-            ? { backgroundImage: `url(${url})` }
-            : user?.photoURL
-            ? { backgroundImage: `url(${user?.photoURL})` }
-            : { backgroundColor: `rgba(0,0,0,0.2)` }
-        }
-      ></PreviewImage>
-
-      <div>
-        <label>사진:</label>
-        <input type="file" onChange={handlePhotoChange} />
-      </div>
-
-      <button onClick={handleModify}>수정</button>
-
-      <JoinPhoneNumber user={user} />
-    </div>
+            <InputContainer>
+              <label>이름</label>
+              <input type="text" name="name" value={name} onChange={handleNameChange} />
+            </InputContainer>
+            <button type="submit">수정</button>
+          </InfoSection>
+        </form>
+        <PhoneSection>
+          <JoinPhoneNumber user={user} />
+        </PhoneSection>
+      </MypageSubContainer>
+    </MypageMainContainer>
   );
 };
+const MypageMainContainer = styled.div`
+  width: 100%;
+  padding: 10px 30px 30px;
+`;
+
+const MypageSubContainer = styled.div`
+  margin-top: 15px;
+  display: grid;
+  grid-template: auto / repeat(2, 45%);
+  justify-content: space-between;
+  gap: 10px;
+
+  @media screen and (max-width: 1150px) {
+    margin-bottom: 20px;
+    grid-template: auto / repeat(1, 100%);
+
+    > div {
+      width: 100%;
+      grid-column: 1 / span 1;
+    }
+  }
+`;
+const PhoneSection = styled.div``;
+
+const InfoSection = styled.div`
+  p {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  button {
+    font-family: 'Noto Sans KR';
+    width: 100%;
+    min-width: 300px;
+    cursor: pointer;
+    height: 47px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    line-height: 47px;
+    background-color: rgb(50, 103, 177);
+  }
+`;
+const ButtonSection = styled.div`
+  margin-bottom: 10px;
+  grid-column: 1 / span 2;
+  button {
+    font-family: 'Noto Sans KR';
+    width: auto;
+    padding: 0 20px;
+    cursor: pointer;
+    height: 47px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    line-height: 47px;
+  }
+  button.button--email,
+  button.button--password {
+    background-color: rgb(50, 103, 177);
+  }
+  button.button--delete {
+    margin-left: 5px;
+    background-color: #333;
+  }
+`;
+
+const CategoryTitleSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+const CategoryTitle = styled.h1`
+  font-size: 32px;
+`;
+const BreadCrumb = styled.span`
+  font-size: 12px;
+  text-align: right;
+  color: gray;
+`;
+
+const InputContainer = styled.div`
+  margin-bottom: 20px;
+  label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
+
+  input {
+    font-family: 'Noto Sans KR';
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    border-radius: 4px;
+    border: 1px solid #9d9c9c30;
+  }
+
+  span {
+    font-size: 12px;
+    text-align: right;
+    color: gray;
+  }
+`;
+
+const PhotoContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  input {
+    width: 300px;
+    margin-top: 10px;
+  }
+  label {
+    display: none;
+  }
+`;
 
 const PreviewImage = styled.div`
   width: 300px;

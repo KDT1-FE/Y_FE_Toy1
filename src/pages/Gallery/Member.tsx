@@ -11,6 +11,7 @@ import { BsPhone } from 'react-icons/bs';
 import { AiOutlineMail } from 'react-icons/ai';
 import { db } from '../../common/config';
 import { collection, query, getDocs } from 'firebase/firestore';
+import { formatPhoneNumber } from '../../utils/formatPhoneNumber';
 
 interface UserProps {
   userId: string;
@@ -77,14 +78,6 @@ const ImageWrapper = ({ userData }: { userData: UserProps }) => {
     </MainDiv>
   );
 };
-
-function formatPhoneNumber(phoneNumber: string) {
-  const numbersOnly = phoneNumber.replace(/\D/g, '');
-  if (numbersOnly.startsWith('82')) {
-    return '0' + numbersOnly.substring(2);
-  }
-  return phoneNumber;
-}
 
 const MainDiv = styled.div`
   width: 30%;
