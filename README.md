@@ -83,31 +83,31 @@ https://2weeks-team-mzbe-c7xmzksqc-2weeks.vercel.app/
     <td align="center">
       <a href="https://github.com/seungjun222" target="_blank">
         어승준<br />
-        Frontend
+                팀장 (FE)
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/HOOOO98" target="_blank">
         박성후<br />
-        Frontend
+                팀원 (FE)
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/JeongMin83" target="_blank">
         진정민<br />
-        Frontend
+                팀원 (FE)
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/Yamyam-code" target="_blank">
         백상원<br />
-        Frontend
+                팀원 (FE)
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/syb0127" target="_blank">
         서예빈<br />
-        Frontend
+                팀원 (FE)
       </a>
     </td>
   </tr>
