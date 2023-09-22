@@ -202,7 +202,7 @@
 
 #### 회원 가입
 
-![2회원가입성공](https://github.com/toy-1/wiki/assets/139189610/1e90a153-3c2a-495d-9d10-d17f12e0a4a3)
+![2회원가입성공](https://github.com/toy-1/wiki/assets/139189610/7ca67d46-6941-49ac-b73f-0ea29ac99570)
 
 
 ```
@@ -223,7 +223,8 @@ ID와 PW 값을 입력후 가입하기 버튼을 클릭시 User로 저장되며 
 
 #### 로그인
 
-![3로그인성공](https://github.com/toy-1/wiki/assets/139189610/202a3736-b97d-4bf4-b656-90698c55380a)
+![3로그인성공](https://github.com/toy-1/wiki/assets/139189610/16c24f4d-dba3-4e9a-b3d1-baac72e23959)
+
 
 
 ```
@@ -243,7 +244,7 @@ ID와 PW 값을 입력후 가입하기 버튼을 클릭시 User로 저장되며 
 
 #### 로그인한 유저 정보 전달
 
-![4인증정보내려주기](https://github.com/toy-1/wiki/assets/139189610/e9944d13-203d-469f-9f73-908cf05ef495)
+![4인증정보내려주기](https://github.com/toy-1/wiki/assets/139189610/4469b4ca-cad4-487f-940e-d0360b05d67d)
 
 ```
 💡 현재 사이트 로그인 중인 User 정보를 전달합니다.
