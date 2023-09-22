@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "@firebase/auth";
-import { auth } from "../../../firebase";
+import { auth } from "@/firebase/firebase";
 import Modal from "./SignUp";
 import * as style from "./signinStyle";
 

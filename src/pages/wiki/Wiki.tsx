@@ -18,7 +18,7 @@ import WikiContent from "@/components/wiki/WikiContent";
 import WikiCategoryList from "@/components/wiki/WikiCategoryList";
 import WikiTop from "@/components/wiki/WikiTop";
 import * as S from "./WikiStyle";
-import { db } from "../../../firebase";
+import { db } from "@/firebase/firebase";
 import { HasChildMap, Wiki } from "../../components/wiki/WikiCommonType";
 import { Props } from "@/App";
 import { hasChildWikis } from "@/firebase/services/wikiService";

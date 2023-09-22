@@ -3,7 +3,7 @@
 import { User } from "@firebase/auth";
 import { useEffect, useState } from "react";
 import { AuthContext } from "./authContext";
-import { auth } from "../../../../firebase";
+import { auth } from "@/firebase/firebase";
 
 interface AuthProviderProps {
   children: React.ReactNode;

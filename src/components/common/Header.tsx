@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import CommuteModal from "./CommuteModal";
 import { useEffect, useState } from "react";
 import { signOut } from "firebase/auth";
-import { auth, db } from "../../../firebase";
+import { auth, db } from "@/firebase/firebase";
 import { Props } from "../../App";
 import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import convertTimestampToDate from "@/utils/convertTimestampToDate";
