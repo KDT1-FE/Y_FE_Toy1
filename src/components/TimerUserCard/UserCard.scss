@@ -1,7 +1,10 @@
 @import '/src/styles/common';
 
 .user-card__container {
-  background-color: $mainColor;
+  background-image: url('https://i.pinimg.com/564x/9e/de/4d/9ede4d844495badbae0a4d426d0f6ab3.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: fill;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 330px));
   row-gap: 0.2rem;
@@ -21,15 +24,14 @@
   }
 }
 .user-card {
-  color: $whiteColor;
+  color: $highlightColor;
   text-align: center;
   font-size: 18px;
   margin: 10px;
   padding: 20px 0px;
   border-radius: 20px;
-  background-image: url('https://i.pinimg.com/564x/c8/77/f3/c877f377d10dc6ffa07c3f50fb04e2c4.jpg');
+  background-color: $mainColor;
   background-position: 10% center;
-  box-shadow: 0px 9px 30px rgba(255, 149, 5, 0.1);
   transition:
     background-position 0.7s,
     color 0.5s;
