@@ -67,7 +67,7 @@ export function SignIn() {
 
   return (
     <div className="login-container">
-      <h2>로그인</h2>
+      <h2>LogIn</h2>
       <form onSubmit={handleLogin}>
         <div className="form-email">
           <input

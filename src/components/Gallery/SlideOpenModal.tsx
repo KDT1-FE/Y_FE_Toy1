@@ -9,6 +9,7 @@ interface IMapImages extends Partial<IImageData> {
   categoryId: string;
   commentsListData: Array<object>;
   slideClassName?: string;
+  userImage: any;
 }
 
 export function MapImages({
@@ -19,6 +20,7 @@ export function MapImages({
   image,
   like,
   slideClassName,
+  userImage,
 }: IMapImages): JSX.Element {
   const modalRef = useRef<HTMLDialogElement | null>(null);
 
@@ -38,7 +40,7 @@ export function MapImages({
           className="modal-container modal-container-comment"
         >
           <div className="modal-inner modal-comment-inner">
-            <h2 className="comment-h2">Comment Page</h2>
+            <img src={userImage} alt="" />
 
             <ModalComment
               image={image.image}
@@ -46,17 +48,21 @@ export function MapImages({
               categoryId={categoryId}
               commentsListData={commentsListData}
               writerId={userId}
+              writerImage={userImage}
               writerName={nickName}
               likeData={like}
             />
 
             <button
               type="button"
-              className="btn-close"
+              className="btn btn-secondary btn-modalClose"
               onClick={async () => {
                 await modalRef.current?.close();
+                location.reload();
               }}
-            />
+            >
+              Close
+            </button>
           </div>
         </dialog>
       </div>

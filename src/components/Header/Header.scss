@@ -1,0 +1,151 @@
+@import '/src/styles/_common';
+
+.header-container {
+  width: 90%;
+  font-family: 'LOTTERIACHAB';
+  display: flex;
+  margin: 30px auto;
+
+  .logo {
+    display: flex;
+    align-items: center;
+    margin-right: 50px;
+
+    img {
+      width: 60px;
+      height: auto;
+    }
+    .title {
+      color: $mainColor;
+      text-decoration: none;
+    }
+  }
+
+  .pageList {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+  }
+
+  .pageListed {
+    margin-left: auto;
+  }
+
+  .page {
+    font-size: 30px;
+    margin-right: 90px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    font-weight: normal;
+    text-decoration: none;
+    color: $mainColor;
+  }
+
+  .page.active {
+    color: $subColor;
+  }
+
+  .page:hover {
+    color: $highlightColor;
+  }
+
+  .auth-buttons {
+    align-self: center;
+    margin-left: auto;
+    font-family: $fontMain;
+    height: 100%;
+  }
+
+  .signInBtn {
+    font-size: 18px;
+    font-weight: bold;
+    background-color: $highlightColor;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+    text-decoration: none;
+  }
+
+  .signUpBtn {
+    font-size: 18px;
+    font-weight: bold;
+    background-color: $highlightColor;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+  }
+
+  .signInBtn:hover {
+    background-color: $backgroundColor-50;
+  }
+
+  .signUpBtn:hover {
+    background-color: $backgroundColor-50;
+  }
+
+  .userInfo-container {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .userNickname-container {
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    font-weight: 600;
+    margin-right: 15px;
+    line-height: 1.2;
+  }
+
+  .logoutBtn {
+    font-size: 18px;
+    font-weight: bold;
+    background-color: $highlightColor;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .logoutBtn:hover {
+    background-color: $backgroundColor-50;
+  }
+}
+
+@media (max-width: 768px) {
+  .signInBtn,
+  .signUpBtn {
+    font-size: 14px;
+    padding: 10px 15px;
+    margin-right: 5px;
+  }
+
+  .userNickname-container {
+    font-size: 14px;
+  }
+
+  .logoutBtn {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+}
+
+@media (max-width: 1170px) {
+  .auth-buttons {
+    display: none; 
+  }
+}

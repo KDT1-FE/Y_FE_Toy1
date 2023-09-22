@@ -9,7 +9,7 @@ import {
 } from 'firebase/firestore';
 
 // 이미지 storage와 db에 업로드
-async function UploadImage(selected, file, uid, userName) {
+async function UploadImage(selected, file, uid, userName, userImage) {
   try {
     const SwitchCollection = doc(collection(db, selected));
     const storageRef = ref(storage, `${selected}/ ${file.name}`);
@@ -23,6 +23,7 @@ async function UploadImage(selected, file, uid, userName) {
           comments: [],
           uid: uid,
           nickname: userName,
+          userImage: userImage,
           like: 0,
         });
       });

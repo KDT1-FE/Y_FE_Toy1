@@ -7,8 +7,9 @@ import './ModalAddImage.scss';
 
 export function AddImageDragDrop(): JSX.Element {
   const [files, setFiles] = useState<any>([]);
-  const selectList = ['StudyTipsGallery', 'EventsGallery', 'HumorsGallery'];
-  const [selected, setSelected] = useState('StudyTipsGallery');
+  const selectList = ['공부꿀팁', '이벤트', '유머'];
+  const [selected, setSelected] = useState('공부꿀팁');
+  const [isChange, setChange] = useState<boolean>(true);
 
   const user = useSelector((state: RootState) => state);
 
@@ -44,7 +45,14 @@ export function AddImageDragDrop(): JSX.Element {
         <button
           className="btn btn-secondary"
           onClick={async () => {
-            await UploadImage(selected, file, user.uid, user.nickname);
+            await UploadImage(
+              selected,
+              file,
+              user.uid,
+              user.nickname,
+              user.image,
+            );
+            await setChange((prev: boolean) => !prev);
             alert('저장에 성공했습니다.');
           }}
         >
@@ -60,11 +68,11 @@ export function AddImageDragDrop(): JSX.Element {
       files.forEach((file: any) => {
         URL.revokeObjectURL(file.preview);
       });
-  }, []);
+  }, [isChange]);
 
   return (
     <section className="addImage-container">
-      <label htmlFor="select-id"> 카테고리를 선택하세요! </label>
+      <label htmlFor="select-id"> 카테고리 </label>
       <select
         name="category-select"
         onChange={handleSelect}

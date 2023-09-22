@@ -32,11 +32,11 @@ const PostedModal: React.FC<IPostedModalProps> = ({ postId, onClose }) => {
   }, [postId]);
 
   return (
-    <div className="modal open">
+    <div className="modal open modal-dialog modal-dialog-centered">
       <div className="modal-content">
-        <span className="close-button" onClick={onClose}>
+        {/* <span className="close-button" onClick={onClose}>
           &times;
-        </span>
+        </span> */}
         {post && (
           <div>
             <h2>{post.title}</h2>
@@ -44,6 +44,9 @@ const PostedModal: React.FC<IPostedModalProps> = ({ postId, onClose }) => {
             <p>작성자: {post.username}</p>
           </div>
         )}
+        <div className="modal-footer">
+          <button onClick={onClose}>닫기</button>
+        </div>
       </div>
     </div>
   );

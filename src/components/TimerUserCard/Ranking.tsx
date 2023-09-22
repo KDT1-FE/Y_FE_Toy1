@@ -30,10 +30,12 @@ export function Ranking() {
 
   return (
     <div className={'user-rank__container'}>
-      <h1>👑 Rank 👑</h1>
-      <ul className={'user-rank__table'}>
+      <h1>
+        👑 <br /> Rank{' '}
+      </h1>
+      <div className="user-rank__users">
         {topThree.map((entry, index) => (
-          <li
+          <div
             className={`user-rank__username${index + 1}`}
             key={entry.nickname}
           >
@@ -42,12 +44,9 @@ export function Ranking() {
             {entry.nickname}
             <br />
             {formatTime(entry.time)}
-          </li>
+          </div>
         ))}
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
+      </div>
     </div>
   );
 }

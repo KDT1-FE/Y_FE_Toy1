@@ -1,7 +1,7 @@
-import sliderImg1 from '../../images/sliderImg1.png';
-import sliderImg2 from '../../images/sliderImg2.png';
+import sliderImg1 from '../../images/togethersLogo.png';
+import sliderImg2 from '../../images/sliderImg1.png';
 import sliderImg3 from '../../images/sliderImg3.png';
-import '../../styles/Main.css';
+import '../../styles/Main.scss';
 import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -9,42 +9,6 @@ import 'slick-carousel/slick/slick-theme.css';
 import Slide from './Slider';
 
 const slides = [
-  {
-    backgroundColor: '#ffeae9',
-    texts: [
-      {
-        text: 'NOTICE',
-        style: {
-          color: 'white',
-          borderRadius: '20px',
-          backgroundColor: '#fb817f',
-          margin: '2px',
-          padding: '10px 40px',
-          fontSize: '20px',
-          fontWeight: 'bold',
-        },
-      },
-      {
-        text: 'HOLA! 공식 인스타그램 OPEN!',
-        style: {
-          color: 'black',
-          margin: '2px',
-          fontSize: '50px',
-          fontWeight: '900',
-        },
-      },
-      {
-        text: '지금 팔로우하고 다양한 소식을 만나보세요!',
-        style: {
-          color: 'black',
-          margin: '2px',
-          fontSize: '30px',
-          fontWeight: '500',
-        },
-      },
-    ],
-    imageSrc: sliderImg1,
-  },
   {
     backgroundColor: '#fff088',
     texts: [
@@ -61,25 +25,63 @@ const slides = [
         },
       },
       {
-        text: 'HOLA!는 가을맞이 새단장 완료',
+        text: '투게더S!는 가을맞이 새단장 완료',
         style: {
           color: 'black',
           margin: '2px',
-          fontSize: '50px',
+          fontSize: '40px',
           fontWeight: '900',
         },
       },
       {
-        text: '더 편해진 HOLA! 모르는 사람 없게 해주세요 🙏',
+        text: '더 편해진 투게더S! 지금 사용해보세요 🙏',
         style: {
           color: 'black',
           margin: '2px',
-          fontSize: '30px',
-          fontWeight: '500',
+          fontSize: '25px',
+          fontWeight: '700',
+        },
+      },
+    ],
+    imageSrc: sliderImg1,
+    link: 'https://nifty-straw-3ce.notion.site/S-23-09-22-c31457ee673a43d780484688872cd252?pvs=4',
+  },
+  {
+    backgroundColor: '#ffeae9',
+    texts: [
+      {
+        text: 'NOTICE',
+        style: {
+          color: 'white',
+          borderRadius: '20px',
+          backgroundColor: '#fb817f',
+          margin: '2px',
+          padding: '10px 40px',
+          fontSize: '20px',
+          fontWeight: 'bold',
+        },
+      },
+      {
+        text: '투게더S! 공식 인스타그램 OPEN!',
+        style: {
+          color: 'black',
+          margin: '2px',
+          fontSize: '40px',
+          fontWeight: '900',
+        },
+      },
+      {
+        text: '지금 팔로우하고 다양한 소식을 만나보세요!',
+        style: {
+          color: 'black',
+          margin: '2px',
+          fontSize: '25px',
+          fontWeight: '700',
         },
       },
     ],
     imageSrc: sliderImg2,
+    link: 'https://www.instagram.com/to_gethers/?igshid=YTQwZjQ0NmI0OA%3D%3D',
   },
   {
     backgroundColor: '#edfaf7',
@@ -97,25 +99,26 @@ const slides = [
         },
       },
       {
-        text: '스터디와 사이드 프로젝트를 찾는 가장 쉬운 방법',
+        text: '스터디를 찾는 가장 쉬운 방법',
         style: {
           color: 'black',
           margin: '2px',
-          fontSize: '50px',
+          fontSize: '40px',
           fontWeight: '900',
         },
       },
       {
-        text: 'HOLA에서 팀원을 찾으세요 🔍',
+        text: '투게더S에서 팀원을 찾으세요 🔍',
         style: {
           color: 'black',
           margin: '2px',
-          fontSize: '30px',
-          fontWeight: '500',
+          fontSize: '25px',
+          fontWeight: '700',
         },
       },
     ],
     imageSrc: sliderImg3,
+    link: null,
   },
 ];
 
@@ -138,6 +141,7 @@ const ImageSlider = () => {
             backgroundColor={slide.backgroundColor}
             text={slide.texts}
             imageSrc={slide.imageSrc}
+            link={slide.link}
           />
         ))}
       </Slider>

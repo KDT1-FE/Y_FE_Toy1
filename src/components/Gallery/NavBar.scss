@@ -1,8 +1,17 @@
 @import '~bootstrap/scss/bootstrap';
-@import '../../styles/_common.scss';
+@import 'styles/_common.scss';
 
-.gallNav {
+.navbar.px-3.mb-3.gallNav {
   width: 100%;
   height: 100%;
   margin: auto;
+}
+
+.nav-pills {
+  justify-content: center;
+  gap: 30px;
+}
+
+.notLoginInfo {
+  color: $subColor;
 }

@@ -1,67 +1,86 @@
-@import '/src/styles/common';
+@import '/src/styles/_common';
 
 .user-rank__container {
   text-align: center;
   display: flex;
   align-items: center;
   flex-direction: column;
-  font-family: 'Pretendard';
-
+  font-family: $fontMain;
+  user-select: none;
   h1 {
-    font-family: 'Sinoreta PERSONAL USE', 'Pretendard';
+    font-family: $fontMain;
     margin: 0px 0px 70px 0px;
+    padding: 50px 40px;
+    background-color: $subColor;
+    border-radius: 50%;
+    color: $mainColor;
+    font-family: 'Tossface', 'LOTTERIACHAB';
+    cursor: pointer;
+    position: absolute;
+    top: 20%;
+    transition:
+      border-radius 2s,
+      padding 2s;
+  }
+  h1:hover {
+    border-radius: 50px;
+    padding: 50px 350px 410px;
   }
 }
-.user-rank__table {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  width: 42rem;
+.user-rank__users {
+  margin: 270px 0 0;
+  user-select: none;
+  display: flex;
+  flex-direction: row;
 
   img {
-    width: 50px;
-    height: 50px;
+    width: 200px;
+    height: 200px;
     object-fit: cover;
     border-radius: 50%;
+    margin: 0 20px 10px;
+    box-shadow: 0 9px 30px rgba(255, 149, 5, 0.3);
+    position: relative;
+
+    &:hover {
+      animation: waviy 2s;
+      animation-delay: calc(0.1s * var(--i));
+    }
   }
-  li {
-    position: relative; // li 요소를 상대 위치로 설정
 
-    &:nth-child(1) {
-      grid-column: 2 / 3;
-      grid-row: 1 / 2;
-      transform: translateY(-30px);
-    }
+  .user-rank__username1:before,
+  .user-rank__username2:before,
+  .user-rank__username3:before {
+    content: '🥇';
+    font-size: 50px;
+    position: absolute;
+    transform: translate(90px, -40px);
+    z-index: 2;
+  }
 
-    &:nth-child(2) {
-      grid-column: 1 / 2;
-      grid-row: 2 / 3;
-      transform: translateY(-30px);
-    }
+  .user-rank__username2:before {
+    content: '🥈';
+  }
 
-    &:nth-child(3) {
-      grid-column: 3 / 4;
-      grid-row: 3 / 4;
-      transform: translateY(-30px);
-    }
+  .user-rank__username3:before {
+    content: '🥉';
+  }
 
-    &:nth-child(n + 4):nth-child(-n + 6) {
-      background-color: $highlightColor;
-    }
+  .user-rank__username1,
+  .user-rank__username2,
+  .user-rank__username3 {
+    z-index: 2;
+    font-weight: 900;
+  }
+}
 
-    &:nth-child(4) {
-      grid-column: 1 / 2;
-      grid-row: 3 / 5;
-    }
-
-    &:nth-child(5) {
-      grid-column: 2 / 3;
-      grid-row: 2 / 5;
-    }
-
-    &:nth-child(6) {
-      grid-column: 3 / 4;
-      grid-row: 4 / 5;
-    }
+@keyframes waviy {
+  0%,
+  40%,
+  100% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-10px);
   }
 }

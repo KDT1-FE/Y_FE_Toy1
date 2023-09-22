@@ -1,0 +1,11 @@
+@import '/src/styles/_common';
+
+.timer .btn {
+  border-color: $subColor;
+  color: $subColor;
+  margin: 10px;
+  transition: background-color 0.3s;
+}
+.timer .btn:hover {
+  background-color: $highlightColor;
+}

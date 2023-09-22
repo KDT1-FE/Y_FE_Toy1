@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { gsap } from 'gsap';
+import { doc, onSnapshot, query, collection } from 'firebase/firestore';
+import { db } from 'data/firebase';
 import { getImageData } from '../../data/galleryImage';
 import './SlideRow.scss';
 import { MapImages } from './SlideOpenModal';
@@ -19,6 +21,7 @@ export interface IImageData {
   uid: string;
   nickname: string;
   like: number;
+  userImage: any;
 }
 
 export function CarouselSlide({
@@ -34,9 +37,6 @@ export function CarouselSlide({
     imageData.then((item) => {
       setImageDataInfo(item);
     });
-  }, []);
-
-  useEffect(() => {
     gsap.to('.leftSlideItem', {
       x: -1200,
       duration: 15,
@@ -71,6 +71,7 @@ export function CarouselSlide({
             nickName={image.nickname}
             like={image.like}
             slideClassName={slideClassName}
+            userImage={image.userImage}
           />
         ))}
       </div>
