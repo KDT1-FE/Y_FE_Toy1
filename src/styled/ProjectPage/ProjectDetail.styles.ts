@@ -42,7 +42,7 @@ export const DetailContent = styled.p`
   font-size: 15px;
   margin: 20px 0 0 20px;
   border: 1px solid #484aad;
-  height: 300px;
+  height: 500px;
   padding: 20px;
   font-family: RobotoMono;
 `;

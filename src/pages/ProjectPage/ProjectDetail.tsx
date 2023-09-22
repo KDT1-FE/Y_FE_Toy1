@@ -83,7 +83,17 @@ const ProjectDetail: React.FC = () => {
       <Date>마감일: {project?.projectDeadline}</Date>
       <Date>프로젝트 인원: {project?.projectMember}</Date>
       <DetailTitle>{project?.projectTitle}</DetailTitle>
-      <DetailContent>{project?.projectContent}</DetailContent>
+      <DetailContent>
+        {project?.projectContent &&
+          project?.projectContent
+            .split("\n")
+            .map((el: string, index: number) => (
+              <div key={index}>
+                <span>{el}</span>
+                <br />
+              </div>
+            ))}
+      </DetailContent>
       <ListBtn onClick={() => navigate(`/projectList`)}>목록으로</ListBtn>
     </Container>
   );
