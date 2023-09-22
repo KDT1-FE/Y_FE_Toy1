@@ -10,7 +10,8 @@ export function SideBarLink(): JSX.Element {
 
   return (
     <div>
-      <nav id="navbar-example2" className="navbar px-3 mb-3 gallNav">
+      <nav id="navbar-example2" className="navbar px-3 mb-3">
+        <a className="navbar-brand" href="#"></a>
         <ul className="nav nav-pills">
           <li className="nav-item">
             <a className="nav-link" href="#studyTips">
