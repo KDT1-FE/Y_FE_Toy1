@@ -79,3 +79,35 @@
     background-color: rgba(213, 150, 82, 0.5);
 }
 
+.btn__box {
+    display: flex;
+    margin-bottom : 10px;
+
+}
+
+.btn-edit , .btn-delete {
+    font-size: 14px;
+}
+
+.board__info {
+    padding-left : 10px;
+}
+
+#comment__info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.btn.btn-primary.btn-comment-edit, .btn.btn-primary.btn-comment-delete {
+    background-color: inherit;
+    color: #ad704a;
+
+
+}
+
+.btn-confirm-box {
+    display: flex;
+    justify-content: end;
+}
+

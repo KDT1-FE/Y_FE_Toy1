@@ -56,7 +56,17 @@ $fontMain: Pretendard, 'Tossface', 'Noto Sans KR', sans-serif;
 }
 .nav-link {
   color: $highlightColor;
+  font-size: 24px;
+  font-weight: 700;
+
+
   &:hover {
+    color: $subColor;
+  }
+  &:active {
+    color: $subColor;
+  }
+  &:focus{
     color: $subColor;
   }
 }
@@ -73,4 +83,3 @@ body {
 }
 
 
-

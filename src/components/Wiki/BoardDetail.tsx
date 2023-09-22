@@ -182,22 +182,22 @@ export function BoardDetail(props: any) {
       <div className="row g-5">
         <section className="col-2 order-md-last">
           {boardInfo.uid === sessionStorage.uid && (
-            <div>
+            <div className='btn__box'>
               <button
-                className="btn btn-primary"
+                className="btn btn-primary btn-edit"
                 onClick={() => {
                   navigate('./edit');
                 }}
               >
-                글 수정
+                수정
               </button>
 
-              <button className="btn btn-primary" onClick={handleDelete}>
-                글 삭제
+              <button className="btn btn-primary btn-delete" onClick={handleDelete}>
+                삭제
               </button>
             </div>
           )}
-          <aside>
+          <aside className='board__info'>
             <p>{boardInfo.name}</p>
             <p>
               <time dateTime="2022-01-01T00:00:00">{boardInfo.time}</time>
@@ -262,13 +262,13 @@ export function BoardDetail(props: any) {
                       {commentData.uid === sessionStorage.uid && (
                         <div className="comment__state__box">
                           <button
-                            className="btn btn-primary"
+                            className="btn btn-primary btn-comment-edit"
                             onClick={handleClickModify}
                           >
                             수정
                           </button>
                           <button
-                            className="btn btn-primary"
+                            className="btn btn-primary btn-comment-delete"
                             onClick={handleDeleteComment}
                           >
                             삭제
@@ -285,18 +285,20 @@ export function BoardDetail(props: any) {
                     className="form-control input--mod"
                     id="exampleFormControlInput1"
                   />
+                  <div className='btn-confirm-box'>
                   <button
-                    className="btn btn-primary"
+                    className="btn btn-primary btn-comment-edit"
                     onClick={handleEditConfirm}
                   >
                     수정
                   </button>
                   <button
-                    className="btn btn-primary"
+                    className="btn btn-primary btn-comment-delete"
                     onClick={handleCancelEdit}
                   >
                     취소
                   </button>
+                  </div>
                   <p className="info__hide">{commentData.id}</p>
                 </div>
               </li>
