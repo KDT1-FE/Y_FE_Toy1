@@ -27,7 +27,7 @@
 }
 .wiki__textContent {
   background-color: #fefef2;
-  height: 500px;
+  min-height: 500px;
   padding: 20px;
 }
 
