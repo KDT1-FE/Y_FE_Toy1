@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import styled from 'styled-components'; 
+import styled from 'styled-components';
 import { GrFormNext } from 'react-icons/gr';
 import { GrFormPrevious } from 'react-icons/gr';
 import { GoDot } from 'react-icons/go';
@@ -17,8 +17,8 @@ export default function Carousel() {
 
   const navigateToNoticeDetailPage = (index: number) => {
     console.log(index);
-    navigate(`notice/${index + 1}`)
-  }
+    navigate(`notice/${index + 1}`);
+  };
 
   const showImage = (index: number) => {
     setCurrentImageIndex(index);
@@ -37,15 +37,15 @@ export default function Carousel() {
       try {
         const carouselFolderRef = ref(storage, 'notice/carousel');
         const listResult = await listAll(carouselFolderRef);
-    
+
         const imageUrls = [];
-    
+
         // 각 이미지 URL 가져오기
         for (const itemRef of listResult.items) {
           const downloadUrl = await getDownloadURL(itemRef);
           imageUrls.push(downloadUrl);
         }
-    
+
         setImageUrls(imageUrls);
         setIsLoading(false);
       } catch (error) {
@@ -69,62 +69,47 @@ export default function Carousel() {
 
   return (
     <>
-      {
-        isLoading ? (
-          <LoadingSpinner />
-          ) :(
-          <CarouselWrap>
-            <ImageWrap>
-              <ArrowButtonLeft onClick={showPreviousImage} >
-                <GrFormPrevious size='40px'/>
-              </ArrowButtonLeft>
-              {
-                imageUrls &&
-                imageUrls.map((image, index) => (
-                  <Image
-                    key={index}
-                    src={image}
-                    style={{display: index === currentImageIndex ? 'block' : 'none'}}
-                    onClick={() => navigateToNoticeDetailPage(index)}
-                  />
-                ))
-              }
-              <ArrowButtonRight onClick={showNextImage} > 
-                <GrFormNext size='40px'/>
-              </ArrowButtonRight>
-            </ImageWrap>
-            <ImageButtonWrap>
-              {
-                imageUrls &&
-                imageUrls.map((_, index) => (
-                  <ImageButton 
-                    key={index} 
-                    onClick={() => showImage(index)}
-                  >
-                    {
-                      currentImageIndex === index ? 
-                        <GoDotFill size='16px'/>
-                        :
-                        <GoDot size='16px'/>
-                    }
-                  </ImageButton>
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <CarouselWrap>
+          <ImageWrap>
+            <ArrowButtonLeft onClick={showPreviousImage}>
+              <GrFormPrevious size="40px" />
+            </ArrowButtonLeft>
+            {imageUrls &&
+              imageUrls.map((image, index) => (
+                <Image
+                  key={index}
+                  src={image}
+                  style={{ display: index === currentImageIndex ? 'block' : 'none' }}
+                  onClick={() => navigateToNoticeDetailPage(index)}
+                />
               ))}
-            </ImageButtonWrap>
-          </CarouselWrap>
-        )
-      }
+            <ArrowButtonRight onClick={showNextImage}>
+              <GrFormNext size="40px" />
+            </ArrowButtonRight>
+          </ImageWrap>
+          <ImageButtonWrap>
+            {imageUrls &&
+              imageUrls.map((_, index) => (
+                <ImageButton key={index} onClick={() => showImage(index)}>
+                  {currentImageIndex === index ? <GoDotFill size="16px" /> : <GoDot size="16px" />}
+                </ImageButton>
+              ))}
+          </ImageButtonWrap>
+        </CarouselWrap>
+      )}
     </>
   );
-};
+}
 
-const CarouselWrap = styled.div`
-  margin-top: 1.5rem;
-`;
+const CarouselWrap = styled.div``;
 
 const ArrowButton = styled.button`
-  position: absolute; 
-  top: 50%; 
-  transform: translateY(-50%); 
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 1;
   background-color: transparent;
   display: flex;
@@ -133,9 +118,11 @@ const ArrowButton = styled.button`
 
   &:hover {
     cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s; 
-    background-color: rgba(255, 255, 255, 0.5); 
-    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5); 
+    transition:
+      background-color 0.3s,
+      box-shadow 0.3s;
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
   }
 `;
 
@@ -144,7 +131,7 @@ const ArrowButtonLeft = styled(ArrowButton)`
 `;
 
 const ArrowButtonRight = styled(ArrowButton)`
-  right: 12px; 
+  right: 12px;
 `;
 
 const ImageWrap = styled.div`
@@ -152,13 +139,13 @@ const ImageWrap = styled.div`
 `;
 
 const Image = styled.img`
-  border: 1px solid #C2C2C2;
+  border: 1px solid #c2c2c2;
   width: 100%;
   height: 100%;
   /* height: 18rem; */
   object-fit: cover;
   position: relative;
-  
+
   &:hover {
     cursor: pointer;
   }

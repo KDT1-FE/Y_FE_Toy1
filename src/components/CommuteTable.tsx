@@ -29,7 +29,7 @@ export default function Carousel() {
         const docRef = collection(db, `commute/${uid}/commuteDays`);
         const querySnapshot = await getDocs(docRef);
 
-        const formattedData:CommuteData[] = [];
+        const formattedData: CommuteData[] = [];
 
         querySnapshot.forEach((doc) => {
           const date = doc.id;
@@ -38,8 +38,8 @@ export default function Carousel() {
           // sessions 마지막 데이터
           const lastSession = sessions[sessions.length - 1];
 
-          const start = new Time(lastSession.startTime)
-          const end = new Time(lastSession.endTime)
+          const start = new Time(lastSession.startTime);
+          const end = new Time(lastSession.endTime);
 
           formattedData.push({
             date: date,
@@ -74,70 +74,83 @@ export default function Carousel() {
 
   return (
     <>
-      {user && (
-        isLoading ? (
+      {user &&
+        (isLoading ? (
           <LoadingSpinner />
         ) : (
           <>
-            <H1>{name}님의 출퇴근 기록</H1>
+            <H2>{name}님의 출퇴근 기록</H2>
             {data.length > 0 ? (
-              <Table>
-                <THead>
-                  <tr>
-                    <th>날짜</th>
-                    <th>출근 시간</th>
-                    <th>퇴근 시간</th>
-                    <th>근무 시간</th>
-                  </tr>
-                </THead>
-                <TBody>
-                  {data.map((item, index) => (
-                    <tr key={index}>
-                      <TH>{item.date}</TH>
-                      <TH>{item.startTime}</TH>
-                      <TH>{item.endTime}</TH>
-                      <TH>{item.workingTime}</TH>
+              <TableContainer>
+                <Table>
+                  <THead>
+                    <tr>
+                      <th>날짜</th>
+                      <th>출근 시간</th>
+                      <th>퇴근 시간</th>
+                      <th>근무 시간</th>
                     </tr>
-                  ))}
-                </TBody>
-              </Table>
+                  </THead>
+                  <TBody>
+                    {data.map((item, index) => (
+                      <tr key={index}>
+                        <TD>{item.date}</TD>
+                        <TD>{item.startTime}</TD>
+                        <TD>{item.endTime}</TD>
+                        <TD>{item.workingTime}</TD>
+                      </tr>
+                    ))}
+                  </TBody>
+                </Table>
+              </TableContainer>
             ) : (
               <Message>출퇴근 기록이 없습니다.</Message>
             )}
           </>
-        )
-      )}
+        ))}
     </>
   );
 }
 
-const H1 = styled.h1`
+const H2 = styled.h2`
   margin-top: 1.5rem;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
 `;
-
+const TableContainer = styled.div`
+  @media screen and (max-width: 700px) {
+    width: 100%;
+    overflow-x: scroll;
+  }
+`;
 const Table = styled.table`
-  border: 1px solid #e2e2e2;
-  border-radius: 10px;
+  border-radius: 4px;
+  box-sizing: border-box;
   width: 100%;
-  margin-top: 0.5rem;
-  margin-bottom: 4.5rem;
-  border-collapse: collapse;
+  margin-top: 10px;
+  border-spacing: 0;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid ${(props) => props.theme.colors.border};
+  @media screen and (max-width: 700px) {
+    min-width: 500px;
+  }
 `;
 
 const THead = styled.thead`
-  background-color: #e2e2e2;
+  background-color: #eee;
   padding: 8px;
 
   th {
     padding: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 1px solid ${(props) => props.theme.colors.border};
   }
 `;
 
-const TH = styled.th`
-  border-bottom: 1px solid #e2e2e2;
-  padding: 6px;
+const TD = styled.td`
+  padding: 8px;
 `;
 
 const TBody = styled.tbody`
@@ -145,7 +158,6 @@ const TBody = styled.tbody`
 `;
 
 const Message = styled.p`
-  margin-top: 0.5rem;
   color: gray;
   font-size: 16px;
   font-weight: 400;

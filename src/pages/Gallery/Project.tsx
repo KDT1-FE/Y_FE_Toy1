@@ -4,6 +4,8 @@ import ImageWrapper from './ImageWrapper';
 import { db } from '../../common/config';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import LoadingSpinner from './LoadingSpinner';
+import { CategoryTitleSection, CategoryTitle, BreadCrumb } from '../../utils/CategoryTitleSection';
+import { SubPageContainer } from '../../utils/CommonDesign';
 
 interface ProjectStateProps {
   state: string;
@@ -43,9 +45,9 @@ const Project = ({ state }: ProjectStateProps) => {
       }
     }
   };
-  
+
   const prevButtonStyle = {
-    backgroundColor: currentPage === 1 ? 'rgb(252,252,252)' : '#3267B1',
+    backgroundColor: currentPage === 1 ? '#ddd' : '#3267B1',
     color: currentPage === 1 ? '#797979' : '',
     cursor: currentPage === 1 ? 'unset' : 'pointer',
   };
@@ -53,7 +55,7 @@ const Project = ({ state }: ProjectStateProps) => {
   const nextButtonDisable = currentPage === maxPage || maxPage === 1;
 
   const nextButtonStyle = {
-    backgroundColor: nextButtonDisable ? 'rgb(252,252,252)' : '#3267B1',
+    backgroundColor: nextButtonDisable ? '#ddd' : '#3267B1',
     color: nextButtonDisable ? '#797979' : '',
     cursor: nextButtonDisable ? 'unset' : 'pointer',
   };
@@ -90,7 +92,7 @@ const Project = ({ state }: ProjectStateProps) => {
       : '';
 
   return (
-    <GalleryMainContainer>
+    <SubPageContainer>
       <CategoryTitleSection>
         <CategoryTitle>{projectState} 프로젝트</CategoryTitle>
         <BreadCrumb>갤러리 &gt; 프로젝트 &gt; {projectState} 프로젝트</BreadCrumb>
@@ -117,55 +119,41 @@ const Project = ({ state }: ProjectStateProps) => {
       </ImageSection>
       {projectData?.length !== 0 && (
         <ButtonSection>
-          <Button onClick={goToPreviousPage} style={prevButtonStyle}>
+          <Button
+            onClick={goToPreviousPage}
+            className={currentPage !== 1 ? 'blue' : ''}
+            style={prevButtonStyle}
+          >
             이전
           </Button>
-          <Button onClick={goToNextPage} style={nextButtonStyle}>
+          <Button
+            onClick={goToNextPage}
+            className={!nextButtonDisable ? 'blue' : ''}
+            style={nextButtonStyle}
+          >
             다음
           </Button>
         </ButtonSection>
       )}
-    </GalleryMainContainer>
+    </SubPageContainer>
   );
 };
 
 export default Project;
 
-export const GalleryMainContainer = styled.div`
-  width: 100%;
-  padding: 10px 30px 30px;
-`;
-
-export const CategoryTitleSection = styled.section`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const BreadCrumb = styled.span`
-  font-size: 12px;
-  text-align: right;
-  color: gray;
-`;
-export const CategoryTitle = styled.h1`
-  font-size: 32px;
-`;
-
 export const ImageSection = styled.section`
   display: flex;
   flex-wrap: wrap;
-  gap: 0 5%;
-  margin-top: 30px;
+  gap: 0 30px;
+  @media screen and (max-width: 700px) {
+    gap: 0 20px;
+  }
 `;
 
 const ButtonSection = styled.div`
   margin-top: 30px;
   display: flex;
   justify-content: space-between;
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 10px;
-  }
 `;
 
 const Button = styled.button`
@@ -180,7 +168,7 @@ const Button = styled.button`
   color: rgb(252, 252, 252);
   text-align: center;
   line-height: 47px;
-  @media (max-width: 768px) {
-    width: 100%;
+  &.blue:hover {
+    background-color: #2c5b96 !important;
   }
 `;

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import EditModal from './EditModal';
 import { ProjectProps } from './Project';
 import ProjectDetailModal from './ProjectDetailModal';
 
@@ -54,17 +53,22 @@ export default ImageWrapper;
 
 const ImageWrapperDiv = styled.div`
   position: relative;
-  width: 30%;
+  width: calc(33.33% - 20px);
+  margin-bottom: 50px;
   aspect-ratio: 1;
   background-size: cover;
   background-position: center;
   border-radius: 4px;
-  margin-bottom: 5%;
-  border: 0.1px solid #9d9c9c30;
+  border: 1px solid ${(props) => props.theme.colors.border};
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+
+  @media screen and (max-width: 700px) {
+    width: calc(50% - 10px);
+    margin-bottom: 50px;
+  }
 `;
 const ProjectName = styled.div`
   position: absolute;

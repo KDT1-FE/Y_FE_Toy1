@@ -100,10 +100,10 @@ const ProjectDetailModal = ({
               </MainRightDiv>
             </MainDiv>
             <ButtonSection>
-              <Button onClick={participateClickHandler} style={{ backgroundColor: '#021856' }}>
+              <Button onClick={participateClickHandler} className="dark-blue">
                 프로젝트 참가
               </Button>
-              <Button onClick={showEditModalHandler} style={{ backgroundColor: '#3267B1' }}>
+              <Button onClick={showEditModalHandler} className="blue">
                 수정하기
               </Button>
             </ButtonSection>
@@ -155,7 +155,17 @@ const DetailModalContainer = styled.div`
     width: 400px;
     height: 70vh;
     overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
     padding: 20px;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @media (max-width: 420px) {
+    width: 90%;
   }
 `;
 
@@ -179,7 +189,7 @@ const MainDiv = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column;
-    margin-bottom: 64px;
+    margin-bottom: 50px;
     gap: 20px;
   }
 `;
@@ -197,7 +207,7 @@ const ImageDiv = styled.div`
   background-size: cover;
   background-position: center;
   border-radius: 4px;
-  border: 0.1px solid #9d9c9c30;
+  border: 1px solid ${(props) => props.theme.colors.border};
 `;
 
 const MainRightDiv = styled.div`
@@ -249,6 +259,12 @@ const DescriptionDiv = styled.div`
   line-height: 1.6;
   max-height: 108px;
   overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    max-height: 80px;
+    display: none;
+  }
 `;
 
 const ButtonSection = styled.div`
@@ -274,5 +290,19 @@ const Button = styled.button`
   line-height: 47px;
   @media (max-width: 768px) {
     width: 100%;
+  }
+
+  &.blue {
+    background-color: rgb(50, 103, 177);
+    &:hover {
+      background-color: #2c5b96;
+    }
+  }
+
+  &.dark-blue {
+    background-color: rgb(2, 24, 86);
+    &:hover {
+      background-color: #011033;
+    }
   }
 `;

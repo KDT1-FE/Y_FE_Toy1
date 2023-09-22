@@ -5,12 +5,9 @@ import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import styled from 'styled-components';
 import { useUser } from '../../common/UserContext';
-import { CategoryTitleSection, BreadCrumb } from '../Gallery/Project';
-
-export const StyledContainer = styled.div`
-  padding: 10px 30px 30px;
-  width: 100%;
-`;
+import { CategoryTitleSection, CategoryTitle, BreadCrumb } from '../../utils/CategoryTitleSection';
+import { SubPageContainer } from '../../utils/CommonDesign';
+import { SmallButtonDarkGray } from '../../utils/CommonDesign';
 
 export const StyledTitle = styled.input`
   display: block;
@@ -20,23 +17,34 @@ export const StyledTitle = styled.input`
   font-size: 16px;
 `;
 
-export const StyledButton = styled.button`
-  margin-top: 10px;
-  padding: 5px 15px;
+export const StyledTime = styled.div`
+  line-height: 28px;
   font-size: 14px;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-
-  &:hover {
-    background-color: gray;
+  color: gray;
+  @media screen and (max-width: 700px) {
+    line-height: 20px;
+    text-align: center;
+    word-break: keep-all;
+    padding: 0 10px;
   }
 `;
 
-export const StyledTime = styled.div`
-  margin-top: 5px;
-  font-size: 14px;
-  color: gray;
+export const MarkdownContainer = styled.div`
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 5px 20px 10px 20px;
+  margin-bottom: 15px;
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 10px;
+  @media screen and (max-width: 700px) {
+    flex-direction: column;
+    gap: 5px;
+  }
 `;
 
 const Info = () => {
@@ -100,7 +108,7 @@ const Info = () => {
   };
 
   return (
-    <StyledContainer>
+    <SubPageContainer>
       {isEditing ? (
         <>
           <StyledTitle
@@ -122,22 +130,26 @@ const Info = () => {
       ) : (
         <>
           <CategoryTitleSection>
-            <h1>{title}</h1>
+            <CategoryTitle>{title}</CategoryTitle>
             <BreadCrumb>위키 &gt; 소개 &gt; 기본 정보</BreadCrumb>
           </CategoryTitleSection>
 
-          {lastEdited && (
-            <StyledTime>
-              마지막 수정: {lastEdited.toLocaleString()} / 최근 편집자: {editor}
-            </StyledTime>
-          )}
-
-          <Viewer key={markdown} initialValue={markdown} />
+          <MarkdownContainer>
+            <Viewer key={markdown} initialValue={markdown} />
+          </MarkdownContainer>
         </>
       )}
-      <hr />
-      <StyledButton onClick={handleEditClick}>{isEditing ? '저장' : '편집'}</StyledButton>
-    </StyledContainer>
+      <ButtonContainer>
+        {lastEdited && (
+          <StyledTime>
+            마지막 수정: {lastEdited.toLocaleString()} / 최근 편집자: {editor}
+          </StyledTime>
+        )}
+        <SmallButtonDarkGray onClick={handleEditClick}>
+          {isEditing ? '저장' : '편집'}
+        </SmallButtonDarkGray>
+      </ButtonContainer>
+    </SubPageContainer>
   );
 };
 

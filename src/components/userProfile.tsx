@@ -58,19 +58,25 @@ const HeaderProfile = styled.div`
     width: 1.8rem;
     height: 1.8rem;
     border-radius: 50%;
-    border: 1px solid ${({ theme }) => theme.colors.black};
-    background-color: ${({ theme }) => theme.colors.border};
-    opacity: 0.5;
+    border: 1px solid #ddd;
+    background-color: ${(props) => props.theme.colors.border};
+    background-size: cover;
+    opacity: 0.8;
+    &:hover {
+      opacity: 1;
+      border: 1px solid #666;
+    }
   }
 
   .profileText {
     display: flex;
   }
 
-  a {
-    opacity: 0.5;
+  > a {
+    font-size: 14px;
+    color: gray;
     &:hover {
-      opacity: 1;
+      text-decoration: underline;
     }
   }
 `;

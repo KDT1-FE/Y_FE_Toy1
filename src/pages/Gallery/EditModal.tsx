@@ -155,10 +155,10 @@ const EditModal = ({
           </MainRightDiv>
         </MainDiv>
         <ButtonSection>
-          <Button onClick={closeOnClick} style={{ color: '#797979' }}>
+          <Button onClick={closeOnClick} className="gray">
             취소
           </Button>
-          <Button onClick={editProject} style={{ backgroundColor: '#3267B1' }}>
+          <Button onClick={editProject} className="blue">
             확인
           </Button>
         </ButtonSection>
@@ -177,7 +177,6 @@ const EditModalBg = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  
 `;
 
 const EditModalContainer = styled.div`
@@ -197,8 +196,12 @@ const EditModalContainer = styled.div`
   @media (max-width: 768px) {
     width: 400px;
     height: 70vh;
-    overflow: scroll;
+    overflow-y: scroll;
     padding: 20px;
+  }
+
+  @media (max-width: 420px) {
+    width: 90%;
   }
 `;
 const MainDiv = styled.div`
@@ -208,7 +211,7 @@ const MainDiv = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column;
-    gap:20px;
+    gap: 20px;
   }
 `;
 const MainLeftDiv = styled.div``;
@@ -228,7 +231,7 @@ const NameInput = styled.input`
   padding: 10px;
   outline: none;
   border-radius: 4px;
-  border: 1px solid #9d9c9c30;
+  border: 1px solid ${(props) => props.theme.colors.border};
   margin-bottom: 20px;
 `;
 
@@ -237,7 +240,7 @@ const DescriptionDiv = styled.textarea`
   height: 268px;
   padding: 10px;
   border-radius: 4px;
-  border: 1px solid #9d9c9c30;
+  border: 1px solid ${(props) => props.theme.colors.border};
   resize: none;
   outline: none;
   font-family: 'Noto Sans KR';
@@ -270,7 +273,7 @@ const ImageWrapperDiv = styled.div`
   background-size: cover;
   background-position: center;
   border-radius: 4px;
-  border: 0.1px solid #9d9c9c30;
+  border: 1px solid ${(props) => props.theme.colors.border};
   @media (max-width: 768px) {
     width: 150px;
     height: 150px;
@@ -279,7 +282,7 @@ const ImageWrapperDiv = styled.div`
 const SelectState = styled.select`
   padding: 5px;
   width: 100%;
-  border: 0.1px solid #9d9c9c30;
+  border: 1px solid ${(props) => props.theme.colors.border};
   border-radius: 4px;
   height: 40px;
   &:focus {
@@ -311,5 +314,19 @@ const Button = styled.button`
   line-height: 47px;
   @media (max-width: 768px) {
     width: 100%;
+  }
+
+  &.blue {
+    background-color: rgb(50, 103, 177);
+    &:hover {
+      background-color: #2c5b96;
+    }
+  }
+
+  &.gray {
+    color: #797979;
+    &:hover {
+      background-color: #ddd;
+    }
   }
 `;
