@@ -46,7 +46,6 @@ const SidebarBottom = (): JSX.Element => {
   } else {
     return (
       <SidebarBottomBox>
-        <hr />
         <a
           href="https://app.slack.com/client/T057XJP4T34/C05FRTBDHDL"
           target="_blank"
