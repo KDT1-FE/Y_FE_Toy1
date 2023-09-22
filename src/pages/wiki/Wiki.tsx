@@ -170,7 +170,6 @@ export default function WikiPage({ email }: Props) {
       loadWikiByID(linkWikiID);
       setSelectedEntry(newForm);
       setForm(newForm);
-      console.log(newForm);
       alert("위키를 저장하였습니다.");
     } catch (error) {
       console.error("Error saving wiki:", error);

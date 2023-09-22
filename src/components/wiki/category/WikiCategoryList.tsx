@@ -43,6 +43,7 @@ const WikiCategoryList = ({
       <Styled.WikiList>
         {WiKiList.map((wiki) => (
           <WikiCategoryListItem
+            key={wiki.wikiID}
             wiki={wiki}
             selectedWikiId={selectedWikiId}
             hasChildMap={hasChildMap}

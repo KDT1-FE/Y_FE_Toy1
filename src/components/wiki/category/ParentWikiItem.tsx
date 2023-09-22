@@ -1,6 +1,7 @@
 import { HasChildMap, Wiki } from "@/components/wiki/types/WikiCommonType";
 import * as Styled from "./WikiCategoryListStyle";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/Io";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 interface ParentWikiItemProps {
   wiki: Wiki;
@@ -23,7 +24,11 @@ const ParentWikiItem = ({
     </Styled.WikiTitle>
     {hasChildMap[wiki.wikiID] && (
       <Styled.ArrowIcon onClick={() => onArrowClick(wiki)}>
-        {isUnfolded(wiki.wikiID) ? <IoIosArrowUp /> : <IoIosArrowDown />}
+        {isUnfolded(wiki.wikiID) ? (
+          <FontAwesomeIcon icon={faChevronUp} />
+        ) : (
+          <FontAwesomeIcon icon={faChevronDown} />
+        )}
       </Styled.ArrowIcon>
     )}
   </Styled.ParentWikiWrapper>

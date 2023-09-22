@@ -15,8 +15,8 @@ const Carousel = () => {
 
   window.addEventListener("resize", () => {
     const vw = window.innerWidth;
-    const vw67 = (vw * 62) / 100;
-    const parentWidth = carouselRef.current ? vw67 : 938;
+    const vw62 = (vw * 62) / 100;
+    const parentWidth = carouselRef.current ? vw62 : 938;
     setCarouselwidth(parentWidth);
   });
 
@@ -48,15 +48,13 @@ const Carousel = () => {
   return (
     <>
       <div style={{ width: "62vw", height: "100%" }}>
-        {" "}
-        {/*  추후 스타일드 컴포넌트로 수정 예정 => height: "100%"  */}
         <style.CarouselWrapper>
           <style.CarouselLeftBackDrop />
 
-          <style.CarouselTitle href={"/wiki"}>
+          <style.CarouselTitle >
             {carouselData[currentindex].title}
           </style.CarouselTitle>
-          <style.CarouselText href={"/wiki"}>
+          <style.CarouselText>
             {carouselData[currentindex].text}
           </style.CarouselText>
 

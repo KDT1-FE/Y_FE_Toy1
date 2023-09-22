@@ -16,7 +16,7 @@ const WikiCategoryListItem = (props: WikiCategoryListItemProps) => {
   const { wiki, onEntryClick } = props;
 
   return (
-    <Styled.WikiItem key={wiki.wikiID} onClick={() => onEntryClick(wiki)}>
+    <Styled.WikiItem onClick={() => onEntryClick(wiki)}>
       {wiki.parentID === "" ? (
         <ParentWikiItem {...props} />
       ) : (
