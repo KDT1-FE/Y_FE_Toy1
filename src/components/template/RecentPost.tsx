@@ -68,18 +68,18 @@ const RecentPost: React.FC = () => {
         {posts.map((post: postData) => {
           return (
             <div key={post.id}>
-            <Link to={`/Gallery/detail/${post.id}`} >
-              <div className="Gallery__link">
-                <p className="img-bx">
-                  <img src={post.thumbnail} alt="썸네일" />
-                </p>
-                <p className="Gallery__title">{post.title}</p>
-                <p className="Gallery__desc">
-                  <span>{post.date}</span>
-                  <span>{post.writer}</span>
-                </p>
-              </div>
-            </Link>
+              <Link to={`/Gallery/detail/${post.id}`}>
+                <div className="Gallery__link">
+                  <p className="img-bx">
+                    <img src={post.thumbnail} alt="썸네일" />
+                  </p>
+                  <p className="Gallery__title">{post.title}</p>
+                  <p className="Gallery__desc">
+                    <span>{post.date}</span>
+                    <span>{post.writer}</span>
+                  </p>
+                </div>
+              </Link>
             </div>
           );
         })}
@@ -93,7 +93,7 @@ const ListWrapper = styled.div`
   flex-wrap: wrap;
   margin-left: -10px;
   margin-right: -10px;
-   >div {
+  > div {
     display: block;
     flex: 1 0 33.3%;
     max-width: 33.3%;
@@ -101,22 +101,22 @@ const ListWrapper = styled.div`
     flex-direction: column;
     align-items: flex-start;
     transition: transform 0.3s;
-    @media screen and (max-width:1200px) {
+    @media screen and (max-width: 1200px) {
       flex: 1 0 50%;
       max-width: 50%;
     }
-    @media screen and (max-width:600px) {
+    @media screen and (max-width: 600px) {
       flex: 1 0 100%;
       max-width: 100%;
     }
-    a{
-      width:100%; 
-      display:block;
+    a {
+      width: 100%;
+      display: block;
     }
-    @media screen and (min-width:601px) {
-      &:hover{
-      transform:translateY(-10px);
-    }
+    @media screen and (min-width: 601px) {
+      &:hover {
+        transform: translateY(-10px);
+      }
     }
   }
   .Gallery__link {
@@ -130,6 +130,7 @@ const ListWrapper = styled.div`
     display: block;
     position: relative;
     overflow: hidden;
+    border: 1px solid #dfdfdf;
   }
   img {
     display: block;
