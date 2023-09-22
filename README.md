@@ -15,9 +15,15 @@
 
 <br>
 
-## 🪐 배포 링크
+## 🪐 관련 링크
+
+### [배포 링크]
 
 <a href="https://glittering-speculoos-415dd0.netlify.app/">🚀 Company Space 🚀</a>
+
+### [레포지토리 링크]
+
+<a href="https://github.com/YongYong21/Toy1_team2">🚀 Compnay Space Repo 🚀</a>
 
 <br>
 
