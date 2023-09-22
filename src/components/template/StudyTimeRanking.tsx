@@ -16,7 +16,11 @@ interface UsersData {
 const StudyTimeRanking = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [users, setUsers] = useState<UsersData[]>([]);
-  const q = query(collection(db, "user"), orderBy("studyTime", "desc"), limit(5));
+  const q = query(
+    collection(db, "user"),
+    orderBy("studyTime", "desc"),
+    limit(5)
+  );
   const { currentTheme } = useContext(ThemeContext);
   const theme: "dark" | "light" = currentTheme;
 
@@ -59,7 +63,7 @@ const StudyTimeRanking = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % users.length);
-    }, 3000);
+    }, 2000);
 
     return () => {
       clearTimeout(timer);
@@ -72,16 +76,33 @@ const StudyTimeRanking = () => {
         <h1>공부시간 랭킹</h1>
         <RankWrapper>
           {users.map((usersData: UsersData, index: number) => (
-            <div className={`userList ${currentIndex === index ? "hover" : ""}`} key={usersData.id}>
+            <div
+              className={`userList ${currentIndex === index ? "hover" : ""}`}
+              key={usersData.id}
+            >
               <div className="userList__icon">
-                <img src={process.env.PUBLIC_URL + `/svg/number/${theme}/${index + 1}_icon-${theme}.svg`} alt="오류" />
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    `/svg/number/${theme}/${index + 1}_icon-${theme}.svg`
+                  }
+                  alt="오류"
+                />
               </div>
-              <img className="user_image" src={process.env.PUBLIC_URL + "/png/user_default.png"} alt="프로필" />
+              <img
+                className="user_image"
+                src={process.env.PUBLIC_URL + "/png/user_default.png"}
+                alt="프로필"
+              />
               <div className="userList__nickName">{usersData.nickName}</div>
               <div className="userList__studyTime">
                 <div className="studyTime">{usersData.studyTime}분</div>
               </div>
-              <img className="userList_medal" src={medalSelector(index)} alt="메달" />
+              <img
+                className="userList_medal"
+                src={medalSelector(index)}
+                alt="메달"
+              />
             </div>
           ))}
         </RankWrapper>
@@ -96,24 +117,26 @@ const RankWrapper = styled.div`
   height: auto;
   text-align: center;
   flex-direction: column;
-  border-radius: 5px;
+  border-radius: 4px;
   margin-bottom: 50px;
   margin-top: 16px;
 
   .userList {
     font-weight: 700;
-    font-size: 25px;
+    font-size: 18px;
     display: flex;
     align-items: center;
     transition: all 1s ease;
-    margin: 10px;
+    margin: 5px;
+    padding: 10px;
     /* background-color: ${(props) => props.theme.body}; */
-    background-color: ${(props) => props.theme.studyRank};
-    border-radius: 5px;
+    // background-color: ${(props) => props.theme.studyRank};
+    border: 1px solid var(--main-color);
+    border-radius: 4px;
   }
 
   .userList_medal {
-    height: 100px;
+    height: 60px;
   }
 
   .userList:hover {
@@ -124,7 +147,7 @@ const RankWrapper = styled.div`
 
   .userList.hover {
     background-color: var(--main-color);
-    transform: scale(1.05);
+    transform: scale(1.02);
   }
 
   .userList__icon {
@@ -145,14 +168,18 @@ const RankWrapper = styled.div`
     width: 100px;
     height: auto;
     background-color: ${(props) => props.theme.body};
-    border-radius: 5%;
+    border-radius: 4px;
     padding: 10px;
   }
 
   .user_image {
-    width: 100px;
-    border: 1px solid gray;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
     margin: 10px;
+  }
+  .user_image img {
+    object-fit: contain;
   }
 
   .studyTime,

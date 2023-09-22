@@ -3,18 +3,24 @@ import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const SidebarBottom = (): JSX.Element => {
-
   return (
     <SidebarBottomBox>
-      <hr />
-      <a href="https://app.slack.com/client/T057XJP4T34/C05FRTBDHDL" target="_blank" rel="noreferrer">
+      <a
+        href="https://app.slack.com/client/T057XJP4T34/C05FRTBDHDL"
+        target="_blank"
+        rel="noreferrer"
+      >
         <img
           src={process.env.PUBLIC_URL + "/svg/ETC/AttendanceQR.svg"}
           alt="QR코드"
         />
       </a>
       <div>
-        <a href="https://www.notion.so/X-24f85bf2ff4e4c69bd45ddc4e05d464b" target="_blank" rel="noreferrer">
+        <a
+          href="https://www.notion.so/X-24f85bf2ff4e4c69bd45ddc4e05d464b"
+          target="_blank"
+          rel="noreferrer"
+        >
           <img
             className="svg_icon"
             src={process.env.PUBLIC_URL + "/svg/icon/notion_icon.svg"}
@@ -49,6 +55,7 @@ const SidebarBottom = (): JSX.Element => {
 };
 
 const SidebarBottomBox = styled.div`
+  padding: 10px;
   bottom: 0;
   text-align: center;
 `;

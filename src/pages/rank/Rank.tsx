@@ -21,7 +21,11 @@ interface IContainer {
 const Rank = () => {
   const [users, setUsers] = useState<UsersData[]>([]);
   const [podiumUsers, setPodiumdUsers] = useState<UsersData[]>([]);
-  const q = query(collection(db, "user"), orderBy("studyTime", "desc"), limit(100));
+  const q = query(
+    collection(db, "user"),
+    orderBy("studyTime", "desc"),
+    limit(100)
+  );
   const defaultImageUrl = process.env.PUBLIC_URL + "/png/class_default.png";
 
   let leftMargin = 200;
@@ -75,7 +79,11 @@ const Rank = () => {
           <div className="userPodium">
             {podiumUsers.map((usersData: UsersData, index: number) => (
               <div className={`userBox__${index + 1}`} key={usersData.id}>
-                <img className="crown" src={process.env.PUBLIC_URL + `/png/user__${index + 1}.png`} alt="crown" />
+                <img
+                  className="crown"
+                  src={process.env.PUBLIC_URL + `/png/user__${index + 1}.png`}
+                  alt="crown"
+                />
                 <div className={`user__${index + 1}`}>
                   <img
                     className="user__image-podium"
@@ -84,7 +92,9 @@ const Rank = () => {
                   />
                 </div>
                 <div className="userList__detailBox">
-                  <div className="userList__nickName-podium">{usersData.nickName}</div>
+                  <div className="userList__nickName-podium">
+                    {usersData.nickName}
+                  </div>
                   <div className="userList__studyTime">
                     <div className="studyTime">{usersData.studyTime}분</div>
                   </div>
@@ -96,7 +106,11 @@ const Rank = () => {
           {users.slice(4).map((usersData: UsersData, index: number) => (
             <div className="userList" key={usersData.id}>
               <div className="userList__rank">{index + 4}</div>
-              <img className="user__image" src={process.env.PUBLIC_URL + "/png/user_default.png"} alt="프로필" />
+              <img
+                className="user__image"
+                src={process.env.PUBLIC_URL + "/png/user_default.png"}
+                alt="프로필"
+              />
               <div className="userList__nickName">{usersData.nickName}</div>
               <div className="userList__studyTime">
                 <div className="studyTime">{usersData.studyTime}분</div>
@@ -107,12 +121,15 @@ const Rank = () => {
                   className="useList__class"
                   src={
                     usersData.class !== undefined && usersData.class !== null
-                      ? process.env.PUBLIC_URL + `/png/class_${usersData.class}.png`
+                      ? process.env.PUBLIC_URL +
+                        `/png/class_${usersData.class}.png`
                       : defaultImageUrl
                   }
                   alt={usersData.class}
                 />
-                <div className="class">{classConverter(parseInt(usersData.class))}</div>
+                <div className="class">
+                  {classConverter(parseInt(usersData.class))}
+                </div>
               </div>
             </div>
           ))}
@@ -139,11 +156,11 @@ const RankWrapper = styled.div`
   flex-direction: column;
   border-radius: 5px;
   margin: 70px;
-  background-color: beige;
+  background-color: #fdfdfd;
 
   .userList {
     font-weight: 700;
-    font-size: 25px;
+    font-size: 16px;
     display: flex;
     align-items: center;
     transition: all 0.3s ease;
@@ -171,8 +188,11 @@ const RankWrapper = styled.div`
   }
 
   .userList__nickName {
-    font-size: 25px;
+    font-size: 18px;
     flex: 1 1 40%;
+    /* white-space: nowrap;
+    overflow : hidden;
+    text-overflow: ellipsis; */
   }
 
   .userList__studyTime {
@@ -199,8 +219,11 @@ const RankWrapper = styled.div`
   .user__image {
     width: 100px;
     height: 100px;
-    border: 1px solid gray;
+    border-radius: 50%;
     margin: 10px;
+  }
+  .user__image img {
+    object-fit: cover;
   }
 
   .userPodium {

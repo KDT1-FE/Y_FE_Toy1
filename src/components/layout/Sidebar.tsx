@@ -50,7 +50,6 @@ const Sidebar = () => {
               </li>
               {sideLinkAttendance.map((page, idx) => {
                 return (
-
                   <li
                     className={`sidebar__item ${
                       activeItem === page ? "active" : ""
@@ -151,12 +150,18 @@ const Sidebar = () => {
               );
             })}
             <li key={"학습시간 등급"} className="sidebar__menu">
-              <Link to="학습시간 등급" onClick={() => handleItemClick("학습시간 등급 안내")}>
+              <Link
+                to="학습시간 등급"
+                onClick={() => handleItemClick("학습시간 등급 안내")}
+              >
                 학습시간 등급 안내
               </Link>
             </li>
             <li key={"학습 시간왕"} className="sidebar__menu">
-              <Link to="학습 시간왕" onClick={() => handleItemClick("학습 시간왕")}>
+              <Link
+                to="학습 시간왕"
+                onClick={() => handleItemClick("학습 시간왕")}
+              >
                 학습 시간왕
               </Link>
             </li>
@@ -214,8 +219,8 @@ const Sidebar = () => {
 };
 
 const MobileContainer = styled.div`
-  &{
-    overflow:hidden;
+  & {
+    overflow: hidden;
   }
   .sidebar__openSidebar-icon {
     z-index: 13;
@@ -255,32 +260,31 @@ const MobileContainer = styled.div`
     font-size: 18px;
     line-height: 148%;
   }
-
 `;
 
 interface IMobileInnerContainer {
   displaysidebar: string;
 }
 const MobileInnerContainer = styled.div<IMobileInnerContainer>`
-  position:absolute;
+  position: absolute;
   height: 100vh;
   width: 100vw;
   z-index: 15;
   background-color: #fff;
-  left:${(props) => (props.displaysidebar === "true" ? "0px;" : "-100%;")}
+  left: ${(props) => (props.displaysidebar === "true" ? "0px;" : "-100%;")};
   transition: all 1s ease-in-out;
 
-  .header__mobile-close-wrap{
+  .header__mobile-close-wrap {
     position: absolute;
     top: 10px;
     right: 15px;
-    cursor:pointer;
-    img{
+    cursor: pointer;
+    img {
       width: 40px;
       height: 40px;
     }
   }
-  
+
   .rank {
     font-weight: 700;
     font-size: 20px;
@@ -296,7 +300,7 @@ const Container = styled.aside`
   z-index: 9;
   width: 200px;
   height: 100%;
-  border-right: 3px solid #ddd;
+  border-right: 2px solid #ddd;
 
   .sidebar__bottom {
     bottom: 0;
@@ -342,13 +346,11 @@ const SidebarList = styled.div`
     line-height: 148%;
   }
 
-
   li {
     font-weight: 700;
     font-size: 20px;
     line-height: 140%;
   }
-
 `;
 
 export default Sidebar;
