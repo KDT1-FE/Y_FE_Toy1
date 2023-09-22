@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import '../../scss/components/auth/changeAuthPage.scss';
+import '@scss/components/auth/changeAuthPage.scss';
 
 const ChangeAuthPage = ({ target }: ChangeAuthPageProps): JSX.Element => {
   const checkTarget = (target: string) => {

@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query';
 import { getDocs, query, orderBy, limit } from 'firebase/firestore';
-import { UploadedImage } from '../../../components/Gallery/types';
+import { UploadedImage } from '@components/Gallery/types';
 import { galleryCollection } from '../../../firebase';
-import { GalleryQueryKeyEnum } from './common';
+import { GalleryQueryKeyEnum } from '@hooks/gallery/query/common';
 
 const useMainGalleryList = () => {
   return useQuery<UploadedImage[]>({

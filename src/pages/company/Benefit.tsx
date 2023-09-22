@@ -1,4 +1,3 @@
-import '../../scss/benefit.scss';
 import { BsHospital } from 'react-icons/bs';
 import {
   PiClockAfternoonBold,
@@ -9,6 +8,8 @@ import {
   PiConfettiDuotone,
   PiGuitarBold,
 } from 'react-icons/pi';
+
+import '@scss/benefitPage.scss';
 
 const Benefit = (): JSX.Element => {
   return (

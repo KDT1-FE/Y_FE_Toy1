@@ -1,0 +1,99 @@
+@use '../scss/abstracts/' as *;
+
+.section {
+  width: 80%;
+  margin: 1rem auto;
+  padding: 1rem 4rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+
+  .project-top {
+    display: flex;
+    border-bottom: 1px solid $darkBlue;
+    padding: 0rem 4rem;
+
+    & h1 {
+      font-size: $font-lg;
+      color: $darkBlue;
+    }
+  }
+
+  &__filter {
+    display: flex;
+    column-gap: 2rem;
+  }
+
+  &__project {
+    &-write-btn {
+      height: 3rem;
+      margin-left: auto;
+      border-radius: 5px;
+    }
+
+    &-search-input {
+      flex: 10;
+    }
+
+    &-container {
+      border: 1px solid $blue;
+      border-radius: 1rem;
+      height: auto;
+      padding: 1rem;
+      overflow: hidden;
+    }
+
+    &-item-box {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      column-gap: 1rem;
+      height: 3rem;
+      font-size: 2rem;
+
+      border: 1px solid $blue;
+      border-radius: 1rem;
+      height: 1rem;
+      padding: 1rem;
+      margin: 0.5rem 1rem;
+      background-color: $white;
+      @include shadow;
+    }
+
+    &-date {
+      font-size: 13px;
+    }
+
+    &-status {
+      width: 7rem;
+      color: $white;
+      font-size: 13px;
+      padding: 0.3rem;
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.expected {
+        background-color: rgb(255, 200, 129);
+      }
+      &.complete {
+        background-color: green;
+      }
+      &.proceeding {
+        background-color: $blue;
+      }
+    }
+    &-title {
+      flex: 7;
+    }
+    &-delete-btn {
+      background-color: transparent;
+      border: none;
+      outline: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

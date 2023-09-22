@@ -4,7 +4,7 @@ import App from './App.tsx';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { Provider } from 'react-redux';
-import store from './store/store.ts';
+import store from '@store/store.ts';
 
 const queryClient = new QueryClient();
 

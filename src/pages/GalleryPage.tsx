@@ -1,18 +1,17 @@
-// import app from '../firebase/config';
 import { db, storage, galleryCollection } from '../firebase';
 import { doc, addDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 import { useState } from 'react';
 import { useQueryClient } from 'react-query';
-import { GalleryQueryKeyEnum } from '../hooks/gallery/query/common';
-import useDocList from '../hooks/gallery/query/useDocList';
-import useImgList from '../hooks/gallery/query/useImgList';
+import { GalleryQueryKeyEnum } from '@hooks/gallery/query/common';
+import useDocList from '@hooks/gallery/query/useDocList';
+import useImgList from '@hooks/gallery/query/useImgList';
 
-import { GalleryTitle, ImageList, ImageUploadModal, ImageViewModal } from '../components/Gallery';
-import { ImageUploadPayload, UploadedImage } from '../components/Gallery/types';
+import { GalleryTitle, ImageList, ImageUploadModal, ImageViewModal } from '@components/Gallery';
+import { ImageUploadPayload, UploadedImage } from '@components/Gallery/types';
 
-import '../scss/galleryPage.scss';
+import '@scss/galleryPage.scss';
 
 const GalleryPage = () => {
   const [formModalOpen, setFormModalOpen] = useState<boolean>(false);
