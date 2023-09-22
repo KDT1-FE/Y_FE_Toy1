@@ -24,7 +24,7 @@ export default function Header({ uid, email }: Props) {
       const id = setInterval(() => {
         const diffMSec = new Date().getTime() - startTime.getTime();
         const diffHour = Math.floor(diffMSec / (60 * 60 * 1000));
-        const diffMin = Math.floor(diffMSec / (60 * 1000));
+        const diffMin = Math.floor((diffMSec / (60 * 1000)) % 60);
         setWorkingHours(diffHour);
         setWorkingMinutes(diffMin);
       }, 1000);
