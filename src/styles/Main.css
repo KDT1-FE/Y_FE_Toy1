@@ -1,0 +1,9 @@
+.main-swiper .swiper-slide {
+  opacity: 0.5;
+  transition: opacity 0.5s;
+  width: 75%;
+}
+.main-swiper .swiper-slide.swiper-slide-active {
+  opacity: 1;
+}
+.title {margin-bottom: 40px;}
