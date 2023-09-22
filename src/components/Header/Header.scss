@@ -1,13 +1,16 @@
 @import '/src/styles/_common';
 
 .header-container {
-  width: 100%;
+  width: 90%;
   font-family: 'LOTTERIACHAB';
   display: flex;
+  margin: 30px auto;
 
   .logo {
     display: flex;
     align-items: center;
+    margin-right: 50px;
+
     img {
       width: 60px;
       height: auto;
@@ -21,20 +24,26 @@
   .pageList {
     display: flex;
     align-items: center;
+    margin-right: auto;
+  }
+
+  .pageListed {
+    margin-left: auto;
   }
 
   .page {
-    font-size: 40px;
-    margin-right: 80px;
+    font-size: 35px;
+    margin-right: 90px;
     margin-top: 30px;
     margin-bottom: 30px;
     cursor: pointer;
     font-weight: normal;
     text-decoration: none;
+    color: $grayColor;
   }
 
   .page.active {
-    color: black;
+    color: $blackColor;
   }
 
   .page:hover {
@@ -43,7 +52,6 @@
 
   .auth-buttons {
     margin-left: auto;
-    padding-right: 150px;
     font-family: $fontMain;
   }
 
@@ -85,6 +93,9 @@
   .userInfo-container {
     display: flex;
     align-items: center;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    white-space: nowrap;
   }
 
   .userNickname-container {
@@ -111,5 +122,27 @@
 
   .logoutBtn:hover {
     background-color: rgb(214, 108, 69);
+  }
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .logo {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .pageList {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .auth-buttons {
+    margin-left: 0;
+    margin-top: 20px;
   }
 }
