@@ -1,4 +1,4 @@
-import GallerySidebar from "components/template/GallerySiderbar";
+import GallerySidebar from "components/layout/GallerySiderbar";
 import { useEffect, useState } from "react";
 import GalleryEdit from "./GalleryEdit";
 import GalleryDetail from "./GalleryDetail";

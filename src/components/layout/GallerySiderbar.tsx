@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import SidebarBottom from "components/layout/SidebarBottom";
+import SidebarBottom from "./SidebarBottom";
 import { IsMobile } from "utils/mediaQuery";
 
 interface GalleryProps {
@@ -151,7 +151,7 @@ const MobileInnerContainer = styled.div<IMobileInnerContainer>`
   width: 100%;
   z-index: 15;
   background-color: #fff;
-  left:${(props) => (props.displaysidebar === "true" ? "0px;" : "-100%;")}
+  left:${(props) => (props.displaysidebar === "true" ? "0px;" : "-100%;")};
   transition: all 1s ease-in-out;
   
   .header__mobile-close-wrap{

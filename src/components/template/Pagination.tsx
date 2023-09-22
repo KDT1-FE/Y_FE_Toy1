@@ -26,8 +26,8 @@ const PageLi = styled.li`
   }
   @media screen and (max-width:1200px) {
     font-size:14px;
-    width:30px;
-    height:30px;
+    width: 25px;
+    height: 25px;
   }
 `;
 
