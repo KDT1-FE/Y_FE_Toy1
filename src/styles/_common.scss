@@ -20,8 +20,55 @@ $fontMain: Pretendard, 'Tossface', 'Noto Sans KR', sans-serif;
   font-style: normal;
 }
 
+
+@mixin btn-design {
+  border-color: $mainColor;
+  color: $mainColor;
+  &:hover {
+    background-color: $mainColor;
+    color: $whiteColor;
+  }
+}
+
+.main-btn {
+  border-color: $mainColor;
+  color: $mainColor;
+  &:hover {
+    background-color: $mainColor;
+    color: $whiteColor;
+  }
+}
+
+.sub-btn {
+  &:hover {
+    border-color: $mainColor;
+    color: $mainColor;
+  }
+  background-color: $mainColor;
+  color: $whiteColor;
+}
+
+.gallNav {
+  background-color: $mainColor;
+}
+.navbar-brand {
+  color: $blackColor;
+}
+.nav-link {
+  color: $whiteColor;
+  &:hover {
+    color: $backgroundColor;
+  }
+}
+
+// 사용예시입니다~~
+//btn {
+//   @include btn-design;
+// }
+
 body {
   background-image: url('https://i.pinimg.com/564x/06/7e/90/067e90a8414b9d1d53a0ce1469c09228.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }
+

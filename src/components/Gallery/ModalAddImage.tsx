@@ -9,7 +9,7 @@ export function AddImageModal(): JSX.Element {
     <div>
       <button // 이미지 추가하는 버튼 (Modal open)
         type="button"
-        className="btn-addImage btn btn-secondary"
+        className="btn btn-addImage"
         onClick={() => modalRef.current?.showModal()}
       >
         이미지 업로드
@@ -17,7 +17,7 @@ export function AddImageModal(): JSX.Element {
 
       <dialog ref={modalRef} className="modal-container modal-container-image">
         <div className="modal-inner modal-addImage-inner">
-          <h2>Image Upload Page</h2>
+          <h2>이미지를 선택해주세요!</h2>
 
           <AddImageDragDrop />
 

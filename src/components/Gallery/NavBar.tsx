@@ -3,18 +3,16 @@ import './NavBar.scss';
 import { RootState } from 'redux/types';
 import { useSelector } from 'react-redux';
 import { AddImageModal } from './ModalAddImage';
+import 'styles/_common.scss';
 
 export function SideBarLink(): JSX.Element {
   const user = useSelector((state: RootState) => state);
 
   return (
     <div>
-      <nav
-        id="navbar-example2"
-        className="gallNav navbar bg-body-tertiary px-3 mb-3"
-      >
+      <nav id="navbar-example2" className="navbar px-3 mb-3 gallNav">
         <a className="navbar-brand" href="#">
-          gallery
+          갤러리
         </a>
         <ul className="nav nav-pills">
           <li className="nav-item">
