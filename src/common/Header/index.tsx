@@ -16,7 +16,6 @@ import { CreateDay, CreateTime } from '../../components/modal/Hooks/WhatTime';
 import MyPageBtn from '../../components/modal/MyPage/MyPageBtn';
 import swal from 'sweetalert';
 import { RedCircle } from '../../components/modal/MyPage/style';
-import Logo from './Logo';
 
 const Header: React.FC = () => {
     const [userId, setUserId] = useRecoilState(UserId);
