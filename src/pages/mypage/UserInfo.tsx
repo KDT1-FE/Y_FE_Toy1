@@ -209,6 +209,7 @@ const TextSection = styled.div`
 `;
 
 const ButtonSection = styled.div`
+  text-align: right;
   button.button--email,
   button.button--password {
     margin-right: 5px;
@@ -216,6 +217,7 @@ const ButtonSection = styled.div`
   button.button--password.confirm {
     background-color: rgb(50, 103, 177);
     cursor: pointer;
+    color: #fff;
   }
 
   button.button--password {

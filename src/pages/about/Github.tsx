@@ -30,7 +30,7 @@ const Github = () => {
       <a href="https://github.com/JSH99/Toy1_Team13">
         <StyledImage src={imageUrl ? imageUrl : imageSrc} />
       </a>
-      <StyledSpan>사진을 누르면 링크로 이동합니다.</StyledSpan>
+      <StyledSpan>사진을 누르면 github 링크로 이동합니다.</StyledSpan>
     </SubPageContainer>
   );
 };

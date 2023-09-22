@@ -21,6 +21,7 @@ import About from '../pages/about/About';
 import Figma from '../pages/about/Figma';
 import Notion from '../pages/about/Notion';
 import Github from '../pages/about/Github';
+import UserFlow from '../pages/about/UserFlow';
 
 export const router = createBrowserRouter([
   {
@@ -134,6 +135,10 @@ export const router = createBrowserRouter([
           {
             path: 'github',
             element: <Github />,
+          },
+          {
+            path: 'userflow',
+            element: <UserFlow />,
           },
         ],
       },
