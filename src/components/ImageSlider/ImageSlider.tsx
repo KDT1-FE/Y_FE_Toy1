@@ -1,7 +1,7 @@
 import sliderImg1 from '../../images/togethersLogo.png';
 import sliderImg2 from '../../images/sliderImg1.png';
 import sliderImg3 from '../../images/sliderImg3.png';
-import '../../styles/pages/Main.scss';
+import '../../styles/Main.scss';
 import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
