@@ -239,27 +239,17 @@ React 초보라 상태 관리 라이브러리나 관련된 툴을 사용해 본�
 <details>
 <summary>정진주</summary>
 
-## 프로젝트 리스트 페이지
+## ProjectPage 주요 기능
 
-- 프로젝트의 리스트 들이 나타나는 페이지
-- 페이지 미리보기에는 주제, 마감일, 인원이 들어있다.
-  <img width="1512" alt="스크린샷 2023-09-22 오후 3 52 34" src="https://github.com/wowba/Wikinity/assets/85981963/42649bf5-ba4d-4100-a530-bfdec1b2d2e8">
+|프로젝트 리스트 페이지|프로젝트 작성 페이지|
+|:--:|:--:|
+|<img width="1512" alt="스크린샷 2023-09-22 오후 3 52 34" src="https://github.com/wowba/Wikinity/assets/85981963/42649bf5-ba4d-4100-a530-bfdec1b2d2e8">|<img width="1512" alt="스크린샷 2023-09-22 오후 3 52 42" src="https://github.com/wowba/Wikinity/assets/85981963/b575a560-a2e7-4e81-abb2-be91954e4832">|
+|프로젝트의 리스트 들<br/>미리보기에는 주제, 마감일, 인원 표시|팀명, 프로젝트 주제, 프로젝트 설명,<br/> 프로젝트 마감일, 참여인원을 작성할 수 있는 페이지 , <br/>상단의 진행중/완료를 클릭을 통해서 변경 가능|
 
-## 프로젝트 작성 페이지
-
-- 팀명, 프로젝트 주제, 프로젝트 설명, 프로젝트 마감일, 참여인원을 작성할 수 있는 페이지
-- 상단의 진행중/완료를 클릭을 통해서 변경 가능
-  <img width="1512" alt="스크린샷 2023-09-22 오후 3 52 42" src="https://github.com/wowba/Wikinity/assets/85981963/b575a560-a2e7-4e81-abb2-be91954e4832">
-
-## 프로젝트 상세 글 페이지
-
-- 작성한 프로젝트 상세 페이지
-  <img width="1512" alt="스크린샷 2023-09-22 오후 3 53 08" src="https://github.com/wowba/Wikinity/assets/85981963/3353d31a-0cf3-4ea1-9290-c90053cbf3cb">
-
-## 프로젝트 수정 페이지
-
-- 수정 페이지를 통해 글을 수정 할 수 있고 진행중/완료 변경 가능
-  <img width="1512" alt="스크린샷 2023-09-22 오후 3 53 16" src="https://github.com/wowba/Wikinity/assets/85981963/5d5e6fce-aca3-463f-9f78-75ee0f519175">
+|프로젝트 상세 글 페이지 |프로젝트 수정 페이지 |
+|:--:|:--:|
+|<img width="1512" alt="스크린샷 2023-09-22 오후 3 53 08" src="https://github.com/wowba/Wikinity/assets/85981963/3353d31a-0cf3-4ea1-9290-c90053cbf3cb">|<img width="1512" alt="스크린샷 2023-09-22 오후 3 53 16" src="https://github.com/wowba/Wikinity/assets/85981963/5d5e6fce-aca3-463f-9f78-75ee0f519175">|
+|작성한 프로젝트 상세 페이지 | 수정 페이지를 통해 글 수정 가능, <br/> 진행중/완료 변경 가능|
 
 ## 진행중/ 완료 표시
 
