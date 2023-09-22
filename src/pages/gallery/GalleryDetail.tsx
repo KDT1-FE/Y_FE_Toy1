@@ -20,6 +20,7 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({
 }) => {
   // 현재 url의 id값 구하기
   const { id } = useParams<string>();
+  console.log(id);
   const navigate = useNavigate();
   const user = useContext(AuthContext);
 
@@ -30,7 +31,7 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(usersCollectionRef);
-      console.log('상세 데이터 가져오기')
+      console.log("상세 데이터 가져오기");
       const user = data.docs.find((doc) => doc.id === id);
       if (user) {
         setUsers([{ ...user.data(), id: user.id }]);
@@ -41,47 +42,50 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({
 
   // 데이터 삭제하기
   const deleteGallery = async (id: string | undefined) => {
-    if(user){
-    const userToDelete = users.find(user => user.id === id);
-    if(userToDelete && user.uid === userToDelete.uid){
-    // 삭제 여부 확인
+    if (user) {
+      const userToDelete = users.find((user) => user.id === id);
+      if (userToDelete && user.uid === userToDelete.uid) {
+        // 삭제 여부 확인
 
-    Swal.fire({
-      icon: "question",
-      title: "정말 삭제하시겠습니까?",
-      showCancelButton: true,
-      confirmButtonText: "확인",
-      cancelButtonText: "취소",
-    }).then((res) => {
-      if (res.isConfirmed) {
-         // 삭제할 id의 데이터 지우기
-         const collectionRef = collection(db, "gallery");
-         const userDoc = doc(collectionRef, id);
-         deleteDoc(userDoc)
- 
-         setGalleryData(prevData => prevData.filter(item => item.id !== id));
- 
-         Swal.fire({
-           icon: "success",
-           title: "삭제 완료했습니다",
-           confirmButtonText: "확인",
-         }).then((res) => {
-           if (res.isConfirmed) {
-             navigate('/Gallery')
-           }
-         });
+        Swal.fire({
+          icon: "question",
+          title: "정말 삭제하시겠습니까?",
+          showCancelButton: true,
+          confirmButtonText: "확인",
+          cancelButtonText: "취소",
+          confirmButtonColor: "#ED234B",
+        }).then((res) => {
+          if (res.isConfirmed) {
+            // 삭제할 id의 데이터 지우기
+            const collectionRef = collection(db, "gallery");
+            const userDoc = doc(collectionRef, id);
+            deleteDoc(userDoc);
+
+            setGalleryData((prevData) =>
+              prevData.filter((item) => item.id !== id)
+            );
+
+            Swal.fire({
+              icon: "success",
+              title: "삭제 완료했습니다",
+              confirmButtonText: "확인",
+              confirmButtonColor: "#ED234B",
+            }).then((res) => {
+              if (res.isConfirmed) {
+                navigate("/Gallery");
+              }
+            });
+          }
+        });
+      } else {
+        Swal.fire({
+          icon: "warning",
+          title: "해당 작성자만 삭제 가능합니다",
+          confirmButtonText: "확인",
+          confirmButtonColor: "#ED234B",
+        });
+        return;
       }
-    });
-
-
-    } else {
-      Swal.fire({
-        icon: "warning",
-        title: "해당 작성자만 삭제 가능합니다",
-        confirmButtonText: "확인",
-      })
-      return;
-    }
     } else {
       Swal.fire({
         icon: "question",
@@ -89,6 +93,7 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({
         showCancelButton: true,
         confirmButtonText: "확인",
         cancelButtonText: "취소",
+        confirmButtonColor: "#ED234B",
       }).then((res) => {
         /* Read more about isConfirmed, isDenied below */
         if (res.isConfirmed) {
@@ -97,23 +102,24 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({
         }
       });
     }
-  }
+  };
 
   // 데이터 수정하기
   const editGallery = async (id: string | undefined) => {
-    if(user){
-    const userToEdit = users.find(user => user.id === id);
-    if(userToEdit && user.uid === userToEdit.uid){
-      setOnEdit(true)
-      navigate(`/Gallery/edit/${id}`)
-    } else {
-      Swal.fire({
-        icon: "warning",
-        title: "해당 작성자만 삭제 가능합니다",
-        confirmButtonText: "확인",
-      })
-      return;
-    }
+    if (user) {
+      const userToEdit = users.find((user) => user.id === id);
+      if (userToEdit && user.uid === userToEdit.uid) {
+        setOnEdit(true);
+        navigate(`/Gallery/edit/${id}`);
+      } else {
+        Swal.fire({
+          icon: "warning",
+          title: "해당 작성자만 삭제 가능합니다",
+          confirmButtonText: "확인",
+          confirmButtonColor: "#ED234B",
+        });
+        return;
+      }
     } else {
       Swal.fire({
         icon: "question",
@@ -123,18 +129,18 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({
         cancelButtonText: "취소",
       }).then((res) => {
         if (res.isConfirmed) {
-          navigate('/login')
+          navigate("/login");
         }
       });
     }
-  }
+  };
 
   return (
     <>
       {users.map((user) => {
         return (
           <div key={user.id} style={{ margin: "30px" }}>
-              <GalleryHeader>
+            <GalleryHeader>
               <GalleryDesc>
                 <div className="Gallery__title"> {user.title}</div>
                 <div className="Gallery__desc">
@@ -142,38 +148,54 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({
                   <span>{user.writer}</span>
                 </div>
               </GalleryDesc>
-                <div className="Gallery__btn-wrap">
-                <button onClick={() => {deleteGallery(user.id)}} className="Gallery__btn delete">삭제</button>
-                <button onClick={() => {editGallery(user.id)}} className="Gallery__btn">수정</button>
-                </div>
-              </GalleryHeader>
-              <GalleryThumb>
-                <img src={user.thumbnail} alt="썸네일"/>
-              </GalleryThumb>
-              <GalleryEditor>
-                { user.desc ? <div dangerouslySetInnerHTML={{ __html: user.desc }}></div> : null }
-              </GalleryEditor>
+              <div className="Gallery__btn-wrap">
+                <button
+                  onClick={() => {
+                    deleteGallery(user.id);
+                  }}
+                  className="Gallery__btn delete"
+                >
+                  삭제
+                </button>
+                <button
+                  onClick={() => {
+                    editGallery(user.id);
+                  }}
+                  className="Gallery__btn"
+                >
+                  수정
+                </button>
+              </div>
+            </GalleryHeader>
+            <GalleryThumb>
+              <img src={user.thumbnail} alt="썸네일" />
+            </GalleryThumb>
+            <GalleryEditor>
+              {user.desc ? (
+                <div dangerouslySetInnerHTML={{ __html: user.desc }}></div>
+              ) : null}
+            </GalleryEditor>
           </div>
-        )
-      })
-    }
-        <GalleryBtn>
+        );
+      })}
+
+      <GalleryBtn>
         <Link to="/Gallery">
           <button>목록으로</button>
         </Link>
-        </GalleryBtn>
+      </GalleryBtn>
     </>
   );
 };
 
-const GalleryHeader = styled.div`  
+const GalleryHeader = styled.div`
   margin-top: 40px;
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
   margin-bottom: 20px;
 
-  @media screen and (max-width:1200px){
+  @media screen and (max-width: 1200px) {
     flex-direction: column;
     gap: 20px;
   }
@@ -191,12 +213,11 @@ const GalleryHeader = styled.div`
     border: none;
     outline: none;
     cursor: pointer;
-    
-    @media screen and (max-width:1200px){
+
+    @media screen and (max-width: 1200px) {
       width: 64px;
       height: 28px;
     }
-
 
     &.delete {
       background-color: white;
@@ -214,28 +235,27 @@ const GalleryDesc = styled.div`
     font-size: 1.4rem;
     font-weight: 700;
   }
-  .Gallery__desc{
+  .Gallery__desc {
     position: relative;
     overflow: hidden;
     left: -0.5em;
-    margin-top:10px;
+    margin-top: 10px;
     > span {
-    position: relative;
-    display: inline-block;
-    padding: 0 0.5em;
-    font-weight: 400;
-    &:before {
-      content: "";
-      left: -1px;
-      height: 0.8em;
-      top: 50%;
-      margin-top: -0.4em;
-      position: absolute;
-      border-left: 1px solid #b3b3b3;
+      position: relative;
+      display: inline-block;
+      padding: 0 0.5em;
+      font-weight: 400;
+      &:before {
+        content: "";
+        left: -1px;
+        height: 0.8em;
+        top: 50%;
+        margin-top: -0.4em;
+        position: absolute;
+        border-left: 1px solid #b3b3b3;
+      }
     }
   }
-  }
-
 `;
 
 const GalleryEditor = styled.div`
@@ -244,9 +264,9 @@ const GalleryEditor = styled.div`
 `;
 
 const GalleryBtn = styled.div`
-margin-top: 60px;
-text-align:center;
-  button{
+  margin-top: 60px;
+  text-align: center;
+  button {
     background-color: var(--main-color);
     width: 95px;
     height: 35px;
@@ -256,7 +276,7 @@ text-align:center;
     outline: none;
     cursor: pointer;
   }
-`
+`;
 
 const GalleryThumb = styled.div`
   display: flex;
@@ -264,20 +284,20 @@ const GalleryThumb = styled.div`
   justify-content: center;
   overflow: hidden;
   height: 200px;
-  position:relative;
-  img{
-    width:100%;
+  position: relative;
+  img {
+    width: 100%;
   }
-  &:after{
-    content:'';
-    position:absolute;
-    left:0;
-    top:0;
-    display:block;
-    background-color: rgba(0,0,0,0.25);
-    width:100%;
-    height:100%;
+  &:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    background-color: rgba(0, 0, 0, 0.25);
+    width: 100%;
+    height: 100%;
   }
-`
+`;
 
-export default GalleryDetail
+export default GalleryDetail;
