@@ -232,8 +232,10 @@ const RankWrapper = styled.div`
   .userPodium {
     display: flex;
     justify-content: center;
+    text-align: center;
     position: relative;
     height: 450px;
+    margin: 0;
   }
 
   .user__2 {
@@ -274,14 +276,23 @@ const RankWrapper = styled.div`
   .userBox__1 {
     width: 200px;
     transform: translateY(50px);
+    display: flex;
+    flex-flow: column;
+    align-items: center;
   }
   .userBox__2 {
     width: 200px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
   }
 
   .userBox__3 {
     width: 200px;
     transform: translateY(70px);
+    display: flex;
+    flex-flow: column;
+    align-items: center;
   }
 
   .user__image-podium {
