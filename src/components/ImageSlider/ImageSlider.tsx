@@ -44,7 +44,7 @@ const slides = [
       },
     ],
     imageSrc: sliderImg1,
-    link: null,
+    link: 'https://nifty-straw-3ce.notion.site/S-23-09-22-c31457ee673a43d780484688872cd252?pvs=4',
   },
   {
     backgroundColor: '#ffeae9',

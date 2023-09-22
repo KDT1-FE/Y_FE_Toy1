@@ -153,11 +153,9 @@ export function ModalComment({
   return (
     <div className="comment-container">
       <div className="comment-header">
-        {/* 작성자 이미지, 네임 */}
-        {/* <div className="comment-writer"> */}
-        {/* <img src={writerImage} className="comment-writer-image" />
-        <span className="comment-writer-name">{writerName}</span> */}
-        {/* </div> */}
+        <div className="comment-writer">
+          <span className="comment-writer-name">{writerName} 님의 작성글</span>
+        </div>
         {user.nickname === writerName ? (
           <button className="btn sub-btn" onClick={handleDeleteImage}>
             이미지 게시글 삭제

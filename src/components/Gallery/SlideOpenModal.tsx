@@ -41,7 +41,6 @@ export function MapImages({
         >
           <div className="modal-inner modal-comment-inner">
             <img src={userImage} alt="" />
-            <h2 className="comment-imageUploaderName">{nickName}님의 사진</h2>
 
             <ModalComment
               image={image.image}
@@ -56,11 +55,14 @@ export function MapImages({
 
             <button
               type="button"
-              className="btn-close"
+              className="btn btn-secondary btn-modalClose"
               onClick={async () => {
                 await modalRef.current?.close();
+                location.reload();
               }}
-            />
+            >
+              Close
+            </button>
           </div>
         </dialog>
       </div>

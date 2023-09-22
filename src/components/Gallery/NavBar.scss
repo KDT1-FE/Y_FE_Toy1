@@ -6,3 +6,12 @@
   height: 100%;
   margin: auto;
 }
+
+.nav-pills {
+  justify-content: center;
+  gap: 30px;
+}
+
+.notLoginInfo {
+  color: $subColor;
+}
