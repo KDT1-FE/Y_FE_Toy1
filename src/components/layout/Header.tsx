@@ -37,7 +37,7 @@ const Header = () => {
     setIsStudying(newIsStudying);
 
     // 버튼 텍스트 업데이트
-    if (newIsStudying) {
+    if (isStudying) {
       setModalButtonText("기록 중");
     } else {
       setModalButtonText("학습 기록");
@@ -149,7 +149,7 @@ const Header = () => {
             })}
             <li>
               <MobileStyledButton onClick={openModal}>
-                <p>{modalButtonText}</p>
+                <p>{isStudying? "기록 중" : "학습 기록"}</p>
               </MobileStyledButton>
             </li>
           </MobileSecondHeader>
@@ -197,7 +197,7 @@ const Header = () => {
             })}
             <li>
               <StyledButton onClick={openModal}>
-                <p>{modalButtonText}</p>{" "}
+                <p>{isStudying? "기록 중" : "학습 기록"}</p>
               </StyledButton>
             </li>
             <li>
