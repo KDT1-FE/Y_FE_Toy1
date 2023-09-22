@@ -1,7 +1,11 @@
 @import '~bootstrap/scss/bootstrap';
-@import '../../styles/_common.scss';
+@import 'styles/_common.scss';
 
-.gallNav {
+.notLoginInfo {
+  color: $highlightColor;
+}
+
+.navbar.px-3.mb-3.gallNav {
   width: 100%;
   height: 100%;
   margin: auto;

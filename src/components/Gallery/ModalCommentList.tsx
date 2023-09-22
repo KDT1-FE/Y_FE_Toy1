@@ -11,6 +11,7 @@ import { RootState } from 'redux/types'; // RootState 타입 추가
 import { useSelector } from 'react-redux';
 import './_modal.scss';
 import './ModalCommentList.scss';
+import 'styles/_common.scss';
 
 interface IModalComment {
   image: string;
@@ -20,6 +21,7 @@ interface IModalComment {
   writerId: string;
   writerName: string;
   likeData?: number;
+  writerImage: any;
 }
 
 interface IComment {
@@ -39,6 +41,7 @@ export function ModalComment({
   categoryId,
   commentsListData,
   likeData,
+  writerImage,
 }: IModalComment): JSX.Element {
   const [like, setLike] = useState<number>(0);
   const [comment, setComment] = useState<string>('');
@@ -124,7 +127,6 @@ export function ModalComment({
   // 댓글 삭제
   const handleDeleteComment = async (e: any) => {
     const getDelCommentId: string = e.target.previousElementSibling.id;
-    //const getDelUid: string = e.target.closest('.commentList-item').id;
 
     console.log('삭제할 데이터', getDelCommentId);
 
@@ -151,13 +153,13 @@ export function ModalComment({
   return (
     <div className="comment-container">
       <div className="comment-header">
-        <span className="comment-imageUploaderName">작성자 : {writerName}</span>
-
+        {/* 작성자 이미지, 네임 */}
+        {/* <div className="comment-writer"> */}
+        {/* <img src={writerImage} className="comment-writer-image" />
+        <span className="comment-writer-name">{writerName}</span> */}
+        {/* </div> */}
         {user.nickname === writerName ? (
-          <button
-            className="btn--delImagebtn btn btn-primary"
-            onClick={handleDeleteImage}
-          >
+          <button className="btn sub-btn" onClick={handleDeleteImage}>
             이미지 게시글 삭제
           </button>
         ) : null}
@@ -185,7 +187,7 @@ export function ModalComment({
                 value={comment}
                 onChange={handleComments}
               />
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn sub-btn">
                 게시
               </button>
             </form>
@@ -195,7 +197,7 @@ export function ModalComment({
         </div>
 
         <div className="commentList-container">
-          <div className="commentList-header">😄 comments</div>
+          <div className="commentList-header">😄 댓글 리스트 😄</div>
           <ul>
             {commentList?.map((comment) => (
               <li

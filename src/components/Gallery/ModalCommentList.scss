@@ -15,12 +15,23 @@
   }
   &-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     margin-bottom: 20px;
-    &-imageUploaderName {
-      font-size: 12px;
-      color: #363636;
-    }
+
+    // .comment-writer-image {
+    //   width: 30px;
+    //   height: 30px;
+    //   border-radius: 50%;
+    // }
+    // .comment-writer-name {
+    //   font-size: 14px;
+    //   color: #363636;
+    // }
+
+    // .comment-writer {
+    //   display: flex;
+
+    // }
   }
 }
 
