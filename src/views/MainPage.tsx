@@ -2,6 +2,7 @@ import React from 'react';
 
 import '../scss/mainPage.scss';
 import Carousel from './Carousel';
+import MainGalleryContents from './MainGalleryContent';
 
 const MainPage = (): JSX.Element => {
   return (
@@ -19,7 +20,9 @@ const MainPage = (): JSX.Element => {
         </div>
         <div className="mainPage__content-box main-gallery">
           <div className="mainPage__content__title">갤러리</div>
-          <div className="mainPage__content"></div>
+          <div className="mainPage__content">
+            <MainGalleryContents />
+          </div>
         </div>
       </div>
     </div>
