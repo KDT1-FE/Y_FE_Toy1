@@ -30,6 +30,7 @@ const Header = () => {
   const handlerLogout = () => {
     setDisplayUserInfo(false);
     signOut(auth);
+    setIsStudying(false);
   };
 
   const openModal = () => {
@@ -148,7 +149,7 @@ const Header = () => {
             })}
             <li>
               <MobileStyledButton onClick={openModal}>
-                <p>{isStudying? "기록 중" : "학습 기록"}</p>
+                <p>{isStudying ? "기록 중" : "학습 기록"}</p>
               </MobileStyledButton>
             </li>
           </MobileSecondHeader>
@@ -196,7 +197,7 @@ const Header = () => {
             })}
             <li>
               <StyledButton onClick={openModal}>
-                <p>{isStudying? "기록 중" : "학습 기록"}</p>
+                <p>{isStudying ? "기록 중" : "학습 기록"}</p>
               </StyledButton>
             </li>
             <li>

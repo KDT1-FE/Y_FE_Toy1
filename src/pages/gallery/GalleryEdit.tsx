@@ -240,7 +240,6 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({
     if (onEdit) {
       if (uploadedFile) {
         setImageEdit(uploadedFile);
-        console.log("이미지 업로드");
 
         const imageRef = ref(storage, `image/${uploadedFile.name}`);
         try {
@@ -255,7 +254,6 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({
     } else {
       if (uploadedFile) {
         setImageUpload(uploadedFile);
-        console.log("이미지 업로드");
 
         const imageRef = ref(storage, `image/${uploadedFile.name}`);
         try {

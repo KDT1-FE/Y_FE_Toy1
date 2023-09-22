@@ -176,7 +176,7 @@ const Sidebar = () => {
               />
             </div>
             <li className="rank" onClick={() => setDisplaySidebar(false)}>
-              리더보드
+              공부시간 랭킹
             </li>
           </MobileInnerContainer>
           <div
@@ -194,7 +194,7 @@ const Sidebar = () => {
       return (
         <Container>
           <SidebarList>
-            <li>리더보드</li>
+            <li>공부시간 랭킹</li>
           </SidebarList>
           <SidebarBottom />
         </Container>
