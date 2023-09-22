@@ -1,7 +1,8 @@
 import * as Styled from "./WikiCategoryListStyle";
 import { useState } from "react";
 import { Wiki, WikiCategoryProps } from "@/components/wiki/WikiCommonType";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/Io";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 const WikiCategoryList = ({
   WiKiList,
@@ -47,9 +48,9 @@ const WikiCategoryList = ({
                 {hasChildMap[wiki.wikiID] && (
                   <Styled.ArrowIcon onClick={() => handleArrowClick(wiki)}>
                     {unfoldedWikiIds.includes(wiki.wikiID) ? (
-                      <IoIosArrowUp />
+                      <FontAwesomeIcon icon={faArrowUp} />
                     ) : (
-                      <IoIosArrowDown />
+                      <FontAwesomeIcon icon={faArrowDown} />
                     )}
                   </Styled.ArrowIcon>
                 )}

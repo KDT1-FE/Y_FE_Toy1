@@ -12,7 +12,8 @@ import { app } from "../../../firebase";
 import * as style from "./GallerySideStyle";
 import Button from "../common/Button";
 import Input from "../common/Input";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/Io";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 const firestore = getFirestore(app);
 
@@ -198,11 +199,11 @@ export default function GallerySide({
                       <style.ArrowIcon>🔧</style.ArrowIcon>
                     ) : drop[index] ? (
                       <style.ArrowIcon>
-                        <IoIosArrowUp />
+                        <FontAwesomeIcon icon={faArrowUp} />
                       </style.ArrowIcon>
                     ) : (
                       <style.ArrowIcon>
-                        <IoIosArrowDown />
+                        <FontAwesomeIcon icon={faArrowDown} />
                       </style.ArrowIcon>
                     )}
                   </style.Arrow>
