@@ -6,7 +6,7 @@
   font-family: $fontMain;
   margin: 20px;
   padding: 5% 10%;
-  background-color: $whiteColor;
+  background-color: $backgroundColor-50;
   border: 1px solid $backgroundColor;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -20,14 +20,13 @@
     .status-text {
       font-weight: 700;
       font-size: 32px;
-      color: $secondary;
     }
   }
 
   .message {
     font-weight: 500;
     margin: 20px 0;
-    color: $backgroundColor;
+    color: $highlightColor;
     font-size: 24px;
   }
 
