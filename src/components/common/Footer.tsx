@@ -1,6 +1,9 @@
+import { useLocation } from "react-router-dom";
 import * as style from "./FooterStyle";
 
 export default function Footer() {
+  const location = useLocation();
+  if (location.pathname === "/login") return null;
   return (
     <style.FooterWrap>
       <style.FooterTop>
