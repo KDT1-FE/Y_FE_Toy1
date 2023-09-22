@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../redux/types';
 import { logoutAction } from '../../redux/action';
-import './Header.css';
+import './Header.scss';
 import logo from '../../images/logo.png';
 import { updateFirestoreUserStatus } from 'components/TimerUserCard/IsLoggedIn';
 import { auth } from 'data/firebase';
