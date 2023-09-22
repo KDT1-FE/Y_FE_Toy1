@@ -16,10 +16,6 @@ import Button from '@mui/material/Button';
 import Carousel from 'react-material-ui-carousel';
 import { Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import wikiImg from '../../common/MainImg/wikiMain.png';
-import galleryImg from '../../common/MainImg/galleryMain.png';
-import recruitmentImg from '../../common/MainImg/recruitment.png';
-import recruitmentPostImg from '../../common/MainImg/recruitmentPost.png';
 
 const Home: React.FC = () => {
     const outerDivRef = useRef<HTMLDivElement | null>(null);
@@ -236,7 +232,7 @@ const Home: React.FC = () => {
                             </InnerBtnWrapper>
                             <SubInnerImg
                                 style={{
-                                    backgroundImage: `url(${wikiImg})`,
+                                    backgroundImage: `url('/MainImg/wikiMain.png')`,
                                     backgroundSize: 'cover',
                                     backgroundRepeat: 'no-repeat',
                                 }}
@@ -268,7 +264,7 @@ const Home: React.FC = () => {
                             </InnerBtnWrapper>
                             <SubInnerImg
                                 style={{
-                                    backgroundImage: `url(${galleryImg})`,
+                                    backgroundImage: `url('/MainImg/galleryMain.png')`,
                                     backgroundSize: 'cover',
                                     backgroundRepeat: 'no-repeat',
                                 }}
@@ -353,7 +349,7 @@ const Home: React.FC = () => {
                             </InnerBtnWrapper>
                             <SubInnerImg
                                 style={{
-                                    backgroundImage: `url(${recruitmentImg})`,
+                                    backgroundImage: `url(/MainImg/recruitment.png)`,
                                     backgroundSize: 'cover',
                                     backgroundRepeat: 'no-repeat',
                                 }}
@@ -385,7 +381,7 @@ const Home: React.FC = () => {
                             </InnerBtnWrapper>
                             <SubInnerImg
                                 style={{
-                                    backgroundImage: `url(${recruitmentPostImg})`,
+                                    backgroundImage: `url(/MainImg/recruitmentPost.png)`,
                                     backgroundSize: 'cover',
                                     backgroundRepeat: 'no-repeat',
                                 }}
