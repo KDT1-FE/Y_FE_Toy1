@@ -47,23 +47,6 @@ export function Ranking() {
           </div>
         ))}
       </div>
-      {/* <ul className={'user-rank__table'}>
-        {topThree.map((entry, index) => (
-          <div
-            className={`user-rank__username${index + 1}`}
-            key={entry.nickname}
-          >
-            <img src={entry.image}></img>
-            <br />
-            {entry.nickname}
-            <br />
-            {formatTime(entry.time)}
-          </div>
-        ))}
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul> */}
     </div>
   );
 }

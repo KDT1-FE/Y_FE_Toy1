@@ -21,8 +21,8 @@ $fontMain: Pretendard, 'Tossface', 'Noto Sans KR', sans-serif;
 }
 
 .main-btn {
-  border-color: $highlightColor;
-  color: $highlightColor;
+  border-color: $mainColor;
+  color: $mainColor;
   &:hover {
     background-color: $mainColor;
     color: $whiteColor;
@@ -40,10 +40,9 @@ $fontMain: Pretendard, 'Tossface', 'Noto Sans KR', sans-serif;
 
 .gallNav {
   background-color: $mainColor;
-  border-radius: 10px;
 }
 .navbar-brand {
-  color: $highlightColor;
+  color: $blackColor;
 }
 .nav-link {
   color: $whiteColor;
@@ -51,6 +50,11 @@ $fontMain: Pretendard, 'Tossface', 'Noto Sans KR', sans-serif;
     color: $backgroundColor;
   }
 }
+
+// 사용예시입니다~~
+//btn {
+//   @include btn-design;
+// }
 
 body {
   background-image: url('https://i.pinimg.com/564x/06/7e/90/067e90a8414b9d1d53a0ce1469c09228.jpg');
