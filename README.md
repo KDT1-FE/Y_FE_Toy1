@@ -1,203 +1,491 @@
-# **📅 직원들을 위한 위키 사이트**
+<img src='./src/assets/readme/icon.png'>
 
-직원 들을 위한 위키 사이트를 만들어보세요!
-위키 사이트에는 위키 뿐 아니라 여러 기능이 추가되어야 합니다!
+# 🚀 Company Space 🚀
 
-### **[과제 수행 및 제출 방법]**
+<br>
 
-1. 현재 저장소를 로컬에 클론(Clone)합니다.
-2. 자신의 팀명으로 브랜치를 생성합니다.(구분 가능하도록 팀명을 꼭 파스칼케이스로 표시하세요, git branch Y_FE_Toy1_Team13)
-3. 자신의 팀명 브랜치에서 과제를 수행합니다.
-4. 과제 수행이 완료되면, 자신의 팀명 브랜치를 원격 저장소에 푸시(Push)합니다.(main 브랜치에 푸시하지 않도록 꼭 주의하세요, git push origin Y_FE_Toy1_Team13)
-5. 저장소에서 main 브랜치를 대상으로 Pull Request 생성하면, 과제 제출이 완료됩니다!(E.g, main <== Y_FE_Toy1_Team13)
-6. Pull Request 링크를 LMS로도 제출해 주셔야 합니다.
-7. main 혹은 다른 사람의 브랜치로 절대 병합하지 않도록 주의하세요!
-8. Pull Request에서 보이는 설명을 다른 사람들이 이해하기 쉽도록 꼼꼼하게 작성하세요!
-9. Pull Request에서 과제 제출 후 절대 병합(Merge)하지 않도록 주의하세요!
-10. 과제 수행 및 제출 과정에서 문제가 발생한 경우, 바로 담당 멘토나 강사님께 얘기하세요!
+> 회사의 직원들을 위한 위키사이트입니다!
+> 출/퇴근 시간 기록, todo 관리, wiki 문서 수정, 갤러리 데이터 수정이 가능합니다.
 
-### **[필수 구현사항]**
+<br>
 
-- 문서편집, revision 기능을 제공하여 업무일지를 작성할 수 있는 직원들을 위한 위키사이트 구현(마크다운 형식)
-- firebase database (Firestore) 이용
-- 모달을 활용한 근무 시간을 표시하는 시계 및 타이머 창 구현
-- 캐러셀을 활용한 회사 공지 페이지
-- **갤러리 페이지 / 업무일지 페이지 등 메뉴를 필터링 또는 카테고리화 하는 선택바 구현**
-- netlify 등을 이용한 정적 페이지 배포
-- TypeScript 사용 필수
-- 과제에 대한 설명을 포함한 `README.md` 파일 작성
-    - 팀원별로 구현한 부분 소개
+## 🪐 프로젝트 기간
 
-### **[선택 구현사항]**
+**2023.09.08 ~ 2023.09.22**
 
-- React 사용은 선택
-- 기타 동작이 완료되기 전에 로딩 애니메이션 구현
-- 페이지네이션
-- 관련된 기타 기능도 고려
-- eslint 설정, 커밋컨벤션, 문서화 등 팀프로젝트시 필요한 추가 작업들
+<br>
 
----
+## 🪐 배포 링크
 
-## 가이드
+<a href="https://glittering-speculoos-415dd0.netlify.app/">🚀 Company Space 🚀</a>
 
-아래 예시는 모두 하나의 의견입니다!
+<br>
 
-따라하는게 아니라 자신만의 결과물을 만들어보세요.
+## 🪐 기술 스택 / 라이브러리
 
-### 공지사항
-[영상 1]
+✔️ **언어**
+<img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=black">
+✔️ **백엔드(DB)**
+<img src="https://img.shields.io/badge/firebase-FFCA28?style=for-the-badge&logo=FireBase&logoColor=black">
 
+✔️ **라이브러리**
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=React&logoColor=black"><img src="https://img.shields.io/badge/styled_components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
 
-### **모달 타이머**
-[영상 2]
+**✔️ 협업**
+<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=Git&logoColor=white"><img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=Git&logoColor=white">
 
+✔️ **디자인**
+<img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white">
 
-https://github.com/KDT1-FE/Y_FE_Toy1/assets/38754963/20c18d28-5a01-4163-876c-be74a24f62db
+✔️ **코드 포맷 및 오류 도구**
+<img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=Prettier&logoColor=black"><img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=ESLint&logoColor=white">
 
+<br>
 
+## 🪐 팀원 정보
 
-### **마크다운 위키사이트**
-[영상 3]
+### 🏅2조 - 대박징조
 
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/xxxjinn"><img src="https://avatars.githubusercontent.com/u/102955516?v=4" width="150px;" alt=""/><br /><sub><b>팀장 : 신현진</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/junkue20"><img src="https://avatars.githubusercontent.com/u/122848687?v=4" width="150px;" alt=""/><br /><sub><b>팀원 : 박준규 </b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/YongYong21"><img src="https://avatars.githubusercontent.com/u/90038848?v=4" width="150px;" alt=""/><br /><sub><b>팀원 : 박용희</b></sub></a><br /></td>
+     </tr>
+     <tr><td align="center"><a href="https://github.com/Bumang-Cyber"><img src="https://avatars.githubusercontent.com/u/126222848?v=4" width="150px;" alt=""/><br /><sub><b>팀원 : 정범환</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/moonyah"><img src="https://avatars.githubusercontent.com/u/51106050?v=4" width="150px;" alt=""/><br /><sub><b>팀원 : 장문용</b></sub></a><br /></td></tr>
+  </tbody>
+</table>
 
-https://github.com/KDT1-FE/Y_FE_Toy1/assets/38754963/08e3efca-8137-44d8-a0af-c62a668b810b
+<br>
 
+## 🪐 구현 사항 체크
 
+### 🌟 필수 구현 사항
 
-### **갤러리**
-[영상 4]
+- [x] 문서편집, revision 기능을 제공(CRUD 가능하게)하여 업무일지를 작성할 수 있는 직원들을 위한 위키사이트 구현(마크다운 형식)
+- [x] firebase database (Firestore) 이용
+- [x] 모달을 활용한 근무 시간을 표시하는 시계 및 타이머 창 구현
+- [x] 캐러셀을 활용한 회사 공지 페이지
+- [x] **갤러리 페이지 / 업무일지 페이지 등 메뉴를 필터링 또는 카테고리화 하는 선택바 구현**
+- [x] netlify 등을 이용한 정적 페이지 배포
+- [x] TypeScript 사용 필수
+- [x] 과제에 대한 설명을 포함한 `README.md` 파일 작성
 
----
+<br>
 
-# **[Firestore]**
+### 🌟 선택 구현 사항
 
-Firestore에 대한 가이드입니다.
+- [x] React 사용
+- [x] 기타 동작이 완료되기 전에 로딩 애니메이션 구현
+- [x] 페이지네이션
+- [x] 관련된 기타 기능 고려
+- [x] eslint 설정, 커밋컨벤션, 문서화 등 팀프로젝트시 필요한 추가 작업들
 
-자세한 내용은 [공식 홈페이지](https://firebase.google.com/?hl=ko) 를 찾아보길 적극 권장합니다!
+<br>
 
-### **App init**
+## 🪐 페이지 및 역할, 기능 소개
 
-```jsx
-import { getFirestore } from "firebase/firestore";
+### 💫 화면 구성
 
-export const db = getFirestore(fireBaseApp);
-```
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><sub><h4>[메인 페이지]</h4></sub><img src="./src/assets/readme/page/main.png" width="450px;" alt=""/><br /></a><br /></td>
+      <td align="center"><sub><h4>[위키 페이지]</h4></sub><img src="./src/assets/readme/page/wiki.jpg" width="450px;" alt=""/><br /></a><br /></td>
+      <td align="center"><sub><h4>[갤러리 페이지]</h4></sub><img src="./src/assets/readme/page/gallery.jpg" width="450px;" alt=""/><br /></a><br /></td>
+      </tr>
+    <tr>
+     <td align="center"><sub><h4>[로그인 페이지]</h4></sub><img src="./src/assets/readme/page/login.jpg" width="450px;" alt=""/><br /></a><br /></td>
+    <td align="center"><sub><h4>[회원가입 페이지]</h4></sub><img src="./src/assets/readme/page/register.jpg" width="450px;" alt=""/><br /></a><br /></td>
+      <td align="center"><sub><h4>[비밀번호 찾기 페이지]</h4></sub><img src="./src/assets/readme/page/findpw.jpg" width="450px;" alt=""/><br /></a><br /></td>
+    </tr>
+    <tr>
+      <td align="center"><sub><h4>[출퇴근 모달]</h4></sub><img src="./src/assets/readme/page/modal.jpg" width="450px;" alt=""/><br /></a><br /></td>
+      <td align="center"><sub><h4>[404 페이지]</h4></sub><img src="./src/assets/readme/page/pageNotFound.jpg" width="450px;" alt=""/><br /></a><br /></td>
+    </tr>
+  </tbody>
+</table>
 
-### Firestore 데이터 추가하기
+<br>
 
-Firestore의 데이터를 추가하는 방법은 크게 두가지이다.
+### 💫 각 조원 별 역할, 기능 소개
 
-1. Firebase console에서 손수 데이터 추가해주기
-2. 코드로 데이터 추가하기
+<details>
+<summary>🌟 메인 페이지, 헤더, 푸터 - 정범환</summary>
+<div markdown="1">
 
-### 1. Firebase console에서 손수 데이터 추가해주기
+<br>
+💡 메인 페이지에서 기간 별로 할일 목록을 관리하고, 위키나 갤러리를 요약하여 보거나 바로 이동할 수 있습니다.
 
-1. [Firebase console](https://console.firebase.google.com/u/0/?hl=ko)에 접속한다.
-2. 자신의 프로젝트를 선택한다.
-3. 왼쪽 메뉴에서 `Firestore Database`를 선택한다.
-4. `+ 버튼`을 눌러 컬렉션 > 문서를 마음대로 추가해준다.
-5. 필드를 추가하여 문서에 데이터를 넣어준다.
+<br>
+<br>
 
-### 2. 코드로 데이터 추가하기
+- 캐로셀을 활용하여 기능들을 소개하였습니다.
+  <img src='./src/assets/readme/main/carousel.gif'/>
 
-Firestore는 `setDoc`, `addDoc` 두 가지 함수로 데이터를 추가할 수 있다.
+<br>
 
-이제 원하는 데이터를 추가해보자.
+- 로그인할 시 사용자의 이름을 표출하고 기간 별로 할일 목록과 완료된 일 목록을 볼 수 있습니다.
 
-**1. `addDoc`**
+    <img src='./src/assets/readme/main/dailyBriefing.gif'/>
+    
+    <img src='./src/assets/readme/main/main_3.png'/>
+    
+    <br>
 
-`addDoc`은 아래와 같이 사용하여 원하는 데이터를 추가할 수 있다.
+  - 비로그인 상태에서는 기능 소개 문구로 대체됩니다.
 
-```
-import { addDoc, collection } from "firebase/firestore";
+<br>
 
-const writtenDoc = await addDoc(collection(db, "wiki"), {
-  title: "LGH",
-  description: "허먼밀러...사고싶다...",
-});
+- 할일 목록과 완료된 일 목록을 생성하고, 관련 문서를 지정하고 추가, 수정 및 삭제할 수 있습니다.
 
-console.log("Document written with ID: ", writtenDoc.id);
-// 새로 생성된 Document의 ID를 반환한다.
-```
+    <img src='./src/assets/readme/main/todoDone.gif'/>
+    
+    <br>
 
-원하는 데이터를 추가하기 위해선 먼저 원하는 collection을 선택해야 한다. 위 예제의 `addDoc` 안에서 사용한 `collection` 함수는 db상에 있는 collection을 선택하거나 없을 경우 새로운 collection을 생성하여 반환한다.
+  - 비로그인 상태에서는 내용을 추가할 수 없고 읽기 모드로만 작동합니다.
 
-Firebase의 Doc는 기본적으로 ID를 가져야 하는데, addDoc을 사용하면 ID를 자동으로 만든다. 또한, 이미 존재하는 Doc에 `addDoc`을 사용하면 에러가 발생한다.
+<br>
 
-**2. `setDoc`**
+- 메인페이지에서 위키와 갤러리를 요약해서 보고, 원하는 파일로 바로가기 할 수 있습니다.
+  <img src='./src/assets/readme/main/shortcut.gif'/>
 
-`setDoc`은 아래와 같이 사용하여 원하는 데이터를 추가할 수 있다.
+<br>
 
-```
-import { setDoc, doc } from "firebase/firestore";
+- 문서 목록에서 특정 문서에 관련된 할 일을 생성할 수 있습니다.
 
-await setDoc(doc(db, "wiki", "new-id"), {
-  title: "LGH",
-  description: "허먼밀러...사고싶다...",
-});
-```
+    <img src='./src/assets/readme/main/docToTodo.gif'/>
+    
+    <br>
 
-`addDoc`과의 차이점은
+  - 비로그인 상태에서는 내용을 추가할 수 없고 읽기 모드로만 작동합니다.
 
-1. **id** 를 지정해줘야함
-2. `collection` 대신 `doc`을 사용함
-3. 이미 존재하는 Doc에 사용가능
+<br>
 
-3가지 이다.
+- 헤더에서 사용자의 이름을 보여주고 원하는 페이지로 이동할 수 있습니다.
+  <img src='./src/assets/readme/main/header.gif'/>
 
-`setDoc`은 `addDoc`과 달리 collection이 아니라 doc를 선택해야 한다. 이는 `setDoc`이 데이터의 추가 뿐 아니라 데이터 덮어쓰기 기능도 가지고 있기 때문이다. 러프하게 생각해보면 `setDoc`은 데이터를 추가할 때
+<br>
 
-1. doc을 선택하거나 새로운 doc을 생성
-2. doc의 내용을 덮어씀
+- 푸터에 참여자들의 contact 수단들을 정리하였습니다.
 
-의 방식으로 동작하는 것이다.
+    <img src='./src/assets/readme/main/footer.gif'/>
+    
+    <br>
 
-Doc을 선택하는 방법은 `doc` 함수를 사용하는 것이다. `[doc()](https://firebase.google.com/docs/reference/js/firestore_.md?hl=ko#doc)` 함수는 `DocumentReference` instance를 반환한다. 절대 경로를 사용하여 원하는 Document를 선택할 수 있다. 위에서 만들어둔 `wiki > completed` 문서는 아래처럼 불러올 수 있다.
+  - 팀 깃 레포지토리와 패스트캠퍼스 페이지로도 이동할 수 있습니다.
 
-```
-import { doc } from "firebase/firestore";
+<br>
 
-const docRef = doc(db, "wiki", "completed");
-```
+- 추가적인 역할: 전반적인 디자인 에셋과 가이드라인, 디자인 컴포넌트를 피그마로 관리하여 팀원들이 뽑아 쓸 수 있게 만들었습니다.
+  <img src='./src/assets/readme/main/figma_1.png'/>
+  <img src='./src/assets/readme/main/figma_2.png'/>
 
-`doc` 함수의 3번째 인자가 바로 **id** 이다. id는 이미 존재하는 Doc의 id를 사용할 수도 있고, 새로운 id를 사용할 수도 있다. 존재하는 id를 사용하는 경우에는 해당 Doc의 데이터를 덮어쓰게 된다. 그렇지 않은 경우엔 새로운 Doc를 생성한다.
+</div>
+</details>
 
-어쨌거나 데이터를 새로 추가할 수 있는 것이다.
+<br>
 
-### Firestore 데이터 수정하기
+<details>
+<summary>🌟 위키 페이지, 사이드바 - 박용희</summary>
+<div markdown="1">
 
-Firestore의 데이터를 수정하는 방법은 크게 두가지이다.
+<br>
 
-1. Firebase console에서 손수 데이터 수정해주기
-1. 코드로 데이터 수정하기
+💡문서 데이터 CRUD기능을 파이어베이스와 연동하여 구현했습니다.
 
-1번은 데이터 생성과 비슷하게 진행하면 된다.
+<br>
 
-**2. 코드로 데이터 수정하기**
+- **사이드 메뉴**
 
-Firestore는 `setDoc`, `update` 두 가지 함수로 데이터를 추가할 수 있다.
+  - Firebase에 저장된 데이터를 불러오고, 사용자가 클릭에 따라 UI가 바뀌어집니다.
 
-`setDoc`을 사용하는 방법은 위에 적혀있다.
+      <img src='./src/assets/readme/wiki/wiki_1.gif'/>
 
-### `update`
+<br>     
+    
+- **글 수정**
+    - Firebase에 저장된 데이터를 불러오고, 데이터를 마크다운 문법으로 보여줍니다.
+    - 로그인의 여부에 따라서 글 수정 가능을 사용할 수 있습니다.
+    - 글 수정을 할 경우, Fireabse에 저장된 데이터를 Update 해줍니다.
 
-`setDoc`은 데이터를 덮어쓴다. 따라서 기존의 문서를 유지한 채 일부분의 데이터만 변경하고 싶어도 이전의 데이터를 모두 새로 입력해야 한다.
+    <br>
 
-그러나 `update`는 기존의 데이터를 유지한 채 일부분의 데이터만 변경할 수 있다.
+    - 로그인 상태
 
-```jsx
-import { updateDoc, doc } from "firebase/firestore";
+        <img src='./src/assets/readme/wiki/wiki_2.gif'/>
 
-await updateDoc(doc(db, "wiki", "new-id"), {
-  description: "허먼밀러...200만원...",
-});
-```
+    <br>
 
-위와 같이 코드를 작성하면 `new-id`라는 id를 가진 문서의 description만 변경된다.
+    - 비로그인 상태
 
----
+        <img src='./src/assets/readme/wiki/wiki_3.gif'/>
 
-### *참고 링크
+        <br>
 
-- **[Firebase](https://firebase.google.com/docs?hl=ko)**
-- [**프로토타입 프로젝트**](https://stfe.vercel.app/)
+        - URL로 이동 시
+
+            <img src='./src/assets/readme/wiki/wiki_4.gif'/>
+
+<br>
+
+- **건의사항**
+
+  - Firebase에 저장된 데이터를 불러오고, 데이터를 보여줍니다.
+  - 로그인의 여부에 따라서 글 추가 삭제 가능을 사용할 수 있습니다.
+  - 글 추가 및 삭제를 할 경우, Fireabse에 저장된 데이터를 Create, Delete 합니다.
+
+    <br>
+
+  - 모달창
+    <img src='./src/assets/readme/wiki/wiki_5.gif'/>
+
+    <br>
+        
+    - 로그인 상태 - 추가
+        
+        <img src='./src/assets/readme/wiki/wiki_6.gif'/>
+
+    <br>
+
+  - 로그인 상태 - 삭제
+    <img src='./src/assets/readme/wiki/wiki_7.gif'/>
+
+    <br>
+        
+    - 비로그인 상태 - 삭제
+        
+        <img src='./src/assets/readme/wiki/wiki_8.gif'/>
+
+<br>
+
+- **404 페이지 이동**
+
+  - wiki/:id 속성을 이용하여 라우터를 사용했기 때문에 id값을 비교하여 해당 id가 없을 경우, 404페이지로 이동합니다.
+
+      <img src='./src/assets/readme/wiki/wiki_9.gif'/>
+
+<br>
+
+</div>
+</details>
+
+<br>
+
+<details>
+<summary>🌟 갤러리 페이지, 404페이지 - 신현진</summary>
+<div markdown="1">
+<br>
+💡 사진 데이터 추가/삭제 기능(갤러리 페이지)과 404페이지를 구현하였습니다. 추가적으로 eslint/prettier와 firebase의 설정을 했고 전체적으로 manage하는 역할을 맡았습니다.
+<br>
+<br>
+
+- **데이터 불러오기 전 로딩 애니메이션 구현**
+- **로그인 되지 않은 상태일 때**
+
+  - 추가/삭제가 불가능한 읽기 전용 모드가 됩니다.
+    <img src='./src/assets/readme/gallery/gallery_1.gif'/>
+
+  <br>
+
+- **로그인 된 상태일 때**
+
+  - 각 카드에 hover를 하면 x 아이콘이 생겨 해당하는 데이터를 삭제할 수 있습니다.
+    <img src='./src/assets/readme/gallery/gallery_2.gif'/>
+
+    <br>
+
+  - 추가하기 버튼이 생겨 이를 누르면 modal 창이 나와 데이터를 추가할 수 있습니다.
+    <img src='./src/assets/readme/gallery/gallery_3.gif'/>
+
+      <br>
+
+    - 이름 입력 후 엔터키를 누르거나 추가하기 버튼을 누르면 추가됩니다.
+    - 모달 바깥 부분을 클릭한 경우 모달이 닫힙니다.
+
+    - 사진과 이름 둘 중 하나라도 입력하지 않으면 alert창을 통해 알려주어 둘 다 필수로 입력하도록 해두었습니다.
+
+        <img src='./src/assets/readme/gallery/gallery_4.jpg'/>
+
+  <br>
+
+- **이미지가 존재하지 않을 때**
+  <img src='./src/assets/readme/gallery/gallery_5.jpg'/>
+
+<br>
+
+- **404페이지**
+  - 404페이지 자체를 구현하고 route 설정도 해주었습니다.
+  - gallery/partner 또는 gallery/facility가 아닌, gallery/aa로 이동했을 시에는 gallery/404로 이동합니다.
+    <img src='./src/assets/readme/gallery/gallery_6.gif'/>
+
+</div>
+</details>
+    
+<br>
+
+<details>
+<summary>🌟 출퇴근 모달 - 장문용</summary>
+<div markdown="1">
+<br>
+💡Local storage를 이용해서 Modal로 근무 시간을 측정하고 출퇴근 시간을 보여주는 기능을 구현하였습니다.
+
+<br>
+<br>
+
+- **로그인을 하면 heaer에 버튼이 생성됩니다.**
+
+    <br>
+    
+    - 로그인을 한 후, 출퇴근 모달을 사용 가능
+        <img src='./src/assets/readme/modal/header변경됨.gif'/>
+
+    <br>
+
+- 모달에는 **현재 날짜와 시간 표시 / 출근 시간 / 예상 퇴근 시간**이 표시됩니다.
+
+    <img src='./src/assets/readme/modal/timer유지됨.gif'/>
+
+    <br>
+    
+    - Timer가 가는 중에는 빨간색으로 표시됩니다.
+        
+        <img src='./src/assets/readme/modal/modal_1.png'/>
+
+    <br>
+        
+    - **Timer 중단 기능 (일시 정지)**
+        
+         <img src='./src/assets/readme/modal/modal_2.png'/>
+
+    <br>
+        
+    - 모달 창을 닫아도 header에 Timer 상태가 표시됩니다.
+        
+        <img src='./src/assets/readme/modal/modal_3.png'/>
+
+    <br>
+
+- **로그인한 사용자 이름**이 적용되고 modal의 멘트가 변경됩니다.
+  <img src='./src/assets/readme/modal/modal_4.png'/>
+  <img src='./src/assets/readme/modal/modal_5.png'/>
+  <img src='./src/assets/readme/modal/modal_6.png'/>
+
+<br>
+
+- **alert**
+
+  - 출퇴근, 업무 재개 한번 더 확인
+    <img src='./src/assets/readme/modal/modal_7.png'/>
+
+    <img src='./src/assets/readme/modal/modal_8.png'/>
+
+    <img src='./src/assets/readme/modal/modal_9.png'/>
+
+<br>
+
+- **local storage에 저장**
+
+  - **Modal 열림 상태(isModalOpen)**
+  - **출근 상태 (isCommuteButtonClicked)**
+  - **TimerRunning 상태(isTimerRunning)**
+  - **Timer 시간(seconds)**
+  - **출근 시간(wordStateTime)**
+
+      <img src='./src/assets/readme/modal/modal_10.png'/>
+
+<br>
+
+- **Modal 창 닫기 / 새로 고침 / 다른 페이지로 이동 시에도 데이터가 유지됩니다.**
+  <img src='./src/assets/readme/modal/modal_11.png'/>
+
+<br>
+
+- **로그 아웃 시, local storage clear 됩니다.**
+  <img src='./src/assets/readme/modal/modal_12.png'/>
+
+</div>
+</details>
+    
+    
+<br>
+
+<details>
+<summary>🌟 로그인 관련 기능 - 박준규</summary>
+<div markdown="1">
+<br>
+💡 Firebase의 Authentication 빌드를 활용하여 로그인 / 회원가입 / 비밀번호 찾기 기능을 구현하였으며, 페이지 전반의 기능들에 대해 로그인 유무를 판별 가능하도록 유저 로그인 정보를 전달했습니다.
+
+<br>
+<br>
+
+- `회원가입` 페이지
+
+  - 유효성 검사 기능 (이메일 중복 및 유효성 여부, 비밀번호 확인 일치 여부)
+
+    <img src='./src/assets/readme/login/1.gif'/>
+
+    <br>
+
+    <img src='./src/assets/readme/login/2.gif'/>
+
+    <br>
+
+  - 가입 후 인증메일 전송
+
+    <img src='./src/assets/readme/login/3.gif'/>
+
+    <br>
+
+- `로그인` 페이지
+
+  1. 유효성 검사 기능
+
+     <img src='./src/assets/readme/login/4.gif'/>
+
+    <br>
+        
+    2. `이메일 인증 여부`를 통한 `로그인 접근을 제한`하는 기능을 추가
+        
+        <img src='./src/assets/readme/login/5.gif'/>
+
+    <br>
+
+- `비밀번호 찾기` 페이지
+
+  1. 이메일 유효성 검사 기능
+
+    <img src='./src/assets/readme/login/6.gif'/>
+
+    <br>
+        
+    2. 새 비밀번호 수정 메일 전송 기능
+        
+        <img src='./src/assets/readme/login/7.gif'/>
+
+    <br>
+
+</div>
+</details>
+            
+<br>
+
+## 🪐 아쉬운 부분
+
+리팩토링 기간이 있다면 추가로 수행 할 내용들 입니다❗
+
+- **반응형 구현 X**
+  <br>
+- **dependencies, devDependencies 구분 X** - 프로젝트 진행 중 npm 패키지 관련한 오류가 매우x500 많이 발생했어서 절망의 구렁텅이에 여러 번 빠진 팀원들이 더 이상 npm을 건드는 것을 원치 않았습니다. 시간이 난다면 수정해보겠습니다!
+  <br>
+- **vite, emotion 사용하지 못함**
+  - 멘토님께서 첫 멘토링 시간 당시 속도, 성능 향상을 위해 vite 사용을 권하셨는데 그때 이미 각자 개발이 진행중이었습니다! CRA속도가 느린 것은 잘 알았기에 시간이 난다면 vite로 마이그레이션 해볼 예정에 있습니다.
+  - styled-component도 처음 접해보는 팀원이 있었기에 emotion보다는 styled-component를 사용하였습니다.
+    <br>
+- **렌더링 최적화X**
+  <br>
+
+- **로그인 관련**
+  - firebase 무료버전을 사용중이라 비밀번호 변경 시 정규식 적용이 되지 않습니다.
