@@ -47,7 +47,6 @@ const RegisterProject = () => {
         return;
       }
       const newParticipants = [...projectInfo.participants, user.name];
-      console.log(newParticipants);
       if (projectInfo.imageUrl !== '') {
         const imageBlob = await fetch(projectInfo.imageUrl).then((res) => res.blob());
         const storageRef = ref(storage, `projectImage/${new Date().getTime()}`);

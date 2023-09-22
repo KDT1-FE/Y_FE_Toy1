@@ -1,14 +1,10 @@
 import styled from 'styled-components';
-<<<<<<< Updated upstream
-import { CategoryTitleSection, BreadCrumb } from '../Gallery/Project';
 import { useState, useEffect } from 'react';
 import { ref, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../common/config';
 import imageSrc from '../../assets/figma.png';
-=======
 import { CategoryTitleSection, CategoryTitle, BreadCrumb } from '../../utils/CategoryTitleSection';
 import { SubPageContainer } from '../../utils/CommonDesign';
->>>>>>> Stashed changes
 
 export const StyledImage = styled.img`
   width: 60%;
