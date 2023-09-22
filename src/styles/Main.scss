@@ -362,3 +362,10 @@
   border-radius: 20px;
   margin-bottom: 50px;
 }
+
+
+@media (max-width: 1170px) {
+  .slide-right {
+    display: none; 
+  }
+}
