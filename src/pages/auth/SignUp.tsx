@@ -44,7 +44,7 @@ const SignUp = () => {
       if(userCredential){
         await updateProfile(userCredential.user, {
           displayName: nickname,
-          photoURL: 'https://firebasestorage.googleapis.com/v0/b/fastcampus-wiki.appspot.com/o/userImage%2FAKR20220218060400005_01_i_P2.jpg?alt=media&token=2ac0c906-73f7-4c7d-8e6d-7fd53ea7c1a3'
+          photoURL: 'https://firebasestorage.googleapis.com/v0/b/fastcampus-wiki.appspot.com/o/userImage%2Fuserdefault.png?alt=media&token=c2f9298f-9a4c-4b05-bef9-450b03798a6b'
         })
       }
 
@@ -53,7 +53,8 @@ const SignUp = () => {
         nickName: nickname,
         email,
         studyTime: 0,
-        class: 0
+        class: 0,
+        url: 'https://firebasestorage.googleapis.com/v0/b/fastcampus-wiki.appspot.com/o/userImage%2Fuserdefault.png?alt=media&token=c2f9298f-9a4c-4b05-bef9-450b03798a6b'
       })
       localStorage.setItem('user', JSON.stringify("0"))
       signOut(auth)

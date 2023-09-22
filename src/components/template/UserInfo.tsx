@@ -1,9 +1,10 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { User } from "@firebase/auth";
-import { storage } from "../../firebase";
+import { storage, db } from "../../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
+import { doc, updateDoc } from "firebase/firestore"
 import { getClassName } from "utils/class";
 
 const UserInfo: React.FC<Props> = ({ handlerLogout, user, isborder }) => {
@@ -28,6 +29,9 @@ const UserInfo: React.FC<Props> = ({ handlerLogout, user, isborder }) => {
           setUserPhotoURL(url);
           await updateProfile(user, {
             photoURL: url,
+          });
+          await updateDoc(doc(db, "user", user.uid), {
+            url,
           });
           alert("등록 성공했습니다");
         } catch (error) {
