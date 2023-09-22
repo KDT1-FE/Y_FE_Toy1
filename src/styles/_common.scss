@@ -17,3 +17,35 @@ $fontMain: Pretendard, 'Tossface', 'Noto Sans KR', sans-serif;
   font-weight: normal;
   font-style: normal;
 }
+
+.main-btn {
+  border-color: $highlightColor;
+  color: $highlightColor;
+  &:hover {
+    background-color: $mainColor;
+    color: $whiteColor;
+  }
+}
+
+.sub-btn {
+  &:hover {
+    border-color: $mainColor;
+    color: $mainColor;
+  }
+  background-color: $mainColor;
+  color: $whiteColor;
+}
+
+.gallNav {
+  background-color: $mainColor;
+  border-radius: 10px;
+}
+.navbar-brand {
+  color: $highlightColor;
+}
+.nav-link {
+  color: $whiteColor;
+  &:hover {
+    color: $backgroundColor;
+  }
+}
