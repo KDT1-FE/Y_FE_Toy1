@@ -27,8 +27,8 @@ interface Folders {
 interface GallerySideProps {
   openAddListModal: () => void;
   galleryData: Folders[];
-  addListModal: Boolean;
-  configList: Boolean;
+  addListModal: boolean;
+  configList: boolean;
   album: string;
   setConfigList: React.Dispatch<React.SetStateAction<boolean>>;
   setGalleryData: React.Dispatch<React.SetStateAction<Folders[]>>;
