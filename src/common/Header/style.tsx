@@ -44,7 +44,6 @@ export const LogoutButton = styled.a`
     display: flex;
     align-items: center;
     height: 72px;
-    padding: 10px;
     border-radius: 10%;
     font-weight: 700;
     font-size: 24px;
@@ -65,7 +64,6 @@ export const LogoutButton = styled.a`
         sans-serif;
     border: 0;
     &:hover {
-        background-color: ${(props) => props.theme.sideMenu};
         cursor: pointer;
     }
 `;
@@ -74,7 +72,6 @@ export const LoginButton = styled.a`
     display: flex;
     align-items: center;
     height: 72px;
-    padding: 10px;
     border-radius: 10%;
     font-weight: 700;
     font-size: 24px;
@@ -95,7 +92,6 @@ export const LoginButton = styled.a`
         sans-serif;
     border: 0;
     &:hover {
-        background-color: ${(props) => props.theme.sideMenu};
         cursor: pointer;
     }
 `;

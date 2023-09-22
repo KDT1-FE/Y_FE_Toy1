@@ -42,11 +42,13 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
     const defaultSubChannels = ['과정 참여 규칙', '링크 모음'];
 
     const [back, setBack] = useState('');
+    const [themeText, setThemeText] = useState('');
     const [currentTheme, setCurrentTheme] = useRecoilState(ThemeChange);
 
     useEffect(() => {
         const selected = (theme: themeType) => {
             setBack(theme.activeColor1);
+            setThemeText(theme.text);
         };
         if (localStorage.getItem('theme')) {
             const localtheme = localStorage.getItem('theme');
@@ -177,7 +179,7 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
                                                 setSubChannel(item2);
                                             }}
                                             style={{
-                                                color: isSubChannelActive(item.docId, item2) ? '#ffffff' : '',
+                                                color: isSubChannelActive(item.docId, item2) ? '#' : themeText,
                                                 backgroundColor: isSubChannelActive(item.docId, item2) ? back : '',
                                                 borderRadius: isSubChannelActive(item.docId, item2) ? '5px' : '',
                                                 fontWeight: isSubChannelActive(item.docId, item2) ? 'bold' : '',
@@ -264,7 +266,7 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ onKeyClick }) => {
                                                 setSubChannel(item2);
                                             }}
                                             style={{
-                                                color: isSubChannelActive(item.docId, item2) ? '#ffffff' : '',
+                                                color: isSubChannelActive(item.docId, item2) ? themeText : '',
                                                 backgroundColor: isSubChannelActive(item.docId, item2) ? back : '',
                                                 borderRadius: isSubChannelActive(item.docId, item2) ? '5px' : '',
                                                 fontWeight: isSubChannelActive(item.docId, item2) ? 'bold' : '',
