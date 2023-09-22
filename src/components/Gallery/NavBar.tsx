@@ -11,9 +11,6 @@ export function SideBarLink(): JSX.Element {
   return (
     <div>
       <nav id="navbar-example2" className="navbar px-3 mb-3 gallNav">
-        <a className="navbar-brand" href="#">
-          갤러리
-        </a>
         <ul className="nav nav-pills">
           <li className="nav-item">
             <a className="nav-link" href="#studyTips">
@@ -36,7 +33,9 @@ export function SideBarLink(): JSX.Element {
       {user.uid ? (
         <AddImageModal />
       ) : (
-        <a href="/SignIn">이미지를 공유하고 싶다면 로그인을 해주세요!</a>
+        <a className="notLoginInfo" href="/SignIn">
+          이미지를 공유하고 싶다면 로그인을 해주세요!
+        </a>
       )}
     </div>
   );
