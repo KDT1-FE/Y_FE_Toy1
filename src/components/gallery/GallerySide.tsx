@@ -199,12 +199,12 @@ export default function GallerySide({
                     ) : drop[index] ? (
                       <style.ArrowIcon>
                         {/* <IoIosArrowUp /> */}
-                        <s>1</s>
+                        <span>1</span>
                       </style.ArrowIcon>
                     ) : (
                       <style.ArrowIcon>
                         {/* <IoIosArrowDown /> */}
-                        <s>2</s>
+                        <span>2</span>
                       </style.ArrowIcon>
                     )}
                   </style.Arrow>
