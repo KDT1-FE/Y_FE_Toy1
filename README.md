@@ -1,8 +1,8 @@
-# Wikinity
+# :sparkles: Wikinity :sparkles:
 
 패스트캠퍼스 프론트엔트 부트캠프 1차 토이프로젝트
 
-## Contributors
+## :clap: Contributors
 
 <table>
     <tr>
@@ -19,7 +19,7 @@
     </tr>
 </table>
 
-## 커밋 컨벤션
+## :computer: 커밋 컨벤션
 
 | 명칭     | 의미                                   |
 | -------- | -------------------------------------- |
@@ -31,7 +31,7 @@
 | Test     | 테스트 코드, 리팩토링 테스트 코드 추가 |
 | Chore    | 빌드 업무 수정, 패키지 매니저 수정     |
 
-## 폴더 구조
+## :file_folder: 폴더 구조
 
 ```
 📦
@@ -52,7 +52,7 @@
 
 ```
 
-## Stack
+## :hammer:  Stack
 
 <p align="left">
   <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
