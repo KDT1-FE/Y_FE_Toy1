@@ -1,6 +1,9 @@
 import * as Styled from "./WikiCategoryListStyle";
 import { useState } from "react";
-import { Wiki, WikiCategoryProps } from "@/components/wiki/WikiCommonType";
+import {
+  Wiki,
+  WikiCategoryProps,
+} from "@/components/wiki/types/WikiCommonType";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/Io";
 
 const WikiCategoryList = ({

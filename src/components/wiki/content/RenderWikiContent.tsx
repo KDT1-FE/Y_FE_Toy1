@@ -1,9 +1,10 @@
 import * as Styled from "./WikiContentStyle";
-import WikiEditButton from "./WikiButton";
-import { RenderWikiContentProps } from "./WikiCommonType";
-import { MarkdownViewer } from "./MarkdownViewer";
+import WikiEditButton from "../buttons/WikiButton";
+import { RenderWikiContentProps } from "../types/WikiCommonType";
+
 import formatDateToCustomFormat from "@/utils/formatDateToCustomFormat";
 import convertTimestampToDate from "@/utils/convertTimestampToDate";
+import { MarkdownViewer } from "../markdown/MarkdownViewer";
 
 export default function RenderWikiContent({
   currentUser,

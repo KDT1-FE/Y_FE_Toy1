@@ -1,8 +1,8 @@
 import * as Styled from "./WikiContentStyle";
 import * as FormStyled from "./RenderWikiFormStyle";
-import { WikiFormProps } from "@/components/wiki/WikiCommonType";
+import { WikiFormProps } from "@/components/wiki/types/WikiCommonType";
 import "@toast-ui/editor/dist/i18n/ko-kr";
-import { MarkdownEditor } from "./MarkdownEditor";
+import { MarkdownEditor } from "../markdown/MarkdownEditor";
 
 export default function WikiForm({
   form,
