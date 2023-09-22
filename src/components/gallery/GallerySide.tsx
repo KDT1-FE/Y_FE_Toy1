@@ -12,7 +12,7 @@ import { app } from "../../../firebase";
 import * as style from "./GallerySideStyle";
 import Button from "../common/Button";
 import Input from "../common/Input";
-// import { IoIosArrowDown, IoIosArrowUp } from "react-icons/Io";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/Io";
 
 const firestore = getFirestore(app);
 
@@ -198,13 +198,11 @@ export default function GallerySide({
                       <style.ArrowIcon>🔧</style.ArrowIcon>
                     ) : drop[index] ? (
                       <style.ArrowIcon>
-                        {/* <IoIosArrowUp /> */}
-                        <span>1</span>
+                        <IoIosArrowUp />
                       </style.ArrowIcon>
                     ) : (
                       <style.ArrowIcon>
-                        {/* <IoIosArrowDown /> */}
-                        <span>2</span>
+                        <IoIosArrowDown />
                       </style.ArrowIcon>
                     )}
                   </style.Arrow>

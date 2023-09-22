@@ -1,7 +1,7 @@
 import * as Styled from "./WikiCategoryListStyle";
 import { useState } from "react";
 import { Wiki, WikiCategoryProps } from "@/components/wiki/WikiCommonType";
-// import { IoIosArrowDown, IoIosArrowUp } from "react-icons/Io";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/Io";
 
 const WikiCategoryList = ({
   WiKiList,
@@ -45,11 +45,9 @@ const WikiCategoryList = ({
                 </Styled.WikiTitle>
                 <Styled.ArrowIcon onClick={() => handleArrowClick(wiki)}>
                   {unfoldedWikiIds.includes(wiki.wikiID) ? (
-                    // <IoIosArrowUp />
-                    <s>1</s>
+                    <IoIosArrowUp />
                   ) : (
-                    // <IoIosArrowDown />
-                    <s>2</s>
+                    <IoIosArrowDown />
                   )}
                 </Styled.ArrowIcon>
               </Styled.ParentWikiWrapper>
