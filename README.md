@@ -5,7 +5,7 @@
 > 직원들을 위한 WIKI 서비스 <br>
 > 개발기간: 2022.09.11 ~ 2022.09.22
 
-**[WIKI 바로 가기](<[https://energizer-wiki.vercel.app](https://energizer-wiki.vercel.app/)>)**
+**[WIKI 바로 가기](https://energizer-wiki.vercel.app)**
 
 **[WIKI repositories 바로가기](https://github.com/energizer-develop/Y_FE_WIKI)**
 
