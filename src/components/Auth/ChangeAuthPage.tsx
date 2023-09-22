@@ -2,10 +2,6 @@ import { Link } from 'react-router-dom';
 
 import '../../scss/components/auth/changeAuthPage.scss';
 
-interface ChangeAuthPageProps {
-  target: string;
-}
-
 const ChangeAuthPage = ({ target }: ChangeAuthPageProps): JSX.Element => {
   const checkTarget = (target: string) => {
     return <Link to={target}>{target === '/register' ? 'Sign Up' : 'Sign In'}</Link>;
@@ -18,3 +14,7 @@ const ChangeAuthPage = ({ target }: ChangeAuthPageProps): JSX.Element => {
 };
 
 export default ChangeAuthPage;
+
+interface ChangeAuthPageProps {
+  target: string;
+}

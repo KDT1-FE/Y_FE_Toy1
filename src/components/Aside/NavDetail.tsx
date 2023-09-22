@@ -1,11 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-interface Link {
-  to: string;
-  text: string;
-}
-
 const NavDetail = () => {
   const [isClicked, setIsClicked] = useState<number>(0);
 
@@ -38,3 +33,8 @@ const NavDetail = () => {
 };
 
 export default NavDetail;
+
+interface Link {
+  to: string;
+  text: string;
+}

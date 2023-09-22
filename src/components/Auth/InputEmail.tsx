@@ -2,16 +2,6 @@ import { Icon, ErrorMsg } from '../../components/Auth';
 
 import '../../scss/components/auth/input.scss';
 
-interface InputType {
-  value: string;
-  validationPass: boolean;
-}
-
-interface EmailProps {
-  email: InputType;
-  handleEmail: React.ChangeEventHandler<HTMLInputElement>;
-}
-
 const InputEmail = ({ email, handleEmail }: EmailProps): JSX.Element => {
   return (
     <div className="input-container">
@@ -37,3 +27,13 @@ const InputEmail = ({ email, handleEmail }: EmailProps): JSX.Element => {
 };
 
 export default InputEmail;
+
+interface InputType {
+  value: string;
+  validationPass: boolean;
+}
+
+interface EmailProps {
+  email: InputType;
+  handleEmail: React.ChangeEventHandler<HTMLInputElement>;
+}

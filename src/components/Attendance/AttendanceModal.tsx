@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { collection, addDoc, doc, updateDoc, Timestamp } from 'firebase/firestore';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { db, auth } from '../../firebase';
 import Modal from '../Modal';
 
 import '../../scss/components/_attendanceModal.scss';
-
-interface AttendanceProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
 
 const Attendance = ({ isOpen, onClose }: AttendanceProps) => {
   const [time, setTime] = useState(new Date());
@@ -126,3 +121,8 @@ const Attendance = ({ isOpen, onClose }: AttendanceProps) => {
 };
 
 export default Attendance;
+
+interface AttendanceProps {
+  isOpen: boolean;
+  onClose: () => void;
+}

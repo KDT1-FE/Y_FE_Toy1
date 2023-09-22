@@ -1,13 +1,6 @@
-import React from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 
 import '../scss/components/_modal.scss';
-
-interface ModalProps {
-  children?: React.ReactNode;
-  onClose?: () => void;
-  showCloseButton?: boolean;
-}
 
 const Modal = ({ children, onClose, showCloseButton = true }: ModalProps): JSX.Element => {
   const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -27,3 +20,9 @@ const Modal = ({ children, onClose, showCloseButton = true }: ModalProps): JSX.E
 };
 
 export default Modal;
+
+interface ModalProps {
+  children?: React.ReactNode;
+  onClose?: () => void;
+  showCloseButton?: boolean;
+}

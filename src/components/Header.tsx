@@ -9,16 +9,6 @@ import '../scss/components/_header.scss';
 
 import logo from '../assets/highfive_logo.png';
 
-interface StateValue {
-  isLogin: boolean;
-  name: string;
-  email: string;
-}
-
-interface State {
-  loginUpdate: StateValue;
-}
-
 const Header = (): JSX.Element => {
   const [dropDownOpen, setDropDownOpen] = useState<boolean>(false);
   const [modal, setModal] = useState<boolean>(false);
@@ -63,3 +53,13 @@ const Header = (): JSX.Element => {
 };
 
 export default Header;
+
+interface StateValue {
+  isLogin: boolean;
+  name: string;
+  email: string;
+}
+
+interface State {
+  loginUpdate: StateValue;
+}

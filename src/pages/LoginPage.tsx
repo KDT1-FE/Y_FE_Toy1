@@ -11,15 +11,6 @@ import { useNavigate } from 'react-router-dom';
 
 import '../scss/authPage.scss';
 
-interface FormElements extends HTMLFormElement {
-  email: HTMLInputElement;
-  password: HTMLInputElement;
-}
-
-interface FormTarget extends React.FormEvent<HTMLFormElement> {
-  target: FormElements;
-}
-
 const LoginPage = (): JSX.Element => {
   const [email, handleEmail] = useInput('email', { value: '', validationPass: false });
 
@@ -67,3 +58,12 @@ const LoginPage = (): JSX.Element => {
 };
 
 export default LoginPage;
+
+interface FormElements extends HTMLFormElement {
+  email: HTMLInputElement;
+  password: HTMLInputElement;
+}
+
+interface FormTarget extends React.FormEvent<HTMLFormElement> {
+  target: FormElements;
+}

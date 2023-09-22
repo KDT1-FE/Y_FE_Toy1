@@ -1,4 +1,3 @@
-import React from 'react';
 import '../scss/listbox.scss';
 
 const ListBox = (): JSX.Element => {

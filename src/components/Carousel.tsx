@@ -7,16 +7,6 @@ import { db } from '../firebase';
 
 import '../scss/carousel.scss';
 
-interface NoticeData {
-  content: string;
-  id: string;
-  number: number;
-  time: string;
-  title: string;
-  url: string;
-  userEmail: string;
-}
-
 const Carousel = () => {
   const [data, setData] = useState<NoticeData[]>();
 
