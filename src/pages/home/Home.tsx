@@ -34,29 +34,35 @@ export default function Home() {
     <>
       <style.Temp>
         <style.Item1>
-          <h3>공지사항</h3>
+          <style.MainTitle>공지사항</style.MainTitle>
         </style.Item1>
         <style.Item2>
           <Carousel />
         </style.Item2>
-        <style.Item3>
-          <style.MainTitleWrapper>
-            <h3>최근 업데이트 된 WIKI</h3>
-            <style.MoreBtn to={"/wiki"}>더보기 &gt;</style.MoreBtn>
-          </style.MainTitleWrapper>
-        </style.Item3>
-        <>
-          {lastestWikis?.map((lastestWiki) => {
-            return (
-              <div key={lastestWiki.wikiID}>
-                <WikiPreview wikiData={lastestWiki} />
-              </div>
-            );
-          })}
-        </>
+        <style.MainTitleWrapper>
+          <style.MainTitle>최근 업데이트 된 WIKI</style.MainTitle>
+          <style.MoreBtn to={"/wiki"}>더보기 &gt;</style.MoreBtn>
+        </style.MainTitleWrapper>
+        {lastestWikis ? (
+          <>
+            {lastestWikis?.map((lastestWiki) => {
+              return (
+                <div key={lastestWiki.wikiID}>
+                  <WikiPreview wikiData={lastestWiki} />
+                </div>
+              );
+            })}
+          </>
+        ) : (
+          <>
+            <style.SideSkeleton />
+            <style.SideSkeleton />
+          </>
+        )}
+
         <style.Item6>
           <style.MainTitleWrapper>
-            <h3>최근 업데이트 된 GALLERY</h3>
+            <style.MainTitle>최근 업데이트 된 GALLERY</style.MainTitle>
             <style.MoreBtn to={"/gallery"}>더보기 &gt;</style.MoreBtn>
           </style.MainTitleWrapper>
         </style.Item6>

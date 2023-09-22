@@ -114,7 +114,7 @@ export default function Header({ uid, email }: Props) {
               padding={"0.3125rem 0.75rem"}
               onClick={onCommuteClick}
             />
-            <style.LogoutBtn onClick={logout}>Logout</style.LogoutBtn>
+            <style.LogoutBtn onClick={logout}>LOGOUT</style.LogoutBtn>
           </style.Wrapper>
         </style.Top>
         <style.Bottom>
