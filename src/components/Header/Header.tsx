@@ -5,13 +5,48 @@ import { RootState } from '../../redux/types';
 import { logoutAction } from '../../redux/action';
 import './Header.css';
 import logo from '../../images/logo.png';
+import { updateFirestoreUserStatus } from 'components/TimerUserCard/IsLoggedIn';
+import { auth } from 'data/firebase';
+import { useEffect, useState } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
 
 export default function Header() {
   const user = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  /// Redux 스토어에 로그아웃 액션을 디스패치한 후 세션 스토리지 업데이트
+  useEffect(() => {
+    onAuthStateChanged(auth, (authUser) => {
+      if (authUser) {
+        // 로그인한 경우
+        const userId = authUser.uid;
+        setIsLoggedIn(true);
+        updateFirestoreUserStatus(userId, true);
+      } else {
+        // 로그아웃한 경우
+        const userId = sessionStorage.getItem('uid');
+        if (userId) {
+          setIsLoggedIn(false);
+          updateFirestoreUserStatus(userId, false);
+        }
+      }
+    });
+  }, []);
+
   const handleLogout = () => {
+    const user = auth.currentUser;
+
+    if (user) {
+      const userId = sessionStorage.getItem('uid');
+      if (userId) {
+        // Firebase Auth에서 로그아웃
+        auth.signOut();
+
+        updateFirestoreUserStatus(userId, false);
+        setIsLoggedIn(false);
+      }
+    }
+
     dispatch(logoutAction());
     sessionStorage.clear();
   };
