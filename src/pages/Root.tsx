@@ -182,7 +182,7 @@ export default function Root() {
         <div className="post-container">
           <div className="post-list">
             <div className="post-list-top">
-              <div className="posted-text">🔥Study with me🔥</div>
+              <div className="posted-text">🔥Together Study🔥</div>
               <button className="newPostBtn">
                 {user && user.uid ? (
                   <div className="open-modal-button" onClick={handleOpenModal}>
