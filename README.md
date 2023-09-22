@@ -1,203 +1,209 @@
-# **📅 직원들을 위한 위키 사이트**
 
-직원 들을 위한 위키 사이트를 만들어보세요!
-위키 사이트에는 위키 뿐 아니라 여러 기능이 추가되어야 합니다!
 
-### **[과제 수행 및 제출 방법]**
+# FAST WIKI : 패캠 수강생을 위한 위키
+## 📚프로젝트 소개
+ **제작기간** : 2023.09.08 ~ 2023.09.22 
+ <br>
+ **제작인원** : 5명
+ 
+- 패스트 캠퍼스 수강생을 위한 `편의 기능 제공`(QR, 줌 링크, 노션 링크 ..)
+- `행정 처리 정보`(출석정정, 휴가 ..)를 수정 가능한 `위키 형태로 제공`
+- 공지사항과 수강생의 랜덤 토크가 가능한 `갤러리 기능 제공`
+- `랭킹 시스템`과 `등급제`로 수강생끼리의 학습을 촉진
+
+<br>
+<div align=center>
+  <a href="https://fastcampus-wiki.netlify.app/" target="_blank">
+    <img src="https://img.shields.io/badge/배포 링크-ed234b?style=for-the-badge&logoColor=white" alt="example"/>
+  </a>
+</div>
+
+<br>
+
+## 👩‍💻팀원소개
 
-1. 현재 저장소를 로컬에 클론(Clone)합니다.
-2. 자신의 팀명으로 브랜치를 생성합니다.(구분 가능하도록 팀명을 꼭 파스칼케이스로 표시하세요, git branch Y_FE_Toy1_Team13)
-3. 자신의 팀명 브랜치에서 과제를 수행합니다.
-4. 과제 수행이 완료되면, 자신의 팀명 브랜치를 원격 저장소에 푸시(Push)합니다.(main 브랜치에 푸시하지 않도록 꼭 주의하세요, git push origin Y_FE_Toy1_Team13)
-5. 저장소에서 main 브랜치를 대상으로 Pull Request 생성하면, 과제 제출이 완료됩니다!(E.g, main <== Y_FE_Toy1_Team13)
-6. Pull Request 링크를 LMS로도 제출해 주셔야 합니다.
-7. main 혹은 다른 사람의 브랜치로 절대 병합하지 않도록 주의하세요!
-8. Pull Request에서 보이는 설명을 다른 사람들이 이해하기 쉽도록 꼼꼼하게 작성하세요!
-9. Pull Request에서 과제 제출 후 절대 병합(Merge)하지 않도록 주의하세요!
-10. 과제 수행 및 제출 과정에서 문제가 발생한 경우, 바로 담당 멘토나 강사님께 얘기하세요!
+| 심정아  | 이예인 | 장호진 | 정효주 | 최우혁 | 이재협 멘토님|
+|--- | --- | --- | --- | --- | --- |
+|[joanShim](https://github.com/joanShim)|[furaha707](https://github.com/furaha707) |[LeHiHo](https://github.com/LeHiHo)     |              [hhjs2](https://github.com/hhjs2) |[Taepoong](https://github.com/TaePoong719) | [LEEJAEHYUB](https://github.com/LEEJAEHYUB) |
+| ![](https://user-images.githubusercontent.com/35457850/269966343-e033bed1-4e2f-4749-949b-e66214fa2db6.png) | ![](https://github.com/furaha707/crypto-tracker/assets/95595106/fe5fd1fb-f75d-450d-9788-71548061955f) | ![](https://avatars.githubusercontent.com/u/134940630?v=4) | ![](https://github.com/TaePoong719/fastcampus-wiki/assets/102405617/c02c2b58-0aea-4617-861e-f590ee5f6d00) | ![](https://avatars.githubusercontent.com/u/98576512?v=4) | ![](https://avatars.githubusercontent.com/u/53159164?v=4) |
+| `학습시간 기록`, `모달 컴포넌트 디자인 시안` | `갤러리 CRUD`, `에디터`, `카테고리 필터링`, `페이지네이션` | `메인페이지`, `캐러샐`, `최근게시물`, `랭킹페이지`, `다크모드` | `wiki page`, `댓글 CRUD`, `사이드바`, `wiki 반응형`, `마크다운 에디터`  | `배포`, `레이아웃 및 초기설정`, `헤더`, `회원가입/로그인` , `유저정보`, `등급 판별`  |`따스한 멘토링 및 코드리뷰`❤️   |
 
-### **[필수 구현사항]**
+<br>
 
-- 문서편집, revision 기능을 제공하여 업무일지를 작성할 수 있는 직원들을 위한 위키사이트 구현(마크다운 형식)
-- firebase database (Firestore) 이용
-- 모달을 활용한 근무 시간을 표시하는 시계 및 타이머 창 구현
-- 캐러셀을 활용한 회사 공지 페이지
-- **갤러리 페이지 / 업무일지 페이지 등 메뉴를 필터링 또는 카테고리화 하는 선택바 구현**
-- netlify 등을 이용한 정적 페이지 배포
-- TypeScript 사용 필수
-- 과제에 대한 설명을 포함한 `README.md` 파일 작성
-    - 팀원별로 구현한 부분 소개
 
-### **[선택 구현사항]**
+## 🎁기술 스택
+<div align=center  > 
+	<div> <b>✨Browser✨</b> </div>
+	<div>  
+			<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
+		  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+		    <img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E">
+  </div>
+  <br>
+	<div> ✨<b>Library</b>✨ </div>
+	<div>  
+	    <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white">
+	    <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
+	    <img src="https://img.shields.io/badge/firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=white">
+	    <img src="https://img.shields.io/badge/styledComponents-DB7093?style=for-the-badge&logo=styledComponents&logoColor=white">
+  </div>
+    <br>
+	<div> ✨<b>Deploy / Dev </b>✨</div>
+	<div>  
+		    <img src="https://img.shields.io/badge/netlify-00C7B7?style=for-the-badge&logo=firebase&logoColor=white">
+		  <img src="https://img.shields.io/badge/webpack-8DD6F9?style=for-the-badge&logo=webpack&logoColor=white">
+		  <img src="https://img.shields.io/badge/dotenv-ECD53F?style=for-the-badge&logo=dotenv&logoColor=white">
+  </div>
+</div>
 
-- React 사용은 선택
-- 기타 동작이 완료되기 전에 로딩 애니메이션 구현
-- 페이지네이션
-- 관련된 기타 기능도 고려
-- eslint 설정, 커밋컨벤션, 문서화 등 팀프로젝트시 필요한 추가 작업들
+<br>
 
----
+## 👤유저플로우
+![image](https://github.com/TaePoong719/fastcampus-wiki/assets/98576512/1470f6e0-0cd7-447f-a808-637c89e6e34a)
 
-## 가이드
+<br>
 
-아래 예시는 모두 하나의 의견입니다!
+## 🖼️라우터 구조
+![image](https://github.com/TaePoong719/fastcampus-wiki/assets/98576512/b840308a-7db9-49e1-a32f-238e7841973b)
 
-따라하는게 아니라 자신만의 결과물을 만들어보세요.
+<br>
 
-### 공지사항
-[영상 1]
+## ✨세부 기능 설명
 
+### 1️⃣ 메인 페이지 - 장호진
 
-### **모달 타이머**
-[영상 2]
+-   퀵링크(온라인강의, 노션, 줌, 슬랙, 스프레드시트)가 포함된 배너를 제작하여 react-slickd을 이용해 캐러셀을 구현
+-   firebase에 저장된 studytime 상위 5명 표시
+-   갤러리의 최신게시물 6개 표시
 
+https://github.com/TaePoong719/fastcampus-wiki/assets/134940630/8a401c1c-1372-4ed2-91bb-6a575a6d0244
 
-https://github.com/KDT1-FE/Y_FE_Toy1/assets/38754963/20c18d28-5a01-4163-876c-be74a24f62db
 
 
+### 2️⃣ wiki 페이지 - 정효주
+| 페이지별 화면 렌더링 | 회원 로그인 확인 |
+|--|--|
+| ![1](https://github.com/TaePoong719/fastcampus-wiki/assets/102405617/a34059db-05af-4887-91db-b1808d26573e)| ![2](https://github.com/TaePoong719/fastcampus-wiki/assets/102405617/284297ee-01ab-484f-a950-85ffb64c824b)|
 
-### **마크다운 위키사이트**
-[영상 3]
+ |마크다운 에디터  | 수정 후 작성자 시간 업데이트 |
+|--|--|
+| ![](https://github.com/TaePoong719/fastcampus-wiki/assets/102405617/2937b9c0-5cea-4a33-94b4-4fd05ecb8f92)| ![](https://github.com/TaePoong719/fastcampus-wiki/assets/102405617/357413a6-405d-4c8a-8358-cf94c0113b70)
 
+-   페이지 별로 저장된 데이터를 Firebase로 불러와 화면에 보여짐
+-   로그인 전 수정 시도 시 경고 알람창이 뜬 후 확인 버튼을 누르면 로그인 창으로 이동
+-   마크다운 문법으로 수정한 후, firebase에 Update됨
+-   글 수정시 수정한 사람, 수정한 날짜 Update
 
-https://github.com/KDT1-FE/Y_FE_Toy1/assets/38754963/08e3efca-8137-44d8-a0af-c62a668b810b
+<br>
 
+### 3️⃣댓글 기능 - 정효주
+![https://github.com/TaePoong719/fastcampus-wiki/assets/102405617/2a13692e-2b1e-4f0d-b893-265b2cd89b30](https://github.com/TaePoong719/fastcampus-wiki/assets/102405617/2a13692e-2b1e-4f0d-b893-265b2cd89b30)
+-   로그인 여부에 따라 댓글을 입력하면 firebase에 데이터를 등록
+![3](https://github.com/TaePoong719/fastcampus-wiki/assets/102405617/8bca8f8d-b464-456d-ab40-89276f64c37c)
+-   랭킹 페이지 유저의 등급 별로 Emblem 등급 다르게 표시 됨
+-   firebase에서 실시간으로 데이터를 불러와 새로고침하지 않아도 작성한 댓글이 생성
+-   자신이 작성한 댓글만 삭제와 수정 버튼이 보여 가능
+<br>
 
+ ### 4️⃣ 갤러리 - 이예인
+- 공지 및 자유게시판의 용도의 갤러리 페이지 구현
 
-### **갤러리**
-[영상 4]
+|카테고리 필터링  | 페이징 (3x2) | 리스트 페이지 |
+|--|--|--|
+| ![](https://github.com/furaha707/crypto-tracker/assets/95595106/44a6b594-94a5-4356-811a-45b714a58e88) | ![](https://github.com/furaha707/crypto-tracker/assets/95595106/edda4115-ee0e-471a-bd84-dde5447a86d3)|![](https://github.com/furaha707/crypto-tracker/assets/95595106/97b834d2-5df6-49b3-8401-132c7f0e7655)|
 
----
+- 게시글에 썸네일 지정, 이미지 및 텍스트 작성 및 수정 가능
 
-# **[Firestore]**
+| 상세페이지 | 새 게시글 등록 | 게시글 수정 |
+| --- | --- | --- |
+| ![](https://github.com/furaha707/crypto-tracker/assets/95595106/28633cec-bf3f-4820-a954-a1bdda3f534d) | ![](https://github.com/furaha707/crypto-tracker/assets/95595106/8e867c00-78d7-43c2-9ee3-785dd7fee43a) | ![](https://github.com/furaha707/crypto-tracker/assets/95595106/74b0bfb3-d2f8-456c-9b06-578fd536436d) |
 
-Firestore에 대한 가이드입니다.
+<br>
 
-자세한 내용은 [공식 홈페이지](https://firebase.google.com/?hl=ko) 를 찾아보길 적극 권장합니다!
+### 5️⃣ 랭크 - 장호진
+-   firebase에 저장된 유저의 공부시간을 순위별로 표시하고 댓글창 구현
+  
+https://github.com/TaePoong719/fastcampus-wiki/assets/134940630/6a7c8691-6bbe-4035-b32e-68c4cdeb5951
 
-### **App init**
 
-```jsx
-import { getFirestore } from "firebase/firestore";
 
-export const db = getFirestore(fireBaseApp);
-```
+### 6️⃣ 헤더, 사이드바 반응형 - 최우혁
+| 데스크톱 | 모바일(로그인X) | 모바일(로그인O) |
+|--|--|--|
+|  ![](https://github.com/TaePoong719/LoL_Champion_Management/assets/98576512/f87ed840-d4da-4190-88c1-48ee610b9a3f)| ![](https://github.com/TaePoong719/LoL_Champion_Management/assets/98576512/fde2b995-1b54-41e6-a9eb-bb42e0ed815e) | ![](https://github.com/TaePoong719/LoL_Champion_Management/assets/98576512/25ccb66a-9a08-43b9-a114-621b7a4fc5c8) |
 
-### Firestore 데이터 추가하기
+-   반응형 헤더 구현(별도의 모바일 헤더 컴포넌트)
 
-Firestore의 데이터를 추가하는 방법은 크게 두가지이다.
+![](https://github.com/TaePoong719/fastcampus-wiki/assets/98576512/8c3ca410-57b6-43cb-a5de-2c043dfb272d)
 
-1. Firebase console에서 손수 데이터 추가해주기
-2. 코드로 데이터 추가하기
+-   사이드바 반응형 애니메이션
 
-### 1. Firebase console에서 손수 데이터 추가해주기
+<br>
 
-1. [Firebase console](https://console.firebase.google.com/u/0/?hl=ko)에 접속한다.
-2. 자신의 프로젝트를 선택한다.
-3. 왼쪽 메뉴에서 `Firestore Database`를 선택한다.
-4. `+ 버튼`을 눌러 컬렉션 > 문서를 마음대로 추가해준다.
-5. 필드를 추가하여 문서에 데이터를 넣어준다.
+### 7️⃣ 회원가입 / 로그인 - 최우혁
 
-### 2. 코드로 데이터 추가하기
+| 회원가입/로그인 | 예외처리 |
+|--|--|
+| ![](https://github.com/TaePoong719/LoL_Champion_Management/assets/98576512/d77839c7-42cf-429a-bc9a-86689fa938dd) | ![](https://github.com/TaePoong719/fastcampus-wiki/assets/98576512/04df1c85-5d98-4b0d-91c4-631fc3922aec) |
 
-Firestore는 `setDoc`, `addDoc` 두 가지 함수로 데이터를 추가할 수 있다.
+-   Firebase Authentication을 이용하여 유저 정보를 관리
+-   Firebase Firestore 유저 컬렉션으로 프로필 사진과, 공부시간, 등급 등의 정보를 가져 동료들의 작업을 원활히 도움
+-   유저의 편의성을 위해, 로그인 후 자동으로 진입 전 페이지로 돌아감(회원가입 페이지는 제외)
+-   로그인, 회원가입 에러 예외처리
 
-이제 원하는 데이터를 추가해보자.
+<br>
 
-**1. `addDoc`**
+### 8️⃣ 학습시간 기록 - 심정아
+| 초기 화면 | 학습시간 기록 시작 | 모달 off |
+|--|--|--|
+|![](https://user-images.githubusercontent.com/35457850/269947781-3633fd48-bb7e-4b82-9782-4b73085ff704.png)  | ![](https://user-images.githubusercontent.com/35457850/269936646-ddd7f7ba-1977-4789-8243-64ddf940a1bf.png) | ![](https://user-images.githubusercontent.com/35457850/269949144-8eb5eb19-07f0-4e83-b893-fadda48e4d8b.png) |
 
-`addDoc`은 아래와 같이 사용하여 원하는 데이터를 추가할 수 있다.
+학습시간의 측정을 위해서 공부 시작과 종료를 측정하고 누적 공부시간을 Firebase firestore에 저장
 
-```
-import { addDoc, collection } from "firebase/firestore";
+1.  header의 학습기록 버튼 생성
+2.  로그인 상태에서 학습기록 버튼을 누르면 나타나는 Modal에서 학습 기록을 시작
+    1.  Modal을 닫아도 기록 상태 유지
+    2.  학습 기록 시작 시 header에서 기록 중 표시
+3.  Modal 내 현재시각, 현재까지의 학습시간이 표시
+4.  공부 중일 경우 `기록중` 배지 표시
+5.  공부 종료 시 계산 된 학습시간은 분단위로 올림되어 firestore에 저장
 
-const writtenDoc = await addDoc(collection(db, "wiki"), {
-  title: "LGH",
-  description: "허먼밀러...사고싶다...",
-});
+<br>
 
-console.log("Document written with ID: ", writtenDoc.id);
-// 새로 생성된 Document의 ID를 반환한다.
-```
+### 9️⃣ 유저정보 - 최우혁
+| 데스크톱 | 모바일 | 사진 편집 |
+|--|--|--|
+| ![](https://github.com/TaePoong719/fastcampus-wiki/assets/98576512/ec22eafc-7aee-4c1e-a838-e120460f3801)|![](https://github.com/TaePoong719/LoL_Champion_Management/assets/98576512/25ccb66a-9a08-43b9-a114-621b7a4fc5c8)| ![](https://github.com/TaePoong719/LoL_Champion_Management/assets/98576512/ae51bf96-80a4-4310-a352-6c3986a26448) |
+-   사진 편집 기능 : 편집 버튼을 누르면 파일 입출력이 나오고, `사진 저장` 버튼으로 바뀝니다
+-   반응형에 따른 조건부 렌더링
 
-원하는 데이터를 추가하기 위해선 먼저 원하는 collection을 선택해야 한다. 위 예제의 `addDoc` 안에서 사용한 `collection` 함수는 db상에 있는 collection을 선택하거나 없을 경우 새로운 collection을 생성하여 반환한다.
+<br>
 
-Firebase의 Doc는 기본적으로 ID를 가져야 하는데, addDoc을 사용하면 ID를 자동으로 만든다. 또한, 이미 존재하는 Doc에 `addDoc`을 사용하면 에러가 발생한다.
+### 🔟 등급 판별 - 최우혁
 
-**2. `setDoc`**
+![](https://github.com/TaePoong719/LoL_Champion_Management/assets/98576512/2cd6fa07-a2d0-45b5-ab29-f37040de00ac)
 
-`setDoc`은 아래와 같이 사용하여 원하는 데이터를 추가할 수 있다.
+-   학습시간 기록과 로그인 시에 localStorage와 firestore의 등급을 갱신
+-   데이터베이스의 사용을 줄이기 위하여 localStorage를 사용
+-   등급 변경 시 Alert 창을 통하여 유저에게 알림
+-   여러 컴포넌트에서 사용하는 로직을 한 함수, 한 기능 원칙을 통해 간결하게 정리
+<br>
 
-```
-import { setDoc, doc } from "firebase/firestore";
+### 1️⃣1️⃣ 다크모드 - 장호진
 
-await setDoc(doc(db, "wiki", "new-id"), {
-  title: "LGH",
-  description: "허먼밀러...사고싶다...",
-});
-```
+모든 요소를 전역적으로 관리하는 다크모드
 
-`addDoc`과의 차이점은
+https://github.com/TaePoong719/fastcampus-wiki/assets/134940630/8f7bc696-2058-4987-add7-4b0520f604a1
 
-1. **id** 를 지정해줘야함
-2. `collection` 대신 `doc`을 사용함
-3. 이미 존재하는 Doc에 사용가능
 
-3가지 이다.
 
-`setDoc`은 `addDoc`과 달리 collection이 아니라 doc를 선택해야 한다. 이는 `setDoc`이 데이터의 추가 뿐 아니라 데이터 덮어쓰기 기능도 가지고 있기 때문이다. 러프하게 생각해보면 `setDoc`은 데이터를 추가할 때
+### 1️⃣2️⃣ 반응형 디자인 - 공통
+- 모든 페이지에 반응형 적용
 
-1. doc을 선택하거나 새로운 doc을 생성
-2. doc의 내용을 덮어씀
+https://github.com/TaePoong719/fastcampus-wiki/assets/134940630/e569ff82-9287-4019-8cc5-c382651513a8
 
-의 방식으로 동작하는 것이다.
 
-Doc을 선택하는 방법은 `doc` 함수를 사용하는 것이다. `[doc()](https://firebase.google.com/docs/reference/js/firestore_.md?hl=ko#doc)` 함수는 `DocumentReference` instance를 반환한다. 절대 경로를 사용하여 원하는 Document를 선택할 수 있다. 위에서 만들어둔 `wiki > completed` 문서는 아래처럼 불러올 수 있다.
 
-```
-import { doc } from "firebase/firestore";
 
-const docRef = doc(db, "wiki", "completed");
-```
 
-`doc` 함수의 3번째 인자가 바로 **id** 이다. id는 이미 존재하는 Doc의 id를 사용할 수도 있고, 새로운 id를 사용할 수도 있다. 존재하는 id를 사용하는 경우에는 해당 Doc의 데이터를 덮어쓰게 된다. 그렇지 않은 경우엔 새로운 Doc를 생성한다.
-
-어쨌거나 데이터를 새로 추가할 수 있는 것이다.
-
-### Firestore 데이터 수정하기
-
-Firestore의 데이터를 수정하는 방법은 크게 두가지이다.
-
-1. Firebase console에서 손수 데이터 수정해주기
-1. 코드로 데이터 수정하기
-
-1번은 데이터 생성과 비슷하게 진행하면 된다.
-
-**2. 코드로 데이터 수정하기**
-
-Firestore는 `setDoc`, `update` 두 가지 함수로 데이터를 추가할 수 있다.
-
-`setDoc`을 사용하는 방법은 위에 적혀있다.
-
-### `update`
-
-`setDoc`은 데이터를 덮어쓴다. 따라서 기존의 문서를 유지한 채 일부분의 데이터만 변경하고 싶어도 이전의 데이터를 모두 새로 입력해야 한다.
-
-그러나 `update`는 기존의 데이터를 유지한 채 일부분의 데이터만 변경할 수 있다.
-
-```jsx
-import { updateDoc, doc } from "firebase/firestore";
-
-await updateDoc(doc(db, "wiki", "new-id"), {
-  description: "허먼밀러...200만원...",
-});
-```
-
-위와 같이 코드를 작성하면 `new-id`라는 id를 가진 문서의 description만 변경된다.
-
----
-
-### *참고 링크
-
-- **[Firebase](https://firebase.google.com/docs?hl=ko)**
-- [**프로토타입 프로젝트**](https://stfe.vercel.app/)
+### [기술문서 보러가기](/22a666a904a741b488dc774966abe344?pvs=25)
