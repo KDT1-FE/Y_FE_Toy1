@@ -5,7 +5,7 @@ import { storage, db } from "../../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore"
-import { getClassName } from "utils/class";
+import Swal from "sweetalert2";
 
 const UserInfo: React.FC<Props> = ({ handlerLogout, user, isborder }) => {
   const [isLogout, setIsLogout] = useState(true); // Logout 모드(true) 또는 사진 추가 모드(false)가 가능합니다.
@@ -13,7 +13,7 @@ const UserInfo: React.FC<Props> = ({ handlerLogout, user, isborder }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const reader = new FileReader();
   let isPending = false;
-  const userClassName = getClassName(Number(localStorage.getItem(user.uid)));
+  const userClass = Number(localStorage.getItem(user.uid))
 
   // 사진저장버튼 클릭
   const handlerConfirmImage = async () => {
@@ -33,10 +33,16 @@ const UserInfo: React.FC<Props> = ({ handlerLogout, user, isborder }) => {
           await updateDoc(doc(db, "user", user.uid), {
             url,
           });
-          alert("등록 성공했습니다");
+          Swal.fire({
+            icon:"success",
+            text: "사진이 성공적으로 수정됐습니다."
+          })
         } catch (error) {
-          console.error("Error uploading image:", error);
           // 이미지 업로드 실패 처리
+          Swal.fire({
+            icon:"error",
+            text: "사진이 수정에 실패했습니다. 관리자에게 문의해주세요"
+          })
         } finally {
           isPending = false;
           setIsLogout(true);
@@ -82,8 +88,17 @@ const UserInfo: React.FC<Props> = ({ handlerLogout, user, isborder }) => {
         <FileInput type="file" accept="image/*" ref={fileInputRef} onInput={handleFileChange} />
       </div>
 
-      <h1>{user.displayName + "님"}</h1>
-      <h3>{user.email}</h3>
+      <div className="userInfo__name-wrap">
+        <img 
+          src={process.env.PUBLIC_URL + `/png/class_${userClass}.png`} 
+          alt="유저계급 아이콘" 
+          />
+        <h1>{user.displayName + "님"}</h1>
+      </div>
+      <div className="userInfo__name-wrap">
+        <h3>{user.email}</h3>
+      </div>
+      
 
       <StyledButton onClick={isLogout ? handlerLogout : handlerConfirmImage}>
         <h4>{isLogout ? `로그아웃` : `사진저장`}</h4>
@@ -141,9 +156,26 @@ const Container = styled.section<IContainer>`
     right: 0;
     cursor: pointer;
   }
+  .userInfo__name-wrap{
+    display:flex;
+    width: 75%;
+    text-align:center;
+    justify-content: center;
+    img{
+      width: 45px;
+      height: 45px;
+    }
+    h1{
+      padding: 10px 3px;
+      white-space: nowrap; 
+      overflow: hidden; 
+      text-overflow: ellipsis; 
+    
+    }
+  }
   h1 {
     margin: 0;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
   }
   h3 {
