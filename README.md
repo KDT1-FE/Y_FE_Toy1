@@ -70,12 +70,15 @@
 
 ## ✨세부 기능 설명
 
-### 1️⃣ 메인 홈 - 장호진
+### 1️⃣ 메인 페이지 - 장호진
 
 -   퀵링크(온라인강의, 노션, 줌, 슬랙, 스프레드시트)가 포함된 배너를 제작하여 react-slickd을 이용해 캐러셀을 구현
 -   firebase에 저장된 studytime 상위 5명 표시
 -   갤러리의 최신게시물 6개 표시
-<br>
+
+https://github.com/TaePoong719/fastcampus-wiki/assets/134940630/8a401c1c-1372-4ed2-91bb-6a575a6d0244
+
+
 
 ### 2️⃣ wiki 페이지 - 정효주
 | 페이지별 화면 렌더링 | 회원 로그인 확인 |
@@ -119,8 +122,10 @@
 
 ### 5️⃣ 랭크 - 장호진
 -   firebase에 저장된 유저의 공부시간을 순위별로 표시하고 댓글창 구현
+  
+https://github.com/TaePoong719/fastcampus-wiki/assets/134940630/6a7c8691-6bbe-4035-b32e-68c4cdeb5951
 
-<br>
+
 
 ### 6️⃣ 헤더, 사이드바 반응형 - 최우혁
 | 데스크톱 | 모바일(로그인X) | 모바일(로그인O) |
@@ -188,6 +193,17 @@
 
 모든 요소를 전역적으로 관리하는 다크모드
 
-<br>
+https://github.com/TaePoong719/fastcampus-wiki/assets/134940630/8f7bc696-2058-4987-add7-4b0520f604a1
+
+
+
+### 1️⃣2️⃣ 반응형 디자인 - 공통
+- 모든 페이지에 반응형 적용
+
+https://github.com/TaePoong719/fastcampus-wiki/assets/134940630/e569ff82-9287-4019-8cc5-c382651513a8
+
+
+
+
 
 ### [기술문서 보러가기](/22a666a904a741b488dc774966abe344?pvs=25)
