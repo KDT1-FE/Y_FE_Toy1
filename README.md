@@ -1,17 +1,13 @@
-
 <div align="center">
   <h1>야놀자 Tech School Wiki</h1>
-  <img src="https://github.com/turkey-kim/techschool_wiki/assets/101972330/14385a7c-dd59-4026-8db9-1cc5006077e8" />
+  <img src="https://github.com/turkey-kim/techschool_wiki/assets/101972330/174d1fa7-4522-4ff7-91cd-cadcf49330a5" />
 </div>
 
 ## 🧑🏻‍💻 프로젝트 소개
 Toy Project로 제작된 `Yanolja Tech School Wiki`는 [야놀자 테크 스쿨](https://fastcampus.co.kr/b2g_yanoljatechschool)에 대한 다양한 정보를 담고 있는 Wiki 웹 사이트입니다.
 
-  
 <details>
 <summary>야놀자 테크 캠프 토이 프로젝트 설명</summary>
-
-<br/>
 
 # **📅 직원들을 위한 위키 사이트**
 
@@ -53,12 +49,16 @@ Toy Project로 제작된 `Yanolja Tech School Wiki`는 [야놀자 테크 스쿨]
 
 </details>
 
+<br/>
+
 ## 🧑🏻‍💻 Contributor
 > @[jinuk0316](https://github.com/jinuk0316) (이진욱) : Layout, Carousel  
 @[turkey-kim](https://github.com/turkey-kim) (김특희) : Layout, Ranking  
 @[JitHoon](https://github.com/JitHoon) (최지훈) : Firebase, Wiki  
 @[yangjaehyuk](https://github.com/yangjaehyuk) (양재혁) : Firebase, Gallery  
 @[suyeonnnnnnn](https://github.com/suyeonnnnnnn) (박수연) : Firebase, Timer  
+
+<br/>
 
 ## 🧑🏻‍💻 기술 스택
 
@@ -96,15 +96,39 @@ Toy Project로 제작된 `Yanolja Tech School Wiki`는 [야놀자 테크 스쿨]
   <img src="https://img.shields.io/badge/googlesheets-34A853?style=for-the-badge&logo=googlesheets&logoColor=white" />
 </div>
 
-## 🧑🏻‍💻 화면 구성
-- 메인 (카러셀)
-- 위키 (미리보기 + 수정 및 업로드)
-- 갤러리 (업로드 및 삭제)
-- 타이머 + 랭킹 (시간 기록 및 업로드 후 랭킹 화면)
+<br/>
 
-## 🧑🏻‍💻 아키텍쳐 디자인
+## 🧑🏻‍💻 Script
 
-## 🧑🏻‍💻 파일 구조
+### Development Mode
+```
+$ git clone https://github.com/turkey-kim/techschool_wiki.git
+$ nvm install v18.16.1
+$ nvm use 18.16.1
+$ npm ci
+$ npm run start
+```
+
+<br/>
+
+## 🧑🏻‍💻 디자인
+
+<br/>
+
+### Userflow
+
+![유저플로우](https://github.com/turkey-kim/techschool_wiki/assets/101972330/1e1086f4-5a51-4016-b621-5e0558966733)
+
+<br/>
+
+### 아키텍쳐 디자인 : 클라이언트-서버 아키텍쳐
+
+![클라이언트-서버]()
+
+
+<br/>
+
+### 파일 구조
 
 ```
 # CRA 사용
@@ -131,11 +155,10 @@ my-wiki-app/
 │   ├── pages/           # 라우터
 │   ├── styles/          # css styles
 │   ├── types/           # typescripts interface
-│   ├── utils/           # db, storgae
+│   ├── utils/           # db, storagae
 │   │ 
 │   ├── App.tsx
-│   ├── index.tsx
-│   └── custom.d.ts
+│   └── index.tsx
 │
 ├── public/
 ├── node_modules/
@@ -146,16 +169,26 @@ my-wiki-app/
 └── ...
 ```
 
-## 🧑🏻‍💻 Script
+<br/>
 
-### Development Mode
-```
-$ git clone https://github.com/turkey-kim/techschool_wiki.git
-$ nvm install v18.16.1
-$ nvm use 18.16.1
-$ npm ci
-$ npm run start
-```
+## 🧑🏻‍💻 화면 구성
+
+### Carousel
+![캐러셀](https://github.com/turkey-kim/techschool_wiki/assets/101972330/d8a43646-4a6a-440f-842f-6f5217b42c11)
+
+### Wiki
+![위키1](https://github.com/turkey-kim/techschool_wiki/assets/101972330/a0e55344-ff8e-440c-8883-9b25e93e05ec)
+![위키2](https://github.com/turkey-kim/techschool_wiki/assets/101972330/bf339e97-4e6d-4fb5-86bb-cd30afa9d088)
+
+### Gallery
+![갤러리1](https://github.com/turkey-kim/techschool_wiki/assets/101972330/2439807e-9457-4f50-9f4f-ac17d2c61a1e)
+![갤러리2](https://github.com/turkey-kim/techschool_wiki/assets/101972330/9f19e4bf-7456-416e-a6e9-d090e73ab047)
+
+### Timer + Ranking
+![타이머](https://github.com/turkey-kim/techschool_wiki/assets/101972330/7812cc2c-90b6-49d1-b939-22ede5c6c67a)
+
+
+<br/>
 
 ## 🧑🏻‍💻 팀 소개
 
