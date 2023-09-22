@@ -1,0 +1,59 @@
+* {
+  font-family: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+.toastui-editor-contents *:not(table) {
+  line-height: 200%;
+}
+/* WiKi */
+.wiki__wrapper {
+  margin: 30px;
+}
+
+.wiki__header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.wiki__title {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.wiki__header .wiki__btn-edit,
+.wikiEdit__btn-edit {
+  background-color: var(--main-color);
+  width: 95px;
+  height: 35px;
+  color: white;
+  border-radius: 4px;
+  border: none; /* 테두리 제거 */
+  outline: none; /* 포커스 테두리 제거 (선택 사항) */
+  cursor: pointer;
+}
+.wiki__textContent {
+  background-color: #fefef2;
+  min-height: 500px;
+  padding: 20px;
+}
+
+/* WiKiEdit */
+.wikiEdit__btn {
+  width: 210px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.wikiEdit__title {
+  font-size: 1.2rem;
+  width: 700px;
+}
+
+/* 에디터 수정 */
+.toastui-editor-contents p,
+.toastui-editor-contents h6 {
+  font-size: 1rem;
+}
