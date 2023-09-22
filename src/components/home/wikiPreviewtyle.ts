@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Container = styled(Link)`
-  width: 22.5rem;
+  width: 100%;
 
   border-radius: 15px;
   background: var(--color-white);
@@ -16,6 +16,10 @@ export const Container = styled(Link)`
   &:hover {
     border: 1px solid var(--color-main);
     box-shadow: 0px 4px 4px 0px #00000026;
+  }
+
+  @media (min-height: 920px) {
+    height: 25vh;
   }
 `;
 

@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import { auth } from "../../../firebase";
+import { auth } from "@/firebase/firebase";
 
 export default function RootPage() {
   const Root = () => {

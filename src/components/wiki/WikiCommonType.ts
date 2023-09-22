@@ -32,6 +32,7 @@ export type WikiTopProps = {
 
 export type WikiCategoryProps = {
   WiKiList: Wiki[];
+  hasChildMap: HasChildMap;
   onEntryClick: (entry: Wiki) => void;
   onArrowClick: (entry: Wiki) => void;
   isVisible: boolean;
@@ -39,15 +40,18 @@ export type WikiCategoryProps = {
 
 export type WikiFormProps = {
   form: Wiki;
+  parents: Wiki[];
+  hasChildMap: HasChildMap;
   onFormChange: (key: keyof Wiki, value: string) => void;
   editorRef: React.MutableRefObject<Editor | null>;
-  parents: Wiki[];
 };
 
 export type WikiContentProps = {
   currentUser: string;
   Wiki: Wiki | null;
   form: Wiki;
+  parents: Wiki[];
+  hasChildMap: HasChildMap;
   isEditMode: boolean;
   isLoading: boolean;
   onFormChange: (key: keyof Wiki, value: string) => void;
@@ -55,7 +59,6 @@ export type WikiContentProps = {
   onWikiDeleteButtonClick: () => void;
   toggleEditMode: () => void;
   editorRef: React.MutableRefObject<Editor | null>;
-  parents: Wiki[];
 };
 
 export type RenderWikiContentProps = {
@@ -64,4 +67,8 @@ export type RenderWikiContentProps = {
   onWikiEditButtonClick: () => void;
   onWikiDeleteButtonClick: () => void;
   toggleEditMode: () => void;
+};
+
+export type HasChildMap = {
+  [wikiID: string]: boolean;
 };

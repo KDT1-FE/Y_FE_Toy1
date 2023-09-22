@@ -12,7 +12,7 @@ import {
   getDocs,
   Timestamp,
 } from "firebase/firestore";
-import { app } from "../../../firebase";
+import { app } from "@/firebase/firebase";
 import {
   getStorage,
   ref,

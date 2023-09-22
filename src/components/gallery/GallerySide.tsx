@@ -8,11 +8,12 @@ import {
   updateDoc,
   getDocs,
 } from "firebase/firestore";
-import { app } from "../../../firebase";
+import { app } from "@/firebase/firebase";
 import * as style from "./GallerySideStyle";
 import Button from "../common/Button";
 import Input from "../common/Input";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/Io";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 const firestore = getFirestore(app);
 
@@ -26,8 +27,8 @@ interface Folders {
 interface GallerySideProps {
   openAddListModal: () => void;
   galleryData: Folders[];
-  addListModal: Boolean;
-  configList: Boolean;
+  addListModal: boolean;
+  configList: boolean;
   album: string;
   setConfigList: React.Dispatch<React.SetStateAction<boolean>>;
   setGalleryData: React.Dispatch<React.SetStateAction<Folders[]>>;
@@ -198,11 +199,11 @@ export default function GallerySide({
                       <style.ArrowIcon>🔧</style.ArrowIcon>
                     ) : drop[index] ? (
                       <style.ArrowIcon>
-                        <IoIosArrowUp />
+                        <FontAwesomeIcon icon={faChevronUp} />
                       </style.ArrowIcon>
                     ) : (
                       <style.ArrowIcon>
-                        <IoIosArrowDown />
+                        <FontAwesomeIcon icon={faChevronDown} />
                       </style.ArrowIcon>
                     )}
                   </style.Arrow>
@@ -255,8 +256,8 @@ export default function GallerySide({
         <style.ButtonWrap>
           {configList ? (
             <Button
-              text="취소"
-              padding=".3rem .6rem"
+              text="완료"
+              padding=".3rem 3.7rem"
               normal="reverse"
               onClick={closeConfigListHandle}
             ></Button>
