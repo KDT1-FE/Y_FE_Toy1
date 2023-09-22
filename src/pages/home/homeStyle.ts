@@ -21,7 +21,18 @@ export const MainCarousel = styled.div`
   grid-row-end: 6;
   position: relative;
 `;
-
+export const Item3 = styled.div`
+  grid-row-start: 1;
+  grid-row-end: 1;
+`;
+export const Item4 = styled.div`
+  grid-row-start: 2;
+  grid-row-end: 2;
+`;
+export const Item5 = styled.div`
+  grid-row-start: 3;
+  grid-row-end: 3;
+`;
 export const MainGalleryTitle = styled.div`
   grid-row-start: 4;
   grid-row-end: 4;
@@ -30,12 +41,11 @@ export const MainGalleryPreview = styled.div`
   grid-row-start: 5;
   grid-row-end: 5;
 `;
-
 export const MainTitleWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
-
 export const MainTitle = styled.div`
   color: var(--color-dark-gray);
   font-weight: 500;
@@ -43,7 +53,6 @@ export const MainTitle = styled.div`
   line-height: normal;
   text-align: left;
 `;
-
 export const SideSkeleton = styled.div`
   width: 100%;
   height: 168px;
@@ -69,7 +78,6 @@ export const SideSkeleton = styled.div`
     }
   }
 `;
-
 export const MoreBtn = styled(Link)`
   color: var(--color-gray);
   font-weight: 500;

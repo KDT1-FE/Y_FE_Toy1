@@ -32,7 +32,7 @@ export const CarouselContainer = styled.div<{
 export const CarouselTitle = styled.a`
   position: absolute;
   display: inline-block;
-  top: 14rem;
+  top: 25%;
   left: 3rem;
   z-index: 2;
   font-size: 1.8rem;
@@ -44,7 +44,7 @@ export const CarouselText = styled.a`
   position: absolute;
   display: inline-block;
   width: 35%;
-  top: 18rem;
+  top: 35%;
   left: 3rem;
   z-index: 2;
   font-size: 1rem;
@@ -71,7 +71,7 @@ export const CarouselLeftBackDrop = styled.div`
   height: 27%;
   background-color: rgba(255, 255, 255, 0.3);
   left: 0.5rem;
-  top: 12.5rem;
+  top: 20%;
   position: absolute;
   z-index: 2;
   border-radius: 20px;
@@ -111,7 +111,7 @@ export const CarouselPageButton = styled.a`
   width: 8rem;
   height: 2.6rem;
   position: absolute;
-  top: 25rem;
+  top: 52%;
   left: 3rem;
   z-index: 5;
   text-align: center;

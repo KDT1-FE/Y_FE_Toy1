@@ -1,5 +1,5 @@
-import WikiTopButton from "./WikiButton";
-import { WikiTopProps } from "./WikiCommonType";
+import WikiTopButton from "../buttons/WikiButton";
+import { WikiTopProps } from "../types/WikiCommonType";
 import * as Styled from "./WikiTopStyle";
 
 export default function WikiTop({

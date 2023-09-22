@@ -1,7 +1,7 @@
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/i18n/ko-kr";
-import { Wiki } from "./WikiCommonType";
+import { Wiki } from "../types/WikiCommonType";
 
 type MarkdownEditorProps = {
   form: Wiki;

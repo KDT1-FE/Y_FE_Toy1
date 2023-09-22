@@ -1,15 +1,15 @@
 import styled from "styled-components";
 
 export const FooterWrap = styled.div`
-  margin-top: 40px;
+  margin-top: 2.5rem;
   background-color: var(--color-main);
-  padding: 5px 80px;
+  padding: 0.3125rem 5rem;
   color: var(--color-white);
-  opacity:20%;
+  opacity: 20%;
 `;
 
 export const FooterTop = styled.div`
-  padding: 10px 0;
+  padding: 0.625rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -27,7 +27,7 @@ export const FooterTopMid = styled.div`
   justify-content: center;
   align-items: center;
   & > a > p {
-    margin: 0 10px;
+    margin: 0 0.625rem;
     font-size: 0.8rem;
     letter-spacing: -0.04rem;
   }
@@ -40,8 +40,8 @@ export const FooterTopMid = styled.div`
 export const FooterTopRight = styled.div`
   & > a {
     display: inline-block;
-    width: 30px;
-    height: 30px;
+    width: 1.875rem;
+    height: 1.875rem;
   }
 
   & img {
@@ -52,8 +52,8 @@ export const FooterTopRight = styled.div`
 `;
 
 export const FooterBottom = styled.div`
-  border: 1px solid yellow;
-  padding: 10px 0;
+  border: 0.0625rem solid yellow;
+  padding: 0.625rem 0;
   display: flex;
   justify-content: center;
   align-items: center;
