@@ -280,7 +280,7 @@ const MobileContainer = styled.nav`
   font-size: 1rem;
   z-index: 20;
   background-color: #fff;
-  padding: 0 20px;
+  padding: 0 30px 0 20px;
   display: flex;
   flex-flow: column;
   box-sizing: border-box;

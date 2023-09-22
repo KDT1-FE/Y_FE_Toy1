@@ -79,7 +79,7 @@ const Rank = () => {
         <MobileRankWrapper>
           {users.map((usersData: UsersData, index: number) => (
             <div className="userList" key={usersData.id}>
-              <div className="userList__rank">{index + 1}</div>
+
               <img
                 className="user__image"
                 src={process.env.PUBLIC_URL + "/png/user_default.png"}
@@ -90,7 +90,7 @@ const Rank = () => {
                 <div className="studyTime">{usersData.studyTime}분</div>
               </div>
 
-              <div className="usetList__emblem">
+              <div className="userList__emblem">
                 <img
                   className="useList__class"
                   src={
