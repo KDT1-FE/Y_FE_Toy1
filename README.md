@@ -1,7 +1,7 @@
 
-<div align="center" style="padding: 15px; background-color: black; border-radius: 10px;">
+<div align="center">
   <h1>야놀자 Tech School Wiki</h1>
-  <img src="https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202305/022257-932/comp-1-1.gif" />
+  <img src="https://github.com/turkey-kim/techschool_wiki/assets/101972330/14385a7c-dd59-4026-8db9-1cc5006077e8" />
 </div>
 
 ## 🧑🏻‍💻 프로젝트 소개
@@ -10,6 +10,8 @@ Toy Project로 제작된 `Yanolja Tech School Wiki`는 [야놀자 테크 스쿨]
   
 <details>
 <summary>야놀자 테크 캠프 토이 프로젝트 설명</summary>
+
+<br/>
 
 # **📅 직원들을 위한 위키 사이트**
 
@@ -53,10 +55,10 @@ Toy Project로 제작된 `Yanolja Tech School Wiki`는 [야놀자 테크 스쿨]
 
 ## 🧑🏻‍💻 Contributor
 > @[jinuk0316](https://github.com/jinuk0316) (이진욱) : Layout, Carousel  
+@[turkey-kim](https://github.com/turkey-kim) (김특희) : Layout, Ranking  
 @[JitHoon](https://github.com/JitHoon) (최지훈) : Firebase, Wiki  
 @[yangjaehyuk](https://github.com/yangjaehyuk) (양재혁) : Firebase, Gallery  
 @[suyeonnnnnnn](https://github.com/suyeonnnnnnn) (박수연) : Firebase, Timer  
-@[turkey-kim](https://github.com/turkey-kim) (김특희) : Layout, Ranking  
 
 ## 🧑🏻‍💻 기술 스택
 
