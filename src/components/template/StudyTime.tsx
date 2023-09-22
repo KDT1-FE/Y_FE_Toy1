@@ -8,6 +8,7 @@ import { increment, doc, updateDoc } from "firebase/firestore";
 import { SynchroClassAndAlert } from "utils/class";
 import { db } from "../../firebase";
 import Swal from "sweetalert2";
+import { IsMobile } from "utils/mediaQuery";
 
 const StyledClock = styled.p`
   font-variant-numeric: tabular-nums;
@@ -44,7 +45,7 @@ interface StudyTimeProps {
   studyStartTime?: number | null;
   toggleStudyStatus: () => void;
   onIsStudyingChange: (isStudying: boolean) => void;
-  setStudyStartTime: (time:number) => void;
+  setStudyStartTime: (time: number) => void;
 }
 
 const StudyTime: React.FC<StudyTimeProps> = ({
@@ -52,13 +53,11 @@ const StudyTime: React.FC<StudyTimeProps> = ({
   studyStartTime,
   toggleStudyStatus,
   onIsStudyingChange,
-  setStudyStartTime
+  setStudyStartTime,
 }) => {
   const navigate = useNavigate();
   const user = useContext(AuthContext);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
-
-  ;
 
   useEffect(() => {
     let interval: NodeJS.Timeout | undefined = undefined;
@@ -122,7 +121,10 @@ const StudyTime: React.FC<StudyTimeProps> = ({
 
   return (
     <div>
-      <SectionTitle>학습시간 기록</SectionTitle>
+      <SectionTitle>
+        학습시간 기록
+        {IsMobile() ? <MobileCounterBadge show={isStudying} /> : null}
+      </SectionTitle>
       <CounterWrap>
         <CounterLabel>현재시각</CounterLabel>
         <CounterData>
@@ -133,9 +135,11 @@ const StudyTime: React.FC<StudyTimeProps> = ({
         <CounterLabel>학습시간</CounterLabel>
         <CounterData>
           {formatTime(elapsedTime)}
-          <CounterBadge show={isStudying}>
-            {isStudying ? "기록 중" : null}
-          </CounterBadge>
+          {IsMobile() ? null : (
+            <CounterBadge show={isStudying}>
+              {isStudying ? "기록 중" : null}
+            </CounterBadge>
+          )}
         </CounterData>
       </CounterWrap>
       <Button onClick={handleStartStudy}>
@@ -197,5 +201,15 @@ const CounterBadge = styled.span<{ show: boolean }>`
   color: #fff;
   font-size: 12px;
   display: ${(props) => (props.show ? "inline-block" : "none")};
+`;
+
+const MobileCounterBadge = styled.div<{ show: boolean }>`
+  position: absolute;
+  top: 33px;
+  right: 40px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: ${(props) => (props.show ? "var(--main-color)" : "#fff")};
 `;
 export default StudyTime;
