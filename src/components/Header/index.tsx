@@ -10,6 +10,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import CommuteModal from 'components/CommuteModal';
 import { media } from 'styles/media';
 import { useState } from 'react';
+import { CALENDAR, GALLERY, WIKI } from 'constants/common';
 
 function Header() {
   const [menuToggle, setMenuToggle] = useState(false);
@@ -17,35 +18,35 @@ function Header() {
 
   const menus = [
     {
-      name: 'Wiki',
+      name: `${WIKI}`,
       route: `${ROUTES.WIKI}?category=companyRule`,
       logo: wikiLogo,
     },
     {
-      name: 'Gallery',
+      name: `${GALLERY}`,
       route: `${ROUTES.GALLERY}?category=사진첩1`,
       logo: galleryLogo,
     },
-    { name: 'Calendar', route: ROUTES.CALENDAR, logo: calendarLogo },
+    { name: `${CALENDAR}`, route: ROUTES.CALENDAR, logo: calendarLogo },
   ];
 
   return (
     <StyledHeader>
-      <Container>
-        <LogoContainer>
+      <StyledContainer>
+        <StyledLogoContainer>
           <StyledMainMenu to={ROUTES.MAIN}>
             <img src={logo}></img>
             WIKI
           </StyledMainMenu>
-        </LogoContainer>
-        <MenuContainer>
+        </StyledLogoContainer>
+        <StyledMenuContainer>
           {menus.map((menu, index) => (
-            <Menu to={menu.route} key={index}>
+            <StyledMenu to={menu.route} key={index}>
               {menu.name}
               <img src={menu.logo}></img>
-            </Menu>
+            </StyledMenu>
           ))}
-        </MenuContainer>
+        </StyledMenuContainer>
         <div
           onClick={() => {
             setMenuToggle(false);
@@ -75,12 +76,12 @@ function Header() {
             ))}
           </StyledSideBar>
         )}
-      </Container>
+      </StyledContainer>
     </StyledHeader>
   );
 }
 
-const Menu = styled(Link)`
+const StyledMenu = styled(Link)`
   font-size: 1.1rem;
   font-weight: 300;
 
@@ -104,7 +105,7 @@ const StyledHeader = styled.div`
   top: 0;
   z-index: 10000;
 `;
-const Container = styled.div`
+const StyledContainer = styled.div`
   max-width: 98.75rem;
   margin: 0 auto;
   height: 4rem;
@@ -122,7 +123,7 @@ const Container = styled.div`
     max-width: 55rem;
   `)}
 `;
-const LogoContainer = styled.div`
+const StyledLogoContainer = styled.div`
   width: 6.25rem;
 
   flex-grow: 6;
@@ -139,7 +140,7 @@ const StyledMainMenu = styled(Link)`
   display: flex;
   align-items: center;
 `;
-const MenuContainer = styled.div`
+const StyledMenuContainer = styled.div`
   display: flex;
   gap: 1rem;
   flex: 1;

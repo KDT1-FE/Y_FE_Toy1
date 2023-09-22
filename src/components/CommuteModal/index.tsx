@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import LiveClock from './LiveClock';
 import {
+  COMMUTE_TIMER_TITLE,
   INTERVAL,
   WORK_STATE_BUTTON,
   WORK_STATE_TEXT,
@@ -14,6 +15,7 @@ import useInterval from 'hooks/useInterval';
 import { dayFormat, timeFormat } from 'utils/format';
 import { addWorkTimeData } from 'apis/WorkTime';
 import { media } from 'styles/media';
+import { COMMUTE } from 'constants/common';
 
 function CommuteModal() {
   const [showModal, setShowModal] = useState(false);
@@ -72,32 +74,33 @@ function CommuteModal() {
 
   return (
     <>
-      <CommuteMenu
+      <StyledCommuteMenu
         onClick={() => {
           setShowModal(true);
         }}
       >
-        Commute
+        {COMMUTE}
         <img src={commuteLogo}></img>
-      </CommuteMenu>
-      <CustomModal
+      </StyledCommuteMenu>
+      <StyledCustomModal
         isOpen={showModal}
         ariaHideApp={false}
         className="modal"
         style={StyledModal}
       >
-        <TopContainer>
-          <Title>
-            출퇴근<StyledDate>{dayFormat(new Date())}</StyledDate>
-          </Title>
-          <CloseImg
+        <StyledTopContainer>
+          <StyledTitle>
+            {COMMUTE_TIMER_TITLE}
+            <StyledDate>{dayFormat(new Date())}</StyledDate>
+          </StyledTitle>
+          <StyledCloseImg
             src={closeButton}
             onClick={() => {
               setShowModal(false);
             }}
             alt="close icon"
           />
-        </TopContainer>
+        </StyledTopContainer>
         <StyledContainer>
           <StyledMainContainer>
             {isFinishing ? (
@@ -114,18 +117,18 @@ function CommuteModal() {
                   setIsRunning(false);
                 }}
               >
-                stop
+                {WORK_STATE_BUTTON.STOP}
               </StyledStopButton>
             )}
           </StyledMainContainer>
-          <BottomContainer>
+          <StyledBottomContainer>
             <StyledStateText>{showWorkStateText()}</StyledStateText>
             <StyledButton onClick={handleWorkState}>
               {showWorkStateButton()}
             </StyledButton>
-          </BottomContainer>
+          </StyledBottomContainer>
         </StyledContainer>
-      </CustomModal>
+      </StyledCustomModal>
     </>
   );
 }
@@ -139,7 +142,7 @@ const StyledModal: ReactModal.Styles = {
   },
 };
 
-const CustomModal = styled(ReactModal)`
+const StyledCustomModal = styled(ReactModal)`
   &.modal {
     position: absolute;
     top: 50%;
@@ -170,7 +173,7 @@ const CustomModal = styled(ReactModal)`
 `)}
   }
 `;
-const CommuteMenu = styled.div`
+const StyledCommuteMenu = styled.div`
   font-size: 1.1rem;
   font-weight: 300;
 
@@ -198,7 +201,7 @@ const CommuteMenu = styled.div`
 `)}
 `;
 
-export const TopContainer = styled.section`
+export const StyledTopContainer = styled.section`
   display: flex;
   justify-content: space-between;
 
@@ -213,7 +216,7 @@ export const TopContainer = styled.section`
   height: 3rem;
 `)}
 `;
-const Title = styled.div`
+const StyledTitle = styled.div`
   font-size: 2rem;
   font-weight: 600;
 
@@ -226,7 +229,7 @@ const Title = styled.div`
   font-weight:600;
 `)}
 `;
-export const CloseImg = styled.img`
+export const StyledCloseImg = styled.img`
   width: 1.25rem;
   height: 1.25rem;
   cursor: pointer;
@@ -251,7 +254,7 @@ const StyledContainer = styled.section`
   cursor: default;
 `;
 
-const BottomContainer = styled.section`
+const StyledBottomContainer = styled.section`
   display: flex;
   gap: 2.5rem;
   width: 22rem;

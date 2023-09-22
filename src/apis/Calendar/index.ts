@@ -1,4 +1,5 @@
 import { db } from 'apis/firebase';
+import { ALERT } from 'constants/common';
 import { CALENDAR_COLLECTION } from 'constants/collection';
 import {
   addDoc,
@@ -32,9 +33,9 @@ export const uploadCalendarData = async (calendarData: ICalendarData) => {
       ...calendarData,
       uid: user?.uid,
     });
-    alert('등록 완료');
+    alert(ALERT.COMPLETE);
   } catch (error) {
-    alert('알 수 없는 오류입니다');
+    alert(ALERT.ERROR);
   }
 };
 const searchUser = () => {
@@ -60,7 +61,7 @@ export const getCalendarData = async () => {
     });
     return responseArray;
   } catch (error) {
-    alert('알 수 없는 오류입니다');
+    alert(ALERT.ERROR);
   }
 };
 
@@ -68,6 +69,6 @@ export const deleteCalendarData = async (id: string) => {
   try {
     await deleteDoc(doc(db, CALENDAR_COLLECTION, id));
   } catch (error) {
-    alert('데이터를 삭제하는 과정에서 오류가 발생했습니다.');
+    alert(ALERT.ERROR);
   }
 };
