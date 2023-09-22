@@ -152,7 +152,7 @@ const Header: React.FC = () => {
                                         });
                                     }}
                                 >
-                                    로그인
+                                    로그아웃
                                 </LogoutButton>
                             ) : (
                                 <ListAnchor href={'/LogIn'}>
