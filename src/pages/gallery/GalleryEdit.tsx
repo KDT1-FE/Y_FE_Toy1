@@ -352,9 +352,9 @@ const GalleryEdit: React.FC<GalleryDetailProps> = ({ onEdit, setOnEdit, setGalle
       <div className="select__wrap">
         <select name="category" id="category" onChange={setOriginCategory}>
           <option value="">카테고리 선택</option>
-          <option value="notice">모집공고</option>
-          <option value="news">패캠소식</option>
-          <option value="random">랜덤토크</option>
+          <option value="notice">공지사항</option>
+            <option value="news">모집공고</option>
+            <option value="random">랜덤토크</option>
         </select>
         </div>
       </FormList>
