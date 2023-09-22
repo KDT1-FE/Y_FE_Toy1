@@ -15,14 +15,24 @@ import {
 import { db } from "../../firebase";
 import Swal from "sweetalert2";
 import CommentAdd from "./CommentAdd";
-import { AiOutlineCheck } from "react-icons/ai";
-import { RiDeleteBin5Line } from "react-icons/ri";
-import { FiEdit2 } from "react-icons/fi";
+
+// import { ReactComponent as emblem_gold } from "../../../public/svg/emblem/emblem_gold.svg";
+// import { ReactComponent as emblem_sliver } from "../../../public/svg/emblem/emblem_sliver.svg";
+// import { ReactComponent as emblem_bronze } from "/svg/emblem/emblem_bronze.svg";
+
 //한국 날짜 설정
 dayjs.locale("ko");
 
 const Comment = () => {
   const user = useContext(AuthContext);
+
+  const emblem = () => {
+    if (user) {
+      Number(localStorage.getItem(user.uid));
+      console.log(Number(localStorage.getItem(user.uid)));
+    }
+  };
+  emblem();
 
   // 변경된 댓글 내용 관리
   const [comment, setComment] = useState("dd");
@@ -35,7 +45,6 @@ const Comment = () => {
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const commentData: any[] = [];
       snapshot.forEach((doc) => {
-        console.log(doc.id);
         const value = {
           id: doc.id,
           ...doc.data(),
@@ -46,13 +55,11 @@ const Comment = () => {
       // 데이터가 변경될 때마다 상태를 업데이트
       setCommentValue(commentData);
     });
-    console.log("테스트");
     // 컴포넌트 언마운트 시에 구독을 해제
     return () => {
       unsubscribe();
     };
   }, []);
-  console.log(commentValue);
 
   // 수정 버튼 눌린 id값 얻기
   const [editComment, setEditComment] = useState<string>("");
@@ -99,12 +106,12 @@ const Comment = () => {
 
   const [open, setOpen] = useState<boolean>(false);
 
-  console.log("dd");
   const renderComments = commentValue.map((comment) => (
     <Comment_Container key={comment.id}>
       <CommentEntry>
         <Comment_user>
           <div>티어 사진</div>
+
           <Comment_user__name>{comment.useName}</Comment_user__name>
           <Comment_user__updateAt>{comment.updatedAt}</Comment_user__updateAt>
         </Comment_user>

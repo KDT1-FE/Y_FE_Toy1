@@ -25,7 +25,6 @@ const WikiDetail = () => {
         // ... try, catch 생략
         const userRef = doc(db, "wiki", uid);
         const userSnap = await getDoc(userRef); // 데이터 스냅 받아오기 - 비동기처리
-        console.log(userSnap.data());
         if (userSnap.exists()) {
           setTitle(userSnap.data().title);
           setContent(userSnap.data().content);
@@ -39,9 +38,6 @@ const WikiDetail = () => {
   }, [page]);
 
   const user = useContext(AuthContext);
-  console.log(user);
-  console.log(user?.displayName);
-  console.log(user?.uid);
 
   //수정 버튼을 클릭했을때
   const handleEdit = () => {

@@ -96,14 +96,6 @@ const Sidebar = () => {
                   학습 시간왕
                 </Link>
               </li>
-              <li key={"학습 일정"} className="sidebar__menu">
-                <Link
-                  to="학습 일정"
-                  onClick={() => handleItemClick("금주의 학습 일정")}
-                >
-                  금주의 학습 일정
-                </Link>
-              </li>
             </SidebarList>
           </MobileInnerContainer>
           <div
@@ -166,14 +158,6 @@ const Sidebar = () => {
             <li key={"학습 시간왕"} className="sidebar__menu">
               <Link to="학습 시간왕" onClick={() => handleItemClick("학습 시간왕")}>
                 학습 시간왕
-              </Link>
-            </li>
-            <li key={"학습 일정"} className="sidebar__menu">
-              <Link
-                to="학습 일정"
-                onClick={() => handleItemClick("금주의 학습 일정")}
-              >
-                금주의 학습 일정
               </Link>
             </li>
           </SidebarList>

@@ -40,7 +40,6 @@ const CommentAdd = () => {
     } else {
       if (comment === "") {
         alert("댓글을 입력하세요");
-        console.log("댓글을 입력하세요");
       } else {
         await addDoc(collection(db, "comment"), {
           comment: comment,
@@ -64,7 +63,6 @@ const CommentAdd = () => {
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
   };
-  console.log(comment);
 
   return (
     <>
@@ -99,10 +97,10 @@ const Wiki_input = styled.input`
   border-radius: 4px;
   font-size: 16px;
   border: 0;
-  //border-bottom: 1px solid #ddd;
   border: 1px solid #ddd;
   outline: none;
 `;
+
 const Wiki__button = styled.button`
   background-color: var(--main-color);
   border: none;
