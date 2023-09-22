@@ -7,6 +7,7 @@ import ContentsViewer from "components/template/ContentViewer";
 import Swal from "sweetalert2";
 import "style/Wiki.css";
 import styled from "styled-components";
+import Comment from "components/template/Comment";
 const WikiDetail = () => {
   const navigate = useNavigate();
   // 페이지 정보
