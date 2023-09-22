@@ -157,6 +157,31 @@ await updateDoc(doc(db, "wiki", "new-id"), {
 ## 공지사항 페이지
 
 ## 프로젝트 페이지
+### 🌟 toast UI editor 를 이용해 wiki CRUD기능을 파이어베이스와 연동하여 구현했습니다.
+<br>
+
+**✏️ 마크다운 글쓰기**
+
+![글쓰기](https://github.com/IAMISTP/toy1/assets/137421610/e3e4b29e-df04-4730-a157-7a30c2b37b2f)
+<br>
+
+> 로그인 했을 경우에만 글쓰기 버튼 활성화 되어 글을 작성할수 있습니다.
+
+<br>
+
+**✍️ 마크다운 수정**
+
+<br>
+
+![수정](https://github.com/IAMISTP/toy1/assets/137421610/befe9848-8c7f-4f44-baca-aedf0459f2e4)
+
+<br>
+
+**🗑️ 마크다운 삭제**
+
+<br>
+
+![삭제](https://github.com/IAMISTP/toy1/assets/137421610/184d991c-7525-4996-a697-fbbaf714e60d)
 
 ## 갤러리 페이지
 
@@ -175,7 +200,16 @@ await updateDoc(doc(db, "wiki", "new-id"), {
 ## 윤지영
 
 ## 박혜민
+🥹 아쉬운 부분
 
+짧은 기간안에 리액트 쿼리와 타입스크립트를 적용하여 toast UI editor 이용한 마크다운 기능을 구현하려다 보니 완벽하게 구현하지 못하여 아쉬웠습니다.
+추후 완벽하게 구현하지 못한 부분들은 개선해나갈 예정 입니다.!
+
+[ 리팩토링 기간이 있다면 추가로 수행 할 내용들 입니다❗ ]
+
+반응형 구현 ❌
+마지막 페이지 일 경우 다음 페이지로 이동 ❌
+데이터 변경 실시간 확인 ❌
 ### *참고 링크
 
 - **[Firebase](https://firebase.google.com/docs?hl=ko)**
