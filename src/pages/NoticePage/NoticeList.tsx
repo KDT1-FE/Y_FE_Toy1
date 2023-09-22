@@ -10,7 +10,7 @@ function NoticeList() {
   const [dataFetch, setDataFetch] = useState<DocumentData[] | null>([]); // 공지를 한 번 호출해오기 위해 바뀌지 않는 전체 공지 배열
   const [noticeList, setNoticeList] = useState<DocumentData[] | null>([]);
   const [page, setPage] = useState(1);
-  const totalPages = Math.ceil((noticeList?.length ?? 10) / 5);
+  const totalPages = Math.ceil((noticeList?.length ?? 5) / 5);
   const startNotice = (page - 1) * 5;
   const currentNoticeList = noticeList?.slice(startNotice, startNotice + 5);
   const navigate = useNavigate();
