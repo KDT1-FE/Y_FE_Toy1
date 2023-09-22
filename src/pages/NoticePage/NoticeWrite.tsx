@@ -109,7 +109,6 @@ function NoticeWrite({ isEdit, noticeData }: any) {
         createAt: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
       });
 
-      // eslint-disable-next-line no-alert
       alert(`공지가 등록 되었습니다.`);
       navigate(`/notice/${noticeNumber}`);
     } catch (error) {
@@ -175,7 +174,6 @@ function NoticeWrite({ isEdit, noticeData }: any) {
       console.log('Error: ', error);
     }
 
-    // eslint-disable-next-line no-alert
     alert(`공지가 수정 되었습니다.`);
     navigate(`/notice/${noticeData.noticeNumber}`);
   };
