@@ -7,13 +7,14 @@ import {
   doc,
 } from "firebase/firestore";
 import {db} from "./firebaseConfig";
+import {RankingList} from "../types/Ranking";
 
 // collection에 있는 데이터 다 가져온 후 배열로 반환
 export async function getRankingDocsToArr() {
-  const arr: object[] = [];
+  const arr: RankingList[] = [];
   const snap = await getDocs(collection(db, "ranking"));
-  snap.forEach(a => {
-    arr.push(a.data());
+  snap.forEach(document => {
+    arr.push(document.data() as RankingList);
   });
 
   return arr;
@@ -29,8 +30,8 @@ export async function postData(id: string) {
 }
 
 // 공부량순으로 정렬하기
-export function sortRanking(arr: any) {
-  return arr.sort((a: any, b: any) => b.time - a.time);
+export function sortRanking(arr: RankingList[]) {
+  return arr.sort((a, b) => b.time - a.time);
 }
 
 // 데이터 리셋 함수
@@ -109,7 +110,7 @@ export const saveTimeInBrowser = (time: number | null) => {
 };
 
 // 랭킹 세션스토리지에 저장
-export const saveRankingInBrowser = (data: object[]) => {
+export const saveRankingInBrowser = (data: RankingList[]) => {
   sessionStorage.setItem("ranking", JSON.stringify(data));
 };
 

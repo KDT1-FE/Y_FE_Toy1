@@ -1,13 +1,8 @@
 import React from "react";
 import "../../styles/ranking/rankingList.css";
+import {ListProps} from "../../types/Ranking";
 
-interface Props {
-  num: number;
-  name: string;
-  time: any;
-}
-
-function List({num, name, time}: Props) {
+function List({num, name, time}: ListProps) {
   return (
     <div
       className="ListContainer"
