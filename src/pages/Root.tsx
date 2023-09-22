@@ -4,7 +4,7 @@ import CreatePostModal from '../components/MainPost/PostModal';
 import 'firebase/auth';
 import { useAuth } from '../data/firebaseAuth';
 import { FirestorePostData } from '../redux/types';
-import { collection, addDoc, query, getDocs } from 'firebase/firestore';
+import { collection, addDoc, query, getDocs, deleteDoc } from 'firebase/firestore';
 import { db } from '../data/firebase';
 import Header from '../components/Header/Header';
 import ImageSlider from '../components/ImageSlider/ImageSlider';
@@ -73,6 +73,23 @@ const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+  };
+
+  const deletePost = async (postId: string) => {
+    try {
+      const postRef = doc(db, 'posts', postId);
+      await deleteDoc(postRef);
+      console.log('게시글이 성공적으로 삭제되었습니다.');
+    } catch (error) {
+      console.error('게시글 삭제 중 오류 발생:', error);
+    }
+  };
+
+  const handleDeletePost = async (postId: string) => {
+    if (postId) {
+      await deletePost(postId); // 게시글 삭제 함수 호출
+      handleClosePostModal(); // 모달 닫기
+    }
   };
 
 
@@ -184,10 +201,15 @@ const fetchPosts = async () => {
         {currentPosts.map((post, index) => (
           <li className="post-item grid-item" key={index} onClick={() => handleOpenPostModal(post)}>
             <div className="post-content-container">
-              <p className='post-user'>작성자: {post.username}</p>
+              <div className='post-content-container-top'>
+              <p className='post-user'>{post.username}</p>
+              {post.userId === user.uid && (
+              <button className='deleteBtn' onClick={() => handleDeletePost(post.id)}>삭제</button>
+            )}
+            </div>
+              <p className='post-due-date'>모집기간 | {(post.timestamp as any).toDate().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
               <p className='post-title'>{post.title}</p>
               <p className='post-content'>{post.content}</p>
-              <p className='post-due-date'>모집기간: {(post.timestamp as any).toDate().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
             </div>
           </li>
         ))}
@@ -204,8 +226,8 @@ const fetchPosts = async () => {
             <div>
               <p className='postedText'>스터디 모집글</p>
               <div className='postedInfo'>
-              <p className='postedNickname'>작성자: {selectedPost.username}</p>
-              <p className='postedDate'>모집기간: {(selectedPost.timestamp as any).toDate().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+              <p className='postedNickname'>{selectedPost.username}</p>
+              <p className='postedDate'>모집기간 | {(selectedPost.timestamp as any).toDate().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
               <p className='postedTitle'>{selectedPost.title}</p>
               <p className='postedContent'>{selectedPost.content}</p>
               </div>

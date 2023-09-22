@@ -167,8 +167,27 @@
     width: 90%;
     margin: auto;
     padding-top: 100px;
+    font-family: $fontMain;
   }
 
+  .post-content-container-top {
+    display: flex;
+    align-items: baseline;
+  }
+
+  .deleteBtn {
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: coral; 
+    color: white; 
+    border: none; 
+    border-radius: 30px; 
+    padding: 3px 10px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+    text-decoration: none;
+  }
   
   .post-grid {
     display: grid;
@@ -180,27 +199,31 @@
   }
   
   .post-item {
-    border: 3px solid #ccc;
-    padding: 16px;
     border-radius: 20px;
-    height: 300px;
   }
 
   .post-user {
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 500;
-    color: gray;
+    color: $grayColor;
+  }
+
+  .post-due-date {
+    font-size: 15px;
+    font-weight: 500;
+    color: $grayColor;
   }
 
   .post-title {
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 500;
-
+    color: $highlightColor;
   }
   
   .post-content {
-    font-size: 24px;
-    font-weight: 400;
+    font-size: 17px;
+    font-weight: 500;
+    color: $blackColor;
   }
 
 /* 작성된 게시글 모달창 디자인 */
@@ -224,6 +247,7 @@
   border: 1px solid #888;
   width: 60%; 
   max-width: 600px; 
+  height: 400px;
   border-radius: 8px;
   text-align: left; 
   position: relative;
@@ -232,7 +256,7 @@
 /* Close button styles */
 .close-button {
   position: absolute;
-  top: 10px;
+  top: 16px;
   right: 10px;
   font-size: 20px;
   font-weight: bold;
@@ -277,7 +301,7 @@
   display: flex;
   justify-content: flex-end; /* 오른쪽 정렬 */
   margin-top: 20px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .left-btn {
@@ -320,11 +344,12 @@
 .post-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4개의 열로 구성 */
-  grid-gap: 16px;
+  grid-gap: 25px;
   list-style: none;
-}
+  margin-bottom: 50px;
+  }
 
 .grid-item {
-  border: 1px solid #ccc;
+  border: 2px solid $grayColor;
   padding: 16px;
 }
