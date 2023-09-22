@@ -155,6 +155,227 @@ await updateDoc(doc(db, "wiki", "new-id"), {
 
 
 ## 공지사항 페이지
+### 1. 공지사항 페이지 구현
+**Firestore DB 동기화**  
+Firestore에서 데이터를 받아와서 화면에 나타나는 기능을 구현하였습니다.
+```javascript
+const getData = async () => {
+    try {
+      const querySnapshot = await getDocs(query(collection(db, 'notice'), orderBy('number', 'desc')));
+      const data: string[] = [];
+      const itemId: string[] = [];
+      querySnapshot.forEach(doc => {
+        data.push(doc.data().title);
+        itemId.push(doc.data().id);
+      });
+      const firebaseData: NoticeData[] = querySnapshot.docs.map(doc => ({ ...(doc.data() as NoticeData) }));
+
+      setData(firebaseData);
+      setTitle(data);
+      setItemId(itemId);
+    } catch {
+      console.error();
+    }
+  };
+```
+![db](https://github.com/tkyoun0421/toy1/assets/98436988/f2716246-8791-4e72-bb03-109e4bfbed80)
+
+
+**로그인 확인**  
+useSelector를 사용하여 유저 정보를 받고 로그인이 되어있지않으면 alert를 반환하고 로그인이 되어있으면 글 작성 페이지로 이동하는 기능을 구현하였습니다.
+```javascript
+const userEmail = useSelector((state: State) => state.loginUpdate.email);
+  const handleWriteBtn = (): void => {
+    if (userEmail === '') {
+      alert('로그인이 필요합니다!');
+      return;
+    } else {
+      location.href = '/notice/write';
+    }
+  };
+```
+![로그인 확인](https://github.com/tkyoun0421/toy1/assets/98436988/3237f5d8-81ae-4dcc-86a3-d140029d77f4)
+
+**글 삭제 기능**  
+글 삭제 버튼을 누르면 Firestore의 데이터가 삭제되고 실시간으로 화면을 재랜더링하는 기능을 구현하였습니다.
+```javascript
+const handleDelete = async (index: number, e: React.MouseEvent) => {
+    e.stopPropagation();
+    await deleteDoc(doc(db, 'notice', itemId[index]));
+    unsubscribe();
+  };
+```
+![delete](https://github.com/tkyoun0421/toy1/assets/98436988/2bc2c2e1-196c-4abf-a858-8a116bf7b35e)
+
+
+---
+
+### 2. 공지사항 글쓰기 페이지 및 기능 구현
+**글쓰기 기능**  
+글을 작성하면 Firestore에 DB를 저장하고 글 작성 순서대로 내림차순으로 화면에 출력하는 기능을 구현하였습니다.
+```javascript
+const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      setBtnDisabled(true);
+      if (file !== null) {
+        const noticeRef = ref(storage, `images/notice/${new Date().getTime() + file.name}`);
+        const snapshot = await uploadBytes(noticeRef, file);
+        const imgUrl = await getDownloadURL(snapshot.ref);
+        const data = {
+          title,
+          content,
+          time: new Date().toLocaleString(),
+          userEmail,
+          url: imgUrl,
+          number: new Date().getTime(),
+        };
+
+        await addDoc(collection(db, 'notice'), data).then(item => {
+          const docRef = doc(db, 'notice', item.id);
+          updateDoc(docRef, {
+            id: item.id,
+          });
+          alert('사진 등록이 완료 되었습니다.');
+        });
+      } else {
+        const data = {
+          title,
+          content,
+          time: new Date().toLocaleString(),
+          userEmail,
+          url: null,
+          number: new Date().getTime(),
+        };
+        await addDoc(collection(db, 'notice'), data).then(item => {
+          const docRef = doc(db, 'notice', item.id);
+          updateDoc(docRef, {
+            id: item.id,
+          });
+          alert('완료 되었습니다.');
+        });
+      }
+    } catch {
+      setBtnDisabled(false);
+      console.error();
+    } finally {
+      setBtnDisabled(true);
+      window.location.href = '/company/notice';
+    }
+  };
+```
+![글쓰기](https://github.com/tkyoun0421/toy1/assets/98436988/af67cc17-69a3-4450-b52c-dff8c1e2989d)
+
+---
+
+### 3. 공지사항 수정 페이지 및 기능 구현
+**글 수정 기능**  
+공지사항 글을 수정하면 Firestore DB를 업데이트하고 화면에 보여주는 기능을 구현하였습니다.
+```javascript
+const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      setBtnDisabled(true);
+      if (file !== null) {
+        const noticeRef = ref(storage, `images/notice/${new Date().getTime() + file.name}`);
+        const snapshot = await uploadBytes(noticeRef, file);
+        const imgUrl = await getDownloadURL(snapshot.ref);
+        const docRef = doc(db, 'notice', itemId);
+        await updateDoc(docRef, {
+          title,
+          content,
+          time: new Date().toLocaleString(),
+          url: imgUrl,
+        });
+        alert('완료 되었습니다.');
+      }
+
+      const docRef = doc(db, 'notice', itemId);
+      await updateDoc(docRef, {
+        title,
+        content,
+        time: new Date().toLocaleString(),
+      });
+      alert('완료 되었습니다.');
+    } catch {
+      setBtnDisabled(false);
+      console.error();
+    } finally {
+      setBtnDisabled(true);
+      window.location.href = '/company/notice';
+    }
+  };
+
+  const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
+  const handleContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(e.target.value);
+  };
+
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFile(e.target.files && e.target.files[0]);
+  };
+
+  const getData = async () => {
+    const docRef = doc(db, 'notice', itemId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const title = docSnap.data().title;
+      const content = docSnap.data().content;
+      setTitle(title);
+      setContent(content);
+    } else {
+      console.error('파일이 없습니다!');
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+```
+![modify](https://github.com/tkyoun0421/toy1/assets/98436988/39414f38-b649-4801-9dff-8f1d27f72801)
+
+---
+
+### 4. 공지사항 상세 페이지 및 기능 구현
+**상세 페이지 구현**  
+유저가 상세 페이지로 접근하면 useLocation을 이용하여 데이터를 받아와서 URL에 글 ID를 부여하고 ID값과 일치하는 데이터를 불러와서 화면에 출력하는 기능을 구현하였습니다.
+```javascript
+const location = useLocation();
+  const itemId = location.state;
+  const [title, setTitle] = useState('');
+  const [time, setTime] = useState('');
+  const [content, setContent] = useState('');
+  const [imgUrl, setImgUrl] = useState('');
+  const navigate = useNavigate();
+
+  const getData = async () => {
+    const docRef = doc(db, 'notice', location.state);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const title = docSnap.data().title;
+      const time = docSnap.data().time;
+      const content = docSnap.data().content;
+      const imgUrl = docSnap.data().url;
+      setTitle(title);
+      setTime(time);
+      setContent(content);
+      setImgUrl(imgUrl);
+    } else {
+      console.error('파일이 없습니다!');
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+```
+![detail](https://github.com/tkyoun0421/toy1/assets/98436988/f4dc887f-3817-44bf-94f9-84206be18843)
+
 
 ## 프로젝트 페이지
 
@@ -169,6 +390,22 @@ await updateDoc(doc(db, "wiki", "new-id"), {
 ## 남궁종민
 
 ## 윤태관
+
+처음으로 리액트와 타입스크립트를 사용하여 이것들에 대해 잘 모르는 상태로 프로젝트를 진행하다보니 부족한 점이 정말 너무 많았습니다. <br>
+
+기능구현 하는 것에 급급해서 리액트를 사용하는 목적성을 제대로 느껴보지 못한 부분이 참 아쉬웠습니다.<br>
+
+더욱 리액트 개념을 많이 공부해서 적절한 hooks의 사용과 react가 어떨 때 재랜더링이 되고 이것을 어떻게 이용하면 좋을지<br>
+
+컴포넌트간에 데이터를 어떻게 주고 받는게 효율적일지에 대해 공부를 더 많이 해야겠다는 생각이 들었습니다.<br>
+
+또한 타입스크립트에 대해서도 컴파일 단계에서 버그를 잡아 효율성을 높이는 목적으로 사용되는 것인데<br>
+
+오히려 타입스크립트를 잘모르다보니 이것 때문에 오류가 나서 프로젝트 진행이 힘들었었습니다.<br>
+
+타입스크립트를 더 공부하여 코드의 가독성을 높여 협업의 효율성을 높여야겠다는 생각을 하였습니다.<br>
+
+하지만 조원분들 덕분에 프로젝트를 무사히? 완성할 수 있었고 어떻게 프로젝트가 진행이 되어야 하는지에 대해 알게되어서 정말 감사했습니다!
 
 ## 박지송
 
