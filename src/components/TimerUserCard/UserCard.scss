@@ -8,12 +8,11 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 330px));
   row-gap: 0.2rem;
-  margin: 50px 20px 20px;
+  margin: 20px;
   border-radius: 20px;
   padding: 20px;
   user-select: none;
   font-family: $fontMain;
-  justify-content: center;
   h3 {
     font-family: 'LOTTERIACHAB';
     text-align: left;
