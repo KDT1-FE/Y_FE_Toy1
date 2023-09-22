@@ -16,6 +16,7 @@ const Home = () => {
 
 const Container = styled.section`
   position: relative;
+  
 `;
 
 export default Home;

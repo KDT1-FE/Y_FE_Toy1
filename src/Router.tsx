@@ -10,9 +10,9 @@ import styled from "styled-components";
 import { IsMobile } from "utils/mediaQuery";
 
 const Router = () => {
-  let topmargin = 60
-  if(IsMobile()){
-    topmargin = 100
+  let topmargin = 60;
+  if (IsMobile()) {
+    topmargin = 100;
   }
 
   return (
@@ -34,12 +34,14 @@ const Router = () => {
 const Container = styled.main<IContainer>`
   margin: 0 auto;
   max-width: 1200px;
+  padding: 0 20px;
   position: relative;
-  top: ${props=>props.topmargin}px;
+  top: ${(props) => props.topmargin}px;
+  box-sizing: border-box;
 `;
 
-interface IContainer{
-  topmargin : number
+interface IContainer {
+  topmargin: number;
 }
 
 export default Router;
