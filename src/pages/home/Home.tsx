@@ -33,41 +33,41 @@ export default function Home() {
   return (
     <>
       <style.Temp>
-        <style.MainNotificationTitle>
-          <style.MainTitle>공지사항</style.MainTitle>
-        </style.MainNotificationTitle>
-        <style.MainCarousel>
-          <Carousel />
-        </style.MainCarousel>
-        <style.MainTitleWrapper>
-          <style.MainTitle>최근 업데이트 된 WIKI</style.MainTitle>
-          <style.MoreBtn to={"/wiki"}>더보기 &gt;</style.MoreBtn>
-        </style.MainTitleWrapper>
-        {lastestWikis ? (
-          <>
-            {lastestWikis?.map((lastestWiki) => {
-              return (
-                <div key={lastestWiki.wikiID}>
-                  <WikiPreview wikiData={lastestWiki} />
-                </div>
-              );
-            })}
-          </>
-        ) : (
-          <>
-            <style.SideSkeleton />
-            <style.SideSkeleton />
-          </>
-        )}
-        <style.MainGalleryTitle>
+          <style.MainNotificationTitle>
+            <style.MainTitle>공지사항</style.MainTitle>
+          </style.MainNotificationTitle>
+          <style.MainCarousel>
+            <Carousel />
+          </style.MainCarousel>
           <style.MainTitleWrapper>
-            <style.MainTitle>최근 업데이트 된 GALLERY</style.MainTitle>
-            <style.MoreBtn to={"/gallery"}>더보기 &gt;</style.MoreBtn>
+            <style.MainTitle>최근 업데이트 된 WIKI</style.MainTitle>
+            <style.MoreBtn to={"/wiki"}>더보기 &gt;</style.MoreBtn>
           </style.MainTitleWrapper>
-        </style.MainGalleryTitle>
-        <style.MainGalleryPreview>
-          <GalleryPreview />
-        </style.MainGalleryPreview>
+          {lastestWikis ? (
+            <>
+              {lastestWikis?.map((lastestWiki) => {
+                return (
+                  <div key={lastestWiki.wikiID}>
+                    <WikiPreview wikiData={lastestWiki} />
+                  </div>
+                );
+              })}
+            </>
+          ) : (
+            <>
+              <style.SideSkeleton />
+              <style.SideSkeleton />
+            </>
+          )}
+          <style.MainGalleryTitle>
+            <style.MainTitleWrapper>
+              <style.MainTitle>최근 업데이트 된 GALLERY</style.MainTitle>
+              <style.MoreBtn to={"/gallery"}>더보기 &gt;</style.MoreBtn>
+            </style.MainTitleWrapper>
+          </style.MainGalleryTitle>
+          <style.MainGalleryPreview>
+            <GalleryPreview />
+          </style.MainGalleryPreview>
       </style.Temp>
     </>
   );
