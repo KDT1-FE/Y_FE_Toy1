@@ -1,5 +1,5 @@
-import sliderImg1 from '../../images/sliderImg1.png';
-import sliderImg2 from '../../images/togethersLogo.png';
+import sliderImg1 from '../../images/togethersLogo.png';
+import sliderImg2 from '../../images/sliderImg1.png';
 import sliderImg3 from '../../images/sliderImg3.png';
 import '../../styles/Main.scss';
 import React from 'react';
@@ -43,7 +43,7 @@ const slides = [
         },
       },
     ],
-    imageSrc: sliderImg2,
+    imageSrc: sliderImg1,
   },
   {
     backgroundColor: '#ffeae9',
@@ -79,7 +79,7 @@ const slides = [
         },
       },
     ],
-    imageSrc: sliderImg1,
+    imageSrc: sliderImg2,
   },
   {
     backgroundColor: '#edfaf7',

@@ -76,7 +76,7 @@
 }
 
 .newPostBtn:hover {
-  background-color: rgb(214, 108, 69);
+  background-color: $backgroundColor-50;
 }
 
 /* 모달 열기 상태를 처리하는 CSS */
@@ -184,6 +184,10 @@
   text-decoration: none;
 }
 
+.deleteBtn:hover {
+  background-color: $backgroundColor-50;
+}
+
 .post-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -262,7 +266,7 @@
 }
 
 .close-button:hover {
-  color: #f00;
+  background-color: $backgroundColor-50;
 }
 
 /* Posted info styles */
