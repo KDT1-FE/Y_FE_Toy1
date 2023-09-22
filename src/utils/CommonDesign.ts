@@ -11,7 +11,6 @@ export const SubPageContainer = styled.div`
 
 export const SmallButtonBlue = styled.button`
   font-family: 'Noto Sans KR';
-  width: auto;
   padding: 0 15px;
   cursor: pointer;
   height: 35px;
@@ -21,13 +20,13 @@ export const SmallButtonBlue = styled.button`
   font-weight: 500;
   color: #fff;
   text-align: center;
-  line-height: 35px;
   background-color: rgb(50, 103, 177);
 
   &:hover {
     background-color: #2c5b96;
   }
 `;
+
 export const SmallButtonGray = styled.button`
   font-family: 'Noto Sans KR';
   width: auto;
