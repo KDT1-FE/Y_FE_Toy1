@@ -7,17 +7,19 @@ import {
   setDoc,
   updateDoc,
   deleteDoc,
+  query,
+  orderBy,
 } from 'firebase/firestore';
 
 async function readBoardData(boardState) {
   let collectionref;
   const data = [];
   if (boardState == 'QA') {
-    collectionref = collection(db, 'QABoard');
+    collectionref = query(collection(db, 'QABoard'),orderBy('id'));
   } else if (boardState == 'Free') {
-    collectionref = collection(db, 'FreeBoard');
+    collectionref = query(collection(db, 'FreeBoard'),orderBy('id'));
   } else if (boardState == 'Best') {
-    collectionref = collection(db, 'BestBoard');
+    collectionref = query(collection(db, 'BestBoard'),orderBy('id'));
   } else {
     return;
   }
