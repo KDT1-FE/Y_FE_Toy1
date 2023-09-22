@@ -72,9 +72,9 @@ const StudyTimeRanking = () => {
   }, [currentIndex, users.length]);
   if (IsMobile()) {
     return (
-      <>
+      <Container>
+        <h1>공부시간 랭킹</h1>
         <Link to="/Rank">
-          <h1>공부시간 랭킹</h1>
           <RankWrapper>
             {users.map((usersData: UsersData, index: number) => (
               <div
@@ -103,13 +103,13 @@ const StudyTimeRanking = () => {
             ))}
           </RankWrapper>
         </Link>
-      </>
+      </Container>
     );
   } else {
     return (
-      <>
+      <Container>
+        <h1>공부시간 랭킹</h1>
         <Link to="/Rank">
-          <h1>공부시간 랭킹</h1>
           <RankWrapper>
             {users.map((usersData: UsersData, index: number) => (
               <div
@@ -143,10 +143,14 @@ const StudyTimeRanking = () => {
             ))}
           </RankWrapper>
         </Link>
-      </>
+      </Container>
     );
   }
 };
+
+const Container = styled.div`
+  color: ${(props) => props.theme.text};
+`;
 
 const RankWrapper = styled.div`
   display: flex;
