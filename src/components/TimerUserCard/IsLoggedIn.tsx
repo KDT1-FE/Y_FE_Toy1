@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { db, auth } from 'data/firebase';
+import { db } from 'data/firebase';
 import { doc, updateDoc, onSnapshot } from 'firebase/firestore';
 import './IsLoggedIn.scss';
 
 export function IsLoggedIn({ userId }: any) {
   const [userStatus, setUserStatus] = useState<boolean | null>(null);
 
-  // Firestore에서 해당 사용자의 상태를 실시간으로 업데이트
   useEffect(() => {
     const userRef = doc(db, 'User', userId);
 
@@ -22,7 +20,6 @@ export function IsLoggedIn({ userId }: any) {
     });
 
     return () => {
-      // 컴포넌트 언마운트 시에 구독 해제
       unsubscribe();
     };
   }, [userId]);
