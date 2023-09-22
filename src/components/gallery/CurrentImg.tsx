@@ -31,6 +31,7 @@ export default function CurrentImg({
   }, [curIndex]);
 
   const nextImg = () => {
+    console.log(curIndex);
     if (curIndex >= imagePaths.length - 2) {
       const cur = imagePaths[curIndex + 1];
       let num = curIndex;
@@ -53,6 +54,7 @@ export default function CurrentImg({
   };
 
   const prevtImg = () => {
+    console.log(curIndex);
     if (curIndex <= 1) {
       let num = curIndex;
       num--;
@@ -68,7 +70,11 @@ export default function CurrentImg({
       setCurImg(cur);
     }
 
-    if (curIndex <= imagePaths.length - 2) {
+    if (curIndex <= imagePaths.length - 1) {
+      setNextBtn(true);
+    }
+
+    if (curIndex === 1) {
       setNextBtn(true);
     }
   };
