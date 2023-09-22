@@ -96,6 +96,7 @@ const Sidebar = () => {
                 </Link>
               </li>
             </SidebarList>
+            <SidebarBottom />
           </MobileInnerContainer>
           <div
             className="sidebar__openSidebar-icon"
@@ -321,6 +322,7 @@ const SidebarList = styled.div`
   gap: 20px;
   margin-top: 30px;
   margin-left: 20px;
+
   .sidebar__menu {
     font-weight: 700;
     font-size: 20px;

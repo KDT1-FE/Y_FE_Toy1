@@ -2,16 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import SidebarBottom from "./SidebarBottom";
 import { IsMobile } from "utils/mediaQuery";
+import Sidebar from "./Sidebar";
 
 interface GalleryProps {
   handleClick: (category: string) => void;
   activeCategory: string;
 }
 
-const GallerySidebar: React.FC<GalleryProps> = ({
-  handleClick,
-  activeCategory,
-}) => {
+const GallerySidebar: React.FC<GalleryProps> = ({ handleClick, activeCategory }) => {
   const [displaySidebar, setDisplaySidebar] = useState(false);
   // 모바일 갤러리 사이드바
 
@@ -19,68 +17,60 @@ const GallerySidebar: React.FC<GalleryProps> = ({
     return (
       <MobileContainer>
         {/*Inner Container 부분이 움직입니다, MobileContainer 부분은 움직이지 않고, 모바일 사이드바 렌더링 시 나타납니다 */}
-        <MobileInnerContainer
-          displaysidebar={displaySidebar ? "true" : "false"}
-        >
+        <MobileInnerContainer displaysidebar={displaySidebar ? "true" : "false"}>
           <div
             className="header__mobile-close-wrap"
             onClick={() => {
               setDisplaySidebar(false);
             }}
           >
-            <img
-              src={process.env.PUBLIC_URL + "/svg/icon_close.svg"}
-              alt="닫기 버튼"
-            />
+            <img src={process.env.PUBLIC_URL + "/svg/icon_close.svg"} alt="닫기 버튼" />
           </div>
           <MobileMarginTop />
-          <MobileListItem
-            className={activeCategory === "all" ? "active" : ""}
-            onClick={() => {
-              handleClick("all");
-              setDisplaySidebar(false);
-            }}
-          >
-            전체보기
-          </MobileListItem>
+          <SidebarList>
+            <MobileListItem
+              className={activeCategory === "all" ? "active" : ""}
+              onClick={() => {
+                handleClick("all");
+                setDisplaySidebar(false);
+              }}
+            >
+              전체보기
+            </MobileListItem>
 
-          <MobileListItem
-            className={activeCategory === "notice" ? "active" : ""}
-            onClick={() => {
-              handleClick("notice");
-              setDisplaySidebar(false);
-            }}
-          >
-            공지사항
-          </MobileListItem>
-          <MobileListItem
-            className={activeCategory === "news" ? "active" : ""}
-            onClick={() => {
-              handleClick("news");
-              setDisplaySidebar(false);
-            }}
-          >
-            모집공고
-          </MobileListItem>
-          <MobileListItem
-            className={activeCategory === "random" ? "active" : ""}
-            onClick={() => {
-              handleClick("random");
-              setDisplaySidebar(false);
-            }}
-          >
-            랜덤토크
-          </MobileListItem>
+            <MobileListItem
+              className={activeCategory === "notice" ? "active" : ""}
+              onClick={() => {
+                handleClick("notice");
+                setDisplaySidebar(false);
+              }}
+            >
+              공지사항
+            </MobileListItem>
+            <MobileListItem
+              className={activeCategory === "news" ? "active" : ""}
+              onClick={() => {
+                handleClick("news");
+                setDisplaySidebar(false);
+              }}
+            >
+              모집공고
+            </MobileListItem>
+            <MobileListItem
+              className={activeCategory === "random" ? "active" : ""}
+              onClick={() => {
+                handleClick("random");
+                setDisplaySidebar(false);
+              }}
+            >
+              랜덤토크
+            </MobileListItem>
+          </SidebarList>
+          <SidebarBottom />
         </MobileInnerContainer>
 
-        <div
-          className="sidebar__openSidebar-icon"
-          onClick={() => setDisplaySidebar((prev) => !prev)}
-        >
-          <img
-            src={process.env.PUBLIC_URL + "/svg/icon_list.svg"}
-            alt="사이드바 열기 버튼"
-          />
+        <div className="sidebar__openSidebar-icon" onClick={() => setDisplaySidebar((prev) => !prev)}>
+          <img src={process.env.PUBLIC_URL + "/svg/icon_list.svg"} alt="사이드바 열기 버튼" />
         </div>
       </MobileContainer>
     );
@@ -88,29 +78,17 @@ const GallerySidebar: React.FC<GalleryProps> = ({
     return (
       <Container>
         <SidebarList>
-          <ListItem
-            className={activeCategory === "all" ? "active" : ""}
-            onClick={() => handleClick("all")}
-          >
+          <ListItem className={activeCategory === "all" ? "active" : ""} onClick={() => handleClick("all")}>
             {" "}
             전체보기
           </ListItem>
-          <ListItem
-            className={activeCategory === "notice" ? "active" : ""}
-            onClick={() => handleClick("notice")}
-          >
+          <ListItem className={activeCategory === "notice" ? "active" : ""} onClick={() => handleClick("notice")}>
             공지사항
           </ListItem>
-          <ListItem
-            className={activeCategory === "news" ? "active" : ""}
-            onClick={() => handleClick("news")}
-          >
+          <ListItem className={activeCategory === "news" ? "active" : ""} onClick={() => handleClick("news")}>
             모집공고
           </ListItem>
-          <ListItem
-            className={activeCategory === "random" ? "active" : ""}
-            onClick={() => handleClick("random")}
-          >
+          <ListItem className={activeCategory === "random" ? "active" : ""} onClick={() => handleClick("random")}>
             랜덤토크
           </ListItem>
         </SidebarList>
@@ -146,20 +124,20 @@ interface IMobileInnerContainer {
   displaysidebar: string;
 }
 const MobileInnerContainer = styled.div<IMobileInnerContainer>`
-  position:absolute;
+  position: absolute;
   height: 100%;
   width: 100%;
   z-index: 15;
   background-color: #fff;
-  left:${(props) => (props.displaysidebar === "true" ? "0px;" : "-100%;")};
+  left: ${(props) => (props.displaysidebar === "true" ? "0px;" : "-100%;")};
   transition: all 1s ease-in-out;
-  
-  .header__mobile-close-wrap{
+
+  .header__mobile-close-wrap {
     position: absolute;
     top: 10px;
     right: 15px;
-    cursor:pointer;
-    img{
+    cursor: pointer;
+    img {
       width: 40px;
       height: 40px;
     }
@@ -210,6 +188,7 @@ const SidebarList = styled.ul`
   flex-flow: column;
   gap: 20px;
   margin-top: 30px;
+
 `;
 
 const ListItem = styled.li`
