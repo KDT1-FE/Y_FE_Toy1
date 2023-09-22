@@ -102,13 +102,13 @@ const GalleryPage = () => {
       )}
       <article className="gallery__list">
         <ImageList
-          docList={docList}
+          docList={docList!}
           likeImage={likeImage}
           deleteData={deleteData}
           hateImage={hateImage}
           onImageClick={(index: number) => {
-            handleClick(imageList[index]);
-            setImageDetail(docList[index]);
+            handleClick(imageList![index]);
+            setImageDetail(docList![index]);
           }}
         />
       </article>

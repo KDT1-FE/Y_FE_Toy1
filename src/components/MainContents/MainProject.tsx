@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { projectCollection } from '../../firebase';
-import { DocumentSnapshot, orderBy, query } from 'firebase/firestore';
+import { DocumentData, orderBy, query } from 'firebase/firestore';
 import { useFirestoreQuery } from '@react-query-firebase/firestore';
+import { MyDocumentData } from '../../pages/project/ProjectListPage';
 
 import '@scss/components/_mainProject.scss';
 
 const MainProject = () => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<DocumentData | undefined>([]);
   const ref = query(projectCollection, orderBy('writeDate', 'desc'));
   const queryResult = useFirestoreQuery(['project'], ref, {
     subscribe: true,
@@ -22,8 +23,8 @@ const MainProject = () => {
   return (
     <div className="mainP-container">
       <ul>
-        {posts.map((docSnapshot, index) => {
-          const { title, status } = docSnapshot?.data();
+        {posts?.map((docSnapshot: DocumentData, index: number) => {
+          const { title, status } = docSnapshot?.data() as MyDocumentData;
           if (index < 7) {
             return (
               <li className="mainP-item" key={index}>

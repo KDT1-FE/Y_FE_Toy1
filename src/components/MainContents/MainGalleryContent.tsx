@@ -9,12 +9,11 @@ const MainGalleryContents = () => {
   return (
     <Link to="/gallery">
       <div className="mainPage__content__gallery">
-        {mainGalleryList.map((item: UploadedImage) => {
+        {mainGalleryList!.map((item: UploadedImage) => {
           return (
             <figure key={item.id} style={{ backgroundImage: `url(${item.url})` }} onClick={() => {}}>
               <figcaption>
                 <h3>{item.title}</h3>
-                {/* <p>{item.timestamp}</p> */}
               </figcaption>
             </figure>
           );
