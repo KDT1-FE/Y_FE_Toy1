@@ -33,7 +33,6 @@
   align-items: center;
 }
 
-/* 슬라이드 내용 스타일 */
 .slide-content {
   display: flex;
   width: 100%;
@@ -52,8 +51,8 @@
   flex: 1;
   padding: 20px;
   display: flex;
-  justify-content: flex-start; /* 이미지를 수직으로 중앙에 정렬하면서 왼쪽 끝에 붙임 */
-  align-items: center; /* 이미지를 수직으로 중앙에 정렬 */
+  justify-content: flex-start; 
+  align-items: center; 
 }
 
 .post-list-top {
@@ -300,7 +299,7 @@
 /* 페이지 네비게이션 스타일 */
 .pagination-buttons {
   display: flex;
-  justify-content: flex-end; /* 오른쪽 정렬 */
+  justify-content: flex-end; 
   margin-top: 20px;
   margin-bottom: 20px;
 }
