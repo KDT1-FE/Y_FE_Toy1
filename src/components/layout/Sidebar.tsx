@@ -46,6 +46,7 @@ const Sidebar = () => {
               {sideLinkAttendance.map((page, idx) => {
                 return (
                   <li className={`sidebar__item ${activeItem === page ? "active" : ""}`} key={sideLinkAttendance[idx]}>
+
                     <Link to={`${page}`} onClick={() => handleItemClick(page)}>
                       {page}
                     </Link>
@@ -114,13 +115,11 @@ const Sidebar = () => {
               );
             })}
             <li key={"학습시간 등급"} className="sidebar__menu">
-              <Link to="학습시간 등급" onClick={() => handleItemClick("학습시간 등급 안내")}>
+              <Link
+                to="학습시간 등급"
+                onClick={() => handleItemClick("학습시간 등급 안내")}
+              >
                 학습시간 등급 안내
-              </Link>
-            </li>
-            <li key={"학습 시간왕"} className="sidebar__menu">
-              <Link to="학습 시간왕" onClick={() => handleItemClick("학습 시간왕")}>
-                학습 시간왕
               </Link>
             </li>
           </SidebarList>
