@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Button from "./Button";
 import * as style from "./commuteModalStyle";
 import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { db } from "@/firebase/firebase";
 
 interface Props {
   showModal: boolean;

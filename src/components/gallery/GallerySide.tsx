@@ -8,7 +8,7 @@ import {
   updateDoc,
   getDocs,
 } from "firebase/firestore";
-import { app } from "../../../firebase";
+import { app } from "@/firebase/firebase";
 import * as style from "./GallerySideStyle";
 import Button from "../common/Button";
 import Input from "../common/Input";
@@ -26,8 +26,8 @@ interface Folders {
 interface GallerySideProps {
   openAddListModal: () => void;
   galleryData: Folders[];
-  addListModal: Boolean;
-  configList: Boolean;
+  addListModal: boolean;
+  configList: boolean;
   album: string;
   setConfigList: React.Dispatch<React.SetStateAction<boolean>>;
   setGalleryData: React.Dispatch<React.SetStateAction<Folders[]>>;
