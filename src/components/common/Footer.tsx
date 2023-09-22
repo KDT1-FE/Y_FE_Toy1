@@ -29,7 +29,7 @@ export default function Footer() {
         </style.FooterTopMid>
         <style.FooterTopRight>
           <a href="https://github.com/toy-1/wiki" target="_blank">
-            <img src="../../../public/images/github-logo.png" />
+            <img src="/images/github-logo.png" />
           </a>
         </style.FooterTopRight>
       </style.FooterTop>
