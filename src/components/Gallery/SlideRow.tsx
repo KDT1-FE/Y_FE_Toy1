@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { getImageData } from '../../data/galleryImage';
-import { MapImages } from './SlideOpenModal';
 import './SlideRow.scss';
+import { MapImages } from './SlideOpenModal';
 
 export interface ISlide {
   categoryId: string;

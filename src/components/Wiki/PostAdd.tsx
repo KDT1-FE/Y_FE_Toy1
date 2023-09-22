@@ -86,7 +86,7 @@ export function PostAdd(props: any) {
           />
         </div>
         <button type="submit" className="btn btn-primary">
-          수정하기
+          작성하기
         </button>
       </form>
     </div>

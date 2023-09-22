@@ -1,8 +1,8 @@
 import React from 'react';
 import './NavBar.scss';
-import { AddImageModal } from './ModalAddImage';
-import { RootState } from 'redux/types'; // RootState 타입 추가
+import { RootState } from 'redux/types';
 import { useSelector } from 'react-redux';
+import { AddImageModal } from './ModalAddImage';
 
 export function SideBarLink(): JSX.Element {
   const user = useSelector((state: RootState) => state);

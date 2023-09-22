@@ -43,7 +43,7 @@ export function BoardContent({ boardState }: any) {
   useEffect(() => {
     const data = readBoardData(boardState);
     data.then((item: any) => {
-      setboardData(item);
+      setboardData(item.reverse());
     });
   }, [boardState, sessionStorage.uid]);
 

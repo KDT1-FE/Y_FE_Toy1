@@ -1,9 +1,8 @@
 import React, { useRef } from 'react';
-import { ModalComment } from './ModalCommentList';
 import './_modal.scss';
 import './SlideRow.scss';
 import { IImageData } from './SlideRow';
-
+import { ModalComment } from './ModalCommentList';
 interface IMapImages extends Partial<IImageData> {
   userId: string;
   nickName: string;
