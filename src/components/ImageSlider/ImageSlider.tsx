@@ -1,7 +1,7 @@
 import sliderImg1 from '../../images/togethersLogo.png';
 import sliderImg2 from '../../images/sliderImg1.png';
 import sliderImg3 from '../../images/sliderImg3.png';
-import '../../styles/pages/Main.scss';
+import '../../styles/Main.scss';
 import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -44,7 +44,7 @@ const slides = [
       },
     ],
     imageSrc: sliderImg1,
-    link: null,
+    link: 'https://nifty-straw-3ce.notion.site/S-23-09-22-c31457ee673a43d780484688872cd252?pvs=4',
   },
   {
     backgroundColor: '#ffeae9',

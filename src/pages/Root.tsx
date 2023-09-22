@@ -18,7 +18,7 @@ import { RootState } from '../redux/types';
 import { useSelector } from 'react-redux';
 import { getDoc, doc } from 'firebase/firestore';
 import PostedModal from '../components/MainPost/PostedModal';
-import '../styles/pages/Main.scss';
+import '../styles/Main.scss';
 import { onSnapshot } from 'firebase/firestore';
 
 export default function Root() {
@@ -277,41 +277,40 @@ export default function Root() {
       )}
       {PostedModalOpen && (
         <div className="modal open">
-        <div className="modal-contents">
-          {selectedPost && (
-            <div>
-              <p className="postedText">스터디 모집글</p>
-              <div className="postedInfo">
-                <p className="postedNickname">{selectedPost.username}</p>
-                <p className="postedDate">
-                  모집기간 |{' '}
-                  {(selectedPost.timestamp as any)
-                    .toDate()
-                    .toLocaleDateString('ko-KR', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })}
-                </p>
-                <p className="postedTitle">{selectedPost.title}</p>
-                <p className="postedContent">{selectedPost.content}</p>
+          <div className="modal-contents">
+            {selectedPost && (
+              <div>
+                <p className="postedText">스터디 모집글</p>
+                <div className="postedInfo">
+                  <p className="postedNickname">{selectedPost.username}</p>
+                  <p className="postedDate">
+                    모집기간 |{' '}
+                    {(selectedPost.timestamp as any)
+                      .toDate()
+                      .toLocaleDateString('ko-KR', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })}
+                  </p>
+                  <p className="postedTitle">{selectedPost.title}</p>
+                  <p className="postedContent">{selectedPost.content}</p>
+                </div>
               </div>
+            )}
+
+            {/* Close 버튼을 모달 내에서 가장 아래로 이동 */}
+            <div className="closeBtn">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={handleClosePostModal}
+              >
+                Close
+              </button>
             </div>
-          )}
-      
-          {/* Close 버튼을 모달 내에서 가장 아래로 이동 */}
-          <div className="closeBtn">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={handleClosePostModal}
-            >
-              Close
-            </button>
           </div>
         </div>
-      </div>
-      
       )}
     </div>
   );
