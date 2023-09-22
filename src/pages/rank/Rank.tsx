@@ -158,7 +158,7 @@ const RankWrapper = styled.div`
   flex-direction: column;
   border-radius: 5px;
   margin: 70px;
-  background-color: #fdfdfd;
+  background-color: ${(props) => props.theme.studyRank};
 
   .userList {
     font-weight: 700;
@@ -167,7 +167,7 @@ const RankWrapper = styled.div`
     align-items: center;
     transition: all 0.3s ease;
     margin: 10px;
-    background-color: ${(props) => props.theme.studyRank};
+    background-color: ${(props) => props.theme.body};
     border-radius: 5px;
   }
 
@@ -187,14 +187,15 @@ const RankWrapper = styled.div`
 
   .userList__rank {
     flex: 1 1 10%;
+    font-size: 25px;
   }
 
   .userList__nickName {
-    font-size: 18px;
+    font-size: 25px;
     flex: 1 1 40%;
-    /* white-space: nowrap;
-    overflow : hidden;
-    text-overflow: ellipsis; */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .userList__studyTime {
@@ -210,7 +211,7 @@ const RankWrapper = styled.div`
   .studyTime {
     width: 100px;
     height: auto;
-    background-color: ${(props) => props.theme.body};
+    background-color: ${(props) => props.theme.studyRank};
     border-radius: 5%;
     padding: 10px;
     text-align: center;
@@ -271,10 +272,15 @@ const RankWrapper = styled.div`
   }
 
   .userBox__1 {
+    width: 200px;
     transform: translateY(50px);
+  }
+  .userBox__2 {
+    width: 200px;
   }
 
   .userBox__3 {
+    width: 200px;
     transform: translateY(70px);
   }
 
@@ -287,6 +293,10 @@ const RankWrapper = styled.div`
     font-size: 30px;
     font-weight: 700;
     margin-bottom: 10px;
+    color: ${(props) => props.theme.text};
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;
 
