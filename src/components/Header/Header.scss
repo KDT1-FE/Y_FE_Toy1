@@ -39,18 +39,19 @@
     cursor: pointer;
     font-weight: normal;
     text-decoration: none;
-    color: $grayColor;
+    color: $mainColor;
   }
 
   .page.active {
-    color: $blackColor;
+    color: $subColor;
   }
 
   .page:hover {
-    color: coral;
+    color: $highlightColor;
   }
 
   .auth-buttons {
+    align-self: center;
     margin-left: auto;
     font-family: $fontMain;
   }
@@ -58,7 +59,7 @@
   .signInBtn {
     font-size: 20px;
     font-weight: bold;
-    background-color: coral;
+    background-color: $highlightColor;
     color: white;
     border: none;
     border-radius: 30px;
@@ -72,7 +73,7 @@
   .signUpBtn {
     font-size: 20px;
     font-weight: bold;
-    background-color: coral;
+    background-color: $highlightColor;
     color: white;
     border: none;
     border-radius: 30px;
@@ -83,18 +84,18 @@
   }
 
   .signInBtn:hover {
-    background-color: rgb(214, 108, 69);
+    background-color: $backgroundColor-50;
   }
 
   .signUpBtn:hover {
-    background-color: rgb(214, 108, 69);
+    background-color: $backgroundColor-50;
   }
 
   .userInfo-container {
     display: flex;
     align-items: center;
-    overflow: hidden; 
-    text-overflow: ellipsis; 
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
 
@@ -111,7 +112,7 @@
   .logoutBtn {
     font-size: 20px;
     font-weight: bold;
-    background-color: coral;
+    background-color: $highlightColor;
     color: white;
     border: none;
     border-radius: 30px;
@@ -121,28 +122,6 @@
   }
 
   .logoutBtn:hover {
-    background-color: rgb(214, 108, 69);
+    background-color: $backgroundColor-50;
   }
 }
-
-// @media (max-width: 768px) {
-//   .header-container {
-//     flex-direction: column;
-//     align-items: flex-start;
-//   }
-  
-//   .logo {
-//     margin-right: 0;
-//     margin-bottom: 20px;
-//   }
-
-//   .pageList {
-//     margin-right: 0;
-//     margin-bottom: 20px;
-//   }
-
-//   .auth-buttons {
-//     margin-left: 0;
-//     margin-top: 20px;
-//   }
-// }
