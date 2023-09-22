@@ -1,6 +1,8 @@
 # :sparkles: Wikinity :sparkles:
 
-패스트캠퍼스 프론트엔트 부트캠프 1차 토이프로젝트
+패스트캠퍼스 프론트엔트 부트캠프 1차 토이프로젝트  
+[사이트 링크](https://wikinity-ca8cd.web.app/login)
+[깃헙 링크](https://github.com/wowba/Wikinity)
 
 ## :clap: Contributors
 
