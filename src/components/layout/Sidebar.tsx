@@ -13,6 +13,7 @@ const Sidebar = () => {
 
   if (hashSplit[1] === "Wiki") {
     const sideLinkAttendance = ["출석 인정", "QR출결 정정 "];
+
     const sideLinkAdmin = ["휴가", "훈련장려금"];
 
     // 클릭시 항목 상태 업데이트
@@ -49,6 +50,7 @@ const Sidebar = () => {
               </li>
               {sideLinkAttendance.map((page, idx) => {
                 return (
+
                   <li
                     className={`sidebar__item ${
                       activeItem === page ? "active" : ""
@@ -157,18 +159,12 @@ const Sidebar = () => {
               );
             })}
             <li key={"학습시간 등급"} className="sidebar__menu">
-              <Link
-                to="학습시간 등급"
-                onClick={() => handleItemClick("학습시간 등급 안내")}
-              >
+              <Link to="학습시간 등급" onClick={() => handleItemClick("학습시간 등급 안내")}>
                 학습시간 등급 안내
               </Link>
             </li>
             <li key={"학습 시간왕"} className="sidebar__menu">
-              <Link
-                to="학습 시간왕"
-                onClick={() => handleItemClick("학습 시간왕")}
-              >
+              <Link to="학습 시간왕" onClick={() => handleItemClick("학습 시간왕")}>
                 학습 시간왕
               </Link>
             </li>
@@ -190,6 +186,7 @@ const Sidebar = () => {
       return (
         <MobileContainer>
           {/*Inner Container 부분이 움직입니다, MobileContainer 부분은 움직이지 않고, 모바일 사이드바 렌더링 시 나타납니다 */}
+
           <MobileInnerContainer
             displaysidebar={displaySidebar ? "true" : "false"}
           >
@@ -271,6 +268,7 @@ const MobileContainer = styled.div`
     font-size: 18px;
     line-height: 148%;
   }
+
 `;
 
 interface IMobileInnerContainer {
@@ -282,7 +280,7 @@ const MobileInnerContainer = styled.div<IMobileInnerContainer>`
   width: 100%;
   z-index: 15;
   background-color: #fff;
-  left:${props=>props.displaysidebar==="true" ? '0px;' : '-100%;'}
+  left:${(props) => (props.displaysidebar === "true" ? "0px;" : "-100%;")}
   transition: all 1s ease-in-out;
 
   .header__mobile-close-wrap{
@@ -295,7 +293,7 @@ const MobileInnerContainer = styled.div<IMobileInnerContainer>`
       height: 40px;
     }
   }
-
+  
   .rank {
     font-weight: 700;
     font-size: 20px;
@@ -357,20 +355,13 @@ const SidebarList = styled.div`
     line-height: 148%;
   }
 
+
   li {
     font-weight: 700;
     font-size: 20px;
     line-height: 140%;
   }
+
 `;
 
-/* 토글버튼
-<li key={"행정"} onClick={()=>setDisplayToggle(prev=>!prev)}><p style={{cursor:'pointer'}} className="sidebar__title-text">{displayToggle?'▼ ':'▶ ' }행정</p></li>
-{displayToggle && <ul className="sidebar__toggle">
-  {sideLinkAdmin.map((link, idx) => (
-  <li key={sideLinkAdmin[idx]}>
-    <Link to={`/Wiki/${link}`}> <p className="sidebar__normal-text">{link}</p> </Link>
-  </li>))}
-</ul>}
-*/
 export default Sidebar;

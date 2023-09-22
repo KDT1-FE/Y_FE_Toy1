@@ -2,8 +2,8 @@ import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { db } from "../../firebase";
 import { ThemeContext } from "../../provider/darkModeProvider";
-
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
+import { Link } from "react-router-dom";
 
 interface UsersData {
   id: string;
@@ -14,10 +14,24 @@ interface UsersData {
 }
 
 const StudyTimeRanking = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [users, setUsers] = useState<UsersData[]>([]);
   const q = query(collection(db, "user"), orderBy("studyTime", "desc"), limit(5));
   const { currentTheme } = useContext(ThemeContext);
   const theme: "dark" | "light" = currentTheme;
+
+  const medalSelector = (index: number): string => {
+    switch (index) {
+      case 0:
+        return process.env.PUBLIC_URL + "/png/1등.png";
+      case 1:
+        return process.env.PUBLIC_URL + "/png/2등.png";
+      case 2:
+        return process.env.PUBLIC_URL + "/png/3등.png";
+      default:
+        return process.env.PUBLIC_URL + "/png/빈사진.png";
+    }
+  };
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -42,20 +56,36 @@ const StudyTimeRanking = () => {
     fetchUser();
   }, []);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % users.length);
+    }, 3000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [currentIndex, users.length]);
+
   return (
     <>
-      <h1>공부시간 랭킹</h1>
-      <RankWrapper>
-        {users.map((usersData: UsersData, index: number) => (
-          <div className="userList" key={usersData.id}>
-            <div className="userList__icon">
-              <img src={process.env.PUBLIC_URL + `/svg/number/${theme}/${index + 1}_icon-${theme}.svg`} alt="오류" />
+      <Link to="/Rank">
+        <h1>공부시간 랭킹</h1>
+        <RankWrapper>
+          {users.map((usersData: UsersData, index: number) => (
+            <div className={`userList ${currentIndex === index ? "hover" : ""}`} key={usersData.id}>
+              <div className="userList__icon">
+                <img src={process.env.PUBLIC_URL + `/svg/number/${theme}/${index + 1}_icon-${theme}.svg`} alt="오류" />
+              </div>
+              <img className="user_image" src={process.env.PUBLIC_URL + "/png/user_default.png"} alt="프로필" />
+              <div className="userList__nickName">{usersData.nickName}</div>
+              <div className="userList__studyTime">
+                <div className="studyTime">{usersData.studyTime}분</div>
+              </div>
+              <img className="userList_medal" src={medalSelector(index)} alt="메달" />
             </div>
-            <div className="userList__nickName">{usersData.nickName}</div>
-            <div className="userList__studyTime">{usersData.studyTime}분</div>
-          </div>
-        ))}
-      </RankWrapper>
+          ))}
+        </RankWrapper>
+      </Link>
     </>
   );
 };
@@ -67,7 +97,7 @@ const RankWrapper = styled.div`
   text-align: center;
   flex-direction: column;
   border-radius: 5px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
   margin-top: 16px;
 
   .userList {
@@ -75,27 +105,59 @@ const RankWrapper = styled.div`
     font-size: 25px;
     display: flex;
     align-items: center;
-    transition: all 0.3s ease;
+    transition: all 1s ease;
     margin: 10px;
-    background-color: ${(props) => props.theme.Userinfo};
+    /* background-color: ${(props) => props.theme.body}; */
+    background-color: ${(props) => props.theme.studyRank};
     border-radius: 5px;
   }
 
+  .userList_medal {
+    height: 100px;
+  }
+
   .userList:hover {
+    transition: all 0.3s ease;
+    /* background-color: ${(props) => props.theme.studyRank}; */
+    transform: scale(1.05);
+  }
+
+  .userList.hover {
     background-color: var(--main-color);
-    transform: scale(1.03);
+    transform: scale(1.05);
   }
 
   .userList__icon {
-    flex: 1 1 10%;
-  }
-
-  .userList__nickName {
     flex: 1 1 20%;
   }
 
+  .userList__nickName {
+    flex: 1 1 30%;
+  }
+
   .userList__studyTime {
-    flex: 1 1 70%;
+    flex: 1 1 50%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .studyTime {
+    width: 100px;
+    height: auto;
+    background-color: ${(props) => props.theme.body};
+    border-radius: 5%;
+    padding: 10px;
+  }
+
+  .user_image {
+    width: 100px;
+    border: 1px solid gray;
+    margin: 10px;
+  }
+
+  .studyTime,
+  .userList__nickName {
+    color: ${(props) => props.theme.text};
   }
 `;
 
