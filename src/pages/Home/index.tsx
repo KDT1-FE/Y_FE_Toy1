@@ -16,8 +16,8 @@ import Button from '@mui/material/Button';
 import Carousel from 'react-material-ui-carousel';
 import { Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import wikiImg from '../../common/MainImg/wiki.png';
-import galleryImg from '../../common/MainImg/gallery.png';
+import wikiImg from '../../common/MainImg/wikiMain.png';
+import galleryImg from '../../common/MainImg/galleryMain.png';
 import recruitmentImg from '../../common/MainImg/recruitment.png';
 import recruitmentPostImg from '../../common/MainImg/recruitmentPost.png';
 
