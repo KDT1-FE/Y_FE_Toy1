@@ -1,8 +1,7 @@
 @import '/src/styles/_common';
 
 .timer .btn {
-  border-color: $subColor;
-  color: $subColor;
+  background-color: $mainColor;
   margin: 10px;
   transition: background-color 0.3s;
 }
