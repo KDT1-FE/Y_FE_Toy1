@@ -1,0 +1,47 @@
+@use '../abstracts' as *;
+
+.notice {
+  width: 100%;
+  padding: 1rem 4rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.5rem;
+
+  &-title {
+    border-bottom: 1px solid $darkBlue;
+    padding-left: 4rem;
+    h1 {
+      font-size: 2.4rem;
+      color: $darkBlue;
+    }
+    display: flex;
+    &-search-input {
+      display: flex;
+      column-gap: 2rem;
+    }
+  }
+
+  &-write-btn {
+    width: 10rem;
+    height: 3rem;
+    margin-left: auto;
+  }
+
+  &__item-container {
+    border: 1px solid $blue;
+    border-radius: 1rem;
+    height: auto;
+    padding: 1rem;
+    background-color: $white;
+    @include shadow;
+  }
+
+  &__btns {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    .btn {
+      padding: 1.5rem 1rem;
+    }
+  }
+}

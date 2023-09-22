@@ -1,0 +1,123 @@
+@use '../abstracts/' as *;
+@use '../base/' as *;
+
+.nav {
+  width: 224px;
+  height: auto;
+  background-color: $blue;
+  color: $white;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+
+  .nav-depth {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding-left: 0;
+    color: $white;
+
+    &__item {
+      list-style: none;
+      position: relative;
+      &.active {
+        > a,
+        button {
+          background: $darkBlue;
+        }
+      }
+
+      &.on {
+        font-weight: $font-bold700;
+      }
+    }
+
+    &__link {
+      padding: 20px 16px;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: $white;
+
+      &:hover {
+        background-color: $darkBlue;
+      }
+    }
+
+    &__btn {
+      width: 100%;
+      cursor: pointer;
+      padding: 20px 16px;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      border: none;
+      outline: none;
+      color: $white;
+      background-color: $blue;
+
+      &.show {
+        .nav-depth__icon {
+          transform: rotate(90deg);
+        }
+      }
+
+      &:hover {
+        background-color: $darkBlue;
+      }
+    }
+
+    &__logo {
+      margin-right: 10px;
+    }
+
+    &__icon {
+      margin-left: auto;
+      transition: transform 0.2s;
+    }
+
+    .nav-detail {
+      background-color: $white;
+      width: 180px;
+      height: 0px;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      animation: showDetail 0.2s 0s 1 normal forwards;
+      overflow: hidden;
+      margin: 10px auto;
+
+      &__item {
+        width: 100%;
+      }
+
+      &__link {
+        display: flex;
+        color: $gray;
+        font-size: 1.2rem;
+        border-radius: 5px;
+        margin: 0 5px;
+        padding: 8px 16px;
+
+        &.on {
+          color: $blue;
+          font-weight: $font-bold700;
+        }
+
+        &:hover {
+          background-color: $lightGray;
+        }
+      }
+    }
+  }
+}
+
+@keyframes showDetail {
+  from {
+    height: 0;
+  }
+
+  to {
+    height: 120px;
+  }
+}

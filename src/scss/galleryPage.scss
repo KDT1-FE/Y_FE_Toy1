@@ -1,0 +1,110 @@
+@use './abstracts' as *;
+@use './base' as *;
+
+.gallery {
+  width: 100%;
+  height: calc(100vh - 60px);
+  background: $lightGray;
+  padding: 1rem 4rem;
+  box-sizing: border-box;
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  & .inner {
+    margin: 2rem auto;
+    max-width: 1200px;
+    width: 100%;
+    margin: 2rem auto;
+    // height: 75vh;
+    @include flex-center-row();
+    align-items: center;
+    gap: 2em;
+    flex-wrap: wrap;
+  }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $darkBlue;
+    padding: 0rem 4rem;
+
+    & h1 {
+      font-size: $font-lg;
+      color: $darkBlue;
+    }
+
+    &__add-btn {
+      font-size: xx-large;
+      color: $blue;
+      cursor: pointer;
+      transition: 0.5s;
+
+      &:hover {
+        scale: 1.1;
+      }
+    }
+  }
+
+  &__list {
+    box-sizing: border-box;
+    & figure {
+      cursor: pointer;
+      width: 38em;
+      height: 40em;
+      margin: 0;
+      border: 4px solid rgb(78 115 223 / 80%);
+      border-radius: 10px;
+      overflow: hidden;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      box-sizing: border-box;
+      position: relative;
+      & figcaption {
+        position: absolute;
+        bottom: 0;
+        text-align: center;
+        background: rgb(78 115 223 / 90%);
+        color: #fff;
+        width: 100%;
+        text-align: left;
+        padding: 0.5rem 1rem;
+        box-sizing: border-box;
+        & h3 {
+          font-size: $font-base;
+        }
+      }
+      & .icon-wrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        & .like-icon {
+          width: 80%;
+          display: flex;
+          align-items: center;
+          & span {
+            font-size: 1.2rem;
+            margin-left: 5px;
+          }
+        }
+        & .icon {
+          font-size: 2.2rem;
+          color: #fff;
+          display: inline-block;
+          transition: all 0.3s;
+          padding: 0 5px 5px;
+          &:hover,
+          &.active {
+            color: #ffb2ac;
+            transform: scale(1.2);
+          }
+          &.minus {
+            opacity: 0.7;
+          }
+        }
+      }
+    }
+  }
+}

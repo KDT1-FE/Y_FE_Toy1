@@ -1,0 +1,97 @@
+@use '../abstracts' as *;
+@use '../base' as *;
+
+.header {
+  padding: 1rem 2rem;
+  height: 7rem;
+  background: $white;
+  position: sticky;
+  top: 0;
+  z-index: 9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  @include shadow();
+  &__logo {
+    width: 20rem;
+    height: 5rem;
+    display: block;
+  }
+
+  &__user {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 2rem;
+    align-items: center;
+    gap: 14px;
+    position: relative;
+    &-info {
+      cursor: pointer;
+      @include flex-center-row;
+      font-size: 1.4rem;
+      gap: 2rem;
+      &-img {
+        display: block;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        margin: auto;
+        transition: 0.3s;
+        background-image: url('https://startbootstrap.github.io/startbootstrap-sb-admin-2/img/undraw_profile.svg');
+        background-size: cover;
+      }
+      &-img:hover {
+        transform: scale(1.2);
+      }
+      &-img img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.btn {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: $blue;
+  color: $white;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: 4px;
+  display: inline-block;
+  width: auto;
+  @include shadow;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.btn:active,
+.btn:hover,
+.btn:focus {
+  background: $darkBlue;
+  outline: 0;
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: 1rem 2rem;
+  }
+
+  .header__logo {
+    font-size: medium;
+  }
+}
+@media (max-width: 330px) {
+  .header__logo {
+    font-size: small;
+  }
+}

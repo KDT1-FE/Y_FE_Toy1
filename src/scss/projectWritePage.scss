@@ -1,0 +1,31 @@
+@use '../scss/abstracts/' as *;
+
+.write {
+  width: 80%;
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+
+  &__btns-box {
+    display: flex;
+    justify-content: end;
+    column-gap: 1rem;
+  }
+
+  &__radios-box {
+    display: flex;
+  }
+
+  &__radio-box {
+    display: flex;
+    align-items: center;
+  }
+  &__input-title {
+    width: calc(100% - 10px);
+    font-size: 3rem;
+  }
+  &__editor {
+    width: 1000px;
+  }
+}

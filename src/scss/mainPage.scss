@@ -1,0 +1,71 @@
+@use './abstracts' as *;
+
+#mainPage {
+  position: relative;
+  width: 80%;
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top: 2rem;
+  // height: calc(100vh - 60px);
+  box-sizing: border-box;
+  padding: 1rem 4rem;
+  .mainPage {
+    &__content {
+      border: 2px solid $blue;
+      background: #fff;
+      border-radius: 15px;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      &-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+        column-gap: 1.6rem;
+        width: 100%;
+
+        .main-notice {
+          width: 100%;
+        }
+
+        .wrap-depth2 {
+          display: flex;
+          gap: 1rem;
+          justify-self: center;
+        }
+      }
+      &-box {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        &.main {
+          &-notice {
+          }
+          &-project {
+            width: 50%;
+          }
+          &-gallery {
+            width: 50%;
+
+            a {
+              height: 100%;
+            }
+          }
+        }
+      }
+      &__title {
+        font-size: $font-base;
+        font-weight: $font-bold900;
+        color: $blue;
+        margin-bottom: 1rem;
+        // margin: 2rem auto 2rem;
+      }
+
+      &.notice-container {
+        background: $blue;
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+}

@@ -1,0 +1,135 @@
+@use './abstracts' as *;
+
+#attendancePage {
+  @include flex-center-col;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem 4rem;
+  .attendancePage__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid $darkBlue;
+    padding: 0rem 4rem;
+    margin-bottom: 2rem;
+    box-sizing: border-box;
+    & h1 {
+      font-size: $font-lg;
+      color: $darkBlue;
+    }
+
+    &__attend-btn {
+      font-size: 2rem;
+      font-weight: $font-bold700;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.5s;
+      background: $blue;
+      padding: 10px;
+      border-radius: 15px;
+    }
+  }
+  .attendance__list {
+    display: flex;
+    width: 100%;
+    padding: 1rem 0;
+    > div {
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+    }
+    &-wrap {
+      position: relative;
+      @include flex-center-col;
+      width: 100%;
+      height: 100%;
+      border: 2px solid $blue;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+    &__title {
+      display: flex;
+      width: 100%;
+      padding: 1rem 0;
+      background: $blue;
+      color: #fff;
+      div {
+        position: relative;
+        width: 100%;
+        text-align: center;
+        font-size: $font-base;
+        &:nth-child(2) {
+          &::after,
+          &::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 90%;
+            background: #fff;
+          }
+          &::before {
+            left: 0;
+          }
+          &::after {
+            right: 0;
+          }
+        }
+      }
+    }
+    &-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      .placeholder.attendance {
+        height: 100%;
+      }
+    }
+    &__pagination {
+      @include flex-center-row;
+      width: 100%;
+      height: 50px;
+      column-gap: 5px;
+      flex-shrink: 0;
+      .number {
+        @include flex-center-row;
+        font-size: $font-base;
+        width: 26px;
+        height: 26px;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 50%;
+        &.active {
+          font-weight: $font-bold700;
+          background: $blue;
+          color: #fff;
+        }
+      }
+      button {
+        width: 22px;
+        height: 22px;
+        margin: 1rem;
+        border: none;
+        background: $blue;
+        color: #fff;
+        border-radius: 50%;
+        cursor: pointer;
+        &:disabled {
+          cursor: default;
+          opacity: 0.5;
+        }
+      }
+    }
+    &--logout {
+      @include flex-center-row;
+      width: 100%;
+      height: 100%;
+      font-size: $font-base;
+    }
+  }
+}

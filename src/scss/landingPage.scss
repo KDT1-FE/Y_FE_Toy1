@@ -1,0 +1,8 @@
+@use 'abstracts' as *;
+@use 'base' as *;
+
+.landingContent {
+  display: flex;
+  min-height: calc(100vh - 60px);
+  background-color: $lightGray;
+}

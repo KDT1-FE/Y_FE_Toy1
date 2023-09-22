@@ -1,0 +1,46 @@
+@use '../abstracts' as *;
+
+.attendance {
+  @include flex-center-col;
+  width: 100%;
+  padding: 0 15px;
+  box-sizing: border-box;
+  &__clock {
+    font-size: $font-lg;
+    font-weight: $font-bold700;
+    margin-bottom: 1.6rem;
+  }
+  &__date {
+    font-size: 2rem;
+    font-weight: $font-bold900;
+    margin-bottom: 1rem;
+  }
+  &__btn {
+    &-box {
+      display: flex;
+      column-gap: 1rem;
+      width: 100%;
+      div {
+        font-size: $font-base;
+        padding: 10px 0;
+        border: 1px solid lightgray;
+        border-radius: 15px;
+        text-align: center;
+      }
+    }
+    &__counter {
+      width: 100%;
+      background: lightgray;
+      color: #999;
+      &.active {
+        background: transparent;
+        color: #000;
+      }
+    }
+    &__attend {
+      width: 30%;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+  }
+}

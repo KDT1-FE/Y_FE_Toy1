@@ -1,0 +1,26 @@
+@use '../abstracts' as *;
+@use '../base' as *;
+
+.header__drop-down {
+  @include flex-center-col;
+  @include shadow();
+  width: 120px;
+  background: $white;
+  position: absolute;
+  top: 65px;
+  right: 5px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  & ul {
+    width: 100%;
+    text-align: center;
+    & li {
+      padding: 0.5rem;
+      cursor: pointer;
+      font-size: 1.2rem;
+      &a {
+        display: inline-block;
+      }
+    }
+  }
+}
