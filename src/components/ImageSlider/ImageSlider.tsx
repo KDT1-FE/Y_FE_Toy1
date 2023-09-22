@@ -29,21 +29,22 @@ const slides = [
         style: {
           color: 'black',
           margin: '2px',
-          fontSize: '45px',
+          fontSize: '40px',
           fontWeight: '900',
         },
       },
       {
-        text: '더 편해진 투게더S! 모르는 사람 없게 해주세요 🙏',
+        text: '더 편해진 투게더S! 지금 사용해보세요 🙏',
         style: {
           color: 'black',
           margin: '2px',
-          fontSize: '30px',
-          fontWeight: '500',
+          fontSize: '25px',
+          fontWeight: '700',
         },
       },
     ],
     imageSrc: sliderImg1,
+    link: null,
   },
   {
     backgroundColor: '#ffeae9',
@@ -65,7 +66,7 @@ const slides = [
         style: {
           color: 'black',
           margin: '2px',
-          fontSize: '45px',
+          fontSize: '40px',
           fontWeight: '900',
         },
       },
@@ -74,8 +75,8 @@ const slides = [
         style: {
           color: 'black',
           margin: '2px',
-          fontSize: '30px',
-          fontWeight: '500',
+          fontSize: '25px',
+          fontWeight: '700',
         },
       },
     ],
@@ -102,7 +103,7 @@ const slides = [
         style: {
           color: 'black',
           margin: '2px',
-          fontSize: '45px',
+          fontSize: '40px',
           fontWeight: '900',
         },
       },
@@ -111,12 +112,13 @@ const slides = [
         style: {
           color: 'black',
           margin: '2px',
-          fontSize: '30px',
-          fontWeight: '500',
+          fontSize: '25px',
+          fontWeight: '700',
         },
       },
     ],
     imageSrc: sliderImg3,
+    link: null,
   },
 ];
 
