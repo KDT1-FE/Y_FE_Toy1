@@ -110,8 +110,13 @@ export const NavSpan = styled(NavLink)<{ margin_r?: string }>`
   font-size: 1rem;
   line-height: normal;
   margin-right: ${({ margin_r }) => margin_r};
+  border-bottom: 3px solid transparent;
+  transition: 0.1s;
 
   &.active {
-    font-weight: 700;
+    border-bottom-color: var(--color-white);
+  }
+  &:hover {
+    border-bottom-color: var(--color-white);
   }
 `;

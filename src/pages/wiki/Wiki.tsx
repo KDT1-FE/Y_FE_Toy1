@@ -19,8 +19,9 @@ import WikiCategoryList from "@/components/wiki/WikiCategoryList";
 import WikiTop from "@/components/wiki/WikiTop";
 import * as S from "./WikiStyle";
 import { db } from "../../../firebase";
-import { Wiki } from "../../components/wiki/WikiCommonType";
+import { HasChildMap, Wiki } from "../../components/wiki/WikiCommonType";
 import { Props } from "@/App";
+import { hasChildWikis } from "@/firebase/services/wikiService";
 
 const EMPTY_STRING = "";
 const initializeForm = () => {
@@ -49,6 +50,24 @@ export default function WikiPage({ email }: Props) {
   const queryString = new URLSearchParams(useLocation().search).get("wikiID");
   const wikiIDFromQuery = queryString ? queryString : EMPTY_STRING;
 
+  const [hasChildMap, setHasChildMap] = useState<HasChildMap>({});
+
+  useEffect(() => {
+    const fetchChildrenStatus = async () => {
+      const promises = wikiData.map(async (wiki) => {
+        return wiki.parentID === EMPTY_STRING
+          ? { [wiki.wikiID]: await hasChildWikis(wiki.wikiID) }
+          : { [wiki.wikiID]: false };
+      });
+
+      const results = await Promise.all(promises);
+      const newMap = results.reduce((acc, curr) => ({ ...acc, ...curr }), {});
+      setHasChildMap(newMap);
+    };
+
+    fetchChildrenStatus();
+  }, [wikiData]);
+
   useEffect(() => {
     loadRootWikis();
   }, []);
@@ -59,6 +78,7 @@ export default function WikiPage({ email }: Props) {
       setForm(wikiData[0]);
     }
   }, [wikiData, selectedEntry, form]);
+
   useEffect(() => {
     if (wikiIDFromQuery !== EMPTY_STRING) {
       loadWikiByID(wikiIDFromQuery);
@@ -280,6 +300,7 @@ export default function WikiPage({ email }: Props) {
         <S.Container>
           <WikiCategoryList
             WiKiList={wikiData}
+            hasChildMap={hasChildMap}
             onEntryClick={handleEntryClick}
             onArrowClick={toggleChildWikis}
             isVisible={sideMenuVisible}
@@ -290,6 +311,7 @@ export default function WikiPage({ email }: Props) {
               Wiki={selectedEntry}
               form={form}
               parents={parents}
+              hasChildMap={hasChildMap}
               editorRef={editorRef}
               isEditMode={isEditMode}
               isLoading={isLoading}
