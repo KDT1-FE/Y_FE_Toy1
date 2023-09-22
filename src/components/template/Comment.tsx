@@ -224,7 +224,7 @@ const Comment_btn = styled.button`
   background-color: transparent;
   cursor: pointer;
   //background-color: var(--main-color);
-  // color: white;
+  color: ${(props) => props.theme.text};
   font-size: 12px;
   padding: 7px;
   border-radius: 4px;

@@ -8,15 +8,33 @@
 
 .authentication__form-el{
   display: flex;
+  justify-content: space-between;
 }
 
 .authentication__form-el label{
-  flex: 0 0 80px;
+  flex: 0 0 70px;
   height: 30px;
 }
 
 .authentication__form-el input{
   flex: 0 0 200px;
+}
+
+@media (max-width: 450px){
+  .authentication__form{
+    width:200px;
+  }
+  .authentication__form-el input{
+    flex: 0 0 150px;
+  } 
+}
+@media (max-width: 350px){
+  .authentication__form-el label{
+    flex: 0 0 50px;
+  }
+  .authentication__form-el input{
+    flex: 0 0 100px;
+  } 
 }
 
 .authentication__form .btn{

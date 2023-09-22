@@ -5,6 +5,7 @@ import { createGlobalStyle } from "styled-components";
 const lightTheme = {
   body: "#fff",
   text: "#1f2023",
+  red: "#7a7c85",
   carouselDots: "#373a3c",
   Userinfo: "#ffffff",
   studyRank: "#ddd",
@@ -13,7 +14,10 @@ const lightTheme = {
 const darkTheme = {
   body: "#1f2023",
   text: "#fff",
+
+  red: "#b2b3b7",
   carouselDots: "#ddd",
+
   Userinfo: "#373a3c",
   studyRank: "#373a3c",
 };
@@ -52,9 +56,13 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${(props) => props.theme.body} !important
   }
 
-  .wiki__title, .header__link-wrapper a, .sidebar__menu, .sidebar__menu a, .sidebar__item a { color: ${(props) =>
-    props.theme.text} !important} 
+  .wiki__title, .header__link-wrapper a, .sidebar__menu, .sidebar__menu a { color: ${(
+    props
+  ) => props.theme.text} } 
 
+ .sidebar__item a { color: ${(props) => props.theme.red} } 
+
+ 
   body {
     background-color: ${(props) => props.theme.body};
     color: ${(props) => props.theme.text};
