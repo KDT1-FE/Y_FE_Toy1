@@ -9,11 +9,12 @@
   border-radius: 20px;
   padding: 20px;
   user-select: none;
+  font-family: $fontMain;
   h3 {
+    font-family: 'LOTTERIACHAB';
     margin: 15% 0px 0px 20%;
     font-size: 5rem;
     color: white;
-    font-family: 'Tossface', 'Sinoreta PERSONAL USE', sans-serif;
   }
 }
 .user-card {
@@ -23,7 +24,6 @@
   margin: 10px;
   padding: 20px 0px;
   border-radius: 20px;
-  // background-color: $blackColor;
   background-image: url('https://i.pinimg.com/564x/c8/77/f3/c877f377d10dc6ffa07c3f50fb04e2c4.jpg');
   background-position: 10% center;
   transition: background-position 0.7s;
