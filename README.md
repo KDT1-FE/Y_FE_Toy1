@@ -1,203 +1,335 @@
-# **📅 직원들을 위한 위키 사이트**
+<p align="center">
+  <img width="150" height="180" alt="Starbucks logo" src="https://firebasestorage.googleapis.com/v0/b/testfc-74eda.appspot.com/o/KakaoTalk_20230919_133841507%20(1).png?alt=media&token=36ff51dc-5415-4c50-9b4c-b74485e8f562" />
+  <h2 align="center">🍽️ SWAL - 맛집 소모임 WIKI APP</h2>
+</p>
 
-직원 들을 위한 위키 사이트를 만들어보세요!
-위키 사이트에는 위키 뿐 아니라 여러 기능이 추가되어야 합니다!
+_맛집 & 밥약 관리 웹서비스, **"SWAL"**_
 
-### **[과제 수행 및 제출 방법]**
+맛집을 공유하고 같이 먹을 사람을 구하는 웹서비스, **SWAL**입니다.
 
-1. 현재 저장소를 로컬에 클론(Clone)합니다.
-2. 자신의 팀명으로 브랜치를 생성합니다.(구분 가능하도록 팀명을 꼭 파스칼케이스로 표시하세요, git branch Y_FE_Toy1_Team13)
-3. 자신의 팀명 브랜치에서 과제를 수행합니다.
-4. 과제 수행이 완료되면, 자신의 팀명 브랜치를 원격 저장소에 푸시(Push)합니다.(main 브랜치에 푸시하지 않도록 꼭 주의하세요, git push origin Y_FE_Toy1_Team13)
-5. 저장소에서 main 브랜치를 대상으로 Pull Request 생성하면, 과제 제출이 완료됩니다!(E.g, main <== Y_FE_Toy1_Team13)
-6. Pull Request 링크를 LMS로도 제출해 주셔야 합니다.
-7. main 혹은 다른 사람의 브랜치로 절대 병합하지 않도록 주의하세요!
-8. Pull Request에서 보이는 설명을 다른 사람들이 이해하기 쉽도록 꼼꼼하게 작성하세요!
-9. Pull Request에서 과제 제출 후 절대 병합(Merge)하지 않도록 주의하세요!
-10. 과제 수행 및 제출 과정에서 문제가 발생한 경우, 바로 담당 멘토나 강사님께 얘기하세요!
+**SWAL**은 맛집을 등록, 공유하고 정보를 나누며 위치기반으로 밥약속을 잡을 수 있는 기능을 제공합니다.
 
-### **[필수 구현사항]**
+## 🔗 SWAL 배포 링크
 
-- 문서편집, revision 기능을 제공하여 업무일지를 작성할 수 있는 직원들을 위한 위키사이트 구현(마크다운 형식)
-- firebase database (Firestore) 이용
-- 모달을 활용한 근무 시간을 표시하는 시계 및 타이머 창 구현
-- 캐러셀을 활용한 회사 공지 페이지
-- **갤러리 페이지 / 업무일지 페이지 등 메뉴를 필터링 또는 카테고리화 하는 선택바 구현**
-- netlify 등을 이용한 정적 페이지 배포
-- TypeScript 사용 필수
-- 과제에 대한 설명을 포함한 `README.md` 파일 작성
-    - 팀원별로 구현한 부분 소개
+  <div align=center>
+    <a href="https://ikuzo-swal.vercel.app/" target="_blank">
+      <img src="https://img.shields.io/badge/SWAL-fdd030?style=for-the-badge&logo=4chan&logoColor=black" alt="SWAL 배포 링크"/>
+    </a>
+    <a href="https://github.com/dabin-Hailey/IKUZO-WIKI" target="_blank">
+      <img src="https://img.shields.io/badge/원본 repo-f09136?style=for-the-badge&logo=github&logoColor=white" alt="SWAL 원본 REPO"/>
+    </a>
+    <br/>
+    회원가입을 먼저 진행해 주세요 !
+  </div>
 
-### **[선택 구현사항]**
+  </div>
 
-- React 사용은 선택
-- 기타 동작이 완료되기 전에 로딩 애니메이션 구현
-- 페이지네이션
-- 관련된 기타 기능도 고려
-- eslint 설정, 커밋컨벤션, 문서화 등 팀프로젝트시 필요한 추가 작업들
+## 🎬 SWAL 구현 영상
 
----
+[![YouTube 동영상 썸네일](https://firebasestorage.googleapis.com/v0/b/testfc-74eda.appspot.com/o/%EC%9D%B4%EB%AF%B8%EC%A7%80%201.png?alt=media&token=7efeefdf-281c-4043-8fab-0c1f091998c6)](https://www.youtube.com/watch?v=GNmNqdlCuXY)
 
-## 가이드
+## ✨ SWAL의 주요 기능
 
-아래 예시는 모두 하나의 의견입니다!
+✅ 회원 관리 : 로그인, 로그아웃, 회원가입을 할 수 있습니다.
 
-따라하는게 아니라 자신만의 결과물을 만들어보세요.
+✅ 맛집 공유 : 맛집을 공유할 수 있습니다. 맛집 이름, 주소, 카테고리를 분류해서 저장할 수 있습니다.
 
-### 공지사항
-[영상 1]
+✅ 밥약 관리 : 밥약을 만들거나 참여할 수 있습니다. 최대 9명으로 구성된 밥약속을 만들거나 참여해보세요. 지도에서 맛집을 찾아 합류할 수 있습니다.
 
+## 💡 SWAL의 비지니스 / 프로덕트 문제
 
-### **모달 타이머**
-[영상 2]
+**✅ SWAL의 비전** : 맛집에서 밥은 다같이 맛있게 먹어야 한다.
 
+**✅ SWAL의 비지니스 요구사항**
 
-https://github.com/KDT1-FE/Y_FE_Toy1/assets/38754963/20c18d28-5a01-4163-876c-be74a24f62db
+1. 맛집 공유의 편리함
+2. 밥약을 빠르게 잡을 수 있는 신속함
 
+**✅ SWAL의 타겟**
 
+1. 맛집 정보를 나누고 싶은 공유 Lover
+2. 밥약을 잡아서 같이 밥을 먹고 싶은 혼밥 Hater
 
-### **마크다운 위키사이트**
-[영상 3]
+**✅ SWAL의 프로덕트 구현**
 
+1. **맛집 정보를 나누고 싶은 공유 Lover**
 
-https://github.com/KDT1-FE/Y_FE_Toy1/assets/38754963/08e3efca-8137-44d8-a0af-c62a668b810b
+- 카테고리에 맞는 맛집 공유
+- 모든 정보를 기입하지 않고 지도 검색으로 간단하게 맛집을 추가할 수 있는 기능
 
+2. **밥약을 잡아서 같이 밥을 먹고 싶은 혼밥 Hater**
 
+- 30분 이내에서 유효한 밥약을 참여할 수 있는 기능
+- 모든 정보를 기입하지 않고 지도 검색으로 간단하게 밥약을 추가할 수 있는 기능
 
-### **갤러리**
-[영상 4]
+## 📌 SWAL의 사용 방법
 
----
+SWAL를 사용하기 위해서는 먼저 회원 가입을 해야 합니다. <br>
+회원가입 후 맛집을 공유하거나 밥약속을 만들고 참여하세요!!
 
-# **[Firestore]**
+**1. 좌측 상단의 로그인 버튼을 누르세요.**
+<img src="https://blog.kakaocdn.net/dn/c65E0z/btsu9OvyHYf/ob0Fob2hKXBmwisNk1lxm0/img.png" alt="home 페이지">
 
-Firestore에 대한 가이드입니다.
+<br/>
 
-자세한 내용은 [공식 홈페이지](https://firebase.google.com/?hl=ko) 를 찾아보길 적극 권장합니다!
+**2. 기존 회원이시면 로그인을, 첫 방문이시라면 회원가입 버튼을 누르세요. (2-1)**
+<img src="https://blog.kakaocdn.net/dn/dYVvyM/btsu0rOzFoM/UKglK5k8Cof9nGngYpKFq0/img.png" alt="로그인 페이지">
 
-### **App init**
+- **회원가입은 이메일과 비밀번호가 필요합니다!**
+  <img src="https://blog.kakaocdn.net/dn/bemjxv/btsvdobLNmx/iVJokyJqlsTDuqxhA142Gk/img.png" alt="회원가입 페이지">
 
-```jsx
-import { getFirestore } from "firebase/firestore";
+<br/>
 
-export const db = getFirestore(fireBaseApp);
+**3. Wiki 페이지의 공지사항과 소개 글을 읽어 주세요.**
+
+- **공지사항 페이지**
+  <img src="https://blog.kakaocdn.net/dn/boyydA/btsvb4do8hK/3mYNnZZLHvlQf8RyKN4FJK/img.png" alt="공지사항 페이지">
+
+<br/>
+
+- **소개 페이지**
+  <img src="https://blog.kakaocdn.net/dn/bpwxwP/btsu8l8eDI3/7XWXgBRo4e7B1DQpEM7Qq0/img.png" alt="소개 페이지">
+  각 페이지는 로그인 후 저희 카페의 회원이 되면 수정이 가능합니다 !
+
+<br/>
+
+**4. _같이 먹을 사람 구해요_ 페이지에서 같이 밥 먹을 사람을 찾아요👭**
+
+   <!-- 같이 먹을 사람 구해요 페이지 img -->
+
+밥약을 생성하거나, 참여할 수 있습니다!
+<img src="https://blog.kakaocdn.net/dn/MnKcg/btsvaqHUSSq/O3mKIGY8TM3szNNqchzsl0/img.png" alt="밥약 등록 페이지">
+<img src="https://blog.kakaocdn.net/dn/bnY7ID/btsvjeUj8BF/tePYepaRfTOGikq5ywPw5k/img.png" alt="밥약 등록 페이지">
+제목, 내용, 위치, 구할 시간, 인원을 설정해서 밥약을 만들어 보세요!
+
+<br/>
+
+**5. _Gallery_ 페이지에서 맛집 정보를 공유하세요 !**
+
+   <!-- Gallrey페이지 img -->
+
+다른 회원들이 공유한 맛집들을 카테고리별로 정리해서 볼 수 있습니다!
+<img src="https://blog.kakaocdn.net/dn/bhEHCe/btsu7Uprvyt/3sk4xGekKR6eAerRMcc7ek/img.png" alt="밥약 등록 페이지">
+나만의 맛집을 지도에서 찾아 등록할 수 있어요 !
+
+맛있게 나온 사진을 첨부해서 맛집을 공유해봐요 😉
+
+<br/>
+
+## 👤 SWAL의 유저 플로우
+
+<img src="https://firebasestorage.googleapis.com/v0/b/testfc-74eda.appspot.com/o/2-min.jpg?alt=media&token=d580b143-c020-44f8-9c6e-7088d9b881c3"/>
+
+## 🛠️ SWAL의 기술 스택
+
+### Enviroment & Config
+
+<div style="display: flex;">
+  <img src="https://img.shields.io/badge/visual studio code-007ACC?style=for-the-badge&logo=visual studio&logoColor=white" />
+  <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white" />
+  <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white" />
+  <img src="https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white" />
+  <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=black" />
+  <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white" />
+</div>
+
+### Development & FrontEnd
+
+<div style="display: flex;">
+  <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
+  <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white" />
+  <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
+  <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/recoil-3578E5?style=for-the-badge&logo=recoil&logoColor=white" />
+</div>
+    
+### DB
+
+<img src="https://img.shields.io/badge/firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" />
+
+### Deploy
+
+  <img src="https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" />
+
+### Communication
+
+<div style="display: flex;">
+  <img src="https://img.shields.io/badge/kakaotalk-FFCD00?style=for-the-badge&logo=kakaotalk&logoColor=black" />
+  <img src="https://img.shields.io/badge/notion-9266CC?style=for-the-badge&logo=notion&logoColor=white" />
+  <img src="https://img.shields.io/badge/slack-4A154B?style=for-the-badge&logo=slack&logoColor=white" />
+  <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" />
+</div>
+
+## 📂 SWAL의 디렉토리 구조
+
+```plaintext
+📦IKUZO-WIKI/
+┣ 📂src
+┃ ┣ 📂assets
+┃ ┣ 📂components
+┃ ┃ ┣ 📂chooseid
+┃ ┃ ┃ ┣ 📜ChooseEmailButton.tsx
+┃ ┃ ┃ ┗ 📜index.tsx
+┃ ┃ ┣ 📂common
+┃ ┃ ┃ ┣ 📂Footer
+┃ ┃ ┃ ┃ ┗ 📜index.tsx
+┃ ┃ ┃ ┣ 📂Header
+┃ ┃ ┃ ┃ ┣ 📜index.tsx
+┃ ┃ ┃ ┃ ┗ 📜LoginBtn.tsx
+┃ ┃ ┃ ┣ 📂Layout
+┃ ┃ ┃ ┃ ┣ 📜GalleryLayout.tsx
+┃ ┃ ┃ ┃ ┗ 📜WikiLayout.tsx
+┃ ┃ ┃ ┣ 📂SidebarGallery
+┃ ┃ ┃ ┃ ┣ 📜AddModal.tsx
+┃ ┃ ┃ ┃ ┗ 📜index.tsx
+┃ ┃ ┃ ┗ 📂SidebarWiki
+┃ ┃ ┃ ┃ ┗ 📜index.tsx
+┃ ┃ ┣ 📂gallery
+┃ ┃ ┃ ┣ 📂GalleryButton
+┃ ┃ ┃ ┃ ┗ 📜index.tsx
+┃ ┃ ┃ ┣ 📂GalleryItem
+┃ ┃ ┃ ┃ ┗ 📜index.tsx
+┃ ┃ ┃ ┣ 📂Modal
+┃ ┃ ┃ ┃ ┣ 📜DeleteModal.tsx
+┃ ┃ ┃ ┃ ┗ 📜UpdateModal.tsx
+┃ ┃ ┃ ┣ 📂Pagination
+┃ ┃ ┃ ┃ ┗ 📜index.tsx
+┃ ┃ ┃ ┗ 📜index.tsx
+┃ ┃ ┣ 📂home
+┃ ┃ ┃ ┗ 📜index.tsx
+┃ ┃ ┣ 📂login
+┃ ┃ ┃ ┗ 📜index.tsx
+┃ ┃ ┣ 📂map
+┃ ┃ ┃ ┣ 📜index.tsx
+┃ ┃ ┃ ┗ 📜Map.styled.tsx
+┃ ┃ ┣ 📂register
+┃ ┃ ┃ ┗ 📜index.tsx
+┃ ┃ ┣ 📂skeleton
+┃ ┃ ┃ ┣ 📜Skeleton.tsx
+┃ ┃ ┃ ┣ 📜SkeletonGallery.tsx
+┃ ┃ ┃ ┗ 📜SkeletonMarkdown.tsx
+┃ ┃ ┗ 📂wiki
+┃ ┃ ┃ ┣ 📂Intro
+┃ ┃ ┃ ┃ ┗ 📜Intro.tsx
+┃ ┃ ┃ ┣ 📂Layout
+┃ ┃ ┃ ┃ ┗ 📜WikiLayout.styled.tsx
+┃ ┃ ┃ ┣ 📂Markdown
+┃ ┃ ┃ ┃ ┣ 📜MarkdownEditor.tsx
+┃ ┃ ┃ ┃ ┗ 📜MarkdownViewer.tsx
+┃ ┃ ┃ ┣ 📂Notice
+┃ ┃ ┃ ┃ ┗ 📜Notice.tsx
+┃ ┃ ┃ ┣ 📂With
+┃ ┃ ┃ ┃ ┣ 📂Modal
+┃ ┃ ┃ ┃ ┃ ┗ 📜index.tsx
+┃ ┃ ┃ ┃ ┣ 📂WithButton
+┃ ┃ ┃ ┃ ┃ ┗ 📜index.tsx
+┃ ┃ ┃ ┃ ┣ 📂WIthItem
+┃ ┃ ┃ ┃ ┃ ┗ 📜index.tsx
+┃ ┃ ┃ ┃ ┣ 📂WithTime
+┃ ┃ ┃ ┃ ┃ ┗ 📜index.tsx
+┃ ┃ ┃ ┃ ┗ 📜index.tsx
+┃ ┃ ┃ ┗ 📜index.tsx
+┃ ┣ 📂hooks
+┃ ┃ ┣ 📜getAuth.ts
+┃ ┃ ┣ 📜getGalleryData.ts
+┃ ┃ ┣ 📜getLoginAuth.ts
+┃ ┃ ┗ 📜getStorageAuthData.ts
+┃ ┣ 📂pages
+┃ ┃ ┣ 📜Chinese.tsx
+┃ ┃ ┣ 📜ChooseId.tsx
+┃ ┃ ┣ 📜Home.tsx
+┃ ┃ ┣ 📜Intro.tsx
+┃ ┃ ┣ 📜Japanese.tsx
+┃ ┃ ┣ 📜Korean.tsx
+┃ ┃ ┣ 📜Login.tsx
+┃ ┃ ┣ 📜Notice.tsx
+┃ ┃ ┣ 📜Register.tsx
+┃ ┃ ┣ 📜Western.tsx
+┃ ┃ ┗ 📜With.tsx
+┃ ┣ 📂recoil
+┃ ┃ ┣ 📜authRecoil.ts
+┃ ┃ ┗ 📜countRecoil.ts
+┃ ┣ 📂utils
+┃ ┃ ┣ 📜firebase.config.tsx
+┃ ┃ ┣ 📜NonProtectedRoute.tsx
+┃ ┃ ┣ 📜ProtectedRoute.tsx
+┃ ┃ ┗ 📜util.tsx
+┃ ┣ 📜App.tsx
+┃ ┣ 📜index.css
+┃ ┣ 📜index.tsx
+┃ ┣ 📜logo.svg
+┃ ┣ 📜react-app-env.d.ts
+┃ ┣ 📜reportWebVitals.ts
+┃ ┗ 📜setupTests.ts
+┣ 📂public
+┣ 📂node_modules
+┣ 📜package.json
+┣ 📜tsconfig.json
+┣ 📜README.md
+┗ ...
 ```
 
-### Firestore 데이터 추가하기
+## 🪹 SWAL의 브랜치 전략
 
-Firestore의 데이터를 추가하는 방법은 크게 두가지이다.
+- `main`: 서비스 배포용도의 브랜치
+- `dev`: 배포 전, 모든 feature 브랜치 병합 및 테스트용도의 브랜치
+- `feature/#issueNumber`: github issue 넘버로 기능 구현
 
-1. Firebase console에서 손수 데이터 추가해주기
-2. 코드로 데이터 추가하기
+## 👩‍💻 Contributor 👨‍💻
 
-### 1. Firebase console에서 손수 데이터 추가해주기
-
-1. [Firebase console](https://console.firebase.google.com/u/0/?hl=ko)에 접속한다.
-2. 자신의 프로젝트를 선택한다.
-3. 왼쪽 메뉴에서 `Firestore Database`를 선택한다.
-4. `+ 버튼`을 눌러 컬렉션 > 문서를 마음대로 추가해준다.
-5. 필드를 추가하여 문서에 데이터를 넣어준다.
-
-### 2. 코드로 데이터 추가하기
-
-Firestore는 `setDoc`, `addDoc` 두 가지 함수로 데이터를 추가할 수 있다.
-
-이제 원하는 데이터를 추가해보자.
-
-**1. `addDoc`**
-
-`addDoc`은 아래와 같이 사용하여 원하는 데이터를 추가할 수 있다.
-
-```
-import { addDoc, collection } from "firebase/firestore";
-
-const writtenDoc = await addDoc(collection(db, "wiki"), {
-  title: "LGH",
-  description: "허먼밀러...사고싶다...",
-});
-
-console.log("Document written with ID: ", writtenDoc.id);
-// 새로 생성된 Document의 ID를 반환한다.
-```
-
-원하는 데이터를 추가하기 위해선 먼저 원하는 collection을 선택해야 한다. 위 예제의 `addDoc` 안에서 사용한 `collection` 함수는 db상에 있는 collection을 선택하거나 없을 경우 새로운 collection을 생성하여 반환한다.
-
-Firebase의 Doc는 기본적으로 ID를 가져야 하는데, addDoc을 사용하면 ID를 자동으로 만든다. 또한, 이미 존재하는 Doc에 `addDoc`을 사용하면 에러가 발생한다.
-
-**2. `setDoc`**
-
-`setDoc`은 아래와 같이 사용하여 원하는 데이터를 추가할 수 있다.
-
-```
-import { setDoc, doc } from "firebase/firestore";
-
-await setDoc(doc(db, "wiki", "new-id"), {
-  title: "LGH",
-  description: "허먼밀러...사고싶다...",
-});
-```
-
-`addDoc`과의 차이점은
-
-1. **id** 를 지정해줘야함
-2. `collection` 대신 `doc`을 사용함
-3. 이미 존재하는 Doc에 사용가능
-
-3가지 이다.
-
-`setDoc`은 `addDoc`과 달리 collection이 아니라 doc를 선택해야 한다. 이는 `setDoc`이 데이터의 추가 뿐 아니라 데이터 덮어쓰기 기능도 가지고 있기 때문이다. 러프하게 생각해보면 `setDoc`은 데이터를 추가할 때
-
-1. doc을 선택하거나 새로운 doc을 생성
-2. doc의 내용을 덮어씀
-
-의 방식으로 동작하는 것이다.
-
-Doc을 선택하는 방법은 `doc` 함수를 사용하는 것이다. `[doc()](https://firebase.google.com/docs/reference/js/firestore_.md?hl=ko#doc)` 함수는 `DocumentReference` instance를 반환한다. 절대 경로를 사용하여 원하는 Document를 선택할 수 있다. 위에서 만들어둔 `wiki > completed` 문서는 아래처럼 불러올 수 있다.
-
-```
-import { doc } from "firebase/firestore";
-
-const docRef = doc(db, "wiki", "completed");
-```
-
-`doc` 함수의 3번째 인자가 바로 **id** 이다. id는 이미 존재하는 Doc의 id를 사용할 수도 있고, 새로운 id를 사용할 수도 있다. 존재하는 id를 사용하는 경우에는 해당 Doc의 데이터를 덮어쓰게 된다. 그렇지 않은 경우엔 새로운 Doc를 생성한다.
-
-어쨌거나 데이터를 새로 추가할 수 있는 것이다.
-
-### Firestore 데이터 수정하기
-
-Firestore의 데이터를 수정하는 방법은 크게 두가지이다.
-
-1. Firebase console에서 손수 데이터 수정해주기
-1. 코드로 데이터 수정하기
-
-1번은 데이터 생성과 비슷하게 진행하면 된다.
-
-**2. 코드로 데이터 수정하기**
-
-Firestore는 `setDoc`, `update` 두 가지 함수로 데이터를 추가할 수 있다.
-
-`setDoc`을 사용하는 방법은 위에 적혀있다.
-
-### `update`
-
-`setDoc`은 데이터를 덮어쓴다. 따라서 기존의 문서를 유지한 채 일부분의 데이터만 변경하고 싶어도 이전의 데이터를 모두 새로 입력해야 한다.
-
-그러나 `update`는 기존의 데이터를 유지한 채 일부분의 데이터만 변경할 수 있다.
-
-```jsx
-import { updateDoc, doc } from "firebase/firestore";
-
-await updateDoc(doc(db, "wiki", "new-id"), {
-  description: "허먼밀러...200만원...",
-});
-```
-
-위와 같이 코드를 작성하면 `new-id`라는 id를 가진 문서의 description만 변경된다.
-
----
-
-### *참고 링크
-
-- **[Firebase](https://firebase.google.com/docs?hl=ko)**
-- [**프로토타입 프로젝트**](https://stfe.vercel.app/)
+<table>
+  <tr>
+    <td align="center" width="150px">
+      <a href="https://github.com/LikeFireAndSky" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/107862297?v=4" alt="김민섭 프로필" />
+      </a>
+    </td>
+    <td align="center" width="150px">
+      <a href="https://github.com/seungsimdang" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/93538221?v=4" alt="이승현 프로필" />
+      </a>
+    </td>
+    <td align="center" width="150px">
+      <a href="https://github.com/dabin-Hailey" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/139190686?v=4" alt="김다빈 프로필" />
+      </a>
+    </td>
+    <td align="center" width="150px">
+      <a href="https://github.com/lilviolie" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/95364951?v=4" alt="한은지 프로필" />
+      </a>
+    </td>
+    <td align="center" width="150px">
+      <a href="https://github.com/seacrab808" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/93272421?v=4" alt="소유나 프로필" />
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="https://velog.io/@icdmiracle927" target="_blank">
+        김민섭 (FE)
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://seungsimdang.github.io/" target="_blank">
+        이승현 (FE)
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://velog.io/@mary0393" target="_blank">
+        김다빈 (FE)
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://velog.io/@lilviolie" target="_blank">
+        한은지 (FE)
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://seacrab.tistory.com/" target="_blank">
+        소유나 (FE)
+      </a>
+    </td>
+  </tr>
+</table>
