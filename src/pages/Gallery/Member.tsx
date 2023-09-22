@@ -51,8 +51,8 @@ const Member = () => {
         <BreadCrumb>갤러리 &gt; 멤버 &gt; 멤버 소개</BreadCrumb>
       </CategoryTitleSection>
       <ProfileSection>
-        {userData?.map((item) => {
-          return <ImageWrapper userData={item} />;
+        {userData?.map((item, index) => {
+          return <ImageWrapper key={index} userData={item} />;
         })}
       </ProfileSection>
     </GalleryMainContainer>
@@ -67,11 +67,11 @@ const ImageWrapper = ({ userData }: { userData: UserProps }) => {
       <ImageDiv style={{ backgroundImage: `url(${userData.photoUrl})` }} />
       <NameDiv>{userData.name}</NameDiv>
       <InfoDiv>
-        {userData.phone && <BsPhone />}
+        {userData.phone && <BsPhone style={{ flexShrink: '0' }} />}
         {userData.phone && `${formatPhoneNumber(userData.phone)}`}
       </InfoDiv>
-      <InfoDiv>
-        {userData.email && <AiOutlineMail style={{ flexShrink: '0' }} />}
+      <InfoDiv style={{ alignItems: 'flex-start' }}>
+        {userData.email && <AiOutlineMail style={{ flexShrink: '0', marginTop: '5px' }} />}
         {userData.email}
       </InfoDiv>
     </MainDiv>
@@ -110,9 +110,10 @@ const NameDiv = styled.div`
 `;
 
 const InfoDiv = styled.div`
-  padding-left: 18px;
+  padding: 0 18px;
   display: flex;
   gap: 4px;
   align-items: center;
-  overflow: scroll;
+  word-break: break-word;
 `;
+// overflow: scroll;
