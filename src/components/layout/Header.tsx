@@ -10,12 +10,8 @@ import UserInfo from "components/template/UserInfo";
 import DarkModeBtn from "provider/darkModeContext";
 import { IsMobile } from "utils/mediaQuery";
 
-interface HeaderProps {
-  isStudying: boolean;
-  onIsStudyingChange: (isStudying: boolean) => void;
-}
 
-const Header: React.FC<HeaderProps> = ({ isStudying, onIsStudyingChange }) => {
+const Header = () => {
   const pageLink = ["Wiki", "Gallery", "Rank"];
   const user = useContext(AuthContext);
   const [pathLink, setPathLink] = useState("");
@@ -24,9 +20,8 @@ const Header: React.FC<HeaderProps> = ({ isStudying, onIsStudyingChange }) => {
 
   const [isModalActive, setIsModalActive] = useState(false);
   const [studyStartTime, setStudyStartTime] = useState<number | null>(null);
-  // const [isStudying, setIsStudying] = useState(false);
+  const [isStudying, setIsStudying] = useState(false);
   const [modalButtonText, setModalButtonText] = useState("학습 기록");
-
   const [mobileUserInfo, setMobileUserInfo] = useState(false);
 
   const handlerLogout = () => {
@@ -39,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({ isStudying, onIsStudyingChange }) => {
   };
 
   const handleIsStudyingChange = (newIsStudying: boolean) => {
-    onIsStudyingChange(newIsStudying);
+    setIsStudying(newIsStudying);
 
     // 버튼 텍스트 업데이트
     if (newIsStudying) {
@@ -48,6 +43,10 @@ const Header: React.FC<HeaderProps> = ({ isStudying, onIsStudyingChange }) => {
       setModalButtonText("학습 기록");
     }
   };
+
+  const toggleStudyStatus = () => {
+    setIsStudying(prev=>!prev)
+  }
 
   // const toggleStudyStatus = () => {
   //   if (!isStudying) {
@@ -172,7 +171,8 @@ const Header: React.FC<HeaderProps> = ({ isStudying, onIsStudyingChange }) => {
                   isStudying={isStudying}
                   studyStartTime={studyStartTime}
                   onIsStudyingChange={handleIsStudyingChange}
-                  // toggleStudyStatus={toggleStudyStatus}
+                  toggleStudyStatus={toggleStudyStatus}
+                  setStudyStartTime={setStudyStartTime}
                 />
               }
             />
@@ -263,7 +263,8 @@ const Header: React.FC<HeaderProps> = ({ isStudying, onIsStudyingChange }) => {
                 isStudying={isStudying}
                 onIsStudyingChange={handleIsStudyingChange}
                 studyStartTime={studyStartTime}
-                // toggleStudyStatus={toggleStudyStatus}
+                toggleStudyStatus={toggleStudyStatus}
+                setStudyStartTime={setStudyStartTime}
               />
             }
           />

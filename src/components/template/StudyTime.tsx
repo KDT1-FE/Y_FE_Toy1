@@ -42,26 +42,23 @@ const Clock: React.FC = () => {
 interface StudyTimeProps {
   isStudying: boolean;
   studyStartTime?: number | null;
-  // toggleStudyStatus: () => void;
+  toggleStudyStatus: () => void;
   onIsStudyingChange: (isStudying: boolean) => void;
+  setStudyStartTime: (time:number) => void;
 }
 
 const StudyTime: React.FC<StudyTimeProps> = ({
   isStudying,
-  studyStartTime: propStudyStartTime = null,
-  // toggleStudyStatus,
+  studyStartTime,
+  toggleStudyStatus,
   onIsStudyingChange,
+  setStudyStartTime
 }) => {
   const navigate = useNavigate();
   const user = useContext(AuthContext);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
-  const [studyStartTime, setStudyStartTime] = useState<number | null>(
-    propStudyStartTime
-  );
 
-  const toggleStudyStatus = () => {
-    onIsStudyingChange(!isStudying);
-  };
+  ;
 
   useEffect(() => {
     let interval: NodeJS.Timeout | undefined = undefined;

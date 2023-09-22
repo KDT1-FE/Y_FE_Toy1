@@ -6,12 +6,11 @@ import AuthProvider from "provider/userProvider";
 import DarkMode from "provider/darkModeProvider";
 
 const App = () => {
-  const [isStudying, setIsStudying] = useState(false);
   return (
     <DarkMode>
       <AuthProvider>
         <BrowserRouter>
-          <Header isStudying={isStudying} onIsStudyingChange={setIsStudying} />
+          <Header />
           <Router />
         </BrowserRouter>
       </AuthProvider>
