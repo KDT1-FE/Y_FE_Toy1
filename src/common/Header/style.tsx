@@ -37,6 +37,19 @@ export const RightAnchorContainer = styled.div`
 export const ListAnchor = styled.a`
     font-weight: 700;
     font-size: 24px;
+    font-family:
+        GmarketSansTTFMedium,
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        'Roboto',
+        'Oxygen',
+        'Ubuntu',
+        'Cantarell',
+        'Fira Sans',
+        'Droid Sans',
+        'Helvetica Neue',
+        sans-serif;
     color: ${(props) => props.theme.text};
 `;
 
