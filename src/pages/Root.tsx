@@ -15,6 +15,7 @@ import PostedModal from '../components/MainPost/PostedModal';
 import '../styles/Main.scss';
 import leftArrowImage from '../images/left-arrow-button.png';
 import rightArrowImage from '../images/right-arrow-button.png';
+import { onSnapshot } from 'firebase/firestore';
 
 
 export default function Root() {
@@ -136,25 +137,28 @@ const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
     return '닉네임을 가져오지 못했습니다.';
   };
   
-const fetchPosts = async () => {
-  const q = query(collection(db, 'posts'));
-  try {
-    const querySnapshot = await getDocs(q);
-    const newPosts: FirestorePostData[] = [];
-    for (const doc of querySnapshot.docs) {
-      const data = doc.data() as FirestorePostData;
-      const userData = await fetchUserNickname(data.userId); 
-      newPosts.push({ ...data, id: doc.id, username: userData });
+  const fetchPosts = async () => {
+    const q = query(collection(db, 'posts'));
+    try {
+      const querySnapshot = await getDocs(q);
+      const newPosts: FirestorePostData[] = [];
+      for (const doc of querySnapshot.docs) {
+        const data = doc.data() as FirestorePostData;
+        const userData = await fetchUserNickname(data.userId); 
+        newPosts.push({ ...data, id: doc.id, username: userData });
+      }
+      setPosts(newPosts);
+    } catch (error) {
+      console.error('포스트 목록을 불러오는 중 오류 발생:', error);
     }
-    setPosts(newPosts);
-  } catch (error) {
-    console.error('포스트 목록을 불러오는 중 오류 발생:', error);
-  }
-};
-
+  };
+  
   useEffect(() => {
     fetchPosts();
-    console.log('auth.currentUser:', auth.currentUser);
+    const unsubscribe = onSnapshot(collection(db, 'posts'), () => {
+      fetchPosts();
+    });
+    return () => unsubscribe();
   }, [auth.currentUser]);
 
   return (
