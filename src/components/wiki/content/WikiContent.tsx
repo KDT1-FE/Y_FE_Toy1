@@ -1,8 +1,8 @@
+import RenderWikiForm from "./RenderWikiForm";
 import RenderNoWiki from "./RenderNoWiki";
 import RenderWikiContent from "./RenderWikiContent";
-import RenderWikiForm from "./RenderWikiForm";
 import * as Styled from "./WikiContentStyle";
-import { WikiContentProps } from "@/components/wiki/WikiCommonType";
+import { WikiContentProps } from "@/components/wiki/types/WikiCommonType";
 
 export default function WikiContent({
   currentUser,

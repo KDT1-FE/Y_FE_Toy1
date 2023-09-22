@@ -11,7 +11,7 @@ import {
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "@/firebase/firebase";
-import { Wiki } from "@/components/wiki/WikiCommonType";
+import { Wiki } from "@/components/wiki/types/WikiCommonType";
 
 export default function Home() {
   const [lastestWikis, setLastestWikis] = useState<Wiki[]>();
