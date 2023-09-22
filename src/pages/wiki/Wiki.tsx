@@ -1,26 +1,24 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useLocation } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { Editor } from "@toast-ui/react-editor";
-import {
-  doc,
-  addDoc,
-  setDoc,
-  getDoc,
-  deleteDoc,
-  collection,
-  query,
-  where,
-  orderBy,
-  Timestamp,
-  getDocs,
-} from "firebase/firestore";
-import WikiContent from "@/components/wiki/WikiContent";
-import WikiCategoryList from "@/components/wiki/WikiCategoryList";
-import WikiTop from "@/components/wiki/WikiTop";
+import { Timestamp } from "firebase/firestore";
+import WikiContent from "@/components/wiki/content/WikiContent";
+import WikiCategoryList from "@/components/wiki/category/WikiCategoryList";
+import WikiTop from "@/components/wiki/top/WikiTop";
 import * as S from "./WikiStyle";
-import { db } from "../../../firebase";
-import { Wiki } from "../../components/wiki/WikiCommonType";
+
+import { HasChildMap, Wiki } from "../../components/wiki/types/WikiCommonType";
 import { Props } from "@/App";
+import {
+  deleteWiki,
+  deleteChildWikis,
+  hasChildWikis,
+  loadRootWikis,
+  loadWikiByID,
+  saveWiki,
+  loadChildrenWikis,
+} from "@/firebase/services/wikiService";
 
 const EMPTY_STRING = "";
 const initializeForm = () => {
@@ -49,8 +47,31 @@ export default function WikiPage({ email }: Props) {
   const queryString = new URLSearchParams(useLocation().search).get("wikiID");
   const wikiIDFromQuery = queryString ? queryString : EMPTY_STRING;
 
+  const [hasChildMap, setHasChildMap] = useState<HasChildMap>({});
+  const navigate = useNavigate();
+  const location = useLocation();
+
   useEffect(() => {
-    loadRootWikis();
+    const fetchChildrenStatus = async () => {
+      const promises = wikiData.map(async (wiki) => {
+        return wiki.parentID === EMPTY_STRING
+          ? { [wiki.wikiID]: await hasChildWikis(wiki.wikiID) }
+          : { [wiki.wikiID]: false };
+      });
+
+      const results = await Promise.all(promises);
+      const newMap = results.reduce((acc, curr) => ({ ...acc, ...curr }), {});
+      setHasChildMap(newMap);
+    };
+
+    fetchChildrenStatus();
+  }, [wikiData]);
+
+  useEffect(() => {
+    loadRootWikis().then((wikis) => {
+      setWikiData(wikis);
+      setIsLoading(false);
+    });
   }, []);
 
   useEffect(() => {
@@ -59,39 +80,22 @@ export default function WikiPage({ email }: Props) {
       setForm(wikiData[0]);
     }
   }, [wikiData, selectedEntry, form]);
+
   useEffect(() => {
     if (wikiIDFromQuery !== EMPTY_STRING) {
-      loadWikiByID(wikiIDFromQuery);
+      loadWikiByID(wikiIDFromQuery).then((wiki) => {
+        if (wiki) {
+          setSelectedEntry(wiki);
+          setForm(wiki);
+        }
+      });
     }
   }, [wikiIDFromQuery]);
 
-  async function loadWikiByID(id: string) {
-    const wikiRef = doc(db, "Wiki", id);
-    const wikiSnap = await getDoc(wikiRef);
-    if (wikiSnap.exists()) {
-      const wiki = wikiSnap.data() as Wiki;
-      setSelectedEntry(wiki);
-      setForm(wiki);
-    } else {
-      console.warn(`Wiki ID ${id}가 존재하지 않습니다.`);
-    }
-  }
-
-  async function loadRootWikis() {
-    const q = query(
-      collection(db, "Wiki"),
-      where("parentID", "==", EMPTY_STRING),
-      orderBy("createdAt", "asc"),
-    );
-    const docs = await getDocs(q);
-
-    const wikis = docs.docs.map((doc) => doc.data() as Wiki);
-    setWikiData(wikis);
-    setIsLoading(false);
-  }
   function handleEntryClick(entry: Wiki) {
     setSelectedEntry(entry);
     setForm(entry);
+    clearQueryParams();
   }
 
   async function toggleChildWikis(parentWiki: Wiki) {
@@ -121,15 +125,7 @@ export default function WikiPage({ email }: Props) {
         }
       });
     } else {
-      console.log("call");
-      const q = query(
-        collection(db, "Wiki"),
-        where("parentID", "==", parentWiki.wikiID),
-        orderBy("createdAt", "asc"),
-      );
-      const docs = await getDocs(q);
-
-      const childWikis = docs.docs.map((doc) => doc.data() as Wiki);
+      const childWikis = await loadChildrenWikis(parentWiki.wikiID);
       setWikiData((prev) => {
         const parentIndex = prev.findIndex(
           (wiki) => wiki.wikiID === parentWiki.wikiID,
@@ -164,33 +160,13 @@ export default function WikiPage({ email }: Props) {
     const newForm = {
       ...form,
       content: markDownContent,
-      authorID: email,
+      authorID: form.authorID || email,
       createdAt: form.createdAt || currentTime,
       updatedAt: currentTime,
       lastUpdatedBy: email,
     };
-
     try {
-      let linkWikiID;
-      if (newForm.wikiID && newForm.wikiID !== EMPTY_STRING) {
-        const wikiRef = doc(db, "Wiki", newForm.wikiID);
-        await setDoc(wikiRef, newForm, { merge: true });
-        linkWikiID = newForm.wikiID;
-      } else {
-        const wikiCollection = collection(db, "Wiki");
-        const newDocRef = await addDoc(wikiCollection, newForm);
-
-        // Firestore에서 자동으로 생성된 문서 ID를 가져옴
-        const generatedID = newDocRef.id;
-
-        // 생성된 ID를 newForm의 wikiID에 할당하고 다시 저장
-        await setDoc(
-          newDocRef,
-          { ...newForm, wikiID: generatedID },
-          { merge: true },
-        );
-        linkWikiID = generatedID;
-      }
+      const linkWikiID = await saveWiki(newForm);
       loadWikiByID(linkWikiID);
       setSelectedEntry(newForm);
       setForm(newForm);
@@ -199,17 +175,22 @@ export default function WikiPage({ email }: Props) {
       console.error("Error saving wiki:", error);
       alert("위키 저장 중 오류가 발생했습니다.");
     } finally {
-      loadRootWikis();
-      setIsEditMode(false);
-      setSideMenuVisible(true);
+      loadRootWikis().then((wikis) => {
+        setWikiData(wikis);
+        setIsLoading(false);
+        setIsEditMode(false);
+        setSideMenuVisible(true);
+      });
+      clearQueryParams();
     }
   }
 
   async function handleWikiDeleteClick() {
-    const childWikis = wikiData.filter((wiki) => wiki.parentID === form.wikiID);
+    const deleteTargetWiki = form.wikiID;
+    const hasChild = hasChildMap[deleteTargetWiki];
 
     let deleteConfirmMessage = "해당 위키를 삭제 하시겠습니까?";
-    if (childWikis.length > 0) {
+    if (hasChild) {
       deleteConfirmMessage +=
         "\n주의: 이 위키를 삭제 할 경우, 하위 위키도 함께 삭제됩니다.";
     }
@@ -220,13 +201,8 @@ export default function WikiPage({ email }: Props) {
 
     if (form.wikiID !== EMPTY_STRING) {
       try {
-        for (const childWiki of childWikis) {
-          const childWikiRef = doc(db, "Wiki", childWiki.wikiID);
-          await deleteDoc(childWikiRef);
-        }
-
-        const wikiRef = doc(db, "Wiki", form.wikiID);
-        await deleteDoc(wikiRef);
+        if (hasChild) deleteChildWikis(deleteTargetWiki);
+        await deleteWiki(deleteTargetWiki);
 
         setWikiData((prev) =>
           prev.filter(
@@ -266,6 +242,9 @@ export default function WikiPage({ email }: Props) {
     setSideMenuVisible(true);
   }
 
+  function clearQueryParams() {
+    navigate(location.pathname);
+  }
   return (
     <>
       <S.WikiWrapper>
@@ -280,6 +259,7 @@ export default function WikiPage({ email }: Props) {
         <S.Container>
           <WikiCategoryList
             WiKiList={wikiData}
+            hasChildMap={hasChildMap}
             onEntryClick={handleEntryClick}
             onArrowClick={toggleChildWikis}
             isVisible={sideMenuVisible}
@@ -290,6 +270,7 @@ export default function WikiPage({ email }: Props) {
               Wiki={selectedEntry}
               form={form}
               parents={parents}
+              hasChildMap={hasChildMap}
               editorRef={editorRef}
               isEditMode={isEditMode}
               isLoading={isLoading}

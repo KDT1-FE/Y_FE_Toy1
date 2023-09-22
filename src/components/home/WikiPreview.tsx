@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Wiki } from "../wiki/WikiCommonType";
+import { Wiki } from "../wiki/types/WikiCommonType";
 import * as style from "./wikiPreviewtyle";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { db } from "@/firebase/firebase";
 
 interface Props {
   wikiData: Wiki;
