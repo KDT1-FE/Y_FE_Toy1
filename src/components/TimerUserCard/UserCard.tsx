@@ -29,8 +29,8 @@ export function UserCard() {
     <>
       <div className="user-card__container">
         <h3>
-          유저 <br />
-          Timer
+          Study <br />
+          With
         </h3>
         {/* 접속 사용자들을 앞쪽에 */}
         {userObjects
