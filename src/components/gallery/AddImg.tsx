@@ -2,7 +2,7 @@ import * as style from "./AddImgStyle";
 import { useState } from "react";
 import Button from "../common/Button";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { app } from "../../../firebase";
+import { app } from "@/firebase/firebase";
 
 interface AddImgProps {
   albumId: string;

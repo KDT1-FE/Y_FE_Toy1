@@ -5,15 +5,24 @@ export default function Footer() {
     <style.FooterWrap>
       <style.FooterTop>
         <style.FooterTopLeft>
-          <span>9굴</span>
-          <span>WIKI</span>
+          <span>9굴 WIKI</span>
         </style.FooterTopLeft>
         <style.FooterTopMid>
-          <p>서지수</p>
-          <p>이승연</p>
-          <p>김소정</p>
-          <p>양재준</p>
-          <p>이용훈</p>
+          <a href="https://github.com/jseo9732">
+            <p>서지수</p>{" "}
+          </a>
+          <a href="https://github.com/ewinkite">
+            <p>이승연</p>{" "}
+          </a>
+          <a href="https://github.com/KSJT">
+            <p>김소정</p>{" "}
+          </a>
+          <a href="https://github.com/yangjaejun">
+            <p>양재준</p>{" "}
+          </a>
+          <a href="https://github.com/2YH02">
+            <p>이용훈</p>{" "}
+          </a>
         </style.FooterTopMid>
         <style.FooterTopRight>
           <a href="https://github.com/toy-1/wiki">

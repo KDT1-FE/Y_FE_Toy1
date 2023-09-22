@@ -10,7 +10,7 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { db } from "../../../firebase";
+import { db } from "@/firebase/firebase";
 import { Wiki } from "@/components/wiki/WikiCommonType";
 
 export default function Home() {

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import styled, { css } from "styled-components";
-import { app } from "../../../firebase";
+import styled from "styled-components";
+import { app } from "@/firebase/firebase";
 import {
   getStorage,
   ref,
@@ -74,7 +74,7 @@ export default function GalleryPreview() {
   const galleryImagesRef = useRef<number | null>(null);
 
   const goToNext = useCallback(() => {
-    const isLastSlide = currentindex === imagepaths.length - 1;
+    const isLastSlide = currentindex === imagepaths!.length - 1;
     const newIndex = isLastSlide ? 0 : currentindex + 1;
     setCurrentindex(newIndex);
   }, [currentindex, imagepaths]);
@@ -98,30 +98,27 @@ export default function GalleryPreview() {
     <>
       {imagepaths ? (
         <>
-        <GalleryPreviewStyle
-        $currentIndex={currentindex}
-        $imagePaths={imagepaths}
-        onClick={goToGallery}>
-
-        <div style={{ height: "15rem" }}></div>
-        </GalleryPreviewStyle>
+          <GalleryPreviewStyle
+            $currentIndex={currentindex}
+            $imagePaths={imagepaths}
+            onClick={goToGallery}
+          >
+            <div style={{ height: "15rem" }}></div>
+          </GalleryPreviewStyle>
         </>
-
       ) : (
-      <GalleryPreviewSkeleton className={"skeleton"} />
+        <GalleryPreviewSkeleton className={"skeleton"} />
       )}
     </>
   );
 }
 
 const GalleryPreviewSkeleton = styled.div`
-
   &.skeleton {
     position: relative;
     width: 100%;
     height: 15rem;
     overflow: hidden;
-  
   }
   &::after {
     content: "";
@@ -167,5 +164,8 @@ const GalleryPreviewStyle = styled.div<{
   cursor: pointer;
   overflow: hidden;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  
+
+  @media (min-height: 920px) {
+    height: 30vh;
+  }
 `;
