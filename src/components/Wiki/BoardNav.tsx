@@ -25,9 +25,9 @@ export function BoardNav(props: any) {
   };
 
   return (
-    <nav id="navbar-example2" className="navbar bg-body-tertiary px-3 mb-3">
+    <nav id="navbar-example2" className="navbar px-3 mb-3">
       <a className="navbar-brand" href="#">
-        wiki
+        
       </a>
       <ul className="nav nav-pills">
         <li className="nav-item">
@@ -51,7 +51,7 @@ export function BoardNav(props: any) {
         <li className="nav-item">
           <a
             className="nav-link"
-            href="#scrollspyHeading2"
+            href="#scrollspyHeading3"
             onClick={handleBoardClick}
           >
             지식 공유

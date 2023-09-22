@@ -6,13 +6,14 @@ const querySnapshot = await getDocs(collection(db, 'User'));
 const getDocumentsAsObjects = (querySnapshot) => {
   const documents = [];
   querySnapshot.forEach((doc) => {
-    const { username, nickname, email, image } = doc.data();
+    const { username, nickname, email, image, isLoggedIn } = doc.data();
     documents.push({
       id: doc.id,
       username,
       nickname,
       email,
       image,
+      isLoggedIn,
     });
   });
   return documents;

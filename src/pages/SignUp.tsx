@@ -24,7 +24,7 @@ export function SignUp() {
     repassword: '',
     nickname: '',
     image:
-      'https://firebasestorage.googleapis.com/v0/b/eotteoghajyo.appspot.com/o/User%2Fempty_user%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.53.26.png?alt=media&token=a064118f-2d15-4d44-858f-a057d288d342',
+      'https://firebasestorage.googleapis.com/v0/b/togethers-d2a1d.appspot.com/o/User%2Fempty.png?alt=media&token=572e4f5e-80d3-4537-94a2-3812c87cf0a4',
   };
   const [userData, setUserData] = useState<IUser>(initialUserData);
   const [isPrev, setIsPrev] = useState(true);

@@ -34,10 +34,12 @@
   .form-nickname {
     width: 100%;
     display: grid;
-    grid-template-columns: 8fr 2fr;
-
+    grid-template-columns: 7.5fr 2.5fr;
+    .form-control {
+      height: 100%;
+    }
     .btn {
-      background-color: $grayColor;
+      background-color: $highlightColor;
       color: $whiteColor;
       font-weight: 700;
       margin-left: 10px;

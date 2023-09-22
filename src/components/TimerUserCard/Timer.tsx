@@ -12,21 +12,15 @@ import { db } from 'data/firebase';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/types';
 import { formatTime } from 'data/formatTime';
-
-//unix timestamp
-const timeStamp = Math.floor(new Date().getTime() / 1000);
-function getCurrentDateFromStamp(timestamp: number): number {
-  const fullDate = new Date(timestamp * 1000);
-  const onlyDate = fullDate.getDate();
-  return onlyDate;
-}
+import './Timer.scss';
 
 interface ITimerProps {
   id: string;
+  showButton?: boolean;
 }
 
 //Timer 컴포넌트
-export function Timer({ id }: ITimerProps): JSX.Element {
+export function Timer({ id, showButton = true }: ITimerProps): JSX.Element {
   const [count, setCount] = useState(0);
   const intervalRef = useRef<number | null>(null);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
@@ -60,43 +54,38 @@ export function Timer({ id }: ITimerProps): JSX.Element {
     });
   }, [count]);
 
-  const handleStart: (event: any) => void = useCallback(
-    async (event) => {
-      event.stopPropagation();
-      setIsTimerRunning(true);
+  //시작 버튼 클릭 시
+  const handleStart: (event: any) => void = useCallback(async (event) => {
+    event.stopPropagation();
+    if (intervalRef.current !== null || isTimerRunning) {
+      return;
+    }
+    setIsTimerRunning(true); // 타이머 시작 시 상태를 true로 설정
+    const chosenUserRef = doc(db, 'User', event.target.id);
+    timer = setInterval(async () => {
+      const docSnapshot = await getDoc(chosenUserRef);
+      if (docSnapshot.exists()) {
+        const userData = docSnapshot.data();
+        const newAccumulateCount = userData.accumulateCount + 1;
+        setCount(newAccumulateCount);
+        await updateDoc(chosenUserRef, {
+          accumulateCount: newAccumulateCount,
+        });
+      } else {
+        console.error('문서가 없음');
+      }
+    }, 1000);
 
-      if (intervalRef.current !== null) {
+    // 실시간 업데이트 수신 중지
+    unsubscribe = onSnapshot(chosenUserRef, async (docSnapshot) => {
+      if (docSnapshot.exists()) {
+        const userData = docSnapshot.data();
+        setCount(userData.accumulateCount);
+      } else {
         return;
       }
-      const chosenUserRef = doc(db, 'User', event.target.id);
-      if (!isTimerRunning) {
-        timer = setInterval(async () => {
-          const docSnapshot = await getDoc(chosenUserRef);
-          if (docSnapshot.exists()) {
-            const userData = docSnapshot.data();
-            const newAccumulateCount = userData.accumulateCount + 1;
-            setCount(newAccumulateCount);
-            await updateDoc(chosenUserRef, {
-              accumulateCount: newAccumulateCount,
-            });
-          } else {
-            console.error('문서가 없음');
-          }
-        }, 1000);
-      }
-
-      //실시간 업데이트 수신 중지
-      unsubscribe = onSnapshot(chosenUserRef, async (docSnapshot) => {
-        if (docSnapshot.exists()) {
-          const userData = docSnapshot.data();
-          setCount(userData.accumulateCount);
-        } else {
-          return;
-        }
-      });
-    },
-    [isTimerRunning],
-  );
+    });
+  }, []);
 
   const handleStop: (event: any) => void = useCallback((event) => {
     event.stopPropagation();
@@ -110,9 +99,8 @@ export function Timer({ id }: ITimerProps): JSX.Element {
       unsubscribe = undefined;
     }
 
-    setIsTimerRunning(false);
+    setIsTimerRunning(false); // 타이머 정지 시 상태를 false로 변경
   }, []);
-
   // 날짜 변경 감지 및 count 초기화
   useEffect(() => {
     const userRef = doc(db, 'User', id);
@@ -139,14 +127,18 @@ export function Timer({ id }: ITimerProps): JSX.Element {
   const formattedTime = formatTime(count);
 
   return (
-    <div>
+    <div className="timer">
       <p>{formattedTime}</p>
-      {user.uid === id && (
-        <button id={id} onClick={handleStart}>
+      {showButton && user.uid === id && (
+        <button className="btn" id={id} onClick={handleStart}>
           시작
         </button>
       )}
-      {user.uid === id && <button onClick={handleStop}>정지</button>}
+      {showButton && user.uid === id && (
+        <button className="btn" onClick={handleStop}>
+          정지
+        </button>
+      )}
     </div>
   );
 }

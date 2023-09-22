@@ -1,7 +1,10 @@
 @import '/src/styles/common';
 
+.modal-content {
+  height: 100%;
+}
 .user-card-modal__container {
-  font-family: Pretendard;
+  font-family: $fontMain;
   img {
     width: 100%;
     object-fit: cover;

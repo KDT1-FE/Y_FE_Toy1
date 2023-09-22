@@ -15,12 +15,12 @@
     padding: 10px 20px;
     margin-bottom: 20px;
   }
-  .dropZone {
-    height: 250px;
-    background-color: $grayColor;
-  }
 }
 
+.dropZone {
+  height: 250px;
+  background-color: $backgroundColor;
+}
 .preview {
   &-container {
     display: flex;

@@ -2,20 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { readBoardData } from '../../data/wikiboard';
 import { useNavigate } from 'react-router-dom';
 import './BoardContent.scss';
+import { IpcNetConnectOpts } from 'net';
 
 interface IPost {
   name: string;
   title: string;
   time: string;
   content: string;
-  id: string;
+  id: number;
+  comment: [];
+  uid:string;
+
 }
 
 export function BoardContent({ boardState }: any) {
   const [boardData, setboardData] = useState<IPost[]>([]);
   const navigate = useNavigate();
-
-  const handleClickBoard = (event: any) => {
+  const handleClickBoard = (event: React.MouseEvent) => {
     const selectId = event.currentTarget.querySelector('.post__id')?.innerHTML;
     if (boardState == 'QA') {
       navigate(`/wiki/QABoard/${selectId}`);
@@ -28,7 +31,7 @@ export function BoardContent({ boardState }: any) {
     }
   };
 
-  const handledleClickButton = () => {
+  const handledleClickButton = () :void => {
     if (boardState == 'QA') {
       navigate(`/wiki/question/new`);
     } else if (boardState == 'Free') {
@@ -41,9 +44,10 @@ export function BoardContent({ boardState }: any) {
   };
 
   useEffect(() => {
-    const data = readBoardData(boardState);
-    data.then((item: any) => {
-      setboardData(item);
+    const data  = readBoardData(boardState);
+    data.then((item: IPost[] | undefined) => {
+      item && setboardData(item.reverse());
+      
     });
   }, [boardState, sessionStorage.uid]);
 
@@ -70,7 +74,7 @@ export function BoardContent({ boardState }: any) {
         </thead>
         <tbody>
           {boardData.map((item, index) => (
-            <tr key={index} onClick={handleClickBoard}>
+            <tr key={item.id} onClick={handleClickBoard}>
               <td className="title">
                 <a>{item.title}</a>
               </td>

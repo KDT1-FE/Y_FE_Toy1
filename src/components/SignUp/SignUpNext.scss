@@ -28,8 +28,8 @@
   .error {
     color: $danger;
     font-weight: 700;
-    height: 20px;
-    margin: 0;
+    height: 30px;
+    margin: 10px 0;
     text-align: center;
   }
 
@@ -42,7 +42,7 @@
     font-weight: 700;
 
     &:hover {
-      background-color: $grayColor;
+      background-color: $backgroundColor;
       color: $whiteColor;
     }
   }

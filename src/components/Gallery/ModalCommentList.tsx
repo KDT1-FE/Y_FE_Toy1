@@ -11,6 +11,7 @@ import { RootState } from 'redux/types'; // RootState 타입 추가
 import { useSelector } from 'react-redux';
 import './_modal.scss';
 import './ModalCommentList.scss';
+import 'styles/_common.scss';
 
 interface IModalComment {
   image: string;
@@ -20,6 +21,7 @@ interface IModalComment {
   writerId: string;
   writerName: string;
   likeData?: number;
+  writerImage: any;
 }
 
 interface IComment {
@@ -28,6 +30,7 @@ interface IComment {
   text: string;
   commentUser: string;
   userImage?: string;
+  commentId: any;
 }
 
 export function ModalComment({
@@ -38,6 +41,7 @@ export function ModalComment({
   categoryId,
   commentsListData,
   likeData,
+  writerImage,
 }: IModalComment): JSX.Element {
   const [like, setLike] = useState<number>(0);
   const [comment, setComment] = useState<string>('');
@@ -80,11 +84,14 @@ export function ModalComment({
     e.preventDefault();
     if (comment !== '') {
       const newCommentList: any = [...commentList, comment];
+      //랜덤 숫자로 댓글ID 생성
+      const commentId: any = new Date().getTime().toString(36);
       await setCommentList(newCommentList); //새 배열에 comment저장 후 set
       await uploadCommentList(
         imgId,
         categoryId,
         comment,
+        commentId,
         user.uid,
         user.nickname,
         user.image,
@@ -118,22 +125,14 @@ export function ModalComment({
   }, [isChange, doc, onSnapshot]);
 
   // 댓글 삭제
-  const handleDeleteComment = async (
-    e: React.MouseEvent<HTMLButtonElement>,
-  ) => {
-    const getDelText: string = (
-      e.currentTarget.previousElementSibling as HTMLElement
-    )?.id;
-    const getDelUid: string = (
-      e.currentTarget.closest('.commentList-item') as HTMLElement
-    )?.id;
+  const handleDeleteComment = async (e: any) => {
+    const getDelCommentId: string = e.target.previousElementSibling.id;
+
+    console.log('삭제할 데이터', getDelCommentId);
 
     try {
       const updatedData = commentList.filter((comment) => {
-        return (
-          comment.text !== getDelText.trim() &&
-          comment.commentUid == getDelUid.trim()
-        );
+        return comment.commentId !== getDelCommentId.trim();
       });
       await setCommentList(updatedData);
       //배열 형태로 db업로드
@@ -154,13 +153,11 @@ export function ModalComment({
   return (
     <div className="comment-container">
       <div className="comment-header">
-        <span className="comment-imageUploaderName">작성자 : {writerName}</span>
-
+        <div className="comment-writer">
+          <span className="comment-writer-name">{writerName} 님의 작성글</span>
+        </div>
         {user.nickname === writerName ? (
-          <button
-            className="btn--delImagebtn btn btn-primary"
-            onClick={handleDeleteImage}
-          >
+          <button className="btn sub-btn" onClick={handleDeleteImage}>
             이미지 게시글 삭제
           </button>
         ) : null}
@@ -188,7 +185,7 @@ export function ModalComment({
                 value={comment}
                 onChange={handleComments}
               />
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn sub-btn">
                 게시
               </button>
             </form>
@@ -198,7 +195,7 @@ export function ModalComment({
         </div>
 
         <div className="commentList-container">
-          <div className="commentList-header">😄 comments</div>
+          <div className="commentList-header">😄 댓글 리스트 😄</div>
           <ul>
             {commentList?.map((comment) => (
               <li
@@ -206,7 +203,7 @@ export function ModalComment({
                 id={comment.commentUid}
                 className="commentList-item"
               >
-                <div className="commentBox" id={comment.text}>
+                <div className="commentBox" id={comment.commentId}>
                   <img
                     className="commentBox-image"
                     src={comment.userImage}

@@ -1,9 +1,10 @@
 @import '../../styles/reset.css';
-
+@import '/src/styles/_common';
 nav {
   width: 70%;
   height: 100%;
   margin: auto;
+  font-family: $fontMain;
 }
 
 .boardList {
@@ -14,10 +15,9 @@ nav {
 }
 
 .comment {
-    margin : auto,
-
+  margin: auto;
 }
 
 .btn-primary {
-    margin-right: 2px;
+  margin-right: 2px;
 }

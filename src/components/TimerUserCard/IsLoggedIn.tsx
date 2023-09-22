@@ -1,56 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { db, auth } from 'data/firebase';
-import { doc, updateDoc, collection, getDocs } from 'firebase/firestore';
+import { db } from 'data/firebase';
+import { doc, updateDoc, onSnapshot } from 'firebase/firestore';
 import './IsLoggedIn.scss';
 
 export function IsLoggedIn({ userId }: any) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userStatus, setUserStatus] = useState<{ [key: string]: boolean }>({});
-  const [lastLoggedId, setLastLoggedId] = useState(
-    sessionStorage.getItem('uid'),
-  );
+  const [userStatus, setUserStatus] = useState<boolean | null>(null);
+
   useEffect(() => {
-    // Firebase Auth의 로그인 상태 변화를 감지
-    onAuthStateChanged(auth, (user) => {
-      if (user && user.uid === userId) {
-        // 사용자가 로그인한 경우
-        updateFirestoreUserStatus(userId, true);
-        setIsLoggedIn(true);
-      } else if (!user && userId) {
-        // 사용자가 로그아웃한 경우
-        updateFirestoreUserStatus(userId, false);
-        setIsLoggedIn(false);
+    const userRef = doc(db, 'User', userId);
+
+    const unsubscribe = onSnapshot(userRef, (docSnapshot) => {
+      if (docSnapshot.exists()) {
+        const userData = docSnapshot.data();
+        if (userData) {
+          const isLoggedIn = userData.isLoggedIn;
+          setUserStatus(isLoggedIn);
+        }
       }
     });
-  }, [userId]);
 
-  useEffect(() => {
-    const fetchUserStatus = async () => {
-      const userCollectionRef = collection(db, 'User');
-      const querySnapshot = await getDocs(userCollectionRef);
-
-      const statusData: { [key: string]: boolean } = {};
-      querySnapshot.forEach((doc) => {
-        const userData = doc.data();
-        statusData[doc.id] = userData.isLoggedIn;
-      });
-
-      setUserStatus(statusData);
+    return () => {
+      unsubscribe();
     };
-
-    fetchUserStatus();
-  }, []);
+  }, [userId]);
 
   return (
     <div>
-      {userStatus[userId] !== undefined && (
+      {userStatus !== null && (
         <div
           className="user-status"
           style={{
-            backgroundColor: userStatus[userId] ? 'green' : 'red',
-            width: '20px',
-            height: '20px',
+            backgroundColor: userStatus ? 'green' : 'red',
+            width: '23px',
+            height: '23px',
             borderRadius: '50%',
           }}
         ></div>
@@ -71,7 +53,7 @@ export const updateFirestoreUserStatus = async (
     await updateDoc(userRef, { isLoggedIn });
   } catch (error) {
     console.error(
-      `Firestore에서 사용자의 isLoggedIn 상태를 업데이트하는 중 오류 발생: ${error}`,
+      `FiresisLoggedIn tore에서 사용자의 상태를 업데이트하는 중 오류 발생: ${error}`,
     );
   }
 };
