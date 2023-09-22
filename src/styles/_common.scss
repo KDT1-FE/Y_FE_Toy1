@@ -17,3 +17,48 @@ $fontMain: Pretendard, 'Tossface', 'Noto Sans KR', sans-serif;
   font-weight: normal;
   font-style: normal;
 }
+
+@mixin btn-design {
+  border-color: $mainColor;
+  color: $mainColor;
+  &:hover {
+    background-color: $mainColor;
+    color: $whiteColor;
+  }
+}
+
+.main-btn {
+  border-color: $mainColor;
+  color: $mainColor;
+  &:hover {
+    background-color: $mainColor;
+    color: $whiteColor;
+  }
+}
+
+.sub-btn {
+  &:hover {
+    border-color: $mainColor;
+    color: $mainColor;
+  }
+  background-color: $mainColor;
+  color: $whiteColor;
+}
+
+.gallNav {
+  background-color: $mainColor;
+}
+.navbar-brand {
+  color: $blackColor;
+}
+.nav-link {
+  color: $whiteColor;
+  &:hover {
+    color: $backgroundColor;
+  }
+}
+
+// 사용예시입니다~~
+//btn {
+//   @include btn-design;
+// }
