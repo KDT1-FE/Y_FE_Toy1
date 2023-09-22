@@ -14,6 +14,21 @@ export const HeaderComponent = styled.div`
     width: 100%;
 `;
 
+export const HomeHeaderComponent = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0);
+
+    position: fixed;
+    z-index: 2;
+
+    top: 0;
+    left: 0;
+    height: 72px;
+    width: 100%;
+`;
+
 export const TitleAnchor = styled.a`
     font-size: 32px;
     font-weight: bold;

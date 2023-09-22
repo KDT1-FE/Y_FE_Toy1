@@ -18,6 +18,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { checkedListCommand } from '@uiw/react-md-editor';
 import swal from 'sweetalert';
 
+import Carousel from 'react-material-ui-carousel';
+import { Paper } from '@mui/material';
+
 interface CommentProps {
     comment: {
         name: string;

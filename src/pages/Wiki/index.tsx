@@ -4,8 +4,6 @@ import SidebarWiki from '../../components/SidebarWiki';
 import MDEditor, { bold } from '@uiw/react-md-editor';
 import rehypeSanitize from 'rehype-sanitize';
 import { themeType, updateChannelContent } from '../../utils/firebase';
-import editImg from '../../common/WikiImg/icons8-edit-50.png';
-import doneImg from '../../common/WikiImg/icons8-done-50.png';
 import { handleGetDocs, DocumentData } from '../../utils/firebase';
 import { QuerySnapshot } from 'firebase/firestore';
 import { Timestamp } from 'firebase/firestore';
@@ -161,7 +159,7 @@ const Wiki: React.FC = () => {
                                     toggleButton();
                                 }}
                             >
-                                <img style={{ width: '30px' }} src={editImg}></img>
+                                <img style={{ width: '30px' }} src="/WikiImg/icons8-edit-50.png"></img>
                             </MDEditBtn>
                         </ReadChannel>
                         <div style={{ marginBottom: '16px', color: 'black' }}>{time}</div>
@@ -187,7 +185,7 @@ const Wiki: React.FC = () => {
                                     handleToggleAndUpdateClick();
                                 }}
                             >
-                                <img style={{ width: '30px' }} src={doneImg}></img>
+                                <img style={{ width: '30px' }} src="/WikiImg/icons8-done-50.png"></img>
                             </MDEditBtn>
                         </ReadChannel>
                         <MDEditor

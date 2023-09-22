@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import {
     HeaderComponent,
+    HomeHeaderComponent,
     TitleAnchor,
     AnchorContainer,
     ListAnchor,
@@ -68,47 +69,99 @@ const Header: React.FC = () => {
         }, 100);
     };
 
+    const homeValued = location.pathname == '/';
+    console.log(homeValued);
+
     return (
-        <HeaderComponent>
-            <TitleAnchor href="/">FASTUDY</TitleAnchor>
-            {/* <Logo></Logo> */}
-            <AnchorContainer>
-                <RightAnchorContainer>
-                    <ListAnchor href="/wiki">위키</ListAnchor>
-                    <ListAnchor href="/recruitment">모집</ListAnchor>
-                    <ListAnchor href="/gallery">갤러리</ListAnchor>
-                    {userId.length > 0 ? (
-                        <LogoutButton
-                            onClick={() => {
-                                swal({
-                                    title: '로그아웃 하시겠습니까?',
-                                    icon: 'warning',
-                                    buttons: ['취소', '로그아웃'],
-                                }).then((yes) => {
-                                    if (yes) {
-                                        if (timerOn) {
-                                            logOutTimeCheck();
-                                        } else {
-                                            logOutHandler();
-                                        }
-                                    }
-                                });
-                            }}
-                        >
-                            <span>로그아웃</span>
-                        </LogoutButton>
-                    ) : (
-                        <ListAnchor href={'/LogIn'}>
-                            <LoginButton>로그인</LoginButton>
-                        </ListAnchor>
-                    )}
-                    {userId.length > 0 && <MyPageBtn />}
-                    {timerOn && (
-                        <RedCircle value={timerOn} style={{ position: 'fixed', top: '8px', right: '8px' }}></RedCircle>
-                    )}
-                </RightAnchorContainer>
-            </AnchorContainer>
-        </HeaderComponent>
+        <>
+            {homeValued ? (
+                <HomeHeaderComponent>
+                    <TitleAnchor href="/">FASTUDY</TitleAnchor>
+                    <AnchorContainer>
+                        <RightAnchorContainer>
+                            <ListAnchor href="/wiki">위키</ListAnchor>
+                            <ListAnchor href="/recruitment">모집</ListAnchor>
+                            <ListAnchor href="/gallery">갤러리</ListAnchor>
+                            {userId.length > 0 ? (
+                                <LogoutButton
+                                    onClick={() => {
+                                        swal({
+                                            title: '로그아웃 하시겠습니까?',
+                                            icon: 'warning',
+                                            buttons: ['취소', '로그아웃'],
+                                        }).then((yes) => {
+                                            if (yes) {
+                                                if (timerOn) {
+                                                    logOutTimeCheck();
+                                                } else {
+                                                    logOutHandler();
+                                                }
+                                            }
+                                        });
+                                    }}
+                                >
+                                    LogOut
+                                </LogoutButton>
+                            ) : (
+                                <ListAnchor href={'/LogIn'}>
+                                    <LoginButton>LogIn</LoginButton>
+                                </ListAnchor>
+                            )}
+                            {userId.length > 0 && <MyPageBtn />}
+                            {timerOn && (
+                                <RedCircle
+                                    value={timerOn}
+                                    style={{ position: 'fixed', top: '8px', right: '8px' }}
+                                ></RedCircle>
+                            )}
+                        </RightAnchorContainer>
+                    </AnchorContainer>
+                </HomeHeaderComponent>
+            ) : (
+                <HeaderComponent>
+                    <TitleAnchor href="/">FASTUDY</TitleAnchor>
+                    <AnchorContainer>
+                        <RightAnchorContainer>
+                            <ListAnchor href="/wiki">위키</ListAnchor>
+                            <ListAnchor href="/recruitment">모집</ListAnchor>
+                            <ListAnchor href="/gallery">갤러리</ListAnchor>
+                            {userId.length > 0 ? (
+                                <LogoutButton
+                                    onClick={() => {
+                                        swal({
+                                            title: '로그아웃 하시겠습니까?',
+                                            icon: 'warning',
+                                            buttons: ['취소', '로그아웃'],
+                                        }).then((yes) => {
+                                            if (yes) {
+                                                if (timerOn) {
+                                                    logOutTimeCheck();
+                                                } else {
+                                                    logOutHandler();
+                                                }
+                                            }
+                                        });
+                                    }}
+                                >
+                                    LogOut
+                                </LogoutButton>
+                            ) : (
+                                <ListAnchor href={'/LogIn'}>
+                                    <LoginButton>LogIn</LoginButton>
+                                </ListAnchor>
+                            )}
+                            {userId.length > 0 && <MyPageBtn />}
+                            {timerOn && (
+                                <RedCircle
+                                    value={timerOn}
+                                    style={{ position: 'fixed', top: '8px', right: '8px' }}
+                                ></RedCircle>
+                            )}
+                        </RightAnchorContainer>
+                    </AnchorContainer>
+                </HeaderComponent>
+            )}
+        </>
     );
 };
 
