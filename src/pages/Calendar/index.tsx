@@ -9,12 +9,24 @@ import {
   getCalendarData,
   uploadCalendarData,
 } from 'apis/Calendar';
-import { CloseImg } from 'components/CommuteModal';
+import { StyledCloseImg } from 'components/CommuteModal';
 import { dayFormat } from 'utils/format';
 import Swal from 'sweetalert2';
 import { getName } from 'utils/user';
 import { EventClickArg } from '@fullcalendar/core';
 import { media } from 'styles/media';
+import { checkValidate } from 'utils/validate';
+import {
+  ADD_EVENT,
+  CALENDAR_TITLE,
+  DELETE_EVENT,
+  EVENT_CONTENT,
+  EVENT_END_DATE,
+  EVENT_START_DATE,
+  INPUT_EVENT,
+  INPUT_EVENT_BUTTON,
+} from 'constants/calendar';
+import { CANCEL } from 'constants/common';
 
 interface IEvent {
   title: string;
@@ -28,31 +40,25 @@ function Calendar() {
   const [isDelete, setIsDelete] = useState(false);
 
   const getEvents = async () => {
-    console.log('실행');
     const responseArray = await getCalendarData();
     setEvents(responseArray);
   };
 
-  const checkValidate = (endDate: string, startDate: string) => {
-    if (new Date(endDate) > new Date(startDate)) {
-      alert('종료일이 시작일보다 먼저입니다 다시 작성해주세요');
-      return false;
-    }
-    return true;
-  };
-
   const handleEventAlert = async (info: EventClickArg) => {
+    const title = info.event._def?.title;
+    const startDate = info.event._instance?.range.start;
+    const endDate = info.event._instance?.range.end;
+
     const result = await Swal.fire({
-      title: `${info.event._def?.title}`,
-      text: `${dayFormat(info.event._instance?.range.end)}~${dayFormat(
-        info.event._instance?.range.start,
-      )}`,
+      title: `${title}`,
+      text: `${dayFormat(endDate)}~${dayFormat(startDate)}`,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#001529',
-      confirmButtonText: '일정 삭제',
-      cancelButtonText: '취소',
+      confirmButtonText: `${DELETE_EVENT}`,
+      cancelButtonText: `${CANCEL}`,
     });
+
     if (result.isConfirmed) {
       await deleteCalendarData(info.event._def?.publicId);
       setIsDelete(!isDelete);
@@ -86,7 +92,7 @@ function Calendar() {
     <>
       <StyledContainer>
         <StyledCalendarContainer>
-          <StyledCalendarText>{`${getName()}님의 캘린더`}</StyledCalendarText>
+          <StyledCalendarText>{`${getName()}${CALENDAR_TITLE}`}</StyledCalendarText>
           <StyledMobileText>
             pc에서 캘린더의 더 다양한 기능을 <br />
             만날 수 있습니다
@@ -100,7 +106,7 @@ function Calendar() {
             }}
             customButtons={{
               addButton: {
-                text: '일정 등록',
+                text: ADD_EVENT,
                 click: () => {
                   setShowModal(true);
                 },
@@ -116,8 +122,8 @@ function Calendar() {
       {/* 일정 등록 모달 */}
       <ReactModal isOpen={showModal} ariaHideApp={false} style={StyledModal}>
         <StyledTopContainer>
-          일정을 등록해주세요
-          <CloseImg
+          {INPUT_EVENT}
+          <StyledCloseImg
             src={closeButton}
             onClick={() => {
               setShowModal(false);
@@ -126,14 +132,14 @@ function Calendar() {
           />
         </StyledTopContainer>
         <StyledForm onSubmit={handleSubmit}>
-          <label>일정 내용</label>
+          <label>{EVENT_CONTENT}</label>
           <StyledTextInput type="text" id="content" name="content" required />
-          <label>시작 날짜</label>
+          <label>{EVENT_START_DATE}</label>
           <input type="date" id="start_date" name="start_date" required />
-          <label>종료 날짜</label>
+          <label>{EVENT_END_DATE}</label>
           <input type="date" id="end_date" name="end_date" required />
           <StyledBottomContainer>
-            <StyledButton type="submit">등록</StyledButton>
+            <StyledButton type="submit">{INPUT_EVENT_BUTTON}</StyledButton>
           </StyledBottomContainer>
         </StyledForm>
       </ReactModal>

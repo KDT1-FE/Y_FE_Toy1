@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import loginIcon from '../../assets/icons/loginIcon.svg';
 import googleIcon from '../../assets/icons/googleIcons.svg';
 import { useNavigate } from 'react-router-dom';
 import { media } from 'styles/media';
 import { ROUTES } from 'constants/routes';
 import { login } from 'apis/User';
+import { GOOGLE_LOGIN, LOGIN } from 'constants/login';
 
 function Login() {
   const navigate = useNavigate();
@@ -15,7 +15,6 @@ function Login() {
   return (
     <StyledSection>
       <StyledContainer>
-        <StyledIconImage src={loginIcon} alt="로그인 아이콘" />
         로그인 후 WIKI 서비스를 <br />
         사용하실 수 있습니다
       </StyledContainer>
@@ -25,10 +24,10 @@ function Login() {
       </StyledMobileContainer>
       <StyledLoginContainer>
         <StyledMainText>WIKI</StyledMainText>
-        로그인 하기
+        {LOGIN}
         <StyledLoginButton onClick={handleGoogleLogin}>
           <StyledGoogleLogo src={googleIcon} />
-          Google로 간편 로그인
+          {GOOGLE_LOGIN}
         </StyledLoginButton>
       </StyledLoginContainer>
     </StyledSection>
@@ -83,13 +82,6 @@ font-size: 1.3rem;
 `)}
 ${media.mobile(`
 display:none;
-`)}
-`;
-
-const StyledIconImage = styled.img`
-  margin: 0 0 1rem 3rem;
-  ${media.tablet(`
-  display:none;
 `)}
 `;
 

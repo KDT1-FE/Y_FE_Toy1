@@ -83,7 +83,6 @@ const StyledHrLine = styled.hr`
   border: 1px solid #c4c4c4;
   margin: 0 auto;
   margin-top: 2rem;
-  margin-bottom: 1rem;
 
   ${media.tablet(`
   margin-top: 1rem;

@@ -9,7 +9,7 @@ import {
   where,
 } from '@firebase/firestore';
 import { WORK_TIME_COLLECTION } from 'constants/collection';
-import { ERROR_ALERT } from 'constants/alert';
+import { ALERT } from 'constants/common';
 import { IuserData } from 'types/user';
 import { getSessionUserData } from 'utils/user';
 
@@ -23,7 +23,7 @@ export const addWorkTimeData = (workTime: number) => {
       name: user?.displayName,
     });
   } catch (error) {
-    alert(ERROR_ALERT);
+    alert(ALERT.ERROR);
   }
 };
 
@@ -59,6 +59,6 @@ export const getWorkTimeData = async () => {
     });
     return responseArray;
   } catch (error) {
-    alert(ERROR_ALERT);
+    alert(ALERT.ERROR);
   }
 };

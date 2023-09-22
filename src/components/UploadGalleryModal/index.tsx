@@ -105,6 +105,7 @@ function UploadGallery({ setIsLoading }: IUploadGalleryProps) {
                 type="file"
                 id="ex_file"
                 name="ex_file"
+                accept=".jpg, .png"
                 onChange={handleChangeImg}
               />
             </StyledContainerInput>

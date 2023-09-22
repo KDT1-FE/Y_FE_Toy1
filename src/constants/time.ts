@@ -7,6 +7,7 @@ export const WORK_STATE_BUTTON = {
   FINISH: '퇴근',
   RESTART: '재시작',
   OKAY: '확인',
+  STOP: 'stop',
 } as const;
 
 export const WORK_STATE_TEXT = {
@@ -18,3 +19,5 @@ export const COMMUTE_LIST_STATE = {
   START_INDEX: 0,
   LAST_INDEX: 5,
 } as const;
+
+export const COMMUTE_TIMER_TITLE = '출퇴근';

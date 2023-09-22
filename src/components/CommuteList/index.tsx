@@ -5,6 +5,10 @@ import { COMMUTE_LIST_STATE } from 'constants/time';
 import { media } from 'styles/media';
 import styled from 'styled-components';
 
+interface StyledListTextContainerProps {
+  align: 'left' | 'center' | 'right';
+}
+
 function CommuteList() {
   const [workTimeData, setWorkTimeData] = useState<IworkTimeResponse[]>([]);
 
@@ -14,7 +18,7 @@ function CommuteList() {
         const responseArray = await getWorkTimeData();
         if (responseArray) setWorkTimeData(responseArray);
       } catch (error) {
-        console.log('데이터를 불러오지 못했습니다.', error);
+        alert('데이터를 불러오지 못했습니다. 다시 시도해주세요.');
       }
     };
     fetchData();
@@ -31,11 +35,13 @@ function CommuteList() {
           .slice(COMMUTE_LIST_STATE.START_INDEX, COMMUTE_LIST_STATE.LAST_INDEX)
           .map((data, index) => (
             <StyledListContainer key={index}>
-              <StyledListTextContainer>{data.name}님</StyledListTextContainer>
-              <StyledListTextContainer>
+              <StyledListTextContainer align="left">
+                {data.name}님
+              </StyledListTextContainer>
+              <StyledListTextContainer align="center">
                 {secondFormat(data.workTime)}동안 근무하셨어요!
               </StyledListTextContainer>
-              <StyledListTextContainer>
+              <StyledListTextContainer align="right">
                 {dateFormat(new Date(data.timeStamp))}
               </StyledListTextContainer>
             </StyledListContainer>
@@ -58,22 +64,25 @@ const StyledEmptyListContainer = styled.div`
 
 const StyledListContainer = styled.div`
   display: flex;
+  align-items: center;
   justify-content: space-between;
   width: 80%;
   height: 3rem;
   border-bottom: 1px solid #eeeeee;
   margin: 0 auto;
-  margin-top: 2rem;
+  padding: 2.4rem;
 
   ${media.tablet(`
-  justify-content: space-around;
+  align-items: center;
   width: 100%;
   height: 2rem;
   margin: .5rem;
 `)}
 `;
 
-const StyledListTextContainer = styled.div`
+const StyledListTextContainer = styled.div<StyledListTextContainerProps>`
+  flex: 1;
+  text-align: ${(props) => props.align};
   ${media.tablet(`
   font-size: .8rem;
 `)}
