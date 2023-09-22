@@ -44,6 +44,7 @@ export const MainGalleryPreview = styled.div`
 export const MainTitleWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 export const MainTitle = styled.div`
   color: var(--color-dark-gray);
