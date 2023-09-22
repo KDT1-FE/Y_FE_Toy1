@@ -17,6 +17,10 @@ export const Container = styled(Link)`
     border: 1px solid var(--color-main);
     box-shadow: 0px 4px 4px 0px #00000026;
   }
+
+  @media (min-height: 920px) {
+    height: 25vh;
+  }
 `;
 
 export const WikiCategory = styled.span`

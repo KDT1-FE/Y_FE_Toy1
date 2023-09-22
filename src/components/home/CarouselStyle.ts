@@ -9,6 +9,10 @@ export const CarouselWrapper = styled.div`
   overflow: hidden;
   border-radius: 10px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+
+  @media (min-height: 920px) {
+    height: 90vh;
+  }
 `;
 
 export const CarouselContainer = styled.div<{
