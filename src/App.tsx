@@ -1,5 +1,5 @@
 import Header from "components/layout/Header";
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import Router from "Router";
 import AuthProvider from "provider/userProvider";
@@ -11,7 +11,7 @@ const App = () => {
       <AuthProvider>
         <BrowserRouter>
           <Header />
-          <Router/>
+          <Router />
         </BrowserRouter>
       </AuthProvider>
     </DarkMode>

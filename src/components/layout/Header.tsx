@@ -10,6 +10,7 @@ import UserInfo from "components/template/UserInfo";
 import DarkModeBtn from "provider/darkModeContext";
 import { IsMobile } from "utils/mediaQuery";
 
+
 const Header = () => {
   const pageLink = ["Wiki", "Gallery", "Rank"];
   const user = useContext(AuthContext);
@@ -20,7 +21,7 @@ const Header = () => {
   const [isModalActive, setIsModalActive] = useState(false);
   const [studyStartTime, setStudyStartTime] = useState<number | null>(null);
   const [isStudying, setIsStudying] = useState(false);
-
+  const [modalButtonText, setModalButtonText] = useState("학습 기록");
   const [mobileUserInfo, setMobileUserInfo] = useState(false);
 
   const handlerLogout = () => {
@@ -32,13 +33,28 @@ const Header = () => {
     setIsModalActive(true);
   };
 
-  const toggleStudyStatus = () => {
-    if (!isStudying) {
-      const startTime = new Date().getTime();
-      setStudyStartTime(startTime);
+  const handleIsStudyingChange = (newIsStudying: boolean) => {
+    setIsStudying(newIsStudying);
+
+    // 버튼 텍스트 업데이트
+    if (newIsStudying) {
+      setModalButtonText("기록 중");
+    } else {
+      setModalButtonText("학습 기록");
     }
-    setIsStudying(!isStudying);
   };
+
+  const toggleStudyStatus = () => {
+    setIsStudying(prev=>!prev)
+  }
+
+  // const toggleStudyStatus = () => {
+  //   if (!isStudying) {
+  //     const startTime = new Date().getTime();
+  //     setStudyStartTime(startTime);
+  //   }
+  //   setIsStudying(!isStudying);
+  // };
 
   useEffect(() => {
     setPathLink(location.pathname.split("/")[1]);
@@ -141,7 +157,7 @@ const Header = () => {
             })}
             <li>
               <MobileStyledButton onClick={openModal}>
-                <p>Timer</p>
+                <p>{modalButtonText}</p>
               </MobileStyledButton>
             </li>
           </MobileSecondHeader>
@@ -154,7 +170,9 @@ const Header = () => {
                 <StudyTime
                   isStudying={isStudying}
                   studyStartTime={studyStartTime}
+                  onIsStudyingChange={handleIsStudyingChange}
                   toggleStudyStatus={toggleStudyStatus}
+                  setStudyStartTime={setStudyStartTime}
                 />
               }
             />
@@ -187,7 +205,7 @@ const Header = () => {
             })}
             <li>
               <StyledButton onClick={openModal}>
-                <p> 학습 기록</p>{" "}
+                <p>{modalButtonText}</p>{" "}
               </StyledButton>
             </li>
             <li>
@@ -243,8 +261,10 @@ const Header = () => {
             element={
               <StudyTime
                 isStudying={isStudying}
+                onIsStudyingChange={handleIsStudyingChange}
                 studyStartTime={studyStartTime}
                 toggleStudyStatus={toggleStudyStatus}
+                setStudyStartTime={setStudyStartTime}
               />
             }
           />
@@ -400,15 +420,15 @@ const Container = styled.nav`
     gap: 45px;
     align-items: center;
   }
-  @media(max-width: 900px){
-    .header__link-wrapper{
-      gap:25px;
+  @media (max-width: 900px) {
+    .header__link-wrapper {
+      gap: 25px;
     }
   }
 
-  @media(max-width: 768px){
-    .header__link-wrapper{
-      gap:10px;
+  @media (max-width: 768px) {
+    .header__link-wrapper {
+      gap: 10px;
     }
   }
   .header__user-name {

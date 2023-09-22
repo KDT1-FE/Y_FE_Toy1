@@ -27,19 +27,14 @@ const Sidebar = () => {
       return (
         <MobileContainer>
           {/*Inner Container 부분이 움직입니다, MobileContainer 부분은 움직이지 않고, 모바일 사이드바 렌더링 시 나타납니다 */}
-          <MobileInnerContainer
-            displaysidebar={displaySidebar ? "true" : "false"}
-          >
+          <MobileInnerContainer displaysidebar={displaySidebar ? "true" : "false"}>
             <div
               className="header__mobile-close-wrap"
               onClick={() => {
                 setDisplaySidebar(false);
               }}
             >
-              <img
-                src={process.env.PUBLIC_URL + "/svg/icon_close.svg"}
-                alt="닫기 버튼"
-              />
+              <img src={process.env.PUBLIC_URL + "/svg/icon_close.svg"} alt="닫기 버튼" />
             </div>
 
             <SidebarList>
@@ -50,12 +45,8 @@ const Sidebar = () => {
               </li>
               {sideLinkAttendance.map((page, idx) => {
                 return (
-                  <li
-                    className={`sidebar__item ${
-                      activeItem === page ? "active" : ""
-                    }`}
-                    key={sideLinkAttendance[idx]}
-                  >
+                  <li className={`sidebar__item ${activeItem === page ? "active" : ""}`} key={sideLinkAttendance[idx]}>
+
                     <Link to={`${page}`} onClick={() => handleItemClick(page)}>
                       {page}
                     </Link>
@@ -67,12 +58,7 @@ const Sidebar = () => {
               </li>
               {sideLinkAdmin.map((page, idx) => {
                 return (
-                  <li
-                    className={`sidebar__item ${
-                      activeItem === page ? "active" : ""
-                    }`}
-                    key={sideLinkAdmin[idx]}
-                  >
+                  <li className={`sidebar__item ${activeItem === page ? "active" : ""}`} key={sideLinkAdmin[idx]}>
                     <Link to={`${page}`} onClick={() => handleItemClick(page)}>
                       {page}
                     </Link>
@@ -80,31 +66,20 @@ const Sidebar = () => {
                 );
               })}
               <li key={"학습시간 등급"} className="sidebar__menu">
-                <Link
-                  to="학습시간 등급"
-                  onClick={() => handleItemClick("학습시간 등급 안내")}
-                >
+                <Link to="학습시간 등급" onClick={() => handleItemClick("학습시간 등급 안내")}>
                   학습시간 등급 안내
                 </Link>
               </li>
               <li key={"학습 시간왕"} className="sidebar__menu">
-                <Link
-                  to="학습 시간왕"
-                  onClick={() => handleItemClick("학습 시간왕")}
-                >
+                <Link to="학습 시간왕" onClick={() => handleItemClick("학습 시간왕")}>
                   학습 시간왕
                 </Link>
               </li>
             </SidebarList>
+            <SidebarBottom />
           </MobileInnerContainer>
-          <div
-            className="sidebar__openSidebar-icon"
-            onClick={() => setDisplaySidebar((prev) => !prev)}
-          >
-            <img
-              src={process.env.PUBLIC_URL + "/svg/icon_list.svg"}
-              alt="사이드바 열기 버튼"
-            />
+          <div className="sidebar__openSidebar-icon" onClick={() => setDisplaySidebar((prev) => !prev)}>
+            <img src={process.env.PUBLIC_URL + "/svg/icon_list.svg"} alt="사이드바 열기 버튼" />
           </div>
         </MobileContainer>
       );
@@ -120,12 +95,7 @@ const Sidebar = () => {
             </li>
             {sideLinkAttendance.map((page, idx) => {
               return (
-                <li
-                  className={`sidebar__item ${
-                    activeItem === page ? "active" : ""
-                  }`}
-                  key={sideLinkAttendance[idx]}
-                >
+                <li className={`sidebar__item ${activeItem === page ? "active" : ""}`} key={sideLinkAttendance[idx]}>
                   <Link to={`${page}`} onClick={() => handleItemClick(page)}>
                     {page}
                   </Link>
@@ -137,12 +107,7 @@ const Sidebar = () => {
             </li>
             {sideLinkAdmin.map((page, idx) => {
               return (
-                <li
-                  className={`sidebar__item ${
-                    activeItem === page ? "active" : ""
-                  }`}
-                  key={sideLinkAdmin[idx]}
-                >
+                <li className={`sidebar__item ${activeItem === page ? "active" : ""}`} key={sideLinkAdmin[idx]}>
                   <Link to={`${page}`} onClick={() => handleItemClick(page)}>
                     {page}
                   </Link>
@@ -168,32 +133,21 @@ const Sidebar = () => {
         <MobileContainer>
           {/*Inner Container 부분이 움직입니다, MobileContainer 부분은 움직이지 않고, 모바일 사이드바 렌더링 시 나타납니다 */}
 
-          <MobileInnerContainer
-            displaysidebar={displaySidebar ? "true" : "false"}
-          >
+          <MobileInnerContainer displaysidebar={displaySidebar ? "true" : "false"}>
             <div
               className="header__mobile-close-wrap"
               onClick={() => {
                 setDisplaySidebar(false);
               }}
             >
-              <img
-                src={process.env.PUBLIC_URL + "/svg/icon_close.svg"}
-                alt="닫기 버튼"
-              />
+              <img src={process.env.PUBLIC_URL + "/svg/icon_close.svg"} alt="닫기 버튼" />
             </div>
             <li className="rank" onClick={() => setDisplaySidebar(false)}>
               리더보드
             </li>
           </MobileInnerContainer>
-          <div
-            className="sidebar__openSidebar-icon"
-            onClick={() => setDisplaySidebar((prev) => !prev)}
-          >
-            <img
-              src={process.env.PUBLIC_URL + "/svg/icon_list.svg"}
-              alt="사이드바 열기 버튼"
-            />
+          <div className="sidebar__openSidebar-icon" onClick={() => setDisplaySidebar((prev) => !prev)}>
+            <img src={process.env.PUBLIC_URL + "/svg/icon_list.svg"} alt="사이드바 열기 버튼" />
           </div>
         </MobileContainer>
       );
@@ -211,6 +165,9 @@ const Sidebar = () => {
 };
 
 const MobileContainer = styled.div`
+  & {
+    overflow: hidden;
+  }
   .sidebar__openSidebar-icon {
     z-index: 13;
     position: fixed;
@@ -255,25 +212,25 @@ interface IMobileInnerContainer {
   displaysidebar: string;
 }
 const MobileInnerContainer = styled.div<IMobileInnerContainer>`
-  position:absolute;
-  height: 100%;
-  width: 100%;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
   z-index: 15;
   background-color: #fff;
-  left:${(props) => (props.displaysidebar === "true" ? "0px;" : "-100%;")}
+  left: ${(props) => (props.displaysidebar === "true" ? "0px;" : "-100%;")};
   transition: all 1s ease-in-out;
 
-  .header__mobile-close-wrap{
+  .header__mobile-close-wrap {
     position: absolute;
     top: 10px;
     right: 15px;
-    cursor:pointer;
-    img{
+    cursor: pointer;
+    img {
       width: 40px;
       height: 40px;
     }
   }
-  
+
   .rank {
     font-weight: 700;
     font-size: 20px;
@@ -310,6 +267,7 @@ const SidebarList = styled.div`
   gap: 20px;
   margin-top: 30px;
   margin-left: 20px;
+
   .sidebar__menu {
     font-weight: 700;
     font-size: 20px;
