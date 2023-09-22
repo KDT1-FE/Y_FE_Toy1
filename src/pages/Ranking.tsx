@@ -2,9 +2,10 @@ import React, {useEffect, useState} from "react";
 import "../styles/ranking/rankingList.css";
 import List from "../components/Ranking/List";
 import {secsToMins} from "../utils/timerAndRanking";
+import {RankingList} from "../types/Ranking";
 
 function Ranking() {
-  const [data, setData] = useState<any[]>();
+  const [data, setData] = useState<RankingList[]>();
 
   useEffect(() => {
     const rankingData = JSON.parse(sessionStorage.getItem("ranking") as string);
@@ -18,6 +19,7 @@ function Ranking() {
         {data?.length !== 0 ? (
           data?.map((list, index) => (
             <List
+              key={list.name}
               num={index + 1}
               name={list.name}
               time={secsToMins(list.time)}
