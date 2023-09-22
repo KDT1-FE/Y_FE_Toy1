@@ -1,4 +1,4 @@
-# HIGHFIVE WIKI
+![로그인](https://github.com/YFE-toy1-highfive/toy1/assets/100336573/fe132c13-03f9-4650-ac73-de9a5a080c28)# HIGHFIVE WIKI
 - <a href="https://highfive-dev-4d7f4.firebaseapp.com/"> HIGHFIVE WIKI 배포 링크</a>
 - 🗓 기간: 2023.09.08 ~ 2023.09.22 (2주)
 - HIGHFIVE 직원들을 위한 위키 사이트
@@ -157,32 +157,17 @@
 ![삭제](https://github.com/IAMISTP/toy1/assets/137421610/184d991c-7525-4996-a697-fbbaf714e60d)
 
 ### 갤러리 추가
+![갤러리 추가](https://github.com/YFE-toy1-highfive/toy1/assets/100336573/f3bd2071-8112-429d-8a5a-f140d307ddff)
 
-### 업로드 기능
+### 갤러리 삭제
+![갤러리 삭제](https://github.com/YFE-toy1-highfive/toy1/assets/100336573/6889a3f6-5dfb-4f82-9afb-e1630c776117)
 
-원하는 이미지와 함께 제목, 작성자, 사진에 관련된 내용을 남길 수 있습니다.
+### 갤러리 모달 / 좋아요 추가 및 취소 기능
+![갤러리 모달](https://github.com/YFE-toy1-highfive/toy1/assets/100336573/f1a88208-4a07-4daa-82c1-c045cd231693)
 
-이미지는 fire storage에, 제목과 작성자, 내용, 작성시간은 fire store에 각각 데이터가 추가되도록 하였습니다.
 
-### 좋아요 추가 / 취소 기능
-
-하트(+) 아이콘을 누르면 좋아요 수가 즉시 +1 되어 반영됩니다.
-하트(-) 아이콘을 누르면 좋아요 수가 즉시 -1 되어 반영됩니다.
-
-### 이미지 클릭 시 모달 오픈
-
-이미지 클릭 시 모달창이 오픈되며 업로드된 이미지의 제목, 작성일, 작성자, 내용, 좋아요 수를 확인 할 수 있습니다.
-닫기버튼 X를 누르거나, 모달창 영역을 제외한 부분을 클릭하여 모달창을 닫을 수 있습니다.
-
-### 이미지 삭제 기능
-
-삭제 아이콘을 클릭하면 갤러리의 이미지 목록에서 해당 이미지가 즉시 삭제됩니다.
-
-## 근태관리 페이지
+### 근태관리 페이지
 ![toyproject__attendace](https://github.com/humnyenye/toy1/assets/106056638/509c1018-3d6b-4320-9363-eeae89a1d754)
-
-
-## 메인 페이지
 
 # 후기
 
