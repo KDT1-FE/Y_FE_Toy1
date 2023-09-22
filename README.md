@@ -128,20 +128,22 @@ Recoil에 저장하기 전, 받아온 유저 정보 객체를 깊은복사를 �
 후에 Firebase에서 해당 정보에 접근하여 정보를 수정할 수 있도록 변경했다.
 
 ```javascript
-signInWithEmailAndPassword(auth, email, password).then(async (userCredential) => {
-  // Signed in
-  const { user } = userCredential;
-  const userId = userCredential.user.uid;
-  const docRef = doc(db, 'user', userId);
-  const docSnap = await getDoc(docRef);
-  const userCopy = JSON.parse(JSON.stringify(user)); // 깊은복사 후 state 저장
-  setUserState({
-    userCredential: userCopy,
-    userData: docSnap.data()
-  });
-  setLoginState(true);
-  navigate('/');
-});
+signInWithEmailAndPassword(auth, email, password).then(
+  async (userCredential) => {
+    // Signed in
+    const { user } = userCredential;
+    const userId = userCredential.user.uid;
+    const docRef = doc(db, 'user', userId);
+    const docSnap = await getDoc(docRef);
+    const userCopy = JSON.parse(JSON.stringify(user)); // 깊은복사 후 state 저장
+    setUserState({
+      userCredential: userCopy,
+      userData: docSnap.data(),
+    });
+    setLoginState(true);
+    navigate('/');
+  }
+);
 ```
 
 ## 후기
@@ -252,15 +254,15 @@ React 초보라 상태 관리 라이브러리나 관련된 툴을 사용해 본�
 
 ## 🌟ProjectPage 주요 기능
 
-|프로젝트 리스트 페이지|프로젝트 작성 페이지|
-|:--:|:--:|
-|<img width="1512" alt="스크린샷 2023-09-22 오후 3 52 34" src="https://github.com/wowba/Wikinity/assets/85981963/42649bf5-ba4d-4100-a530-bfdec1b2d2e8">|<img width="1512" alt="스크린샷 2023-09-22 오후 3 52 42" src="https://github.com/wowba/Wikinity/assets/85981963/b575a560-a2e7-4e81-abb2-be91954e4832">|
-|프로젝트의 리스트 <br/>미리보기에는 주제, 마감일, 인원 표시|팀명, 프로젝트 주제, 프로젝트 설명,<br/> 프로젝트 마감일, 참여인원을 작성할 수 있는 페이지 , <br/>상단의 진행중/완료를 클릭을 통해서 변경 가능|
+|                                                                 프로젝트 리스트 페이지                                                                 |                                                                  프로젝트 작성 페이지                                                                  |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img width="1512" alt="스크린샷 2023-09-22 오후 3 52 34" src="https://github.com/wowba/Wikinity/assets/85981963/42649bf5-ba4d-4100-a530-bfdec1b2d2e8"> | <img width="1512" alt="스크린샷 2023-09-22 오후 3 52 42" src="https://github.com/wowba/Wikinity/assets/85981963/b575a560-a2e7-4e81-abb2-be91954e4832"> |
+|                                              프로젝트의 리스트 <br/>미리보기에는 주제, 마감일, 인원 표시                                               |     팀명, 프로젝트 주제, 프로젝트 설명,<br/> 프로젝트 마감일, 참여인원을 작성할 수 있는 페이지 , <br/>상단의 진행중/완료를 클릭을 통해서 변경 가능     |
 
-|프로젝트 상세 글 페이지 |프로젝트 수정 페이지 |
-|:--:|:--:|
-|<img width="1512" alt="스크린샷 2023-09-22 오후 3 53 08" src="https://github.com/wowba/Wikinity/assets/85981963/3353d31a-0cf3-4ea1-9290-c90053cbf3cb">|<img width="1512" alt="스크린샷 2023-09-22 오후 3 53 16" src="https://github.com/wowba/Wikinity/assets/85981963/5d5e6fce-aca3-463f-9f78-75ee0f519175">|
-|작성한 프로젝트 상세 페이지 <br/> 삭제 버튼을 통해 삭제 가능| 수정 페이지를 통해 글 수정 가능, <br/> 진행중/완료 변경 가능|
+|                                                                프로젝트 상세 글 페이지                                                                 |                                                                  프로젝트 수정 페이지                                                                  |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img width="1512" alt="스크린샷 2023-09-22 오후 3 53 08" src="https://github.com/wowba/Wikinity/assets/85981963/3353d31a-0cf3-4ea1-9290-c90053cbf3cb"> | <img width="1512" alt="스크린샷 2023-09-22 오후 3 53 16" src="https://github.com/wowba/Wikinity/assets/85981963/5d5e6fce-aca3-463f-9f78-75ee0f519175"> |
+|                                              작성한 프로젝트 상세 페이지 <br/> 삭제 버튼을 통해 삭제 가능                                              |                                              수정 페이지를 통해 글 수정 가능, <br/> 진행중/완료 변경 가능                                              |
 
 ## 진행중/ 완료 표시
 
@@ -280,7 +282,6 @@ React 초보라 상태 관리 라이브러리나 관련된 툴을 사용해 본�
 - 프로젝트 페이지 crud 구현 영상
 
 https://github.com/wowba/Wikinity/assets/85981963/ff3a9d69-1e07-447a-a5a2-0e2f4862fcbd
-
 
 ### 아쉬운 점 & 배운점
 
