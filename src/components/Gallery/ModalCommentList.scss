@@ -1,5 +1,9 @@
 @import '../../styles/_common.scss';
 
+.btn-close {
+  right: 0;
+}
+
 .comment {
   &-container {
     height: auto;
@@ -15,23 +19,18 @@
   }
   &-header {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     margin-bottom: 20px;
+  }
+}
 
-    // .comment-writer-image {
-    //   width: 30px;
-    //   height: 30px;
-    //   border-radius: 50%;
-    // }
-    // .comment-writer-name {
-    //   font-size: 14px;
-    //   color: #363636;
-    // }
-
-    // .comment-writer {
-    //   display: flex;
-
-    // }
+.comment-writer {
+  display: flex;
+  &-name {
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+    color: $blackColor;
   }
 }
 
@@ -63,7 +62,7 @@
     justify-content: space-around;
     input {
       width: 80%;
-      border: none;
+      border: 1px solid #d8d8d8;
     }
   }
 }

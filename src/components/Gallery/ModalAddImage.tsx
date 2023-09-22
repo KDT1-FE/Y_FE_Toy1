@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { AddImageDragDrop } from './NavAddImage';
 import './_modal.scss';
 import './ModalAddImage.scss';
+import '../../styles/_common.scss';
 
 export function AddImageModal(): JSX.Element {
   const modalRef = useRef<HTMLDialogElement | null>(null);
@@ -9,7 +10,7 @@ export function AddImageModal(): JSX.Element {
     <div>
       <button // 이미지 추가하는 버튼 (Modal open)
         type="button"
-        className="btn btn-addImage"
+        className="btn btn-addImage big-btn"
         onClick={() => modalRef.current?.showModal()}
       >
         이미지 업로드
@@ -21,14 +22,18 @@ export function AddImageModal(): JSX.Element {
 
           <AddImageDragDrop />
 
-          <button
-            type="button"
-            className="btn-close"
-            onClick={async () => {
-              await modalRef.current?.close();
-              location.reload();
-            }}
-          />
+          <div className="modal-footer">
+            <button
+              type="button"
+              className="btn btn-secondary btn-modalClose"
+              onClick={async () => {
+                await modalRef.current?.close();
+                location.reload();
+              }}
+            >
+              Close
+            </button>
+          </div>
         </div>
       </dialog>
     </div>

@@ -20,29 +20,40 @@ $fontMain: Pretendard, 'Tossface', 'Noto Sans KR', sans-serif;
   font-style: normal;
 }
 
-
-@mixin btn-design {
-  border-color: $mainColor;
-  color: $mainColor;
+//큰 갈색 버튼
+.big-btn {
+  font-size: 18px;
+  font-weight: bold;
+  background-color: $highlightColor;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
   &:hover {
-    background-color: $mainColor;
-    color: $whiteColor;
+    background-color: $backgroundColor-50;
   }
 }
 
+//보더에 색 + 바탕 색없는 버튼
 .main-btn {
   border-color: $mainColor;
   color: $mainColor;
+  transition: background-color 0.3s ease;
   &:hover {
     background-color: $mainColor;
     color: $whiteColor;
   }
 }
 
+//메인 반대 버튼
 .sub-btn {
   &:hover {
     border-color: $mainColor;
     color: $mainColor;
+    transition: background-color 0.3s ease;
   }
   background-color: $mainColor;
   color: $whiteColor;
@@ -59,14 +70,13 @@ $fontMain: Pretendard, 'Tossface', 'Noto Sans KR', sans-serif;
   font-size: 24px;
   font-weight: 700;
 
-
   &:hover {
     color: $subColor;
   }
   &:active {
     color: $subColor;
   }
-  &:focus{
+  &:focus {
     color: $subColor;
   }
 }
@@ -81,5 +91,3 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
-
-
