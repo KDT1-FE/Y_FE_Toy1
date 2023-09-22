@@ -41,6 +41,7 @@ export default function GallerySide({
   openAddListModal,
   galleryData,
   configList,
+  album,
   setConfigList,
   setGalleryData,
   setAlbum,
@@ -170,7 +171,7 @@ export default function GallerySide({
     try {
       setPrevAlbum(title);
 
-      if (title === prevAlbum) {
+      if (title === prevAlbum || title === album) {
         setImgLoad(false);
       }
 
