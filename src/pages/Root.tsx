@@ -203,14 +203,15 @@ const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
       </div>
       <ul className="post-grid">
         {currentPosts.map((post, index) => (
-          <li className="post-item grid-item" key={index}>
+          <li className="post-item grid-item" key={index} onClick={() => handleOpenPostModal(post)}>
             <div className="post-content-container">
               <div className='post-content-container-top'>
                 <p className='post-user'>{post.username}</p>
                 {post.userId === user.uid && (
                   <button
                     className='deleteBtn'
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation(); // 이벤트 전파 방지
                       if (window.confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
                         handleDeletePost(post.id);
                         alert('게시글이 삭제되었습니다.');
@@ -221,7 +222,7 @@ const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
                   </button>
                 )}
               </div>
-              <div className='post-content-container-main' onClick={() => handleOpenPostModal(post)}>
+              <div className='post-content-container-main'>
                 <p className='post-due-date'>모집기간 | {(post.timestamp as any).toDate().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
                 <p className='post-title'>{post.title}</p>
                 <p className='post-content'>{post.content}</p>
