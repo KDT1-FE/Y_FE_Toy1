@@ -278,7 +278,9 @@ React 초보라 상태 관리 라이브러리나 관련된 툴을 사용해 본�
 ## 구현 영상:
 
 - 프로젝트 페이지 crud 구현 영상
-  https://github.com/wowba/Wikinity/assets/85981963/278d563d-8732-4b0e-b681-061d5af902c5
+
+https://github.com/wowba/Wikinity/assets/85981963/ff3a9d69-1e07-447a-a5a2-0e2f4862fcbd
+
 
 ### 아쉬운 점 & 배운점
 
