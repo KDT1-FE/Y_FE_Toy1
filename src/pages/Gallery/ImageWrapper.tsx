@@ -54,12 +54,11 @@ export default ImageWrapper;
 const ImageWrapperDiv = styled.div`
   position: relative;
   width: calc(33.33% - 20px);
-  margin-bottom: 30px;
+  margin-bottom: 50px;
   aspect-ratio: 1;
   background-size: cover;
   background-position: center;
   border-radius: 4px;
-  margin-bottom: 5%;
   border: 1px solid ${(props) => props.theme.colors.border};
   display: flex;
   align-items: center;
@@ -68,7 +67,7 @@ const ImageWrapperDiv = styled.div`
 
   @media screen and (max-width: 700px) {
     width: calc(50% - 10px);
-    margin-bottom: 20px;
+    margin-bottom: 50px;
   }
 `;
 const ProjectName = styled.div`

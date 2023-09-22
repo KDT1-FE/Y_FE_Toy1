@@ -47,7 +47,7 @@ const Project = ({ state }: ProjectStateProps) => {
   };
 
   const prevButtonStyle = {
-    backgroundColor: currentPage === 1 ? 'rgb(252,252,252)' : '#3267B1',
+    backgroundColor: currentPage === 1 ? '#ddd' : '#3267B1',
     color: currentPage === 1 ? '#797979' : '',
     cursor: currentPage === 1 ? 'unset' : 'pointer',
   };
@@ -55,7 +55,7 @@ const Project = ({ state }: ProjectStateProps) => {
   const nextButtonDisable = currentPage === maxPage || maxPage === 1;
 
   const nextButtonStyle = {
-    backgroundColor: nextButtonDisable ? 'rgb(252,252,252)' : '#3267B1',
+    backgroundColor: nextButtonDisable ? '#ddd' : '#3267B1',
     color: nextButtonDisable ? '#797979' : '',
     cursor: nextButtonDisable ? 'unset' : 'pointer',
   };
@@ -119,10 +119,18 @@ const Project = ({ state }: ProjectStateProps) => {
       </ImageSection>
       {projectData?.length !== 0 && (
         <ButtonSection>
-          <Button onClick={goToPreviousPage} style={prevButtonStyle}>
+          <Button
+            onClick={goToPreviousPage}
+            className={currentPage !== 1 ? 'blue' : ''}
+            style={prevButtonStyle}
+          >
             이전
           </Button>
-          <Button onClick={goToNextPage} style={nextButtonStyle}>
+          <Button
+            onClick={goToNextPage}
+            className={!nextButtonDisable ? 'blue' : ''}
+            style={nextButtonStyle}
+          >
             다음
           </Button>
         </ButtonSection>
@@ -146,10 +154,6 @@ const ButtonSection = styled.div`
   margin-top: 30px;
   display: flex;
   justify-content: space-between;
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 10px;
-  }
 `;
 
 const Button = styled.button`
@@ -164,7 +168,7 @@ const Button = styled.button`
   color: rgb(252, 252, 252);
   text-align: center;
   line-height: 47px;
-  @media (max-width: 768px) {
-    width: 100%;
+  &.blue:hover {
+    background-color: #2c5b96 !important;
   }
 `;
