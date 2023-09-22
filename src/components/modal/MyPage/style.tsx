@@ -163,7 +163,6 @@ const Blink = keyframes`
 `;
 export const RedCircle = styled.span<{ value: boolean }>`
     display: ${(value) => (value.value ? 'block' : 'none')};
-    display: block;
     width: 10px;
     height: 10px;
     border-radius: 10px;

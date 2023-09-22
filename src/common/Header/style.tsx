@@ -41,40 +41,84 @@ export const AnchorContainer = styled.div`
 `;
 
 export const RightAnchorContainer = styled.div`
+    width: 500px;
     display: flex;
     align-items: center;
     justify-content: space-around;
     align-items: center;
     gap: 20px;
-    margin-right: 10px;
 `;
 
 export const ListAnchor = styled.a`
-    margin-right: 20px;
     font-weight: 700;
     font-size: 24px;
+    font-family:
+        GmarketSansTTFMedium,
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        'Roboto',
+        'Oxygen',
+        'Ubuntu',
+        'Cantarell',
+        'Fira Sans',
+        'Droid Sans',
+        'Helvetica Neue',
+        sans-serif;
     color: ${(props) => props.theme.text};
 `;
 
-export const LogoutButton = styled.button`
-    min-height: 50px;
-    border-radius: 42.5%;
-    font-size: 1.1rem;
-    font-weight: bold;
+export const LogoutButton = styled.a`
+    display: flex;
+    align-items: center;
+    height: 72px;
+    border-radius: 10%;
+    font-weight: 700;
+    font-size: 24px;
     color: ${(props) => props.theme.text};
-    background-color: ${(props) => props.theme.sideMenu};
+    background-color: rgba(0, 0, 0, 0);
+    font-family:
+        GmarketSansTTFMedium,
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        'Roboto',
+        'Oxygen',
+        'Ubuntu',
+        'Cantarell',
+        'Fira Sans',
+        'Droid Sans',
+        'Helvetica Neue',
+        sans-serif;
+    border: 0;
     &:hover {
         cursor: pointer;
     }
 `;
 
-export const LoginButton = styled.button`
-    min-height: 50px;
-    border-radius: 42.5%;
-    font-size: 1.1rem;
-    font-weight: bold;
+export const LoginButton = styled.a`
+    display: flex;
+    align-items: center;
+    height: 72px;
+    border-radius: 10%;
+    font-weight: 700;
+    font-size: 24px;
     color: ${(props) => props.theme.text};
-    background-color: ${(props) => props.theme.sideMenu};
+    background-color: rgba(0, 0, 0, 0);
+    font-family:
+        GmarketSansTTFMedium,
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        'Roboto',
+        'Oxygen',
+        'Ubuntu',
+        'Cantarell',
+        'Fira Sans',
+        'Droid Sans',
+        'Helvetica Neue',
+        sans-serif;
+    border: 0;
     &:hover {
         cursor: pointer;
     }
