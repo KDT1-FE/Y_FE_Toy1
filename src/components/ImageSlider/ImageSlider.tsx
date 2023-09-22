@@ -1,7 +1,7 @@
 import sliderImg1 from '../../images/togethersLogo.png';
 import sliderImg2 from '../../images/sliderImg1.png';
 import sliderImg3 from '../../images/sliderImg3.png';
-import '../../styles/pages/Main.scss';
+import '../../styles/Main.scss';
 import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -29,21 +29,22 @@ const slides = [
         style: {
           color: 'black',
           margin: '2px',
-          fontSize: '45px',
+          fontSize: '40px',
           fontWeight: '900',
         },
       },
       {
-        text: '더 편해진 투게더S! 모르는 사람 없게 해주세요 🙏',
+        text: '더 편해진 투게더S! 지금 사용해보세요 🙏',
         style: {
           color: 'black',
           margin: '2px',
-          fontSize: '30px',
-          fontWeight: '500',
+          fontSize: '25px',
+          fontWeight: '700',
         },
       },
     ],
     imageSrc: sliderImg1,
+    link: 'https://nifty-straw-3ce.notion.site/S-23-09-22-c31457ee673a43d780484688872cd252?pvs=4',
   },
   {
     backgroundColor: '#ffeae9',
@@ -65,7 +66,7 @@ const slides = [
         style: {
           color: 'black',
           margin: '2px',
-          fontSize: '45px',
+          fontSize: '40px',
           fontWeight: '900',
         },
       },
@@ -74,8 +75,8 @@ const slides = [
         style: {
           color: 'black',
           margin: '2px',
-          fontSize: '30px',
-          fontWeight: '500',
+          fontSize: '25px',
+          fontWeight: '700',
         },
       },
     ],
@@ -102,7 +103,7 @@ const slides = [
         style: {
           color: 'black',
           margin: '2px',
-          fontSize: '45px',
+          fontSize: '40px',
           fontWeight: '900',
         },
       },
@@ -111,12 +112,13 @@ const slides = [
         style: {
           color: 'black',
           margin: '2px',
-          fontSize: '30px',
-          fontWeight: '500',
+          fontSize: '25px',
+          fontWeight: '700',
         },
       },
     ],
     imageSrc: sliderImg3,
+    link: null,
   },
 ];
 

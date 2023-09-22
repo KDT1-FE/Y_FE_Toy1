@@ -54,6 +54,7 @@
     align-self: center;
     margin-left: auto;
     font-family: $fontMain;
+    height: 100%;
   }
 
   .signInBtn {
@@ -122,5 +123,29 @@
 
   .logoutBtn:hover {
     background-color: $backgroundColor-50;
+  }
+}
+
+@media (max-width: 768px) {
+  .signInBtn,
+  .signUpBtn {
+    font-size: 14px;
+    padding: 10px 15px;
+    margin-right: 5px;
+  }
+
+  .userNickname-container {
+    font-size: 14px;
+  }
+
+  .logoutBtn {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+}
+
+@media (max-width: 1170px) {
+  .auth-buttons {
+    display: none; 
   }
 }

@@ -58,8 +58,8 @@ const CreatePostModal: React.FC<ICreatePostModalProps> = ({
           ></textarea>
         </div>
         <div className="modal-footer">
-          <button onClick={handleClose}>닫기</button>
-          <button onClick={handleSave}>완료</button>
+          <button onClick={handleClose}>Close</button>
+          <button onClick={handleSave}>Complete</button>
         </div>
       </div>
     </div>

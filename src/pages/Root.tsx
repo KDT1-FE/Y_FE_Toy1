@@ -18,7 +18,7 @@ import { RootState } from '../redux/types';
 import { useSelector } from 'react-redux';
 import { getDoc, doc } from 'firebase/firestore';
 import PostedModal from '../components/MainPost/PostedModal';
-import '../styles/pages/Main.scss';
+import '../styles/Main.scss';
 import { onSnapshot } from 'firebase/firestore';
 
 export default function Root() {
@@ -182,7 +182,7 @@ export default function Root() {
         <div className="post-container">
           <div className="post-list">
             <div className="post-list-top">
-              <div className="posted-text">🔥Study with me🔥</div>
+              <div className="posted-text">🔥Together Study🔥</div>
               <button className="newPostBtn">
                 {user && user.uid ? (
                   <div className="open-modal-button" onClick={handleOpenModal}>
@@ -277,10 +277,7 @@ export default function Root() {
       )}
       {PostedModalOpen && (
         <div className="modal open">
-          <div className="modal-content">
-            <span className="close-button" onClick={handleClosePostModal}>
-              &times;
-            </span>
+          <div className="modal-contents">
             {selectedPost && (
               <div>
                 <p className="postedText">스터디 모집글</p>
@@ -301,6 +298,17 @@ export default function Root() {
                 </div>
               </div>
             )}
+
+            {/* Close 버튼을 모달 내에서 가장 아래로 이동 */}
+            <div className="closeBtn">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={handleClosePostModal}
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}
