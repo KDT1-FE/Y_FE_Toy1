@@ -20,7 +20,7 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({
 }) => {
   // 현재 url의 id값 구하기
   const { id } = useParams<string>();
-  console.log(id);
+
   const navigate = useNavigate();
   const user = useContext(AuthContext);
 
@@ -31,7 +31,6 @@ const GalleryDetail: React.FC<GalleryDetailProps> = ({
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(usersCollectionRef);
-      console.log("상세 데이터 가져오기");
       const user = data.docs.find((doc) => doc.id === id);
       if (user) {
         setUsers([{ ...user.data(), id: user.id }]);

@@ -6,6 +6,7 @@ import { IsMobile } from "utils/mediaQuery";
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 import Sidebar from "components/layout/Sidebar";
 import Comment from "components/template/Comment";
+import SidebarBottom from "../../components/layout/SidebarBottom";
 
 interface UsersData {
   id: string;
@@ -199,9 +200,9 @@ const RankWrapper = styled.div`
   flex-direction: column;
   border-radius: 5px;
   margin: 70px;
-  background-color: ${(props) => props.theme.studyRank};
 
   .userList {
+    border: 1px solid var(--main-color);
     font-weight: 700;
     font-size: 16px;
     display: flex;
@@ -233,7 +234,7 @@ const RankWrapper = styled.div`
 
   .userList__nickName {
     font-size: 25px;
-    flex: 1 1 40%;
+    flex: 1 1 35%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -355,12 +356,13 @@ const RankWrapper = styled.div`
 const MobileRankWrapper = styled.div`
   max-width: 600px;
   display: flex;
-  width: auto;
-  height: auto;
+  width: 100%;
+
   text-align: center;
   flex-direction: column;
   border-radius: 5px;
   background-color: ${(props) => props.theme.studyRank};
+  align-items: center;
 
   .userList {
     box-sizing: border-box;
@@ -391,42 +393,37 @@ const MobileRankWrapper = styled.div`
   }
 
   .userList__rank {
-    flex: 1 1 10%;
-    font-size: 25px;
+    font-size: 15px;
   }
 
   .userList__nickName {
-    font-size: 25px;
-    flex: 1 1 40%;
+    width: 100px;
+    font-size: 15px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   .userList__studyTime {
-    flex: 1 1 50%;
-    display: flex;
     justify-content: center;
   }
 
-  .usetList__emblem {
-    flex: 1 1 30%;
-  }
-
   .studyTime {
-    width: 100px;
-    height: auto;
+    display: flex;
+    width: 70px;
+    height: 70px;
     background-color: ${(props) => props.theme.studyRank};
     border-radius: 5%;
-    padding: 10px;
     text-align: center;
-    font-size: 25px;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
     font-weight: 700;
   }
 
   .user__image {
     width: 100px;
-    height: 100px;
+    height: 50px;
     border-radius: 50%;
     margin: 10px;
   }
@@ -513,6 +510,13 @@ const MobileRankWrapper = styled.div`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .user_detail {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
   }
 `;
 export default Rank;

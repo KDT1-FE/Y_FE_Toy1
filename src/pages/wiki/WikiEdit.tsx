@@ -41,7 +41,6 @@ const WikiEdit = () => {
         updatedAt: dayjs().format("YYYY.MM.DD  HH:mm:ss"),
         displayName: user?.displayName,
       });
-      console.log("Document updated successfully");
     } else {
       console.error("Invalid page value");
     }
