@@ -3,6 +3,18 @@
   <img src="https://github.com/turkey-kim/techschool_wiki/assets/101972330/174d1fa7-4522-4ff7-91cd-cadcf49330a5" />
 </div>
 
+<br>
+<br>
+
+<p align="center">
+  <a href="https://techschool-wiki.web.app/">
+    <img src="https://img.shields.io/badge/야놀자 Tech Scool Wiki-pink?style=for-the-badge&logoColor=white" alt="wiki"/>
+  </a>
+  <a href="https://github.com/turkey-kim/techschool_wiki">
+    <img src="https://img.shields.io/badge/배포 repository-212125?style=for-the-badge&logoColor=white" alt="배포 레포"/>
+  </a>
+</p>
+
 ## 🧑🏻‍💻 프로젝트 소개
 Toy Project로 제작된 `Yanolja Tech School Wiki`는 [야놀자 테크 스쿨](https://fastcampus.co.kr/b2g_yanoljatechschool)에 대한 다양한 정보를 담고 있는 Wiki 웹 사이트입니다.
 
