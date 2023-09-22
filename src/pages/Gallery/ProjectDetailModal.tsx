@@ -57,9 +57,13 @@ const ProjectDetailModal = ({
         return;
       }
       const docRef = doc(db, 'projectData', projectInfo.projectId);
-      const newParticipants = [...projectInfo.participants, user.name];
+      const newParticipants =
+        projectInfo.participants?.length > 0
+          ? [...projectInfo.participants, user.name]
+          : [user.name];
       await setDoc(docRef, { participants: newParticipants });
       alert('프로젝트에 정상적으로 참가되었습니다.');
+      window.location.reload();
       closeOnClick();
     } catch (error) {
       console.log(error);

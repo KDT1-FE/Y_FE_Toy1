@@ -85,6 +85,7 @@ const EditModal = ({
         await setDoc(docRef, {
           state: projectInfo.state,
           imageUrl: imageUrl,
+          participants: projectInfo.participants,
           name: projectInfo.name ? projectInfo.name : '',
           description: projectInfo.description ? projectInfo.description : '',
         });
@@ -92,6 +93,7 @@ const EditModal = ({
         await setDoc(docRef, {
           state: projectInfo.state,
           imageUrl: projectInfo.imageUrl ? projectInfo.imageUrl : '',
+          participants: projectInfo.participants,
           name: projectInfo.name ? projectInfo.name : '',
           description: projectInfo.description ? projectInfo.description : '',
         });
