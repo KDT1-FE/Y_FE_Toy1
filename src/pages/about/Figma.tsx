@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { CategoryTitleSection, BreadCrumb } from '../Gallery/Project';
+import imageSrc from '../../assets/figma.png';
 
 export const StyledImage = styled.img`
   width: 60%;
@@ -25,7 +26,7 @@ const Figma = () => {
         <BreadCrumb>about &gt; 정보 &gt; figma</BreadCrumb>
       </CategoryTitleSection>
       <a href="https://www.figma.com/file/MokbPAUs2FpKGMwDgAnfzk/Untitled?type=design&node-id=0-1&mode=design&t=VJNm1SjjrWKzgKyJ-0">
-        <StyledImage src="../../../src/assets/figma.png" />
+        <StyledImage src={imageSrc} />
       </a>
       <StyledSpan>사진을 누르면 링크로 이동합니다.</StyledSpan>
     </StyledContainer>
