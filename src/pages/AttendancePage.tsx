@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { collection, getDocs, Timestamp, query, orderBy } from 'firebase/firestore';
-import { db, auth } from '../firebase';
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 
-import Placeholder from '../components/Placeholder';
-import AttendanceModal from '../components/Attendance/AttendanceModal';
+import Placeholder from '@components/Placeholder';
+import AttendanceModal from '@components/Attendance/AttendanceModal';
 
-import '../scss/attendancePage.scss';
+import { db, auth } from '../firebase';
+import '@scss/attendancePage.scss';
 
 const Attendance = (): JSX.Element => {
   const [modal, setModal] = useState(false);

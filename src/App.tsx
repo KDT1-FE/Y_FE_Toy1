@@ -5,17 +5,17 @@ import RegisterPage from './pages/RegisterPage';
 import { Notice, Chart, Benefit } from './pages/company';
 import MainPage from './pages/MainPage';
 import Attendance from './pages/AttendancePage';
-import ProjectList from './pages/ProjectList';
+import ProjectList from './pages/project/ProjectListPage';
 import GalleryPage from './pages/GalleryPage';
-import NoticeWritePage from './pages/company/notice/NoticeWritePage';
-import Contents from './pages/Contents';
-import NoticeUpdatePage from './pages/company/notice/NoticeUpdatePage';
+import NoticeWritePage from './pages/company/noticePage/NoticeWritePage';
+import Contents from './pages/company/noticePage/NoticeDetailPage';
+import NoticeUpdatePage from './pages/company/noticePage/NoticeUpdatePage';
+import ProjectWirte from './pages/project/ProjectWirtePage';
+import ProjectDetail from './pages/project/ProjectDetailPage';
+import ProjectUpdate from './pages/project/ProjectUpdatePage';
 
 import { useDispatch } from 'react-redux';
 import { login } from './store/loginSlice';
-import ProjectWirte from './pages/ProjectWirte';
-import ProjectDetail from './pages/ProjectDetail';
-import ProjectUpdate from './pages/ProjectUpdate';
 
 const App = () => {
   const isLogin = localStorage.getItem('isLogin');

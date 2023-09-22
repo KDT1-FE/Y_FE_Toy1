@@ -1,9 +1,9 @@
 import { useRef } from 'react';
-import useOnClickOutside from '../../hooks/gallery/useOnClickOutside';
-import { UploadedImage } from './types';
+import useOnClickOutside from '@hooks/gallery/useOnClickOutside';
+import { UploadedImage } from '@components/Gallery/types';
 
-import '../../scss/components/gallery/modal.scss';
-import '../../scss/components/gallery/modalButton.scss';
+import '@scss/components/gallery/modal.scss';
+import '@scss/components/gallery/modalButton.scss';
 
 const ImageViewModal = ({ imageDetail, setImgModalOpen }: ViewModalProps) => {
   const ref = useRef();

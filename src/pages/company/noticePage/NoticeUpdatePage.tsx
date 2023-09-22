@@ -4,7 +4,7 @@ import { doc, updateDoc, getDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useLocation } from 'react-router-dom';
 
-import '../../../scss/components/writePage/writePage.scss';
+import '@scss/components/writePage/writePage.scss';
 
 const NoticeUpdatePage = () => {
   const location = useLocation();

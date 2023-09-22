@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction, useRef } from 'react';
-import useOnClickOutside from '../../hooks/gallery/useOnClickOutside';
-import { ImageUploadPayload } from './types';
+import useOnClickOutside from '@hooks/gallery/useOnClickOutside';
+import { ImageUploadPayload } from '@components/Gallery/types';
 
-import '../../scss/components/gallery/modal.scss';
-import '../../scss/components/gallery/modalButton.scss';
+import '@scss/components/gallery/modal.scss';
+import '@scss/components/gallery/modalButton.scss';
 
 const ImageUploadModal = ({
   setFormModalOpen,

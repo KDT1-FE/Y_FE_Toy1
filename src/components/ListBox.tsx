@@ -1,4 +1,4 @@
-import '../scss/listbox.scss';
+import '@scss/listbox.scss';
 
 const ListBox = (): JSX.Element => {
   return (

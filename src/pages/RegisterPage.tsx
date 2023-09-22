@@ -1,4 +1,4 @@
-import { useInput, useButtonActivate } from '../hooks/auth';
+import { useInput, useButtonActivate } from '@hooks/auth';
 
 import {
   FormTitle,
@@ -8,13 +8,13 @@ import {
   InputPasswordConfirm,
   SubmitButton,
   ChangeAuthPage,
-} from '../components/Auth';
+} from '@components/Auth';
 
 import createUser from '../firebase/createUser';
 
 import { useNavigate } from 'react-router-dom';
 
-import '../scss/authPage.scss';
+import '@scss/authPage.scss';
 
 const RegisterPage = (): JSX.Element => {
   const [email, handleEmail] = useInput('email', { value: '', validationPass: false });

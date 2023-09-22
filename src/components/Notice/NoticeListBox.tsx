@@ -2,7 +2,7 @@ import { deleteDoc, doc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../../firebase';
 
-import '../../scss/listbox.scss';
+import '@scss/components/listbox.scss';
 
 const ListBox: React.FC<ListBoxProps> = ({ title, itemId, currentItems }): JSX.Element => {
   const navigate = useNavigate();
