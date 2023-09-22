@@ -18,6 +18,7 @@ function Ranking() {
         {data?.length !== 0 ? (
           data?.map((list, index) => (
             <List
+              key={list.name}
               num={index + 1}
               name={list.name}
               time={secsToMins(list.time)}
