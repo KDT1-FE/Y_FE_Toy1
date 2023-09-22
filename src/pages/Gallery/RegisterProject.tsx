@@ -4,15 +4,16 @@ import { GalleryMainContainer, CategoryTitleSection, BreadCrumb, CategoryTitle }
 import { collection, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../../common/config';
-// import { useUser } from '../../common/UserContext';
+import { useUser } from '../../common/UserContext';
 
 const RegisterProject = () => {
+  const { user } = useUser();
   const [projectInfo, setProjectInfo] = useState({
     imageUrl: '' as any,
     state: 'ongoing',
     name: '',
     description: '',
-    participant: '',
+    participants: [],
   });
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -40,6 +41,12 @@ const RegisterProject = () => {
 
   const postNewProject = async () => {
     try {
+      if (!user) {
+        alert('로그인 후 프로젝트를 생성할 수 있습니다.');
+        return;
+      }
+      const newParticipants = [...projectInfo.participants, user.name];
+      console.log(newParticipants);
       if (projectInfo.imageUrl !== '') {
         const imageBlob = await fetch(projectInfo.imageUrl).then((res) => res.blob());
         const storageRef = ref(storage, `projectImage/${new Date().getTime()}`);
@@ -51,12 +58,14 @@ const RegisterProject = () => {
           imageUrl: imageUrl,
           name: projectInfo.name,
           description: projectInfo.description,
+          participants: newParticipants
         });
       } else {
         await addDoc(collection(db, 'projectData'), {
           state: projectInfo.state,
           name: projectInfo.name,
           description: projectInfo.description,
+          participants: newParticipants
         });
       }
 

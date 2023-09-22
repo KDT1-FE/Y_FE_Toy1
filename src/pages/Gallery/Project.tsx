@@ -5,16 +5,19 @@ import { db } from '../../common/config';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import LoadingSpinner from './LoadingSpinner';
 
-export interface ProjectProps {
+interface ProjectStateProps {
   state: string;
+}
+
+export interface ProjectProps extends ProjectStateProps {
   projectId: any;
   imageUrl: any;
   name: any;
   description: any;
-  participant: any;
+  participants: any;
 }
 
-const Project = ({ state }: ProjectProps) => {
+const Project = ({ state }: ProjectStateProps) => {
   const [projectData, setProjectData] = useState<Array<ProjectProps>>();
   const [isLoading, setIsLoading] = useState(true);
   const fetchProjectData = async () => {
@@ -65,7 +68,7 @@ const Project = ({ state }: ProjectProps) => {
                 projectId={item.projectId}
                 name={item.name}
                 description={item.description}
-                participant={item.participant}
+                participants={item.participants}
                 state={item.state}
               />
             );
