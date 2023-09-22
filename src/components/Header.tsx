@@ -7,12 +7,29 @@ import CommuteModal from './CommuteModal';
 import UserResult from './UserProfile';
 import useCommute from '../hooks/useCommute';
 import { useUser } from '../common/UserContext';
+import { ref, getDownloadURL } from 'firebase/storage';
+import { storage } from '../common/config';
+import imageSrc from '../assets/Pokemon.png';
 
 const Header = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const { user } = useUser();
   const uid = user?.uid;
   const { commuteInfo, confirmWorkingTime, handleCommute } = useCommute(uid, toggleModal);
+
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    const storageRef = ref(storage, 'png/Pokemon.png');
+
+    getDownloadURL(storageRef)
+      .then((url) => {
+        setImageUrl(url);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   function toggleModal() {
     setModalOpen(!isModalOpen);
@@ -24,7 +41,7 @@ const Header = () => {
         <div className="nav-wrapper">
           <div className="title">
             <Link to={'/'}>
-              <StyledImage src="../../../src/assets/Pokemon.png"></StyledImage>
+              <StyledImage src={imageUrl ? imageUrl : imageSrc} />
             </Link>
           </div>
           {/* <InputWrapper>
