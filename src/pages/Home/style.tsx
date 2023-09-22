@@ -17,6 +17,7 @@ export const Outer = styled.div`
 `;
 
 export const Inner = styled.div`
+    width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -26,12 +27,8 @@ export const Inner = styled.div`
     position: relative;
 `;
 
-export const Divider = styled.div`
-    width: 100%;
-    height: 5px;
-`;
-
 export const InnerBox = styled.div`
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -45,15 +42,16 @@ export const InnerBox = styled.div`
 
 export const InnerHeadline = styled.h1`
     display: block;
-    font-size: 8rem;
+    font-size: 7rem;
 
     text-align: center;
     margin: 0;
 `;
 
 export const InnerSubTitle = styled.p`
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: rgba(255, 255, 255, 0.7);
+    text-align: center;
 `;
 
 export const InnerBtnWrapper = styled.div`
@@ -61,4 +59,39 @@ export const InnerBtnWrapper = styled.div`
     justify-content: center;
     align-items: center;
     margin-top: 30px;
+`;
+
+export const SubInnerBox = styled.div`
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const SubInnerHeadline = styled.h1`
+    display: block;
+    font-size: 5rem;
+
+    text-align: center;
+    margin: 0;
+`;
+
+export const SubInnerSubTitle = styled.p`
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+`;
+
+export const SubInnerBtnWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+`;
+
+export const SubInnerImg = styled.div`
+    width: 650px;
+    height: 450px;
 `;

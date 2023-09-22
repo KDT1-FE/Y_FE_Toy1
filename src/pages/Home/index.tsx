@@ -1,12 +1,30 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Outer, Inner, Divider, InnerBox, InnerHeadline, InnerSubTitle, InnerBtnWrapper } from './style';
+import {
+    Outer,
+    Inner,
+    InnerBox,
+    InnerHeadline,
+    InnerSubTitle,
+    InnerBtnWrapper,
+    SubInnerBox,
+    SubInnerHeadline,
+    SubInnerSubTitle,
+    SubInnerBtnWrapper,
+    SubInnerImg,
+} from './style';
 import Button from '@mui/material/Button';
 import Carousel from 'react-material-ui-carousel';
 import { Paper } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import wikiImg from '../../common/MainImg/wikiMain.png';
+import galleryImg from '../../common/MainImg/galleryMain.png';
+import recruitmentImg from '../../common/MainImg/recruitment.png';
+import recruitmentPostImg from '../../common/MainImg/recruitmentPost.png';
 
 const Home: React.FC = () => {
     const outerDivRef = useRef<HTMLDivElement | null>(null);
     const [scrollIndex, setScrollIndex] = useState<number>(1);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleScroll = (e: WheelEvent) => {
@@ -16,8 +34,6 @@ const Home: React.FC = () => {
             const { scrollTop } = outerDivRef.current!;
             const pageHeight = window.innerHeight;
 
-            console.log(deltaY, scrollTop, pageHeight);
-            console.log(e);
             if (deltaY == 0) {
                 return;
             } else {
@@ -94,11 +110,18 @@ const Home: React.FC = () => {
             }
         };
     }, []);
+    const pageHeight = window.innerHeight;
 
+    const handleIntro = () => {
+        outerDivRef.current!.scrollTo({
+            top: pageHeight,
+            left: 0,
+            behavior: 'smooth',
+        });
+    };
     return (
         <Outer ref={outerDivRef} className="outer">
             <Dots scrollIndex={scrollIndex} />
-
             <Inner style={{ backgroundColor: '#350d36' }}>
                 <InnerBox>
                     <InnerHeadline style={{ color: 'white' }}>FASTUDY</InnerHeadline>
@@ -114,6 +137,9 @@ const Home: React.FC = () => {
                                 backgroundColor: '#fff',
                                 borderRadius: '15px',
                             }}
+                            onClick={() => {
+                                window.location.href = 'https://github.com/2weeks-team';
+                            }}
                         >
                             깃허브
                         </Button>
@@ -126,6 +152,9 @@ const Home: React.FC = () => {
                                 height: '70px',
                                 fontSize: '1.5rem',
                                 borderRadius: '15px',
+                            }}
+                            onClick={() => {
+                                handleIntro();
                             }}
                         >
                             소개
@@ -156,6 +185,9 @@ const Home: React.FC = () => {
                                         backgroundColor: '#fff',
                                         borderRadius: '15px',
                                     }}
+                                    onClick={() => {
+                                        navigate('/wiki');
+                                    }}
                                 >
                                     위키
                                 </Button>
@@ -169,6 +201,9 @@ const Home: React.FC = () => {
                                         fontSize: '1.5rem',
                                         borderRadius: '15px',
                                     }}
+                                    onClick={() => {
+                                        navigate('/gallery');
+                                    }}
                                 >
                                     갤러리
                                 </Button>
@@ -178,9 +213,9 @@ const Home: React.FC = () => {
                 </Paper>
                 <Paper>
                     <Inner style={{ backgroundColor: '#7d9bfd' }}>
-                        <InnerBox>
-                            <InnerHeadline style={{ color: 'white' }}>위키/갤러리2</InnerHeadline>
-                            <InnerSubTitle>누구나 자유롭게 수정/삭제 가능한 위키와 갤러리</InnerSubTitle>
+                        <SubInnerBox>
+                            <SubInnerHeadline style={{ color: 'white' }}>위키</SubInnerHeadline>
+                            <SubInnerSubTitle>누구나 자유롭게 수정/삭제 가능한 위키</SubInnerSubTitle>
                             <InnerBtnWrapper>
                                 <Button
                                     variant="outlined"
@@ -192,99 +227,173 @@ const Home: React.FC = () => {
                                         backgroundColor: '#fff',
                                         borderRadius: '15px',
                                     }}
+                                    onClick={() => {
+                                        navigate('/wiki');
+                                    }}
                                 >
                                     위키
                                 </Button>
-                                <Button
-                                    variant="contained"
-                                    size="large"
-                                    style={{
-                                        marginLeft: '20px',
-                                        width: '200px',
-                                        height: '70px',
-                                        fontSize: '1.5rem',
-                                        borderRadius: '15px',
-                                    }}
-                                >
-                                    갤러리
-                                </Button>
                             </InnerBtnWrapper>
-                        </InnerBox>
+                            <SubInnerImg
+                                style={{
+                                    backgroundImage: `url(${wikiImg})`,
+                                    backgroundSize: 'cover',
+                                    backgroundRepeat: 'no-repeat',
+                                }}
+                            ></SubInnerImg>
+                        </SubInnerBox>
                     </Inner>
                 </Paper>
                 <Paper>
                     <Inner style={{ backgroundColor: '#7d9bfd' }}>
-                        <InnerBox>
-                            <InnerHeadline style={{ color: 'white' }}>위키/갤러리3</InnerHeadline>
-                            <InnerSubTitle>누구나 자유롭게 수정/삭제 가능한 위키와 갤러리</InnerSubTitle>
+                        <SubInnerBox>
+                            <SubInnerHeadline style={{ color: 'white' }}>갤러리</SubInnerHeadline>
+                            <SubInnerSubTitle>누구나 자유롭게 수정/삭제 가능한 갤러리</SubInnerSubTitle>
                             <InnerBtnWrapper>
-                                <Button
-                                    variant="outlined"
-                                    size="large"
-                                    style={{
-                                        width: '200px',
-                                        height: '70px',
-                                        fontSize: '1.5rem',
-                                        backgroundColor: '#fff',
-                                        borderRadius: '15px',
-                                    }}
-                                >
-                                    위키
-                                </Button>
                                 <Button
                                     variant="contained"
                                     size="large"
                                     style={{
-                                        marginLeft: '20px',
                                         width: '200px',
                                         height: '70px',
                                         fontSize: '1.5rem',
                                         borderRadius: '15px',
+                                    }}
+                                    onClick={() => {
+                                        navigate('/gallery');
                                     }}
                                 >
                                     갤러리
                                 </Button>
                             </InnerBtnWrapper>
-                        </InnerBox>
+                            <SubInnerImg
+                                style={{
+                                    backgroundImage: `url(${galleryImg})`,
+                                    backgroundSize: 'cover',
+                                    backgroundRepeat: 'no-repeat',
+                                }}
+                            ></SubInnerImg>
+                        </SubInnerBox>
                     </Inner>
                 </Paper>
             </Carousel>
-            <Inner style={{ backgroundColor: '#FFC2C0' }}>
-                <InnerBox>
-                    <InnerHeadline style={{ color: 'rgb(0,0,0)' }}>모집 게시판</InnerHeadline>
-                    <InnerSubTitle style={{ color: 'rgb(120,0,0)' }}>
-                        스터디/프로젝트 인원 모집을 위한 페이지
-                    </InnerSubTitle>
-                    <InnerBtnWrapper>
-                        <Button
-                            variant="outlined"
-                            size="large"
-                            style={{
-                                width: '200px',
-                                height: '70px',
-                                fontSize: '1.5rem',
-                                backgroundColor: '#fff',
-                                borderRadius: '15px',
-                            }}
-                        >
-                            프로젝트
-                        </Button>
-                        <Button
-                            variant="contained"
-                            size="large"
-                            style={{
-                                marginLeft: '20px',
-                                width: '200px',
-                                height: '70px',
-                                fontSize: '1.5rem',
-                                borderRadius: '15px',
-                            }}
-                        >
-                            스터디
-                        </Button>
-                    </InnerBtnWrapper>
-                </InnerBox>
-            </Inner>
+            <Carousel
+                navButtonsAlwaysVisible={true}
+                fullHeightHover={false}
+                animation="slide"
+                autoPlay={false}
+                indicators={false}
+            >
+                <Paper>
+                    <Inner style={{ backgroundColor: '#FFC2C0' }}>
+                        <InnerBox>
+                            <InnerHeadline style={{ color: 'rgb(0,0,0)' }}>모집 게시판</InnerHeadline>
+                            <InnerSubTitle style={{ color: 'rgb(120,0,0)' }}>
+                                스터디/프로젝트 인원을 모집해보세요
+                            </InnerSubTitle>
+                            <InnerBtnWrapper>
+                                <Button
+                                    variant="outlined"
+                                    size="large"
+                                    style={{
+                                        width: '200px',
+                                        height: '70px',
+                                        fontSize: '1.5rem',
+                                        backgroundColor: '#fff',
+                                        borderRadius: '15px',
+                                    }}
+                                    onClick={() => {
+                                        navigate('/recruitment');
+                                    }}
+                                >
+                                    프로젝트
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    size="large"
+                                    style={{
+                                        marginLeft: '20px',
+                                        width: '200px',
+                                        height: '70px',
+                                        fontSize: '1.5rem',
+                                        borderRadius: '15px',
+                                    }}
+                                    onClick={() => {
+                                        navigate('/recruitment');
+                                    }}
+                                >
+                                    스터디
+                                </Button>
+                            </InnerBtnWrapper>
+                        </InnerBox>
+                    </Inner>
+                </Paper>
+                <Paper>
+                    <Inner style={{ backgroundColor: '#FFC2C0' }}>
+                        <SubInnerBox>
+                            <SubInnerHeadline style={{ color: 'white' }}>모집 게시판</SubInnerHeadline>
+                            <SubInnerSubTitle>카테고리별로 분류된 게시글을 만나실 수 있습니다.</SubInnerSubTitle>
+                            <InnerBtnWrapper>
+                                <Button
+                                    variant="outlined"
+                                    size="large"
+                                    style={{
+                                        width: '200px',
+                                        height: '70px',
+                                        fontSize: '1.5rem',
+                                        backgroundColor: '#fff',
+                                        borderRadius: '15px',
+                                    }}
+                                    onClick={() => {
+                                        navigate('/recruitment');
+                                    }}
+                                >
+                                    모집하기
+                                </Button>
+                            </InnerBtnWrapper>
+                            <SubInnerImg
+                                style={{
+                                    backgroundImage: `url(${recruitmentImg})`,
+                                    backgroundSize: 'cover',
+                                    backgroundRepeat: 'no-repeat',
+                                }}
+                            ></SubInnerImg>
+                        </SubInnerBox>
+                    </Inner>
+                </Paper>
+                <Paper>
+                    <Inner style={{ backgroundColor: '#FFC2C0' }}>
+                        <SubInnerBox>
+                            <SubInnerHeadline style={{ color: 'white' }}>모집글 작성</SubInnerHeadline>
+                            <SubInnerSubTitle>작성하기에 들어가 프로젝트/스터디 인원을 모집해보세요</SubInnerSubTitle>
+                            <InnerBtnWrapper>
+                                <Button
+                                    variant="contained"
+                                    size="large"
+                                    style={{
+                                        width: '200px',
+                                        height: '70px',
+                                        fontSize: '1.5rem',
+                                        borderRadius: '15px',
+                                    }}
+                                    onClick={() => {
+                                        navigate('/recruitment/post');
+                                    }}
+                                >
+                                    작성하기
+                                </Button>
+                            </InnerBtnWrapper>
+                            <SubInnerImg
+                                style={{
+                                    backgroundImage: `url(${recruitmentPostImg})`,
+                                    backgroundSize: 'cover',
+                                    backgroundRepeat: 'no-repeat',
+                                }}
+                            ></SubInnerImg>
+                        </SubInnerBox>
+                    </Inner>
+                </Paper>
+            </Carousel>
         </Outer>
     );
 };
@@ -295,11 +404,11 @@ const Dot = ({ num, scrollIndex }: { num: number; scrollIndex: number }) => {
             style={{
                 width: 10,
                 height: 10,
-                border: '1px solid black',
+                border: '1px solid #fff',
                 borderRadius: 999,
-                backgroundColor: scrollIndex === num ? 'black' : 'transparent',
-                transitionDuration: '0.5s',
-                transition: 'background-color 0.5s',
+                backgroundColor: '#fff',
+                transform: `scale(${scrollIndex == num ? 1 : 0.5})`,
+                transition: 'all 0.5s',
             }}
         ></div>
     );
@@ -307,7 +416,7 @@ const Dot = ({ num, scrollIndex }: { num: number; scrollIndex: number }) => {
 
 const Dots = ({ scrollIndex }: { scrollIndex: number }) => {
     return (
-        <div style={{ position: 'fixed', top: '50%', right: 100 }}>
+        <div style={{ position: 'fixed', zIndex: '3', top: '50%', right: 50, transform: 'translate(-50%, -50%)' }}>
             <div
                 style={{
                     display: 'flex',

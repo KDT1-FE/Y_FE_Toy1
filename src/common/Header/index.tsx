@@ -76,12 +76,20 @@ const Header: React.FC = () => {
         <>
             {homeValued ? (
                 <HomeHeaderComponent>
-                    <TitleAnchor href="/">FASTUDY</TitleAnchor>
+                    <TitleAnchor href="/" style={{ color: '#fff' }}>
+                        FASTUDY
+                    </TitleAnchor>
                     <AnchorContainer>
                         <RightAnchorContainer>
-                            <ListAnchor href="/wiki">위키</ListAnchor>
-                            <ListAnchor href="/recruitment">모집</ListAnchor>
-                            <ListAnchor href="/gallery">갤러리</ListAnchor>
+                            <ListAnchor href="/wiki" style={{ color: '#fff' }}>
+                                위키
+                            </ListAnchor>
+                            <ListAnchor href="/recruitment" style={{ color: '#fff' }}>
+                                모집
+                            </ListAnchor>
+                            <ListAnchor href="/gallery" style={{ color: '#fff' }}>
+                                갤러리
+                            </ListAnchor>
                             {userId.length > 0 ? (
                                 <LogoutButton
                                     onClick={() => {
@@ -99,12 +107,13 @@ const Header: React.FC = () => {
                                             }
                                         });
                                     }}
+                                    style={{ color: '#fff' }}
                                 >
                                     LogOut
                                 </LogoutButton>
                             ) : (
                                 <ListAnchor href={'/LogIn'}>
-                                    <LoginButton>LogIn</LoginButton>
+                                    <LoginButton style={{ color: '#fff' }}>LogIn</LoginButton>
                                 </ListAnchor>
                             )}
                             {userId.length > 0 && <MyPageBtn />}
@@ -143,11 +152,11 @@ const Header: React.FC = () => {
                                         });
                                     }}
                                 >
-                                    LogOut
+                                    로그인
                                 </LogoutButton>
                             ) : (
                                 <ListAnchor href={'/LogIn'}>
-                                    <LoginButton>LogIn</LoginButton>
+                                    <LoginButton>로그인</LoginButton>
                                 </ListAnchor>
                             )}
                             {userId.length > 0 && <MyPageBtn />}

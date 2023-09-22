@@ -8,7 +8,7 @@ export const ModalBtnImg = styled.img`
     width: 50px;
     height: 50px;
     border-radius: 10px;
-    background-color: ${(props) => props.theme.navBar};
+    background-color: rgba(0, 0, 0, 0);
     background-size: contain;
     outline: none;
     border: none;
