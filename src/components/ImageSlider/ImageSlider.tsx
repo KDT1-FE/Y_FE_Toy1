@@ -44,6 +44,7 @@ const slides = [
       },
     ],
     imageSrc: sliderImg1,
+    link: null,
   },
   {
     backgroundColor: '#ffeae9',
@@ -117,6 +118,7 @@ const slides = [
       },
     ],
     imageSrc: sliderImg3,
+    link: null,
   },
 ];
 
