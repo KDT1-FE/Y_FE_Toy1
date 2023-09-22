@@ -34,7 +34,6 @@ export const CarouselTitle = styled.a`
   font-size: 1.8rem;
   font-weight: 500;
   color: var(--color-main);
-  cursor: pointer;
 `;
 
 export const CarouselText = styled.a`
@@ -46,7 +45,6 @@ export const CarouselText = styled.a`
   z-index: 2;
   font-size: 1rem;
   color: var(--color-black);
-  cursor: pointer;
 `;
 
 export const CarouselContent = styled.div<{

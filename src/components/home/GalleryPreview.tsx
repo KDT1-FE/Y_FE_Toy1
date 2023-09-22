@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { app } from "../../../firebase";
 import {
   getStorage,
@@ -97,6 +97,7 @@ export default function GalleryPreview() {
   return (
     <>
       <GalleryPreviewStyle
+        className={"skeleton"}
         $currentIndex={currentindex}
         $imagePaths={imagepaths}
         onClick={goToGallery}
@@ -118,5 +119,27 @@ const GalleryPreviewStyle = styled.div<{
   background-repeat: no-repeat;
   border-radius: 10px;
   cursor: pointer;
+  overflow: hidden;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+
+  &.skeleton {
+    position: relative;
+  }
+
+  &::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(270deg, 
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0));
+    transform: translateX(-100%);
+    animation: skeleton-loader 2s infinite;
+  } @keyframes skeleton-loader {
+    0% { transform: translate(-100%); }
+    100% { transform: translate(100%); }
 `;
