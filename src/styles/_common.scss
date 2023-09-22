@@ -20,15 +20,6 @@ $fontMain: Pretendard, 'Tossface', 'Noto Sans KR', sans-serif;
   font-style: normal;
 }
 
-@mixin btn-design {
-  border-color: $mainColor;
-  color: $mainColor;
-  &:hover {
-    background-color: $mainColor;
-    color: $whiteColor;
-  }
-}
-
 .main-btn {
   border-color: $highlightColor;
   color: $highlightColor;

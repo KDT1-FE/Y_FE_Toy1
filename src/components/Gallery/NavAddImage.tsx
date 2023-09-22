@@ -43,7 +43,7 @@ export function AddImageDragDrop(): JSX.Element {
           }}
         />
         <button
-          className="btn btn-secondary main-btn"
+          className="btn btn-secondary"
           onClick={async () => {
             await UploadImage(
               selected,

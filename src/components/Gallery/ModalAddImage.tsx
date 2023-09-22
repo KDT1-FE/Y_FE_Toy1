@@ -9,7 +9,7 @@ export function AddImageModal(): JSX.Element {
     <div>
       <button // 이미지 추가하는 버튼 (Modal open)
         type="button"
-        className="btn btn-addImage"
+        className="btn btn-addImage main-btn"
         onClick={() => modalRef.current?.showModal()}
       >
         이미지 업로드

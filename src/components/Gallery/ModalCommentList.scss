@@ -1,5 +1,9 @@
 @import '../../styles/_common.scss';
 
+.btn-close {
+  right: 0;
+}
+
 .comment {
   &-container {
     height: auto;
@@ -27,12 +31,11 @@
     //   font-size: 14px;
     //   color: #363636;
     // }
-
-    // .comment-writer {
-    //   display: flex;
-
-    // }
   }
+}
+
+.comment-writer {
+  display: flex;
 }
 
 .imageView {

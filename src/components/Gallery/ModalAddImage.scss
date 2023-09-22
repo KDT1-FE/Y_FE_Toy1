@@ -1,9 +1,5 @@
 @import '../../styles/_common.scss';
 
-.btn.btn-addImage {
-  @include btn-design;
-}
-
 .addImage-container {
   display: flex;
   flex-direction: column;
