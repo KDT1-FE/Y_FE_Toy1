@@ -11,14 +11,14 @@ function TextEditor({
   content,
   setContent,
   setIsEditorOpen,
-}: TextEditorProps) {
-  const [text, setText] = useState(content);
+}: TextEditorProps): JSX.Element {
+  const [text, setText] = useState<string>(content);
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setText(e.target.value);
   };
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
     PostWiki(dataKey, text).then(() => {
       setIsEditorOpen(false);

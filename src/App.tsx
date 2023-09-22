@@ -17,7 +17,7 @@ import {
   saveRankingInBrowser,
 } from "./utils/timerAndRanking";
 
-function App() {
+function App(): JSX.Element {
   useEffect(() => {
     if (!sessionStorage.getItem("teamList")) {
       SaveTeam().then(() => SaveContents(CATEGORIES));

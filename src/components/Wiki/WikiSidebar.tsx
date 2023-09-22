@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react";
 import "../../styles/wiki/wiki.css";
 import {Link, useParams} from "react-router-dom";
 
-function WikiSidebar() {
-  const {id} = useParams();
-  const [isDefault, setDefault] = useState(true);
+function WikiSidebar(): JSX.Element {
+  const {id} = useParams<string>();
+  const [isDefault, setDefault] = useState<boolean>(true);
 
   useEffect(() => {
     id === undefined ? setDefault(true) : setDefault(false);

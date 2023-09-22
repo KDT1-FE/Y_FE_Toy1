@@ -3,7 +3,7 @@ import "../styles/wiki/wiki.css";
 import WikiSidebar from "../components/Wiki/WikiSidebar";
 import Content from "../components/Wiki/Content";
 
-function Wiki() {
+function Wiki(): JSX.Element {
   return (
     <div className="WikiWrap">
       <WikiSidebar />

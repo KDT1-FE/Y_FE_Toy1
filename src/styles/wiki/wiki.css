@@ -112,6 +112,10 @@
   position: relative;
 }
 
+.None {
+  display: none;
+}
+
 .ContentHeader {
   display: flex;
   justify-content: space-between;

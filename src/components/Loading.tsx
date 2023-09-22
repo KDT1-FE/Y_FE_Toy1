@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/loading.css";
 
-function Loading() {
+function Loading(): JSX.Element {
   return (
     <div className="LoadingContainer">
       <div className="LoadingCircle" />

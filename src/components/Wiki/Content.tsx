@@ -15,20 +15,20 @@ import {
   UPDATE_DOC_DONE,
 } from "../../constant";
 
-function Content() {
+function Content(): JSX.Element {
   const {id} = useParams() as {id: string};
   // isLoading : 로딩 상태
-  const [isLoading, setisLoading] = useState(true);
-  // dataKey : db 검색용 url 파라미터
-  const [text, setText] = useState("");
+  const [isLoading, setisLoading] = useState<boolean>(true);
+  // text : 사용자가 입력한 글
+  const [text, setText] = useState<string>("");
   // content : db에서 불러온 글
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState<string>("");
   // title : db에서 불러온 title
-  const [title, setTitle] = useState("커리큘럼");
+  const [title, setTitle] = useState<string>("커리큘럼");
   // isEditorOpen : 수정 버튼 상태
-  const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [isEditorOpen, setIsEditorOpen] = useState<boolean>(false);
   // isTeamContent : 페이지 상태
-  const [isTeamContent, setisTeamContent] = useState(false);
+  const [isTeamContent, setisTeamContent] = useState<boolean>(false);
 
   useEffect(() => {
     setisLoading(true);
@@ -42,8 +42,9 @@ function Content() {
         setContent(JSON.parse(contentString).content);
       }
     } else {
-      setTitle(id);
+      const contentString = sessionStorage.getItem(id);
 
+      setTitle(id);
       setIsEditorOpen(false);
 
       if (id === "팀 구성") {
@@ -51,8 +52,6 @@ function Content() {
       } else {
         setisTeamContent(false);
       }
-
-      const contentString = sessionStorage.getItem(id);
 
       if (contentString) {
         setContent(JSON.parse(contentString).content);
@@ -69,7 +68,7 @@ function Content() {
     setText(content);
   }, [content]);
 
-  const updateContent = () => {
+  const updateContent = (): void => {
     swal({
       title: UPDATE_DOC_TITLE,
       text: UPDATE_DOC_TEXT,
@@ -78,10 +77,6 @@ function Content() {
       dangerMode: true,
     }).then(willDelete => {
       if (willDelete) {
-        swal(UPDATE_DOC_DONE, {
-          icon: "success",
-        });
-
         const newContent = sessionStorage.getItem(title);
 
         if (newContent) {
@@ -91,13 +86,17 @@ function Content() {
             setIsEditorOpen(false);
           }
         }
+
+        swal(UPDATE_DOC_DONE, {
+          icon: "success",
+        });
       }
     });
   };
 
   return (
     <div className="WikiContentWrap">
-      {isLoading ? <Loading /> : <div> </div>}
+      {isLoading ? <Loading /> : <div className="None"> </div>}
       <div className="ContentHeader">
         <h1 className="ContentTitle">{title}</h1>
         {isTeamContent ? (
