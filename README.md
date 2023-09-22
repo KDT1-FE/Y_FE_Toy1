@@ -1,4 +1,4 @@
-![로그인](https://github.com/YFE-toy1-highfive/toy1/assets/100336573/fe132c13-03f9-4650-ac73-de9a5a080c28)# HIGHFIVE WIKI
+# HIGHFIVE WIKI
 - <a href="https://highfive-dev-4d7f4.firebaseapp.com/"> HIGHFIVE WIKI 배포 링크</a>
 - 🗓 기간: 2023.09.08 ~ 2023.09.22 (2주)
 - HIGHFIVE 직원들을 위한 위키 사이트
