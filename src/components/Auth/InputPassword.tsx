@@ -2,16 +2,6 @@ import { Icon, ErrorMsg } from '../../components/Auth';
 
 import '../../scss/components/auth/input.scss';
 
-interface InputType {
-  value: string;
-  validationPass: boolean;
-}
-
-interface PasswordProps {
-  password: InputType;
-  handlePassword: React.ChangeEventHandler<HTMLInputElement>;
-}
-
 const InputPassword = ({ password, handlePassword }: PasswordProps): JSX.Element => {
   return (
     <div className="input-container">
@@ -37,3 +27,13 @@ const InputPassword = ({ password, handlePassword }: PasswordProps): JSX.Element
 };
 
 export default InputPassword;
+
+interface InputType {
+  value: string;
+  validationPass: boolean;
+}
+
+interface PasswordProps {
+  password: InputType;
+  handlePassword: React.ChangeEventHandler<HTMLInputElement>;
+}

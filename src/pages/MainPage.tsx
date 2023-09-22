@@ -1,7 +1,5 @@
-import React from 'react';
-
 import '../scss/mainPage.scss';
-import Carousel from './Carousel';
+import Carousel from '../components/Carousel';
 import MainGalleryContents from './MainGalleryContent';
 
 const MainPage = (): JSX.Element => {

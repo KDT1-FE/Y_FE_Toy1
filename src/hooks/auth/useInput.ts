@@ -1,10 +1,5 @@
 import { useState } from 'react';
 
-interface InputType {
-  value: string;
-  validationPass: boolean;
-}
-
 const useInput = (
   target: string,
   initial: InputType,
@@ -41,3 +36,8 @@ const useInput = (
 };
 
 export default useInput;
+
+interface InputType {
+  value: string;
+  validationPass: boolean;
+}

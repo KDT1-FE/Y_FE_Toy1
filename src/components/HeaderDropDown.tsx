@@ -1,22 +1,7 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../store/loginSlice';
-
-interface ModalProps {
-  setModal: (isOpen: boolean) => void;
-}
-
-interface StateValue {
-  isLogin: boolean;
-  name: string;
-  email: string;
-}
-
-interface State {
-  loginUpdate: StateValue;
-}
 
 const HeaderDropDown = ({ setModal }: ModalProps): JSX.Element => {
   const isLogin = useSelector((state: State) => {
@@ -55,3 +40,17 @@ const HeaderDropDown = ({ setModal }: ModalProps): JSX.Element => {
 };
 
 export default HeaderDropDown;
+
+interface ModalProps {
+  setModal: (isOpen: boolean) => void;
+}
+
+interface StateValue {
+  isLogin: boolean;
+  name: string;
+  email: string;
+}
+
+interface State {
+  loginUpdate: StateValue;
+}

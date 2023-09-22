@@ -1,5 +1,3 @@
-import React from 'react';
-
 import '../../scss/chart.scss';
 import chartImage from '../../assets/conpanyChart.png';
 

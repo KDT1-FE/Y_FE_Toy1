@@ -1,14 +1,6 @@
-import React from 'react';
 import { UploadedImage } from './types';
 import { BsFillTrashFill } from 'react-icons/bs';
 import { FaHeartCirclePlus, FaHeartCircleMinus } from 'react-icons/fa6';
-interface ImgListProps {
-  docList: UploadedImage[];
-  onImageClick: (index: number) => void;
-  likeImage: (id: string, like: number) => void;
-  hateImage: (id: string, like: number) => void;
-  deleteData: (id: string) => void;
-}
 
 const ImageList = ({ docList, likeImage, hateImage, deleteData, onImageClick }: ImgListProps) => {
   return (
@@ -60,3 +52,11 @@ const ImageList = ({ docList, likeImage, hateImage, deleteData, onImageClick }: 
 };
 
 export default ImageList;
+
+interface ImgListProps {
+  docList: UploadedImage[];
+  onImageClick: (index: number) => void;
+  likeImage: (id: string, like: number) => void;
+  hateImage: (id: string, like: number) => void;
+  deleteData: (id: string) => void;
+}
