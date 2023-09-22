@@ -32,7 +32,7 @@
   }
 
   .page {
-    font-size: 35px;
+    font-size: 30px;
     margin-right: 90px;
     margin-top: 30px;
     margin-bottom: 30px;
@@ -57,7 +57,7 @@
   }
 
   .signInBtn {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     background-color: $highlightColor;
     color: white;
@@ -71,7 +71,7 @@
   }
 
   .signUpBtn {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     background-color: $highlightColor;
     color: white;
@@ -102,15 +102,14 @@
   .userNickname-container {
     display: flex;
     flex-direction: column;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     margin-right: 15px;
     line-height: 1.2;
-    margin-top: 5px;
   }
 
   .logoutBtn {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     background-color: $highlightColor;
     color: white;

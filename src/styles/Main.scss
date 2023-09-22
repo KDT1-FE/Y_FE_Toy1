@@ -8,9 +8,6 @@
   align-items: center;
 }
 
-.main-container {
-  padding-top: 10px;
-}
 
 .carousel {
   display: flex;
@@ -28,6 +25,7 @@
 .carousel .slick-slide img {
   width: 600px;
   height: 420px;
+  margin-left: auto;
 }
 
 .slide {
@@ -65,7 +63,7 @@
 
 .newPostBtn {
   margin-left: auto;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   background-color: coral;
   color: white;
@@ -155,7 +153,9 @@
 }
 
 .posted-text {
-  font-size: 50px;
+  font-size: 40px;
+  font-family: $fontMain;
+  font-weight: 600;
 }
 
 .post-container {
@@ -200,7 +200,7 @@
 .post-user {
   font-size: 15px;
   font-weight: 500;
-  color: $backgroundColor;
+  color: $grayColor;
 }
 
 .post-due-date {
@@ -335,6 +335,6 @@
 }
 
 .grid-item {
-  border: 2px solid $backgroundColor;
+  border: 2px solid $mainColor;
   padding: 16px;
 }
