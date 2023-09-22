@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
@@ -42,7 +42,7 @@ const Carousel = () => {
     <div className="carousel">
       <Slider {...settings}>
         {data?.map(doc => {
-          return <img className="carousel-img" src={doc.url} alt={doc.title} key={doc.id}></img>;
+          return <img className="carousel-img" src={doc.url} alt={doc.title} key={doc.id} onClick={() => {}}></img>;
         })}
       </Slider>
     </div>
