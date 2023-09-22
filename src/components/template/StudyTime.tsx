@@ -99,6 +99,7 @@ const StudyTime: React.FC<StudyTimeProps> = ({
           }).then(() => {
             // 현재 firestore에 변경된 studytime을 확인해, database에 저장된 class 값과 비교하고 달라졌다면 alert 창을 띄움
             SynchroClassAndAlert(user);
+            setElapsedTime(0);
           });
         }
       }
