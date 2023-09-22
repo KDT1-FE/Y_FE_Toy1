@@ -31,7 +31,7 @@ export default function GalleryPreview() {
     };
   }
 
-  const [imagepaths, setImagepaths] = useState<string[]>([]);
+  const [imagepaths, setImagepaths] = useState<string[]>();
   const [currentindex, setCurrentindex] = useState<number>(0);
 
   useEffect(() => {
@@ -96,18 +96,20 @@ export default function GalleryPreview() {
 
   return (
     <>
-      <GalleryPreviewSkeleton className={"skeleton"}>
-
-      <GalleryPreviewStyle
+      {imagepaths ? (
+        <>
+        <GalleryPreviewStyle
         $currentIndex={currentindex}
         $imagePaths={imagepaths}
-        onClick={goToGallery}
-      >
-        <div style={{ height: "15rem" }}></div>
-      </GalleryPreviewStyle>
+        onClick={goToGallery}>
 
-      </GalleryPreviewSkeleton>
-      
+        <div style={{ height: "15rem" }}></div>
+        </GalleryPreviewStyle>
+        </>
+
+      ) : (
+      <GalleryPreviewSkeleton className={"skeleton"} />
+      )}
     </>
   );
 }
@@ -117,7 +119,7 @@ const GalleryPreviewSkeleton = styled.div`
   &.skeleton {
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 15rem;
     overflow: hidden;
   
   }
@@ -128,15 +130,27 @@ const GalleryPreviewSkeleton = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    background-image: linear-gradient(270deg, 
-      rgba(100, 100, 100, 0),
-      rgba(200, 200, 200, 0.2),
-      rgba(100, 100, 100, 0));
-    transform: translateX(-100%);
-    animation: skeleton-loader 2s infinite;
-  } @keyframes skeleton-loader {
-    0% { transform: translate(-100%); }
-    100% { transform: translate(100%); }
+    border-radius: 15px;
+    color: rgba(0, 0, 0, 0);
+    background-image: linear-gradient(
+      100deg,
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.1)
+    );
+    background-size: 400% 100%;
+    animation: skeleton-loading 7s linear infinite;
+
+    @keyframes skeleton-loading {
+      0% {
+        background-position: 200% 0;
+      }
+      100% {
+        background-position: -200% 0;
+      }
+    }
   }
 `;
 
