@@ -48,14 +48,6 @@ const Header = () => {
     setIsStudying(prev=>!prev)
   }
 
-  // const toggleStudyStatus = () => {
-  //   if (!isStudying) {
-  //     const startTime = new Date().getTime();
-  //     setStudyStartTime(startTime);
-  //   }
-  //   setIsStudying(!isStudying);
-  // };
-
   useEffect(() => {
     setPathLink(location.pathname.split("/")[1]);
   }, [location]);
