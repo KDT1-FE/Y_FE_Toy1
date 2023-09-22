@@ -214,6 +214,9 @@ const Sidebar = () => {
 };
 
 const MobileContainer = styled.div`
+  &{
+    overflow:hidden;
+  }
   .sidebar__openSidebar-icon {
     z-index: 13;
     position: fixed;
@@ -260,8 +263,8 @@ interface IMobileInnerContainer {
 }
 const MobileInnerContainer = styled.div<IMobileInnerContainer>`
   position:absolute;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
   z-index: 15;
   background-color: #fff;
   left:${(props) => (props.displaysidebar === "true" ? "0px;" : "-100%;")}
