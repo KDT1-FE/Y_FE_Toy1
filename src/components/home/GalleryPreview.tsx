@@ -96,17 +96,49 @@ export default function GalleryPreview() {
 
   return (
     <>
+      <GalleryPreviewSkeleton className={"skeleton"}>
+
       <GalleryPreviewStyle
-        className={"skeleton"}
         $currentIndex={currentindex}
         $imagePaths={imagepaths}
         onClick={goToGallery}
       >
         <div style={{ height: "15rem" }}></div>
       </GalleryPreviewStyle>
+
+      </GalleryPreviewSkeleton>
+      
     </>
   );
 }
+
+const GalleryPreviewSkeleton = styled.div`
+
+  &.skeleton {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  
+  }
+  &::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(270deg, 
+      rgba(100, 100, 100, 0),
+      rgba(200, 200, 200, 0.2),
+      rgba(100, 100, 100, 0));
+    transform: translateX(-100%);
+    animation: skeleton-loader 2s infinite;
+  } @keyframes skeleton-loader {
+    0% { transform: translate(-100%); }
+    100% { transform: translate(100%); }
+  }
+`;
 
 const GalleryPreviewStyle = styled.div<{
   $imagePaths: string[];
@@ -121,25 +153,5 @@ const GalleryPreviewStyle = styled.div<{
   cursor: pointer;
   overflow: hidden;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-
-  &.skeleton {
-    position: relative;
-  }
-
-  &::after {
-    content: "";
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-image: linear-gradient(270deg, 
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0.8),
-      rgba(255, 255, 255, 0));
-    transform: translateX(-100%);
-    animation: skeleton-loader 2s infinite;
-  } @keyframes skeleton-loader {
-    0% { transform: translate(-100%); }
-    100% { transform: translate(100%); }
+  
 `;
