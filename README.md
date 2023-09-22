@@ -278,6 +278,39 @@ ID와 PW 값을 입력후 가입하기 버튼을 클릭시 User로 저장되며 
 <summary style="font-size: 18px">김소정: 🌐 메인 페이지</summary>
 <div markdown="1">
 
+### 1. 메인 캐러셀 
+
+#### 홈 화면 공지사항을 보여주는 캐러셀 구현
+
+![carousel](https://github.com/toy-1/wiki/assets/118329943/801f4dc3-3bf8-4e74-8740-e6431a318383)
+
+```
+💡 캐러셀이 3초마다 다음 슬라이드를 보여줍니다.
+```
+
+![carouseljumping](https://github.com/toy-1/wiki/assets/118329943/dcc4d9f4-9c61-496d-9a00-305466fdbdf3)
+
+```
+💡 하단의 버튼을 클릭하면 해당 인덱스의 슬라이드로 캐러셀이 점프합니다.
+```
+
+![carouselreacting](https://github.com/toy-1/wiki/assets/118329943/2b35b51e-4f16-4809-95c5-47b6cd89d489)
+
+```
+💡 윈도우가 resize할 때마다 캐러셀의 width가 변화합니다.
+```
+
+### 2. 홈 화면 갤러리 미리보기 구현
+
+![gallerypreview](https://github.com/toy-1/wiki/assets/118329943/5bbeefbd-950e-45bd-88fe-2c3e6feedd83)
+
+
+```
+💡 갤러리에 최근 업데이트 된 사진을 3개까지 미리 보여줍니다.
+클릭하면 갤러리 페이지로 이동합니다. 최초 로딩 시에는 스켈레톤 애니메이션이 보입니다. 
+```
+
+
 </div>
 </details>
 
