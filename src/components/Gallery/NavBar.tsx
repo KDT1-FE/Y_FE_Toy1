@@ -36,7 +36,9 @@ export function SideBarLink(): JSX.Element {
       {user.uid ? (
         <AddImageModal />
       ) : (
-        <a href="/SignIn">이미지를 공유하고 싶다면 로그인을 해주세요!</a>
+        <a className="notLoginInfo" href="/SignIn">
+          이미지를 공유하고 싶다면 로그인을 해주세요!
+        </a>
       )}
     </div>
   );
