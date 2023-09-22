@@ -18,11 +18,11 @@ import {
 } from "./utils/timerAndRanking";
 
 function App(): JSX.Element {
-  useEffect(() => {
-    if (!sessionStorage.getItem("teamList")) {
-      SaveTeam().then(() => SaveContents(CATEGORIES));
-    }
+  if (!sessionStorage.getItem("teamList")) {
+    SaveTeam().then(() => SaveContents(CATEGORIES));
+  }
 
+  useEffect(() => {
     getRankingDocsToArr().then(doc => {
       const sortedData = sortRanking(doc);
       saveRankingInBrowser(sortedData);
