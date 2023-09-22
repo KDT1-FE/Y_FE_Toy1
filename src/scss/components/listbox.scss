@@ -1,15 +1,14 @@
-@use '../scss/abstracts/' as *;
+@use '../abstracts' as *;
 
 .listbox {
   width: 95%;
-  height: 3vw;
   display: flex;
   flex-direction: row;
   align-items: center;
   border: 1px solid $blue;
   border-radius: 1rem;
   margin: 1rem auto;
-  padding: 0 1rem;
+  padding: 1.5rem 1rem;
   background-color: $white;
   cursor: pointer;
   @include shadow;
@@ -24,12 +23,12 @@
   }
 
   &__modify-btn {
-    flex: 1;
+    padding: 1rem 2rem;
   }
 
   &__delete-btn {
+    padding: 1rem 2rem;
     background-color: $gray;
     margin-left: 1rem;
-    flex: 1;
   }
 }

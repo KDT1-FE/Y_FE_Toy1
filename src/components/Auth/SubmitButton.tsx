@@ -1,4 +1,4 @@
-import '../../scss/components/auth/submitButton.scss';
+import '@scss/components/auth/submitButton.scss';
 
 const SubmitButton = ({ content, activate }: SubmitButtonProps): JSX.Element => {
   return (

@@ -1,6 +1,6 @@
 import { AiOutlineClose } from 'react-icons/ai';
 
-import '../scss/components/_modal.scss';
+import '@scss/components/_modal.scss';
 
 const Modal = ({ children, onClose, showCloseButton = true }: ModalProps): JSX.Element => {
   const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement>) => {

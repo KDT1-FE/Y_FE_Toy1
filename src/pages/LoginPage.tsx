@@ -1,15 +1,15 @@
-import { useInput, useButtonActivate } from '../hooks/auth';
+import { useInput, useButtonActivate } from '@hooks/auth';
 
 import { getUserName, requestLogin } from '../firebase/login';
 
-import { FormTitle, InputEmail, InputPassword, SubmitButton, ChangeAuthPage } from '../components/Auth';
+import { FormTitle, InputEmail, InputPassword, SubmitButton, ChangeAuthPage } from '@/components/Auth';
 
 import { useDispatch } from 'react-redux';
-import { login } from '../store/loginSlice';
+import { login } from '@store/loginSlice';
 
 import { useNavigate } from 'react-router-dom';
 
-import '../scss/authPage.scss';
+import '@scss/authPage.scss';
 
 const LoginPage = (): JSX.Element => {
   const [email, handleEmail] = useInput('email', { value: '', validationPass: false });

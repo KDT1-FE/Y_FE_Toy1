@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { listAll, getDownloadURL } from 'firebase/storage';
 import { galleryStorageRef } from '../../../firebase';
-import { GalleryQueryKeyEnum } from './common';
+import { GalleryQueryKeyEnum } from '@hooks/gallery/query/common';
 
 const useImgList = () => {
   return useQuery<string[]>({

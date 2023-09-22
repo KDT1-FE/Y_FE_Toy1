@@ -1,5 +1,5 @@
-import Notice from './notice/Notice';
-import Chart from './Chart';
-import Benefit from './Benefit';
+import Notice from '@/pages/company/noticePage/Notice';
+import Chart from '@/pages/company/Chart';
+import Benefit from '@/pages/company/Benefit';
 
 export { Notice, Chart, Benefit };

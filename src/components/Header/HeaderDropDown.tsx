@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../store/loginSlice';
+import { logout } from '@store/loginSlice';
 
 const HeaderDropDown = ({ setModal }: ModalProps): JSX.Element => {
   const isLogin = useSelector((state: State) => {

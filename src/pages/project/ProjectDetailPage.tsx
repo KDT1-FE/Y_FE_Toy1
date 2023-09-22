@@ -1,10 +1,12 @@
 import { doc, onSnapshot } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { projectCollection } from '../firebase';
+import { projectCollection } from '../../firebase';
 import { Viewer } from '@toast-ui/react-editor';
-import { MyDocumentData } from './ProjectList';
-import '../scss/projectDetail.scss';
+import { MyDocumentData } from './ProjectListPage';
+
+import '@scss/projectDetailPage.scss';
+
 const ProjectDetail = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();

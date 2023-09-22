@@ -1,5 +1,6 @@
-import '../../scss/chart.scss';
-import chartImage from '../../assets/conpanyChart.png';
+import chartImage from '@assets/conpanyChart.png';
+
+import '@scss/chartPage.scss';
 
 const Chart = () => {
   return (

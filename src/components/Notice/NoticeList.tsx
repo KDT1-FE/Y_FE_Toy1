@@ -1,10 +1,10 @@
-import NoticeListBox from './NoticeListBox';
+import NoticeListBox from '@components/Notice/NoticeListBox';
 import { useSelector } from 'react-redux';
-import { db } from '../../firebase';
 import { getDocs, collection, orderBy, query, onSnapshot } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
+import { db } from '../../firebase';
 
-import '../../scss/noticeProjectList.scss';
+import '@scss/components/noticeList.scss';
 
 const NoticeList = () => {
   const [title, setTitle] = useState<string[]>([]);
@@ -35,12 +35,6 @@ const NoticeList = () => {
 
   useEffect(() => {
     getData();
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      getData();
-    };
   }, []);
 
   const userEmail = useSelector(state => state.loginUpdate.email);

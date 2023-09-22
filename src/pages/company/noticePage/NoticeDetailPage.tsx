@@ -1,9 +1,9 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db } from '../../../firebase';
 
-import '../scss/contentsPage.scss';
+import '@scss/contentsPage.scss';
 
 const Contents = () => {
   const location = useLocation();

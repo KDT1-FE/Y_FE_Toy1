@@ -1,6 +1,6 @@
-import { Icon, ErrorMsg } from '../../components/Auth';
+import { Icon, ErrorMsg } from '@components/Auth';
 
-import '../../scss/components/auth/input.scss';
+import '@scss/components/auth/input.scss';
 
 const InputName = ({ name, handleName }: NameProps): JSX.Element => {
   return (

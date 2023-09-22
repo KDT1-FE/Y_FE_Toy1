@@ -1,10 +1,10 @@
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
+import swal from 'sweetalert';
 import app from './config';
 
-import swal from 'sweetalert';
-import '../scss/components/auth/swal.scss';
+import '@scss/components/auth/swal.scss';
 
 const db = getFirestore(app);
 const auth = getAuth(app);
