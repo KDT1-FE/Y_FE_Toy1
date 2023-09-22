@@ -16,7 +16,7 @@ const EditModal = ({
   imageUrl,
   name,
   description,
-  participant,
+  participants,
   closeOnClick,
 }: ModalProps) => {
   const [projectInfo, setProjectInfo] = useState<ProjectProps>({
@@ -25,7 +25,7 @@ const EditModal = ({
     state: state,
     name: name,
     description: description,
-    participant: participant,
+    participants: participants,
   });
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
