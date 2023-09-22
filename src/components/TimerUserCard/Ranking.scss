@@ -17,67 +17,41 @@
     font-family: 'Tossface', 'LOTTERIACHAB';
     cursor: pointer;
   }
-  h1:hover {
-  }
 }
 .user-rank__users {
+  user-select: none;
+  display: flex;
+  flex-direction: row;
   img {
     width: 200px;
     height: 200px;
     object-fit: cover;
     border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+    margin: 0px 20px 10px;
+  }
+  .user-rank__username1:before {
+    content: '🥇';
+    font-size: 50px;
+    position: absolute;
+    transform: translateX(-30px) translateY(-40px);
+    z-index: 2;
+  }
+  .user-rank__username2:before {
+    content: '🥈';
+    font-size: 50px;
+    position: absolute;
+    transform: translateX(-30px) translateY(-40px);
+    z-index: 2;
+  }
+  .user-rank__username3:before {
+    content: '🥉';
+    font-size: 50px;
+    position: absolute;
+    transform: translateX(-30px) translateY(-40px);
+    z-index: 2;
   }
 }
-// .user-rank__table {
-//   display: grid;
-//   grid-template-columns: repeat(3, 1fr);
-//   grid-template-rows: repeat(4, 1fr);
-//   width: 42rem;
-
-//   img {
-//     width: 70px;
-//     height: 70px;
-//     object-fit: cover;
-//     border-radius: 50%;
-//   }
-//   li {
-//     position: relative; // li 요소를 상대 위치로 설정
-
-//     &:nth-child(1) {
-//       grid-column: 2 / 3;
-//       grid-row: 1 / 2;
-//       transform: translateY(-30px);
-//     }
-
-//     &:nth-child(2) {
-//       grid-column: 1 / 2;
-//       grid-row: 2 / 3;
-//       transform: translateY(-30px);
-//     }
-
-//     &:nth-child(3) {
-//       grid-column: 3 / 4;
-//       grid-row: 3 / 4;
-//       transform: translateY(-30px);
-//     }
-
-//     &:nth-child(n + 4):nth-child(-n + 6) {
-//       background-color: $highlightColor;
-//     }
-
-//     &:nth-child(4) {
-//       grid-column: 1 / 2;
-//       grid-row: 3 / 5;
-//     }
-
-//     &:nth-child(5) {
-//       grid-column: 2 / 3;
-//       grid-row: 2 / 5;
-//     }
-
-//     &:nth-child(6) {
-//       grid-column: 3 / 4;
-//       grid-row: 4 / 5;
-//     }
-//   }
-// }
