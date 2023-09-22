@@ -1,0 +1,143 @@
+.member-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding: 1rem;
+}
+
+.member-title {
+}
+
+.member-title > h3 {
+    font-size: 1.3rem;
+    margin: 0
+}
+.member-desc {
+    color: #a4a6ae;
+}
+
+.member-container {
+    width: 100%;
+    display: flex;
+    gap: 1rem
+}
+
+/* form */
+.ant-skeleton.ant-skeleton-element {
+    text-align: center;
+    display: flex;
+}
+.member-form-profile .ant-skeleton.ant-skeleton-element .ant-skeleton-image{
+    width: 130px;
+    height: 100%;
+}
+.member-profile-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    height: 50%;
+    padding: 1.5rem;
+    border: 1px solid #eeee;
+    border-radius: 5px;
+}
+.member-pofile-wrap {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    margin-top: 1.5rem;
+}
+.member-form-profile {
+    display: flex;
+    justify-content: center;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 1px dashed #ccc;
+    overflow: hidden;
+}
+.member-form-profile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: #F5F5F5
+}
+.member-form-profile .ant-btn {
+    position: absolute;
+    bottom: 0;
+    right: 5px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0 0 5px 0;
+}
+.member-profile-info {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.6
+}
+
+.member-profile-info .title-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.member-profile-info .desc-text {
+    font-size: 0.8rem;
+    color: #a4a6ae
+}
+
+.member-info-area {
+    flex: 3;
+    border: 1px solid #eeee;
+    border-radius: 5px;
+    padding: 3rem;
+}
+
+.member-btn-area > button {
+    margin-right: 10px;
+}
+.member-btn-area > button:last-child {
+    margin: 0;
+}
+
+/* custom antd style */
+.ant-input[readonly]{
+    border: 0;
+    background-color: #fff;
+    color: #000;
+}
+.ant-select-disabled.ant-select-selector {
+    border: 0;
+    background-color: #fff;
+    color: #000;
+}
+
+.ant-select.readOnly
+{
+    pointer-events: none;
+}
+.ant-select.readOnly > .ant-select-selector {
+    border: 0;
+    background-color: #fff;
+    color: #000;
+}
+.ant-select.readOnly > .ant-select-arrow {
+    display: none;
+}
+
+
+/* Card List*/
+.ant-card .ant-card-body {
+padding: 2rem 2rem 1.2rem;
+    border-radius: 5px;
+}
+
+.ant-card .ant-card-actions>li {
+    margin: 0;
+    padding: 0.4rem;
+}
+
+/* Table */
+.ant-table-wrapper .ant-table-selection-col {
+    margin-left: 5px;
+}

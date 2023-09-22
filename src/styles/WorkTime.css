@@ -1,0 +1,11 @@
+.worktime {
+  list-style-type: none;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.ant-spin-text {
+  background-color: rgb(238, 238, 238, 0.7);
+  padding: 0;
+}

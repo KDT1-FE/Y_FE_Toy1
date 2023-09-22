@@ -1,203 +1,299 @@
-# **📅 직원들을 위한 위키 사이트**
+# 토이프로젝트 3조 이정도면껌이조
 
-직원 들을 위한 위키 사이트를 만들어보세요!
-위키 사이트에는 위키 뿐 아니라 여러 기능이 추가되어야 합니다!
+**패스트캠퍼스 X 야놀자 프론트엔드 부트캠프 토이프로젝트 3조**
 
-### **[과제 수행 및 제출 방법]**
+> 팀장: 박나영  
+> 팀원: 김미정, 김성겸, 노욱진, 진종수
 
-1. 현재 저장소를 로컬에 클론(Clone)합니다.
-2. 자신의 팀명으로 브랜치를 생성합니다.(구분 가능하도록 팀명을 꼭 파스칼케이스로 표시하세요, git branch Y_FE_Toy1_Team13)
-3. 자신의 팀명 브랜치에서 과제를 수행합니다.
-4. 과제 수행이 완료되면, 자신의 팀명 브랜치를 원격 저장소에 푸시(Push)합니다.(main 브랜치에 푸시하지 않도록 꼭 주의하세요, git push origin Y_FE_Toy1_Team13)
-5. 저장소에서 main 브랜치를 대상으로 Pull Request 생성하면, 과제 제출이 완료됩니다!(E.g, main <== Y_FE_Toy1_Team13)
-6. Pull Request 링크를 LMS로도 제출해 주셔야 합니다.
-7. main 혹은 다른 사람의 브랜치로 절대 병합하지 않도록 주의하세요!
-8. Pull Request에서 보이는 설명을 다른 사람들이 이해하기 쉽도록 꼼꼼하게 작성하세요!
-9. Pull Request에서 과제 제출 후 절대 병합(Merge)하지 않도록 주의하세요!
-10. 과제 수행 및 제출 과정에서 문제가 발생한 경우, 바로 담당 멘토나 강사님께 얘기하세요!
+## 📖 직원들을 위한 위키 사이트 (FE3.WIKI)
 
-### **[필수 구현사항]**
+**배포 주소 [https://dazzling-cheesecake-99fc5f.netlify.app/](https://dazzling-cheesecake-99fc5f.netlify.app/)**
 
-- 문서편집, revision 기능을 제공하여 업무일지를 작성할 수 있는 직원들을 위한 위키사이트 구현(마크다운 형식)
-- firebase database (Firestore) 이용
-- 모달을 활용한 근무 시간을 표시하는 시계 및 타이머 창 구현
-- 캐러셀을 활용한 회사 공지 페이지
-- **갤러리 페이지 / 업무일지 페이지 등 메뉴를 필터링 또는 카테고리화 하는 선택바 구현**
-- netlify 등을 이용한 정적 페이지 배포
-- TypeScript 사용 필수
-- 과제에 대한 설명을 포함한 `README.md` 파일 작성
-    - 팀원별로 구현한 부분 소개
+마크다운 문법을 사용해서 팀원 들이 같이 공유할 수 있는 위키를  
+열람하고 수정할 수 있는 웹 애플리케이션 입니다.
 
-### **[선택 구현사항]**
+또한 회원가입/로그인 기능을 사용해서 직원 정보를 관리할 수 있으며  
+팀 프로젝트 또한 관리 가능한 위키 사이트 입니다.
 
-- React 사용은 선택
-- 기타 동작이 완료되기 전에 로딩 애니메이션 구현
-- 페이지네이션
-- 관련된 기타 기능도 고려
-- eslint 설정, 커밋컨벤션, 문서화 등 팀프로젝트시 필요한 추가 작업들
+### 개발 환경 및 배포
 
----
+![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0) ![Windows 11](https://img.shields.io/badge/Windows%2011-%230079d5.svg?style=for-the-badge&logo=Windows%2011&logoColor=white) ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white) ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white) ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=Firebase&logoColor=black) ![eslint](https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white) ![prettier](https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=black) ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7)
 
-## 가이드
+### 사용 기술
 
-아래 예시는 모두 하나의 의견입니다!
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white) ![Recoil](https://img.shields.io/badge/Recoil-3578E5?style=for-the-badge&logo=Recoil&logoColor=white) ![swiper](https://img.shields.io/badge/swiper-6332F6?style=for-the-badge&logo=swiper&logoColor=white) ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white) ![TOAST UI EDITOR](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white)
 
-따라하는게 아니라 자신만의 결과물을 만들어보세요.
+### 협업툴
 
-### 공지사항
-[영상 1]
+![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white) ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white) ![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white) ![Zoom](https://img.shields.io/badge/Zoom-2D8CFF?style=for-the-badge&logo=zoom&logoColor=white)
 
+## 🎯 주요 구현 사항
 
-### **모달 타이머**
-[영상 2]
+<!-- 각자 구현 사항 적어주시면 좋을것 같아요! -->
 
+1. 회원가입 페이지
+   - 구글 아이디 및 이메일로 회원가입 구현
+1. 로그인 페이지
+   - 구글 아이디 및 이메일로 로그인 구현
+1. 회원 정보 입력 페이지
+   - 웹 서비스에서 사용할 유저 정보 DB에 CRUD 구현
+   - 재로그인 시 유저 기존 정보 보이기 구현
+   <!-- 여기까지 종수님 구현 사항 -->
+1. 출퇴근 타이머
+   - 오늘 날짜 및 현재 시간 표시
+   - 출퇴근 시간 기록
+   - 총 근무시간 체크(기록된 출퇴근 시간 기반)
+   - 출퇴근 상태에 따라 안내문구 표시
+1. 출퇴근 기록 페이지
+   - 출퇴근 기록 리스트: 나의 출퇴근 기록 및 내가 속한 팀원들의 출퇴근 기록 확인, 날짜 순으로 정렬 가능
+   - 출퇴근 기록 캘린더: 나의 출퇴근 기록을 일자별로 출력
+   <!-- 여기까지 미정님 구현 사항 -->
+1. 위키 페이지
 
-https://github.com/KDT1-FE/Y_FE_Toy1/assets/38754963/20c18d28-5a01-4163-876c-be74a24f62db
+   - 비로그인 유저도 글을 작성할 수 있는 전체 위키와 로그인 유저가 팀 활동을 할 수 있는 팀 위키를 구분해서 구현했습니다.
+     - 전체 위키
+       - 비로그인, 로그인 유저 모두 익명으로 CRUD가 가능하게 구현했습니다.
+       - 가이드 폴더를 제외하고 폴더/파일의 권한은 모두에게 열려있도록 설정했습니다.
+     - 팀 위키
+       - 로그인시 로컬스토리지 값을 가져와서 팀 위키와 연동시켰습니다.
+       - 팀 위키에서 파일을 작성할 때, 가져온 데이터를 통해 작성자의 정보를 렌더링 했습니다.
+     - 전체 위키, 팀 위키 공통 - 리액트 정렬 라이브러리(react-beautiful-dnd)를 적용해 폴더들의 순서를 변경할 수 있도록 구현했습니다.
+     <!-- 여기까지 욱진님 구현 사항 -->
 
+1. 프로젝트 페이지
 
+   - (로그인 시) 내 팀 프로젝트 칸반 보드
+     - 내가 속한 팀 프로젝트를 예정됨/진행중/완료된으로 상태를 자유롭게 변경하는 기능
+     - 각 상태의 칸반 보드에서 순서를 위아래로 변경하는 기능
+   - 전체 프로젝트 조회
+     - 진행상황/팀별/멤버별 필터링 기능
+     - 프로젝트 상세 정보 조회
+   - 프로젝트 수정/삭제 기능
+   <!-- 여기까지 내 구현 사항 -->
 
-### **마크다운 위키사이트**
-[영상 3]
+1. 직원 정보 페이지
+   - 직원 정보 추가/삭제/수정 기능
+   - 직원 목록을 바탕으로 팀 생성 및 팀삭제 수정 기능
+   - 권한별로 기능에 제한을 둠
+   <!-- 여기까지 나영님 구현 사항 -->
 
+## 🖥️ 팀원 소개 및 구현 화면
 
-https://github.com/KDT1-FE/Y_FE_Toy1/assets/38754963/08e3efca-8137-44d8-a0af-c62a668b810b
+### 💪 이정도면 껌이조! 우리 팀을 소개 합니다.
 
+| **이름** | **직책** |                **담당 페이지**                |               **프사**                |
+| :------: | :------: | :-------------------------------------------: | :-----------------------------------: |
+|  박나영  |   팀장   |              임직원 페이지 담당               | ![박나영](public/profiles/박나영.jpg) |
+|  김미정  |   팀원   | 출퇴근 타이머 <br /> 출퇴근 기록 페이지 담당  | ![김미정](public/profiles/김미정.jpg) |
+|  김성겸  |   팀원   |    프로젝트 페이지 <br />메인 페이지 담당     | ![김성겸](public/profiles/김성겸.jpg) |
+|  노욱진  |   팀원   |               위키 페이지 담당                | ![노욱진](public/profiles/노욱진.jpg) |
+|  진종수  |   팀원   | 로그인/회원가입 <br />회원 정보수정 관련 담당 | ![진종수](public/profiles/진종수.jpg) |
 
+### 페이지 구현 이미지
 
-### **갤러리**
-[영상 4]
+|                   **메인 페이지**                   |                                                     **로그인/회원가입 페이지**                                                      |
+| :-------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: |
+| ![메인 페이지](public/images/project-main-page.png) | <img src="public/images/signin.png" width="400px" height="300px"> <img src="public/images/signup.png" width="400px" height="300px"> |
 
----
+|                 **정보 수정 페이지**                  |                 **직원정보 페이지**                 |
+| :---------------------------------------------------: | :-------------------------------------------------: |
+| <img src="public/images/userInfo.png" height="400px"> | ![직원정보 페이지](public/images/employee-list.png) |
 
-# **[Firestore]**
+|                  **위키 페이지**                  |                 **프로젝트 페이지**                  |
+| :-----------------------------------------------: | :--------------------------------------------------: |
+| ![위키 페이지](public/images/wiki-IntroImage.png) | ![프로젝트 페이지](public/images/project-detail.png) |
 
-Firestore에 대한 가이드입니다.
+|                 **출퇴근 타이머**                 |                  **출퇴근 기록 페이지**                   |
+| :-----------------------------------------------: | :-------------------------------------------------------: |
+| ![출퇴근 타이머](public/images/timer-default.png) | ![출퇴근 기록 페이지](public/images/worktime-default.png) |
 
-자세한 내용은 [공식 홈페이지](https://firebase.google.com/?hl=ko) 를 찾아보길 적극 권장합니다!
+<!-- 각자 구현 사항 적어주시면 좋을것 같아요! -->
 
-### **App init**
+<!-- 로그인 / 회원가입 / 정보 수정 구현 사항 -->
 
-```jsx
-import { getFirestore } from "firebase/firestore";
+### 로그인 / 회원가입 / 유저 정보 입력
 
-export const db = getFirestore(fireBaseApp);
+#### <b> 로그인 페이지 </b>
+
+![로그인 페이지](public/images/login.gif)
+</br>
+소셜 로그인 및 이메일 로그인 두 가지 방법으로 로그인을 구현 했습니다. </br></br>
+DB에 이미 해당 계정의 정보가 있을 때와 없을 때를 구분해서 없을 때만 정보 입력 페이지로 가게 했습니다. </br></br>
+recoil-persist 를 사용해 사용자 로그인 상태를 파악하고 유지하게 했습니다.
+
+#### <b>유저 정보 입력 페이지</b>
+
+![정보 입력 페이지](public/images/upload.gif)
+내 정보 수정 버튼을 눌렀을 때 기존 정보가 보여 수정을 용이하게 하였습니다 </br></br>
+유저 정보 입력 시 팀 정보는 DB의 저장된 팀 정보만 보이게 하였습니다.
+
+<!-- 직원 정보 구현 사항 -->
+
+### 직원 정보
+
+**직원 정보 페이지**
+직원 정보를 관리하는 페이지 입니다.  
+직원 주소록과 정보를 한 눈에 보여주고자 테이블 형태로 구현했습니다.
+
+- 직원 추가 삭제 및 수정이 가능합니다.
+- 권한을 admin / member로 두어 권한에 따라 기능을 이용할 수 있습니다.
+- 팀 선택 시 팀페이지와 연동되어, 팀 구성원으로 등록되도록 연결했습니다.
+- 검색과 필터링, 정렬 기능으로 직원 이름, 부서를 손 쉽게 찾을 수 있도록 했습니다.
+- 데이터를 불러올 때 스켈레톤 ui를 적용해 사용자의 이탈을 막고자 했습니다.
+  <br />
+
+![employee-table](public/images/employee-table.gif)
+<br />
+
+**팀 리스트 페이지**  
+직원 정보와 연동된 팀 리스트 페이지 입니다.
+
+- 팀 추가 삭제 및 수정이 가능합니다.
+- 유저 삭제 시 팀원 목록에서도 삭제되로록 양방향으로 데이터를 읽고 쓰고자 구현했습니다.
+- 이미 팀이 있는 유저는 유저목록에서 제외되도록 필터링 처리 했습니다.
+
+  <br />
+
+  ![employee-team](public/images/employee-team.gif)
+
+  <br />
+
+### 위키 페이지
+
+## <!--` 프로젝트 사항 -->`
+
+<br />
+
+#### 전체 위키
+
+![WikiAll](https://github.com/im-na0/wiki/assets/101846817/f5c03092-35f2-4d6d-a533-ac18d8007d89)
+전체 위키에서는 다음과 같이 비로그인, 로그인 유저 모두 익명으로 CRUD가 가능하게 구현했습니다.
+
+유저 정보는 익명이므로 파일에 표시되지 않도록 설정했습니다.
+
+#### 팀 위키
+
+![WikiTeam](https://github.com/im-na0/wiki/assets/101846817/63457baf-fc89-43aa-b8e0-a3f218df8368)
+팀 위키는 로그인 유저가 해당하는 팀의 위키에서만 CURD가 가능하도록 구현했습니다.
+
+유저는 익명이 아니므로 파일에 정보가 표시되도록 설정했습니다.
+
+#### 드래그 앤 드롭
+
+![WikiSort](https://github.com/im-na0/wiki/assets/101846817/7f97a23e-00ba-42f6-bc63-64bd48d36558)
+전체 위키와 팀 위키 모두 드래그 앤 드롭으로 폴더의 위치를 정렬 가능하도록 구현했습니다.
+
+### 프로젝트 페이지
+
+**칸반 보드 기능**
+
+노션에서 칸반 보드를 사용해서 프로젝트를 관리하는 기능이 매우 편리해 보여서  
+react-beautiful-dnd라는 라이브러리를 사용하여  
+드래그 & 드롭 기능으로 보드 끼리 자유롭게 순서와 위치를 변경하는 기능을 구현하여
+조금 더 손 쉽게 프로젝트 진행 상황을 변경할 수 있게 하였습니다.
+
+![project-kanban](public/images/project-kanban.gif)
+
+<br />
+
+**프로젝트 필터링 기능**
+
+어느팀, 어느 담당자가 어떤 일을 했는지 조금 더 쉽게 찾게 하고 싶어서  
+담당자 / 팀명 / 상태 필터링 기능을 구현 하였습니다.
+
+Array.prototype.filter 메서드를 사용하여  
+조건에 맞는 배열을 렌더링하는 방식으로 구현 하였습니다.
+
+![project-sorting](public/images/project-sorting.gif)
+
+<!-- 출퇴근 구현 사항 -->
+
+### 타이머 모달 및 출퇴근 페이지
+
+1. 출퇴근 타이머
+   ![timer-btnonoff](public/images/timer-btnonoff.gif)
+   - 오늘 날짜 및 현재 시간 표시
+   - 출퇴근 시간 기록: 로그인 상태에서만 출퇴근 버튼이 동작하며, 해당 계정 기준 하루 1회만 출퇴근 기록이 가능하도록 하였습니다.
+   - 총 근무시간 체크: 출근 버튼을 클릭한 순간부터 근무 시간 타이머가 작동하며, 퇴근 버튼을 누른 시점을 기준으로 총 근무 시간이 산출됩니다.
+   - 출퇴근 상태에 따라 안내문구 표시: 출근 버튼을 눌렀을 때는 "좋은 하루 보내세요😊"라는 메시지가, 퇴근 버튼을 눌렀을 때는 "오늘도 수고하셨습니다!👍"라는 메시지가 출력됩니다.
+1. 출퇴근 기록 페이지
+   ![worktime-listcalendar](public/images/worktime-listcalendar.gif)
+   - 출퇴근 기록 리스트: 로그인 상태일때만 타이머 모달창 내에서 접근할 수 있습니다.  
+     ㄴ 나의 출퇴근 현황: 현재까지 나의 모든 출퇴근 기록을 확인할 수 있으며, 날짜 및 시간 순으로 정렬이 가능합니다.
+     ㄴ 우리팀 출퇴근 현황: 내가 속한 팀 멤버들의 모든 출퇴근 기록을 확인할 수 있으며, 날짜 및 시간 순으로 정렬이 가능합니다.
+     ![worktime-teamlist](public/images/worktime-teamlist.gif)
+   - 출퇴근 기록 캘린더: 나의 일일 출퇴근 기록을 캘린더 형태로 확인할 수 있습니다.
+
+## ➡️ 유저 흐름(flow) 이미지
+
+![전체 유저 플로우](public/images/user-flow.png)
+
+## Git 브랜치 전략
+
+| 용도      | 브랜치 명         |
+| :-------- | :---------------- |
+| 개발용    | deploy            |
+| 메인      | main              |
+| 기능 개발 | feature/#이슈번호 |
+
+## 📂 폴더 구조
+
+```
+📦 fe3.wiki
+├─ public - 정적 assets
+│  ├─ images - 이미지
+│  └─ profile - 프로필 사진
+└─ src
+   ├─ assets - 각종 assets
+   ├─ components - 컴포넌트
+   │  ├─ common - 공통 컴포넌트
+   │  ├─ Employee - 직원정보
+   │  ├─ Main - 메인 페이지
+   │  ├─ project - 프로젝트 페이지
+   │  ├─ SignIn - 로그인
+   │  ├─ SignUp - 회원가입 / 정보수정
+   │  ├─ Timer - 출퇴근 타이머
+   │  ├─ Wiki - 위키 페이지
+   │  └─ WorkTime - 출퇴근 기록
+   ├─ constant - 상수들
+   ├─ data - 개발용 데이터
+   ├─ hooks - 커스텀 훅 폴더
+   │  ├─ Employee - 직원정보
+   │  ├─ Main - 메인 페이지
+   │  ├─ project - 프로젝트 페이지
+   │  ├─ SignIn - 로그인/회원가입/정보수정
+   │  ├─ Timer - 출퇴근 타이머
+   │  └─ Wiki - 위키 페이지
+   ├─ layouts - 레이아웃 컴포넌트
+   ├─ libs - 라이브러리 설정 폴더
+   ├─ page - 라우팅으로 불러올 페이지
+   ├─ router - 라우터 설정
+   ├─ store - 전역 상태 관리
+   ├─ styles - 스타일링을 위한 css 폴더
+   └─ type - interface, type
 ```
 
-### Firestore 데이터 추가하기
+©generated by [Project Tree Generator](https://woochanleee.github.io/project-tree-generator)
 
-Firestore의 데이터를 추가하는 방법은 크게 두가지이다.
+## 📦 설치 및 실행 방법
 
-1. Firebase console에서 손수 데이터 추가해주기
-2. 코드로 데이터 추가하기
+toast-ui-editor에서 지원하는 react 버전이 17버전까지라서  
+`npm install`로 설치시 오류가 발생합니다.  
+`npm install --legacy-peer-deps`로 설치 부탁드립니다.
 
-### 1. Firebase console에서 손수 데이터 추가해주기
+실행 : `npm run start`로 서버를 실행할 수 있습니다.
 
-1. [Firebase console](https://console.firebase.google.com/u/0/?hl=ko)에 접속한다.
-2. 자신의 프로젝트를 선택한다.
-3. 왼쪽 메뉴에서 `Firestore Database`를 선택한다.
-4. `+ 버튼`을 눌러 컬렉션 > 문서를 마음대로 추가해준다.
-5. 필드를 추가하여 문서에 데이터를 넣어준다.
+### 파이어베이스 `.env`파일 구조
 
-### 2. 코드로 데이터 추가하기
-
-Firestore는 `setDoc`, `addDoc` 두 가지 함수로 데이터를 추가할 수 있다.
-
-이제 원하는 데이터를 추가해보자.
-
-**1. `addDoc`**
-
-`addDoc`은 아래와 같이 사용하여 원하는 데이터를 추가할 수 있다.
+파이어베이스를 사용하기 위해서는  
+루트 폴더에 `.env` 파일을 생성하여 아래 값들을 넣어주면 실행 가능합니다.
 
 ```
-import { addDoc, collection } from "firebase/firestore";
-
-const writtenDoc = await addDoc(collection(db, "wiki"), {
-  title: "LGH",
-  description: "허먼밀러...사고싶다...",
-});
-
-console.log("Document written with ID: ", writtenDoc.id);
-// 새로 생성된 Document의 ID를 반환한다.
+REACT_APP_API_KEY=api_key
+REACT_APP_AUTH_DOMAIN=auth_domain
+REACT_APP_PROJECT_ID=project_id
+REACT_APP_STORAGE_BUCKET=storage_bucket
+REACT_APP_MESSAGING_SENDER_ID=messaging_sender_id
+REACT_APP_APP_ID=app_id
 ```
-
-원하는 데이터를 추가하기 위해선 먼저 원하는 collection을 선택해야 한다. 위 예제의 `addDoc` 안에서 사용한 `collection` 함수는 db상에 있는 collection을 선택하거나 없을 경우 새로운 collection을 생성하여 반환한다.
-
-Firebase의 Doc는 기본적으로 ID를 가져야 하는데, addDoc을 사용하면 ID를 자동으로 만든다. 또한, 이미 존재하는 Doc에 `addDoc`을 사용하면 에러가 발생한다.
-
-**2. `setDoc`**
-
-`setDoc`은 아래와 같이 사용하여 원하는 데이터를 추가할 수 있다.
-
-```
-import { setDoc, doc } from "firebase/firestore";
-
-await setDoc(doc(db, "wiki", "new-id"), {
-  title: "LGH",
-  description: "허먼밀러...사고싶다...",
-});
-```
-
-`addDoc`과의 차이점은
-
-1. **id** 를 지정해줘야함
-2. `collection` 대신 `doc`을 사용함
-3. 이미 존재하는 Doc에 사용가능
-
-3가지 이다.
-
-`setDoc`은 `addDoc`과 달리 collection이 아니라 doc를 선택해야 한다. 이는 `setDoc`이 데이터의 추가 뿐 아니라 데이터 덮어쓰기 기능도 가지고 있기 때문이다. 러프하게 생각해보면 `setDoc`은 데이터를 추가할 때
-
-1. doc을 선택하거나 새로운 doc을 생성
-2. doc의 내용을 덮어씀
-
-의 방식으로 동작하는 것이다.
-
-Doc을 선택하는 방법은 `doc` 함수를 사용하는 것이다. `[doc()](https://firebase.google.com/docs/reference/js/firestore_.md?hl=ko#doc)` 함수는 `DocumentReference` instance를 반환한다. 절대 경로를 사용하여 원하는 Document를 선택할 수 있다. 위에서 만들어둔 `wiki > completed` 문서는 아래처럼 불러올 수 있다.
-
-```
-import { doc } from "firebase/firestore";
-
-const docRef = doc(db, "wiki", "completed");
-```
-
-`doc` 함수의 3번째 인자가 바로 **id** 이다. id는 이미 존재하는 Doc의 id를 사용할 수도 있고, 새로운 id를 사용할 수도 있다. 존재하는 id를 사용하는 경우에는 해당 Doc의 데이터를 덮어쓰게 된다. 그렇지 않은 경우엔 새로운 Doc를 생성한다.
-
-어쨌거나 데이터를 새로 추가할 수 있는 것이다.
-
-### Firestore 데이터 수정하기
-
-Firestore의 데이터를 수정하는 방법은 크게 두가지이다.
-
-1. Firebase console에서 손수 데이터 수정해주기
-1. 코드로 데이터 수정하기
-
-1번은 데이터 생성과 비슷하게 진행하면 된다.
-
-**2. 코드로 데이터 수정하기**
-
-Firestore는 `setDoc`, `update` 두 가지 함수로 데이터를 추가할 수 있다.
-
-`setDoc`을 사용하는 방법은 위에 적혀있다.
-
-### `update`
-
-`setDoc`은 데이터를 덮어쓴다. 따라서 기존의 문서를 유지한 채 일부분의 데이터만 변경하고 싶어도 이전의 데이터를 모두 새로 입력해야 한다.
-
-그러나 `update`는 기존의 데이터를 유지한 채 일부분의 데이터만 변경할 수 있다.
-
-```jsx
-import { updateDoc, doc } from "firebase/firestore";
-
-await updateDoc(doc(db, "wiki", "new-id"), {
-  description: "허먼밀러...200만원...",
-});
-```
-
-위와 같이 코드를 작성하면 `new-id`라는 id를 가진 문서의 description만 변경된다.
-
----
-
-### *참고 링크
-
-- **[Firebase](https://firebase.google.com/docs?hl=ko)**
-- [**프로토타입 프로젝트**](https://stfe.vercel.app/)

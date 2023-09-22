@@ -1,0 +1,52 @@
+.drag-drop-area, .project-container {
+    width:100%;
+    background: #fff;
+    padding-left: 40px;
+}
+.drag-drop-wrap{
+    display:flex;
+    flex-wrap:wrap;
+    align-items: flex-start;
+    gap:10px;
+}
+.project__item-btns{
+    display:flex;
+    justify-content: flex-end;
+
+}
+.project__item-btn{
+    padding:5px;
+    cursor: pointer;
+}
+.project__top-title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.project__top-title h3{
+    padding-left: 20px;
+    border-left: 3px solid #00b96b;
+    color: #555;
+}
+.project__top-btns{
+    display: flex;
+    gap:10px;
+}
+.project__all-list{
+    border: 1px solid #dfdfdf;
+    max-height: calc(100vh - 128px);
+    overflow: auto;
+}
+.project__content-area .project-container{
+    padding-top:24px;
+    padding-right: 24px;
+    padding-bottom: 24px;
+}
+
+.project__filter{
+    height: 43px;
+    padding: 6px 12px;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+}
