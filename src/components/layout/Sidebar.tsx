@@ -50,7 +50,6 @@ const Sidebar = () => {
               </li>
               {sideLinkAttendance.map((page, idx) => {
                 return (
-
                   <li
                     className={`sidebar__item ${
                       activeItem === page ? "active" : ""
@@ -151,13 +150,11 @@ const Sidebar = () => {
               );
             })}
             <li key={"학습시간 등급"} className="sidebar__menu">
-              <Link to="학습시간 등급" onClick={() => handleItemClick("학습시간 등급 안내")}>
+              <Link
+                to="학습시간 등급"
+                onClick={() => handleItemClick("학습시간 등급 안내")}
+              >
                 학습시간 등급 안내
-              </Link>
-            </li>
-            <li key={"학습 시간왕"} className="sidebar__menu">
-              <Link to="학습 시간왕" onClick={() => handleItemClick("학습 시간왕")}>
-                학습 시간왕
               </Link>
             </li>
           </SidebarList>
@@ -252,7 +249,6 @@ const MobileContainer = styled.div`
     font-size: 18px;
     line-height: 148%;
   }
-
 `;
 
 interface IMobileInnerContainer {
@@ -339,13 +335,11 @@ const SidebarList = styled.div`
     line-height: 148%;
   }
 
-
   li {
     font-weight: 700;
     font-size: 20px;
     line-height: 140%;
   }
-
 `;
 
 export default Sidebar;

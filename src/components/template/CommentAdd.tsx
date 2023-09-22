@@ -46,6 +46,7 @@ const CommentAdd = () => {
           updatedAt: dayjs().format("YYYY.MM.DD HH:mm:ss"),
           useName: user?.displayName,
           uid: user?.uid,
+          class: Number(localStorage.getItem(user.uid)),
         });
       }
     }
@@ -87,8 +88,10 @@ const Wiki__CommentBox = styled.div`
   margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
-  padding: 5px;
+
+  padding: 40px 5px 5px 5px;
+  //background-color: var(--main-color);
+  border-top: 2px solid #ddd;
 `;
 
 const Wiki_input = styled.input`
@@ -99,6 +102,7 @@ const Wiki_input = styled.input`
   border: 0;
   border: 1px solid #ddd;
   outline: none;
+  margin-right: 10px;
 `;
 
 const Wiki__button = styled.button`
@@ -107,4 +111,5 @@ const Wiki__button = styled.button`
   border-radius: 4px;
   color: white;
   width: 8%;
+  min-width: 50px;
 `;

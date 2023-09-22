@@ -15,10 +15,7 @@ import {
 import { db } from "../../firebase";
 import Swal from "sweetalert2";
 import CommentAdd from "./CommentAdd";
-
-// import { ReactComponent as emblem_gold } from "../../../public/svg/emblem/emblem_gold.svg";
-// import { ReactComponent as emblem_sliver } from "../../../public/svg/emblem/emblem_sliver.svg";
-// import { ReactComponent as emblem_bronze } from "/svg/emblem/emblem_bronze.svg";
+import { IsMobile } from "utils/mediaQuery";
 
 //한국 날짜 설정
 dayjs.locale("ko");
@@ -26,13 +23,23 @@ dayjs.locale("ko");
 const Comment = () => {
   const user = useContext(AuthContext);
 
-  const emblem = () => {
-    if (user) {
-      Number(localStorage.getItem(user.uid));
-      console.log(Number(localStorage.getItem(user.uid)));
-    }
-  };
-  emblem();
+  // // 유저의 엠블럼 구하기
+  // const emblem = () => {
+  //   let num = 0; // 기본값 설정
+  //   let imgSrc = "";
+
+  //   if (user) {
+  //     num = Number(localStorage.getItem(user.uid));
+  //     // console.log(Number(localStorage.getItem(user.uid)));
+  //     imgSrc = `../../../public/png/class_${num}.png`;
+  //   }
+
+  //   return imgSrc;
+  // };
+
+  // // userEmblem 결과를 변수에 저장
+  // const userEmblem = emblem(); // 함수 호출 결과를 변수에 저장
+  // console.log(userEmblem); // 결과 출력
 
   // 변경된 댓글 내용 관리
   const [comment, setComment] = useState("dd");
@@ -110,21 +117,22 @@ const Comment = () => {
     <Comment_Container key={comment.id}>
       <CommentEntry>
         <Comment_user>
-          <div>티어 사진</div>
-
+          <img
+            src={process.env.PUBLIC_URL + `/png/class_${comment.class}.png`}
+          />
           <Comment_user__name>{comment.useName}</Comment_user__name>
+
           <Comment_user__updateAt>{comment.updatedAt}</Comment_user__updateAt>
         </Comment_user>
-        <div>
-          {editComment === comment.id && open ? (
-            <Comment_input onChange={handleChange}></Comment_input>
-          ) : (
-            <Comment_reply>{comment.comment}</Comment_reply>
-          )}
-        </div>
+
+        {editComment === comment.id && open ? (
+          <Comment_input onChange={handleChange}></Comment_input>
+        ) : (
+          <Comment_reply>{comment.comment}</Comment_reply>
+        )}
       </CommentEntry>
       {user?.uid == comment.uid && (
-        <div>
+        <Comment_btn__container>
           {editComment === comment.id && open ? (
             <Comment_btn onClick={() => handleUpdate(comment.id)}>
               완료
@@ -138,82 +146,82 @@ const Comment = () => {
           <Comment_btn onClick={() => handleDelete(comment.id)}>
             삭제
           </Comment_btn>
-        </div>
+        </Comment_btn__container>
       )}
     </Comment_Container>
   ));
 
   return (
     <>
-      <Container>
-        {/* 댓글 추가 */}
-        <CommentAdd />
-        {renderComments}
-        <div></div>
-      </Container>
+      {/* 댓글 추가 */}
+      <CommentAdd />
+      {renderComments}
+      <div></div>
     </>
   );
 };
 
 export default Comment;
 
-// 임시로 핑크 박스
-const Container = styled.div`
-  height: 300px;
-  width: 100%;
-  margin: 30px;
-  // background-color: pink;
-  border-top: 3px solid #ddd;
-`;
-
 const Comment_Container = styled.div`
   height: 60px;
   display: flex;
   justify-content: space-between;
-  // margin: 30px;
-  //background-color: pink;
   border-bottom: 2px solid #ddd;
   margin-bottom: 20px;
   padding: 10px;
 `;
 
 const CommentEntry = styled.div`
-  width: 90%;
+  width: 80%;
   height: 100%;
-  //background-color: blue;
 `;
 
 // 티어 사진, 닉네임, 작성시간
 const Comment_user = styled.div`
   height: 27px;
-  //background-color: yellow;
-  width: 35%;
+  width: 500px;
+  min-width: 380px;
   display: flex;
-  justify-content: space-between;
+
+  @media (max-width: 650px) {
+    width: 300px;
+    min-width: 300px;
+  }
 `;
 
 const Comment_user__name = styled.div`
+  min-width: 200px;
   font-weight: 700;
   font-size: 20px;
+  padding: 0 10px;
+
+  @media (max-width: 650px) {
+    font-size: 18px;
+    min-width: 120px;
+    max-width: 120px;
+    white-space: nowrap; // 개행 방지
+    overflow: hidden; // 넘치는 문자열 숨김
+    text-overflow: ellipsis;
+    padding: 2px 10px 0 10px;
+  }
 `;
 
 const Comment_user__updateAt = styled.div`
   font-weight: 400;
   color: #a6a4a4;
-  padding-top: 5px;
-  //padding-right: 20px;
+  padding-top: 7px;
+  font-size: 13px;
 `;
 
 const Comment_input = styled.input`
   height: 25px;
   width: 100%;
-  // padding: 10px;
+  min-width: 400px;
   border-radius: 4px;
   font-size: 16px;
-  // border: 0;
-  // border-bottom: 1px solid var(--main-color);
   outline: none;
-  margin: 5px;
+  margin: 5px 10px 5px 5px;
   border: 1px solid #ddd;
 `;
 
@@ -221,19 +229,24 @@ const Comment_reply = styled.div`
   font-size: 18px;
   height: 25px;
   width: 80%;
-  // padding-left: 10px;
   margin: 5px 5px 5px 0px;
 `;
 
 // 버튼 css
+const Comment_btn__container = styled.div`
+  display: flex;
+  width: 20%;
+  justify-content: flex-end;
+`;
+
 const Comment_btn = styled.button`
+  min-width: 50px;
+  margin-top: 10px;
   border: 0;
   background-color: transparent;
   cursor: pointer;
-  //background-color: var(--main-color);
   color: ${(props) => props.theme.text};
   font-size: 12px;
-  padding: 7px;
+  padding: 20px 7px 7px 7px;
   border-radius: 4px;
-  // margin: 15px 5px 15px 15px;
 `;
