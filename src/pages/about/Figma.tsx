@@ -15,8 +15,9 @@ export const StyledImage = styled.img`
 `;
 
 export const StyledSpan = styled.div`
-  margin-top: 10px;
+  margin-top: 15px;
   font-size: 12px;
+  padding-left: 20%;
   color: gray;
 `;
 
