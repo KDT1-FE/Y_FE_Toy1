@@ -33,7 +33,7 @@
   --color-fg-default: #24292f;
   --color-fg-muted: #57606a;
   --color-fg-subtle: #6e7781;
-  --color-canvas-default: #ffffff;
+  --color-canvas-default: #f8f9fa;
   --color-canvas-subtle: #f6f8fa;
   --color-border-default: #d0d7de;
   --color-border-muted: hsla(210, 18%, 87%, 1);
@@ -57,6 +57,7 @@
   word-wrap: break-word;
   padding: 2rem 2rem;
   overflow: hidden;
+  border-radius: 10px;
 }
 
 .markdown-body .octicon {

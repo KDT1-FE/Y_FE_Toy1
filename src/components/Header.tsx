@@ -29,11 +29,9 @@ function Header() {
   return (
     <div className="Main">
       <header className="HeaderMain">
-        <div className="Logo">
-          <Link to="/" className="SubListMain">
-            <img src={logoImage} alt="로고" className="LogoImg" />
-          </Link>
-        </div>
+        <Link to="/" className="Logo">
+          <img src={logoImage} alt="로고" className="LogoImg" />
+        </Link>
         <nav className="NavbarWrap">
           <ul className="List">
             <li>
