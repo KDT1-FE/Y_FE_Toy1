@@ -80,6 +80,7 @@ const slides = [
       },
     ],
     imageSrc: sliderImg2,
+    link: 'https://www.instagram.com/to_gethers/?igshid=YTQwZjQ0NmI0OA%3D%3D',
   },
   {
     backgroundColor: '#edfaf7',
@@ -138,6 +139,7 @@ const ImageSlider = () => {
             backgroundColor={slide.backgroundColor}
             text={slide.texts}
             imageSrc={slide.imageSrc}
+            link={slide.link}
           />
         ))}
       </Slider>
