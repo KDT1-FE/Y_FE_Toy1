@@ -209,6 +209,7 @@ const TextSection = styled.div`
 `;
 
 const ButtonSection = styled.div`
+  text-align: right;
   button.button--email,
   button.button--password {
     margin-right: 5px;
