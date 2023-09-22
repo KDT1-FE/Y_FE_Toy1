@@ -23,10 +23,11 @@ function getCurrentDateFromStamp(timestamp: number): number {
 
 interface ITimerProps {
   id: string;
+  showButton?: boolean;
 }
 
 //Timer 컴포넌트
-export function Timer({ id }: ITimerProps): JSX.Element {
+export function Timer({ id, showButton = true }: ITimerProps): JSX.Element {
   const [count, setCount] = useState(0);
   const intervalRef = useRef<number | null>(null);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
@@ -141,12 +142,14 @@ export function Timer({ id }: ITimerProps): JSX.Element {
   return (
     <div>
       <p>{formattedTime}</p>
-      {user.uid === id && (
+      {showButton && user.uid === id && (
         <button id={id} onClick={handleStart}>
           시작
         </button>
       )}
-      {user.uid === id && <button onClick={handleStop}>정지</button>}
+      {showButton && user.uid === id && (
+        <button onClick={handleStop}>정지</button>
+      )}
     </div>
   );
 }
