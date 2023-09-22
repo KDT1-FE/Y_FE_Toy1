@@ -255,8 +255,8 @@ export default function GallerySide({
         <style.ButtonWrap>
           {configList ? (
             <Button
-              text="취소"
-              padding=".3rem .6rem"
+              text="완료"
+              padding=".3rem 3.7rem"
               normal="reverse"
               onClick={closeConfigListHandle}
             ></Button>
