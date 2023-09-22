@@ -12,7 +12,6 @@ const AuthProvider = ({ children }: IChildren) => {
 
   useEffect(() => {
     const subscribe = auth.onAuthStateChanged(fbUser => {
-      console.log(`현재 유저 정보`, fbUser);
       setUser(fbUser);
     });
     return subscribe;

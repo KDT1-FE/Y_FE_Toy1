@@ -91,7 +91,10 @@ const SignUp = () => {
           text: specificErrorContent(e.code.split("/")[1]),
         });
       } else {
-        console.error(e);
+        Swal.fire({
+          icon: "error",
+          text: "알 수 없는 에러가 발생했습니다."
+        });
       }
     }
   };
