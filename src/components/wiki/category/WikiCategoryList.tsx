@@ -4,7 +4,7 @@ import {
   Wiki,
   WikiCategoryProps,
 } from "@/components/wiki/types/WikiCommonType";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/Io";
+import WikiCategoryListItem from "./WikiCategoryListItem";
 
 const WikiCategoryList = ({
   WiKiList,
@@ -15,9 +15,11 @@ const WikiCategoryList = ({
 }: WikiCategoryProps) => {
   const firstParentWikiId =
     WiKiList.find((wiki) => !wiki.parentID)?.wikiID || null;
+
   const [selectedWikiId, setSelectedWikiId] = useState<string | null>(
     firstParentWikiId,
   );
+
   const [unfoldedWikiIds, setUnfoldedWikiIds] = useState<string[]>([]);
 
   const handleArrowClick = (wiki: Wiki) => {
@@ -34,40 +36,20 @@ const WikiCategoryList = ({
     onEntryClick(wiki);
   };
 
+  const isUnfolded = (wikiId: string) => unfoldedWikiIds.includes(wikiId);
+
   return (
     <Styled.Wrapper $isVisible={isVisible}>
       <Styled.WikiList>
         {WiKiList.map((wiki) => (
-          <Styled.WikiItem
-            key={wiki.wikiID}
-            onClick={() => handleEntryClickInternal(wiki)}
-          >
-            {wiki.parentID === "" ? (
-              <Styled.ParentWikiWrapper>
-                <Styled.WikiTitle selected={wiki.wikiID === selectedWikiId}>
-                  {wiki.title}
-                </Styled.WikiTitle>
-                {hasChildMap[wiki.wikiID] && (
-                  <Styled.ArrowIcon onClick={() => handleArrowClick(wiki)}>
-                    {unfoldedWikiIds.includes(wiki.wikiID) ? (
-                      <IoIosArrowUp />
-                    ) : (
-                      <IoIosArrowDown />
-                    )}
-                  </Styled.ArrowIcon>
-                )}
-              </Styled.ParentWikiWrapper>
-            ) : (
-              <>
-                <Styled.DepthSymbol />
-                <Styled.ChildWikiTitle
-                  selected={wiki.wikiID === selectedWikiId}
-                >
-                  {wiki.title}
-                </Styled.ChildWikiTitle>
-              </>
-            )}
-          </Styled.WikiItem>
+          <WikiCategoryListItem
+            wiki={wiki}
+            selectedWikiId={selectedWikiId}
+            hasChildMap={hasChildMap}
+            onArrowClick={handleArrowClick}
+            onEntryClick={handleEntryClickInternal}
+            isUnfolded={isUnfolded}
+          />
         ))}
       </Styled.WikiList>
     </Styled.Wrapper>
