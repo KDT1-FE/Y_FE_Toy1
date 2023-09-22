@@ -167,5 +167,8 @@ const GalleryPreviewStyle = styled.div<{
   cursor: pointer;
   overflow: hidden;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  
+
+  @media (min-height: 920px) {
+    height: 30vh;
+  }
 `;
