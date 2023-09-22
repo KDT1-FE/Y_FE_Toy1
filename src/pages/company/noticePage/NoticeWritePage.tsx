@@ -4,13 +4,13 @@ import { doc, addDoc, collection, updateDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useSelector } from 'react-redux';
 
-import '../../../scss/components/writePage/writePage.scss';
+import '@scss/components/writePage/writePage.scss';
 
 const NoticeWritePage = () => {
   const [title, setTitle] = useState<string>('');
   const [file, setFile] = useState<File | null>(null);
   const [content, setContent] = useState<string>();
-  const userEmail = useSelector(state => state.loginUpdate.email);
+  const userEmail = useSelector((state: State) => state.loginUpdate.email);
   const [btnDisabled, setBtnDisabled] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -102,3 +102,11 @@ const NoticeWritePage = () => {
 };
 
 export default NoticeWritePage;
+
+interface login {
+  email: string;
+}
+
+interface State {
+  loginUpdate: login;
+}

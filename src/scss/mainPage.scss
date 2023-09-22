@@ -2,7 +2,10 @@
 
 #mainPage {
   position: relative;
-  width: 100%;
+  width: 80%;
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top: 2rem;
   // height: calc(100vh - 60px);
   box-sizing: border-box;
   padding: 1rem 4rem;
@@ -15,28 +18,34 @@
       width: 100%;
       height: 100%;
       &-wrap {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(2, 1fr);
-        row-gap: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
         column-gap: 1.6rem;
         width: 100%;
+
+        .main-notice {
+          width: 100%;
+        }
+
+        .wrap-depth2 {
+          display: flex;
+          gap: 1rem;
+          justify-self: center;
+        }
       }
       &-box {
         display: flex;
         flex-direction: column;
+        height: auto;
         &.main {
           &-notice {
-            grid-column: 1 / span 4;
-            grid-row: 1 / span 1;
           }
           &-project {
-            grid-column: 1 / span 2;
-            grid-row: 2 / span 2;
+            width: 50%;
           }
           &-gallery {
-            grid-column: 3 / span 2;
-            grid-row: 2 / span 2;
+            width: 50%;
 
             a {
               height: 100%;
@@ -49,15 +58,13 @@
         font-weight: $font-bold900;
         color: $blue;
         margin-bottom: 1rem;
-        margin: 2rem auto 2rem;
+        // margin: 2rem auto 2rem;
       }
 
       &.notice-container {
-        padding: 0.5rem;
         background: $blue;
-        width: 60%;
-        height: 100%;
-        margin: 0 auto;
+        width: 100%;
+        height: auto;
       }
     }
   }

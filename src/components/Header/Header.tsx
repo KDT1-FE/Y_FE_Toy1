@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import HeaderDropDown from './HeaderDropDown';
-import AttendanceModal from './Attendance/AttendanceModal';
+
+import HeaderDropDown from '@components/Header/HeaderDropDown';
+import AttendanceModal from '@components/Attendance/AttendanceModal';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 
-import '../scss/components/_headerDropDown.scss';
-import '../scss/components/_header.scss';
-
-import logo from '../assets/highfive_logo.png';
+import '@scss/components/_headerDropDown.scss';
+import '@scss/components/_header.scss';
+import logo from '@assets/highfive_logo.png'
 
 const Header = (): JSX.Element => {
   const [dropDownOpen, setDropDownOpen] = useState<boolean>(false);

@@ -1,0 +1,36 @@
+@use '../abstracts' as *;
+@use '../base' as *;
+
+.mainP-container {
+  .mainP-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 1rem;
+    font-size: 1.6rem;
+    border: 2px solid $blue;
+    padding: 0.5rem;
+    border-radius: 15px;
+    &__title {
+      margin-left: 2rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    &__status {
+      font-size: 1.2rem;
+      border: 1px solid transparent;
+      padding: 0.3rem;
+      border-radius: 10px;
+      color: $white;
+
+      &.complete {
+        background: $success;
+      }
+      &.proceeding {
+        background: $blue;
+      }
+      &.expected {
+        background: #ffc881;
+      }
+    }
+  }
+}

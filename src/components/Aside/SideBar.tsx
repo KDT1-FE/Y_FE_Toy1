@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import NavDetail from './Aside';
+import NavDetail from '@components/Aside/NavDetail';
 import { AiFillHome, AiOutlineRight } from 'react-icons/ai';
 import { BsFillBuildingFill } from 'react-icons/bs';
 import { FaListUl } from 'react-icons/fa6';
 import { HiPhotograph } from 'react-icons/hi';
 import { BiTime } from 'react-icons/bi';
 
-import '../scss/components/_sidebar.scss';
+import '@scss/components/_sidebar.scss';
 
 const navItems = [
   { name: 'Home', path: '/', icon: <AiFillHome className="nav-depth__logo" /> },

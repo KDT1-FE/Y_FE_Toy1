@@ -3,9 +3,9 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import { collection, getDocs, limit, query, where } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db } from '../../firebase';
 
-import '../scss/carousel.scss';
+import '@scss/components/carousel.scss';
 
 const Carousel = () => {
   const [data, setData] = useState<NoticeData[]>();

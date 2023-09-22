@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction, useRef } from 'react';
-import useOnClickOutside from '../../hooks/gallery/useOnClickOutside';
-import { ImageUploadPayload } from './types';
+import useOnClickOutside from '@hooks/gallery/useOnClickOutside';
+import { ImageUploadPayload } from '@components/Gallery/types';
 
-import '../../scss/components/gallery/modal.scss';
-import '../../scss/components/gallery/modalButton.scss';
+import '@scss/components/gallery/modal.scss';
+import '@scss/components/gallery/modalButton.scss';
 
 const ImageUploadModal = ({
   setFormModalOpen,
@@ -13,15 +13,14 @@ const ImageUploadModal = ({
   setImageUploadPayload,
   handleImageUploadClick,
 }: Props) => {
-  const ref = useRef();
-  // console.log('uploadRef', ref.current);
+  const ref = useRef<HTMLDivElement>(null);
   useOnClickOutside(ref, () => {
     setFormModalOpen(false);
   });
   return (
     <div className="presentation dim" role="presentation">
       <div className="wrapper-modal">
-        <div className="modal shadow upload-modal" ref={ref as any}>
+        <div className="modal shadow upload-modal" ref={ref}>
           <h2 className="modal__title">Upload your Image !</h2>
           <span onClick={() => closeFormModal()} className="modal__close">
             X

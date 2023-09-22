@@ -1,10 +1,10 @@
-import NoticeListBox from './NoticeListBox';
+import NoticeListBox from '@components/Notice/NoticeListBox';
 import { useSelector } from 'react-redux';
-import { db } from '../../firebase';
-import { getDocs, collection, orderBy, query, onSnapshot } from 'firebase/firestore';
+import { getDocs, collection, orderBy, query, onSnapshot, Unsubscribe } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
+import { db } from '../../firebase';
 
-import '../../scss/noticeProjectList.scss';
+import '@scss/components/noticeList.scss';
 
 const NoticeList = () => {
   const [title, setTitle] = useState<string[]>([]);
@@ -37,13 +37,7 @@ const NoticeList = () => {
     getData();
   }, []);
 
-  useEffect(() => {
-    return () => {
-      getData();
-    };
-  }, []);
-
-  const userEmail = useSelector(state => state.loginUpdate.email);
+  const userEmail = useSelector((state: State) => state.loginUpdate.email);
   const handleWriteBtn = (): void => {
     if (userEmail === '') {
       alert('로그인이 필요합니다!');
@@ -62,7 +56,7 @@ const NoticeList = () => {
   };
 
   const handleNextPage = () => {
-    const maxPage = Math.ceil(data.length / itemPerPage);
+    const maxPage = Math.ceil(data!.length / itemPerPage);
     if (currentPage < maxPage) {
       setCurrentPage(currentPage + 1);
     } else {
@@ -71,7 +65,7 @@ const NoticeList = () => {
   };
 
   const querySnapshot = query(collection(db, 'notice'), orderBy('number', 'desc'));
-  const unsubscribe = onSnapshot(querySnapshot, snapshot => {
+  const unsubscribe: Unsubscribe = onSnapshot(querySnapshot, snapshot => {
     snapshot.docChanges().forEach(change => {
       if (change.type === 'removed') {
         getData();
@@ -89,7 +83,7 @@ const NoticeList = () => {
       </button>
       <article className="notice__item-container">
         {title.length > 0 ? (
-          <NoticeListBox title={title} itemId={itemId} currentItems={currentItems} />
+          <NoticeListBox itemId={itemId} unsubscribe={unsubscribe} currentItems={currentItems} />
         ) : (
           <div>Loading...</div>
         )}
@@ -116,4 +110,12 @@ interface NoticeData {
   title: string;
   url: string;
   userEmail: string;
+}
+
+interface login {
+  email: string;
+}
+
+interface State {
+  loginUpdate: login;
 }
