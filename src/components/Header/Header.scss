@@ -1,22 +1,26 @@
 @import '/src/styles/common';
 .Header {
-  width: 85%;
-  font-family: $fontMain;
+  width: 100%;
+  font-family: 'LOTTERIACHAB';
 }
 .pageList {
+  margin: 0px 0px 0px 3%;
   display: flex;
   align-items: center;
-  /* margin: 0 auto; */
 }
-
-.logo img {
-  width: 60px;
-  height: auto;
-  margin-right: 100px;
+.logo {
+  display: flex;
+  flex-direction: row;
+  text-decoration: none;
+  img {
+    display: block;
+    width: 60px;
+    height: auto;
+    margin-right: 100px;
+  }
 }
-
 .page {
-  font-size: 30px;
+  font-size: 40px;
   margin-right: 80px;
   margin-top: 30px;
   margin-bottom: 30px;
@@ -38,6 +42,7 @@
 .auth-buttons {
   margin-left: auto;
   padding-right: 150px;
+  font-family: $fontMain;
 }
 
 .signInBtn {

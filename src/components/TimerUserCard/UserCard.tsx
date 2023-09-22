@@ -29,7 +29,7 @@ export function UserCard() {
     <>
       <div className="user-card__container">
         <h3>
-          Study <br />
+          유저 <br />
           Timer
         </h3>
         {/* 접속 사용자들을 앞쪽에 */}

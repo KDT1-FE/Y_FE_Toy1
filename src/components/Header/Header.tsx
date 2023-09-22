@@ -60,13 +60,14 @@ export default function Header() {
               <Link to="/">
                 {' '}
                 <img src={logo} alt="Logo" />
+                <div>투게더스</div>
               </Link>
             </div>
             <Link
               to="/"
               className={`page ${location.pathname === '/' ? 'active' : ''}`}
             >
-              메인
+              Main
             </Link>
             <Link
               to="/wiki"
@@ -74,7 +75,7 @@ export default function Header() {
                 location.pathname === '/wiki' ? 'active' : ''
               }`}
             >
-              위키
+              Wiki
             </Link>
             <Link
               to="/gallery"
@@ -82,7 +83,7 @@ export default function Header() {
                 location.pathname === '/gallery' ? 'active' : ''
               }`}
             >
-              갤러리
+              Gallery
             </Link>
             <Link
               to="/study"
@@ -90,7 +91,7 @@ export default function Header() {
                 location.pathname === '/study' ? 'active' : ''
               }`}
             >
-              스터디
+              Study
             </Link>
             <div className="auth-buttons">
               {user.uid ? ( // 사용자가 로그인한 경우
