@@ -9,9 +9,15 @@ interface ISlideProps {
   backgroundColor: string;
   text: ISlideText[];
   imageSrc: string;
+  link?: string; // 새로운 link 프로퍼티 추가
 }
 
-const Slide: React.FC<ISlideProps> = ({ backgroundColor, text, imageSrc }) => {
+const Slide: React.FC<ISlideProps> = ({
+  backgroundColor,
+  text,
+  imageSrc,
+  link,
+}) => {
   const slideStyle = {
     backgroundColor: backgroundColor,
   };
@@ -19,6 +25,7 @@ const Slide: React.FC<ISlideProps> = ({ backgroundColor, text, imageSrc }) => {
   return (
     <div className="slide" style={slideStyle}>
       <div className="slide-content">
+        
         <div className="slide-left">
           {text.map((textItem, index) => (
             <div key={index} style={{ display: 'block' }}>
@@ -36,7 +43,13 @@ const Slide: React.FC<ISlideProps> = ({ backgroundColor, text, imageSrc }) => {
           ))}
         </div>
         <div className="slide-right">
-          <img src={imageSrc} alt="Slide" />
+          {link ? (
+            <a href={link} target="_blank" rel="noopener noreferrer">
+              <img src={imageSrc} alt="Slide" />
+            </a>
+          ) : (
+            <img src={imageSrc} alt="Slide" />
+          )}
         </div>
       </div>
     </div>

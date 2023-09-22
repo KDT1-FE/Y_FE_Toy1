@@ -8,10 +8,6 @@
   align-items: center;
 }
 
-.main-container {
-  padding-top: 10px;
-}
-
 .carousel {
   display: flex;
   justify-content: center;
@@ -25,6 +21,7 @@
 .carousel .slick-slide img {
   width: 600px;
   height: 420px;
+  margin-left: auto;
 }
 
 .slide {
@@ -61,7 +58,7 @@
 
 .newPostBtn {
   margin-left: auto;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   background-color: $highlightColor;
   color: white;
@@ -74,7 +71,7 @@
 }
 
 .newPostBtn:hover {
-  background-color: $subColor;
+  background-color: $backgroundColor-50;
 }
 
 .modal.open {
@@ -151,8 +148,9 @@
 
 .posted-text {
   font-family: 'LOTTERIACHAB', 'Tossface';
-  font-size: 50px;
   color: $highlightColor;
+  font-size: 40px;
+  font-weight: 600;
 }
 
 .post-container {
@@ -187,6 +185,10 @@
   text-decoration: none;
 }
 
+.deleteBtn:hover {
+  background-color: $backgroundColor-50;
+}
+
 .post-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -203,7 +205,7 @@
 .post-user {
   font-size: 15px;
   font-weight: 500;
-  color: $backgroundColor;
+  color: $grayColor;
 }
 
 .post-due-date {
@@ -265,6 +267,7 @@
 
 .close-button:hover {
   color: $highlightColor;
+  background-color: $backgroundColor-50;
 }
 
 /* Posted info styles */
@@ -337,6 +340,6 @@
 }
 
 .grid-item {
-  border: 2px solid $backgroundColor;
+  border: 2px solid $mainColor;
   padding: 16px;
 }
