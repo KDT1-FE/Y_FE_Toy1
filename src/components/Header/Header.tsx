@@ -18,30 +18,21 @@ export default function Header() {
   useEffect(() => {
     onAuthStateChanged(auth, (authUser) => {
       if (authUser) {
+        // 로그인한 경우
         const userId = authUser.uid;
         setIsLoggedIn(true);
         updateFirestoreUserStatus(userId, true);
-      } else {
-        const userId = sessionStorage.getItem('uid');
-        if (userId) {
-          setIsLoggedIn(false);
-          updateFirestoreUserStatus(userId, false);
-        }
       }
     });
   }, []);
 
   const handleLogout = () => {
     const user = auth.currentUser;
-
     if (user) {
-      const userId = sessionStorage.getItem('uid');
-      if (userId) {
-        auth.signOut();
-
-        updateFirestoreUserStatus(userId, false);
-        setIsLoggedIn(false);
-      }
+      setIsLoggedIn(false);
+      updateFirestoreUserStatus(user.uid, false);
+      // Firebase Auth에서 로그아웃
+      auth.signOut();
     }
 
     dispatch(logoutAction());
@@ -50,66 +41,71 @@ export default function Header() {
 
   return (
     <header>
-      <div className="header-container">
-        <div className="logo">
-          <Link to="/">
-            <img src={logo} alt="Logo" />
-          </Link>
-        </div>
-        <div className="pageList">
-          <div className='pageListed'>
-          <Link
-            to="/"
-            className={`page ${location.pathname === '/' ? 'active' : ''}`}
-          >
-            Main
-          </Link>
-          <Link
-            to="/wiki"
-            className={`page ${location.pathname === '/wiki' ? 'active' : ''}`}
-          >
-            Wiki
-          </Link>
-          <Link
-            to="/gallery"
-            className={`page ${
-              location.pathname === '/gallery' ? 'active' : ''
-            }`}
-          >
-            Gallery
-          </Link>
-          <Link
-            to="/study"
-            className={`page ${location.pathname === '/study' ? 'active' : ''}`}
-          >
-            Study
-          </Link>
-          </div>
-          </div>
-          <div className="auth-buttons">
-            {user.uid ? ( // 사용자가 로그인한 경우
-              <div className="userInfo-container">
-                <div className="userNickname-container">
-                  <span className="userNickname">{user.nickname}님</span>
-                  <span className="userWelcome">환영해요!</span>
+      <nav className="Header">
+        <div className="header-container">
+          <div className="pageList">
+            <div className="logo">
+              <Link to="/">
+                {' '}
+                <img src={logo} alt="Logo" />
+              </Link>
+            </div>
+            <Link
+              to="/"
+              className={`page ${location.pathname === '/' ? 'active' : ''}`}
+            >
+              메인
+            </Link>
+            <Link
+              to="/wiki"
+              className={`page ${
+                location.pathname === '/wiki' ? 'active' : ''
+              }`}
+            >
+              위키
+            </Link>
+            <Link
+              to="/gallery"
+              className={`page ${
+                location.pathname === '/gallery' ? 'active' : ''
+              }`}
+            >
+              갤러리
+            </Link>
+            <Link
+              to="/study"
+              className={`page ${
+                location.pathname === '/study' ? 'active' : ''
+              }`}
+            >
+              스터디
+            </Link>
+            <div className="auth-buttons">
+              {user.uid ? ( // 사용자가 로그인한 경우
+                <div className="userInfo-container">
+                  <div className="userNickname-container">
+                    <span className="userNickname">{user.nickname}님</span>
+                    <span className="userWelcome">환영해요!</span>
+                  </div>
+                  <button className="logoutBtn" onClick={handleLogout}>
+                    로그아웃
+                  </button>
                 </div>
-                <button className="logoutBtn" onClick={handleLogout}>
-                  로그아웃
-                </button>
-              </div>
-            ) : (
-              // 사용자가 로그인하지 않은 경우
-              <>
-                <Link to="SignIn" className="signInBtn">
-                  로그인
-                </Link>
-                <Link to="/SignUp" className="signUpBtn">
-                  회원가입
-                </Link>
-              </>
-            )}
+              ) : (
+                // 사용자가 로그인하지 않은 경우
+                <>
+                  <Link to="SignIn" className="signInBtn">
+                    로그인
+                  </Link>
+                  <Link to="/SignUp" className="signUpBtn">
+                    회원가입
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
-      </div>
+        </div>
+      </nav>
     </header>
   );
 }
