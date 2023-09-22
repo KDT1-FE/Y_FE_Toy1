@@ -23,8 +23,8 @@ export default function Header({ uid, email }: Props) {
     if (startTime) {
       const id = setInterval(() => {
         const diffMSec = new Date().getTime() - startTime.getTime();
-        const diffHour = Number((diffMSec / (60 * 60 * 1000)).toFixed());
-        const diffMin = Number((diffMSec / (60 * 1000)).toFixed());
+        const diffHour = Math.floor(diffMSec / (60 * 60 * 1000));
+        const diffMin = Math.floor(diffMSec / (60 * 1000));
         setWorkingHours(diffHour);
         setWorkingMinutes(diffMin);
       }, 1000);
@@ -114,7 +114,7 @@ export default function Header({ uid, email }: Props) {
               padding={"0.3125rem 0.75rem"}
               onClick={onCommuteClick}
             />
-            <style.LogoutBtn onClick={logout}>Logout</style.LogoutBtn>
+            <style.LogoutBtn onClick={logout}>LOGOUT</style.LogoutBtn>
           </style.Wrapper>
         </style.Top>
         <style.Bottom>

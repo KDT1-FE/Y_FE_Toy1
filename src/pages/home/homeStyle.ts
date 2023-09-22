@@ -49,6 +49,40 @@ export const MainTitleWrapper = styled.div`
   justify-content: space-between;
 `;
 
+export const MainTitle = styled.div`
+  color: var(--color-dark-gray);
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: normal;
+  text-align: left;
+`;
+
+export const SideSkeleton = styled.div`
+  width: 100%;
+  height: 168px;
+  border-radius: 15px;
+  color: rgba(0, 0, 0, 0);
+  background-image: linear-gradient(
+    100deg,
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.1)
+  );
+  background-size: 400% 100%;
+  animation: skeleton-loading 7s linear infinite;
+
+  @keyframes skeleton-loading {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+`;
+
 export const MoreBtn = styled(Link)`
   color: var(--color-gray);
   font-weight: 500;
