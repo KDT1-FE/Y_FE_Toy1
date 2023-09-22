@@ -2,11 +2,10 @@ import * as Styled from "./WikiCategoryListStyle";
 import { useState } from "react";
 import { Wiki, WikiCategoryProps } from "@/components/wiki/WikiCommonType";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 const WikiCategoryList = ({
   WiKiList,
-  hasChildMap,
   onEntryClick,
   onArrowClick,
   isVisible,
@@ -45,15 +44,13 @@ const WikiCategoryList = ({
                 <Styled.WikiTitle selected={wiki.wikiID === selectedWikiId}>
                   {wiki.title}
                 </Styled.WikiTitle>
-                {hasChildMap[wiki.wikiID] && (
-                  <Styled.ArrowIcon onClick={() => handleArrowClick(wiki)}>
-                    {unfoldedWikiIds.includes(wiki.wikiID) ? (
-                      <FontAwesomeIcon icon={faArrowUp} />
-                    ) : (
-                      <FontAwesomeIcon icon={faArrowDown} />
-                    )}
-                  </Styled.ArrowIcon>
-                )}
+                <Styled.ArrowIcon onClick={() => handleArrowClick(wiki)}>
+                  {unfoldedWikiIds.includes(wiki.wikiID) ? (
+                    <FontAwesomeIcon icon={faChevronUp} />
+                  ) : (
+                    <FontAwesomeIcon icon={faChevronDown} />
+                  )}
+                </Styled.ArrowIcon>
               </Styled.ParentWikiWrapper>
             ) : (
               <>

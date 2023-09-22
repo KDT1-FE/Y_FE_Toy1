@@ -13,7 +13,7 @@ import * as style from "./GallerySideStyle";
 import Button from "../common/Button";
 import Input from "../common/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 const firestore = getFirestore(app);
 
@@ -199,11 +199,11 @@ export default function GallerySide({
                       <style.ArrowIcon>🔧</style.ArrowIcon>
                     ) : drop[index] ? (
                       <style.ArrowIcon>
-                        <FontAwesomeIcon icon={faArrowUp} />
+                        <FontAwesomeIcon icon={faChevronUp} />
                       </style.ArrowIcon>
                     ) : (
                       <style.ArrowIcon>
-                        <FontAwesomeIcon icon={faArrowDown} />
+                        <FontAwesomeIcon icon={faChevronDown} />
                       </style.ArrowIcon>
                     )}
                   </style.Arrow>
