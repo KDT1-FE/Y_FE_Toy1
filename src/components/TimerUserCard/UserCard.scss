@@ -1,9 +1,9 @@
 @import '/src/styles/common';
 
 .user-card__container {
-  background-color: $blackColor;
+  background-color: $mainColor;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(25%, auto));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 330px));
   row-gap: 0.2rem;
   margin: 20px;
   border-radius: 20px;
@@ -12,9 +12,12 @@
   font-family: $fontMain;
   h3 {
     font-family: 'LOTTERIACHAB';
-    margin: 15% 0px 0px 20%;
+    text-align: left;
+    display: flex;
+    align-items: center;
     font-size: 5rem;
     color: white;
+    justify-content: center;
   }
 }
 .user-card {
@@ -26,13 +29,18 @@
   border-radius: 20px;
   background-image: url('https://i.pinimg.com/564x/c8/77/f3/c877f377d10dc6ffa07c3f50fb04e2c4.jpg');
   background-position: 10% center;
-  transition: background-position 0.7s;
+  box-shadow: 0px 9px 30px rgba(255, 149, 5, 0.1);
+  transition:
+    background-position 0.7s,
+    color 0.5s;
   cursor: pointer;
 }
 .user-card:hover {
   background-position: 90% 18%;
+  color: $blackColor;
 }
 .user-card img {
+  border: solid 1px $blackColor;
   width: 150px;
   height: 150px;
   border-radius: 50%;
