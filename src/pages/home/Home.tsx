@@ -33,12 +33,12 @@ export default function Home() {
   return (
     <>
       <style.Temp>
-        <style.Item1>
+        <style.MainNotificationTitle>
           <style.MainTitle>공지사항</style.MainTitle>
-        </style.Item1>
-        <style.Item2>
+        </style.MainNotificationTitle>
+        <style.MainCarousel>
           <Carousel />
-        </style.Item2>
+        </style.MainCarousel>
         <style.MainTitleWrapper>
           <style.MainTitle>최근 업데이트 된 WIKI</style.MainTitle>
           <style.MoreBtn to={"/wiki"}>더보기 &gt;</style.MoreBtn>
@@ -59,16 +59,15 @@ export default function Home() {
             <style.SideSkeleton />
           </>
         )}
-
-        <style.Item6>
+        <style.MainGalleryTitle>
           <style.MainTitleWrapper>
             <style.MainTitle>최근 업데이트 된 GALLERY</style.MainTitle>
             <style.MoreBtn to={"/gallery"}>더보기 &gt;</style.MoreBtn>
           </style.MainTitleWrapper>
-        </style.Item6>
-        <style.Item7>
+        </style.MainGalleryTitle>
+        <style.MainGalleryPreview>
           <GalleryPreview />
-        </style.Item7>
+        </style.MainGalleryPreview>
       </style.Temp>
     </>
   );

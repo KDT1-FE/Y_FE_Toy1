@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { app } from "@/firebase/firebase";
 import {
   getStorage,
@@ -31,7 +31,7 @@ export default function GalleryPreview() {
     };
   }
 
-  const [imagepaths, setImagepaths] = useState<string[]>([]);
+  const [imagepaths, setImagepaths] = useState<string[]>();
   const [currentindex, setCurrentindex] = useState<number>(0);
 
   useEffect(() => {
@@ -96,16 +96,63 @@ export default function GalleryPreview() {
 
   return (
     <>
-      <GalleryPreviewStyle
+      {imagepaths ? (
+        <>
+        <GalleryPreviewStyle
         $currentIndex={currentindex}
         $imagePaths={imagepaths}
-        onClick={goToGallery}
-      >
+        onClick={goToGallery}>
+
         <div style={{ height: "15rem" }}></div>
-      </GalleryPreviewStyle>
+        </GalleryPreviewStyle>
+        </>
+
+      ) : (
+      <GalleryPreviewSkeleton className={"skeleton"} />
+      )}
     </>
   );
 }
+
+const GalleryPreviewSkeleton = styled.div`
+
+  &.skeleton {
+    position: relative;
+    width: 100%;
+    height: 15rem;
+    overflow: hidden;
+  
+  }
+  &::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 15px;
+    color: rgba(0, 0, 0, 0);
+    background-image: linear-gradient(
+      100deg,
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.1)
+    );
+    background-size: 400% 100%;
+    animation: skeleton-loading 7s linear infinite;
+
+    @keyframes skeleton-loading {
+      0% {
+        background-position: 200% 0;
+      }
+      100% {
+        background-position: -200% 0;
+      }
+    }
+  }
+`;
 
 const GalleryPreviewStyle = styled.div<{
   $imagePaths: string[];
@@ -118,5 +165,7 @@ const GalleryPreviewStyle = styled.div<{
   background-repeat: no-repeat;
   border-radius: 10px;
   cursor: pointer;
+  overflow: hidden;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  
 `;
