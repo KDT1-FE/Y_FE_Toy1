@@ -93,10 +93,10 @@ export default function Carousel() {
                 <TBody>
                   {data.map((item, index) => (
                     <tr key={index}>
-                      <TH>{item.date}</TH>
-                      <TH>{item.startTime}</TH>
-                      <TH>{item.endTime}</TH>
-                      <TH>{item.workingTime}</TH>
+                      <TD>{item.date}</TD>
+                      <TD>{item.startTime}</TD>
+                      <TD>{item.endTime}</TD>
+                      <TD>{item.workingTime}</TD>
                     </tr>
                   ))}
                 </TBody>
@@ -117,26 +117,30 @@ const H2 = styled.h2`
 `;
 
 const Table = styled.table`
-  border: 1px solid #e2e2e2;
-  border-radius: 10px;
+  border-radius: 4px;
+  box-sizing: border-box;
   width: 100%;
-  margin-top: 0.5rem;
-  margin-bottom: 4.5rem;
-  border-collapse: collapse;
+  margin-top: 10px;
+  border-spacing: 0;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid #ddd;
 `;
 
 const THead = styled.thead`
-  background-color: #e2e2e2;
+  background-color: #eee;
   padding: 8px;
 
   th {
     padding: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
   }
 `;
 
-const TH = styled.th`
-  border-bottom: 1px solid #e2e2e2;
-  padding: 6px;
+const TD = styled.td`
+  padding: 8px;
 `;
 
 const TBody = styled.tbody`
@@ -144,7 +148,6 @@ const TBody = styled.tbody`
 `;
 
 const Message = styled.p`
-  margin-top: 0.5rem;
   color: gray;
   font-size: 16px;
   font-weight: 400;

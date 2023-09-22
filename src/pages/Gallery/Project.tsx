@@ -4,6 +4,7 @@ import ImageWrapper from './ImageWrapper';
 import { db } from '../../common/config';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import LoadingSpinner from './LoadingSpinner';
+import { CategoryTitleSection, CategoryTitle, BreadCrumb } from '../../utils/CategoryTitleSection';
 
 interface ProjectStateProps {
   state: string;
@@ -86,22 +87,6 @@ export const GalleryMainContainer = styled.div`
   width: 100%;
   padding: 10px 30px 30px;
 `;
-
-export const CategoryTitleSection = styled.section`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const BreadCrumb = styled.span`
-  font-size: 12px;
-  text-align: right;
-  color: gray;
-`;
-export const CategoryTitle = styled.h1`
-  font-size: 32px;
-`
-
 
 export const ImageSection = styled.section`
   display: flex;

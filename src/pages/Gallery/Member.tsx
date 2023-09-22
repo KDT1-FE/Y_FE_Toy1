@@ -1,12 +1,7 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
-import {
-  GalleryMainContainer,
-  CategoryTitleSection,
-  BreadCrumb,
-  CategoryTitle,
-  ImageSection as ProfileSection,
-} from './Project';
+import { GalleryMainContainer, ImageSection as ProfileSection } from './Project';
+import { CategoryTitleSection, CategoryTitle, BreadCrumb } from '../../utils/CategoryTitleSection';
 import { BsPhone } from 'react-icons/bs';
 import { AiOutlineMail } from 'react-icons/ai';
 import { db } from '../../common/config';

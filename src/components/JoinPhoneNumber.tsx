@@ -86,7 +86,14 @@ const JoinPhoneNumber = ({ user }: { user: User | null }) => {
       <form onSubmit={addPhoneNumber}>
         <label>휴대폰번호</label>
         <InputContainer>
-          <input required type="tel" name="phone" value={phone} onChange={handlePhoneChange} />
+          <input
+            required
+            type="tel"
+            name="phone"
+            value={phone}
+            onChange={handlePhoneChange}
+            placeholder="휴대폰번호를 입력해주세요."
+          />
           <button type="submit">인증</button>
         </InputContainer>
         <span>휴대폰번호는 숫자만 입력해주세요. (예 : 01012345678)</span>
@@ -118,7 +125,7 @@ const PhoneAuthSection = styled.div`
     padding: 10px;
     outline: none;
     border-radius: 4px;
-    border: 1px solid #9d9c9c30;
+    border: 1px solid #ddd;
     height: 41px;
     box-sizing: border-box;
   }

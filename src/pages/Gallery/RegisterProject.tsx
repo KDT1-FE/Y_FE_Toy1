@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
-import { GalleryMainContainer, CategoryTitleSection, BreadCrumb, CategoryTitle } from './Project';
+import { GalleryMainContainer } from './Project';
+import { CategoryTitleSection, CategoryTitle, BreadCrumb } from '../../utils/CategoryTitleSection';
 import { collection, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../../common/config';
@@ -58,14 +59,14 @@ const RegisterProject = () => {
           imageUrl: imageUrl,
           name: projectInfo.name,
           description: projectInfo.description,
-          participants: newParticipants
+          participants: newParticipants,
         });
       } else {
         await addDoc(collection(db, 'projectData'), {
           state: projectInfo.state,
           name: projectInfo.name,
           description: projectInfo.description,
-          participants: newParticipants
+          participants: newParticipants,
         });
       }
 

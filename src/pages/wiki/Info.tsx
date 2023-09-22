@@ -5,12 +5,8 @@ import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import styled from 'styled-components';
 import { useUser } from '../../common/UserContext';
-import { CategoryTitleSection, BreadCrumb } from '../Gallery/Project';
-
-export const StyledContainer = styled.div`
-  padding: 10px 30px 30px;
-  width: 100%;
-`;
+import { CategoryTitleSection, CategoryTitle, BreadCrumb } from '../../utils/CategoryTitleSection';
+import { SubPageContainer } from '../../utils/CommonDesign';
 
 export const StyledTitle = styled.input`
   display: block;
@@ -100,7 +96,7 @@ const Info = () => {
   };
 
   return (
-    <StyledContainer>
+    <SubPageContainer>
       {isEditing ? (
         <>
           <StyledTitle
@@ -122,7 +118,7 @@ const Info = () => {
       ) : (
         <>
           <CategoryTitleSection>
-            <h1>{title}</h1>
+            <CategoryTitle>{title}</CategoryTitle>
             <BreadCrumb>위키 &gt; 소개 &gt; 기본 정보</BreadCrumb>
           </CategoryTitleSection>
 
@@ -137,7 +133,7 @@ const Info = () => {
       )}
       <hr />
       <StyledButton onClick={handleEditClick}>{isEditing ? '저장' : '편집'}</StyledButton>
-    </StyledContainer>
+    </SubPageContainer>
   );
 };
 

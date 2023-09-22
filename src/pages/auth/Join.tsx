@@ -7,6 +7,7 @@ import { doc, setDoc, updateDoc } from 'firebase/firestore';
 import useBlobUrl from '../../hooks/useBlobUrl';
 import JoinPhoneNumber from '../../components/JoinPhoneNumber';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import { SubPageContainer } from '../../utils/CommonDesign';
 
 import { useUser } from '../../common/UserContext';
 
@@ -132,18 +133,18 @@ const Join = () => {
   };
 
   return (
-    <AuthMainContainer>
+    <SubPageContainer>
       {isLoading && <LoadingSpinner />}
       <CategoryTitleSection>
         <CategoryTitle>회원가입</CategoryTitle>
         <BreadCrumb>회원인증 &gt; 회원가입</BreadCrumb>
       </CategoryTitleSection>
-      <form onSubmit={handleJoin}>
+      <AuthForm onSubmit={handleJoin}>
         <PhotoSection>
           <p>회원 사진</p>
           <PhotoContainer>
             <PreviewImage
-              style={url ? { backgroundImage: `url(${url})` } : { backgroundImage: `none` }}
+              style={url ? { backgroundImage: `url(${url})` } : { backgroundColor: 'lightgray' }}
             ></PreviewImage>
 
             <label>사진</label>
@@ -199,35 +200,30 @@ const Join = () => {
           </InputContainer>
           <button type="submit">회원가입</button>
         </InfoSection>
-      </form>
+      </AuthForm>
 
       {user && (
         <PhoneSection>
           <JoinPhoneNumber user={user} />
         </PhoneSection>
       )}
-    </AuthMainContainer>
+    </SubPageContainer>
   );
 };
 
-const AuthMainContainer = styled.div`
-  width: 100%;
-  padding: 10px 30px 30px;
+const AuthForm = styled.form`
+  margin-top: 15px;
+  display: grid;
+  grid-template: auto / repeat(2, 45%);
+  justify-content: space-between;
+  gap: 10px;
 
-  > form {
-    margin-top: 15px;
-    display: grid;
-    grid-template: auto / repeat(2, 45%);
-    justify-content: space-between;
-    gap: 10px;
+  @media screen and (max-width: 1150px) {
+    margin-bottom: 20px;
+    grid-template: auto / repeat(1, 100%);
 
-    @media screen and (max-width: 1150px) {
-      margin-bottom: 20px;
-      grid-template: auto / repeat(1, 100%);
-
-      > div {
-        width: 100%;
-      }
+    > div {
+      width: 100%;
     }
   }
 `;
@@ -262,7 +258,7 @@ const PhotoSection = styled.div`
 const PhoneSection = styled.div`
   margin-top: 50px;
   grid-column: 1 / span 1;
-  border: 1px solid #9d9c9c30;
+  border: 1px solid #ddd;
   padding: 40px;
   border-radius: 4px;
 `;
@@ -270,9 +266,15 @@ const CategoryTitleSection = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media screen and (max-width: 700px) {
+    display: block;
+    h1 {
+      font-size: 25px;
+    }
+  }
 `;
 const CategoryTitle = styled.h1`
-  font-size: 32px;
+  font-size: 28px;
 `;
 const BreadCrumb = styled.span`
   font-size: 12px;
@@ -295,7 +297,7 @@ const InputContainer = styled.div`
     padding: 10px;
     outline: none;
     border-radius: 4px;
-    border: 1px solid #9d9c9c30;
+    border: 1px solid #ddd;
   }
 
   span {
@@ -318,11 +320,11 @@ const PreviewImage = styled.div`
   min-width: 200px;
   max-width: 500px;
   aspect-ratio: 1;
-  background-color: lightgray;
+  background-color: white;
   background-size: cover;
   background-position: center;
   border-radius: 4px;
-  border: 0.1px solid #9d9c9c30;
+  border: 1px solid #ddd;
 `;
 
 export default Join;

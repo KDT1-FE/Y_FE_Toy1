@@ -4,6 +4,7 @@ import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { useUser } from '../../common/UserContext';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { SubPageContainer } from '../../utils/CommonDesign';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -42,12 +43,12 @@ const Login = () => {
   };
 
   return (
-    <AuthMainContainer>
+    <SubPageContainer>
       <CategoryTitleSection>
         <CategoryTitle>로그인</CategoryTitle>
         <BreadCrumb>회원인증 &gt; 로그인</BreadCrumb>
       </CategoryTitleSection>
-      <form onSubmit={handleLogin}>
+      <AuthForm onSubmit={handleLogin}>
         <LoginSection>
           <InputContainer>
             <label>이메일</label>
@@ -79,28 +80,23 @@ const Login = () => {
             <Link to="/login/join">회원가입</Link>
           </JoinContainer>
         </JoinSection>
-      </form>
-    </AuthMainContainer>
+      </AuthForm>
+    </SubPageContainer>
   );
 };
 
-const AuthMainContainer = styled.div`
-  width: 100%;
-  padding: 10px 30px 30px;
+const AuthForm = styled.form`
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
 
-  form {
-    margin-top: 15px;
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
+  @media screen and (max-width: 1150px) {
+    flex-direction: column;
+    margin-bottom: 20px;
 
-    @media screen and (max-width: 1150px) {
-      flex-direction: column;
-      margin-bottom: 20px;
-
-      div {
-        width: 100%;
-      }
+    div {
+      width: 100%;
     }
   }
 `;
@@ -115,9 +111,15 @@ const CategoryTitleSection = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media screen and (max-width: 700px) {
+    display: block;
+    h1 {
+      font-size: 25px;
+    }
+  }
 `;
 const CategoryTitle = styled.h1`
-  font-size: 32px;
+  font-size: 28px;
 `;
 const BreadCrumb = styled.span`
   font-size: 12px;
@@ -138,7 +140,7 @@ const InputContainer = styled.div`
     padding: 10px;
     outline: none;
     border-radius: 4px;
-    border: 1px solid #9d9c9c30;
+    border: 1px solid #ddd;
     margin-bottom: 20px;
   }
 `;

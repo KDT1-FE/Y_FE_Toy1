@@ -97,6 +97,9 @@ const Container = styled.header`
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 
   z-index: 20;
+  @media screen and (max-width: 700px) {
+    padding: 0 0.5rem;
+  }
 `;
 
 const Navbar = styled.nav`
@@ -168,7 +171,7 @@ const InputWrapper = styled.div`
 
 const StyledImage = styled.img`
   width: 80px;
-  padding-left: 10px;
+  margin-left: 0.3rem;
 `;
 
 export default Header;

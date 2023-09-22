@@ -1,11 +1,22 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { auth } from '../../common/config';
-import { onAuthStateChanged, User } from 'firebase/auth';
+import {
+  onAuthStateChanged,
+  User,
+  sendPasswordResetEmail,
+  sendEmailVerification,
+  deleteUser,
+  EmailAuthProvider,
+  reauthenticateWithCredential,
+} from 'firebase/auth';
 import CommuteTable from '../../components/CommuteTable';
 import { formatPhoneNumber } from '../../utils/formatPhoneNumber';
 import { BsPhone } from 'react-icons/bs';
 import { AiOutlineMail } from 'react-icons/ai';
+import { CategoryTitleSection, CategoryTitle, BreadCrumb } from '../../utils/CategoryTitleSection';
+import { SubPageContainer } from '../../utils/CommonDesign';
+
 const UserInfo = () => {
   const [user, setUser] = useState<User | null>(null);
   useEffect(() => {
@@ -38,65 +49,252 @@ const UserInfo = () => {
   const creationTime = user?.metadata.creationTime;
   const creation = creationTime ? formatDate(creationTime) : undefined;
 
+  const reAuthLogin = () => {
+    return new Promise((resolve, reject) => {
+      if (user?.email) {
+        const password = window.prompt('비밀번호를 입력해 주세요.');
+        if (password) {
+          const credential = EmailAuthProvider.credential(user.email, password);
+          reauthenticateWithCredential(user, credential)
+            .then(() => {
+              console.log('재인증 성공');
+              resolve(true);
+            })
+            .catch((error) => {
+              console.log(error);
+              reject(false);
+            });
+        } else {
+          reject(false); // 사용자가 비밀번호를 입력하지 않은 경우
+        }
+      } else {
+        reject(false); // 사용자의 이메일이 없는 경우
+      }
+    });
+  };
+
+  const handlePassword = async () => {
+    if (user?.emailVerified) {
+      if (user?.email) {
+        await reAuthLogin();
+        sendPasswordResetEmail(auth, user?.email)
+          .then(() => {
+            alert(`${user.displayName}님의 이메일 주소로 비밀번호 변경 url을 전송하였습니다.`);
+          })
+          .catch(() => {
+            alert('비밀번호 변경 이메일 전송에 실패하였습니다.');
+          });
+      } else {
+        alert('회원 정보가 없습니다. 관리자에 문의해주세요.');
+      }
+    } else {
+      alert('이메일 인증을 먼저 진행해주세요.');
+    }
+  };
+
+  const handleEmailConfirm = () => {
+    if (user) {
+      sendEmailVerification(user)
+        .then(() => {
+          alert('인증 이메일을 전송했습니다. 이메일을 확인해 주세요.');
+        })
+        .catch(() => {
+          alert('인증 이메일 전송에 실패하였습니다.');
+        });
+    } else {
+      alert('회원 정보가 없습니다. 관리자에 문의해주세요.');
+    }
+  };
+
+  const handleDeleteUser = async () => {
+    if (user) {
+      const result = await window.confirm('회원 탈퇴하시겠습니까?');
+      if (result) {
+        const reAuth = await reAuthLogin();
+        if (reAuth) {
+          await deleteUser(user)
+            .then(() => {
+              alert('회원 탈퇴가 완료되었습니다.');
+              window.location.href = '/';
+            })
+            .catch((error) => {
+              alert('회원 탈퇴에 실패하였습니다. 관리자에 문의해주세요.');
+              console.log(error);
+            });
+        }
+      }
+    } else {
+      alert('회원 정보가 없습니다. 관리자에 문의해주세요.');
+    }
+  };
+
   return (
-    <MypageMainContainer>
+    <SubPageContainer>
       <CategoryTitleSection>
-        <CategoryTitle>마이페이지</CategoryTitle>
+        <CategoryTitle>회원 정보</CategoryTitle>
         <BreadCrumb>마이페이지 &gt; 회원 정보</BreadCrumb>
       </CategoryTitleSection>
       <InfoTextSection>
-        <h2>{user?.displayName}</h2>
-        <p className="email">
-          <AiOutlineMail style={{ flexShrink: '0' }} />
-          {user?.email}
-        </p>
-        {user?.phoneNumber && (
-          <p className="phone">
-            <BsPhone />
-            {formatPhoneNumber(user.phoneNumber)}
+        <TextSection>
+          <h2>{user?.displayName}</h2>
+          <p className="email">
+            <AiOutlineMail style={{ flexShrink: '0' }} />
+            {user?.email}
           </p>
-        )}
+          {user?.phoneNumber && (
+            <p className="phone">
+              <BsPhone />
+              {formatPhoneNumber(user.phoneNumber)}
+            </p>
+          )}
+        </TextSection>
+        <ButtonSection>
+          {user && !user.emailVerified && (
+            <button className="button--email" onClick={handleEmailConfirm}>
+              이메일 인증
+            </button>
+          )}
+          <button
+            className={user?.emailVerified ? 'button--password confirm' : 'button--password'}
+            onClick={handlePassword}
+          >
+            비밀번호 변경
+          </button>
+          <button className="button--delete" onClick={handleDeleteUser}>
+            회원탈퇴
+          </button>
+          <p>비밀번호는 이메일 인증이 완료된 이후에 변경 가능합니다.</p>
+        </ButtonSection>
       </InfoTextSection>
       <InfoBoxSection>
-        <p>{lastSign}</p>
-        <p>{creation}</p>
-        {user?.emailVerified ? <p>이메일 인증 완료</p> : <p>이메일 인증 미완료</p>}
+        <ul>
+          <li>
+            <strong>최초 가입일</strong>
+            <p>{creation}</p>
+          </li>
+          <li>
+            <strong>최종 방문일</strong>
+            <p>{lastSign}</p>
+          </li>
+          <li>
+            <strong>이메일 인증</strong>
+            {user?.emailVerified ? <p>이메일 인증 완료</p> : <p>이메일 인증 미완료</p>}
+          </li>
+        </ul>
       </InfoBoxSection>
       <CommuteTable />
-    </MypageMainContainer>
+    </SubPageContainer>
   );
 };
 
-const MypageMainContainer = styled.div`
-  width: 100%;
-  padding: 10px 30px 30px;
-`;
-
-const CategoryTitleSection = styled.div`
+const InfoTextSection = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-top: 15px;
   align-items: center;
+  @media screen and (max-width: 700px) {
+    display: block;
+  }
 `;
-const CategoryTitle = styled.h1`
-  font-size: 32px;
-`;
-const BreadCrumb = styled.span`
-  font-size: 12px;
-  text-align: right;
-  color: gray;
-`;
-
-const InfoTextSection = styled.div`
-h2 {
+const TextSection = styled.div`
+  h2 {
     font-size: 18px;
     font-weight: bold;
-}
-p {
-    font-size:14px;
-}
-
-}
+    margin-bottom: 5px;
+  }
+  p svg {
+    width: 30px;
+  }
 `;
-const InfoBoxSection = styled.div``;
+
+const ButtonSection = styled.div`
+  button {
+    font-family: 'Noto Sans KR';
+    width: auto;
+    padding: 0 15px;
+    cursor: pointer;
+    height: 35px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    line-height: 35px;
+  }
+  button.button--email,
+  button.button--password {
+    margin-right: 5px;
+  }
+  button.button--password {
+    background-color: gray;
+  }
+  button.button--email,
+  button.button--password.confirm {
+    background-color: rgb(50, 103, 177);
+  }
+
+  button.button--delete {
+    background-color: #333;
+  }
+  p {
+    display: block;
+    font-size: 12px;
+    color: gray;
+    text-align: right;
+    margin-top: 5px;
+  }
+
+  @media screen and (max-width: 700px) {
+    margin-top: 10px;
+
+    p {
+      text-align: left;
+    }
+    button {
+      padding: 0 10px;
+    }
+  }
+`;
+
+const InfoBoxSection = styled.div`
+  margin-top: 20px;
+  ul {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: flex;
+  }
+  li {
+    width: 33.33%;
+    border-left: 1px solid #ddd;
+    box-sizing: border-box;
+    padding: 15px 25px;
+  }
+  li:first-child {
+    border-left: none;
+  }
+  strong {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  p {
+    font-size: 14px;
+    color: gray;
+  }
+
+  @media screen and (max-width: 700px) {
+    ul {
+      display: block;
+    }
+    li {
+      width: 100%;
+      border-left: 0;
+      border-bottom: 1px solid #ddd;
+    }
+    li:last-child {
+      border-bottom: 0;
+    }
+  }
+`;
 
 export default UserInfo;

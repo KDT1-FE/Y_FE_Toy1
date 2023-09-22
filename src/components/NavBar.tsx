@@ -43,6 +43,8 @@ const Container = styled.nav`
 `;
 
 const Categories = styled.div`
+  box-sizing: border-box;
+  padding: 0 2rem 0 2.6rem;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -52,18 +54,26 @@ const Categories = styled.div`
 
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 
+  @media screen and (max-width: 700px) {
+    padding: 0 0.5rem 0 1.1rem;
+  }
+
   button.menu-btn {
     display: flex;
     position: absolute;
-    right: 0;
+    right: 2rem;
     top: 50%;
     transform: translateY(-50%);
 
     background-color: transparent;
     outline: none;
     border: none;
-    padding: 8px;
+    padding: 0.6rem;
     cursor: pointer;
+
+    @media screen and (max-width: 700px) {
+      right: 0.5rem;
+    }
 
     @media screen and (min-width: 1024px) {
       display: none;
