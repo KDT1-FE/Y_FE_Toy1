@@ -158,6 +158,14 @@ const Sidebar = () => {
                 학습시간 등급 안내
               </Link>
             </li>
+            <li key={"학습 시간왕"} className="sidebar__menu">
+              <Link
+                to="학습 시간왕"
+                onClick={() => handleItemClick("학습 시간왕")}
+              >
+                학습 시간왕
+              </Link>
+            </li>
           </SidebarList>
           <SidebarBottom />
         </Container>
@@ -293,7 +301,7 @@ const Container = styled.aside`
   z-index: 9;
   width: 200px;
   height: 100%;
-  border-right: 2px solid #ddd;
+  border-right: 3px solid #ddd;
 
   .sidebar__bottom {
     bottom: 0;

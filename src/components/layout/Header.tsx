@@ -9,7 +9,7 @@ import StudyTime from "components/template/StudyTime";
 import UserInfo from "components/template/UserInfo";
 import DarkModeBtn from "provider/darkModeContext";
 import { IsMobile } from "utils/mediaQuery";
-
+import { ThemeContext } from "../../provider/darkModeProvider";
 
 const Header = () => {
   const pageLink = ["Wiki", "Gallery", "Rank"];
@@ -23,6 +23,9 @@ const Header = () => {
   const [isStudying, setIsStudying] = useState(false);
   const [modalButtonText, setModalButtonText] = useState("학습 기록");
   const [mobileUserInfo, setMobileUserInfo] = useState(false);
+
+  const { currentTheme } = useContext(ThemeContext);
+  const theme: "dark" | "light" = currentTheme;
 
   const handlerLogout = () => {
     setDisplayUserInfo(false);
@@ -45,8 +48,8 @@ const Header = () => {
   };
 
   const toggleStudyStatus = () => {
-    setIsStudying(prev=>!prev)
-  }
+    setIsStudying((prev) => !prev);
+  };
 
   useEffect(() => {
     setPathLink(location.pathname.split("/")[1]);
@@ -120,18 +123,14 @@ const Header = () => {
           <MobileFirstHeader>
             <div></div>
             <Link to={`/`}>
-              <img
-                className="header__mobile-logo"
-                src={process.env.PUBLIC_URL + "/svg/logo_black.svg"}
-                alt="로고"
-              />
+              <h1>FASTWIKI</h1>
             </Link>
             <img
               onClick={() => {
                 setMobileUserInfo((prev) => !prev);
               }}
               className="header__mobile-user"
-              src={process.env.PUBLIC_URL + "/svg/icon_user.svg"}
+              src={process.env.PUBLIC_URL + `/svg/icon_user_${theme}.svg`}
               alt="유저모양아이콘"
             />
           </MobileFirstHeader>
@@ -286,6 +285,16 @@ const MobileContainer = styled.nav`
   flex-flow: column;
   box-sizing: border-box;
 
+  h1 {
+    font-weight: 700;
+    font-size: 20px;
+    color: ${(props) => props.theme.text};
+  }
+
+  h2 {
+    color: ${(props) => props.theme.text};
+  }
+
   .header__mobile-user {
     width: 30px;
     height: 30px;
@@ -300,6 +309,7 @@ const MobileContainer = styled.nav`
   .active {
     color: var(--main-color);
   }
+
   h2 {
     font-size: 1.1rem;
   }
@@ -394,7 +404,7 @@ const Container = styled.nav`
   background-color: #fff;
   h1 {
     font-size: 1.4rem;
-    font-weight: bold;
+    color: ${(props) => props.theme.text};
   }
   h2 {
     font-size: 1.2rem;
