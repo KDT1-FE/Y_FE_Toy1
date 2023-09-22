@@ -4,6 +4,7 @@ import { commuteType } from '../data/atoms';
 import ModalMessage from './ModalMessage';
 import { Time } from '../utils/formatTime';
 import { SmallButtonDarkGray, SmallButtonBlue } from '../utils/CommonDesign';
+import CommuteButton from '../common/CommuteButton';
 
 interface Props {
   isModalOpen: boolean;
@@ -45,12 +46,14 @@ const CommuteModal = ({
   const secondaryButtonHandler = workingTime ? editWorkingTime : toggleModal;
   const timer = new Time();
 
+  const [year, month, day, date] = timer.date.split('. ');
+
   return (
     <>
       <Overlay onClick={toggleModal} className={isModalOpen ? 'open' : ''} />
       <ModalContainer className={isModalOpen ? 'open' : ''} id="commute-modal">
         <TimerWrapper>
-          <span className="date">{timer.date}</span>
+          <span className="date">{`${year}년 ${month}월 ${day}일 ${date}`}</span>
           <span className="time">{currentTime.toLocaleTimeString('it-IT')}</span>
         </TimerWrapper>
 
@@ -61,10 +64,22 @@ const CommuteModal = ({
         <ButtonWrapper>
           {uid && (
             <>
-              <SmallButtonBlue onClick={mainButtonHandler}>{mainButtonLabel}</SmallButtonBlue>
-              <SmallButtonDarkGray onClick={secondaryButtonHandler}>
+              <CommuteButton
+                color="white"
+                hoverColor="rgb(76, 128, 201)"
+                backgroundColor="rgb(50, 103, 177)"
+                onClick={mainButtonHandler}
+              >
+                {mainButtonLabel}
+              </CommuteButton>
+              <CommuteButton
+                hoverColor="#ebebeb"
+                color="black"
+                backgroundColor="#ddd"
+                onClick={secondaryButtonHandler}
+              >
                 {secondaryButtonLabel}
-              </SmallButtonDarkGray>
+              </CommuteButton>
             </>
           )}
         </ButtonWrapper>
@@ -98,14 +113,14 @@ const ModalContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 2rem;
+  padding: 1.2rem;
 
   min-width: 250px;
-  max-width: 300px;
-  min-height: 400px;
+  max-width: 500px;
+  min-height: 300px;
 
   border: ${(props) => props.theme.colors.card.border};
-  border-radius: 0.6rem;
+  border-radius: 1.2rem;
   box-shadow: ${(props) => props.theme.colors.card.shadow};
 
   background-color: #ffffff;
@@ -129,9 +144,44 @@ const TimerWrapper = styled.div`
   flex-direction: column;
 
   width: 100%;
+
+  .date {
+    display: block;
+    font-weight: 700;
+    font-size: 1.8rem;
+
+    color: rgb(63, 68, 77);
+  }
+
+  .time {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 2.8rem;
+    font-weight: 600;
+  }
 `;
 
-const ContentWrapper = styled.div``;
+const ContentWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+
+  p {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgb(98, 104, 111);
+
+    strong {
+      font-size: 1.2rem;
+      color: #252525;
+    }
+  }
+`;
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -139,9 +189,10 @@ const ButtonWrapper = styled.div`
   align-items: center;
 
   width: 100%;
-  button {
-    width: 110px;
-    margin: 0 2.5px;
+  gap: 0.6rem;
+
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
   }
 `;
 
