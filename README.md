@@ -1,203 +1,104 @@
-# **📅 직원들을 위한 위키 사이트**
+# 💻 Toy Project1
 
-직원 들을 위한 위키 사이트를 만들어보세요!
-위키 사이트에는 위키 뿐 아니라 여러 기능이 추가되어야 합니다!
+## 📌 개요
 
-### **[과제 수행 및 제출 방법]**
+- 직원들을 위한 위키 사이트를 만든다.
+- Firebase Storage, DataBase, Auth를 활용하여 리소스를 관리한다.
+- TypeScript 사용을 익힌다.  
+  <br><br>
 
-1. 현재 저장소를 로컬에 클론(Clone)합니다.
-2. 자신의 팀명으로 브랜치를 생성합니다.(구분 가능하도록 팀명을 꼭 파스칼케이스로 표시하세요, git branch Y_FE_Toy1_Team13)
-3. 자신의 팀명 브랜치에서 과제를 수행합니다.
-4. 과제 수행이 완료되면, 자신의 팀명 브랜치를 원격 저장소에 푸시(Push)합니다.(main 브랜치에 푸시하지 않도록 꼭 주의하세요, git push origin Y_FE_Toy1_Team13)
-5. 저장소에서 main 브랜치를 대상으로 Pull Request 생성하면, 과제 제출이 완료됩니다!(E.g, main <== Y_FE_Toy1_Team13)
-6. Pull Request 링크를 LMS로도 제출해 주셔야 합니다.
-7. main 혹은 다른 사람의 브랜치로 절대 병합하지 않도록 주의하세요!
-8. Pull Request에서 보이는 설명을 다른 사람들이 이해하기 쉽도록 꼼꼼하게 작성하세요!
-9. Pull Request에서 과제 제출 후 절대 병합(Merge)하지 않도록 주의하세요!
-10. 과제 수행 및 제출 과정에서 문제가 발생한 경우, 바로 담당 멘토나 강사님께 얘기하세요!
+## 🐱 사이트
 
-### **[필수 구현사항]**
+<a href="https://toy13-b5244.firebaseapp.com/">
+  <img alt="Static Badge" src="https://img.shields.io/badge/포켓몬스터 위키 사이트-ffcb09?style=for-the-badge">  
+</a>
+<a href="https://github.com/JSH99/Toy1_Team13">
+  <img alt="Static Badge" src="https://img.shields.io/badge/%EC%9B%90%EB%B3%B8%20Repository-3267B1?style=for-the-badge">
+</a>
 
-- 문서편집, revision 기능을 제공하여 업무일지를 작성할 수 있는 직원들을 위한 위키사이트 구현(마크다운 형식)
-- firebase database (Firestore) 이용
-- 모달을 활용한 근무 시간을 표시하는 시계 및 타이머 창 구현
-- 캐러셀을 활용한 회사 공지 페이지
-- **갤러리 페이지 / 업무일지 페이지 등 메뉴를 필터링 또는 카테고리화 하는 선택바 구현**
-- netlify 등을 이용한 정적 페이지 배포
-- TypeScript 사용 필수
-- 과제에 대한 설명을 포함한 `README.md` 파일 작성
-    - 팀원별로 구현한 부분 소개
+포켓몬스터를 주제로 포켓몬들을 위한 위키 사이트를 제작.  
+<br><br>
 
-### **[선택 구현사항]**
+## 🧚‍♂️ 역할 분담
 
-- React 사용은 선택
-- 기타 동작이 완료되기 전에 로딩 애니메이션 구현
-- 페이지네이션
-- 관련된 기타 기능도 고려
-- eslint 설정, 커밋컨벤션, 문서화 등 팀프로젝트시 필요한 추가 작업들
+| [김민서](https://github.com/minseokiim)                              | [신하연](https://github.com/gkdus2217)                                                              | [윤석민](https://github.com/dbstjrals)                                   | [이재준](https://github.com/Gaoridang)                                                                              | [정서현](https://github.com/JSH99)                                               |
+| -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| wiki page ・ about page 구현, 피그마 디자인, firebase 호스팅 및 배포 | footer ・ login page ・ my page 구현, firebase 기본 설정 및 연결, 디자인 통합 및 모바일 반응형 구현 | gallery page (members 소개 ・ projects 관리) 구현, 피그마 디자인 및 정리 | header ・ nav bar ・ commute modal 구현, 피그마 디자인, 프로젝트 생성 및 기본 설정, 공통 util 관리, 유저플로우 작성 | main page ・ notice page 구현, 캐러셀 배너 이미지 제작, 회의록 관리, 리드미 작성 |
 
----
+<br><br>
 
-## 가이드
+## ✨ 구현 내용
 
-아래 예시는 모두 하나의 의견입니다!
+### 회원 정보 관리
 
-따라하는게 아니라 자신만의 결과물을 만들어보세요.
+![회원 정보 관리](https://github.com/JSH99/Toy1_Team13/assets/63582234/faa9d3b3-f597-41bb-a3dc-4663be46887f)  
+[ 담당 개발자: **신하연** ]
 
-### 공지사항
-[영상 1]
+- 헤더의 로그인 클릭 시 회원 인증 페이지로 이동 (로그인, 회원가입)
+- 회원가입 시 휴대폰 인증 가능
+- 로그인한 경우 헤더에서 아이콘 클릭 시 회원 정보 확인 및 마이페이지 이동
+- 마이페이지에서 회원 정보 확인 및 수정
+- 마이페이지에서 이메일 인증, 휴대폰 인증, 회원 탈퇴
+- 마이페이지에서 이메일 인증 시 비밀번호 변경 가능
+  <br>
 
+### 공지 캐러셀
 
-### **모달 타이머**
-[영상 2]
+![공지 캐러셀](https://github.com/JSH99/Toy1_Team13/assets/63582234/317f1a74-9d6b-4ad5-b7da-bf2a1fc31554)  
+[ 담당 개발자: **정서현** ]
 
+- 캐러셀 이미지 5초마다 자동으로 무한 슬라이드
+- 화살표 버튼, 동그라미 버튼으로 이미지 이동
+- 캐러셀 이미지 클릭 시 해당 공지 상세 페이지로 이동
+- 파이어베이스 데이터 가져오는 동안 로딩 스피너 동작
+  <br>
 
-https://github.com/KDT1-FE/Y_FE_Toy1/assets/38754963/20c18d28-5a01-4163-876c-be74a24f62db
+### 위키 페이지
 
+![위키 페이지](https://github.com/JSH99/Toy1_Team13/assets/63582234/0d224048-efa9-480b-ba51-024c2288c3f6)  
+[ 담당 개발자: **김민서** ]
 
+- 마크다운 형식의 위키 글 편집
+- GUI를 통해 쉬운 편집 기능 제공
+- 편집 시 마크다운 미리보기 기능 제공
+- 수정한 글 저장 시 작성자 및 작성 시간 업데이트
+  <br>
 
-### **마크다운 위키사이트**
-[영상 3]
+### 갤러리 페이지
 
+![갤러리 페이지](https://github.com/JSH99/Toy1_Team13/assets/63582234/efa46669-33ce-4f2a-a2fc-274419fb0e88)  
+[ 담당 개발자: **윤석민** ]
 
-https://github.com/KDT1-FE/Y_FE_Toy1/assets/38754963/08e3efca-8137-44d8-a0af-c62a668b810b
+- 멤버 소개 페이지에서 회원가입한 멤버들의 프로필 조회
+- 프로젝트 진행 상황 별로 예정, 진행중, 완료된 프로젝트 조회
+- 프로젝트 추가를 통한 새로운 프로젝트 생성
+- 등록되어 있는 프로젝트 상태 및 내용 수정
+- 프로젝트 생성자 표시 및 프로젝트 참여 가능
+  <br><br>
 
+### 출퇴근 기록
 
+![토이1_출퇴근](https://github.com/JSH99/Toy1_Team13/assets/63582234/78f0dcd8-5bec-40aa-adab-7652df21135b)  
+[ modal 개발자: **이재준**, table 개발자: **정서현** ]
 
-### **갤러리**
-[영상 4]
+- 출퇴근 모달 클릭 시 타이머를 통해 출근 시간, 퇴근 시간 기록
+- 퇴근 클릭 시 총 근무시간 확인
+- 당일 출근 기록이 이미 있을 경우 재출근할 건지 확인
+- 같은 날 출퇴근 여러 번 기록 가능
+- 퇴근 완료했을 경우 해당 날짜의 가장 최근 출퇴근 기록 출퇴근 테이블에 추가 (메인 페이지)  
+  <br><br>
 
----
+## 🙋🏻‍♀️ 유저 플로우
 
-# **[Firestore]**
+<img width="2856" alt="user flow" src="https://github.com/JSH99/Toy1_Team13/assets/63582234/44b158fa-ad25-452c-85c1-9089283cce89">
 
-Firestore에 대한 가이드입니다.
+<br><br>
 
-자세한 내용은 [공식 홈페이지](https://firebase.google.com/?hl=ko) 를 찾아보길 적극 권장합니다!
+## 🛠️ Stack
 
-### **App init**
-
-```jsx
-import { getFirestore } from "firebase/firestore";
-
-export const db = getFirestore(fireBaseApp);
-```
-
-### Firestore 데이터 추가하기
-
-Firestore의 데이터를 추가하는 방법은 크게 두가지이다.
-
-1. Firebase console에서 손수 데이터 추가해주기
-2. 코드로 데이터 추가하기
-
-### 1. Firebase console에서 손수 데이터 추가해주기
-
-1. [Firebase console](https://console.firebase.google.com/u/0/?hl=ko)에 접속한다.
-2. 자신의 프로젝트를 선택한다.
-3. 왼쪽 메뉴에서 `Firestore Database`를 선택한다.
-4. `+ 버튼`을 눌러 컬렉션 > 문서를 마음대로 추가해준다.
-5. 필드를 추가하여 문서에 데이터를 넣어준다.
-
-### 2. 코드로 데이터 추가하기
-
-Firestore는 `setDoc`, `addDoc` 두 가지 함수로 데이터를 추가할 수 있다.
-
-이제 원하는 데이터를 추가해보자.
-
-**1. `addDoc`**
-
-`addDoc`은 아래와 같이 사용하여 원하는 데이터를 추가할 수 있다.
-
-```
-import { addDoc, collection } from "firebase/firestore";
-
-const writtenDoc = await addDoc(collection(db, "wiki"), {
-  title: "LGH",
-  description: "허먼밀러...사고싶다...",
-});
-
-console.log("Document written with ID: ", writtenDoc.id);
-// 새로 생성된 Document의 ID를 반환한다.
-```
-
-원하는 데이터를 추가하기 위해선 먼저 원하는 collection을 선택해야 한다. 위 예제의 `addDoc` 안에서 사용한 `collection` 함수는 db상에 있는 collection을 선택하거나 없을 경우 새로운 collection을 생성하여 반환한다.
-
-Firebase의 Doc는 기본적으로 ID를 가져야 하는데, addDoc을 사용하면 ID를 자동으로 만든다. 또한, 이미 존재하는 Doc에 `addDoc`을 사용하면 에러가 발생한다.
-
-**2. `setDoc`**
-
-`setDoc`은 아래와 같이 사용하여 원하는 데이터를 추가할 수 있다.
-
-```
-import { setDoc, doc } from "firebase/firestore";
-
-await setDoc(doc(db, "wiki", "new-id"), {
-  title: "LGH",
-  description: "허먼밀러...사고싶다...",
-});
-```
-
-`addDoc`과의 차이점은
-
-1. **id** 를 지정해줘야함
-2. `collection` 대신 `doc`을 사용함
-3. 이미 존재하는 Doc에 사용가능
-
-3가지 이다.
-
-`setDoc`은 `addDoc`과 달리 collection이 아니라 doc를 선택해야 한다. 이는 `setDoc`이 데이터의 추가 뿐 아니라 데이터 덮어쓰기 기능도 가지고 있기 때문이다. 러프하게 생각해보면 `setDoc`은 데이터를 추가할 때
-
-1. doc을 선택하거나 새로운 doc을 생성
-2. doc의 내용을 덮어씀
-
-의 방식으로 동작하는 것이다.
-
-Doc을 선택하는 방법은 `doc` 함수를 사용하는 것이다. `[doc()](https://firebase.google.com/docs/reference/js/firestore_.md?hl=ko#doc)` 함수는 `DocumentReference` instance를 반환한다. 절대 경로를 사용하여 원하는 Document를 선택할 수 있다. 위에서 만들어둔 `wiki > completed` 문서는 아래처럼 불러올 수 있다.
-
-```
-import { doc } from "firebase/firestore";
-
-const docRef = doc(db, "wiki", "completed");
-```
-
-`doc` 함수의 3번째 인자가 바로 **id** 이다. id는 이미 존재하는 Doc의 id를 사용할 수도 있고, 새로운 id를 사용할 수도 있다. 존재하는 id를 사용하는 경우에는 해당 Doc의 데이터를 덮어쓰게 된다. 그렇지 않은 경우엔 새로운 Doc를 생성한다.
-
-어쨌거나 데이터를 새로 추가할 수 있는 것이다.
-
-### Firestore 데이터 수정하기
-
-Firestore의 데이터를 수정하는 방법은 크게 두가지이다.
-
-1. Firebase console에서 손수 데이터 수정해주기
-1. 코드로 데이터 수정하기
-
-1번은 데이터 생성과 비슷하게 진행하면 된다.
-
-**2. 코드로 데이터 수정하기**
-
-Firestore는 `setDoc`, `update` 두 가지 함수로 데이터를 추가할 수 있다.
-
-`setDoc`을 사용하는 방법은 위에 적혀있다.
-
-### `update`
-
-`setDoc`은 데이터를 덮어쓴다. 따라서 기존의 문서를 유지한 채 일부분의 데이터만 변경하고 싶어도 이전의 데이터를 모두 새로 입력해야 한다.
-
-그러나 `update`는 기존의 데이터를 유지한 채 일부분의 데이터만 변경할 수 있다.
-
-```jsx
-import { updateDoc, doc } from "firebase/firestore";
-
-await updateDoc(doc(db, "wiki", "new-id"), {
-  description: "허먼밀러...200만원...",
-});
-```
-
-위와 같이 코드를 작성하면 `new-id`라는 id를 가진 문서의 description만 변경된다.
-
----
-
-### *참고 링크
-
-- **[Firebase](https://firebase.google.com/docs?hl=ko)**
-- [**프로토타입 프로젝트**](https://stfe.vercel.app/)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Firebase](https://img.shields.io/badge/firebase-%2335495e.svg?style=for-the-badge&logo=firebase)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
+![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
