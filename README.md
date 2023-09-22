@@ -115,20 +115,20 @@ $ npm run start
 
 <br/>
 
-### Userflow
+### 1. Userflow
 
 ![유저플로우](https://github.com/turkey-kim/techschool_wiki/assets/101972330/1e1086f4-5a51-4016-b621-5e0558966733)
 
 <br/>
 
-### 아키텍쳐 디자인 : 클라이언트-서버 아키텍쳐
+### 2. 아키텍쳐 디자인 : 클라이언트-서버 아키텍쳐
 
 ![클라이언트-서버](https://github.com/turkey-kim/techschool_wiki/assets/101972330/f24ba60a-cbb8-4760-8a9b-f734b4ed8ce5)
 
 
 <br/>
 
-### 파일 구조
+### 3. 파일 구조
 
 ```
 # CRA 사용
