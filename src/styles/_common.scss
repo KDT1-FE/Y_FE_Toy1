@@ -49,15 +49,25 @@ $fontMain: Pretendard, 'Tossface', 'Noto Sans KR', sans-serif;
 }
 
 .gallNav {
-  background-color: $mainColor;
+  background-color: inherit;
 }
 .navbar-brand {
   color: $blackColor;
 }
 .nav-link {
-  color: $whiteColor;
+  color: $highlightColor;
+  font-size: 24px;
+  font-weight: 700;
+
+
   &:hover {
-    color: $backgroundColor;
+    color: $subColor;
+  }
+  &:active {
+    color: $subColor;
+  }
+  &:focus{
+    color: $subColor;
   }
 }
 
@@ -71,4 +81,5 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 
