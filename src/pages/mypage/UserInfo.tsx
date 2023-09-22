@@ -16,6 +16,7 @@ import { BsPhone } from 'react-icons/bs';
 import { AiOutlineMail } from 'react-icons/ai';
 import { CategoryTitleSection, CategoryTitle, BreadCrumb } from '../../utils/CategoryTitleSection';
 import { SubPageContainer } from '../../utils/CommonDesign';
+import { SmallButtonBlue, SmallButtonDarkGray, SmallButtonGray } from '../../utils/CommonDesign';
 
 const UserInfo = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -150,19 +151,19 @@ const UserInfo = () => {
         </TextSection>
         <ButtonSection>
           {user && !user.emailVerified && (
-            <button className="button--email" onClick={handleEmailConfirm}>
+            <SmallButtonBlue className="button--email" onClick={handleEmailConfirm}>
               이메일 인증
-            </button>
+            </SmallButtonBlue>
           )}
-          <button
+          <SmallButtonGray
             className={user?.emailVerified ? 'button--password confirm' : 'button--password'}
             onClick={handlePassword}
           >
             비밀번호 변경
-          </button>
-          <button className="button--delete" onClick={handleDeleteUser}>
+          </SmallButtonGray>
+          <SmallButtonDarkGray className="button--delete" onClick={handleDeleteUser}>
             회원탈퇴
-          </button>
+          </SmallButtonDarkGray>
           <p>비밀번호는 이메일 인증이 완료된 이후에 변경 가능합니다.</p>
         </ButtonSection>
       </InfoTextSection>
@@ -208,35 +209,19 @@ const TextSection = styled.div`
 `;
 
 const ButtonSection = styled.div`
-  button {
-    font-family: 'Noto Sans KR';
-    width: auto;
-    padding: 0 15px;
-    cursor: pointer;
-    height: 35px;
-    border: none;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: 500;
-    color: rgb(255, 255, 255);
-    text-align: center;
-    line-height: 35px;
-  }
   button.button--email,
   button.button--password {
     margin-right: 5px;
   }
-  button.button--password {
-    background-color: gray;
-  }
-  button.button--email,
   button.button--password.confirm {
     background-color: rgb(50, 103, 177);
+    cursor: pointer;
   }
 
-  button.button--delete {
-    background-color: #333;
+  button.button--password {
+    cursor: default;
   }
+
   p {
     display: block;
     font-size: 12px;
@@ -260,13 +245,13 @@ const ButtonSection = styled.div`
 const InfoBoxSection = styled.div`
   margin-top: 20px;
   ul {
-    border: 1px solid #ddd;
+    border: 1px solid ${(props) => props.theme.colors.border};
     border-radius: 4px;
     display: flex;
   }
   li {
     width: 33.33%;
-    border-left: 1px solid #ddd;
+    border-left: 1px solid ${(props) => props.theme.colors.border};
     box-sizing: border-box;
     padding: 15px 25px;
   }
@@ -289,7 +274,7 @@ const InfoBoxSection = styled.div`
     li {
       width: 100%;
       border-left: 0;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid ${(props) => props.theme.colors.border};
     }
     li:last-child {
       border-bottom: 0;

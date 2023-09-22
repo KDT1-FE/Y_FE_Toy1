@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { BsCalendar4Event } from 'react-icons/bs';
-import { CiSearch } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import CommuteModal from './CommuteModal';
@@ -144,28 +143,6 @@ const Navbar = styled.nav`
       &:hover {
       }
     }
-  }
-`;
-
-const InputWrapper = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
-
-  width: 240px;
-
-  background-color: #f9f9f9;
-  border-radius: 20px;
-
-  input[type='text'] {
-    width: 100%;
-    padding: 0.8rem 1rem 0.8rem 0;
-    border: none;
-    outline: none;
-    background-color: transparent;
-
-    font-size: ${(props) => props.theme.fontSize.text};
-    font-weight: 400;
   }
 `;
 

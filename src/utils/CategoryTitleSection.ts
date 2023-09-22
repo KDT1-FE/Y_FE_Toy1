@@ -4,6 +4,7 @@ export const CategoryTitleSection = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 15px;
   @media screen and (max-width: 700px) {
     display: block;
     h1 {

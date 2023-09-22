@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
-import { GalleryMainContainer, ImageSection as ProfileSection } from './Project';
+import { ImageSection as ProfileSection } from './Project';
 import { CategoryTitleSection, CategoryTitle, BreadCrumb } from '../../utils/CategoryTitleSection';
 import { BsPhone } from 'react-icons/bs';
 import { AiOutlineMail } from 'react-icons/ai';
 import { db } from '../../common/config';
 import { collection, query, getDocs } from 'firebase/firestore';
 import { formatPhoneNumber } from '../../utils/formatPhoneNumber';
+import { SubPageContainer } from '../../utils/CommonDesign';
 
 interface UserProps {
   userId: string;
@@ -41,7 +42,7 @@ const Member = () => {
   }, []);
 
   return (
-    <GalleryMainContainer>
+    <SubPageContainer>
       <CategoryTitleSection>
         <CategoryTitle>멤버 소개</CategoryTitle>
         <BreadCrumb>갤러리 &gt; 멤버 &gt; 멤버 소개</BreadCrumb>
@@ -51,7 +52,7 @@ const Member = () => {
           return <ImageWrapper key={index} userData={item} />;
         })}
       </ProfileSection>
-    </GalleryMainContainer>
+    </SubPageContainer>
   );
 };
 
@@ -75,11 +76,16 @@ const ImageWrapper = ({ userData }: { userData: UserProps }) => {
 };
 
 const MainDiv = styled.div`
-  width: 30%;
-  margin-bottom: 5%;
+  width: calc(33.33% - 20px);
+  margin-bottom: 30px;
   padding-bottom: 18px;
-  border: 1px solid #e9e9e9;
+  border: 1px solid ${(props) => props.theme.colors.border};
   border-radius: 4px;
+
+  @media screen and (max-width: 700px) {
+    width: calc(50% - 10px);
+    margin-bottom: 20px;
+  }
 `;
 
 const ImageDiv = styled.div`

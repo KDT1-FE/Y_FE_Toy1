@@ -1,11 +1,11 @@
 import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
-import { GalleryMainContainer } from './Project';
 import { CategoryTitleSection, CategoryTitle, BreadCrumb } from '../../utils/CategoryTitleSection';
 import { collection, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../../common/config';
 import { useUser } from '../../common/UserContext';
+import { SubPageContainer } from '../../utils/CommonDesign';
 
 const RegisterProject = () => {
   const { user } = useUser();
@@ -77,7 +77,7 @@ const RegisterProject = () => {
   };
 
   return (
-    <GalleryMainContainer>
+    <SubPageContainer>
       <CategoryTitleSection>
         <CategoryTitle>프로젝트 추가</CategoryTitle>
         <BreadCrumb>갤러리 &gt; 프로젝트 &gt; 프로젝트 추가</BreadCrumb>
@@ -96,7 +96,7 @@ const RegisterProject = () => {
               onChange={handleFileChange}
             />
           </div>
-          <SubTitle>프로젝트 상태</SubTitle>
+          <SubTitle className="mar-top20">프로젝트 상태</SubTitle>
           <SelectState value={projectInfo.state} onChange={handleSelectChange}>
             <option value="ongoing">진행</option>
             <option value="scheduled">예정</option>
@@ -130,11 +130,9 @@ const RegisterProject = () => {
         </RightSection>
       </MainSection>
       <ButtonSection>
-        <Button onClick={postNewProject} style={{ backgroundColor: '#3267B1' }}>
-          확인
-        </Button>
+        <Button onClick={postNewProject}>확인</Button>
       </ButtonSection>
-    </GalleryMainContainer>
+    </SubPageContainer>
   );
 };
 
@@ -151,27 +149,36 @@ const ImageWrapperDiv = styled.div`
   background-size: cover;
   background-position: center;
   border-radius: 4px;
-  border: 0.1px solid #9d9c9c30;
+  border: 1px solid ${(props) => props.theme.colors.border};
 `;
 
 const SubTitle = styled.div`
   font-size: 16px;
   font-weight: bold;
-  margin-top: 30px;
 `;
 
 const MainSection = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  @media screen and (max-width: 768px) {
+
+  @media screen and (max-width: 1150px) {
     flex-direction: column;
     margin-bottom: 20px;
+    gap: 0;
+
+    > div {
+      width: 100%;
+    }
   }
 `;
 const LeftSection = styled.div`
   width: 45%;
   min-width: 300px;
+
+  .mar-top20 {
+    margin-top: 20px;
+  }
 `;
 const RightSection = styled.div`
   width: 45%;
@@ -179,10 +186,10 @@ const RightSection = styled.div`
 `;
 
 const SelectState = styled.select`
-  margin: 20px 0 30px;
+  margin: 10px 0 20px;
   width: 100%;
   padding: 5px;
-  border: 0.1px solid #9d9c9c30;
+  border: 1px solid ${(props) => props.theme.colors.border};
   border-radius: 4px;
   height: 40px;
   &:focus {
@@ -194,9 +201,6 @@ const ButtonSection = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  @media (max-width: 768px) {
-    justify-content: flex-start;
-  }
 `;
 
 const Button = styled.button`
@@ -212,26 +216,34 @@ const Button = styled.button`
   color: rgb(252, 252, 252);
   text-align: center;
   line-height: 47px;
+  background-color: rgb(50, 103, 177);
+  @media screen and (max-width: 1150px) {
+    width: 100%;
+  }
+
+  &:hover {
+    background-color: #2c5b96;
+  }
 `;
 
 const NameInput = styled.input`
   font-family: 'Noto Sans KR';
-  margin-top: 20px;
+  margin-top: 10px;
   width: 100%;
   padding: 10px;
   outline: none;
   border-radius: 4px;
-  border: 1px solid #9d9c9c30;
+  border: 1px solid ${(props) => props.theme.colors.border};
   margin-bottom: 20px;
 `;
 
 const DescriptionDiv = styled.textarea`
-  margin-top: 20px;
+  margin-top: 10px;
   width: 100%;
   height: 325px;
   padding: 10px;
   border-radius: 4px;
-  border: 1px solid #9d9c9c30;
+  border: 1px solid ${(props) => props.theme.colors.border};
   resize: none;
   outline: none;
   font-family: 'Noto Sans KR';

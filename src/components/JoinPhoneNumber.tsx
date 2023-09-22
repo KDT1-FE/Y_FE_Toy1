@@ -148,6 +148,9 @@ const PhoneAuthSection = styled.div`
     text-align: center;
     line-height: 47px;
     background-color: #333;
+    &:hover {
+      background-color: #222;
+    }
   }
 
   #recaptcha-container {

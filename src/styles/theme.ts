@@ -2,7 +2,7 @@ import { DefaultTheme } from 'styled-components';
 
 const colors = {
   primary: '#ffcb09',
-  border: '#f2f2f2',
+  border: '#eee',
   shadow: '#021856',
   white: '#ffffff',
   black: '#1D1B26',
@@ -23,6 +23,7 @@ const fontSize = {
 const size = {
   header: '56px',
   nav: '56px',
+  footer: '58px',
 };
 
 export type ColorType = typeof colors;

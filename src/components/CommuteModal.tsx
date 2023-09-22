@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { MouseEventHandler, useEffect, useState } from 'react';
-import CommuteButton from '../common/CommuteButton';
 import { commuteType } from '../data/atoms';
 import ModalMessage from './ModalMessage';
 import { Time } from '../utils/formatTime';
+import { SmallButtonDarkGray, SmallButtonBlue } from '../utils/CommonDesign';
 
 interface Props {
   isModalOpen: boolean;
@@ -61,8 +61,10 @@ const CommuteModal = ({
         <ButtonWrapper>
           {uid && (
             <>
-              <CommuteButton onClick={mainButtonHandler}>{mainButtonLabel}</CommuteButton>
-              <CommuteButton onClick={secondaryButtonHandler}>{secondaryButtonLabel}</CommuteButton>
+              <SmallButtonBlue onClick={mainButtonHandler}>{mainButtonLabel}</SmallButtonBlue>
+              <SmallButtonDarkGray onClick={secondaryButtonHandler}>
+                {secondaryButtonLabel}
+              </SmallButtonDarkGray>
             </>
           )}
         </ButtonWrapper>
@@ -74,6 +76,7 @@ const CommuteModal = ({
 const Overlay = styled.div`
   position: fixed;
   display: none;
+  z-index: 90;
   top: 0;
   left: 0;
   inset: 0;
@@ -136,7 +139,10 @@ const ButtonWrapper = styled.div`
   align-items: center;
 
   width: 100%;
-  border-top: 1px solid #eeeeee;
+  button {
+    width: 110px;
+    margin: 0 2.5px;
+  }
 `;
 
 export default CommuteModal;

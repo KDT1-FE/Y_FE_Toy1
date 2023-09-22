@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 import NavBar from './components/NavBar';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import { UserProvider } from './common/UserContext';
 import { MenuProvider } from './common/useMenu';
 
@@ -16,6 +17,7 @@ function App() {
               <NavBar />
               <Outlet />
             </MainWrapper>
+            <Footer />
           </Wrapper>
         </Container>
       </MenuProvider>

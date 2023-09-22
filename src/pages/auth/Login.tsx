@@ -5,6 +5,7 @@ import { useUser } from '../../common/UserContext';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { SubPageContainer } from '../../utils/CommonDesign';
+import { CategoryTitleSection, CategoryTitle, BreadCrumb } from '../../utils/CategoryTitleSection';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -86,7 +87,6 @@ const Login = () => {
 };
 
 const AuthForm = styled.form`
-  margin-top: 15px;
   display: flex;
   justify-content: space-between;
   gap: 10px;
@@ -107,25 +107,7 @@ const LoginSection = styled.div`
 const JoinSection = styled.div`
   width: 45%;
 `;
-const CategoryTitleSection = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  @media screen and (max-width: 700px) {
-    display: block;
-    h1 {
-      font-size: 25px;
-    }
-  }
-`;
-const CategoryTitle = styled.h1`
-  font-size: 28px;
-`;
-const BreadCrumb = styled.span`
-  font-size: 12px;
-  text-align: right;
-  color: gray;
-`;
+
 const InputContainer = styled.div`
   label {
     font-size: 16px;
@@ -140,7 +122,7 @@ const InputContainer = styled.div`
     padding: 10px;
     outline: none;
     border-radius: 4px;
-    border: 1px solid #ddd;
+    border: 1px solid ${(props) => props.theme.colors.border};
     margin-bottom: 20px;
   }
 `;
@@ -158,6 +140,9 @@ const ButtonContainer = styled.div`
     text-align: center;
     line-height: 47px;
     background-color: rgb(50, 103, 177);
+    &:hover {
+      background-color: #2c5b96;
+    }
   }
 `;
 
@@ -183,6 +168,9 @@ const JoinContainer = styled.div`
     text-align: center;
     line-height: 47px;
     background-color: #333;
+    &:hover {
+      background-color: #222;
+    }
   }
 `;
 

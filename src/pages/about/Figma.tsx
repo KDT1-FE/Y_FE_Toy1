@@ -9,6 +9,9 @@ import { SubPageContainer } from '../../utils/CommonDesign';
 export const StyledImage = styled.img`
   width: 60%;
   padding-top: 10px;
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
 `;
 
 export const StyledSpan = styled.div`

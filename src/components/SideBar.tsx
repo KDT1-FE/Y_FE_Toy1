@@ -32,7 +32,8 @@ const Container = styled.aside`
   display: flex;
   flex-direction: column;
   min-width: 330px;
-  min-height: ${(props) => `calc(100vh - (${props.theme.size.header} + ${props.theme.size.nav}))`};
+  min-height: ${(props) =>
+    `calc(100vh - (${props.theme.size.header} + ${props.theme.size.nav} + ${props.theme.size.footer}))`};
 
   border-right: 1px solid ${(props) => props.theme.colors.border};
   background-color: #fff;

@@ -155,6 +155,9 @@ const InfoSection = styled.div`
     text-align: center;
     line-height: 47px;
     background-color: rgb(50, 103, 177);
+    &:hover {
+      background-color: #2c5b96;
+    }
   }
 `;
 
@@ -173,7 +176,7 @@ const InputContainer = styled.div`
     padding: 10px;
     outline: none;
     border-radius: 4px;
-    border: 1px solid #ddd;
+    border: 1px solid ${(props) => props.theme.colors.border};
   }
 
   span {
@@ -203,7 +206,7 @@ const PreviewImage = styled.div`
   background-repeat: no-repeat;
   background-color: white;
   background-position: center center;
-  border: 1px solid #ddd;
+  border: 1px solid ${(props) => props.theme.colors.border};
   border-radius: 4px;
 `;
 

@@ -3,10 +3,12 @@ import { Editor, Viewer } from '@toast-ui/react-editor';
 import { db } from '../../common/config';
 import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { StyledTitle, StyledButton, StyledTime } from './Info';
+import { StyledTitle, StyledTime } from './Info';
 import { useUser } from '../../common/UserContext';
 import { CategoryTitleSection, CategoryTitle, BreadCrumb } from '../../utils/CategoryTitleSection';
 import { SubPageContainer } from '../../utils/CommonDesign';
+import { SmallButtonDarkGray } from '../../utils/CommonDesign';
+import { MarkdownContainer, ButtonContainer } from './Info';
 
 const Rule = () => {
   const [title, setTitle] = useState<string>('');
@@ -94,18 +96,22 @@ const Rule = () => {
             <CategoryTitle>{title}</CategoryTitle>
             <BreadCrumb>위키 &gt; 규칙 &gt; 기본 규칙</BreadCrumb>
           </CategoryTitleSection>
-
-          {lastEdited && (
-            <StyledTime>
-              마지막 수정: {lastEdited.toLocaleString()} / 최근 편집자: {editor}
-            </StyledTime>
-          )}
-          <Viewer key={markdown} initialValue={markdown} />
+          <MarkdownContainer>
+            <Viewer key={markdown} initialValue={markdown} />
+          </MarkdownContainer>
         </>
       )}
-      <hr />
 
-      <StyledButton onClick={handleEditClick}>{isEditing ? '저장' : '편집'}</StyledButton>
+      <ButtonContainer>
+        {lastEdited && (
+          <StyledTime>
+            마지막 수정: {lastEdited.toLocaleString()} / 최근 편집자: {editor}
+          </StyledTime>
+        )}
+        <SmallButtonDarkGray onClick={handleEditClick}>
+          {isEditing ? '저장' : '편집'}
+        </SmallButtonDarkGray>
+      </ButtonContainer>
     </SubPageContainer>
   );
 };

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState, ChangeEvent, useEffect } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { auth, db, storage } from '../../common/config';
 import { createUserWithEmailAndPassword, updateProfile, User } from 'firebase/auth';
 import { uploadBytesResumable, ref, getDownloadURL } from 'firebase/storage';
@@ -8,6 +8,7 @@ import useBlobUrl from '../../hooks/useBlobUrl';
 import JoinPhoneNumber from '../../components/JoinPhoneNumber';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { SubPageContainer } from '../../utils/CommonDesign';
+import { CategoryTitleSection, CategoryTitle, BreadCrumb } from '../../utils/CategoryTitleSection';
 
 import { useUser } from '../../common/UserContext';
 
@@ -212,7 +213,6 @@ const Join = () => {
 };
 
 const AuthForm = styled.form`
-  margin-top: 15px;
   display: grid;
   grid-template: auto / repeat(2, 45%);
   justify-content: space-between;
@@ -242,6 +242,9 @@ const InfoSection = styled.div`
     text-align: center;
     line-height: 47px;
     background-color: rgb(50, 103, 177);
+    &:hover {
+      background-color: #2c5b96;
+    }
   }
 `;
 const PhotoSection = styled.div`
@@ -258,28 +261,9 @@ const PhotoSection = styled.div`
 const PhoneSection = styled.div`
   margin-top: 50px;
   grid-column: 1 / span 1;
-  border: 1px solid #ddd;
+  border: 1px solid ${(props) => props.theme.colors.border};
   padding: 40px;
   border-radius: 4px;
-`;
-const CategoryTitleSection = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  @media screen and (max-width: 700px) {
-    display: block;
-    h1 {
-      font-size: 25px;
-    }
-  }
-`;
-const CategoryTitle = styled.h1`
-  font-size: 28px;
-`;
-const BreadCrumb = styled.span`
-  font-size: 12px;
-  text-align: right;
-  color: gray;
 `;
 
 const InputContainer = styled.div`
@@ -297,7 +281,7 @@ const InputContainer = styled.div`
     padding: 10px;
     outline: none;
     border-radius: 4px;
-    border: 1px solid #ddd;
+    border: 1px solid ${(props) => props.theme.colors.border};
   }
 
   span {
@@ -324,7 +308,7 @@ const PreviewImage = styled.div`
   background-size: cover;
   background-position: center;
   border-radius: 4px;
-  border: 1px solid #ddd;
+  border: 1px solid ${(props) => props.theme.colors.border};
 `;
 
 export default Join;

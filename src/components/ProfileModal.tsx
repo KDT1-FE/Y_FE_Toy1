@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { MouseEventHandler, useEffect, useState } from 'react';
 import { useUser } from '../common/UserContext';
 import { signOut } from 'firebase/auth';
 import { auth } from '../common/config';
 import { Link } from 'react-router-dom';
+import { SmallButtonDarkGray } from '../utils/CommonDesign';
 
 interface Props {
   isModalOpen: boolean;
@@ -39,12 +39,14 @@ const ProfileModal = ({ isModalOpen, toggleModal }: Props) => {
               }
             />
             <ProfileText>
-              <p>{user.name}</p>
-              <p>{user.email}</p>
-              <Link onClick={toggleModal} to="/mypage">
-                마이페이지
-              </Link>
-              <button onClick={handleLogout}>로그아웃</button>
+              <TextName>{user.name}</TextName>
+              <TextEmail>{user.email}</TextEmail>
+              <ButtonContainer>
+                <Link onClick={toggleModal} to="/mypage">
+                  마이페이지
+                </Link>
+                <SmallButtonDarkGray onClick={handleLogout}>로그아웃</SmallButtonDarkGray>
+              </ButtonContainer>
             </ProfileText>
           </ModalContainer>
         </>
@@ -56,6 +58,7 @@ const ProfileModal = ({ isModalOpen, toggleModal }: Props) => {
 const Overlay = styled.div`
   position: fixed;
   display: none;
+  z-index: 90;
   top: 0;
   left: 0;
   inset: 0;
@@ -77,7 +80,7 @@ const ModalContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 2rem;
+  padding: 1.5rem 2rem;
 
   min-width: 250px;
   max-width: 300px;
@@ -108,7 +111,45 @@ const ProfileImage = styled.div`
   border-radius: 100%;
   background-position: center center;
   background-size: cover;
+  background-color: ${(props) => props.theme.colors.border};
 `;
-const ProfileText = styled.div``;
+const ProfileText = styled.div`
+  text-align: center;
+  margin-top: 10px;
+`;
+
+const TextName = styled.div`
+  font-size: 16px;
+  font-weight: bold;
+`;
+const TextEmail = styled.div``;
+const ButtonContainer = styled.div`
+  margin-top: 15px;
+  display: flex;
+  gap: 5px;
+  a {
+    font-family: 'Noto Sans KR';
+    width: auto;
+    padding: 0 15px;
+    cursor: pointer;
+    height: 35px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #fff;
+    text-align: center;
+    line-height: 35px;
+    background-color: rgb(50, 103, 177);
+    display: inline-block;
+    min-width: 99px;
+    &:hover {
+      background-color: #2c5b96;
+    }
+  }
+  button {
+    min-width: 85.2px;
+  }
+`;
 
 export default ProfileModal;

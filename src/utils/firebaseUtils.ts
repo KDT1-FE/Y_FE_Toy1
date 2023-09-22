@@ -1,4 +1,4 @@
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { ref, uploadBytes } from 'firebase/storage';
 import { db, storage } from '../common/config';
 import { commuteType } from '../data/atoms';
 import { arrayUnion, doc, getDoc, setDoc } from 'firebase/firestore';

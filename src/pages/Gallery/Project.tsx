@@ -5,6 +5,7 @@ import { db } from '../../common/config';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import LoadingSpinner from './LoadingSpinner';
 import { CategoryTitleSection, CategoryTitle, BreadCrumb } from '../../utils/CategoryTitleSection';
+import { SubPageContainer } from '../../utils/CommonDesign';
 
 interface ProjectStateProps {
   state: string;
@@ -91,7 +92,7 @@ const Project = ({ state }: ProjectStateProps) => {
       : '';
 
   return (
-    <GalleryMainContainer>
+    <SubPageContainer>
       <CategoryTitleSection>
         <CategoryTitle>{projectState} 프로젝트</CategoryTitle>
         <BreadCrumb>갤러리 &gt; 프로젝트 &gt; {projectState} 프로젝트</BreadCrumb>
@@ -126,22 +127,19 @@ const Project = ({ state }: ProjectStateProps) => {
           </Button>
         </ButtonSection>
       )}
-    </GalleryMainContainer>
+    </SubPageContainer>
   );
 };
 
 export default Project;
 
-export const GalleryMainContainer = styled.div`
-  width: 100%;
-  padding: 10px 30px 30px;
-`;
-
 export const ImageSection = styled.section`
   display: flex;
   flex-wrap: wrap;
-  gap: 0 5%;
-  margin-top: 30px;
+  gap: 0 30px;
+  @media screen and (max-width: 700px) {
+    gap: 0 20px;
+  }
 `;
 
 const ButtonSection = styled.div`
