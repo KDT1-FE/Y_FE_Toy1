@@ -242,6 +242,8 @@
 }
 
 .modal-contents {
+  display: flex;
+  flex-direction: column;
   background-color: #fefefe;
   margin: 10% auto;
   padding: 20px;
