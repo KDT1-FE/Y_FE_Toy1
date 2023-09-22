@@ -44,7 +44,7 @@ interface StudyTimeProps {
   studyStartTime?: number | null;
   toggleStudyStatus: () => void;
   onIsStudyingChange: (isStudying: boolean) => void;
-  setStudyStartTime: (time:number) => void;
+  setStudyStartTime: (time: number) => void;
 }
 
 const StudyTime: React.FC<StudyTimeProps> = ({
@@ -52,13 +52,11 @@ const StudyTime: React.FC<StudyTimeProps> = ({
   studyStartTime,
   toggleStudyStatus,
   onIsStudyingChange,
-  setStudyStartTime
+  setStudyStartTime,
 }) => {
   const navigate = useNavigate();
   const user = useContext(AuthContext);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
-
-  ;
 
   useEffect(() => {
     let interval: NodeJS.Timeout | undefined = undefined;
@@ -112,6 +110,7 @@ const StudyTime: React.FC<StudyTimeProps> = ({
         icon: "warning",
         title: "로그인해야 이용할 수 있습니다. 로그인 하시겠습니까?",
         confirmButtonText: "확인",
+        confirmButtonColor: "#ED234B",
       }).then((res) => {
         if (res.isConfirmed) {
           navigate("/login");
