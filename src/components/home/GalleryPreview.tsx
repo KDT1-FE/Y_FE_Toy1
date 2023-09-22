@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
-import { app } from "../../../firebase";
+import { app } from "@/firebase/firebase";
 import {
   getStorage,
   ref,

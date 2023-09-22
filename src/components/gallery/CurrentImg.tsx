@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import * as style from "./CurrentImgStyle";
 import { getStorage, ref, deleteObject } from "firebase/storage";
-import { app } from "../../../firebase";
+import { app } from "@/firebase/firebase";
 
 const storage = getStorage(app);
 

@@ -1,6 +1,6 @@
 import AppRouter from "./AppRouter";
 import { useEffect, useState } from "react";
-import { auth } from "../firebase";
+import { auth } from "./firebase/firebase";
 
 export type Props = {
   uid?: string;
