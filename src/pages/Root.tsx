@@ -18,7 +18,7 @@ import { RootState } from '../redux/types';
 import { useSelector } from 'react-redux';
 import { getDoc, doc } from 'firebase/firestore';
 import PostedModal from '../components/MainPost/PostedModal';
-import '../styles/pages/Main.scss';
+import '../styles/Main.scss';
 import { onSnapshot } from 'firebase/firestore';
 
 export default function Root() {
