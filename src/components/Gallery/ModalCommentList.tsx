@@ -28,6 +28,7 @@ interface IComment {
   text: string;
   commentUser: string;
   userImage?: string;
+  commentId: any;
 }
 
 export function ModalComment({
@@ -80,11 +81,14 @@ export function ModalComment({
     e.preventDefault();
     if (comment !== '') {
       const newCommentList: any = [...commentList, comment];
+      //랜덤 숫자로 댓글ID 생성
+      const commentId: any = new Date().getTime().toString(36);
       await setCommentList(newCommentList); //새 배열에 comment저장 후 set
       await uploadCommentList(
         imgId,
         categoryId,
         comment,
+        commentId,
         user.uid,
         user.nickname,
         user.image,
@@ -118,22 +122,15 @@ export function ModalComment({
   }, [isChange, doc, onSnapshot]);
 
   // 댓글 삭제
-  const handleDeleteComment = async (
-    e: React.MouseEvent<HTMLButtonElement>,
-  ) => {
-    const getDelText: string = (
-      e.currentTarget.previousElementSibling as HTMLElement
-    )?.id;
-    const getDelUid: string = (
-      e.currentTarget.closest('.commentList-item') as HTMLElement
-    )?.id;
+  const handleDeleteComment = async (e: any) => {
+    const getDelCommentId: string = e.target.previousElementSibling.id;
+    //const getDelUid: string = e.target.closest('.commentList-item').id;
+
+    console.log('삭제할 데이터', getDelCommentId);
 
     try {
       const updatedData = commentList.filter((comment) => {
-        return (
-          comment.text !== getDelText.trim() &&
-          comment.commentUid == getDelUid.trim()
-        );
+        return comment.commentId !== getDelCommentId.trim();
       });
       await setCommentList(updatedData);
       //배열 형태로 db업로드
@@ -206,7 +203,7 @@ export function ModalComment({
                 id={comment.commentUid}
                 className="commentList-item"
               >
-                <div className="commentBox" id={comment.text}>
+                <div className="commentBox" id={comment.commentId}>
                   <img
                     className="commentBox-image"
                     src={comment.userImage}
