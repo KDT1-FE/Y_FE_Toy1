@@ -141,7 +141,7 @@
 .modal-footer button {
   margin: 0 10px;
   padding: 10px 20px;
-  background-color: #ff6523;
+  background-color: $highlightColor;
   color: white;
   border: none;
   border-radius: 5px;
@@ -242,6 +242,8 @@
 }
 
 .modal-contents {
+  display: flex;
+  flex-direction: column;
   background-color: #fefefe;
   margin: 10% auto;
   padding: 20px;
