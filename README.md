@@ -128,22 +128,20 @@ Recoil에 저장하기 전, 받아온 유저 정보 객체를 깊은복사를 �
 후에 Firebase에서 해당 정보에 접근하여 정보를 수정할 수 있도록 변경했다.
 
 ```javascript
-signInWithEmailAndPassword(auth, email, password).then(
-  async (userCredential) => {
-    // Signed in
-    const { user } = userCredential;
-    const userId = userCredential.user.uid;
-    const docRef = doc(db, 'user', userId);
-    const docSnap = await getDoc(docRef);
-    const userCopy = JSON.parse(JSON.stringify(user)); // 깊은복사 후 state 저장
-    setUserState({
-      userCredential: userCopy,
-      userData: docSnap.data(),
-    });
-    setLoginState(true);
-    navigate('/');
-  }
-);
+signInWithEmailAndPassword(auth, email, password).then(async (userCredential) => {
+  // Signed in
+  const { user } = userCredential;
+  const userId = userCredential.user.uid;
+  const docRef = doc(db, 'user', userId);
+  const docSnap = await getDoc(docRef);
+  const userCopy = JSON.parse(JSON.stringify(user)); // 깊은복사 후 state 저장
+  setUserState({
+    userCredential: userCopy,
+    userData: docSnap.data()
+  });
+  setLoginState(true);
+  navigate('/');
+});
 ```
 
 ## 후기
