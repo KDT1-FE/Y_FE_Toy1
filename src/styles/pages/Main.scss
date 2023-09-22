@@ -1,4 +1,4 @@
-@import '_common.scss';
+@import '../_common.scss';
 
 .main-container-text {
   margin: 0 auto;
@@ -16,11 +16,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* margin-top: 100px; */
-  /* height: 100vh; 화면 높이에 맞게 조절 */
 }
 
-/* 슬라이더 너비 조절 */
 .carousel .slick-slider {
   width: 100%;
 }
@@ -35,7 +32,6 @@
   align-items: center;
 }
 
-/* 슬라이드 내용 스타일 */
 .slide-content {
   display: flex;
   width: 100%;
@@ -53,8 +49,8 @@
   flex: 1;
   padding: 20px;
   display: flex;
-  justify-content: flex-start; /* 이미지를 수직으로 중앙에 정렬하면서 왼쪽 끝에 붙임 */
-  align-items: center; /* 이미지를 수직으로 중앙에 정렬 */
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .post-list-top {
@@ -67,7 +63,7 @@
   margin-left: auto;
   font-size: 20px;
   font-weight: bold;
-  background-color: coral;
+  background-color: $highlightColor;
   color: white;
   border: none;
   border-radius: 30px;
@@ -78,10 +74,9 @@
 }
 
 .newPostBtn:hover {
-  background-color: rgb(214, 108, 69);
+  background-color: $subColor;
 }
 
-/* 모달 열기 상태를 처리하는 CSS */
 .modal.open {
   display: flex;
 }
@@ -143,7 +138,7 @@
 .modal-footer button {
   margin: 0 10px;
   padding: 10px 20px;
-  background-color: #ff6523;
+  background-color: $highlightColor;
   color: white;
   border: none;
   border-radius: 5px;
@@ -155,7 +150,9 @@
 }
 
 .posted-text {
+  font-family: 'LOTTERIACHAB', 'Tossface';
   font-size: 50px;
+  color: $highlightColor;
 }
 
 .post-container {
@@ -170,11 +167,17 @@
   align-items: baseline;
 }
 
+.post-content-container-bottom {
+  background-color: $whiteColor;
+  padding: 1rem;
+  border-radius: 20px;
+}
+
 .deleteBtn {
   margin-left: auto;
   font-size: 12px;
   font-weight: bold;
-  background-color: coral;
+  background-color: $highlightColor;
   color: white;
   border: none;
   border-radius: 30px;
@@ -219,8 +222,8 @@
   font-size: 17px;
   font-weight: 500;
   color: $blackColor;
-  overflow: hidden; 
-  text-overflow: ellipsis; 
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
@@ -237,7 +240,6 @@
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-/* Modal content styles */
 .modal-content {
   background-color: #fefefe;
   margin: 10% auto;
@@ -262,7 +264,7 @@
 }
 
 .close-button:hover {
-  color: #f00;
+  color: $highlightColor;
 }
 
 /* Posted info styles */
@@ -304,7 +306,7 @@
   width: 40px;
   height: 40px;
   background-color: transparent;
-  background-image: url('../images/backBtn.png');
+  background-image: url('../../images/backBtn.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -317,7 +319,7 @@
   width: 40px;
   height: 40px;
   background-color: transparent;
-  background-image: url('../images/nextBtn.png');
+  background-image: url('../../images/nextBtn.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
