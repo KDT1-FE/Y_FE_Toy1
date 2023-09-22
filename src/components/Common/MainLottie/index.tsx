@@ -39,7 +39,7 @@ function MainLottie({ lottieData, width, height }: IMainLottieProps) {
 
 const StyledLottieContainer = styled.div`
   position: relative;
-  width: 100%;
+  width: 10%;
   margin: 0 auto;
   cursor: pointer;
 
