@@ -10,7 +10,7 @@ const ImageWrapper = ({
   state,
   name,
   description,
-  participant,
+  participants,
 }: ProjectProps) => {
   const [showDetailModal, setShowDetailModal] = useState<boolean>(false);
 
@@ -42,7 +42,7 @@ const ImageWrapper = ({
           state={state}
           name={name}
           description={description}
-          participant={participant}
+          participants={participants}
           closeOnClick={closeDetailModalHandler}
         ></ProjectDetailModal>
       )}

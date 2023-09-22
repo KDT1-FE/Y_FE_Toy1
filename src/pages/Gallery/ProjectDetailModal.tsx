@@ -1,10 +1,13 @@
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai';
 import { ProjectProps } from './Project';
 import EditModal from './EditModal';
 import statusIcon from '../../assets/status-icon.svg';
 import memberIcon from '../../assets/member-icon.png';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../../common/config';
+import { useUser } from '../../common/UserContext';
 
 interface ModalProps extends ProjectProps {
   closeOnClick: () => void;
@@ -16,16 +19,17 @@ const ProjectDetailModal = ({
   imageUrl,
   name,
   description,
-  participant,
+  participants,
   closeOnClick,
 }: ModalProps) => {
+  const { user } = useUser();
   const [projectInfo, setProjectInfo] = useState<ProjectProps>({
     imageUrl: imageUrl,
     projectId: projectId,
     state: state,
     name: name,
     description: description,
-    participant: participant,
+    participants: participants,
   });
   let projectState: string =
     state === 'ongoing'
@@ -42,11 +46,28 @@ const ProjectDetailModal = ({
     setShowEditModal(true);
   };
 
-  const participateClickHandler = () => {
-    closeOnClick();
-    // 참여하기 api
-    // 성공시
-    alert('프로젝트에 정상적으로 참가되었습니다.');
+  const participateClickHandler = async () => {
+    try {
+      if (!user) {
+        alert('로그인 후 프로젝트를 생성할 수 있습니다.');
+        return;
+      }
+      if (projectInfo.participants?.includes(user.name)) {
+        alert('이미 참여 중인 프로젝트입니다.');
+        return;
+      }
+      const docRef = doc(db, 'projectData', projectInfo.projectId);
+      const newParticipants =
+        projectInfo.participants?.length > 0
+          ? [...projectInfo.participants, user.name]
+          : [user.name];
+      await setDoc(docRef, { participants: newParticipants });
+      alert('프로젝트에 정상적으로 참가되었습니다.');
+      window.location.reload();
+      closeOnClick();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -70,18 +91,10 @@ const ProjectDetailModal = ({
                 <ParticipantDiv>
                   <img width="24px" height="24px" src={memberIcon} alt="" />
                   <ParticipantRightDiv>
-                    <ParticipantBlock>파이리</ParticipantBlock>
-                    <ParticipantBlock>파이리</ParticipantBlock>
-                    <ParticipantBlock>파이리</ParticipantBlock>
-                    <ParticipantBlock>파이리</ParticipantBlock>
-                    <ParticipantBlock>파이리</ParticipantBlock>
-                    <ParticipantBlock>파이리</ParticipantBlock>
-                    <ParticipantBlock>파이리</ParticipantBlock>
-                    <ParticipantBlock>파이리</ParticipantBlock>
+                    {participants?.map((item: any, index: number) => {
+                      return <ParticipantBlock key={index}>{item}</ParticipantBlock>;
+                    })}
                   </ParticipantRightDiv>
-                  {participant?.map((item: any) => {
-                    return <ParticipantBlock key={item.id}>{item.name}</ParticipantBlock>;
-                  })}
                 </ParticipantDiv>
                 <DescriptionDiv>{description}</DescriptionDiv>
               </MainRightDiv>
@@ -104,7 +117,7 @@ const ProjectDetailModal = ({
           state={state}
           name={name}
           description={description}
-          participant={participant}
+          participants={participants}
           closeOnClick={() => setShowEditModal(false)}
         ></EditModal>
       )}

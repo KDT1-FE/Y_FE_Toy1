@@ -16,7 +16,7 @@ const EditModal = ({
   imageUrl,
   name,
   description,
-  participant,
+  participants,
   closeOnClick,
 }: ModalProps) => {
   const [projectInfo, setProjectInfo] = useState<ProjectProps>({
@@ -25,7 +25,7 @@ const EditModal = ({
     state: state,
     name: name,
     description: description,
-    participant: participant,
+    participants: participants,
   });
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -85,6 +85,7 @@ const EditModal = ({
         await setDoc(docRef, {
           state: projectInfo.state,
           imageUrl: imageUrl,
+          participants: projectInfo.participants,
           name: projectInfo.name ? projectInfo.name : '',
           description: projectInfo.description ? projectInfo.description : '',
         });
@@ -92,6 +93,7 @@ const EditModal = ({
         await setDoc(docRef, {
           state: projectInfo.state,
           imageUrl: projectInfo.imageUrl ? projectInfo.imageUrl : '',
+          participants: projectInfo.participants,
           name: projectInfo.name ? projectInfo.name : '',
           description: projectInfo.description ? projectInfo.description : '',
         });

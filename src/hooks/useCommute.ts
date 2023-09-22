@@ -81,8 +81,8 @@ const useCommute = (uid: string | null | undefined, toggleModal: () => void) => 
   };
 
   // 확인 눌렀을 때
-  const confirmWorkingTime: MouseEventHandler = (): void => {
-    uploadCommuteInfo(uid, commuteInfo);
+  const confirmWorkingTime: MouseEventHandler = async (): Promise<void> => {
+    await uploadCommuteInfo(uid, commuteInfo);
     setTimeout(() => {
       setCommuteInfo((prev) => ({
         ...prev,
@@ -94,6 +94,8 @@ const useCommute = (uid: string | null | undefined, toggleModal: () => void) => 
     localStorage.removeItem('startTime');
     localStorage.removeItem('isWorking');
     toggleModal();
+
+    window.location.reload();
   };
 
   return { commuteInfo, setCommuteInfo, confirmWorkingTime, handleCommute };
