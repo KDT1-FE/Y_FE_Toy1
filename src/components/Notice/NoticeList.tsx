@@ -1,7 +1,7 @@
 import NoticeListBox from './NoticeListBox';
 import { useSelector } from 'react-redux';
 import { db } from '../../firebase';
-import { getDocs, collection, orderBy, query, onSnapshot, doc } from 'firebase/firestore';
+import { getDocs, collection, orderBy, query, onSnapshot } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 
 import '../../scss/noticeProjectList.scss';
