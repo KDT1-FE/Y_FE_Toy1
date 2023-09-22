@@ -12,6 +12,13 @@
 - `랭킹 시스템`과 `등급제`로 수강생끼리의 학습을 촉진
 
 <br>
+<div align=center>
+  <a href="https://fastcampus-wiki.netlify.app/" target="_blank">
+    <img src="https://img.shields.io/badge/배포 링크-ed234b?style=for-the-badge&logoColor=white" alt="example"/>
+  </a>
+</div>
+
+<br>
 
 ## 👩‍💻팀원소개
 
@@ -23,13 +30,6 @@
 
 <br>
 
-<div align=center>
-  <a href="https://fastcampus-wiki.netlify.app/" target="_blank">
-    <img src="https://img.shields.io/badge/배포 링크-ed234b?style=for-the-badge&logoColor=white" alt="example"/>
-  </a>
-</div>
-
-<br>
 
 ## 🎁기술 스택
 <div align=center  > 
