@@ -1,5 +1,6 @@
 {
     "name": "my-app",
+    "homepage": "https://2weeks-team-mzbe.vercel.app/",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
