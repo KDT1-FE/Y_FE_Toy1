@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import { MdClear } from 'react-icons/md';
 import { modalStyle, ModalContent } from '../../styles/Gallery/GalleryModal';
-import { DeleteButton, AddButton } from '../../styles/Gallery/GalleryContent';
+import { DeleteButton } from '../../styles/Gallery/GalleryItem';
 import previewImg from '../../assets/images/previewImg.jpg';
+import { AddButton } from '../../styles/Gallery/GalleryContent';
 
 interface UploadModalProps {
   isOpen: boolean;

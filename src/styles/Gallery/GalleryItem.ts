@@ -50,4 +50,22 @@ export const Item = styled.div`
   .image-name {
     font-size: ${(props) => props.theme.textStyles.subtitle4.fontSize};
   }
+
+  &:hover {
+    .delete-btn {
+      display: block;
+    }
+  }
+`;
+
+export const DeleteButton = styled.button`
+  position: absolute;
+
+  top: 30px;
+  right: 30px;
+
+  font-size: 2rem;
+  color: ${(props) => props.theme.blue600};
+
+  display: none;
 `;

@@ -79,13 +79,3 @@ export const Main = styled.div`
 
   padding: 3rem;
 `;
-
-export const DeleteButton = styled.button`
-  position: absolute;
-
-  top: 30px;
-  right: 30px;
-
-  font-size: 2rem;
-  color: ${(props) => props.theme.blue600};
-`;
