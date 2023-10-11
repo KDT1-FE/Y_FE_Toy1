@@ -91,3 +91,13 @@ export const ModalContent = styled.div`
     display: none;
   }
 `;
+
+export const DeleteButton = styled.button`
+  position: absolute;
+
+  top: 30px;
+  right: 30px;
+
+  font-size: 2rem;
+  color: ${(props) => props.theme.blue600};
+`;

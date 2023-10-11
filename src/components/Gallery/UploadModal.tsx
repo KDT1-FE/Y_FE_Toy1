@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import { MdClear } from 'react-icons/md';
-import { modalStyle, ModalContent } from '../../styles/Gallery/GalleryModal';
-import { DeleteButton } from '../../styles/Gallery/GalleryItem';
+import {
+  modalStyle,
+  ModalContent,
+  DeleteButton,
+} from '../../styles/Gallery/GalleryModal';
 import previewImg from '../../assets/images/previewImg.jpg';
 import { AddButton } from '../../styles/Gallery/GalleryContent';
 
