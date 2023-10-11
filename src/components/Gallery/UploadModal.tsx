@@ -22,9 +22,11 @@ const UploadModal: React.FC<UploadModalProps> = ({
   const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
 
   /** 파일 변화 */
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    if (e.target.files != null) {
-      const file = e.target.files[0];
+  const handleFileChange: React.ChangeEventHandler<HTMLInputElement> = (
+    event,
+  ) => {
+    if (event.target.files != null) {
+      const file = event.target.files[0];
       setSelectedFile(file);
 
       /** 미리보기 */
@@ -46,8 +48,10 @@ const UploadModal: React.FC<UploadModalProps> = ({
   }, [isOpen]);
 
   /** input text 변화 */
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setName(e.target.value);
+  const handleNameChange: React.ChangeEventHandler<HTMLInputElement> = (
+    event,
+  ) => {
+    setName(event.target.value);
   };
 
   /** 업로드 */
