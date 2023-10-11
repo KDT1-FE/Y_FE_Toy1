@@ -23,7 +23,7 @@
 
 ### [레포지토리 링크]
 
-<a href="https://github.com/YongYong21/Toy1_team2">🚀 Compnay Space Repo 🚀</a>
+<a href="https://github.com/YongYong21/Toy1_team2">🚀 Company Space Repo 🚀</a>
 
 <br>
 
